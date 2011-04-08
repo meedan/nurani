@@ -1,1 +1,13 @@
-Nurani platform build using Drupal 6.
+Nurani platform using Drupal 6.
+
+INSTALLATION
+============
+* Import database/nurani.sql into a MySQL database of your choice
+* Copy file drupal/sites/default/default.settings.php to drupal/sites/default/settings.php
+* Edit drupal/sites/default/settings.php by changing line
+
+$db_url = 'mysql://username:password@localhost/databasename';
+
+to reflect your database settings.
+
+* Navigate to http://localhost/meedan-nurani/drupal/ (if that's where you placed it) and login with admin/admin.
