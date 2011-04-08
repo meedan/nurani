@@ -1,0 +1,12 @@
+
+#icl-translate-editor .field_data {
+  border: 1px solid #eaeaea;
+	padding: 5px;
+}
+
+.icl_translate_editor_load_autosave {
+  cursor: pointer;
+	font-style: italic;
+	font-size: 0.9em;
+	color: Red;
+}

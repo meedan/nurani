@@ -1,0 +1,30 @@
+
+#icl_reminders_wrapper, #icl_service_info_wrapper {
+  display: none;
+}
+
+#icl_reminders {
+  background-color: #FFFBCC; 
+  border: 1pt solid #E6DB55; 
+  padding: 1em; 
+  margin: 15px 0 0 0;
+}
+
+#icl_reminders_show {
+  float: right;
+  margin-top: -1em;
+}
+
+.icl_reminders_subject {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.icl_reminders_body {
+  font-style: italic;
+}
+
+.icl_reminders_link_dismiss {
+  font-weight: bold;
+  font-size: 0.8em;
+}

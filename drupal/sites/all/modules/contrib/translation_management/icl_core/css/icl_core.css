@@ -1,0 +1,61 @@
+.checkbox-columns .form-item {
+  width: 65em;
+  margin-right: 10px;
+  float: left;
+  display: inline;
+}
+
+.checkbox-columns-clear .form-item {
+  width: 40em;
+  margin-right: 10px;
+  clear: left;
+  float: left;
+  display: inline;
+}
+
+#icl_setup_wizard_2 .icl_setup_wizard_step{
+    width:33%;
+    float:left;
+}
+
+#icl_setup_wizard_progress{
+    height:10px;
+    background-color: #ccc;
+    margin: 10px 0 10px 0;
+    width:100%;
+}
+#icl_setup_wizard_progress_bar{
+    background-color: #777;
+    height:10px;
+}
+
+.icl_status {
+    background-color: #FFFBCC; 
+    border: 1pt solid #E6DB55; 
+    padding: 1em; 
+    margin: 0em;
+}
+
+div.icl_throbber {
+  width: 15px;
+  height: 15px;
+  margin: 2px;
+  background: transparent url(../../../../../../../misc/throbber.gif) no-repeat 0px -18px;
+}
+
+.icl_cyan_box{
+    border: 1px solid #8cceea;
+    background-color: #eff8fc;
+    padding:10px;    
+    margin-bottom:0px;
+    margin-top:25px;
+}
+
+.icl_red_box{
+    border: 2px solid #F73B3B;
+    background-color: #eff8fc;
+    padding:10px;    
+    margin-bottom:0px;
+    margin-top:25px;
+}
+

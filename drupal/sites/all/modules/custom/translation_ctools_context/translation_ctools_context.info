@@ -1,0 +1,6 @@
+name = Translation CTools Context
+description = Exposes new CTools context relationship for translated nodes.
+package = Multilanguage
+dependencies[] = ctools
+dependencies[] = locale
+core = 6.x

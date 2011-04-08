@@ -1,0 +1,479 @@
+<?php
+
+include_once dirname(__FILE__) . '/lib/OHTAPI.wrapper.php';
+
+define('OHT_CALLBACK_PATH', 'admin/content/translation-management/one_hour_tranlation_callback');
+
+/**
+ * Implementation of hook_cron().
+ */
+function one_hour_translations_cron() {
+  
+  $last = _one_hour_translations_get_credit_poll_last();
+  $freq = _one_hour_translations_get_credit_poll_frequency();
+  if ($last + $freq < time()) {
+    _one_hour_translations_set_credit_poll_last();
+    
+    try {
+      $api = OHTAPI::instance();
+      
+      // Get the credit balance.
+      $account_details = $api->getAccountDetails();
+      _one_hour_translations_set_credit_balance((int) $account_details->credit_balance);
+      
+      // Poll projects status.
+      $result = db_query("SELECT service_rid FROM {icl_core_status} WHERE status <> %d", ICL_STATUS_SUCCESSFUL);
+      while ($service_rid = db_result($result)) {
+        $status = $api->getProjectDetails($service_rid);
+        _one_hour_translations_handle_status($service_rid, $status->project_status);
+      }
+    }
+    catch (OHTAPI_Exception $e) {
+      _one_hour_translations_set_credit_balance($e->getMessage());
+    }
+  }
+  
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function one_hour_translations_menu() {
+  $items = array();
+  
+  $items[OHT_CALLBACK_PATH] = array(
+    'title' => 'OneHourTranslation callback',
+    'description' => 'Callback for responses from the OneHourTranslation service.',
+    'page callback' => '_one_hour_translations_callback',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  
+  return $items;
+}
+
+/**
+ * Implementation of hook_form_alter() for icl_translate_admin_settings.
+ */
+function one_hour_translations_form_icl_translate_admin_settings_alter(&$form, $form_state) {
+  $form['oht_api'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('OneHourTranslation Service'),
+    '#description' => t('Settings for the OneHourTranslation translation service.'),
+  );
+  
+  $form['oht_api']['oht_api_account_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Account ID'),
+    '#default_value' => _one_hour_translations_get_account_id(),
+  );
+  $form['oht_api']['oht_api_secret_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Secret key'),
+    '#description' => t(
+      "Enter your account ID and secret key from OneHourTranslation here. If you don't have an account visit the !registration page to create one. Once you have an account generate or get an API key in the !apikeys page.",
+      array(
+        '!registration' => l(t('OneHourTranslation registration'), 'http://www.onehourtranslation.com/drupal'),
+        '!apikeys' => l(t('API keys'), 'https://www.onehourtranslation.com/profile/apiKeys/'),
+      )),
+    '#default_value' => _one_hour_translations_get_secret_key(),
+  );
+  
+  $form['oht_api']['oht_api_poll_frequency'] = array(
+    '#type' => 'select',
+    '#title' => t('OneHourTranslation server polling frequency'),
+    '#description' => t('How often OneHourTranslation server should be polled to update the credit balance and projects status. Please note that there is no reason to set it to every cron, as the server will contact your site once the translation is finished.'),
+    '#default_value' => _one_hour_translations_get_credit_poll_frequency(),
+    '#options' => array(
+      0 => t('Every cron'),
+      3600 => t('Once an hour'),
+      21600 => t('Once every 6 hours'),
+      43200 => t('Once every 12 hours'),
+      86400 => t('Once a day'),
+      604800 => t('Once a week'),
+    ),
+  );
+  
+  $form['#validate'][] = 'one_hour_translations_form_icl_translate_admin_settings_validate';
+}
+
+/**
+ * Validator for icl_translate_admin_settings.
+ */
+function one_hour_translations_form_icl_translate_admin_settings_validate($form, &$form_state) {
+  $account_id = $form_state['values']['oht_api_account_id'];
+  $secret_key = $form_state['values']['oht_api_secret_key'];
+  
+  // Empty values validate as no account
+  if (empty($account_id) && empty($secret_key)) {
+    return;
+  }
+  
+  try {
+    $api = OHTAPI::instance();
+    $api->setAccountId($account_id);
+    $api->setSecretKey($secret_key);
+    
+    // Get the credit balance.
+    $account_details = $api->getAccountDetails();
+    _one_hour_translations_set_credit_balance((int) $account_details->credit_balance);
+    
+    _one_hour_translations_set_credit_poll_last();
+  }
+  catch (OHTAPI_Exception $e) {
+    form_set_error('oht_api', t('The API account ID and secret key do not validate on OneHourTranslation servers. The servers returned: @message', array('@message' => $e->getMessage())));
+  }
+}
+
+/**
+ * Implementation of hook_translation_service().
+ */
+function one_hour_translations_translation_service() {
+  global $base_url;
+  
+  return array(
+    'one_hour_translations' => array(
+      'name' => 'OneHourTranslation',
+      'logo' => $base_url . '/' . drupal_get_path('module', 'one_hour_translations') . '/images/logo.png',
+      'logo_small' => $base_url . '/' . drupal_get_path('module', 'one_hour_translations') . '/images/logo.png',
+      'more_info_url' => array('http://www.onehourtranslation.com/drupal "target="_blank', t('Learn more'))
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_get_translators().
+ */
+function one_hour_translations_get_translators($from, $to) {
+  if (is_numeric(_one_hour_translations_get_credit_balance())) {
+    return array(
+      array(
+        'id' => 1,
+        'name' => t('Human translator'),
+      ),
+    );
+  } else {
+    return array();
+  }
+}
+
+/**
+ * Implementation of hook_translators_setup_url().
+ */
+/*
+function one_hour_translations_translators_setup_url($from, $to) {
+  return 'http://www.onehourtranslation.com/cpanel/';
+}
+*/
+
+/**
+ * Implementation of hook_get_translation_service_info().
+ */
+function one_hour_translations_get_translation_service_info() {
+  $credit = _one_hour_translations_get_credit_balance();
+  $message = l(
+    theme('image', drupal_get_path('module', 'one_hour_translations') . '/images/logo.png', t('OneHourTranslation logo')),
+    'http://www.onehourtranslation.com/drupal',
+    array('html' => TRUE)) . '<br />';
+  
+    
+  if (!is_numeric($credit)) {
+    if (is_null($credit)) {
+      $message .= t("Cron has not run yet, so OneHourTranslation's credit balance could not be fetched.");
+    }
+    else {
+      $message .= t('Last cron could not fetch your OneHourTranslation credit balance. Error message recieved was: @message.', array('@message' => $credit));
+    }
+  }
+  else {
+    $message .= t('OneHourTranslation credit balance @time ago was @credit.', array('@time' => format_interval(time() - _one_hour_translations_get_credit_poll_last()), '@credit' => (int) $credit));
+    
+    if ($last_dblog = db_result(db_query("SELECT MAX(timestamp) FROM {watchdog} WHERE type = '%s' AND severity <= %d", 'oht', WATCHDOG_NOTICE))) {
+      $message .= '<br />' .
+        t('Last NOTICE message was !time ago. See the !dblog to read the messages. (You can filter by type: oht)',
+        array(
+          '!time' => format_interval(time() - $last_dblog),
+          '!dblog' => l(t('recent log entries'), 'admin/reports/dblog'),
+        ));
+    }
+  }
+  
+  return $message;
+}
+
+/**
+ * Implementation of hook_request_translation().
+ */
+function one_hour_translations_request_translation($rid, $from, $to, $previous_rid, $translator_id, $link_to = '', $title = '') {
+  try {
+    $api = OHTAPI::instance();
+    
+    $content_fields = array();
+    $fields = icl_translate_get_fields($rid);
+    foreach ($fields as $field) {
+      
+      // Skip untranslatable fields
+      if (!$field['field_translate']) {
+        continue;
+      }
+      
+      $field_data = unserialize($field['field_data']);
+      if (!empty($field_data)) {
+        if (is_array($field_data)) {
+            $content_fields[$field['field_type']] = array();
+          foreach ($field_data as $id => $field_datum) {
+            $content_fields[$field['field_type']][] = $field_datum;
+          }
+        }
+        else {
+          $content_fields[$field['field_type']] = $field_data;
+        }
+      }
+      
+    }
+    
+    $content = '<project rid="' . $rid . '" from="' . $from->language . '" to="' . $to[0]->language . '">';
+    foreach ($content_fields as $name => $content_field) {
+      
+      if (is_array($content_field)) {
+        $content .= '<container name="' . $name . '">';
+        foreach ($content_field as $delta => $sub_content_field) {
+          $content .= '<field type="text/html" delta="' . $delta . '"><![CDATA[' . $sub_content_field . ']]></field>';
+        }
+        $content .= '</container>';
+      }
+      else {
+        $content .= '<field type="text/html" name="' . $name . '"><![CDATA[' . $content_field . ']]></field>';
+      }
+      
+    }
+    $content .= '</project>';
+    
+    $callback = url(OHT_CALLBACK_PATH, array('absolute' => TRUE));
+    $params = array('content_type' => 'text/xml');
+    
+    $result = $api->newProject($from->language, $to[0]->language, $content, 0, '', $callback, $params);
+    return array(
+      'service_rid' => $result->project_id,
+      'status' => ICL_STATUS_INQUEUE,
+      'message' => t('Translation job of @title from @from to @to was sent to OneHourTranslation.', array('@title' => $title, '@from' => t($from->name), '@to' => t($to[0]->name))),
+    );
+  }
+  catch (OHTAPI_Exception $e) {
+    _one_hour_translations_handle_exception($e);
+  }
+  
+  return array(
+    'service_rid' => FALSE,
+    'status' => ICL_STATUS_FAILED,
+    'message' => t('Translation of @title from @from to @to with OneHourTranslation failed.', array('@title' => $title, '@from' => t($from->name), '@to' => t($to[0]->name))),
+  );
+}
+
+/**
+ * Handles callbacks for OneHourTranslation.
+ */
+function _one_hour_translations_callback() {
+  switch ($_POST['type']) {
+    case 'status_change':
+      _one_hour_translations_handle_status($_POST['project_id'], $_POST['project_status']);
+      break;
+      
+    case 'translation_submitted':
+      _one_hour_translations_handle_xml(new SimpleXMLElement(base64_decode($_POST['translated_content'])));
+      watchdog('oht', 'OneHourTranslation: A translation job was received as <em>finished</em>. See the Translation Management dashboard for details.', NULL, WATCHDOG_INFO, l(t('view dashboard'), 'admin/content/translation-management/dashboard'));
+      break;
+  }
+  
+  exit;
+}
+
+/**
+ * Handle the status updates from OHT server.
+ */
+function _one_hour_translations_handle_status($service_rid, $status) {
+  
+  switch ($status) {
+    case 'translationReceived':
+    case 'finished':
+      try {
+        $api = OHTAPI::instance();
+        $contents = $api->getProjectContents($service_rid);
+        _one_hour_translations_handle_xml(new SimpleXMLElement($contents->translated_content));
+        watchdog('oht', 'OneHourTranslation: A translation job was pulled as <em>finished</em>. See the Translation Management dashboard for details.', NULL, WATCHDOG_INFO, l(t('view dashboard'), 'admin/content/translation-management/dashboard'));
+      }
+      catch (OHTAPI_Exception $e) {
+        /* Ignore: We arrive here either from a 'status_change' callback or from the cron task,
+         * if this fails then the next cron task will notify the admin that the API key is invalid,
+         * and once the user fixes this, the next cron will succeed. */
+      }
+      break;
+      
+    case 'canceled':
+      watchdog('oht', 'OneHourTranslation: A translation job was <em>cancelled</em>. See the control panel in OneHourTranslation for details.', NULL, WATCHDOG_NOTICE, l(t('view cpanel'), 'http://www.onehourtranslation.com/cpanel/'));
+      $rid = db_result(db_query("SELECT rid FROM {icl_core_status} WHERE service_rid = %d", $service_rid));
+      icl_translate_cancel_job($rid);
+      break;
+      
+    case 'disputed':
+      watchdog('oht', 'OneHourTranslation: A translation job was marked as <em>disputed</em>. See the control panel in OneHourTranslation for details.', NULL, WATCHDOG_NOTICE, l(t('view cpanel'), 'http://www.onehourtranslation.com/cpanel/'));
+      break;
+      
+    case 'waiting':
+    case 'inProcess':
+    default:
+      // Ignore
+     break;
+  }
+}
+
+/**
+ * Handles a result XML.
+ */
+function _one_hour_translations_handle_xml($xml) {
+  $rid = (int) $xml['rid'];
+  $to = (string) $xml['to'];
+  
+  foreach ($xml->field as $field) {
+    $field_name = (string) $field['name'];
+    $field_data = trim(preg_replace('/<field[^>]*><!\[CDATA\[(.*)\]\]><\/field>/s', '$1', (string) $field->asXML()));
+    icl_translate_update_field_translation($rid, $field_name, $field_data, 1);
+  }
+  
+  unset($field);
+  foreach ($xml->container as $container) {
+    $field_name = (string) $container['name'];
+    $field_data = array();
+    foreach ($container->field as $field) {
+      $delta = ((is_numeric($field['delta'])) ? ((int) $field['delta']) : ((string) $field['delta']));
+      $field_data[$delta] = trim(preg_replace('/<field[^>]*><!\[CDATA\[(.*)\]\]><\/field>/s', '$1', (string) $field->asXML()));
+    }
+    icl_translate_update_field_translation($rid, $field_name, $field_data, 1);
+  }
+  
+  icl_translate_process_translation($rid, $to);
+}
+
+/**
+ * Handle OHT API exceptions().
+ */
+function _one_hour_translations_handle_exception(OHTAPI_Exception $e) {
+  static $active_messages = array();
+  
+  $status_code = $e->getStatusCode();
+  
+  switch ($status_code) {
+    case OHT_API_STATUS_OK:
+      break;
+      
+    case OHT_API_STATUS_UNKNOWN:
+    case OHT_API_STATUS_UNAUTHORIZED:
+    case OHT_API_STATUS_FORBIDDEN:
+    case OHT_API_STATUS_VALIDATION_FAILED:
+    case OHT_API_STATUS_INSUFFICIENT_CREDITS:
+    case OHT_API_STATUS_INVALID_LANGUAGE_PAIR:
+    case OHT_API_STATUS_INVALID_PROJECT_ID:
+    case OHT_API_STATUS_INTERNAL_ERROR:
+      if (!($active_messages[$status_code])) {
+        drupal_set_message(t('OneHourTranslation error: ') . t($e->getMessage()), 'error');
+        $active_messages[$status_code] = TRUE;
+      }
+      break;
+  }
+  
+  return $status_code;
+}
+
+/**
+ * Get the account ID.
+ */
+function _one_hour_translations_get_account_id() {
+  return variable_get('oht_api_account_id', 0);
+}
+
+/**
+ * Set the account ID.
+ */
+function _one_hour_translations_set_account_id($id) {
+  variable_set('oht_api_account_id', $id);
+}
+
+/**
+ * Get the secret key.
+ */
+function _one_hour_translations_get_secret_key() {
+  return variable_get('oht_api_secret_key', '');
+}
+
+/**
+ * Set the account ID.
+ */
+function _one_hour_translations_set_secret_key($key) {
+  variable_set('oht_api_secret_key', $key);
+}
+
+/**
+ * Get the last known credit balance.
+ */
+function _one_hour_translations_get_credit_balance() {
+  return variable_get('oht_api_credit_balance', NULL);
+}
+
+/**
+ * Set the last known credit balance.
+ */
+function _one_hour_translations_set_credit_balance($credit) {
+  variable_set('oht_api_credit_balance', $credit);
+}
+
+/**
+ * Get the frequency of the credit balance and projects status polling.
+ */
+function _one_hour_translations_get_credit_poll_frequency() {
+  return variable_get('oht_api_poll_frequency', 3600);
+}
+
+/**
+ * Get the timestamp of the last credit balance and projects status poll.
+ */
+function _one_hour_translations_get_credit_poll_last() {
+  return variable_get('oht_api_poll_last', 0);
+}
+
+/**
+ * Set the timestamp of the last credit balance and projects status poll to now.
+ */
+function _one_hour_translations_set_credit_poll_last() {
+  variable_set('oht_api_poll_last', time());
+}
+
+function one_hour_translations_translation_dashboard_help_form() {
+  $account_id = _one_hour_translations_get_account_id();
+  $secret_key = _one_hour_translations_get_secret_key();
+  if ($account_id === 0 || $secret_key === 0) {
+    $message = '<strong>' . t('To use OneHourTranslation:') . '</strong><br />';
+    $message = t('<strong>Professional quality, over 8000 translators and more than 50 languages, fastest professional translation service.</strong><br />To use OneHourTranslation:<br />');
+    $message .= '<ol>';
+    $message .= t('<li>!registration</li><li>!apikeys</li><li>Enter your API keys in the !settings page',
+                  
+      array('!settings' => l(t('Translation Settings'), 'admin/content/translation-management/settings', array('fragment' => 'edit-oht-api-account-id-wrapper')),
+        '!registration' => l(t('Sign up for an account'), 'http://www.onehourtranslation.com/drupal'),
+        '!apikeys' => l(t('Get your API keys'), 'https://www.onehourtranslation.com/profile/apiKeys/'),
+      ));
+    return $message;
+  } else {
+    return t('<strong>Send content to translation and receive fast results. Your job is automatically routed to qualified translators.</strong><br />OneHourTranslation is set-up. You can send jobs for translation.');
+  }
+}
+
+function one_hour_translations_manage_translators_messages() {
+  $account_id = _one_hour_translations_get_account_id();
+  $secret_key = _one_hour_translations_get_secret_key();
+  if ($account_id !== 0 && $secret_key !== 0) {
+    $message = t('You don\'t need to do anything to manage translators with One Hour Translations. Just select the <i>Human tanslator (OneHourTranslation)</i> from the translation dashboard when you send your content for translation.');
+    return '<h3>OneHourTranslations</h3>' . $message;
+  }
+  
+  
+}
+

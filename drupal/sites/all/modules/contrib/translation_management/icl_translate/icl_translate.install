@@ -1,0 +1,332 @@
+<?php
+// $Id: icl_translate.install
+/**
+ * Implementation of hook_schema().
+ * @see http://api.drupal.org/api/function/hook_schema/6
+ *
+ * @return array
+ */
+function icl_translate_schema() {
+  
+  $schema = array ();
+  
+  $schema['icl_translate'] = array (
+    'description' => 'The ICanLocalize content translation statuses', 
+    'fields' => array (
+      'tid' => array(
+        'description' => 'The primary identifier for translation.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'rid' => array (
+        'description' => 'The request ID', 
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE
+      ),
+      'previous_id' => array (
+        'description' => 'Previous request ID', 
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0
+      ),
+      'timestamp' => array (
+        'description' => 'The timestamp',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE
+      ),
+      'field_type' => array(
+        'description' => 'The type of field (title, body, CCK...).',
+        'type' => 'varchar',
+        'length' => 244,
+        'not null' => TRUE,
+        'default' => ''
+      ),
+      'field_format' => array (
+        'description' => 'The type of field (title, body, CCK...).',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => ''
+      ),
+      'field_translate' => array (
+        'description' => 'Is field translatable?',
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0
+      ),
+      'field_data' => array(
+        'description' => 'Serialized field data (original text and other).',
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+        'serialize' => TRUE,
+      ),
+      'field_data_translated' => array(
+        'description' => 'Translation data.',
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+      ),
+      'finished' => array(
+        'description' => 'indicates if field is translated.', 
+        'type' => 'int', 
+        'size' => 'tiny', 
+        'unsigned' => TRUE, 
+        'not null' => FALSE,
+        'default' => 0
+     ),
+  ),
+  'primary key' => array('tid'),
+  'indexes' => array(
+    'rid' => array('rid'),
+  ),
+  );
+  
+  $schema['icl_translate_job'] = array (
+    'description' => 'The ICanLocalize content translation statuses', 
+    'fields' => array (
+      'tjid' => array(
+        'description' => 'The primary identifier for translation job.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'rid' => array (
+        'description' => 'The request ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE
+      ),
+      'uid' => array (
+        'description' => 'The translator id',
+        'type' => 'int',
+        'unsigned' => FALSE,
+        'not null' => FALSE
+      ), 
+      'translated' => array (
+        'description' => 'Determines if translator has finished this job',
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0
+      ),
+      'manager_uid' => array(
+        'description' => 'indicates uid of manager who assigned job', 
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 1
+      ),
+      'words' => array (
+        'description' => 'The estimated number of words',
+        'type' => 'int',
+        'unsigned' => FALSE,
+        'not null' => FALSE
+      ), 
+  ),
+  'primary key' => array('tjid'),
+  'indexes' => array(
+    'rid' => array('rid'),
+    'uid' => array('uid'),
+    'translated' => array('translated'),
+  ),
+  );
+  
+  $schema['icl_translate_job_pairs'] = array (
+    'description' => 'The ICanLocalize content translation user language pairs', 
+    'fields' => array (
+      'tjpid' => array(
+        'description' => 'The primary identifier for translation job language pairs.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'uid' => array (
+        'description' => 'The translator id',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE
+      ),
+      'source' => array(
+        'description' => 'Language code of source content.',
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE,
+        'default' => ''
+      ),
+      'target' => array(
+        'description' => 'Language code of target content.',
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE,
+        'default' => ''
+      ),
+  ),
+  'primary key' => array('tjpid'),
+  'indexes' => array(
+    'uid' => array('uid'),
+    'source' => array('source'),
+    'target' => array('target'),
+  ),
+  );
+  
+  $schema['icl_notifications'] = array (
+    'description' => 'The ICanLocalize notifications', 
+    'fields' => array (
+      'id' => array(
+        'description' => 'The primary identifier for translation job language pairs.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'uid' => array (
+        'description' => 'The translator id.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE
+      ),
+      'message' => array(
+        'description' => 'Message.',
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+        'serialize' => TRUE,
+      ),
+      'status' => array(
+        'description' => 'Various data.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0
+      ),
+      'timestamp' => array (
+        'description' => 'The timestamp.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE
+      ),
+  ),
+  'primary key' => array('id'),
+  );
+  
+  return $schema;
+}
+
+/**
+ * Implementation of hook_install().
+ * @see http://api.drupal.org/api/function/hook_install/6
+ *
+ */
+function icl_translate_install() {
+  drupal_install_schema('icl_translate');
+  // Set module weight for it to run after core modules.
+  db_query("UPDATE {system} SET weight = 200 WHERE name = 'icl_translate' AND type = 'module'");
+}
+
+/**
+ * Implementation of hook_uninstall().
+ * @see http://api.drupal.org/api/function/hook_uninstall/6 
+ *
+ */
+function icl_translate_uninstall() {
+  drupal_uninstall_schema('icl_translate');
+}
+
+function icl_translate_update_1() {
+  $ret = array();
+  
+  db_add_field ( $ret, 'icl_translate', 'finished', array (
+    'description' => 'indicates if field is translated.', 
+    'type' => 'int',
+    'size' => 'tiny',
+    'unsigned' => TRUE,
+    'not null' => FALSE,
+    'default' => 0 )
+  );
+  
+  return $ret;
+}
+
+function icl_translate_update_2() {
+  $ret = array();
+  
+  db_add_field ( $ret, 'icl_translate_job', 'manager_uid', array (
+    'description' => 'indicates uid of manager who assigned job', 
+    'type' => 'int',
+    'size' => 'tiny',
+    'unsigned' => TRUE,
+    'not null' => FALSE,
+    'default' => 1)
+  );
+  
+  return $ret;
+}
+
+function icl_translate_update_6003() {
+  $ret = array();
+  $schema = icl_translate_schema();
+  db_create_table ( $ret, 'icl_notifications', $schema['icl_notifications'] );
+  
+  return $ret;
+}
+
+function icl_translate_update_6004() {
+  $ret = array ();
+
+	db_change_field($ret, 'icl_translate_job_pairs', 'source', 'source', array (
+						'description' => t ( 'Language code of source content.' ), 
+						'type' => 'varchar', 
+						'length' => 12, 
+						'not null' => TRUE ));
+	db_change_field($ret, 'icl_translate_job_pairs', 'target', 'target', array (
+						'description' => t ( 'Language code of target content.' ), 
+						'type' => 'varchar', 
+						'length' => 12, 
+						'not null' => TRUE ));
+
+	db_query("DELETE FROM {icl_translate_job_pairs} WHERE source='zh-han'");
+	db_query("DELETE FROM {icl_translate_job_pairs} WHERE target='zh-han'");
+	
+	return $ret;
+}
+
+/**
+ * Implementation of hook_update_N().
+ *
+ * @return array
+ */
+function icl_translate_update_6005() {
+  $ret = array ();
+  
+  db_add_field ( $ret, 'icl_translate_job', 'words', array (
+
+              'description' => t ( 'The estimate of the number of words' ), 
+              'type' => 'int', 
+              'unsigned' => TRUE, 
+              'not null' => FALSE ) );
+
+  return $ret;
+}
+
+function icl_translate_update_6006() {
+  $ret = array();
+  db_add_index($ret, 'icl_translate', 'rid', array('rid'));
+  
+  db_add_index($ret, 'icl_translate_job', 'rid', array('rid'));
+  db_add_index($ret, 'icl_translate_job', 'uid', array('uid'));
+  db_add_index($ret, 'icl_translate_job', 'translated', array('translated'));
+  
+  db_add_index($ret, 'icl_translate_job_pairs', 'uid', array('uid'));
+  db_add_index($ret, 'icl_translate_job_pairs', 'source', array('source'));
+  db_add_index($ret, 'icl_translate_job_pairs', 'target', array('target'));
+  return $ret;
+}

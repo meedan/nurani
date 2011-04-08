@@ -1,0 +1,56 @@
+<?php
+// $Id: google_translations.install
+/**
+ * Implementation of hook_schema().
+ * @see http://api.drupal.org/api/function/hook_schema/6
+ *
+ * @return array
+ */
+function google_translations_schema() {
+  
+  $schema = array ();
+  
+  
+  return $schema;
+}
+
+/**
+ * Implementation of hook_requirements().
+ * @see http://api.drupal.org/api/function/hook_requirements/6
+ *
+ * @return array
+ */
+function hook_requirements($phase) {
+  $requirements = array();
+  // Ensure translations don't break at install time
+  $t = get_t();
+
+  if ($phase == 'install') {
+  	$curl = function_exists('curl_init');
+  	$requirements['curl'] = array(
+  		'title' => $t('CURL'),
+			'severity' => $curl ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+		);
+		if (!$curl) { $requirements['curl']['description'] = 'You must install the PHP CURL extension to use Google Translate.'; }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implementation of hook_install().
+ * @see http://api.drupal.org/api/function/hook_install/6
+ *
+ */
+function google_translations_install() {
+  drupal_install_schema('google_translations');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ * @see http://api.drupal.org/api/function/hook_uninstall/6 
+ *
+ */
+function google_translations_uninstall() {
+  //drupal_uninstall_schema('google_translations');
+}

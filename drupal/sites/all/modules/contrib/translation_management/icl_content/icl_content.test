@@ -1,0 +1,151 @@
+<?php
+
+module_load_include ( 'inc', 'icl_core', 'icl_core.webservices' );
+module_load_include ( 'inc', 'icl_core', 'icl_core.test' );
+
+
+class IclContentUnitTestSandbox extends IclTestCase {
+
+  /**
+   * Implementation of getInfo().
+   */
+  function getInfo() {
+    if (variable_get ( 'icl_core_mode', ICL_MODE_PRODUCTION ) == ICL_MODE_PRODUCTION) {
+      return array();
+    } else {
+      return array(
+        'name' => t('ICL content sandbox'),
+        'description' => t('Tests the icl_content module.'),
+        'group' => t('ICL content'),
+      );
+    }
+  }
+
+
+  function test_icl_content_extract_node() {
+    $node = $this->createPage("Title for the page", "body of the page", "en", "taxonomy, testing", "menu title");
+    $data = _icl_content_extract_node($node);
+    
+    // make sure we have title and body
+    
+    $title_found = FALSE;
+    $body_found = FALSE;
+    $nid_found = FALSE;
+    $vid_found = FALSE;
+    $taxonomy_found = FALSE;
+    $menu_found = FALSE;
+    
+    foreach($data as $item) {
+      if ($item['type'] == 'nid' && $item['translate'] == 0){
+        $nid_found = TRUE;
+      }
+      elseif ($item['type'] == 'vid' && $item['translate'] == 0){
+        $vid_found = TRUE;
+      }
+      elseif ($item['type'] == 'title' && $item['text'] == "Title for the page" && $item['translate'] == 1){
+        $title_found = TRUE;
+      }
+      elseif ($item['type'] == 'body' && strpos($item['text'], "body of the page") !== FALSE && $item['translate'] == 1) {
+        $body_found = TRUE;
+      }
+      elseif ($item['type'] == 'taxonomy[1]' && $item['text'] == array('taxonomy', 'testing') && $item['translate'] == 1 && $item['format'] == 'csv') {
+        $taxonomy_found = TRUE;
+      }
+      elseif ($item['type'] == 'link_title' && $item['text'] == "menu title" && $item['translate'] == 1){
+        $menu_found = TRUE;
+      }
+    }
+    
+    $this->assertTrue($nid_found, 'node id extracted from node');
+    $this->assertTrue($vid_found, 'version id extracted from node');
+    $this->assertTrue($title_found, 'title extracted from node');
+    $this->assertTrue($body_found, 'body extracted from node');
+    $this->assertTrue($taxonomy_found, 'taxonomy extracted from node');
+    $this->assertTrue($menu_found, 'menu extracted from node');
+    
+  }
+
+  function test_icl_nodes_on_dashboard() {
+    $node = $this->createPage("Title 1", "body of the page", "en", "taxonomy, testing", "menu title 1");
+    $node = $this->createPage("Title 2", "body of the page", "en", "taxonomy, testing", "menu title 2");
+    
+    // confirm nodes are on the dashboard.
+    
+    $this->drupalGet(_icl_wrapper_get_root_menu('translation-management/dashboard'));
+    
+    // select english.    
+    $this->drupalPost(_icl_wrapper_get_root_menu('translation-management/dashboard'), array('language' => 'en'), "Update display");
+    
+    $this->assertRaw("Title 1", "Title 1 on dashboard");
+    $this->assertRaw("Title 2", "Title 2 on dashboard");
+    $this->assertRaw("Not translated yet", "Status is not translated");
+    
+  }
+
+  function test_icl_send_from_dashboard() {
+    variable_set('icl_core_website_id', '96');
+    variable_set('icl_core_accesskey', '277f84e2679899db46bc0607c5f63465');
+    variable_set('icl_core_email_address', 'bruce@mailinator.com');
+
+    $langs = icl_core_fetch_languages(TRUE);
+
+    $node = $this->createPage("Title 1", "body of the page", "en", "taxonomy, testing", "menu title 1");
+    
+    // confirm nodes are on the dashboard.
+    
+    $this->drupalGet(_icl_wrapper_get_root_menu('translation-management/dashboard'));
+
+    // select english.    
+    $this->drupalPost(_icl_wrapper_get_root_menu('translation-management/dashboard'), array('language' => 'en'), "Update display");
+    
+    $this->assertRaw("Title 1", "Title 1 on dashboard");
+    $this->assertRaw("Not translated yet", "Status is not translated");
+    
+    $this->drupalPost(NULL, array('nodes[1]' => TRUE), "Translate selected documents");
+    
+    $this->assertRaw('Translation request was sent to ICanLocalize for the following languages: <em>German</em>', 'Translation sent to German');
+    $this->assertRaw('Translation request was sent to ICanLocalize for the following languages: <em>Spanish</em>', 'Translation sent to Spanish');
+    $this->assertRaw('Translation request was sent to ICanLocalize for the following languages: <em>Chinese, Simplified</em>', 'Translation sent to German');
+    $this->assertRaw('Translation request was sent to ICanLocalize for the following languages: <em>French</em>', 'Translation sent to Spanish');
+    
+    
+    $count = _icl_wrapper_db_result(db_query("SELECT COUNT(*) from {icl_content_status}"));
+    $this->assertTrue($count == 4, "4 records in icl_content_status table");
+    
+    $query = db_query("SELECT rid from {icl_content_status} where nid = 1");
+    while ( $request = db_fetch_object ( $query ) ) {
+      $rid = $request->rid;
+      
+      $count = _icl_wrapper_db_result(db_query("SELECT COUNT(*) from {icl_core_status} where rid = %d", $rid));
+      $this->assertTrue($count == 1, "1 record in icl_core_status table");
+    }
+    
+    
+    
+  }
+  
+  function test_dashboard_cost_estimate_button() {
+    $this->drupalGet(_icl_wrapper_get_root_menu('translation-management/dashboard'));
+    $this->assertRaw("Translation cost estimate", 'Cost estimate present');
+    $this->assertRaw("Produce word count for untranslated contents", 'Cost estimate button present');
+  }
+
+  function test_word_count() {
+    $node = $this->createPage("Title 1", "body of the page", "en", "taxonomy, testing", "menu title 1");
+    $this->drupalGet('icl_content/word_count');
+    $this->assertRaw("13 words in 1 nodes", 'Word count ok');
+    $this->assertRaw("$0.91", 'Cost estimate ok');
+
+
+    $node = $this->createPage("Title 1", "body of the page", "en", "taxonomy, testing", "menu title 1");
+    $node = $this->createPage("Title 1", "body of the page", "en", "taxonomy, testing", "menu title 1");
+    $this->drupalGet('icl_content/word_count');
+    $this->assertRaw("39 words in 3 nodes", 'Word count ok');
+    $this->assertRaw("$2.73", 'Cost estimate ok');
+  }
+
+}
+
+
+
+?>

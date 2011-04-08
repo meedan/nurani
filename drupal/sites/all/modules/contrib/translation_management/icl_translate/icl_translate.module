@@ -1,0 +1,1132 @@
+<?php
+
+// icl_translate.module
+
+module_load_include('inc', 'icl_translate', 'icl_translate.notifications');
+
+if (isset($_GET['icl_translate_test'])) {
+  module_load_include('inc', 'icl_translate', 'icl_translate.test');
+}
+
+define('ICL_TRANSLATE_MANAGE_JOBS', 'can manage translation jobs');
+define('ICL_TRANSLATE_DO_JOBS', 'can do translation jobs');
+define('ICL_TRANSLATE_VIEW_JOBS', 'can view translation jobs');
+
+include_once dirname(__FILE__) . '/../icl_core/icl_core.wrapper.inc';
+
+module_load_include('inc', 'icl_translate', 'icl_translate.wrapper');
+module_load_include('inc', 'icl_translate', 'icl_translate.notifications');
+
+
+/**
+ * Implementation of hook_init().
+ */
+function icl_translate_init() {
+  if (variable_get('icl_translate_role', 0) == 0) {
+    _icl_wrapper_create_roles(array('icanlocalize translator' => array(
+        'title' => 'ICanLocalize translator',
+        'variable' => 'icl_translate_role',
+        'variable_check' => 'icl_creating_translate_role',
+        'permission' => ICL_TRANSLATE_DO_JOBS,
+    )));
+  }
+  if (variable_get('icl_translate_manager_role', 0) == 0) {
+    _icl_wrapper_create_roles(array('icanlocalize manager' => array(
+        'title' => 'ICanLocalize manager',
+        'variable' => 'icl_manager_role',
+        'variable_check' => 'icl_creating_manager_role',
+        'permission' => ICL_TRANSLATE_MANAGE_JOBS,
+    )));
+  }
+  if (isset($_GET['icl_translate_test'])) {
+    _icl_translate_test();
+  }
+  if (isset($_POST['icl_translator_ajx_action'])) {
+    module_load_include('inc', 'icl_translate', 'icl_translate.translator');
+    _icl_translate_ajax($_POST['icl_translator_ajx_action'], $_POST);
+  }
+  if (isset($_GET['icl_translator_ajx_action'])) {
+    _icl_translate_ajax($_GET['icl_translator_ajx_action'], $_GET);
+  }
+
+  // @todo See why can't be triggered from icl_core_init()
+  _icl_core_wrapper_init();
+}
+
+/**
+ * Add scripts.
+ */
+function _icl_translate_add_scripts() {
+  drupal_add_css(drupal_get_path('module', 'icl_translate') . '/css/icl_translate.css');
+  drupal_add_js(drupal_get_path('module', 'icl_translate') . '/js/icl_translate.js');
+}
+
+/**
+ * Implementation of hook_help().
+ */
+function icl_translate_help($path, $arg) {
+  // @todo Review and remove
+//  switch ($path) {
+//    case 'admin/content/translation-management/add-translator':
+//      return t('Use this page to assign a translator role to existing Drupal users.<br />
+//        If your translator is not a Drupal user, first <a href="@url">create a new Drupal user</a>.
+//        Then, return to the <a href="@back_url">translators management</a> page and edit the translator\'s languages.',
+//        array('@url' => _icl_wrapper_url('admin/user/user/create'),
+//        '@back_url' => _icl_wrapper_url('admin/content/translation-management/manage-translator')));
+//
+//    case 'admin/content/translation-management/translator/%/edit':
+//      return t('Use the language selectors to specify which languages this translator can translate from and to.');
+//  }
+
+  if ($path == _icl_wrapper_get_root_menu('translation-management/add-translator')) {
+    // @todo Remove this
+//      return t('Use this page to assign a translator role to existing Drupal users.<br />
+//        If your translator is not a Drupal user, first <a href="@url">create a new Drupal user</a>.
+//        Then, return to the <a href="@back_url">translators management</a> page and edit the translator\'s languages.',
+//        array('@url' => _icl_wrapper_url(_icl_wrapper_get_drupal_menu('admin/user/user/create')),
+//        '@back_url' => _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/manage-translator'))
+//            ));
+  } else if ($path == _icl_wrapper_get_root_menu('translation-management/translator/%/edit')) {
+      return t('Use the language selectors to specify which languages this translator can translate from and to.');
+  } else if ($path == _icl_wrapper_get_root_menu('translation-management')) {
+    return '<fieldset class=" collapsible collapsed"><legend class="collapse">' .
+	  t('Getting started') . '</legend>' .
+	  t('<p>Welcome to your site\'s translation control panel.</p>
+
+	    <p>First thing to do is <a href="@link_translators">add translators</a>. You can use your in-house translators or professional services. <a href="http://drupal-translation.com/content/setting-translators">More on getting translators</a></p>
+
+	    <p>Then, use the <a href="@dashboard">Translation Dashboard</a> to send jobs to translation.</p>
+
+	    <p>If you\'re getting started, have a look at the <a href="http://drupal-translation.com/content/guide-content-admins">guide for content admins</a>. It includes everything you need to know about efficiently running a multilingual Drupal site.</p>',
+	    array('@link_translators' => _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/manage-translator')),
+		  '@dashboard' => _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/dashboard')))) .
+	  '</fieldset>';
+  }
+}
+
+/**
+ * TRANSLATE FIELDS FUNCTIONS
+ */
+
+ /**
+ * Returns language code for field from {icl_core_status}.
+ * 
+ * @param $rid
+ *   Request ID.
+ * @param $field
+ *   Use 'origin'/'target' for original/translation language code.
+ */
+function _icl_translate_get_language_code($rid, $field = 'target') {
+  return _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT {$field} FROM {icl_core_status} WHERE rid=%d", $rid));
+}
+
+ /**
+ * Returns all from {icl_core_status} for requested rid.
+ */
+function _icl_translate_get_core_status($rid) {
+  return db_fetch_array(_icl_wrapper_db_query("SELECT * FROM {icl_core_status} WHERE rid=%d", $rid));
+}
+
+ /**
+ * Bulk write to {icl_translate} for original content fields.
+ */
+function _icl_translate_insert_bulk($rid, $fields, $target, $previous_id = 0) {
+  
+  // Reorder fields
+  $fields = _icl_translate_rearrange_fields($fields);
+  
+  // delete all the existing data for this $rid
+  _icl_wrapper_db_query("DELETE FROM {icl_translate} WHERE rid=%d", $rid);
+  
+  foreach ($fields as $k => $field) {
+    _icl_translate_insert_field($rid, $field, $previous_id);
+    if (isset($field['translations'][$target])) {
+      icl_translate_update_field_translation($rid, $field['type'], $field['translations'][$target]);
+    }
+  }
+}
+
+ /**
+ * Single write to {icl_translate} for original content field.
+ */
+function _icl_translate_insert_field($rid, $data, $previous_id = 0) {
+  if (!isset($data['format'])) {
+    $data['format'] = '';
+  }
+  $data = array(
+    'rid' => $rid,
+    'timestamp' => time(),
+    'field_type' => $data['type'],
+    'field_format' => $data['format'],
+    'field_translate' => $data['translate'],
+    'field_data' => $data['text'],
+    'field_data_translated' => '',
+    'previous_id' => $previous_id
+  );
+  drupal_write_record('icl_translate', $data);
+}
+
+ /**
+ * Update original content data.
+ */
+function _icl_translate_update_field_original($rid, $type, $data) {
+  _icl_wrapper_db_query("UPDATE {icl_translate} SET field_data='%s' WHERE field_type='%s' AND rid=%d", serialize($data), $type, $rid);
+}
+
+ /**
+ * Update translation data.
+ */
+function icl_translate_update_field_translation($rid, $type, $data, $finished = 0) {
+  $finished = (bool)$finished ? 1 : 0;
+  _icl_wrapper_db_query("UPDATE {icl_translate} SET field_data_translated='%s', finished=%d WHERE field_type='%s' AND rid=%d", serialize($data), $finished, $type, $rid);
+}
+
+ /**
+ * Fetches all fields for specific translation request.
+ */
+function icl_translate_get_fields($rid) {
+  $q = _icl_wrapper_db_query("SELECT * FROM {icl_translate} WHERE rid=%d ORDER BY tid", $rid);
+  $rows = array();
+  while ($r = db_fetch_array($q)) {
+    $rows[] = $r;
+  }
+  return $rows;
+}
+
+function icl_translate_get_word_count($rid) {
+  
+  $words = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT words FROM {icl_translate_job} WHERE rid=%d", $rid));
+  if ($words == null) {
+    
+    $data = array();
+    
+    $fields = icl_translate_get_fields($rid);
+    
+    foreach ($fields as $field) {
+      
+      $output = array();
+      
+      $output['translate'] = $field['field_translate'];
+      $output['type'] = $field['field_type'];
+      $output['text'] = unserialize($field['field_data']);
+      $output['format'] = $field['field_format'];
+      $output['translation'] = unserialize($field['field_data_translated']);
+      
+      $data[] = $output;
+    }
+   
+    $data = icl_content_calculate_md5_and_words_from_data($data);
+    $words = $data['words'];
+    
+    _icl_wrapper_db_query("UPDATE {icl_translate_job} SET words=%d WHERE rid=%d", $words, $rid);
+  }
+  return $words;
+}
+
+/*
+* 
+* TRANSLATE JOB FUNCTIONS
+* 
+*/
+
+ /**
+ * Inserts translation job to {icl_translate_job}.
+ */
+function _icl_translate_insert_job($rid, $uid, $from, $to, $translated = 0) {
+  // Current user is manager
+  global $user;
+  _icl_wrapper_db_query("INSERT INTO {icl_translate_job} (rid, uid, translated, manager_uid) VALUES (%d, %d, %d, %d)", $rid, $uid, $translated, $user->uid);
+  if ($uid !== -1) {
+    _icl_translate_notify($uid, 'translator_new_job', $rid, $from, $to);
+  }
+  else {
+    _icl_translate_notify(-1, 'translator_first_available_job', $rid, $from, $to);
+  }
+}
+
+function icl_translate_cancel_job($rid) {
+  
+  $lang = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT target FROM {icl_core_status} WHERE rid=%d", $rid));
+  icl_core_notify_translation_status($rid, $lang, ICL_STATUS_CANCEL);
+  
+  _icl_wrapper_db_query("DELETE FROM {icl_core_status} WHERE rid = %d", $rid);
+  _icl_wrapper_db_query("DELETE FROM {icl_content_status} WHERE rid = %d", $rid);
+  _icl_wrapper_db_query("DELETE FROM {icl_block_status} WHERE rid = %d", $rid);
+  _icl_wrapper_db_query("DELETE FROM {icl_string_status} WHERE rid = %d", $rid);
+  
+  _icl_wrapper_db_query("DELETE FROM {icl_translate} WHERE rid = %d", $rid);
+  _icl_wrapper_db_query("DELETE FROM {icl_translate_job} WHERE rid = %d", $rid);
+  
+}
+
+ /**
+ * Marks translation job as finished.
+ */
+function _icl_translate_finish_job($rid) {
+  $target = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT target FROM {icl_core_status} WHERE rid=%d", $rid));
+  icl_translate_process_translation($rid, $target);
+  _icl_wrapper_db_query("UPDATE {icl_translate_job} SET translated=%d WHERE rid=%d", 1, $rid);
+  
+  icl_core_post_process_translations();
+  
+  _icl_translate_notify(_icl_wrapper_db_result(_icl_wrapper_db_query("SELECT manager_uid FROM {icl_translate_job} WHERE rid=%d", $rid)), 'manager_job_completed', $rid);
+}
+
+ /**
+  * Creates the translated content for the translation job
+  * To be called when all the translated fields are complete.
+  */
+ 
+function icl_translate_process_translation($rid, $target) {
+  $languages = language_list('language', TRUE);
+
+  module_load_include('inc', 'icl_translate', 'icl_translate.jobs');
+  $data = icl_translate_fetch_translation_wrapper($rid, $languages[$target]);
+
+  $result = icl_content_icanlocalize('translation', $data, $rid );
+  $status = $result ? ICL_STATUS_SUCCESSFUL : ICL_STATUS_FAILED;
+  
+  if ($target == null) {
+    icl_core_set_local_status ( $rid, $status );
+  } else {
+    icl_core_set_local_status ( $rid, $status, array (  $languages[$target] ) );
+  }
+
+  return $status;
+  
+}
+
+ /**
+ * Fetches all translation jobs for specific user.
+ *
+ * @todo - return contact form and strings
+ */
+function _icl_translation_get_translator_jobs($uid, $filter = array()) {
+  global $user;
+  $user_pairs = _icl_translate_get_translator_pairs($user->uid);
+  
+  $query_args = array();
+  
+  $where = '';
+  if(!is_null($uid)){
+    $uid = intval($uid);
+    $where .= " AND (tj.uid=%d OR tj.uid=-1) ";
+    $query_args[] = $uid;
+  }  
+  
+  if(isset($filter['status']) && is_numeric($filter['status'])){
+    $where .= " AND crs.status=%d";
+    $query_args[] = $filter['status'];
+  }
+  
+  if(isset($filter['translator']) && $filter['translator']){
+    $where .= " AND tj.uid=%d";
+    $query_args[] = $filter['translator'];
+  }
+
+  if(isset($filter['from']) && $filter['from']){
+    $where .= " AND crs.origin='%s'";
+    $query_args[] = $filter['from'];
+  }
+
+  if(isset($filter['to']) && $filter['to']){
+    $where .= " AND crs.target='%s'";
+    $query_args[] = $filter['to'];
+  }
+  
+  
+  $count_query = "SELECT COUNT(*) FROM {icl_translate_job} tj 
+    JOIN {icl_core_status} crs ON crs.rid = tj.rid 
+    LEFT JOIN {users} u ON tj.uid = u.uid WHERE translation_service='local' $where";
+    
+  $query = "
+    SELECT tj.tjid, tj.translated, crs.origin, crs.target, crs.rid, tj.uid, u.name, crs.status, crs.module
+    FROM {icl_translate_job} tj
+        JOIN {icl_core_status} crs ON crs.rid = tj.rid 
+        LEFT JOIN {users} u ON tj.uid = u.uid
+    WHERE translation_service='local' $where ORDER BY crs.rid DESC";
+                                               
+  $q = pager_query($query, variable_get('icl_content_num_items_to_display', 50), 0, $count_query, $query_args);
+  
+  $rows = $ret = array();
+  
+  while ($r = db_fetch_array($q)) {
+    $rows[$r['rid']] = $r; 
+  }
+  
+  if(!empty($rows)){
+  
+    $rids = array_keys($rows);  
+    $exclude_rids = array();
+    $duplicates = array();
+    
+    // get nodes
+    $q = _icl_wrapper_db_query("SELECT n.nid, cs.rid, n.title FROM {node} n JOIN {icl_content_status} cs ON cs.nid = n.nid WHERE cs.rid IN (%s)", join(',', $rids));
+    while ($r = db_fetch_array($q)) {
+      $exclude_rids[] =  $r['rid'];
+      
+      $table_name = _icl_wrapper_table_name('node_revisions');
+
+      $content = db_fetch_array(_icl_wrapper_db_query("SELECT title FROM {" . $table_name . "} WHERE nid='%s' ORDER BY vid DESC LIMIT 1", $r['nid']));
+      //$rows[$r['rid']]['word_count'] = str_word_count($content['title'] . ' ' . $content['body']);      
+      $rows[$r['rid']]['title'] = $content['title'];
+      
+      // Check duplicates and allow only latest rid to be edited
+      if (!isset($duplicates[$rows[$r['rid']]['target']])) {
+        $duplicates[$rows[$r['rid']]['target']] = array();
+      }
+      if (array_key_exists($r['nid'], $duplicates[$rows[$r['rid']]['target']])) {
+        if ($duplicates[$rows[$r['rid']]['target']][$r['nid']] < $r['rid']) {
+          $rows[$duplicates[$rows[$r['rid']]['target']][$r['nid']]]['edit'] = '';
+          $duplicates[$rows[$r['rid']]['target']][$r['nid']] = $r['rid'];
+        }
+      }
+      else {
+        $duplicates[$rows[$r['rid']]['target']][$r['nid']] = $r['rid'];
+      }
+    }
+    
+    $rids = array_diff($rids,$exclude_rids); 
+    
+    // get blocks
+    $duplicates = array();
+    if(!empty($rids)){
+      $table_name_boxes = _icl_wrapper_table_name('boxes');
+      $table_name_blocks = _icl_wrapper_table_name('blocks');
+      $q = _icl_wrapper_db_query("
+            SELECT bs.rid, b.title, bx.body  
+            FROM {icl_block_status} bs 
+                JOIN {" . $table_name_boxes . "} bx ON bx.bid = bs.bid
+                JOIN {" . $table_name_blocks . "} b ON b.delta = bs.bid
+            WHERE bs.rid IN (%s)", join(',', $rids));
+      while ($r = db_fetch_array($q)) {
+        $exclude_rids[] =  $r['rid'];
+        //$rows[$r['rid']]['word_count'] = str_word_count($r['title'] . ' ' . $r['body']);      
+        $rows[$r['rid']]['title'] = $r['title'];
+        
+        // Check duplicates and allow only latest rid to be edited
+        if (!isset($duplicates[$rows[$r['rid']]['target']])) {
+          $duplicates[$rows[$r['rid']]['target']] = array();
+        }
+        if (array_key_exists($r['bid'], $duplicates[$rows[$r['rid']]['target']])) {
+          if ($duplicates[$rows[$r['rid']]['target']][$r['bid']] < $r['rid']) {
+            $rows[$duplicates[$rows[$r['rid']]['target']][$r['bid']]]['edit'] = '';
+            $duplicates[$rows[$r['rid']]['target']][$r['bid']] = $r['rid'];
+          }
+        }
+        else {
+          $duplicates[$rows[$r['rid']]['target']][$r['bid']] = $r['rid'];
+        }
+      
+      }
+    }
+    $rids = array_diff($rids,$exclude_rids); 
+    
+    // get contact form
+    $cf = variable_get('icl_contact_form_rids', FALSE);
+    if(!empty($cf)){
+      foreach($cf as $l => $arr){
+        $latest_rid = max($arr);
+        foreach ($arr as $k => $r) {
+          if(isset($filter['to']) && !empty($filter['to']) && $filter['to'] != $l) continue;
+        
+          if(!isset($rows[$r])) continue;
+          $exclude_rids[] =  $r;
+          $rows[$r]['title'] = t('Contact Form');
+        /*
+        $q = _icl_wrapper_db_query("SELECT field_data FROM {icl_translate} WHERE rid = %s AND field_translate=1",$r);
+        while($vals = db_fetch_array($q)){        
+          $val = unserialize($vals['field_data']);
+          if(is_string($val)){
+            $rows[$r]['word_count'] += str_word_count($val);
+          }
+        }
+        */
+          if ($latest_rid > $r) {
+            $rows[$r]['edit'] = '';
+          }
+        }
+      }
+      $rids = array_diff($rids,$exclude_rids); 
+    }
+    
+    // get strings
+    $duplicates = array();
+    if(!empty($rids)){
+      $q = _icl_wrapper_db_query("SELECT s.rid, s.translation_group_id FROM {icl_string_status} s WHERE s.rid IN (%s)", join(',', $rids));
+      while ($r = db_fetch_array($q)) {
+        $rows[$r['rid']]['title'] = t('String group - ') . $r['translation_group_id'];
+      }
+    }
+    
+    foreach ($rows as $r) {
+      switch($r['status']){
+        case ICL_STATUS_SUCCESSFUL: $status = t('Complete'); break;
+        case ICL_STATUS_REQUESTED: $status = t('In progress'); break;
+        default: $status = t('Not done');
+      }
+  
+      if (isset($r['edit'])) {
+        $edit = $r['edit'];
+      } else if (isset($user_pairs[$r['origin']][$r['target']])) {
+  $edit = l(t('edit'), 'translate/'.$r['rid']);
+      } else {
+  $edit = '';
+      }
+      
+      $ret[] = array(
+        'tjid' => $r['tjid'],
+        'title' => $r['title'], // to update string situation
+        'word_count' => $r['word_count'],
+        'origin' =>  $r['origin'],
+        'target' =>  $r['target'],
+        'status' =>  $status,
+        'status_code' =>  $r['status'],
+        'rid' =>  $r['rid'],
+        'translator_uid' =>  $r['uid'],
+        'translator_name' =>  $r['name'],
+        'edit' => $edit                
+      );
+    }
+  }
+  
+  // Filter timeouted jobs
+  foreach ($ret as $k => $r) {
+    if (_icl_translator_check_timeout($r['rid'], 60*60*72)) {
+      _icl_translator_remove_job($r['uid'], $r['rid']);
+      _icl_translator_remove_unassigned_job($r['rid']);
+      $ret[$k]['status'] = t('Not done');
+      $ret[$k]['status_code'] =  ICL_STATUS_INQUEUE;
+      $ret[$k]['translator_uid'] = -1;
+    }
+  }
+  
+  // Filter -1 jobs
+  if (!is_null($uid)) {
+    $pairs = _icl_translate_get_translator_pairs($uid);
+    foreach ($ret as $k => $r) {
+      if ($r['translator_uid'] != -1) {
+        continue;
+      }
+      if (!array_key_exists($r['origin'], $pairs) || !array_key_exists($r['target'], $pairs[$r['origin']])) {
+        unset($ret[$k]);
+      }
+    }
+  }
+  
+  return $ret;
+}
+
+
+
+
+/**
+ * Implementation of hook_perm().
+ */
+function icl_translate_perm() {
+  return array(ICL_TRANSLATE_MANAGE_JOBS, ICL_TRANSLATE_DO_JOBS, ICL_TRANSLATE_VIEW_JOBS);
+}
+
+
+/**
+ * Implementation of hook_menu().
+ * @see http://api.drupal.org/api/function/hook_menu/6
+ *
+ * @return array
+ */
+function icl_translate_menu() {
+  $items ['translator'] = array(
+    'title' => 'Translation Jobs',
+    'description' => 'List of translation jobs.',
+    'page callback' => 'icl_translate_translator_jobs',
+    'page arguments' => array(),
+    'access arguments' => array(ICL_TRANSLATE_DO_JOBS),
+    'file' => 'icl_translate.translator.inc',
+    'callback arguments' =>  array('icl_translate_translator_jobs_form')
+  );
+  $items [_icl_wrapper_get_root_menu('translation-management')] = array(
+    'title' => 'Translation Management',
+    'description' => 'Manage all translation tasks',
+    'page callback' => 'icl_translate_manager',
+    'access arguments' => array(ICL_TRANSLATE_MANAGE_JOBS),
+    'file' => 'icl_translate.manager.inc',
+  );
+  $items [_icl_wrapper_get_root_menu('translation-management/translator')] = array(
+    'title' => 'Translation Jobs',
+    'description' => 'List of translation jobs.',
+    'page callback' => 'icl_translate_translator_jobs',
+    'page arguments' => array(),
+    'access arguments' => array(ICL_TRANSLATE_MANAGE_JOBS),
+    'file' => 'icl_translate.translator.inc',
+    'callback arguments' =>  array('icl_translate_translator_jobs_form'),
+    'weight' => 2
+  );
+//  $items [_icl_wrapper_get_root_menu('translation-management/add-translator')] = array(
+//    'title' => 'Add Translators',
+//    'description' => 'Allows an existing user to be a translator',
+//    'page callback' => 'drupal_get_form',
+//    'page arguments' => array('icl_translate_add_translator'),
+//    'access arguments' => array(ICL_TRANSLATE_MANAGE_JOBS),
+////   'type' => MENU_CALLBACK,
+//    'file' => 'icl_translate.translator.inc',
+//    'weight' => 5
+//  );
+  $items [_icl_wrapper_get_root_menu('translation-management/manage-translator')] = array(
+    'title' => 'Manage Translators',
+    'description' => 'View translators and manage their languages.',
+    'page callback' => 'icl_translator_manage_translators_form_cb',
+    'page arguments' => array(),
+    'access arguments' => array(ICL_TRANSLATE_MANAGE_JOBS),
+    'file' => 'icl_translate.manage_translators.inc',
+    'weight' => 10
+  );
+  $items [_icl_wrapper_get_root_menu('translation-management/notifications')] = array(
+    'title' => 'Translation Notifications',
+    'description' => 'Manage translation notifications',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('icl_translate_notifications_form'),
+    'access arguments' => array(ICL_TRANSLATE_MANAGE_JOBS),
+    'file' => 'icl_translate.notifications.inc',
+    'weight' => 15
+  );
+  $items [_icl_wrapper_get_root_menu('translation-management/settings')] = array(
+    'title' => 'Translation Settings',
+    'description' => 'Manage translation settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('icl_translate_admin_settings'),
+    'access arguments' => array(ICL_TRANSLATE_MANAGE_JOBS),
+    'file' => 'icl_translate.settings.inc',
+    'weight' => 20
+  );
+  $items [_icl_wrapper_get_root_menu('translation-management/translator/%/edit')] = array(
+    'title' => 'Edit Translator',
+    'description' => 'Edit translator form.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('icl_translate_edit_translator'),
+    'access arguments' => array(ICL_TRANSLATE_MANAGE_JOBS),
+    'type' => MENU_CALLBACK,
+    'file' => 'icl_translate.translator.inc'
+  );
+  $items ['translate/%'] = array(
+    'title' => 'Translation Editor',
+    'description' => 'Translator editor',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array(
+    'icl_translate_editor'),
+    'access arguments' => array(ICL_TRANSLATE_DO_JOBS),
+    'type' => MENU_CALLBACK,
+    'file' => 'icl_translate.editor_form.inc'
+  );
+  
+  return $items;
+}
+
+/**
+ * Implementation of hook_theme().
+ * @see http://api.drupal.org/api/function/hook_theme/6
+ *
+ * @return array
+ */
+  function icl_translate_theme() {
+    return  _icl_wrapper_hook_theme(array (
+      'icl_translator_translators_form' => array(
+          'arguments' => array(
+              'form' => NULL )
+      ) ));
+  }
+
+function _icl_translate_ajax($action, $data){
+  $error = '';
+  $message = '';
+  
+  if (!isset($data['form_id']) || !isset($data['form_token'])) {
+    exit;
+  }
+  if (drupal_get_token($data['form_id']) != $data['form_token']) {
+    exit;
+  }
+  
+    switch($action){
+      case 'set_translator':
+        $tjid = icl_translator_add_job($data['uid'], $data['rid']);
+        if($tjid){
+            $account = user_load($data['uid']);
+            $error = 0;
+            $message = $account->name;
+        }else{
+            $error = 1;
+            $message = '';
+        }
+        break;
+      
+      case 'translator_remove':
+        if (isset($_POST['uid']) && isset($_POST['rid']) && _icl_translate_can_translate($_POST['rid'], FALSE, $_POST['uid'])) {
+          _icl_translator_remove_job($_POST['uid'], $_POST['rid']);
+          _icl_translator_remove_unassigned_job($_POST['rid']);
+          }
+        break;
+      
+      case 'reminder_dismiss':
+        _icl_translate_reminders_dismiss_ajax();
+        break;
+      
+      case 'reminders_show':
+        global $user;
+        $temp = variable_get('icl_show_reminders', array());
+        if (!is_array($temp)) {
+          $temp = array();
+        }
+        $temp[$user->uid] = (bool)$_GET['show'];
+        variable_set('icl_show_reminders', $temp);
+        break;
+      
+      case 'reminders_get':
+        $available_translation_services = module_invoke_all('translation_service');
+        foreach ($available_translation_services as $module => $service) {
+          module_invoke($module, 'add_notifications');
+        }
+        $message = _icl_translate_render_reminders('render');
+        break;
+      
+      case 'service_info':
+        $info = array();
+        $available_translation_services = module_invoke_all('translation_service');
+        foreach ($available_translation_services as $module => $service) {
+          $info[] = module_invoke($module, 'get_translation_service_info');
+        }
+        $message = _icl_translate_notifications_render_list($info, 'icl_service_info');
+        break;
+      
+      case 'get_translation_job_status':
+        $info = array();
+        $available_translation_services = module_invoke_all('translation_service');
+        foreach ($available_translation_services as $module => $service) {
+          $info[] = module_invoke($module, 'get_translation_job_status', $_GET['rid'], $_GET['language']);
+        }
+        echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+body {
+  font: normal normal 12px Arial;
+}
+
+table {
+  border: 1px solid #CCC;
+  border-bottom: 0;
+  border-right: 0;
+  width: 100%;
+}
+
+td {
+  border: 1px solid #CCC;
+  border-top: 0;
+  border-left: 0;
+  padding: 7px;
+}
+
+tr.odd {
+  background-color: #F5F5F5;
+}
+
+tr.even {
+  background-color: #FBFBFB;
+}
+-->
+</style>
+</head>
+
+<body onunload="parent.location.href = unescape(parent.location.pathname);">
+';
+        echo _icl_translate_notifications_render_list($info);
+        echo '
+</body>
+</html>';
+        exit;
+        break;
+    }
+    echo json_encode(array('error'=>$error, 'message'=>$message));
+    exit;
+}
+
+
+ /**
+ * Reorder fields according to Drupal's settings.
+ * 
+ * @param array $fields
+ * @param array $type
+ *      Optional (type => node|block|form|string, data => id)
+ */
+function _icl_translate_rearrange_fields($fields, $field_type = FALSE) {
+  
+  if (!$field_type) {
+    foreach ($fields as $field) {
+      if (!$field_type) {
+        $field_type = _icl_translate_determine_content_type($field['type'], $field['text']);
+      }
+    }
+  }
+  
+  switch ($field_type['type']) {
+    
+    case 'node':
+      
+      $reordered = array();
+      $orphans = array();
+      $add_to_array = array();
+      
+      $node = node_load($field_type['id']);
+      $type =  _icl_wrapper_node_get_types('type', $node);
+      
+      // If CCK is enabled and node is of some type
+      if ($type && $weights = variable_get('content_extra_weights_' . $type->type, FALSE)) {
+        $aliases = array('link_description' => 'menu',
+                         'link_title' => 'menu',
+                         'taxonomy[' => 'taxonomy',
+                         'body' => 'body_field');
+        
+        // Order basic elements
+        foreach ($fields as $k => $field) {
+          
+          ksort($reordered, SORT_NUMERIC);
+          
+          // Check taxonomy match
+          $check_name = (strpos($field['type'], 'taxonomy[') === 0) ? 'taxonomy[' : $field['type'];
+          
+          if (isset($weights[$check_name])
+              || (isset($aliases[$check_name]) && isset($weights[$aliases[$check_name]]))) {
+            
+            // Get weight
+            $weight = isset($aliases[$check_name]) ?
+                            $weights[$aliases[$check_name]] :
+                            $weights[$check_name];
+            
+            // Add to array
+            // If exists don't disrupt initial weights) / processed at the end
+            if (isset($reordered[$weight])) {
+              $add_to_array[] = array('weight' => $weight, 'field' => $field);
+            }
+            else {
+              $reordered[$weight] = $field;
+            }
+          }
+          else {
+            $orphans[] = $field;
+          }
+        }
+      }
+      
+      $do_taxonomies = FALSE;
+
+      // If basic fields not reordered - do regular reorder
+      if (empty($reordered)) {
+        
+        $reordered = array();
+        $taxonomies = array();
+        $orphans = array();
+        
+        foreach ($fields as $field) {
+          if ($field['type'] == 'title') {
+            $reordered[0] = $field;
+          }
+          else if ($field['type'] == 'link_title') {
+            $reordered[1] = $field;
+          }
+          else if ($field['type'] == 'link_description') {
+            $reordered[2] = $field;
+          }
+          else if ($field['type'] == 'body') {
+            $reordered[3] = $field;
+          }
+          else if (strpos($field['type'], 'taxonomy[') === 0) {
+            $taxonomy = explode('[', $field['type']);
+            $taxonomy = trim($taxonomy[1], ']');
+            $taxonomies[$taxonomy] = $field;
+            $do_taxonomies = TRUE;
+          }
+          else {
+            $orphans[] = $field;
+          }
+        }
+      }
+      
+      // Order CCK fields
+      if ($type && db_table_exists('content_node_field_instance')) {
+        
+        // Get weight for CCK fields
+        $q = _icl_wrapper_db_query("SELECT field_name, weight FROM {content_node_field_instance} WHERE type_name='%s'", $type->type);
+        $cck_weights = array();
+        while ($r = db_fetch_array($q)) {
+          $cck_weights[$r['field_name']] = $r['weight'];
+        }
+        
+        // Loop over CCK fields
+        foreach ($orphans as $k => $field) {
+          
+          ksort($reordered, SORT_NUMERIC);
+          
+          if (strpos($field['type'], 'CCK[') !== 0) {
+            continue;
+          }
+          
+          // Extract name
+          $cck_field = explode('[', $field['type']);
+          $cck_field = trim($cck_field[1], ']');
+          
+          // Add to array
+          if (isset($cck_weights[$cck_field])) {
+            $weight = $cck_weights[$cck_field];
+            
+            // If exists don't disrupt initial weights) / processed at the end
+            if (isset($reordered[$weight])) {
+              $add_to_array[] = array('weight' => $weight, 'field' => $field);
+            }
+            else {
+              $reordered[$weight] = $field;
+            }
+            unset($orphans[$k]);
+          }
+        }
+      }
+      
+      // Sort and merge arrays
+      if (!empty($reordered)) {
+        
+        ksort($reordered, SORT_NUMERIC);
+        
+        // Add leftovers
+        if (!empty($add_to_array)) {
+          foreach ($add_to_array as $k => $v) {
+            $add = 0;
+            $new = array();
+            foreach ($reordered as $new_key => $new_value) {
+              if ($new_key == $v['weight']) {
+                $new[$new_key] = $v['field'];
+                $add = 1;
+              }
+              $new[$new_key+$add] = $new_value;
+            }
+            $reordered = $new;
+          }
+        }
+        
+        $reordered = array_values($reordered);
+        
+        // Add taxonomies after title
+        if ($do_taxonomies) {
+          ksort($taxonomies, SORT_NUMERIC);
+          $taxonomies = array_values($taxonomies);
+          $count = 0;
+          foreach ($taxonomies as $taxonomy) {
+            $key = 1+$count;
+            array_splice($reordered, $key, 0, array($taxonomy));
+            $count = $count+1;
+          }
+        }
+        
+        $reordered = array_merge($reordered, $orphans);
+        
+        $fields = $reordered;
+      }
+      
+      break;
+    
+    case 'block':
+      // set title
+      foreach ($fields as $key => $field) {
+        if ($field['type'] == 'title') {
+          if ($key !== 0) {
+            $temp = $fields[0];
+            $fields[0] = $field;
+            $fields[$key] = $temp;
+          }
+        }
+      }
+      break;
+  }
+  
+  return $fields;
+}
+
+ /**
+ * Determines type of content.
+ * 
+ * @param string $field_type
+ *      Field name
+ * @param int|string
+ *      Field value
+ */
+function _icl_translate_determine_content_type($field_type, $data) {
+  
+  $types = array('nid' => 'node', 'bid' => 'block', 'sid' => 'strings');
+  
+  foreach ($types as $type_id => $type) {
+    
+    if ($field_type == $type_id) {
+      
+      if ($type == 'node') {
+        $node = node_load($data);
+        $element_id = 'node-' . $node->type . '-' . $data;
+      }
+      else if ($type == 'block') {
+        $element_id = 'block-' . $data;
+      }
+      else if ($type = 'strings') {
+        $element_id = 'strings-' . $data;
+      }
+      
+      return array('type' => $type,
+                   'type_id' => $type_id,
+                   'id'=> $data,
+                   'element_id' => $element_id);
+    }
+  }
+  return FALSE;
+}
+
+function _icl_translate_get_job_info($rid) {
+  
+  $local = _icl_wrapper_db_result(_icl_wrapper_db_query('SELECT translation_service FROM {icl_core_status} WHERE rid=%d', $rid)) == 'local';
+  
+  $info = array();
+  
+  // Check if all data available
+  
+  if (!$core = _icl_translate_get_core_status($rid)) {
+    //drupal_set_message(t('Job not available in core'), 'error');
+    return FALSE;
+  }
+  
+  if ($local && !$job = db_fetch_array(_icl_wrapper_db_query("SELECT * FROM {icl_translate_job} WHERE rid=%d", $rid))) {
+    return FALSE;
+  }
+  
+  if ($local && !$fields = icl_translate_get_fields($rid)) {
+    return FALSE;
+  }
+  
+  // Get languages
+  $info['origin'] = array();
+  $info['origin']['code'] = $core['origin'];
+  $info['origin']['name'] = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT icl_name FROM {icl_languages} WHERE code='%s'", $core['origin']));
+  
+  $info['target'] = array();
+  $info['target']['code'] = $core['target'];
+  $info['target']['name'] = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT icl_name FROM {icl_languages} WHERE code='%s'", $core['target']));
+  
+  // Get status
+  $info['status'] = $core['status'];
+  $info['status_txt'] = _icl_translate_get_status_txt($core['status']);
+  
+  //
+  // LOCAL JOBS
+  //
+  if ($local) {
+    
+    // Determine type
+    $type = FALSE;
+    foreach ($fields as $k => $field) {
+      if (!$type) {
+        $type = _icl_translate_determine_content_type($field['field_type'], unserialize($field['field_data']));
+      }
+      else {
+        break;
+      }
+    }
+    
+    // @todo Add determination for Contact form
+    if (!$type) {
+      $type = array('id' => 1, 'type' => 'contact_form', 'element_id' => 'contact_form');
+    }
+    
+    // Get title
+    switch ($type['type']) {
+      
+      case 'node':
+        $table_name = _icl_wrapper_table_name('node_revisions');
+        $info['title'] = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT title FROM {" . $table_name . "} WHERE nid=%d", $type['id']));
+        $info['title_link'] = _icl_wrapper_url('', array('absolute' => TRUE)) . '?q=node/' . $type['id'];
+        break;
+      
+      case 'block':
+        $table_name = _icl_wrapper_table_name('blocks');
+        $info['title'] = 'Block ' . _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT title FROM {" . $table_name . "} WHERE bid=%d", $type['id']));
+        $info['title_link'] =  sprintf('%s', $info['title']);
+        break;
+      
+      case 'contact_form':
+        $info['title'] = t('Contact form');
+        $info['title_link'] =  sprintf('%s', $info['title']);
+        break;
+      
+      case 'strings':
+        if ($core['status'] != ICL_STATUS_REQUESTED && $core['status'] != ICL_STATUS_SUCCESSFUL) {
+          $info['title'] = t('String group - @d', array('@d'=> $type['id']));
+        }
+        else {
+          $info['title'] = t('Queued strings @d', array('@d'=> $type['id']));
+        }
+        $info['title_link'] =  sprintf('%s', $info['title']);
+        break;
+    }
+    
+    // Get translator
+    $info['translator'] = array();
+    if ($job['uid'] == -1) {
+      $info['translator']['name'] = t('First available');
+      $info['translator']['uid'] = -1;
+      $info['translator']['email'] = 0;
+      $info['translator']['link'] = sprintf('%s', $info['translator']['name']);
+    }
+    else {
+      if ($user = user_load($job['uid'])) {
+        $info['translator']['name'] = $user->name;
+        $info['translator']['uid'] = $user->uid;
+        $info['translator']['email'] = $user->mail;
+        $info['translator']['link'] = sprintf('<a href="/?q=user/' . $user->uid . '">%s</a>', $info['translator']['name']);
+      }
+      else {
+        $info['translator']['name'] = t('Error loading user');
+        $info['translator']['uid'] = 0;
+        $info['translator']['email'] = 0;
+        $info['translator']['link'] = sprintf('%s', $info['translator']['name']);
+      }
+    }
+    
+    // Get time info
+    $info['time'] = array();
+    $info['time']['submitted'] = array();
+    $info['time']['submitted']['timestamp'] = $fields[0]['timestamp'];
+    $info['time']['submitted']['date'] = format_date($fields[0]['timestamp'], 'large');
+  }
+  
+  return $info;
+}
+
+function _icl_translate_get_status_txt($status) {
+  switch ($status) {
+    
+    case ICL_STATUS_INQUEUE:
+      return t('Not done');
+      break;
+    
+    case ICL_STATUS_REQUESTED:
+      return t('In Progress');
+      break;
+    
+    case ICL_STATUS_SUCCESSFUL:
+      return t('Complete');
+      break;
+
+    case ICL_STATUS_FAILED:
+      return t('Failed');
+      break;
+    
+    default:
+      return t('Not done');
+  }
+}

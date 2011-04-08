@@ -1,0 +1,11 @@
+name = Node export relation
+description = Helps maintain relationships between nodes (e.g. Node reference) during Node export operations.
+dependencies[] = node_export
+core = 6.x
+package = "Node export"
+; Information added by drupal.org packaging script on 2011-03-13
+version = "6.x-3.x-dev"
+core = "6.x"
+project = "node_export"
+datestamp = "1300018182"
+

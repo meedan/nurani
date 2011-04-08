@@ -1,0 +1,11 @@
+name = Translate
+description = Handles translation job management and notification.
+dependencies[] = icl_core
+core = 6.x
+package = Translation Management
+; Information added by drupal.org packaging script on 2011-03-29
+version = "6.x-1.22"
+core = "6.x"
+project = "translation_management"
+datestamp = "1301367969"
+

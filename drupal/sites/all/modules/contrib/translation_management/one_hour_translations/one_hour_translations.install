@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * Implementation of hook_requirements().
+ */
+function one_hour_translations_requirements($phase) {
+  
+  $missing_extensions = array();
+  foreach (array('CURL', 'JSON', 'SimpleXML') as $extension) {
+    if (!extension_loaded($extension)) {
+      $missing_extensions[] = $extension;
+    }
+  }
+  
+  $requirement = array(
+    'title' => t('OneHourTranslation service'),
+    'value' => '6.x-1.x-dev',
+    'severity' => ((count($missing_extensions) == 0) ? REQUIREMENT_OK : REQUIREMENT_ERROR),
+  );
+  
+  if (count($missing_extensions) == 0) {
+    if ($phase == 'install') {
+      $requirement['description'] = t('OneHourTranslation is installed properly.');
+    }
+    else {
+      $credit = _one_hour_translations_get_credit_balance();
+      if (!is_numeric($credit)) {
+        $requirement['severity'] = REQUIREMENT_WARNING;
+        if (is_null($credit)) {
+          $requirement['value'] = t('Cron has not run yet, so the credit balance could not be fetched.');
+        }
+        else {
+          $requirement['value'] = t('Last cron could not fetch credit balance. Error message recieved was: ');
+          $requirement['value'] .= t($credit);
+        }
+      }
+      else {
+        $requirement['value'] = t('Credit balance @time ago was @credit.', array('@time' => format_interval(time() - _one_hour_translations_get_credit_poll_last()), '@credit' => (int) $credit));
+      }
+    }
+  }
+  else {
+    $requirement[($phase == 'install') ? 'description' : 'value'] = t('OneHourTranslation is missing the following PHP extension: @ext.', array('@ext' => implode(', ', $missing_extensions)));
+  }
+  
+  return array($requirement);
+}
+
+/**
+ * Implementation of hook_enable().
+ */
+function one_hour_translations_enable() {
+  //drupal_set_message(t('Please configure your OneHourTranslation account ID and secret key in the @link page.', array('@link' => l(t('Translation Settings'), 'admin/content/translation-management/settings'))), 'status');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function one_hour_translations_uninstall() {
+  variable_del('oht_api_account_id');
+  variable_del('oht_api_credit_balance');
+  variable_del('oht_api_secret_key');
+  variable_del('oht_api_poll_frequency');
+  variable_del('oht_api_poll_last');
+}

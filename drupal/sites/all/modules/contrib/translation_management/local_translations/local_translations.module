@@ -1,0 +1,193 @@
+<?php
+
+// local_translations.module
+
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+/**
+ * hook overrides for local translation service
+ */
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+
+function local_translations_translation_service() {
+  global $base_url;
+  return array ('local_translations' => array('name' => 'Local',
+                      'logo' => $base_url . '/' . drupal_get_path('module', 'local_translations') . '/images/local_translators.png',
+                      'logo_medium' => $base_url . '/' . drupal_get_path('module', 'local_translations') . '/images/local_translators.png',
+                      'logo_small' => $base_url . '/' . drupal_get_path('module', 'local_translations') . '/images/local_translators_small.png',
+                      'tagline_manage_translators' => t('%3$sYour own translators%4$s<br />Create accounts for your own translators in Drupal.'),
+                      'description' => t('Your own translators')
+         ));
+}
+
+function local_translations_get_translators($from, $to) {
+  
+  module_load_include('inc', 'icl_translate', 'icl_translate.translator');
+
+  $translators = _icl_translate_get_translators_for_pair($from, $to);
+  if (!empty($translators)) {
+    $translators[] = array('id' => -1, 'name' => t('First available'));
+  }
+  
+  return $translators;
+}
+
+function local_translations_translators_setup_url($from, $to) {
+  return _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/manage-translator'), array('query' => 'from=' . $from . '&amp;to=' . $to));
+}
+
+function local_translations_translators_setup_url_filter_link($link, $url, $no_translators) {
+  if ($no_translators) {
+    return str_replace($url, _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/manage-translator')), $link);
+  }
+  else {
+    return $link;
+  }
+}
+
+function local_translations_get_translation_service_info() {
+  return '';
+}
+
+function local_translations_request_translation($rid, $from, $to, $previous_rid, $translator_id, $link_to = '', $title = '') {
+
+  $to = $to[0];
+  
+  if ($rid) {
+    _icl_translate_insert_job($rid, $translator_id, $from->language, $to->language);
+    $status = ICL_STATUS_INQUEUE;
+    
+    $languages = locale_language_list();
+    
+    if ($translator_id == -1) {
+      $message = t('Translation has been assigned to the first available translator for %lang', array('%lang' => $to->name));
+    }
+    else {
+      $user = user_load($translator_id);
+      $message = t('Translation has been assigned to %username for %lang', array('%username' => $user->name, '%lang' => $to->name));
+    }
+
+    $result = array('rid' => $rid, 'service_rid' => $rid, 'status' => $status, 'message' => $message);    
+  } else {
+    $message = t('Failed to send for transaltion to %lang', array('%lang' => $to->name));
+    $result = array('rid' => $rid, 'service_rid' => FALSE, 'status' => 0, 'message' => $message);    
+  }
+  
+  return $result;
+}
+
+function local_translations_get_translation_job_status($rid, $language) {
+  if (_icl_wrapper_db_result(_icl_wrapper_db_query("SELECT rid FROM {icl_core_status} WHERE rid=%d AND translation_service='%s'", $rid, 'local'))) {
+    $job = _icl_translate_get_job_info($rid);
+    $header = array();
+    $rows = array();
+    
+    $row = array();
+    $row[] = t('Title');
+    $row[] = $job['title'];
+    $rows[] = $row;
+    
+    $row = array();
+    $row[] = t('Language');
+    $row[] = $job['origin']['name'] . ' >> ' . $job['target']['name'];
+    $rows[] = $row;
+    
+    $row = array();
+    $row[] = t('Status');
+    $row[] = $job['status_txt'];
+    $rows[] = $row;
+    
+    $row = array();
+    $row[] = t('Translator');
+    if ($job['translator']['uid'] != -1) {
+      $row[] = '<a href="#" onClick="javascript:parent.location = \''. _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/translator/' . $job['translator']['uid'])) . '\';">' . $job['translator']['name'] . '</a>';
+    }
+    else {
+      $row[] = $job['translator']['name'];
+    }
+    $rows[] = $row;
+    
+    $row = array();
+    $row[] = t('Job submitted');
+    $row[] = $job['time']['submitted']['date'];
+    $rows[] = $row;
+
+    if ($job['status'] == ICL_STATUS_FAILED) {
+      icl_translate_cancel_job($rid);
+    }
+
+    return theme_table($header, $rows, array('cellpadding' => 0, 'cellspacing' => 0));
+  }
+}
+
+function local_translations_add_translators() {
+  _icl_translate_add_scripts();
+  drupal_add_css(drupal_get_path('module', 'icl_translate') . '/css/icl_translate_translator.css');
+  drupal_add_js(drupal_get_path('module', 'icl_translate') . '/js/icl_translate_translator.js');
+
+  $form = array();
+
+  // Get users that aren't translators
+  $users = _icl_translate_get_non_translators();
+  if (empty($users)) {
+    $form['no_users'] = _icl_wrapper_form_create_markup(array(
+        '#type' => 'markup',
+        '#value' => '<div id="local_translations_add_translator_toggle">' . t('All of the users are already translators. Go to <a href="@url">user list</a>', array('@url' => _icl_wrapper_url(_icl_wrapper_get_drupal_menu('admin/user/user')))) . '</div'
+    ));
+
+    return drupal_render($form);
+  }
+  // Construct selection element
+  $select[] = t('Select user');
+  foreach ($users as $k => $user) {
+    $select[$user->uid] = $user->name;
+  }
+
+  // Add selection
+  $form['translators'] = array(
+    '#type' => 'select',
+    '#options' => $select,
+    '#title' => t('Choose drupal user'),
+    '#name' => 'icl_translate_translator',
+    '#prefix' => '<div id="local_translations_add_translator_toggle">',
+    '#id' => 'icl_translate_translator',
+    '#value' => '',
+    '#suffix' => t('Note: Your own translators need to have Drupal accounts.') . '<br />'
+      . sprintf('<a href="%s">' . t('Create new Drupal user') . '</a>', url(_icl_wrapper_get_drupal_menu('admin/user/user/create'))) . '</div>'
+  );
+
+  return drupal_render($form);
+}
+
+function local_translations_add_translators_submit() {
+  if (user_access(ICL_TRANSLATE_MANAGE_JOBS)) {
+    if (isset($_POST['icl_translate_translator']) && $_POST['icl_translate_translator'] != 0 && isset($_POST['from']) && isset($_POST['to'])) {
+
+      $_POST['icl_translate_language_pairs'][$_POST['from']] = array($_POST['to'] => 1);
+
+      // Create role is necessary
+      _icl_translate_assign_role($_POST['icl_translate_translator']);
+
+       // Update language pairs
+      _icl_translate_update_translator_pairs($_POST['icl_translate_translator'], $_POST['icl_translate_language_pairs']);
+
+      drupal_set_message(t('Settings saved.'));
+    }
+  }
+}
+
+function local_translations_manage_translators_list($args) {
+  $translators = _icl_translate_get_translators($args);
+  $languages_list = language_list('enabled');
+  $languages_list = $languages_list[1];
+
+  foreach ($translators as $trans) {
+    $users[$trans['uid']]['name'] = $trans['name'];
+    $users[$trans['uid']]['langs'] = _icl_translate_get_translator_pairs($trans['uid'], FALSE);
+    $users[$trans['uid']]['type'] = 'Local';
+    $users[$trans['uid']]['action'] = l(t('edit languages'), _icl_wrapper_get_root_menu('translation-management/translator/' . $trans['uid'] . '/edit'));
+  }
+
+  return $users;
+}

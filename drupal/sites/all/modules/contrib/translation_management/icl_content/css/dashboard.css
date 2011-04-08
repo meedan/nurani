@@ -1,0 +1,123 @@
+@CHARSET "UTF-8";
+#icl-content-dashboard{
+  padding: 0;
+}
+#icl-content-dashboard div.form-item div.form-item, 
+.form-item label,
+div.form-item div {
+  display: inline;
+}
+#icl-content-dashboard fieldset fieldset {
+  background: none;
+  border: 0px;
+  margin: 0;
+  padding: 0;
+}
+#icl-dashboard-further-label {
+  position:relative;
+  /*top:2.5em*/  
+}
+#icl-content-dashboard #edit-op {
+  float:right;
+}
+
+li.icl_no_translator{
+  background-image:url(warning.png);
+  background-repeat: no-repeat;
+  background-position: 0 3px;
+  padding-left: 1.6em;
+  
+  list-style-type: none;
+}
+
+.icl_status {
+    background-color: #FFFBCC; 
+    border: 1pt solid #E6DB55; 
+    padding: 1em; 
+    margin: 0em;
+}
+
+.icl_cyan_box{
+    border: 1px solid #8cceea;
+    background-color: #eff8fc;
+    padding:10px;    
+    margin-bottom:0px;
+    margin-top:25px;
+}
+
+.icl_cyan_box H3 { margin-top: 2px; }
+
+.icl_red_box{
+    border: 2px solid #F73B3B;
+    background-color: #eff8fc;
+    padding:10px;    
+    margin-bottom:0px;
+    margin-top:25px;
+}
+
+.icl_dashboard_table_flag {
+  margin-right: 10px;
+  margin-left: 2px;
+  width: 18px;
+  height: 12px;
+}
+
+img.icl_dashboard_table_icon {
+  margin-left: 2px;
+  margin-right: 10px;
+  width: 18px;
+  float: left;
+}
+
+#icl_auto_update div.form-item div, #icl_auto_update label {
+  clear: both;
+  display: block;
+}
+
+#edit-language-wrapper, #edit-to-wrapper, #edit-translation-wrapper {
+  float: left;
+}
+
+#edit-language-wrapper, #edit-to-wrapper {
+  margin-right: 10px;
+}
+
+#edit-language-wrapper select, #edit-to-wrapper select, #edit-translation-wrapper select {
+  width: auto;
+}
+
+#icl-dashboard-further {
+  clear: both;
+}
+
+#icl_dashboard_show_filter_link_wrapper {
+  clear: both;
+  float: left;
+}
+
+#icl_dashboard_legend .icl_dashboard_hide_legend_link {
+  float: right;
+}
+
+#TB_window .icl_manage_translators_popup {
+  margin-top: 15px;
+}
+
+#TB_window .icl_manage_translators_popup tbody {
+  border: 0;
+}
+
+#TB_window .icl_manage_translators_popup td {
+  padding-bottom: 15px;
+}
+
+#TB_window .icl_manage_translators_popup a, #TB_window .icl_manage_translators_popup a:visited, #TB_window .icl_manage_translators_popup a:link, #TB_window.icl_manage_translators_popup a:active {
+  color: #0000FF;
+  font-weight: bold;
+}
+
+#TB_window .icl_manage_translators_popup img {
+  cursor: pointer;
+  float: left;
+  margin-right: 10px;
+}

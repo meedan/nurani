@@ -1,0 +1,270 @@
+<?php
+
+module_load_include ( 'inc', 'icl_core', 'icl_core.webservices' );
+module_load_include ( 'inc', 'icl_core', 'icl_core.test' );
+
+class IclCoreUnitTest extends IclTestCase {
+
+  /**
+   * Implementation of getInfo().
+   */
+  function getInfo() {
+    return array(
+      'name' => t('ICL core'),
+      'description' => t('Tests the icl core settings.'),
+      'group' => t('ICL core settings'),
+    );
+  }
+
+    
+  /**
+   * Test to make sure that we ask for name, email and password if website id or accesskey aren't set.
+   *
+   */
+  
+  function testSettingsPageNoWebsiteId() {
+    $settings = array();
+    // test all combinations
+    $settings[] = array('id' => '', '$key' => '');
+    $settings[] = array('id' => '11', '$key' => '');
+    $settings[] = array('id' => '', '$key' => '1111111111111111111111111111');
+    
+    foreach($settings as $test_values) {
+    
+      variable_set('icl_core_website_id', $test_values['id']);
+      variable_set('icl_core_accesskey', $test_values['key']);
+  
+      $this->drupalGet(_icl_wrapper_get_drupal_menu('admin/settings/icl-core'));
+      
+      // should ask for first name, last name, email and password.
+      
+      $this->assertRaw('First name', 'Asking for first name');
+      $this->assertRaw('Last name', 'Asking for last name');
+      $this->assertRaw('Email address', 'Asking for email address');
+      $this->assertRaw('Password', 'Asking for password');
+    }
+  }
+
+  /**
+   * Test to make sure that we DON'T ask for name, email and password if website id and accesskey are set.
+   *
+   */
+  
+  function testSettingsPageWithWebsiteId() {
+    variable_set('icl_core_website_id', 56);
+    variable_set('icl_core_accesskey', '66fcc970f321840a881285ae0b586c99');
+
+    $this->drupalGet(_icl_wrapper_get_drupal_menu('admin/settings/icl-core'));
+    
+    // shouldn't ask for first name, last name, email and password.
+    
+    $this->assertNoRaw('First name', 'Asking for first name');
+    $this->assertNoRaw('Last name', 'Asking for last name');
+    $this->assertNoRaw('Email address', 'Asking for email address');
+  }
+
+}
+
+class IclCoreUnitTestSandbox extends IclTestCase {
+
+  /**
+   * Implementation of getInfo().
+   */
+  function getInfo() {
+    if (variable_get ( 'icl_core_mode', ICL_MODE_PRODUCTION ) == ICL_MODE_PRODUCTION) {
+      return array();
+    } else {
+      return array(
+        'name' => t('ICL core sandbox'),
+        'description' => t('Tests the icl core settings on the sandbox server.'),
+        'group' => t('ICL core settings'),
+      );
+    }
+  }
+
+  
+/*
+   function testCreateAccountNoProjectName() {
+    $this->drupalGet(_icl_wrapper_get_drupal_menu('admin/settings/icl-core'));
+    
+    $edit = array();
+    $edit['icl_core_first_name'] = $this->randomName();
+    $edit['icl_core_last_name'] = $this->randomName();
+    $edit['icl_core_email_address'] = $this->randomName(12) . '@mailinator.com';
+    $this->drupalPost(_icl_wrapper_get_drupal_menu('admin/settings/icl-core'), $edit, t('Save configuration'));
+    
+    $this->assertRaw('An account was created for you in ICanLocalize for translating this website. A verification email was sent to', 'Account created');
+    $this->assertRaw("* Name can't be blank", "check name blank error");
+    $this->assertRaw("* Description can't be blank", "check description blank error");
+  }
+*/
+
+  function testCreateAccount() {
+    
+    // This should run the wizard.
+    $this->drupalGet(_icl_wrapper_get_drupal_menu('admin/settings/icl-core'));
+    $this->assertRaw('1. Translation Languages', 'Check for wizard');
+    
+    // check first page
+
+    $this->assertRaw('Translate from English', 'From language');
+    $this->assertRaw('Translate to these languages', 'To languages');
+    $this->assertRaw('Chinese, Simplified', 'Chinese, Simplified');
+    $this->assertRaw('Spanish', 'Spanish');
+    $this->assertRaw('German', 'German');
+    $this->assertRaw('French', 'French');
+    
+    $edit = array();
+    $edit['dest_languages_en[de]'] = TRUE;
+    $edit['dest_languages_en[es]'] = TRUE;
+    $this->drupalPost(_icl_wrapper_get_drupal_menu('admin/settings/icl-core'), $edit, 'Next');
+
+    // check options page.
+    
+    $this->assertRaw('Select the desired translation delivery method:', 'Options page');
+    $edit = array();
+    $edit['icl_core_receive_options'] = 'poll';
+    $this->drupalPost(_icl_wrapper_get_drupal_menu('admin/settings/icl-core'), $edit, 'Next');
+    
+    // check account setup page.
+
+    $edit = array();
+    $edit['icl_core_first_name'] = $this->randomName();
+    $edit['icl_core_last_name'] = $this->randomName();
+    $edit['icl_core_email_address'] = $this->randomName(12) . '@mailinator.com';
+    $edit['icl_core_do_create'] = '1';
+    
+    $this->drupalPost(_icl_wrapper_get_drupal_menu('admin/settings/icl-core'), $edit, t('Create account and Finish'));
+    
+    $this->assertRaw('An account was created for you in ICanLocalize', 'Account created');
+  }
+
+
+}
+
+
+class IclCoreWebServicesUnitTestSandbox extends IclTestCase {
+
+  /**
+   * Implementation of getInfo().
+   */
+  function getInfo() {
+    if (variable_get ( 'icl_core_mode', ICL_MODE_PRODUCTION ) == ICL_MODE_PRODUCTION) {
+      return array();
+    } else {
+      return array(
+        'name' => t('ICL core webservices'),
+        'description' => t('Tests api for the sandbox server.'),
+        'group' => t('ICL core settings'),
+      );
+    }
+  }
+
+  function setUp() {
+    parent::setUp(FALSE); // webservices don't require a full setup.
+  }
+  
+  function test_icl_core_call_service() {
+    variable_set('icl_core_website_id', '96');
+    variable_set('icl_core_accesskey', '277f84e2679899db46bc0607c5f63465');
+
+    $xml = icl_core_call_service('/websites/[wid]/cms_requests.xml?accesskey=[accesskey]', TRUE);
+    $this->assertFalse(is_string($xml), 'Testing core call to icanlocalize');
+  }
+
+  function test_icl_core_get_languages() {
+    variable_set('icl_core_website_id', '96');
+    variable_set('icl_core_accesskey', '277f84e2679899db46bc0607c5f63465');
+
+    $langs = icl_core_fetch_languages(TRUE);
+    $this->assertTrue(isset($langs['langs']['English']), 'Check for English as source language');
+    $this->assertTrue(isset($langs['langs']['German']), 'Check for German as source language');
+  }
+
+  function test_fetch_original_language_code() {
+    variable_set('icl_core_website_id', '96');
+    variable_set('icl_core_accesskey', '277f84e2679899db46bc0607c5f63465');
+
+    $lang = icl_core_fetch_original_language_code(2401);
+    
+    $this->assertTrue($lang['code'] == 'en', "Check original language of rid=2401 is English");
+    
+  }
+  
+  function test_fetch_translation() {
+    variable_set('icl_core_website_id', '96');
+    variable_set('icl_core_accesskey', '277f84e2679899db46bc0607c5f63465');
+
+    $languages = array("French", "German", "Spanish", "Chinese (Simplified)");
+    
+    foreach($languages as $language) {
+      $lang = new stdClass ( );
+      $lang->name = $language;
+  
+      $data = icl_core_fetch_translation(2405, $lang);
+      
+      $this->assertTrue(sizeof($data) == 6, "6 pieces of data returned");
+    }
+    
+    
+  }
+  
+
+}
+
+
+
+class IclCoreLanguages extends IclTestCase {
+
+  /**
+   * Implementation of getInfo().
+   */
+  function getInfo() {
+    return array(
+      'name' => t('ICL core languages'),
+      'description' => t('Tests and compares languages defined in icanlocalize module and defined on ICanLocalize server.'),
+      'group' => t('ICL core languages'),
+    );
+  }
+
+  function setUp() {
+    parent::setUp(FALSE); // don't require a full setup.
+  }
+
+  /*  
+  function test_icl_core_languages() {
+    $response = _icl_wrapper_drupal_http_request( 'http://drupal.icanlocalize.com/sites/default/files/languages.xml' );
+    $xml = new SimpleXMLElement ( $response->data );
+    
+    $this->assertFalse(is_string ( $xml ));
+    
+    $all_languages = _icl_core_get_all_languages();
+    
+    foreach ( $xml->languages->language as $item ) {
+      $name = (string)$item['eng_name'];
+      if ($name == 'Slavic' || $name == 'Norwegian' || $name == 'Panjabi') {
+        $this->assertTrue(TRUE, $name . ' is not supported in Drupal module.');
+      } else {
+        $id = (string)$item['id'];
+        
+        $found = FALSE;
+        
+        foreach($all_languages as $drupal_name => $lang) {
+          if ($lang['name'] == $name && $lang['id'] == $id) {
+            $found = TRUE;
+            break;
+          }
+          
+        }
+        $this->assertTrue($found, 'Language '. $name. ' with id ='. $id . ' is defined in icanlocalize module');
+      }      
+    }
+    
+  }
+  */
+
+
+}
+
+
+?>

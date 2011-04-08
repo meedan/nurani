@@ -1,0 +1,4 @@
+name = Nurani Core
+description = Core Nurani logic and customizations.
+core = 6.x
+package = Nurani

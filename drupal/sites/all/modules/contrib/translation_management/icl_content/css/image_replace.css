@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+a.icl_add_link{
+  background-image:url(add_translation.png);
+  background-repeat: no-repeat;
+  background-position: 0 0px;
+  padding-left: 1.6em;
+  cursor: pointer;
+}
+
+a.icl_edit_link{
+  background-image:url(edit_translation.png);
+  background-repeat: no-repeat;
+  background-position: 0 -2px;
+  padding-left: 1.6em;
+  cursor: pointer;
+}
+
+#icl-content-image-translations .form-item, 
+#icl-content-link-translations .form-item {
+	display: block;
+}

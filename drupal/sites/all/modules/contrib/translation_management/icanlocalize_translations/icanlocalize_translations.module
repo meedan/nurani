@@ -1,0 +1,976 @@
+<?php
+
+// icanlocalize_translations.module
+
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+/**
+ * hook overrides for icanlocalize translation service
+ */
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+
+module_load_include ( 'inc', 'icl_core', 'icl_core.constants' );
+
+function icanlocalize_translations_translation_service() {
+  global $base_url;
+  
+  return array ('icanlocalize_translations' =>
+                array('name' => 'ICanLocalize',
+                      'logo' => $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/web_logo_large.png',
+                      'logo_medium' => $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/web_logo_medium.png',
+                      'logo_small' => $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/web_logo_small_2.png',
+                      'tagline_manage_translators' => t('%3$sProfessional Translators from ICanLocalize%4$s<br />Browse resumes of %1$s to %2$s translators from ICanLocalize and invite the ones you like. <a href="http://www.icanlocalize.com/destinations/go?name=drupal-howto&src=' . $base_url. '" target="_blank">Learn more</a>'),
+                      'description' => t('Drupal experts. Professional, quality assured translations'),
+                      'more_info_url' => array('http://www.icanlocalize.com/destinations/go?name=drupal-howto&src=' . $base_url . '" target="_blank', t('Learn more'))
+                ));
+}
+
+function icanlocalize_translations_get_translators($from, $to) {
+
+  $wid = variable_get ( 'icl_core_website_id', FALSE );
+  $accesskey = variable_get ( 'icl_core_accesskey', FALSE );
+  if ($wid == FALSE || $accesskey == FALSE) {
+    // return an empty array
+    return array();    
+  }
+  
+  $langs = icl_core_fetch_languages(TRUE);
+  $from_name = icl_core_get_language_name($from);
+  $to_name = icl_core_get_language_name($to);
+  
+  if (!is_string($langs)) {
+    if (isset($langs['translators'][$from_name][$to_name])) {
+      return $langs['translators'][$from_name][$to_name];
+    }
+  }
+  return array();
+}
+
+function icanlocalize_translations_translators_setup_url($from, $to) {
+  return _icl_wrapper_url('icl-translations/manage-translators', array('query' => 'from=' . $from . '&amp;to=' . $to));
+}
+
+function icanlocalize_translations_translators_setup_url_filter_link($link, $url) {
+  $link = '<a href="#" onClick="iclThickboxReopen(\''. $url . '\')">';
+  return $link;
+}
+
+function icanlocalize_translations_get_translation_service_info() {
+  global $base_url;
+  
+  $arr = icl_core_fetch_languages(TRUE);
+  if (!is_string($arr)) {
+    $icl_url_https = icl_core_get_icl_url();
+    $icl_url_http = str_replace('https://', 'http://', $icl_url_https);
+    
+    $arr['html_status'] = htmlspecialchars_decode($arr['html_status']);
+    $arr['html_status'] = str_replace($icl_url_https, '', $arr['html_status']);
+    $arr['html_status'] = str_replace($icl_url_http, '', $arr['html_status']); // check for http as well
+    preg_match_all("/<a\shref\s*=\s*([\"\']??)([^\"]*)[\"']>/siU", $arr['html_status'], $matches, PREG_PATTERN_ORDER);
+    foreach ($matches[0] as $k => $match) {
+      $arr['html_status'] = str_replace($match, icl_create_icl_popup_link($matches[2][$k]), $arr['html_status']);
+    }
+    $arr['html_status'] = str_replace($matches[0][0], icl_create_icl_popup_link($matches[2][0]), $arr['html_status']);
+    
+    $arr['html_status'] .= l(t('Synchronize translation jobs with ICanLocalize'), $base_url . _icl_wrapper_url('icl-translations/sync-canceled')) . '<br /><br />';
+    
+    $image = '<img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/web_logo_small_2.png"><br />';
+    return $arr['html_status'] == '-' ? '' : $image . $arr['html_status'];
+  } else {
+    // We haven't setup an account yet.
+    // Display help
+    
+    $output = '<img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/web_logo_small_2.png"><br />';
+    return $output . t('<a href="http://www.icanlocalize.com/destinations/go?name=drupal-howto&src=' . $base_url . '" target="_blank"><b>Learn more</b></a> about translating your content with <a href="http://www.icanlocalize.com/site/">ICanLocalize</a>');
+  }
+}
+
+function icanlocalize_translations_menu() {
+  $items['icl-translations/manage-translators'] = array (
+      'page callback' => 'icanlocalize_translations_manage_translators', 
+      'page arguments' => array (),
+      'access arguments' => array(ICL_TRANSLATE_MANAGE_JOBS),
+      'type' => MENU_CALLBACK, 
+      'file' => 'icanlocalize_translations.module' );
+  $items['icl-translations/quote-get'] = array (
+      'page callback' => 'icanlocalize_translations_quote_get',
+      'page arguments' => array (),
+      'access arguments' => array(ICL_TRANSLATE_MANAGE_JOBS),
+      'type' => MENU_CALLBACK,
+      'file' => 'icanlocalize_translations.quote_get.inc' );
+  $items['icl-translations/sync-canceled'] = array (
+      'page callback' => 'drupal_get_form', 
+      'page arguments' => array (
+          'icanlocalize_translations_sync_canceled' ), 
+      'access arguments' => array(ICL_TRANSLATE_MANAGE_JOBS),
+      'file' => 'icanlocalize_translations.module' );
+  
+  
+  return $items;
+}
+
+function icanlocalize_translations_manage_translators() {
+  $from = $_GET['from'];
+  $to = $_GET['to'];
+  
+  module_load_include ('inc', 'icl_core', 'icl_core.webservices');
+
+  $wid = variable_get ( 'icl_core_website_id', FALSE );
+  $accesskey = variable_get ( 'icl_core_accesskey', FALSE );
+  if ($wid == FALSE || $accesskey == FALSE) {
+    // Create a temporary account.
+    
+    icl_core_create_anon_account();
+    $wid = variable_get ( 'icl_core_website_id', FALSE );
+    $accesskey = variable_get ( 'icl_core_accesskey', FALSE );
+  }
+
+  if ($wid == FALSE || $accesskey == FALSE) {
+    
+    // Something has gone wrong
+    drupal_set_message(t('Failed to create a temporary account at ICanLocalize. Please contact <a href="http://www.icanlocalize.com/site/about-us/contact-us/">ICanLocalize support</a>.'), 'error');
+    
+    _icl_wrapper_drupal_goto(_icl_wrapper_get_root_menu('translation-management/dashboard'));
+    
+  }
+
+  $langs = icl_core_fetch_languages(TRUE);
+  
+  $count = 0;
+  while ($count < 2) {
+  
+    $lang_pair_exists = FALSE;
+  
+    $from_name = icl_core_get_language_name($from);
+    $to_name = icl_core_get_language_name($to);
+    
+    if (isset($langs['langs'][$from_name])) {
+      foreach ($langs['langs'][$from_name] as $to_lang) {
+        if ($to_lang == $to_name) {
+          $lang_pair_exists = TRUE;
+          break;
+        }
+      }
+    }
+  
+    if ( !$lang_pair_exists ) {
+      // need to add the language pair.
+
+      $count += 1;
+      if ($count == 2) {
+        // we didn't manage to add last time so something is wrong.
+        drupal_set_message(t('Failed to add language pair <b>!from to !to</b>. Please contact <a href="http://www.icanlocalize.com/site/about-us/contact-us/">ICanLocalize support</a>.',
+                             array('@from' => $from_name, '@to' => $to_name)), 'error');
+        
+        _icl_wrapper_drupal_goto(_icl_wrapper_get_root_menu('translation-management/dashboard'));
+      }
+      
+      icl_core_add_language($from_name, $to_name, $langs['langs'], $wid, $accesskey);
+      $langs = icl_core_fetch_languages(TRUE, FALSE, FALSE);
+    } else {
+      // break out of the while loop
+      break;
+    }
+    
+  }
+  
+  $offer_url = icl_core_get_icl_url() . '/websites/' . $wid . '/website_translation_offers/' .  $langs['offer_id'][$from_name][$to_name];
+  _icl_wrapper_drupal_goto($offer_url, 'accesskey=' . $accesskey . '&compact=1');
+  
+}
+
+function icanlocalize_translations_request_translation($rid, $from, $to, $previous_rid, $translator_id, $link_to = '', $title = '') {
+
+  $languages = locale_language_list();
+
+  $data = array();
+  
+  $fields = icl_translate_get_fields($rid);
+  
+  foreach ($fields as $field) {
+    
+    $output = array();
+    
+    $output['translate'] = $field['field_translate'];
+    $output['type'] = $field['field_type'];
+    $output['text'] = unserialize($field['field_data']);
+    $output['format'] = $field['field_format'];
+    
+    if ($field['field_data_translated'] != "") {
+      $output['translation'] = unserialize($field['field_data_translated']);
+    }
+    
+    $data[] = $output;
+  }
+  
+  $to_langs = array();
+  foreach ($to as $target) {
+    $to_langs[] = icl_core_get_language_name($target->language);
+  }
+  
+  // get the previous service rid to match the previous rid
+  $previous_rid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT service_rid FROM {icl_core_status} WHERE rid=%d AND translation_service='icanlocalize'", $previous_rid));
+  $service_rid = icl_core_request_translation($data,
+                                              icl_core_get_language_name($from->language),
+                                              $to_langs,
+                                              $previous_rid,
+                                              $translator_id,
+                                              $link_to,
+                                              $title);
+  
+  if ($service_rid) {
+    if ($title != '') {
+      $message = t('%title has been sent to ICanLocalize for translation to %lang',
+                        array('%lang' => $languages[$to[0]->language],
+                              '%title' => $title));
+    } else {
+      $message = t('Content has been sent to ICanLocalize for translation to %lang',
+                        array('%lang' => $languages[$to[0]->language]));
+    }
+  } else {
+      $message = t('Failed to send for translation to ICanLocalize for %lang', array('%lang' => $languages[$to[0]->language]));
+  }
+  return array('service_rid' => $service_rid, 'status' => ICL_STATUS_INQUEUE, 'message' => $message);    
+  
+}
+
+function icanlocalize_translations_poll_for_translations() {
+  $receive_setting = variable_get ( 'icl_core_receive_options', ICL_CORE_RECEIVE_XMLRPC );
+  if ($receive_setting == ICL_CORE_RECEIVE_POLL) {
+    $wid = variable_get ( 'icl_core_website_id', FALSE );
+    if ($wid !== FALSE) {
+      _icl_core_poll_status ();
+    }
+  }
+  
+  icanlocalize_translations_process_translations();
+}
+
+function icanlocalize_translations_process_translations() {
+  
+  // Process per request status changes
+  $sql = "
+    SELECT
+      rid,
+      service_rid, 
+      status, 
+      origin,
+      target,
+      module,
+      translation_service
+    FROM 
+      {icl_core_status} 
+    WHERE
+      status = %d AND translation_service = '%s'";
+  $query = _icl_wrapper_db_query( $sql, ICL_STATUS_READY, 'icanlocalize');
+  while ( $request = db_fetch_object ( $query ) ) {
+    if ($request->status == ICL_STATUS_READY) {
+      
+      // Fetch the translations from the server.
+      
+      $data = icl_core_fetch_translation ( $request->service_rid, $request->target );
+      
+      // Make sure the job is in the translation table
+      if (_icl_wrapper_db_result(_icl_wrapper_db_query("SELECT rid FROM icl_translate where rid=%d", $request->rid)) != $request->rid) {
+        foreach ($data as $index => $item) {
+          if (isset($item['original_data'])) {
+            $data[$index]['text'] = $item['original_data'];
+          } else {
+            $data[$index]['text'] = $item['data'];
+          }
+        }
+        _icl_translate_insert_bulk($request->rid, $data, $request->target);
+      }
+      
+      foreach ($data as $item) {
+        if ($item['translate'] == '1') {
+          $type = $item['type'];
+          $data = $item['data'];
+          
+          icl_translate_update_field_translation($request->rid, $type, $data, 1);
+        }
+      }
+      
+      $status = icl_translate_process_translation($request->rid, $request->target);
+      
+      if (ICL_STATUS_SUCCESSFUL == $status) {
+        
+        // set the language status to done
+        _icanlocalize_translations_set_remote_status ( $request->service_rid, CMS_TARGET_LANGUAGE_DONE, $request->target );
+        
+        // are all languages in this request done?
+        $min_status = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT MIN(status) FROM {icl_core_status} WHERE service_rid = %d", $request->service_rid));
+        if ($min_status == ICL_STATUS_SUCCESSFUL) {
+          // set the overall status to complete
+          _icanlocalize_translations_set_remote_status ( $request->service_rid, ICL_STATUS_SUCCESSFUL );
+        }
+      }
+      
+    }
+  }
+  
+}
+
+
+/**
+ * Sets the remote status for a rid.
+ * This also sets the local status.
+ *
+ * @param int $rid
+ * @param int $status
+ * @param string $language
+ */
+function _icanlocalize_translations_set_remote_status($rid, $status, $language = null) {
+  if ($language == null) {
+    icl_core_update_remote_status ( $rid, $status );
+  } else {
+    icl_core_update_remote_status ( $rid, $status, icl_core_get_language_name($language) );
+  }
+}
+
+/**
+ * Implementation of hook_xmlrpc()
+ * @see http://api.drupal.org/api/function/hook_xmlrpc/6
+ *
+ * @return array() The XML-RPC method definitions
+ */
+function icanlocalize_translations_xmlrpc() {
+  return array ( // Translation status method
+      array (
+          'icanlocalize.set_translation_status', 
+          'icanlocalize_translations_xmlrpc_callback', 
+          array (
+              'int',  // Return value, see handler function head comment
+              'string',  // Signature
+              'int',  // Website ID
+              'int',  // CMS request ID
+              'string',  // The original language
+              'string',  // The language of translation
+              'int',  // Translation status
+              'string' ),  // Status message
+          t ( 'Handles translation status postbacks from ICanLocalize.com' ) ),
+      array (
+          'icanlocalize.test_xmlrpc', 
+          'icanlocalize_translations_xmlrpc_test_notification', 
+          array (
+              'int'),
+          t ( 'Handles translation status postbacks from ICanLocalize.com' ) ),
+      array (
+          'icanlocalize.query_node_translation', 
+          'icanlocalize_translations_xmlrpc_query_node_translation', 
+          array (
+              'string',  // Return value, return node translation status as a string
+              'string',  // Signature
+              'int',  // Website ID
+              'int'),  // Node id
+          t ( 'Returns translation status of a node' ) ),
+      array (
+          'icanlocalize.cancel_translation', 
+          'icanlocalize_translations_xmlrpc_cancel_translation', 
+          array (
+              'int',  // Return value, see handler function head comment
+              'string',  // Signature
+              'int',  // Website ID
+              'int'),  // CMS request ID
+          t ( 'Cancels a translation request from ICanLocalize.com' ) ),
+      );
+}
+
+
+
+/* ============== [ Callbacks ] =================== */
+
+/**
+ * function that can be called to see if xmlrpc is working.
+ */
+
+function icanlocalize_translations_xmlrpc_test_notification() {
+  return TRUE;
+}
+/*
+ * The XML-RPC method to notify about translation status changes
+ *
+ * 0 – Unknown error
+ * 1 – success
+ * 2 – Signature failed
+ * 3 – website_id incorrect
+ * 4 – cms_request_id not found
+ * 10 - Nonexistent target language in Drupal
+ */
+function icanlocalize_translations_xmlrpc_callback($signature, $website_id, $request_id, $original_language, $language, $status, $message) {
+  $accesskey = variable_get ( 'icl_core_accesskey', 0 );
+  $checksum = $accesskey . $website_id . $request_id . $language . $status . $message;
+  if (sha1 ( $checksum ) == $signature) {
+    $wid = variable_get ( 'icl_core_website_id', 0 );
+    if ($website_id == $wid) {
+      $languages = language_list('enabled');
+      $languages = $languages[1];
+      
+      $langs = _icl_core_available_targets();
+      foreach ($langs as $code => $lang) {
+        if ($lang->name == $language) {
+          $language = $languages[$lang->code];
+        }
+      }
+      if (!is_object($language)) {
+        return 10;
+      }
+            
+      $local_rid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT rid FROM {icl_core_status} WHERE service_rid=%d AND target='%s'", $request_id, $language->language));
+      $success = icl_core_set_local_status ( $local_rid, $status, array ( $language ) );
+      if ($success) {
+        // run the update.
+        icanlocalize_translations_process_translations();
+        icl_core_post_process_translations();
+        return 1; // Success
+      } else {
+        // Request id not found (or language not found)
+
+        // the request id was not found in {icl_core_status}, try {icl_content_status}
+        $sql = "SELECT * FROM {icl_content_status} WHERE rid = %d";
+
+        $result = _icl_wrapper_db_query( $sql, $request_id );
+        if (_icl_wrapper_db_result($result) !== false) {
+
+          // request id is valid so add status to table.
+          
+          $sql = "INSERT INTO {icl_core_status} (rid, module, origin, target, status) VALUES (%d, '%s', '%s', '%s', %d)";
+          _icl_wrapper_db_query( $sql, $request_id, 'icl_content', $original_language, $langcode, $status);
+          icl_core_notify_translation_status($request_id, $langcode, $status);
+
+          // run the update.
+          icl_core_post_process_translations();
+          return 1;
+        } else {
+          return 4;
+        }
+      }
+    } else {
+      return 3; // Website id incorrect
+    }
+  } else {
+    return 2; // Signature failed
+  }
+  
+  return 0;
+}
+
+/**
+ * function: icanlocalize_translations_xmlrpc_query_node_translation
+ *
+*/
+  
+function icanlocalize_translations_xmlrpc_query_node_translation($signature, $website_id, $node_id) {
+  $accesskey = variable_get ( 'icl_core_accesskey', 0 );
+  $checksum = $accesskey . $website_id . $node_id;
+  if (sha1 ( $checksum ) == $signature) {
+    $wid = variable_get ( 'icl_core_website_id', 0 );
+    if ($website_id == $wid) {
+      $output = '';
+      $node = node_load($node_id);
+      $output .= 'tnid = '. $node->tnid;
+      $output .= "\nNode type = ". $node->type;
+      
+      if ($node->type == "book") {
+        if ($node->book['bid'] == $node_id) {
+          // this is the root of the book
+          $output .= "\nThis is the root of a book";
+        } else {
+          // this is a child page.
+          $output .= "\nThis is a book page of book ". $node->book['bid'];
+        }
+      }
+      
+      $rid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT rid FROM {icl_content_status} WHERE nid = %d", $node_id));
+      
+      if ($rid !== FALSE) {
+        $output .= "\ncms_request_id = ". $rid;
+      } else {
+        $output .= "\nNot managed by ICanLocalize";
+      }
+      
+      $translations = icl_content_translation_node_get_translations($node_id);
+      return array('data' => $output,
+                   'translations' => $translations);
+      
+    }
+  }
+  
+  return 'access denied';
+}
+
+/*
+ * The XML-RPC method to notify about translation status changes
+ *
+ * 0 – Unknown error
+ * 1 – success
+ * 2 – Signature failed
+ * 3 – website_id incorrect
+ * 4 – cms_request_id not found
+ */
+function icanlocalize_translations_xmlrpc_cancel_translation($signature, $website_id, $request_id) {
+  $accesskey = variable_get ( 'icl_core_accesskey', 0 );
+  $checksum = $accesskey . $website_id . $request_id;
+  if (sha1 ( $checksum ) == $signature) {
+    $wid = variable_get ( 'icl_core_website_id', 0 );
+    if ($website_id == $wid) {
+      
+      $rid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT rid FROM {icl_core_status} WHERE service_rid = %d", $request_id));
+      
+      if ($rid !== FALSE) {
+        // cms_request have been found.
+        // delete it
+        
+        icl_translate_cancel_job($rid);
+        return 1;
+      } else {
+        return 4; // cms_request not found
+      }
+    } else {
+      return 3; // Website id incorrect
+    }
+  } else {
+    return 2; // Signature failed
+  }
+  
+  return 0; // Should not have got here - unknown error.
+}
+
+/*
+ * Implementation of hook_add_notifications
+ * @see icl_translate.module
+ */
+function icanlocalize_translations_add_notifications() {
+  module_load_include('inc', 'icl_core', 'icl_core.webservices');
+  $reminders = icl_core_get_reminders();
+  if (!empty($reminders)) {
+    foreach ($reminders as $r) {
+      
+      $message = $r->message;
+      $message = str_replace('[', '<', $message);
+      $message = str_replace(']', '>', $message);
+      
+      if (!_icl_wrapper_db_result(_icl_wrapper_db_query("SELECT id FROM {icl_notifications} WHERE message LIKE '%%s%'", ':"' . $message . '&nbsp;<a'))) {
+        
+        $url = $r->url;
+        $anchor_pos = strpos($url, '#');
+        if ($anchor_pos !== false) {
+          $url = substr($url, 0, $anchor_pos);
+        }
+        
+        $view_link = icl_create_icl_popup_link($url . '&message_id=' . $r->id) . _icl_wrapper_t('View', array(), language_default()->language) . '</a>';
+        
+        icl_translate_add_notification($message . '&nbsp;' . $view_link, 0, FALSE);
+        if ($r->can_delete) {
+          //$_POST['message_id'] = $r->id;
+          //icl_core_delete_reminder();
+        }
+      }
+    }
+  }
+}
+
+/**
+* Implementation of hook_form_alter().
+*/
+function icanlocalize_translations_form_alter(&$form, $form_state, $form_id) {
+  $accesskey = variable_get ( 'icl_core_accesskey', 0 );
+  $wid = variable_get ( 'icl_core_website_id', 0 );
+  if ($wid === 0 || $accesskey === 0) {
+    return;
+  }
+  
+  switch ($form_id) {
+    
+    case 'icl_translate_admin_settings':
+      $form['icl_core_translation_options'] = array (
+        '#type' => 'fieldset', 
+        '#title' => t ( 'ICanLocalize Translation options' ), 
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE
+      );
+      $options = array (
+        ICL_CORE_RECEIVE_XMLRPC => t('Translations will be posted back to this Drupal website via XML-RPC'),
+        ICL_CORE_RECEIVE_POLL => t('This Drupal installation will poll for translations')
+      );
+      $form['icl_core_translation_options'] ['icl_core_receive_options'] = array (
+        '#type' => 'radios', 
+        '#title' => t ( 'Select the desired translation delivery method' ), 
+        '#multiple' => FALSE, 
+        '#options' => $options, 
+        '#default_value' => variable_get ( 'icl_core_receive_options', ICL_CORE_RECEIVE_XMLRPC ), 
+        '#description' => t ( 'Choose polling if your site is inaccessible from the Internet' )
+      );
+      $form['icl_core_translation_options'] ['icl_core_notifications'] = array (
+        '#type' => 'checkboxes', 
+        '#title' => t ( 'Notification preferences' ), 
+        '#options' => array(
+          '1' => 'Send an email notification when translations complete',
+          '2' => 'Send an alert when translations delay for more than 4 days'
+        ),
+        '#default_value' => variable_get('icl_core_notifications', array('1', '2')),
+        '#description' => t("ICanLocalize will send notifications messages via email of these events"),
+      );
+      
+      if (variable_get ( 'icl_core_website_id', '' ) != '' && variable_get ( 'icl_core_accesskey', '' ) != '') {
+      
+        $user_status = variable_get('icl_core_user_status', -1);
+        if ($user_status != ICL_USER_STATUS_CLOSED) {
+          $form ['icl_core_translation_options']['icl_core_balance_message'] = _icl_wrapper_form_create_markup(array (
+            '#type' => 'markup',
+            '#value' => t ("<b>ICanLocalize Account</b><br>There's no up-front or subscription payment for using ICanLocalize Translator. You pay only for translation jobs that you send. You can make your first payment when sending documents to translation. !more_info", array('!more_info' => ICL_DRUPAL_TRANSLATION_INFO)),
+            '#prefix' => '<div id="icl_core_balance_message">',
+            '#suffix' => '</div>',
+          ));
+          $form ['icl_core_translation_options'] ['icl_balance_warning'] = array (
+            '#type' => 'textfield', 
+            '#title' => t ( 'Account balance warning' ), 
+            '#default_value' => number_format((float)variable_get ( 'icl_balance_warning', 50 ), 2, '.', ''), 
+            '#description' => t ( 'Warn me when the account balance goes below this value, in USD')
+          );
+        
+        } else {
+          $form ['icl_core_user'] = array (
+            '#type' => 'fieldset', 
+            '#title' => t ( 'ICanLocalize account closed' ), 
+            '#collapsible' => FALSE
+          );
+          $form ['icl_core_user'] ['icl_core_user_message'] = _icl_wrapper_form_create_markup(array(
+            '#type' => 'markup',
+            '#value' => 'Your ICanLocalize account has been closed. Translation is disabled.',
+          ));
+        }
+      }
+      
+      //$form['#validate'][] = 'icanlocalize_translations_admin_settings_validate';
+      $form['#submit'][] = 'icanlocalize_translations_admin_settings_submit';
+      break;
+    
+    
+  }
+}
+
+function icanlocalize_translations_admin_settings_submit($form, &$form_state) {
+  global $base_url;
+  
+  $notifications = 0;
+  foreach($form_state['values']['icl_core_notifications'] as $key => $value) {
+    if ($key == $value) {
+      $notifications += pow(2, (int)$key - 1);
+    }
+  }
+  $project_kind = 2;
+
+  $accesskey = variable_get ( 'icl_core_accesskey', 0 );
+  $wid = variable_get ( 'icl_core_website_id', 0 );
+
+  $result = icl_core_update_cms($accesskey,
+                                    $wid,
+                                    0,
+                                    $base_url,
+                                    '',
+                                    '',
+                                    $form_state['values']['icl_core_receive_options'] == ICL_CORE_RECEIVE_POLL,
+                                    FALSE,
+                                    $notifications,
+                                    $project_kind,
+                                    FALSE,
+                                    FALSE);
+  
+  if (is_string ( $result )) {
+    // we got an error
+    form_set_error('', $result);
+  }  
+}
+
+function icanlocalize_translations_get_translation_job_status($rid, $language) {
+  if ($service_rid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT service_rid FROM {icl_core_status} WHERE rid=%d AND translation_service='%s'", $rid, 'icanlocalize'))) {
+    
+    $translators = icl_core_fetch_translators_and_word_count($service_rid);
+    $job = _icl_translate_get_job_info($rid);
+    
+    if (!empty($translators) && isset($translators[$language])) {
+      $header = array();
+      $rows = array();
+      
+      $row = array();
+      $row[] = t('Language');
+      $row[] = $job['origin']['name'] . ' >> ' . $job['target']['name'];
+      $rows[] = $row;
+      
+      $row = array();
+      $row[] = t('Status');
+      $row[] = icanlocalize_translations_get_status_txt($translators[$language]['status']);
+      $rows[] = $row;
+      
+      $row = array();
+      $row[] = t('Translator');
+      if (empty($translators[$language]['translator'])) {
+        $row[] = t('Translation not started');
+      }
+      else {
+        $chat_link = '/websites/' . variable_get('icl_core_website_id', '') . '/cms_requests/' . $service_rid . '/chat?lang='. $job['target']['name'] . '&no_refresh=1';
+        $row[] = icl_create_icl_popup_link($chat_link) . $translators[$language]['translator'] . '</a>';
+      }
+      
+      $rows[] = $row;
+      
+      $row = array();
+      $row[] = t('Word count');
+      $row[] = $translators[$language]['word_count'];
+      $rows[] = $row;
+
+      if ($job['status'] == ICL_STATUS_FAILED) {
+        icl_translate_cancel_job($rid);
+      }
+      
+      return theme_table($header, $rows, array('cellpadding' => 0, 'cellspacing' => 0));
+    }
+  }
+}
+
+function icanlocalize_translations_get_status_txt($status) {
+  switch ($status) {
+    
+    case CMS_TARGET_LANGUAGE_TRANSLATED:
+      return t('Translated - waiting for pickup');
+      break;
+    
+    case CMS_TARGET_LANGUAGE_DONE:
+      return t('Complete');
+      break;
+    
+    default:
+      return t('Not done');
+  }
+}
+
+
+function icanlocalize_translations_update_translation_link($rid,
+                                          $language,
+                                          $translation_nid) {
+  if ($service_rid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT service_rid FROM {icl_core_status} WHERE rid=%d AND translation_service='%s'", $rid, 'icanlocalize'))) {
+  
+    global $base_url;
+    
+    $website_id = variable_get ( 'icl_core_website_id', FALSE );
+    $accesskey = variable_get ( 'icl_core_accesskey', FALSE );
+    
+    $post = array(
+      'accesskey' => $accesskey,
+      'language' => icl_core_get_language_name($language),
+      'permlink' => $base_url . '/node/' . $translation_nid,
+    );
+  
+    $xml = icl_core_call_service ( '/websites/' . $website_id . '/cms_requests/'. $service_rid . '/update_permlink.xml', TRUE, $post);
+  }
+}
+
+function icanlocalize_translations_translation_dashboard_action_form($form_in = array()) {
+  $wid = variable_get ( 'icl_core_website_id', FALSE );
+  if ($wid != FALSE) {
+    $platform_info = array();
+    $clear_cache = FALSE;
+  
+    if (isset($_GET['icl_refresh_langs'])){
+      $clear_cache = TRUE;
+    }
+  
+    $ican_languages = icl_core_available_languages ( $clear_cache, $platform_info, TRUE );
+    $icl_core_languages = variable_get('icl_core_languages', array());
+  
+    // check for a change of url
+    if (icl_core_is_icl_stored_url_ok($platform_info)) {
+      unset ( $form_in['icl_url_changed'] );
+    } else {
+      icl_core_get_url_changed_message ( $form_in['icl_url_changed'], $platform_info );
+    }
+  }
+  
+  return $form_in;
+}
+
+function icanlocalize_translations_manage_translators_list($args) {
+  $wid = variable_get ('icl_core_website_id', FALSE );
+  
+  $users = array();
+  
+  if ($wid !== FALSE) {
+    $data = icl_core_fetch_languages(TRUE);
+    $translators = $data['translators'];
+    
+    if (!empty($translators) && is_array($translators)) {
+      drupal_add_js(drupal_get_path('module', 'icl_core') . '/js/icl_core.js');
+      drupal_add_js(drupal_get_path('module', 'icl_core') . '/js/icl_reminders.js');
+      
+      foreach ($translators as $from => $to_list) {
+        
+        foreach ($to_list as $to => $keys) {
+          foreach ($keys as $key => $translator) {
+            $contract_id = $data['contract_id'][$from][$to];
+            $offer_id = $data['offer_id'][$from][$to];
+            if (isset($contract_id) && $contract_id != 0 && isset($offer_id) && $offer_id != 0) {
+              $users[$translator['id']]['name'] = $translator['name'];
+              $users[$translator['id']]['langs'][$from][] = $to;
+              $users[$translator['id']]['type'] = 'ICanLocalize';
+              $users[$translator['id']]['action'] = icl_create_icl_popup_link('/websites/' . $wid
+                . '/website_translation_offers/' . $offer_id . '/website_translation_contracts/'
+                . $contract_id, t('Chat with translator')) . t('Chat with translator') . '</a>';
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  return $users;
+}
+
+function icanlocalize_translations_manage_translators_messages($no_heading = FALSE) {
+  $wid = variable_get ('icl_core_website_id', FALSE );
+  
+  if ($wid !== FALSE) {
+  
+    $data = icl_core_fetch_languages(TRUE);
+    if (isset($data['translators_management_info']) && !empty($data['translators_management_info']) && is_string($data['translators_management_info'])) {
+  
+      drupal_add_js(drupal_get_path('module', 'icl_core') . '/js/icl_core.js');
+      drupal_add_js(drupal_get_path('module', 'icl_core') . '/js/icl_reminders.js');
+  
+      $message = html_entity_decode($data['translators_management_info']);
+      preg_match_all("/<a\shref\s*=\s*([\"\']??)([^\"]*)[\"']>(.*)<\/a>/siU", $message, $matches);
+      // @todo Remove
+      //echo '<pre>'; print_r($matches);
+  
+      $icl_url_https = icl_core_get_icl_url();
+      $icl_url_http = str_replace('https://', 'http://', $icl_url_https);
+      if (!empty($matches[2])) {
+        foreach ($matches[2] as $key => $value) {
+          $url = str_replace($icl_url_https, '', $value);
+          // Check for non-secure url as well.
+          $url = str_replace($icl_url_http, '', $url);
+          
+          $popup = icl_create_icl_popup_link($url, ' ');
+          $message = preg_replace('/<a href=[\'"]' . str_replace('/', '\/', str_replace('?', '\?', $value)) . '[\'"]>/', $popup, $message);
+        }
+      }
+
+      if ($no_heading) {  
+        return $message;
+      } else {
+        return '<h3>ICanLocalize</h3>' . $message;
+      }
+    }
+  }
+}
+
+function icanlocalize_translations_translation_dashboard_help_form() {
+  drupal_add_js('misc/jquery.form.js', 'core'); //$form['xcvxcv'] = array('#type' => 'markup', '#value' => '<a href="' . url('icl-translations/quote-get') . '" class="thickbox">GET QUOTE</a>');
+  $translator_message = icanlocalize_translations_manage_translators_messages(TRUE);
+  
+  $link_get_quote = '<a href="' . url('icl-translations/quote-get') . '" class="thickbox">' . t('Get quote') . ' &raquo;</a>';
+  
+  if (isset($translator_message)) {
+    $link = l(t('Add more translators from ICanLocalize &raquo;'), _icl_wrapper_get_root_menu('translation-management/manage-translator'), array('query' => array('translation_service' => 'icanlocalize_translations')));
+    $link = str_replace('&amp;', '&', $link);
+    $message = '<p><strong>' . t('Connects you with freelance professional translators where you can interview and choose the best ones for your project.') . '</strong></p><p>'. $link_get_quote . '<br />' . $link . '</p>';
+    $message .= $translator_message;
+    return $message;
+  } else {
+    $link = l(t('Add translators from ICanLocalize &raquo;'), _icl_wrapper_get_root_menu('translation-management/manage-translator'), array('query' => array('translation_service' => 'icanlocalize_translations')));
+    $link = str_replace('&amp;', '&', $link);
+    return '<strong>' . t('Connects you with freelance professional translators where you can interview and choose the best ones for your project.</strong><br />!link<br />!linkquote', array('!link' => $link, '!linkquote' => $link_get_quote));
+  }
+}
+
+function icanlocalize_translations_sync_canceled() {
+  $form = array();
+
+  $languages = locale_language_list();
+
+  $requests = icl_core_fetch_translation_statuses(false);
+
+  $canceled_translations = array();
+  $query = _icl_wrapper_db_query("SELECT rid, service_rid, origin, target FROM {icl_core_status} WHERE status<6 AND translation_service='icanlocalize'");
+  while ( $request = db_fetch_object ( $query ) ) {
+    if (!in_array($request->service_rid, $requests)) {
+      $canceled_translations[] = $request;
+    }
+  }
+  
+  $canceled_titles = array();
+  foreach($canceled_translations as $index => $request) {
+    $nid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT nid FROM {icl_content_status} WHERE rid=%d", $request->rid));
+    if ($nid) {
+      $title = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT title FROM {node} WHERE nid=%d", $nid));
+      $canceled_titles[$nid . '_' . $request->origin . '_' . $request->target] = t('!title from !origin to !target', array('!title' => $title,
+                                                                                                                            '!origin' => $languages[$request->origin],
+                                                                                                                            '!target' => $languages[$request->target]));
+    }
+  
+  }
+ 
+  if (sizeof($canceled_titles) > 0) {
+    $form['icl_canceled_1'] =  _icl_wrapper_form_create_markup(array(
+      '#type' => 'markup',
+      '#prefix' => '<strong>',
+      '#suffix' => '</strong>',
+      '#value' => t('The following translation jobs appear to be canceled on ICanLocalize\'s server.'),
+    ));
+    
+    $form['canceled'] = array('#type' => 'checkboxes', '#options' => $canceled_titles, '#default_value' => array_keys($canceled_titles));
+  
+    $form['icl_canceled_2'] =  _icl_wrapper_form_create_markup(array(
+      '#type' => 'markup',
+      '#prefix' => '<strong>',
+      '#suffix' => '</strong><br />',
+      '#value' => t('The above translation jobs appear to be canceled on ICanLocalize\'s server.'),
+    ));
+    
+    $form['delete_selected'] = array(
+      '#type' => 'submit',
+      '#submit' => array('icanlocalize_translations_sync_canceled_submit'),
+      '#value' => t('Delete the selected translation jobs'),
+    );
+    
+  } else {
+    $form['icl_canceled_1'] =  _icl_wrapper_form_create_markup(array(
+      '#type' => 'markup',
+      '#prefix' => '<strong>',
+      '#suffix' => '</strong>',
+      '#value' => t('All the translation jobs appear to be in sync with those on ICanLocalize\'s server.'),
+    ));
+  }
+  return $form;  
+}
+
+function icanlocalize_translations_sync_canceled_submit($form, &$form_state) {
+  $requests = icl_core_fetch_translation_statuses(false);
+
+  $canceled_translations = array();
+  $query = _icl_wrapper_db_query("SELECT rid, service_rid, origin, target FROM {icl_core_status} WHERE status<6 AND translation_service='icanlocalize'");
+  while ( $request = db_fetch_object ( $query ) ) {
+    if (!in_array($request->service_rid, $requests)) {
+      $canceled_translations[] = $request;
+    }
+  }
+  
+  $canceled_titles = array();
+  foreach($canceled_translations as $index => $request) {
+    $nid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT nid FROM {icl_content_status} WHERE rid=%d", $request->rid));
+    $canceled_titles[$nid . '_' . $request->origin . '_' . $request->target] = $request->rid;
+  }
+  
+  foreach($form_state['values']['canceled'] as $index => $value) {
+    if ($index == $value) {
+      
+      // OK to delete
+      if (isset($canceled_titles[$value])) {
+        $rid = $canceled_titles[$value];
+        _icl_wrapper_db_query("DELETE FROM {icl_core_status} WHERE rid=%d", $rid);
+        _icl_wrapper_db_query("DELETE FROM {icl_content_status} WHERE rid=%d", $rid);
+      }
+    }
+  }
+}
