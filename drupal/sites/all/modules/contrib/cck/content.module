@@ -1,5 +1,4 @@
 <?php
-// $Id: content.module,v 1.301.2.123 2011/01/03 11:03:47 yched Exp $
 /**
  * @file
  * Allows administrators to associate custom fields to content types.
@@ -266,8 +265,8 @@ function content_load(&$node) {
  *
  */
 function content_validate(&$node, $form = NULL) {
-  _content_field_invoke('validate', $node, $form);
   _content_field_invoke_default('validate', $node, $form);
+  _content_field_invoke('validate', $node, $form);
 }
 
 /**
@@ -333,7 +332,8 @@ function content_view(&$node, $teaser = FALSE, $page = FALSE) {
 
   // Merge fields.
   $additions = _content_field_invoke_default('view', $node, $teaser, $page);
-  $node->content = array_merge((array) $node->content, $additions);
+  $old = isset($node->content) ? (array) $node->content : array();
+  $node->content = array_merge($old, $additions);
 }
 
 /**
@@ -477,6 +477,15 @@ function content_add_more_submit_proxy($form, &$form_state) {
 }
 
 /**
+ * Proxy function to call content_multiple_value_after_build(), because it might
+ * not be included yet when the form is processed and invokes the callback.
+ */
+function content_multiple_value_after_build_proxy($elements, &$form_state) {
+  module_load_include('inc', 'content', 'includes/content.node_form');
+  return content_multiple_value_after_build($elements, $form_state);
+}
+
+/**
  * Theme an individual form element.
  *
  * Combine multiple values into a table with drag-n-drop reordering.
@@ -496,8 +505,11 @@ function theme_content_multiple_values($element) {
         'data' => t('!title: !required', array('!title' => $element['#title'], '!required' => $required)),
         'colspan' => 2
       ),
-      t('Order'),
+      array('data' => t('Order'), 'class' => 'content-multiple-weight-header'),
     );
+    if ($field['multiple'] == 1) {
+      $header[] = array('data' => '<span>'. t('Remove') .'</span>', 'class' => 'content-multiple-remove-header');
+    }
     $rows = array();
 
     // Sort items according to '_weight' (needed when the form comes back after
@@ -505,24 +517,31 @@ function theme_content_multiple_values($element) {
     $items = array();
     foreach (element_children($element) as $key) {
       if ($key !== $element['#field_name'] .'_add_more') {
-        $items[] = &$element[$key];
+        $items[$element[$key]['#delta']] = &$element[$key];
       }
     }
-    usort($items, '_content_sort_items_value_helper');
+    uasort($items, '_content_sort_items_value_helper');
 
     // Add the items as table rows.
-    foreach ($items as $key => $item) {
+    foreach ($items as $delta => $item) {
       $item['_weight']['#attributes']['class'] = $order_class;
       $delta_element = drupal_render($item['_weight']);
+      if ($field['multiple'] == 1) {
+        $remove_element = drupal_render($item['_remove']);
+      }
       $cells = array(
         array('data' => '', 'class' => 'content-multiple-drag'),
         drupal_render($item),
         array('data' => $delta_element, 'class' => 'delta-order'),
       );
-      $rows[] = array(
-        'data' => $cells,
-        'class' => 'draggable',
-      );
+      $row_class = 'draggable';
+      if ($field['multiple'] == 1) {
+        if (!empty($item['_remove']['#default_value'])) {
+          $row_class .= ' content-multiple-removed-row';
+        }
+        $cells[] = array('data' => $remove_element, 'class' => 'content-multiple-remove-cell');
+      }
+      $rows[] = array('data' => $cells, 'class' => $row_class);
     }
 
     $output .= theme('table', $header, $rows, array('id' => $table_id, 'class' => 'content-multiple-table'));
@@ -530,6 +549,7 @@ function theme_content_multiple_values($element) {
     $output .= drupal_render($element[$element['#field_name'] .'_add_more']);
 
     drupal_add_tabledrag($table_id, 'order', 'sibling', $order_class);
+    drupal_add_js(drupal_get_path('module', 'content') .'/js/content.node_form.js');
   }
   else {
     foreach (element_children($element) as $key) {
@@ -686,12 +706,14 @@ function content_associate_fields($module) {
 function content_field($op, &$node, $field, &$items, $teaser, $page) {
   switch ($op) {
     case 'validate':
-      // TODO: here we could validate that the number of multiple data is correct ?
-      // We're controlling the number of fields to fill out and saving empty
-      // ones if a specified number is requested, so no reason to do any validation
-      // here right now, but if later create a method to indicate whether
-      // 'required' means all values must be filled out, we can come back
-      // here and check that they're not empty.
+      // If the field is configured for multiple values and these are handled
+      // by content module, we need to filter out items flagged for removal and
+      // count non-empty items to enforce field requirement settings.
+      if ($field['multiple'] >= 1 && content_handle('widget', 'multiple values', $field) == CONTENT_HANDLE_CORE) {
+        module_load_include('inc', 'content', 'includes/content.node_form');
+        // Note that the $teaser argument for nodeapi('validate') is the $form.
+        content_multiple_value_nodeapi_validate($node, $field, $items, $teaser);
+      }
       break;
 
     case 'presave':
@@ -722,7 +744,7 @@ function content_field($op, &$node, $field, &$items, $teaser, $page) {
         $items = _content_sort_items($field, $items);
       }
 
-      // Filter out empty values.
+      // Filter out items flagged for removal.
       $items = content_set_empty($field, $items);
 
       break;
@@ -730,14 +752,14 @@ function content_field($op, &$node, $field, &$items, $teaser, $page) {
     case 'view':
       $addition = array();
 
-      // Previewed nodes bypass the 'presave' op, so we need to some massaging.
-      if ($node->build_mode == NODE_BUILD_PREVIEW && content_handle('widget', 'multiple values', $field) == CONTENT_HANDLE_CORE) {
+      // Previewed nodes bypass the 'presave' op, so we need to do some massaging.
+      if ($node->build_mode == NODE_BUILD_PREVIEW) {
         if (content_handle('widget', 'multiple values', $field) == CONTENT_HANDLE_CORE) {
           // Reorder items to account for drag-n-drop reordering.
           $items = _content_sort_items($field, $items);
         }
 
-        // Filter out empty values.
+        // Filter out items flagged for removal.
         $items = content_set_empty($field, $items);
       }
 
@@ -776,10 +798,10 @@ function content_field($op, &$node, $field, &$items, $teaser, $page) {
         );
 
         // Fill-in items.
-        foreach ($items as $delta => $item) {
+        foreach (array_keys($items) as $weight => $delta) {
           $element['items'][$delta] = array(
-            '#item' => $item,
-            '#weight' => $delta,
+            '#item' => $items[$delta],
+            '#weight' => $weight,
           );
         }
 
@@ -826,22 +848,15 @@ function content_field($op, &$node, $field, &$items, $teaser, $page) {
 
       // The location of the field's rendered output depends on whether the
       // field is in a fieldgroup or not.
-      $wrapper = NULL;
-      if (isset($node->content[$field['field_name']])) {
-        $wrapper = $node->content[$field['field_name']];
-      }
-      elseif (module_exists('fieldgroup') && ($group_name = fieldgroup_get_group($node->type, $field['field_name'])) && isset($node->content[$group_name]['group'][$field['field_name']])) {
-        $wrapper = $node->content[$group_name]['group'][$field['field_name']];
-      }
-
-      if ($wrapper) {
+      $wrappers = content_get_nested_elements($node->content, $field['field_name']);
+      foreach ($wrappers as $wrapper) {
         $element = $wrapper['field'];
         // '#single' is not set if the field is hidden or inaccessible.
         if (isset($element['#single'])) {
           if (!empty($element['#single'])) {
             // Single value formatter.
             foreach (element_children($element['items']) as $delta) {
-              // '#chilren' is not set if the field is empty.
+              // '#children' is not set if the field is empty.
               $items[$delta]['view'] = isset($element['items'][$delta]['#children']) ? $element['items'][$delta]['#children'] : '';
             }
           }
@@ -859,23 +874,15 @@ function content_field($op, &$node, $field, &$items, $teaser, $page) {
 
     case 'preprocess_node':
       // Add $FIELD_NAME_rendered variables.
-      $addition = array();
+      $addition = array($field['field_name'] .'_rendered' => '');
 
       // The location of the field's rendered output depends on whether the
       // field is in a fieldgroup or not.
-      $wrapper = NULL;
-      if (isset($node->content[$field['field_name']])) {
-        $wrapper = $node->content[$field['field_name']];
+      $wrappers = content_get_nested_elements($node->content, $field['field_name']);
+      foreach ($wrappers as $wrapper) {
+        // '#children' is not set if the field is empty.
+        $addition[$field['field_name'] .'_rendered'] .= isset($wrapper['#children']) ? $wrapper['#children'] : '';
       }
-      elseif (module_exists('fieldgroup') && ($group_name = fieldgroup_get_group($node->type, $field['field_name'])) && isset($node->content[$group_name]['group'][$field['field_name']])) {
-        $wrapper = $node->content[$group_name]['group'][$field['field_name']];
-      }
-
-      if ($wrapper) {
-        // '#chilren' is not set if the field is empty.
-        $addition[$field['field_name'] .'_rendered'] = isset($wrapper['#children']) ? $wrapper['#children'] : '';
-      }
-
       return $addition;
 
     case 'prepare translation':
@@ -888,7 +895,7 @@ function content_field($op, &$node, $field, &$items, $teaser, $page) {
 }
 
 /**
- * Helper function to filter out empty values.
+ * Helper function to filter out items flagged for removal.
  *
  * On order to keep marker rows in the database, the function ensures
  * that the right number of 'all columns NULL' values is kept.
@@ -899,20 +906,22 @@ function content_field($op, &$node, $field, &$items, $teaser, $page) {
  *   returns filtered and adjusted item array
  */
 function content_set_empty($field, $items) {
-  // Filter out empty values.
-  $filtered = array();
-  $function = $field['module'] .'_content_is_empty';
-  foreach ((array) $items as $delta => $item) {
-    if (!$function($item, $field)) {
-      $filtered[] = $item;
-    }
-  }
-
-  // Make sure we store the right number of 'empty' values.
+  // Prepare an empty item.
   $empty = array();
   foreach (array_keys($field['columns']) as $column) {
     $empty[$column] = NULL;
   }
+
+  // Filter out items flagged for removal.
+  $filtered = array();
+  $function = $field['module'] .'_content_is_empty';
+  foreach ((array) $items as $delta => $item) {
+    if (empty($item['_remove'])) {
+      $filtered[] = ($function($item, $field) ? $empty : $item);
+    }
+  }
+
+  // Make sure we store the right number of 'empty' values.
   $pad = $field['multiple'] > 1 ? $field['multiple'] : 1;
   $filtered = array_pad($filtered, $pad, $empty);
 
@@ -927,7 +936,7 @@ function _content_sort_items($field, $items) {
   if ($field['multiple'] >= 1 && isset($items[0]['_weight'])) {
     usort($items, '_content_sort_items_helper');
     foreach ($items as $delta => $item) {
-      if (is_array($items[$delta])) {
+      if (is_array($item) && isset($item['_weight'])) {
         unset($items[$delta]['_weight']);
       }
     }
@@ -1008,7 +1017,27 @@ function content_storage($op, $node) {
             if (!isset($additions[$field_name])) {
               $additions[$field_name] = array();
             }
-            $additions[$field_name][] = $item;
+
+            // Preserve deltas when loading items from database.
+            if (isset($row['delta'])) {
+              // Make sure multiple value fields have consecutive deltas.
+              if ($row['delta'] > 0 && !isset($additions[$field_name][$row['delta']-1])) {
+                $empty = array();
+                foreach (array_keys($db_info['columns']) as $column) {
+                  $empty[$column] = NULL;
+                }
+                $next_delta = !empty($additions[$field_name]) ? (max(array_keys($additions[$field_name])) + 1) : 0;
+                for ($delta = $next_delta; $delta < $row['delta']; $delta++) {
+                  if (!isset($additions[$field_name][$delta])) {
+                    $additions[$field_name][$delta] = $empty;
+                  }
+                }
+              }
+              $additions[$field_name][$row['delta']] = $item;
+            }
+            else {
+              $additions[$field_name][] = $item;
+            }
           }
         }
       }
@@ -1065,14 +1094,34 @@ function content_storage($op, $node) {
           if ($op == 'update') {
             db_query('DELETE FROM {'. $db_info['table'] .'} WHERE vid = %d', $node->vid);
           }
+          // Collect records for non-empty items.
+          $function = $field['module'] .'_content_is_empty';
+          $records = array();
           foreach ($node->$field['field_name'] as $delta => $item) {
+            if (!$function($item, $field)) {
+              $record = array();
+              foreach ($db_info['columns'] as $column => $attributes) {
+                $record[$attributes['column']] = $item[$column];
+              }
+              $record['nid'] = $node->nid;
+              $record['vid'] = $node->vid;
+              $record['delta'] = $delta;
+              $records[] = $record;
+            }
+          }
+          // If there was no non-empty item, insert delta 0 with NULL values.
+          if (empty($records)) {
             $record = array();
             foreach ($db_info['columns'] as $column => $attributes) {
-              $record[$attributes['column']] = $item[$column];
+              $record[$attributes['column']] = NULL;
             }
             $record['nid'] = $node->nid;
             $record['vid'] = $node->vid;
-            $record['delta'] = $delta;
+            $record['delta'] = 0;
+            $records[] = $record;
+          }
+          // Insert the collected records for this field into database.
+          foreach ($records as $record) {
             content_write_record($db_info['table'], $record);
           }
         }
@@ -2681,7 +2730,6 @@ function content_inactive_fields($type_name = NULL) {
   return $inactive;
 }
 
- 
 /**
  * Helper function to identify inactive instances.
  * This will be the same results as content_inactive_fields(),
@@ -2706,4 +2754,88 @@ function content_inactive_instances($type_name = NULL) {
     return $inactive[$type_name];
   }
   return $inactive;
+}
+
+/**
+ * Return the nested form elements for a field by name.
+ * This can be used either to retrieve the entire sub-element
+ * for a field by name, no matter how deeply nested it is within
+ * fieldgroups or multigroups, or to find the multiple value
+ * sub-elements within a field element by name (i.e. 'value' or
+ * 'nid'). You can also use this function to see if an item exists 
+ * in a form (the return will be an empty array if it does not exist).
+ *
+ * A field/group will generally only exist once in a form but the 
+ * function can also be used to locate all the 'value' elements 
+ * within a multiple value field if you pass the multiple value field
+ * as the $form argument;
+ *
+ * For example, for a field named field_custom,  the following will 
+ * pluck out the form element for this field from the node form, 
+ * no matter how deeply it is nested within fieldgroups or fieldsets:
+ *
+ * $element = array_shift(content_get_nested_elements($node_form, 'field_custom'));
+ *
+ * You can prefix the function with '&' to retrieve the element by 
+ * reference to alter it directly:
+ *
+ * $elements = &content_get_nested_elements($form, 'field_custom');
+ * foreach ($elements as $element) {
+ *   $element['#after_build'][] = 'my_field_afterbuild';
+ * }
+ *
+ * During the #after_build you could then do something like the
+ * following to alter each individual part of a multiple value field:
+ *
+ * $sub_elements = &content_get_nested_elements($element, 'value', 'all');
+ * foreach ($sub_elements as $sub_element) {
+ *   $sub_element['#element_validate'][] = 'custom_validation';
+ * }
+ *
+ * @param $form
+ *   The form array to search.
+ * @param $field_name
+ *   The name or key of the form elements to return. Can be a field name, a group name, or a sub-field.
+ * @return
+ *   An array of all matching form elements, returned by reference.
+ */
+function &content_get_nested_elements(&$form, $field_name) {
+  $elements = array();
+  foreach (element_children($form) as $key) {
+    if ($key === $field_name) {
+      $elements[] = &$form[$key];
+    }
+    else if (is_array($form[$key])) {
+      $nested_form = &$form[$key];
+      if ($sub_elements = &content_get_nested_elements($nested_form, $field_name)) {
+        $elements = array_merge($elements, $sub_elements);
+      }
+    }
+  }
+  return $elements;
+}
+
+/**
+ * Helper function to set a value in a form element,
+ * no matter how deeply nested it is in the form.
+ *
+ * @param $form
+ *   The form array to search.
+ * @param $field_name
+ *   The name or key of the form elements to return. Can be a field name, a group name, or a sub-field.
+ * @param $value
+ *   The value to set the element to. Should be an array that matches the part of the form that is being altered.
+ * @return
+ *   TRUE or FALSE, depending on whether the element was discovered and set.
+ */
+function content_set_nested_elements(&$form, $field_name, $value) {
+  $success = FALSE;
+  $elements = &content_get_nested_elements($form, $field_name);
+  if (!empty($elements)) {
+    foreach ($elements as &$element) {
+      $element = $value;
+      $success = TRUE;
+    }
+  }
+  return $success;
 }

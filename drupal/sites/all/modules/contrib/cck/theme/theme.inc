@@ -1,5 +1,4 @@
 <?php
-// $Id: theme.inc,v 1.1.2.13 2009/04/28 23:06:37 yched Exp $
 
 /**
  * @file
@@ -18,7 +17,7 @@ function template_preprocess_content_field_overview_form(&$vars) {
 
   $order = _content_overview_order($form, $form['#field_rows'], $form['#group_rows']);
   $rows = array();
-
+ 
   // Identify the 'new item' keys in the form, they look like
   // _add_new_field, add_new_group.
   $keys = array_keys($form);
@@ -28,10 +27,11 @@ function template_preprocess_content_field_overview_form(&$vars) {
       $add_rows[] = $key;
     }
   }
+
   while ($order) {
     $key = reset($order);
     $element = &$form[$key];
-
+  
     // Only display the 'Add' separator if the 'add' rows are still
     // at the end of the table.
     if (!isset($added_separator)) {
@@ -82,9 +82,7 @@ function template_preprocess_content_field_overview_form(&$vars) {
   $vars['submit'] = drupal_render($form);
 
   // Add tabledrag behavior.
-//  drupal_add_tabledrag('content-field-overview', 'match', 'parent', 'group-parent', 'group-parent', 'field-name', FALSE, 1);
-  drupal_add_tabledrag('content-field-overview', 'match', 'parent', 'group-parent', 'group-parent', 'field-name', TRUE, 1);
-//  drupal_add_tabledrag('content-field-overview', 'order', 'sibling', 'field-weight', NULL, NULL, FALSE);
+  drupal_add_tabledrag('content-field-overview', 'match', 'parent', 'group-parent', 'group-parent', 'field-name', TRUE, 10);
   drupal_add_tabledrag('content-field-overview', 'order', 'sibling', 'field-weight');
 
   // Add settings for the update selects behavior.
@@ -94,7 +92,7 @@ function template_preprocess_content_field_overview_form(&$vars) {
     $js_fields[$field_name] = array('label' => $field['widget']['label'], 'type' => $field['type'], 'widget' => $field['widget']['type']);
   }
   drupal_add_js(array('contentWidgetTypes' => content_widget_type_options(), 'contentFields' => $js_fields), 'setting');
-  drupal_add_js(drupal_get_path('module', 'content') .'/content.js');
+  drupal_add_js(drupal_get_path('module', 'content') .'/js/content.admin.js');
 }
 
 /**
@@ -128,6 +126,7 @@ function template_preprocess_content_display_overview_form(&$vars) {
     $element = &$form[$key];
     $row = new stdClass();
     foreach (element_children($element) as $child) {
+      if (empty($row->{$child})) $row->{$child} = new stdClass();
       if (!array_key_exists('exclude', $element[$child])) {
         $row->{$child} = drupal_render($element[$child]);
       }

@@ -1,5 +1,4 @@
 <?php
-// $Id: content_field.inc,v 1.1.2.10 2009/09/29 06:52:35 markuspetrux Exp $
 
 /**
  * @file

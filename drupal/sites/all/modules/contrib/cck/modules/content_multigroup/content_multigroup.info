@@ -1,0 +1,7 @@
+name = Content Multigroup
+description = Combine multiple CCK fields into repeating field collections that work in unison.
+dependencies[] = content
+dependencies[] = fieldgroup
+package = CCK
+core = 6.x
+

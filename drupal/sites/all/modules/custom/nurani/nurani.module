@@ -6,3 +6,6 @@
 function nurani_ds_fields_alter(&$fields) {
 }
 
+function nurani_views_data_alter(&$data) {
+}
+
