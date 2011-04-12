@@ -1,5 +1,4 @@
 <?php
-// $Id: nd.tpl.php,v 1.1.2.3 2010/03/15 19:19:48 swentel Exp $
 
 /**
  * @file

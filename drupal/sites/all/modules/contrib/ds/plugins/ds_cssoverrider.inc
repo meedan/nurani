@@ -1,5 +1,4 @@
 <?php
-// $Id: ds_cssoverrider.inc,v 1.1.2.8 2010/05/28 23:44:56 swentel Exp $
 
 /**
  * @file

@@ -1,4 +1,3 @@
-// $Id: ds.js,v 1.1.2.28 2010/10/28 22:32:54 swentel Exp $
 
 Drupal.DisplaySuite = Drupal.DisplaySuite || {};
 Drupal.DisplaySuite.fieldopened = '';

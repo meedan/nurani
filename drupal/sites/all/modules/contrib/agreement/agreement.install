@@ -1,0 +1,93 @@
+<?php
+// $Id: agreement.install,v 1.4 2010/06/02 04:25:04 pagaille Exp $
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Agreement module.
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function agreement_install() {
+  drupal_install_schema('agreement');
+  db_query("UPDATE {system} SET weight = 9999 WHERE name = 'agreement'");
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function agreement_schema() {
+  $schema['agreement'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+    ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+    ),
+      'agreed' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+    ),
+      'sid' => array(
+        'type' => 'varchar',
+        'length' => 46,
+    ),
+      'agreed_date' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+    ),
+  ),
+    'primary key' => array(
+      'id',
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function agreement_uninstall() {
+  drupal_uninstall_schema('agreement');
+
+  variable_del('agreement_role');
+  variable_del('agreement_frequency');
+  variable_del('agreement_text');
+  variable_del('agreement_page_title');
+  variable_del('agreement_page_url');
+  variable_del('agreement_message_success');
+  variable_del('agreement_message_failure');
+  variable_del('agreement_checkbox_text');
+  variable_del('agreement_submit_text');
+  variable_del('agreement_success_destination');
+  variable_del('agreement_page_visibility_settings');
+  variable_del('agreement_page_visibility_pages');
+}
+
+function agreement_update_6000() {
+  $ret = array();
+  db_drop_index($ret, 'agreement', 'id');
+  db_add_field($ret, 'agreement', 'sid', array(
+    'type' => 'varchar',
+    'length' => 46,
+    )
+  );
+  db_add_field($ret, 'agreement', 'agreed_date', array(
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+    )
+  );
+
+  return $ret;
+}

@@ -1,5 +1,4 @@
 <?php
-// $Id: ds-display-overview-views-form.tpl.php,v 1.1.2.5 2010/06/15 09:07:11 swentel Exp $
 
 /**
  * @file

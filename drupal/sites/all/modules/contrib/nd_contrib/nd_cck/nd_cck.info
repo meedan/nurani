@@ -1,4 +1,3 @@
-; $Id: nd_cck.info,v 1.1.2.4 2009/10/17 13:23:55 swentel Exp $
 name = "ND CCK"
 description = "CCK support for node displays"
 core = "6.x"
@@ -6,9 +5,9 @@ dependencies[] = nd
 dependencies[] = content
 package = "Display suite"
 
-; Information added by drupal.org packaging script on 2010-12-16
-version = "6.x-2.4"
+; Information added by drupal.org packaging script on 2011-02-25
+version = "6.x-2.x-dev"
 core = "6.x"
 project = "nd_contrib"
-datestamp = "1292540634"
+datestamp = "1298619705"
 

@@ -1,4 +1,3 @@
-/* $Id: README.txt,v 1.1.2.7.2.1 2010/02/22 19:25:43 swentel Exp $ */
 
 -- SUMMARY --
 

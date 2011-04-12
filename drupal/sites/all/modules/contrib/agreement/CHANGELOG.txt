@@ -1,0 +1,16 @@
+$Id: CHANGELOG.txt,v 1.5.2.1 2010/06/08 22:01:24 pagaille Exp $ 
+
+Changes since DRUPAL-6--1:
+#704108 by pagaille: Appears to only work with node/number vs node/page-name
+#739812 by pagaille: Support for the CAS Module
+#685030 by pagaille: If Enforceable Pages field is left blank, agreement module does not work
+#786552 by pagaille: Set redirect page in the settings
+#639658 by pagaille: Relation between role_id and role_name breaks
+#790194 by pagaille: User role should be a required field
+#538126 by pagaille: Check who has accepted the agreement
+#789220 by pagaille: Add tests
+#790112 by pagaille: Add custom "configure agreement settings" permission
+#760484 by pagaille: Disabled textarea doesn't scroll in IE 7
+#711908 by pagaille: Allow HTML in agreement text
+#783382 by pagaille: Code cleanup
+#781368 by pagaille: Custom success and failure messages are not used

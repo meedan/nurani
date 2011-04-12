@@ -1,5 +1,4 @@
 <?php
-// $Id: ds.buildmodes.inc,v 1.1.2.21 2010/06/08 00:22:20 swentel Exp $
 
 /**
  * @file

@@ -1,5 +1,4 @@
 <?php
-// $Id: ds.groups.inc,v 1.1.2.8 2010/06/08 00:22:20 swentel Exp $
 
 /**
  * @file

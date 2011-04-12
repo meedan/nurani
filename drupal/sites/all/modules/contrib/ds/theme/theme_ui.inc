@@ -1,5 +1,4 @@
 <?php
-// $Id: theme_ui.inc,v 1.1.2.12 2010/06/30 10:28:00 swentel Exp $
 
 /**
  * @file
@@ -119,8 +118,8 @@ function template_preprocess_ds_display_overview_form(&$vars) {
     }
 
     $row->label_class = 'label-field';
-    if ($element[$build_mode]['type']['#value'] == DS_FIELD_TYPE_GROUP) {
-      $row->label_class .= ' field-group';
+    if ($element[$build_mode]['type']['#value'] == DS_FIELD_TYPE_GROUP || $element[$build_mode]['type']['#value'] == DS_FIELD_TYPE_MULTIGROUP ) {
+          $row->label_class .= ' field-group';
       $row->class .= ' tabledrag-root';
     }
     else {
@@ -228,6 +227,9 @@ function template_preprocess_ds_display_overview_views_form(&$vars) {
       // Render the display fields
       if ($child == $build_mode) {
         $row->{$child}->indentation = theme('indentation', $element[$child]['#depth']);
+        if (empty($element[$child]['css-class']['#options'])) {
+          $element[$child]['css-class']['#access'] = FALSE;
+        }
         $row->{$child}->class = drupal_render($element[$child]['css-class']);
         $row->{$child}->label = drupal_render($element[$child]['label']);
 
@@ -271,7 +273,7 @@ function template_preprocess_ds_display_overview_views_form(&$vars) {
     }
 
     $row->label_class = 'label-field';
-    if ($element[$build_mode]['type']['#value'] == DS_FIELD_TYPE_GROUP) {
+    if ($element[$build_mode]['type']['#value'] == DS_FIELD_TYPE_GROUP || $element[$build_mode]['type']['#value'] == DS_FIELD_TYPE_MULTIGROUP ) {
       $row->label_class .= ' field-group';
       $row->class .= ' tabledrag-root';
     }

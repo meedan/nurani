@@ -1,5 +1,4 @@
 <?php
-// $Id: nd.module,v 1.1.2.123.2.63 2010/12/15 21:55:52 swentel Exp $
 
 /**
  * @file
@@ -633,8 +632,10 @@ function nd_book_navigation($field) {
  * Add new child for book.
  */
 function theme_nd_book_add_new_child($field) {
-  $child = str_replace('_', '-', variable_get('book_child_type', 'book'));
-  return l(t('Add child page'), 'node/add/'. $child, array('query' => array('parent' => $field['object']->book['mlid'])));
+  if (user_access('add content to books')) {
+    $child = str_replace('_', '-', variable_get('book_child_type', 'book'));
+    return l(t('Add child page'), 'node/add/'. $child, array('query' => array('parent' => $field['object']->book['mlid'])));
+  }
 }
 
 /**

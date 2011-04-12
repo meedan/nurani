@@ -1,5 +1,4 @@
 <?php
-// $Id: ds.registry.inc,v 1.1.2.47 2010/10/01 14:25:39 swentel Exp $
 
 /**
  * @file

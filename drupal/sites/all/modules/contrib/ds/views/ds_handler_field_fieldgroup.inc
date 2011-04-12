@@ -1,5 +1,4 @@
 <?php
-// $Id: ds_handler_field_fieldgroup.inc,v 1.1.2.5 2010/04/22 22:52:05 swentel Exp $
 
 /**
  * @file

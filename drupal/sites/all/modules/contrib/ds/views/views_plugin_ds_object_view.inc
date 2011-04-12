@@ -1,5 +1,4 @@
 <?php
-// $Id: views_plugin_ds_object_view.inc,v 1.1.2.23 2010/10/01 10:01:51 swentel Exp $
 
 /**
  * @file

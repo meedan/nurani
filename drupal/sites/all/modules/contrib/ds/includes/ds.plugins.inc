@@ -1,5 +1,4 @@
 <?php
-// $Id: ds.plugins.inc,v 1.1.2.6 2010/04/24 19:04:04 swentel Exp $
 
 /**
  * @file

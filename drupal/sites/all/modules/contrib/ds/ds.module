@@ -1,5 +1,4 @@
 <?php
-// $Id: ds.module,v 1.1.2.75 2010/10/28 23:47:55 swentel Exp $
 
 /**
  * Core functions for the Display Suite module.
@@ -22,7 +21,7 @@ define('DS_FIELD_TYPE_IGNORE', 4);
 define('DS_FIELD_TYPE_CODE', 5);
 define('DS_FIELD_TYPE_BLOCK', 6);
 define('DS_FIELD_TYPE_GROUP', 7);
-
+define('DS_FIELD_TYPE_MULTIGROUP', 8);
 /**
  * Constants for field statuses.
  */
@@ -218,7 +217,7 @@ function ds_build_fields_and_regions(&$object, $module) {
         if (isset($field_settings[$key]['css-class']) && !empty($field_settings[$key]['css-class'])) {
           $class .= ' '. $field_settings[$key]['css-class'];
         }
-        if ($field['type'] == DS_FIELD_TYPE_GROUP) {
+        if ($field['type'] == DS_FIELD_TYPE_GROUP || $field['type']) {
           $class .= ' field-group';
         }
 
@@ -244,6 +243,10 @@ function ds_build_fields_and_regions(&$object, $module) {
           $format = (isset($field_settings[$parent]['format'])) ? $field_settings[$parent]['format'] : 'ds_group_fieldset';
           $ds_fields[$parent]['theme'] = $format;
           $ds_groups[$parent][$key] = $weight;
+          //Support Multigroup 
+          if($fields[$parent]['type'] == DS_FIELD_TYPE_MULTIGROUP){
+            $ds_groups[$parent]['multigroup']= TRUE;
+          } 
         }
 
         // If the field has the storage key, it means the theming is
@@ -331,8 +334,9 @@ function ds_render_content($object, $module, $vars, $theme_function = 'ds_field'
   // Display settings for this module and object.
   $display_settings = variable_get($module .'_display_settings_'. $object->type, array());
   $region_styles = ds_default_value($display_settings, $object->build_mode, 'region_styles');
-
-  $all_regions = ds_regions('all', TRUE);
+	$field_settings = ds_default_value($display_settings, $object->build_mode, 'fields');
+  
+	$all_regions = ds_regions('all', TRUE);
   $regions = $vars['regions'];
   $themed_regions = array();
 
@@ -367,13 +371,43 @@ function ds_render_content($object, $module, $vars, $theme_function = 'ds_field'
     foreach ($object->ds_groups as $group => $fields) {
       asort($fields);
       $group_content = '';
-      foreach ($fields as $key => $weight) {
-        $field_content = isset($vars[$key .'_rendered']) ? $vars[$key .'_rendered'] : '';
-        if (!empty($field_content)) {
-          $group_content .= theme($theme_function, $field_content, $object->ds_fields[$key]);
-          unset($object->ds_fields[$key]);
+      $field_count = 0;
+      $group_fields = array();
+      //Support for CCK 6.x-3.0 Multigroup
+      if($fields['multigroup']){
+        $group_content = ds_get_cck_multigroup_content($object, $group, $field_settings);
+        foreach($fields as $key => $weight){
+        	unset($object->ds_fields[$key]);
         }
       }
+      else{
+	    	foreach ($fields as $key => $weight) {
+	       	$field_content = '';
+	        //$field_content = isset($vars[$key .'_rendered']) ? $vars[$key .'_rendered'] : '';
+	        if(is_array($vars[$key])){
+	          foreach($vars[$key] as $row){
+		        	$field_content .=  content_format($key, $row);
+		        }
+            if (!empty($field_content)) {
+	          	$object->ds_fields[$key]['type'] = 'ds';
+	            $group_content .= theme($theme_function, $field_content, $object->ds_fields[$key]);
+	            unset($object->ds_fields[$key]);
+              $group_fields[] = $key;
+	            $field_count++;
+            }
+	        }
+	        else {
+            $field_content = isset($vars[$key .'_rendered']) ? $vars[$key .'_rendered'] : '';
+            if (!empty($field_content)) {
+              $group_content .= $field_content;
+              unset($object->ds_fields[$key]);
+              $group_fields[] = $key;
+              $field_count++;
+            }
+          }
+	      }
+	    }   
+    
 
       // Store group_content as content key in group key of ds_fields.
       if (!empty($group_content)) {
@@ -391,6 +425,8 @@ function ds_render_content($object, $module, $vars, $theme_function = 'ds_field'
         }
         else {
           $object->ds_fields[$group]['content'] = $group_content;
+          $object->ds_fields[$group]['count'] = $field_count;
+          $object->ds_fields[$group]['fields'] = $group_fields;
         }
       }
       else {
@@ -408,6 +444,7 @@ function ds_render_content($object, $module, $vars, $theme_function = 'ds_field'
       $region = $regions[$region_name];
 
       $count = 0;
+      $region_fields = array();
       // Loop through all fields after ordering on weight.
       asort($region);
       foreach ($region as $key => $weight) {
@@ -415,10 +452,12 @@ function ds_render_content($object, $module, $vars, $theme_function = 'ds_field'
         // Theming function. This implies a 'content' key exists.
         if (isset($object->ds_fields[$key]['theme']) && isset($object->ds_fields[$key]['content'])) {
           $count++;
+          $region_fields[] = $object->ds_fields[$key];
           $region_content .= theme($object->ds_fields[$key]['theme'], $object->ds_fields[$key]['content'], $object->ds_fields[$key]);
         }
         elseif (isset($object->ds_fields[$key]['tab'])) {
           $count++;
+          $region_fields[] = $object->ds_fields[$key];
           $region_content .= theme('ds_tabs', $object->ds_fields[$key]);
         }
         // Default ds_field theming function.
@@ -426,6 +465,7 @@ function ds_render_content($object, $module, $vars, $theme_function = 'ds_field'
           $field_content = isset($vars[$key .'_rendered']) ? $vars[$key .'_rendered'] : '';
           if (!empty($field_content)) {
             $count++;
+            $region_fields[] = $object->ds_fields[$key];
             $region_content .= theme($theme_function, $field_content, $object->ds_fields[$key]);
           }
         }
@@ -441,6 +481,7 @@ function ds_render_content($object, $module, $vars, $theme_function = 'ds_field'
           'content' => $region_content,
           'extra_class' => $style,
           'count' => $count,
+          'fields' => $region_fields,
         );
       }
     }
@@ -728,4 +769,45 @@ function ds_import_default_data($module = '', $type = '', $build_mode = '') {
     module_load_include('inc', 'ds', 'includes/ds.tools');
     ds_import_data($data, FALSE, FALSE, $module, $type, $build_mode);
   }
+}
+
+/**
+ * Function to return the html for cck-multigroup field
+ * @param object $node contains a lot of information
+* @param string $group_name The name of the group
+* @Todo: find direct cck multigroup rendering function
+*/
+function ds_get_cck_multigroup_content($node, $group_name, $field_settings){
+	$output = '';
+	$groups = array();
+	$group = array();
+	$instance = 0;
+	//remove 'multgroup' tag
+	foreach($node->ds_groups[$group_name] as $field => $weight){
+		if($field != 'multigroup'){
+			$groups[$weight]=$field;
+		}
+	}
+	//sort fields
+	ksort($groups);
+  foreach($groups as $weight => $field){
+  	$temp = array();
+  	foreach($node->$field as $row){
+  		$temp[] = content_format($field, $row, $field_settings[$field]['format']);
+  	}
+  	$instance= count($temp);
+  	$group[$field]= $temp;
+  }
+  if($instance != 0){
+	  for($i = 0; $i < $instance; $i++){
+	    $output .= "<div class='fieldset'>";
+	    foreach($groups as $weight => $field){
+	    	//set the type of the field to 'ds' inorder to render throught 'ds_field' theme.
+	    	$node->ds_fields[$field]['type'] = 'ds';
+	  		$output .= theme('ds_field', $group[$field][$i] , $node->ds_fields[$field]);
+	    }
+	  	$output .="</div>";
+	  }
+  }
+	return $output;
 }

@@ -1,4 +1,3 @@
-// $Id: buildmodes.js,v 1.1.2.2 2010/01/28 14:47:28 swentel Exp $
 
 /**
  * Toggle all buildmodes at once.

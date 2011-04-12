@@ -1,5 +1,4 @@
 <?php
-// $Id: ds.info.inc,v 1.1.2.6 2010/08/15 11:53:26 swentel Exp $
 
 /**
  * @file

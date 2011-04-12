@@ -1,5 +1,4 @@
 <?php
-// $Id: ds_regiontoblock.inc,v 1.1.2.4 2010/07/06 22:38:40 swentel Exp $
 
 /**
  * @file

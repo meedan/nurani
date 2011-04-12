@@ -1,5 +1,4 @@
 <?php
-// $Id: nd_fields_examples.inc,v 1.1.2.4 2010/04/26 16:14:57 swentel Exp $
 
 /**
  * @file

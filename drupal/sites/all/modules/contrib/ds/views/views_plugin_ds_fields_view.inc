@@ -1,5 +1,4 @@
 <?php
-// $Id: views_plugin_ds_fields_view.inc,v 1.1.2.19 2010/10/28 13:47:35 swentel Exp $
 
 /**
  * @file
@@ -175,9 +174,9 @@ class views_plugin_ds_fields_view extends views_plugin_row {
       $parent = (isset($this->view->style_plugin->row_plugin->options[$key]['parent'])) ? $this->view->style_plugin->row_plugin->options[$key]['parent'] : FALSE;
 
       // Class.
-      $class = '';
+      $class = $field->class;
       if (!empty($this->view->style_plugin->row_plugin->options[$key]['css-class'])) {
-        $class = $this->view->style_plugin->row_plugin->options[$key]['css-class'];
+        $class = ' '. $this->view->style_plugin->row_plugin->options[$key]['css-class'];
       }
 
       // Build field key in ds_fields.

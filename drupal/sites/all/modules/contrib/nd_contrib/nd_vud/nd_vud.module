@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * @file
+ * Vote Up/Down support for Node displays module.
+ */
+
+/**
+ * Implementation of hook_ds_fields().
+ */
+function nd_vud_ds_fields($type_name, $build_mode, $extra) {
+  $fields = array();
+  $types = variable_get('vud_node_types', array());
+  if (in_array($type_name, $types)) {
+    $fields = array(
+      'nd_vud' => array(
+        'title' => t('Vote Up/Down'),
+        'type' => DS_FIELD_TYPE_FUNCTION,
+        'status' => DS_FIELD_STATUS_STATIC,
+        'properties' => array(
+          'formatters' => array(
+            // @todo: expose all widgets dynamically by using vud_widget_get_names()
+            '_nd_vud_widget' => 
+              t('Use Vote Up/Down-module settings (currently: @current_widget)', array('@current_widget' => variable_get('vud_node_widget', 'plain'))),
+            'nd_vud_widget_plain' => t('Plain'),
+            'nd_vud_widget_alternate' => t('Alternate'),
+            'nd_vud_widget_upanddown' => t('Upanddown'),
+            'nd_vud_widget_updown' => t('Updown'),
+          ),
+        )
+      ),
+    );
+  }
+  return array('nd' => $fields);
+}
+
+/** 
+ * Formatter function for the 'plain' widget 
+ * @param object $field
+ */
+function nd_vud_widget_plain($field) {
+  return _nd_vud_widget($field, 'plain');
+}
+
+/** 
+ * Formatter function for the 'alternate' widget 
+ * @param object $field
+ */
+function nd_vud_widget_alternate($field) {
+  return _nd_vud_widget($field, 'alternate');
+}
+
+/** 
+ * Formatter function for the 'upanddown' widget 
+ * @param object $field
+ */
+function nd_vud_widget_upanddown($field) {
+  return _nd_vud_widget($field, 'upanddown');
+}
+
+/** 
+ * Formatter function for the 'updown' widget 
+ * @param object $field
+ */
+function nd_vud_widget_updown($field) {
+  return _nd_vud_widget($field, 'updown');
+}
+
+/** 
+ * Formatter function that calls the 
+ * @param object $field
+ * @param string name of the widget 
+ */
+function _nd_vud_widget($field, $widget=NULL) {
+  if (($can_edit = user_access('use vote up/down on nodes')) || user_access('view vote up/down count on nodes')) {
+    $node = $field['object'];
+    $tag = variable_get('vud_tag', 'vote');
+    // Overrule the default widget if we get a widget parameter.
+    $widget = isset($widget) ? $widget : variable_get('vud_node_widget', 'plain');
+    $widget_message_code = VUD_WIDGET_MESSAGE_ERROR;
+    if (!$can_edit) {
+      $widget_message_code = VUD_WIDGET_MESSAGE_DENIED;
+    }
+    $readonly = !$can_edit;
+    return theme('vud_widget', $node->nid, 'node', $tag, $widget, $readonly, $widget_message_code);
+  }
+}

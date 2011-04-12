@@ -1,4 +1,3 @@
-/* $Id: nd_search.js,v 1.1.2.1 2010/07/01 12:33:24 swentel Exp $ */
 
 /**
  * Highlight words in search results with jQuery.

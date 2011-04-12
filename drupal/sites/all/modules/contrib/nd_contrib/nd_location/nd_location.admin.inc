@@ -1,5 +1,4 @@
 <?php
-// $Id: nd_location.admin.inc,v 1.1.2.6 2010/09/07 07:46:58 swentel Exp $
 
 /**
  * @file

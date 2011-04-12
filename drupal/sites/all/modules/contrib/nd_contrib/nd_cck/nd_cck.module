@@ -1,5 +1,4 @@
 <?php
-// $Id: nd_cck.module,v 1.1.2.11.2.38 2010/10/28 20:35:45 swentel Exp $
 
 /**
  * @file
@@ -51,19 +50,35 @@ function nd_cck_ds_fields($type_name, $build_mode, $extra) {
       $groups = fieldgroup_groups($type_name);
       if (!empty($groups)) {
         foreach ($groups as $key => $group) {
-          $fields[$key] = array(
-            'title' => $group['label'],
-            'type' => DS_FIELD_TYPE_GROUP,
-            'status' => DS_FIELD_STATUS_STATIC,
-            'properties' => array(
-              'formatters' => array(
-                'ds_field' => 'A simple div',
-                'ds_group_fieldset_open' => 'Fieldset open',
-                'ds_group_fieldset_collapsible' => 'Fieldset collapsible',
-                'ds_group_fieldset_collapsed' => 'Fieldset collapsed',
-              ),
-            ),
-          );
+       		if($group['group_type'] == 'multigroup'){
+        		$fields[$key] = array(
+              'title' => $group['label'],
+              'type' => DS_FIELD_TYPE_MULTIGROUP,
+              'status' => DS_FIELD_STATUS_STATIC,
+              'properties' => array(
+                'formatters' => array(
+                  'ds_field' => 'A simple div',
+                  'ds_group_fieldset_open' => 'Fieldset open',
+                  'ds_group_fieldset_collapsible' => 'Fieldset collapsible',
+                  'ds_group_fieldset_collapsed' => 'Fieldset collapsed',
+                ),
+							),
+            );
+        	}else {
+	          $fields[$key] = array(
+	            'title' => $group['label'],
+	            'type' => DS_FIELD_TYPE_GROUP,
+	            'status' => DS_FIELD_STATUS_STATIC,
+           		'properties' => array(
+	              'formatters' => array(
+	                'ds_field' => 'A simple div',
+	                'ds_group_fieldset_open' => 'Fieldset open',
+	                'ds_group_fieldset_collapsible' => 'Fieldset collapsible',
+		              'ds_group_fieldset_collapsed' => 'Fieldset collapsed',
+	              ),
+	            ),
+	          );
+        	}
 
           // Tabs support.
           if (module_exists('tabs')) {
@@ -202,6 +217,11 @@ function nd_cck_theme() {
       );
     }
   }
+  //Support Multigroup for CCK 6.x-3.0
+  $theme_functions['nd_cck_multigroup'] =  array(
+		'arguments' => array ('element', 'group'),
+		'function' => 'theme_nd_cck_multigroup'
+	);  
 
   return $theme_functions;
 }

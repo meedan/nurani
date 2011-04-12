@@ -1,5 +1,4 @@
 <?php
-// $Id: ds_emptyregionrender.inc,v 1.1.2.9 2010/07/05 19:50:41 swentel Exp $
 
 /**
  * @file

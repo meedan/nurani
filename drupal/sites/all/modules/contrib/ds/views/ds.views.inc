@@ -1,5 +1,4 @@
 <?php
-// $Id: ds.views.inc,v 1.1.2.7 2010/12/16 16:31:59 swentel Exp $
 
 /**
  * @file

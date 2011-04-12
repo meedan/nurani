@@ -1,5 +1,4 @@
 <?php
-// $Id: ds.display.inc,v 1.1.2.81 2010/08/30 18:09:53 swentel Exp $
 
 /**
  * @file
@@ -176,10 +175,11 @@ function ds_display_overview_form(&$form_state, $type, $build_mode = 'full', $mo
 
   // See if this build mode isn't synced from another build mode.
   $synced = FALSE;
+  $all_build_modes = ds_get_build_modes('nd');
   foreach ($display_settings as $build_mode_key => $values) {
     if (isset($values['sync'])) {
       foreach ($values['sync'] as $sync => $sync_value) {
-        if ($sync == $build_mode) {
+        if ($sync == $build_mode && isset($all_build_modes[$build_mode_key])) {
           $synced = $build_mode_key;
           break;
         }
@@ -201,7 +201,6 @@ function ds_display_overview_form(&$form_state, $type, $build_mode = 'full', $mo
   );
 
   if ($synced) {
-    $all_build_modes = ds_get_build_modes('nd');
     $form['#synced'] = t('You can not edit this buildmode right now because it is synchronised with !bm.', array('!bm' => l($all_build_modes[$synced]['title'], 'admin/build/ds/layout/'. $type .'/'. $synced)));
   }
 
@@ -618,11 +617,16 @@ function ds_plugins_display_submit($form, $form_state, &$display_settings) {
  * Return array of available label options.
  */
 function ds_label_options() {
-  return array(
+  $options = array(
     'above' => t('Above'),
     'inline' => t('Inline'),
     'hidden' => t('Hidden'),
   );
+
+  // Give modules a chance to alter label options.
+  drupal_alter('ds_label_options', $options);
+
+  return $options;
 }
 
 /**

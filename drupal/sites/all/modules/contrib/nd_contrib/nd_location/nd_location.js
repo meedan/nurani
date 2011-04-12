@@ -1,4 +1,3 @@
-/* $Id: nd_location.js,v 1.1.2.3 2010/03/25 13:27:06 swentel Exp $ */
 
 Drupal.ND_location = Drupal.ND_location || {};
 

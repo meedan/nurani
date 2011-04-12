@@ -1,5 +1,4 @@
 <?php
-// $Id: ds.fields.inc,v 1.1.2.44 2010/10/29 10:02:08 swentel Exp $
 
 /**
  * @file

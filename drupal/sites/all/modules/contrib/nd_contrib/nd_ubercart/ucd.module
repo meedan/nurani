@@ -1,5 +1,4 @@
 <?php
-// $Id: ucd.module,v 1.1.2.10 2010/10/28 13:37:24 swentel Exp $
 
 /**
  * @file
@@ -80,7 +79,7 @@ function ucd_ubercart_fields() {
     $product_fields[] = 'option_image';
   }
 
-  foreach(variable_get('uc_product_field_enabled', array()) as $field => $enabled) {
+  foreach (variable_get('uc_product_field_enabled', array()) as $field => $enabled) {
   	if ($enabled == 1) {
   		$product_fields[] = $field;
   	}

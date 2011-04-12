@@ -1,5 +1,14 @@
 -------------------------------------------------------------------------------------
-6.x-1.4 2010-xx-xx
+6.x-1.5 2011-xx-xx
+-------------------------------------------------------------------------------------
+- #1003380 by vadym.kononenko: views field class should be added by default.
+- #1004096 by swentel: deleting a build mode breaks synced build modes.
+- #1016664 by jstoller: Add field count variable to groups.
+- #1059336 by jstoller: Add field variables containing groups and regions.
+- Hide the classes select box on views fields if there are no styles.
+
+-------------------------------------------------------------------------------------
+6.x-1.4 2010-12-17
 -------------------------------------------------------------------------------------
 - #922114 by Shawn DeArmond: Exporting ds features properly requires strongarm.
 - #931510 by joelstein: fix occasional features errors when reverting.
@@ -64,4 +73,3 @@
 -------------------------------------------------------------------------------------
 - Initial release.
 
-/* Last updated: $Id: CHANGELOG.txt,v 1.1.2.50 2010/10/28 14:21:52 swentel Exp $ */
