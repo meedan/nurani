@@ -1,0 +1,10 @@
+/* line 3, ../scss/pagination.scss */
+ul.pager {
+  font-size: 1.5em;
+  padding-top: 30px;
+  border-top: 4px double #c3c3c3;
+}
+/* line 7, ../scss/pagination.scss */
+ul.pager li {
+  margin: 0;
+}

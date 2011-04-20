@@ -1,0 +1,61 @@
+@import "buttons.scss";
+@import "_colors.scss";
+
+body.ar {
+
+  overflow-x: hidden !important;
+
+  #boxes-box-welcome_to_nurani_box .toggle {
+      position: absolute;
+      right: auto;
+      left:0;
+      top: 1px;
+  }
+
+  .condense_control {
+      padding: 4px 4px 4px 0;
+      background: url("../images/more-ar.png") no-repeat scroll 0 0 transparent;
+  }
+
+  #comment-form label {
+      float: right;
+      margin-right: 10px;
+  }
+
+  #comment-form label[for="edit-subject"] {
+    margin-left: 42px;
+    margin-right:0;
+  }
+
+  #sidebar-second,
+  .sidebar-second #main, 
+  .text, 
+  .author-photo, 
+  .view-texts-in-discussion .views-row, 
+  .view-overview .views-field-title {
+    float:right
+  }
+
+  .perosnal-username, .view-overview .views-field-view-node {
+      float: left;
+  }
+
+
+  ul#primary {
+  	li.first { @include icon_button("d", "right"); }
+    li  { @include icon_button("g", "right"); }
+    li.last  { @include icon_button("t", "right"); }
+  }
+
+  #block-boxes-welcome_to_nurani_box .more-link {
+    display: block;
+    float: right;
+    margin-top: 10px;
+  }
+
+  .view-ibis-glossary .views-summary {
+    float: right;
+  }
+}
+
+

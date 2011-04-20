@@ -1,0 +1,36 @@
+@mixin table-styles {
+  .views-table {
+    font-size: 12px;
+    background: #fff;
+    border-collapse: collapse;
+    text-align: left;
+    width:900px;
+    margin: 0;
+
+    thead {
+      @include box-shadow(#c3c3c3, 1px, 1px, 3px, 1px, inset);
+      @include linear-gradient(color_stops(darken($concrete, 10%),$concrete));
+      padding: 15px 0;
+      height: 100px;
+      color: #fff;
+      border-top: 1px solid $darkest;
+      font-size: 1.6em;
+      color: $maroon;
+    }
+
+    th, th a {
+      font-weight: normal;
+      color: $maroon;
+      padding: 10px 8px;
+      text-decoration: none;
+    }
+    
+    td {
+      color: #333;
+      padding: 9px 8px 0px 8px;
+    }
+    
+    tbody tr:hover td { background-color: white; }  
+  }
+
+}

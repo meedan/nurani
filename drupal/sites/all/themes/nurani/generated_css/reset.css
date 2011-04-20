@@ -1,0 +1,59 @@
+/* line 1, ../scss/reset.scss */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 6, ../scss/reset.scss */
+.clearfix {
+  display: inline-block;
+}
+/* line 8, ../scss/reset.scss */
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/* Hides from IE-mac \ */
+/* line 17, ../scss/reset.scss */
+* html .clearfix {
+  height: 1%;
+}
+
+/* line 20, ../scss/reset.scss */
+.clearfix {
+  display: block;
+}
+
+/* End hide from IE-mac */
+/* clear classes */
+/* line 26, ../scss/reset.scss */
+.clearleft, .clearl, .cleft {
+  clear: left;
+}
+
+/* line 29, ../scss/reset.scss */
+.clearright, .clearr, .cright {
+  clear: right;
+}
+
+/* line 32, ../scss/reset.scss */
+.clear, .clearboth, .clearall {
+  clear: both;
+}
+
+/* Float classes */
+/* line 36, ../scss/reset.scss */
+.floatleft, .fleft, .floatl {
+  float: left;
+  margin: 0 10px 5px 0;
+}
+
+/* line 40, ../scss/reset.scss */
+.floatright, .fright, .floatr {
+  float: right;
+  margin: 0 0 5px 10px;
+}

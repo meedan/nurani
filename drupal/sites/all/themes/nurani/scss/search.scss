@@ -1,0 +1,19 @@
+
+div#block-search-form {  
+  position: absolute;
+  right: 3px;
+  top: 145px;
+  width: 135px;
+  margin: 0;
+  padding: 2px 5px;
+  text-align: right;  
+  input.form-submit { display:none!important; }
+  img { padding: 2px 3px 0; }
+  input[type=text] {
+    padding:3px;
+    float:left;
+  }
+  display:none;
+}
+
+

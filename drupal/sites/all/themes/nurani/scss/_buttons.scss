@@ -1,0 +1,111 @@
+
+/* ================== */
+/* = "soft buttons" = */
+/* ================== */
+
+@mixin soft_button($color:#888) {
+  @include border-radius(15px);
+  @include linear-gradient(color_stops( lighten($color, 100%), lighten($color, 30%)));
+  border: 1px solid #d3d3d3;
+  float: right;
+  padding: 3px 7px 0;
+  color: lighten(#000, 50%);
+  font-weight:normal;
+  font-family: arial, sans-serif;
+  text-transform: uppercase;
+  display:block;
+  font-size: 0.9em;
+  text-decoration: none;
+  &:hover {
+    @include linear-gradient(color_stops( lighten($color, 60%), lighten($color, 30%)));
+  }
+  
+  &:active {
+    @include linear-gradient(color_stops( $color, lighten($color, 30%)));
+  }
+}
+
+/* =================== */
+/* = toggle buttons = */
+/* =================== */
+
+@mixin rounded_toggle($direction:left) {
+  @include soft_button;
+  display:block; 
+  float: left;
+  font-size: 11px;
+  padding: 10px;
+  
+  @if $direction == "right" {
+    @include border-top-left-radius(0);
+    @include border-bottom-left-radius(0);
+    float:right;
+  }
+    
+  @if $direction == "left" {
+    @include border-top-right-radius(0);
+    @include border-bottom-right-radius(0);
+  }
+}
+
+@mixin active_toggle_button {
+}
+
+@mixin inactive_toggle_button {
+  @include box-shadow(lighten(#000, 75%), 1px, 1px, 3px, 3px, inset);
+  border-left: 1px solid lighten(#000, 60%);
+}
+
+/* ================ */
+/* = icon buttons = */
+/* ================ */
+
+@mixin icon_active($icon: d, $icon_position: left) {
+  background: url("../images/#{$icon}_active.png") no-repeat scroll #{$icon_position} top transparent;  
+}
+
+/*aapplied to lis*/
+@mixin icon_button($icon: d, $icon_position: left) {
+  float: left;
+  list-style: none outside none;
+  padding: 0;
+  
+  a {
+    font-size: 20px;
+    background: url("../images/#{$icon}_inactive.png") no-repeat scroll 10px 20px transparent;
+    display: block;
+		padding-top: 30px;
+    padding-bottom: 30px;
+    float: right;
+    clear: none;
+    text-decoration: none;
+    @if $icon_position == "left" {
+      padding-right:10px;
+      padding-left: 50px;
+    }
+    @else {
+      padding-right:50px;
+      padding-left: 10px;
+    }
+  }
+  
+}
+
+@mixin button($button_size: "30px", $base_color: $westar) {
+  @include border-radius($button_size/2);
+  @include linear-gradient(color-stops(lighten($base_color, 30%), lighten($base_color, 15%) 4%, $base_color));
+  line-height: $button_size;
+  -webkit-box-sizing: border-box;
+  padding: 0 $button_size/2;
+  height: $button_size;
+  display: inline-block;
+  border: 1px solid darken($base_color, 20%);
+  color: darken($base_color, 80%);
+  text-decoration: none;
+  padding: 5px;
+  @include border-radius(4px, 4px);
+
+&:active {
+    @include linear-gradient(color-stops(darken($base_color, 30%), darken($base_color, 15%) 4%, darken($base_color, 7%)));
+  }
+}

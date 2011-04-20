@@ -1,0 +1,80 @@
+@import "compass/css3";
+
+body.page-user.not-logged-in {
+  background-image:none;
+  #content-wrapper, form { 
+    padding: 0;
+  }
+  
+  div.description {
+    display:none;
+  }
+
+  h1.title, 
+  span.form-required,
+  #content-header ul.tabs { 
+    display: none;
+  }
+  
+  #page {
+    width: 600px;
+    margin: 0 auto;
+  }
+  
+  img#logo {
+  }
+  
+  label, input {
+    font-size: 1.8em;
+    width: 100%;
+    text-shadow: 0px 1px 0px #fff;
+    color: #555;
+  }
+  
+  input.form-submit {
+    width: 200px;
+    margin: 0 auto;
+    display:block;
+  }
+  
+  #boxes-box-user_login_footer {
+    font-size: 1.0em;
+    font-family: "helvetica neue", sans-serif;
+    p {
+      margin: 10px 0;
+    }
+  }
+
+  #block-boxes-login_title {
+    margin: 50px 0 0;
+	text-align: center;
+    h1 {
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 30px;
+      font-style:italic;
+      font-family: "BergamoStdItalic", serif;
+      color: #333;
+    }
+  }
+
+  #content-wrapper {
+    margin: 0 auto;
+    width: 960px;
+    background: transparent;
+   /* @include box-shadow(#999);
+    @include border-radius(4px);
+    @include linear-gradient(color_stops(white,#c3c3c3));*/
+  }
+ 
+  #main {
+	width: 470px;
+	margin: 0 auto;
+}
+  .new-password { float: left; }
+}
+
+
+

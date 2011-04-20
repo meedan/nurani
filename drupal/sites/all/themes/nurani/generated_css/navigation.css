@@ -1,0 +1,93 @@
+@charset "UTF-8";
+/* theme core colors*/
+/*basics*/
+/*section names */
+/*bright colors*/
+/* ================== */
+/* = "soft buttons" = */
+/* ================== */
+/* =================== */
+/* = toggle buttons = */
+/* =================== */
+/* ================ */
+/* = icon buttons = */
+/* ================ */
+/*aapplied to lis*/
+/* line 44, ../scss/navigation.scss */
+ul#primary {
+  /* we're doing it with a mixin so we can override direction in style-rtl */
+  /* TODO the use of first and last needs to be repaired with custom classes, eg li.discussion li.texts li.glossary */
+}
+/* line 47, ../scss/navigation.scss */
+ul#primary li.first {
+  float: left;
+  list-style: none outside none;
+  padding: 0;
+}
+/* line 73, ../scss/_buttons.scss */
+ul#primary li.first a {
+  font-size: 20px;
+  background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
+  display: block;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  float: right;
+  clear: none;
+  text-decoration: none;
+  padding-right: 10px;
+  padding-left: 50px;
+}
+/* line 48, ../scss/navigation.scss */
+ul#primary li {
+  float: left;
+  list-style: none outside none;
+  padding: 0;
+}
+/* line 73, ../scss/_buttons.scss */
+ul#primary li a {
+  font-size: 20px;
+  background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
+  display: block;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  float: right;
+  clear: none;
+  text-decoration: none;
+  padding-right: 10px;
+  padding-left: 50px;
+}
+/* line 49, ../scss/navigation.scss */
+ul#primary li.last {
+  float: left;
+  list-style: none outside none;
+  padding: 0;
+}
+/* line 73, ../scss/_buttons.scss */
+ul#primary li.last a {
+  font-size: 20px;
+  background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
+  display: block;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  float: right;
+  clear: none;
+  text-decoration: none;
+  padding-right: 10px;
+  padding-left: 50px;
+}
+/* line 51, ../scss/navigation.scss */
+ul#primary li.active {
+  background: url("../images/bkg_active_nav.png") -5px bottom transparent;
+}
+/* line 53, ../scss/navigation.scss */
+ul#primary li.active a[href="/overview"] ~ span.icon {
+  background: url("../images/d_active.png") no-repeat scroll left top transparent;
+}
+/* line 56, ../scss/navigation.scss */
+ul#primary li.active a[href="/glossary"] ~ span.icon {
+  background: url("../images/g_active.png") no-repeat scroll left top transparent;
+}
+/* line 59, ../scss/navigation.scss */
+ul#primary li.active a[href="/texts"] ~ span.icon {
+  background: url("../images/t_active.png") no-repeat scroll left top transparent;
+}

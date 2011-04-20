@@ -1,0 +1,84 @@
+@import "compass/css3";
+@import "_colors.scss";
+@import "_buttons.scss";
+
+$text_width: 218px;
+$text_height: 300px;
+
+body.node-type-discussion {
+  div.view-header {
+    display:none;
+  }
+  div#slash {
+    width: 600px;
+    margin: 30px 30px 0;
+  }
+
+  p {}
+  div#block-views-texts_in_discussion-block_1 {
+    width: 960px;
+  }
+  
+  h1.title {
+    display: block;
+    margin: 20px 0;
+    padding: 0;
+  }
+
+  li.comment-edit a {
+    @include soft_button(#fff);
+    background: url("../images/icons/brown_dark/pen_alt_fill_16x16.png") no-repeat 10px center;
+    padding-left: 30px;
+    text-decoration:none;
+    margin: 0 5px;
+  }
+  li.comment-delete a {
+    @include soft_button;
+    background: url("../images/icons/brown_dark/x_alt_16x16.png") no-repeat 10px center;
+    padding-left: 30px;
+    text-decoration:none;
+    margin: 0 5px;
+  }
+  
+  li.comment-reply a {
+    @include soft_button;
+    background: url("../images/icons/brown_dark/chat_16x16.png") no-repeat 10px center;
+    padding-left: 30px;
+    text-decoration:none;
+    margin: 0 5px;
+  }
+  /* views-row is not a row, actually, just a div ... */
+  div.views-row {
+    margin: 10px 5px;
+    float: left;
+    width: $text_width;
+    div.text {
+      width: $text_width - 40px;
+      background: $paper;
+      border: 1px solid #ddd;
+      color: #868080;
+      float: left;
+      padding: 10px 10px 20px;
+      position: relative;
+      min-height: $text_height;
+      line-height: 1em;
+      h2 {
+        font-size: 23px;
+        font-weight: normal;
+        line-height: 0.87em;
+        letter-spacing: -0.3px;
+        color: #5B0000;
+        }
+      
+      .condense_control {
+        @include soft_button;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        font-size: 13px;
+      }
+
+    }
+    
+  }
+}              

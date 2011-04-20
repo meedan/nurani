@@ -1,0 +1,27 @@
+@import "compass/css3";
+@import "_tables.scss";
+@import "_colors.scss";
+
+body.page-glossary {    
+  @include table-styles();
+  
+  #search-block-form {
+    display:none;
+  }
+  
+  .views-exposed-form {
+    padding: 10px 30px;
+    select,input#edit-title { font-size:1.6em; }
+    z-index:-1;
+  }
+  
+  h2.block-title {
+    display:none;
+  }
+  
+  .view-content {
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+}

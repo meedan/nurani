@@ -1,0 +1,143 @@
+/* line 2, ../scss/layout.scss */
+.node-inner {
+  padding-top: 20px;
+}
+
+/* line 6, ../scss/layout.scss */
+div#header {
+  text-align: center;
+  margin: 0;
+}
+
+/* line 11, ../scss/layout.scss */
+div#footer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+/* line 16, ../scss/layout.scss */
+div#main {
+  position: relative;
+  z-index: 2;
+}
+
+/* line 21, ../scss/layout.scss */
+div#main div.links {
+  line-height: "30px";
+  -webkit-box-sizing: border-box;
+  height: "30px";
+  display: inline-block;
+  padding: 5px;
+  font-size: 12px;
+}
+
+/* line 33, ../scss/layout.scss */
+.page {
+  width: 960px;
+  margin: 0 auto;
+}
+
+/* line 38, ../scss/layout.scss */
+.sidebar-right #main {
+  float: left;
+  width: 593.28px;
+}
+
+/* line 43, ../scss/layout.scss */
+#header-region {
+  position: relative;
+}
+
+/* Layout rules. (Disclaimer: do not change if you're not sure you know what you're doing.) */
+/* line 72, ../scss/layout.scss */
+/* line 49, ../scss/layout.scss */
+#content {
+  width: 593.28px;
+  margin: 0 auto;
+}
+
+/* line 76, ../scss/layout.scss */
+/* line 55, ../scss/layout.scss */
+.sidebar-first #content {
+  float: right;
+  width: 593.28px;
+}
+
+/* line 60, ../scss/layout.scss */
+.sidebar-right #content {
+  float: left;
+  width: 593.28px;
+}
+
+/* line 65, ../scss/layout.scss */
+.sidebar {
+  float: left;
+  width: 366.72px;
+}
+
+/* line 70, ../scss/layout.scss */
+#sidebar-second {
+  float: right;
+  width: 366.72px;
+}
+
+/* line 75, ../scss/layout.scss */
+#footer {
+  float: none;
+  clear: both;
+}
+
+/* Layout Helpers */
+/* line 81, ../scss/layout.scss */
+#header, #footer, .mission, .breadcrumb, .node {
+  clear: both;
+}
+
+/* Sidebars width
+ * --------------
+ * Changing the width of the sidebars is dead easy, just change the
+ * values below corresponding to the sidebar you want to modify.
+ * Make sure you keep negative values as negative values.
+ * For example, if I want to increase the width of the left sidebar
+ * to 300px, I would have to change each '190' to '300'. */
+/* line 119, ../scss/layout.scss */
+/* line 93, ../scss/layout.scss */
+.two-sidebars .center, .sidebar-first .center {
+  margin-left: 190px;
+}
+
+/* line 97, ../scss/layout.scss */
+#sidebar-first {
+  width: 190px;
+  margin-right: -190px;
+}
+
+/* line 102, ../scss/layout.scss */
+.two-sidebars .center, .sidebar-right .center {
+  margin-right: 200px;
+}
+
+/* line 106, ../scss/layout.scss */
+.sidebar-right .center {
+  margin-right: 0;
+}
+
+/* Columns Inner
+ * -------------
+ * You can change the padding inside the columns without changing the
+ * width of them by just usinbg the INNER div of each column */
+/* line 141, ../scss/layout.scss */
+/* line 115, ../scss/layout.scss */
+.inner {
+  padding: 20px;
+}
+
+/* line 119, ../scss/layout.scss */
+body.page-mockup .inner {
+  padding: 0;
+}
+
+/* line 123, ../scss/layout.scss */
+#sidebar-second .inner {
+  padding: 0;
+}

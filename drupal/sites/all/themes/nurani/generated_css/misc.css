@@ -1,0 +1,497 @@
+/* line 1, ../scss/misc.scss */
+#edit-body {
+  float: left;
+}
+
+/* line 5, ../scss/misc.scss */
+body.page-admin h3 {
+  margin-bottom: 0 !important;
+}
+
+/* line 9, ../scss/misc.scss */
+#perosnal-nav {
+  -moz-box-shadow: 0 3px 20px #000000;
+  background: none repeat scroll 0 0 #000000;
+  height: 30px;
+  position: absolute;
+  width: 100%;
+}
+
+/* line 17, ../scss/misc.scss */
+.perosnal-username a {
+  color: #FFFFFF;
+  font-family: "Lucida Grande", Verdana, sans-serif;
+  padding: 4px;
+}
+
+/* line 23, ../scss/misc.scss */
+.perosnal-username a:hover {
+  -moz-border-radius: 10px 10px 10px 10px;
+  background: none repeat scroll 0 0 #777777;
+}
+
+/* line 28, ../scss/misc.scss */
+.perosnal-username {
+  color: #FFFFFF;
+  float: right;
+  font-family: "Lucida Grande", Verdana, sans-serif;
+  font-size: 12px;
+  padding-top: 7px;
+}
+
+/* line 36, ../scss/misc.scss */
+form#user-profile-form #edit-locale {
+  display: none;
+}
+
+/* line 41, ../scss/misc.scss */
+#edit-field-user-title, #edit-field-user-fname, #edit-field-user-lname, #edit-field-user-suffix, #edit-field-user-city, #edit-field-user-country, #edit-field-user-arabic, #edit-field-user-english {
+  float: left;
+  margin-right: 10px;
+}
+
+/* line 47, ../scss/misc.scss */
+form#user-profile-form input[type=text], #user-profile-form .form-textarea, #user-profile-form input[type=password] {
+  -moz-box-shadow: 1px -1px 3px #777777;
+  border: 1px solid #C7C7C7;
+  padding: 5px;
+}
+
+/* line 53, ../scss/misc.scss */
+form#user-profile-form label {
+  color: #555555;
+  margin-bottom: 7px;
+}
+
+/* line 58, ../scss/misc.scss */
+#edit-field-user-position {
+  clear: both;
+}
+
+/* line 62, ../scss/misc.scss */
+#edit-field-user-arabic, #edit-field-user-education {
+  clear: both;
+}
+
+/* line 66, ../scss/misc.scss */
+body.page-user-edit #content {
+  width: 100%;
+}
+
+/* line 70, ../scss/misc.scss */
+body.page-user-edit h1 {
+  font-size: 2.2em;
+  font-weight: 300;
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding: 10px 10px 0;
+  text-align: center;
+  width: 100%;
+}
+
+/* line 80, ../scss/misc.scss */
+body.page-user-edit .inner {
+  padding: 0 20px 20px;
+}
+
+/* line 84, ../scss/misc.scss */
+body.page-user-edit #content-header {
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+/* line 89, ../scss/misc.scss */
+#user-profile-form .filter-wrapper, #user-profile-form .grippie {
+  display: none;
+}
+
+/* line 93, ../scss/misc.scss */
+#user-profile-form .form-textarea {
+  width: 530px;
+}
+
+/* line 98, ../scss/misc.scss */
+.field-name-field-user-title, .field-name-field-user-fname, .field-name-field-user-lname, .field-name-field-user-suffix {
+  float: left;
+  font-size: 20px;
+  margin-right: 4px;
+}
+
+/* line 104, ../scss/misc.scss */
+.do {
+  left: 125px;
+  position: absolute;
+  top: 60px;
+}
+
+/* line 110, ../scss/misc.scss */
+body.en .do {
+  font-style: italic;
+}
+
+/* line 114, ../scss/misc.scss */
+.profile .user-picture {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+/* line 119, ../scss/misc.scss */
+.field-name-field-user-arabic {
+  clear: both;
+}
+
+/* line 123, ../scss/misc.scss */
+.field-name-field-user-city {
+  clear: both;
+  float: left;
+  margin-right: 10px;
+}
+
+/* line 129, ../scss/misc.scss */
+.field-name-field-user-country {
+  float: left;
+}
+
+/* line 133, ../scss/misc.scss */
+body.page-user #content {
+  width: 100%;
+}
+
+/* line 137, ../scss/misc.scss */
+.personal-info {
+  background: none repeat scroll 0 0 #E7E7E7;
+  display: block;
+  height: 105px;
+  margin-bottom: 15px;
+  padding: 10px;
+  position: relative;
+  width: 100%;
+}
+
+/* line 147, ../scss/misc.scss */
+.residence {
+  left: 125px;
+  position: absolute;
+  top: 85px;
+}
+
+/* line 153, ../scss/misc.scss */
+.profile-name {
+  margin-top: 20px;
+}
+
+/* line 157, ../scss/misc.scss */
+.user-picture img {
+  float: left;
+  /*  width: 32px; */
+}
+
+/* line 162, ../scss/misc.scss */
+.profile .field-items {
+  clear: both;
+}
+
+/* line 166, ../scss/misc.scss */
+.prof-info {
+  border-top: 1px solid #777777;
+  padding: 10px;
+}
+
+/* line 172, ../scss/misc.scss */
+#slash.node {
+  background: none;
+}
+
+/* line 176, ../scss/misc.scss */
+#block-block-3 a {
+  margin-right: 10px;
+}
+
+/* line 180, ../scss/misc.scss */
+.field-name-body {
+  color: #303030;
+}
+
+/* line 184, ../scss/misc.scss */
+.field-name-body .field-label {
+  color: #303030;
+}
+
+/* line 188, ../scss/misc.scss */
+body.en .field-name-body .field-label {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5em;
+}
+
+/* line 194, ../scss/misc.scss */
+h2.comment-form {
+  background: url("../images/comment.png") no-repeat scroll 0 0 transparent;
+  text-indent: -9999px;
+  float: left;
+  width: 100%;
+}
+
+/* line 201, ../scss/misc.scss */
+#comment-form label {
+  float: left;
+  margin-right: 10px;
+}
+
+/* line 206, ../scss/misc.scss */
+#comment-form .grippie {
+  display: none;
+}
+
+/* line 210, ../scss/misc.scss */
+#comment-form input[type=text], #comment-form textarea {
+  border: 1px solid #777777;
+  padding: 5px;
+  width: 440px;
+}
+
+/* line 216, ../scss/misc.scss */
+#comment-form label[for=edit-subject] {
+  margin-right: 42px;
+}
+
+/* line 220, ../scss/misc.scss */
+#comment-form textarea {
+  display: inline;
+  width: 450px;
+}
+
+/* line 225, ../scss/misc.scss */
+#comment-form #edit-actions {
+  margin-left: 95px;
+}
+
+/* line 229, ../scss/misc.scss */
+#comment-form #edit-actions input[type=submit] {
+  margin-right: 10px;
+}
+
+/* line 233, ../scss/misc.scss */
+.sidebar-second .block {
+  margin-bottom: 20px;
+}
+
+/* line 237, ../scss/misc.scss */
+#boxes-box-scholars_box img {
+  margin-right: 5px;
+}
+
+/* line 241, ../scss/misc.scss */
+#block-pcp-pcp_profile_percent_complete {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  background: rgba(255, 228, 0, 0.2);
+  padding: 10px;
+  z-index: 10;
+  line-height: 1.3em;
+  font-size: 16px;
+}
+/* line 251, ../scss/misc.scss */
+#block-pcp-pcp_profile_percent_complete h2 {
+  display: none;
+}
+
+/* line 256, ../scss/misc.scss */
+#comment-body-add-more-wrapper .filter-wrapper {
+  display: none;
+}
+
+/* line 261, ../scss/misc.scss */
+form#user-profile-form input[type="text"]:focus, #user-profile-form .form-textarea:focus, #user-profile-form input[type="password"]:focus {
+  -moz-box-shadow: 1px -1px 3px #777777;
+}
+
+/* line 265, ../scss/misc.scss */
+div.vertical-tabs {
+  border: 1px solid #CCCCCC;
+  clear: both;
+  float: left;
+  margin: 1em 0 1em 15em;
+  position: relative;
+}
+
+/* line 273, ../scss/misc.scss */
+.view-discussions .views-field-title {
+  float: left;
+  margin-bottom: 5px;
+  font-size: 1.6em;
+  font-weight: 300;
+}
+
+/* line 280, ../scss/misc.scss */
+.view-discussions .views-field-body {
+  border-top: 1px solid #999999;
+  clear: both;
+  padding-top: 10px;
+}
+
+/* line 286, ../scss/misc.scss */
+.field-name-field-discussion-text .submitted {
+  display: none;
+}
+
+/* line 290, ../scss/misc.scss */
+.field-name-field-discussion-text h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* line 295, ../scss/misc.scss */
+.view-discussions .views-row {
+  clear: both;
+  float: left;
+  margin-top: 35px;
+  width: 100%;
+}
+
+/* line 303, ../scss/misc.scss */
+.view-discussions .views-field-phpcode {
+  float: left;
+  margin-right: 15px;
+}
+
+/* line 308, ../scss/misc.scss */
+.view-texts-in-discussion .view-header {
+  font-weight: bold;
+}
+
+/* line 312, ../scss/misc.scss */
+body.en .view-texts-in-discussion .view-header {
+  font-style: italic;
+}
+
+/* line 316, ../scss/misc.scss */
+ul.language-switcher-locale-url li {
+  display: inline;
+}
+
+/* line 320, ../scss/misc.scss */
+ul.language-switcher-locale-url li.active {
+  display: none;
+}
+
+/* line 325, ../scss/misc.scss */
+.view-texts-in-discussion .field-name-field-text-source, .view-texts-in-discussion .field-name-field-text-author, .view-texts-in-discussion .field-name-field-text-description {
+  display: none;
+}
+
+/* line 330, ../scss/misc.scss */
+#block-boxes-welcome_to_nurani_box .more-link {
+  display: block;
+  float: left;
+  margin-top: 10px;
+}
+
+/* line 340, ../scss/misc.scss */
+.view-ibis-glossary .view-content {
+  float: left;
+}
+
+/* line 344, ../scss/misc.scss */
+.view-ibis-glossary .views-summary {
+  float: left;
+}
+
+/* line 348, ../scss/misc.scss */
+#boxes-box-participants a {
+  display: block;
+  float: left;
+  margin-right: 20px;
+}
+
+/* line 354, ../scss/misc.scss */
+#boxes-box-participants a img {
+  height: 100px;
+  width: 100px;
+}
+
+/* line 359, ../scss/misc.scss */
+#boxes-box-about_this_discussion ul {
+  border-bottom: 1px dashed #CCCCCC;
+  margin-left: 0;
+  padding-bottom: 10px;
+  padding-left: 0;
+}
+
+/* line 366, ../scss/misc.scss */
+#boxes-box-about_this_discussion ul li:hover {
+  background: #eee;
+}
+
+/* line 370, ../scss/misc.scss */
+#boxes-box-about_this_discussion ul li {
+  display: block;
+}
+
+/* line 374, ../scss/misc.scss */
+#boxes-box-about_this_discussion ul li a {
+  display: block;
+  width: 100%;
+}
+
+/* line 379, ../scss/misc.scss */
+#boxes-box-about_this_discussion .field-name {
+  border-bottom: 1px dashed #E1E1E1;
+  color: #5B0000;
+  font-weight: bold;
+  margin-top: 10px;
+  padding-bottom: 2px;
+}
+
+/* line 387, ../scss/misc.scss */
+body.page-overview #content-inner {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* line 392, ../scss/misc.scss */
+body.page-overview #content-header {
+  display: none;
+}
+
+/* line 396, ../scss/misc.scss */
+.personal-info .user-picture img {
+  /*  width:100px;*/
+}
+
+/* line 400, ../scss/misc.scss */
+.view-other-nuranis .views-field-picture img {
+  /*  width:100px;*/
+}
+
+/* line 404, ../scss/misc.scss */
+.view-texts table {
+  width: 920px;
+}
+
+/* line 408, ../scss/misc.scss */
+table .field-item, table .view-texts a, table td a {
+  font-size: 15px;
+}
+
+/* line 412, ../scss/misc.scss */
+.no-sidebars #content-header ul.tabs {
+  left: 0;
+}
+
+/* line 416, ../scss/misc.scss */
+#content-header ul.tabs, #content-header ul.tabs li {
+  float: none;
+}
+
+/* line 420, ../scss/misc.scss */
+#content-header ul.tabs li a {
+  background-image: -moz-linear-gradient(center top, #ededed 0%, #e0e0e0 100%);
+  color: #888888;
+  font-family: arial,sans-serif;
+  padding: 5px 8px 1px;
+  position: relative;
+  z-index: 9;
+}

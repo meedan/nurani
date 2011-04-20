@@ -1,0 +1,24 @@
+/* line 2, ../scss/search.scss */
+div#block-search-form {
+  position: absolute;
+  right: 3px;
+  top: 145px;
+  width: 135px;
+  margin: 0;
+  padding: 2px 5px;
+  text-align: right;
+  display: none;
+}
+/* line 10, ../scss/search.scss */
+div#block-search-form input.form-submit {
+  display: none!important;
+}
+/* line 11, ../scss/search.scss */
+div#block-search-form img {
+  padding: 2px 3px 0;
+}
+/* line 12, ../scss/search.scss */
+div#block-search-form input[type=text] {
+  padding: 3px;
+  float: left;
+}

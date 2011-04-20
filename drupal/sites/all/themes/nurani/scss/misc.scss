@@ -1,0 +1,427 @@
+#edit-body {
+  float: left;
+}
+
+body.page-admin h3 {
+  margin-bottom: 0 !important;
+}
+
+#perosnal-nav {
+  -moz-box-shadow: 0 3px 20px #000000;
+  background: none repeat scroll 0 0 #000000;
+  height: 30px;
+  position: absolute;
+  width: 100%;
+}
+
+.perosnal-username a {
+  color: #FFFFFF;
+  font-family: "Lucida Grande", Verdana, sans-serif;
+  padding: 4px;
+}
+
+.perosnal-username a:hover {
+  -moz-border-radius: 10px 10px 10px 10px;
+  background: none repeat scroll 0 0 #777777;
+}
+
+.perosnal-username {
+  color: #FFFFFF;
+  float: right;
+  font-family: "Lucida Grande", Verdana, sans-serif;
+  font-size: 12px;
+  padding-top: 7px;
+}
+
+form#user-profile-form #edit-locale {
+  display: none;
+}
+
+#edit-field-user-title,#edit-field-user-fname,#edit-field-user-lname,#edit-field-user-suffix,#edit-field-user-city,#edit-field-user-country,#edit-field-user-arabic,#edit-field-user-english
+  {
+  float: left;
+  margin-right: 10px;
+}
+
+form#user-profile-form input[type=text],#user-profile-form .form-textarea,#user-profile-form input[type=password]
+  {
+  -moz-box-shadow: 1px -1px 3px #777777;
+  border: 1px solid #C7C7C7;
+  padding: 5px;
+}
+
+form#user-profile-form label {
+  color: #555555;
+  margin-bottom: 7px;
+}
+
+#edit-field-user-position {
+  clear: both;
+}
+
+#edit-field-user-arabic,#edit-field-user-education {
+  clear: both;
+}
+
+body.page-user-edit #content {
+  width: 100%;
+}
+
+body.page-user-edit h1 {
+  font-size: 2.2em;
+  font-weight: 300;
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding: 10px 10px 0;
+  text-align: center;
+  width: 100%;
+}
+
+body.page-user-edit .inner {
+  padding: 0 20px 20px;
+}
+
+body.page-user-edit #content-header {
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+#user-profile-form .filter-wrapper,#user-profile-form .grippie {
+  display: none;
+}
+
+#user-profile-form .form-textarea {
+  width: 530px;
+}
+
+.field-name-field-user-title,.field-name-field-user-fname,.field-name-field-user-lname,.field-name-field-user-suffix
+  {
+  float: left;
+  font-size: 20px;
+  margin-right: 4px;
+}
+
+.do {
+  left: 125px;
+  position: absolute;
+  top: 60px;
+}
+
+body.en .do {
+  font-style: italic;
+}
+
+.profile .user-picture {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+.field-name-field-user-arabic {
+  clear: both;
+}
+
+.field-name-field-user-city {
+  clear: both;
+  float: left;
+  margin-right: 10px;
+}
+
+.field-name-field-user-country {
+  float: left;
+}
+
+body.page-user #content {
+  width: 100%;
+}
+
+.personal-info {
+  background: none repeat scroll 0 0 #E7E7E7;
+  display: block;
+  height: 105px;
+  margin-bottom: 15px;
+  padding: 10px;
+  position: relative;
+  width: 100%;
+}
+
+.residence {
+  left: 125px;
+  position: absolute;
+  top: 85px;
+}
+
+.profile-name {
+  margin-top: 20px;
+}
+
+.user-picture img {
+  float: left;
+/*  width: 32px; */
+}
+
+.profile .field-items {
+  clear: both;
+}
+
+.prof-info {
+  border-top: 1px solid #777777;
+  padding: 10px;
+}
+
+
+#slash.node {
+  background: none;
+}
+
+#block-block-3 a {
+  margin-right: 10px;
+}
+
+.field-name-body {
+  color: #303030;
+}
+
+.field-name-body .field-label {
+  color: #303030;
+}
+
+body.en .field-name-body .field-label {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5em;
+}
+
+h2.comment-form {
+  background: url("../images/comment.png") no-repeat scroll 0 0 transparent;
+  text-indent: -9999px;
+  float:left;
+  width: 100%;
+}
+
+#comment-form label {
+  float: left;
+  margin-right: 10px;
+}
+
+#comment-form .grippie {
+  display: none;
+}
+
+#comment-form input[type=text],#comment-form textarea {
+  border: 1px solid #777777;
+  padding: 5px;
+  width: 440px;
+}
+
+#comment-form label[for=edit-subject] {
+  margin-right: 42px;
+}
+
+#comment-form textarea {
+  display: inline;
+  width: 450px;
+}
+
+#comment-form #edit-actions {
+  margin-left: 95px;
+}
+
+#comment-form #edit-actions input[type=submit] {
+  margin-right: 10px;
+}
+
+.sidebar-second .block {
+  margin-bottom: 20px;
+}
+
+#boxes-box-scholars_box img {
+  margin-right: 5px;
+}
+
+#block-pcp-pcp_profile_percent_complete {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  background: rgba(255,228,0,0.2);
+  padding: 10px;
+  z-index: 10;
+  line-height: 1.3em;
+  font-size: 16px;
+  h2 {
+    display: none;
+  }
+}
+
+#comment-body-add-more-wrapper .filter-wrapper {
+  display: none;
+}
+
+form#user-profile-form input[type="text"]:focus,#user-profile-form .form-textarea:focus,#user-profile-form input[type="password"]:focus
+  {
+  -moz-box-shadow: 1px -1px 3px #777777;
+}
+
+div.vertical-tabs {
+  border: 1px solid #CCCCCC;
+  clear: both;
+  float: left;
+  margin: 1em 0 1em 15em;
+  position: relative;
+}
+
+.view-discussions .views-field-title {
+  float: left;
+  margin-bottom: 5px;
+	font-size: 1.6em;
+	font-weight: 300;
+}
+
+.view-discussions .views-field-body {
+  border-top: 1px solid #999999;
+  clear: both;
+  padding-top: 10px;
+}
+
+.field-name-field-discussion-text .submitted {
+  display: none;
+}
+
+.field-name-field-discussion-text h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.view-discussions .views-row {
+  clear: both;
+  float: left;
+  margin-top: 35px;
+  width: 100%;
+}
+
+.view-discussions .views-field-phpcode
+  {
+  float: left;
+  margin-right: 15px;
+}
+
+.view-texts-in-discussion .view-header {
+  font-weight: bold;
+}
+
+body.en .view-texts-in-discussion .view-header { 
+  font-style: italic;
+}
+
+ul.language-switcher-locale-url li {
+  display: inline;
+}
+
+ul.language-switcher-locale-url li.active {
+  display: none;
+}
+
+.view-texts-in-discussion .field-name-field-text-source,.view-texts-in-discussion .field-name-field-text-author,.view-texts-in-discussion .field-name-field-text-description
+  {
+  display: none;
+}
+
+
+#block-boxes-welcome_to_nurani_box .more-link {
+  display: block;
+  float: left;
+  margin-top: 10px;
+}
+
+.view-ibis-glossary .views-summary a {
+  
+}
+
+.view-ibis-glossary .view-content {
+  float: left;
+}
+
+.view-ibis-glossary .views-summary {
+  float: left;
+}
+
+#boxes-box-participants a {
+  display: block;
+  float: left;
+  margin-right: 20px;
+}
+
+#boxes-box-participants a img {
+  height: 100px;
+  width: 100px;
+}
+
+#boxes-box-about_this_discussion ul {
+  border-bottom: 1px dashed #CCCCCC;
+  margin-left: 0;
+  padding-bottom: 10px;
+  padding-left: 0;
+}
+
+#boxes-box-about_this_discussion ul li:hover {
+  background:#eee;
+}
+
+#boxes-box-about_this_discussion ul li {
+  display:block;
+}
+
+#boxes-box-about_this_discussion ul li a {
+    display: block;
+    width: 100%;
+}
+
+#boxes-box-about_this_discussion .field-name {
+    border-bottom: 1px dashed #E1E1E1;
+    color: #5B0000;
+    font-weight: bold;
+    margin-top: 10px;
+    padding-bottom: 2px;
+}
+
+body.page-overview #content-inner {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+body.page-overview #content-header {
+  display: none;
+}
+
+.personal-info .user-picture img {
+/*  width:100px;*/
+}
+
+.view-other-nuranis .views-field-picture img {
+/*  width:100px;*/
+}
+
+.view-texts table {
+    width: 920px;
+}
+
+table .field-item, table .view-texts a , table td a{
+  font-size:15px;
+}
+
+.no-sidebars #content-header ul.tabs {
+    left: 0;
+}
+
+#content-header ul.tabs, #content-header ul.tabs li {
+  float:none;
+}
+
+#content-header ul.tabs li a {
+    background-image: -moz-linear-gradient(center top , #EDEDED 0%, #E0E0E0 100%);
+    color: #888888;
+    font-family: arial,sans-serif;
+    padding: 5px 8px 1px;
+    position: relative;
+    z-index: 9;
+}

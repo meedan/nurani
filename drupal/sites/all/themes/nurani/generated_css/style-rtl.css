@@ -1,0 +1,120 @@
+/* ================== */
+/* = "soft buttons" = */
+/* ================== */
+/* =================== */
+/* = toggle buttons = */
+/* =================== */
+/* ================ */
+/* = icon buttons = */
+/* ================ */
+/*aapplied to lis*/
+/* theme core colors*/
+/*basics*/
+/*section names */
+/*bright colors*/
+/* line 4, ../scss/style-rtl.scss */
+body.ar {
+  overflow-x: hidden !important;
+}
+/* line 8, ../scss/style-rtl.scss */
+body.ar #boxes-box-welcome_to_nurani_box .toggle {
+  position: absolute;
+  right: auto;
+  left: 0;
+  top: 1px;
+}
+/* line 15, ../scss/style-rtl.scss */
+body.ar .condense_control {
+  padding: 4px 4px 4px 0;
+  background: url("../images/more-ar.png") no-repeat scroll 0 0 transparent;
+}
+/* line 20, ../scss/style-rtl.scss */
+body.ar #comment-form label {
+  float: right;
+  margin-right: 10px;
+}
+/* line 25, ../scss/style-rtl.scss */
+body.ar #comment-form label[for="edit-subject"] {
+  margin-left: 42px;
+  margin-right: 0;
+}
+/* line 35, ../scss/style-rtl.scss */
+body.ar #sidebar-second,
+body.ar .sidebar-second #main,
+body.ar .text,
+body.ar .author-photo,
+body.ar .view-texts-in-discussion .views-row,
+body.ar .view-overview .views-field-title {
+  float: right;
+}
+/* line 39, ../scss/style-rtl.scss */
+body.ar .perosnal-username, body.ar .view-overview .views-field-view-node {
+  float: left;
+}
+/* line 45, ../scss/style-rtl.scss */
+body.ar ul#primary li.first {
+  float: left;
+  list-style: none outside none;
+  padding: 0;
+}
+/* line 73, ../scss/_buttons.scss */
+body.ar ul#primary li.first a {
+  font-size: 20px;
+  background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
+  display: block;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  float: right;
+  clear: none;
+  text-decoration: none;
+  padding-right: 50px;
+  padding-left: 10px;
+}
+/* line 46, ../scss/style-rtl.scss */
+body.ar ul#primary li {
+  float: left;
+  list-style: none outside none;
+  padding: 0;
+}
+/* line 73, ../scss/_buttons.scss */
+body.ar ul#primary li a {
+  font-size: 20px;
+  background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
+  display: block;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  float: right;
+  clear: none;
+  text-decoration: none;
+  padding-right: 50px;
+  padding-left: 10px;
+}
+/* line 47, ../scss/style-rtl.scss */
+body.ar ul#primary li.last {
+  float: left;
+  list-style: none outside none;
+  padding: 0;
+}
+/* line 73, ../scss/_buttons.scss */
+body.ar ul#primary li.last a {
+  font-size: 20px;
+  background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
+  display: block;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  float: right;
+  clear: none;
+  text-decoration: none;
+  padding-right: 50px;
+  padding-left: 10px;
+}
+/* line 50, ../scss/style-rtl.scss */
+body.ar #block-boxes-welcome_to_nurani_box .more-link {
+  display: block;
+  float: right;
+  margin-top: 10px;
+}
+/* line 56, ../scss/style-rtl.scss */
+body.ar .view-ibis-glossary .views-summary {
+  float: right;
+}

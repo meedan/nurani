@@ -1,0 +1,63 @@
+@import "colors";
+@import "buttons.scss";
+@import "compass/css3";
+
+@mixin nav($base_color: $nav-bkg, $text_color: $nav-text) {
+  line-height: 1.2;
+  -webkit-box-sizing: border-box;
+  display: inline-block;
+  text-decoration: none;
+  width: 100%;
+  text-transform:uppercase;
+}
+
+@mixin primarynav($bright: $identity, $dark: darken($identity, 80%)) {
+  margin-left: 200px;
+  a {
+     @include link-colors($bright, $dark, $dark, $bright, $bright );
+     font-weight:normal;
+     &:hover {
+       text-decoration:none;
+     }
+     font-size:20px;
+   }
+   li.active {
+     &.active {
+        color: $darkest;
+      }
+   }
+}
+
+@mixin secondarynav {
+  text-align: center;
+  width:100%;
+  display:block;
+}
+
+@mixin languageswitcher {
+  ul {
+    list-style-type: none;
+  }
+}
+
+
+ul#primary {
+  /* we're doing it with a mixin so we can override direction in style-rtl */
+  /* TODO the use of first and last needs to be repaired with custom classes, eg li.discussion li.texts li.glossary */
+  li.first { @include icon_button("d", "left"); }
+  li  { @include icon_button("g", "left"); }
+  li.last { @include icon_button("t", "left"); }
+
+  li.active {
+    background: url("../images/bkg_active_nav.png") -5px bottom transparent;
+    a[href="/overview"]~span.icon {
+      @include icon_active("d", "left")
+    }
+    a[href="/glossary"]~span.icon {
+      @include icon_active("g", "left")
+    }
+    a[href="/texts"]~span.icon {
+      @include icon_active("t", "left")
+    }
+  }
+}

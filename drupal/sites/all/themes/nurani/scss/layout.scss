@@ -1,0 +1,125 @@
+
+.node-inner {
+ padding-top: 20px; 
+}
+
+div#header {
+  text-align: center;
+  margin: 0;
+}
+
+div#footer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+div#main {
+  position: relative;
+  z-index: 2;
+}
+
+div#main div.links {
+  line-height: "30px";
+  -webkit-box-sizing: border-box;
+  height: "30px";
+  display: inline-block;
+  padding: 5px;
+  font-size: 12px;
+}
+
+div#main div.links:active {
+}
+
+.page {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.sidebar-right #main {
+  float: left;
+  width: 593.28px;
+}
+
+#header-region {
+  position: relative;
+}
+
+/* Layout rules. (Disclaimer: do not change if you're not sure you know what you're doing.) */
+  /* line 72, ../scss/layout.scss */
+#content {
+  width: 593.28px;
+  margin: 0 auto;
+}
+
+/* line 76, ../scss/layout.scss */
+.sidebar-first #content {
+  float: right;
+  width: 593.28px;
+}
+
+.sidebar-right #content {
+  float: left;
+  width: 593.28px;
+}
+
+.sidebar {
+  float: left;
+  width: 366.72px;
+}
+
+#sidebar-second {
+  float: right;
+  width: 366.72px;
+}
+
+#footer {
+  float: none;
+  clear: both;
+}
+
+/* Layout Helpers */
+#header,#footer,.mission,.breadcrumb,.node {
+  clear: both;
+}
+
+/* Sidebars width
+ * --------------
+ * Changing the width of the sidebars is dead easy, just change the
+ * values below corresponding to the sidebar you want to modify.
+ * Make sure you keep negative values as negative values.
+ * For example, if I want to increase the width of the left sidebar
+ * to 300px, I would have to change each '190' to '300'. */
+  /* line 119, ../scss/layout.scss */
+.two-sidebars .center,.sidebar-first .center {
+  margin-left: 190px;
+}
+
+#sidebar-first {
+  width: 190px;
+  margin-right: -190px;
+}
+
+.two-sidebars .center,.sidebar-right .center {
+  margin-right: 200px;
+}
+
+.sidebar-right .center {
+  margin-right: 0;
+}
+
+/* Columns Inner
+ * -------------
+ * You can change the padding inside the columns without changing the
+ * width of them by just usinbg the INNER div of each column */
+  /* line 141, ../scss/layout.scss */
+.inner {
+  padding: 20px;
+}
+
+body.page-mockup .inner {
+  padding: 0;
+}
+
+#sidebar-second .inner {
+  padding: 0;
+}

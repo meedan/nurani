@@ -1,0 +1,47 @@
+$default-box-shadow-color: #c3c3c3;
+
+/* theme core colors*/
+$bronco:#B0A59C;
+$maroon:#7c0000;
+$westar:#e7e4e1;
+$concrete:#f2f2f2;
+$pearlbush:#ece6dc;
+$donjuan:#5f4c4c;
+$nobel:#b7b7b7;
+$dovegray:#6d6d6d;
+$white:#ffffff;
+$darkest:#000000;
+$paper:#eee9e3;
+$postit: #fff9e6;
+$default-box-shadow-color: #c3c3c3;
+$identity: $maroon;
+$accent: $identity;
+
+/*basics*/
+$darkest: darken($identity, 100%);
+$lightest: lighten($identity, 85%);
+$light-text: #c3c3c3;
+$barelythere: #f8f8f8;
+
+/*section names */
+$body-bkg: #f2e9e3;
+$sidebar-bkg: $lightest;
+$content-bkg: $lightest;
+$tabs-bkg: $lightest;
+$nav-text: green;
+$nav-bkg: $lightest;
+$sidebar-header-bkg: $lightest;
+$content-header-bkg: $lightest;
+
+/*bright colors*/
+$frenchpass_blue:     #bbddff;
+$cornflower_blue:     #aaccee;
+$midnight_blue:       #003366;
+$cinnamon_brown:      #884400;
+$paris_daisy_yellow:  #ffee66;
+$confetti_yellow:     #eedd55;
+$flamingo_orange:     #ee6633;
+$hot_cinnamon_orange: #dd5522;
+$verdun_green:        #336600;
+$reef_green:          #ccff88;
+$sulu_green:          #bbee77;
