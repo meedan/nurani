@@ -11,3 +11,5 @@ $db_url = 'mysql://username:password@localhost/databasename';
 to reflect your database settings.
 
 * Navigate to http://localhost/meedan-nurani/drupal/ (if that's where you placed it) and login with admin/admin.
+
+
