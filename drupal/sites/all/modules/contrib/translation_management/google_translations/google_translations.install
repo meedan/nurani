@@ -7,10 +7,7 @@
  * @return array
  */
 function google_translations_schema() {
-  
   $schema = array ();
-  
-  
   return $schema;
 }
 
@@ -29,11 +26,10 @@ function hook_requirements($phase) {
   	$curl = function_exists('curl_init');
   	$requirements['curl'] = array(
   		'title' => $t('CURL'),
-			'severity' => $curl ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+		'severity' => $curl ? REQUIREMENT_OK : REQUIREMENT_ERROR,
 		);
 		if (!$curl) { $requirements['curl']['description'] = 'You must install the PHP CURL extension to use Google Translate.'; }
   }
-
   return $requirements;
 }
 
