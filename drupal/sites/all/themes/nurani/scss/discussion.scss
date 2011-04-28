@@ -15,7 +15,7 @@ body.node-type-discussion {
   }
 
   p {}
-  div#block-views-texts_in_discussion-block_1 {
+  div#block-views-discussion_texts-block_1 {
     width: 960px;
   }
   
@@ -52,25 +52,31 @@ body.node-type-discussion {
     margin: 10px 5px;
     float: left;
     width: $text_width;
-    div.text {
+    div.buildmode-text_summary {
       width: $text_width - 40px;
       background: $paper;
       border: 1px solid #ddd;
       color: #868080;
       float: left;
-      padding: 10px 10px 20px;
+      padding: 0 10px 20px;
       position: relative;
       min-height: $text_height;
       line-height: 1em;
-      h2 {
+      h1 {
         font-size: 23px;
-        font-weight: normal;
-        line-height: 0.87em;
+	text-transform: inherit;
+        font-weight: bold;
+        line-height: 1.2em;
         letter-spacing: -0.3px;
-        color: #5B0000;
+	text-align: left;
+        color: #000;
         }
+			
+	.field-description {
+		color: #303030;
+	}
       
-      .condense_control {
+     .nd-region-footer a {
         @include soft_button;
         position: absolute;
         right: 10px;

@@ -4,7 +4,7 @@
     background: #fff;
     border-collapse: collapse;
     text-align: left;
-    width:510px;
+    width:920px;
     margin: 0;
 
     thead {
@@ -39,5 +39,7 @@
 }
     tbody tr:hover td { background-color: white; }  
   }
-
+.view-glossary-terms .views-table {
+	width: 510px;
+}
 }

@@ -582,7 +582,7 @@ body.page-overview #slash .toggle a:hover {
 /* line 6, ../scss/texts.scss */
 body.page-texts #main #content {
   margin-left: 0;
-  width: 900px;
+  width: 960px;
 }
 /* line 2, ../scss/_tables.scss */
 body.page-texts #main #content .views-table {
@@ -590,7 +590,7 @@ body.page-texts #main #content .views-table {
   background: #fff;
   border-collapse: collapse;
   text-align: left;
-  width: 510px;
+  width: 920px;
   margin: 0;
 }
 /* line 10, ../scss/_tables.scss */
@@ -633,6 +633,10 @@ body.page-texts #main #content .views-table td.views-field-field-part-of-speech-
 /* line 40, ../scss/_tables.scss */
 body.page-texts #main #content .views-table tbody tr:hover td {
   background-color: white;
+}
+/* line 42, ../scss/_tables.scss */
+body.page-texts #main #content .view-glossary-terms .views-table {
+  width: 510px;
 }
 /* line 13, ../scss/texts.scss */
 body.page-texts #main #content tr td {
@@ -1159,7 +1163,7 @@ body.page-glossary .views-table {
   background: #fff;
   border-collapse: collapse;
   text-align: left;
-  width: 510px;
+  width: 920px;
   margin: 0;
 }
 /* line 10, ../scss/_tables.scss */
@@ -1202,6 +1206,10 @@ body.page-glossary .views-table td.views-field-field-part-of-speech-value {
 /* line 40, ../scss/_tables.scss */
 body.page-glossary .views-table tbody tr:hover td {
   background-color: white;
+}
+/* line 42, ../scss/_tables.scss */
+body.page-glossary .view-glossary-terms .views-table {
+  width: 510px;
 }
 /* line 8, ../scss/glossary.scss */
 body.page-glossary #search-block-form {
@@ -1261,7 +1269,7 @@ body.node-type-discussion div#slash {
   margin: 30px 30px 0;
 }
 /* line 18, ../scss/discussion.scss */
-body.node-type-discussion div#block-views-texts_in_discussion-block_1 {
+body.node-type-discussion div#block-views-discussion_texts-block_1 {
   width: 960px;
 }
 /* line 22, ../scss/discussion.scss */
@@ -1391,27 +1399,33 @@ body.node-type-discussion div.views-row {
   width: 218px;
 }
 /* line 55, ../scss/discussion.scss */
-body.node-type-discussion div.views-row div.text {
+body.node-type-discussion div.views-row div.buildmode-text_summary {
   width: 178px;
   background: #eee9e3;
   border: 1px solid #ddd;
   color: #868080;
   float: left;
-  padding: 10px 10px 20px;
+  padding: 0 10px 20px;
   position: relative;
   min-height: 300px;
   line-height: 1em;
 }
 /* line 65, ../scss/discussion.scss */
-body.node-type-discussion div.views-row div.text h2 {
+body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   font-size: 23px;
-  font-weight: normal;
-  line-height: 0.87em;
+  text-transform: inherit;
+  font-weight: bold;
+  line-height: 1.2em;
   letter-spacing: -0.3px;
-  color: #5B0000;
+  text-align: left;
+  color: #000;
 }
-/* line 73, ../scss/discussion.scss */
-body.node-type-discussion div.views-row div.text .condense_control {
+/* line 75, ../scss/discussion.scss */
+body.node-type-discussion div.views-row div.buildmode-text_summary .field-description {
+  color: #303030;
+}
+/* line 79, ../scss/discussion.scss */
+body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   -o-border-radius: 15px;
@@ -1437,13 +1451,13 @@ body.node-type-discussion div.views-row div.text .condense_control {
   font-size: 13px;
 }
 /* line 19, ../scss/_buttons.scss */
-body.node-type-discussion div.views-row div.text .condense_control:hover {
+body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 23, ../scss/_buttons.scss */
-body.node-type-discussion div.views-row div.text .condense_control:active {
+body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
