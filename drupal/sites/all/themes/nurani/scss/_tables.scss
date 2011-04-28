@@ -4,14 +4,14 @@
     background: #fff;
     border-collapse: collapse;
     text-align: left;
-    width:900px;
+    width:510px;
     margin: 0;
 
     thead {
       @include box-shadow(#c3c3c3, 1px, 1px, 3px, 1px, inset);
       @include linear-gradient(color_stops(darken($concrete, 10%),$concrete));
       padding: 15px 0;
-      height: 100px;
+      height: 60px;
       color: #fff;
       border-top: 1px solid $darkest;
       font-size: 1.6em;
@@ -28,8 +28,15 @@
     td {
       color: #333;
       padding: 9px 8px 0px 8px;
+
     }
-    
+   td.views-field-title {
+		background: #eee;
+		width: 130px;
+} 
+	td.views-field-field-part-of-speech-value {
+		width: 120px;	
+}
     tbody tr:hover td { background-color: white; }  
   }
 

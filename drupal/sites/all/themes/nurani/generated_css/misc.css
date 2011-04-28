@@ -390,29 +390,34 @@ ul.language-switcher-locale-url li.active {
 }
 
 /* line 340, ../scss/misc.scss */
-.view-ibis-glossary .view-content {
+.view-glossary-terms .view-content {
   float: left;
 }
 
 /* line 344, ../scss/misc.scss */
-.view-ibis-glossary .views-summary {
+.view-glossary-terms .views-summary {
   float: left;
+  display: block;
+  height: 22px;
+  line-height: 22px;
+  padding: 0 5px 0 0;
+  color: #aaa;
 }
 
-/* line 348, ../scss/misc.scss */
+/* line 353, ../scss/misc.scss */
 #boxes-box-participants a {
   display: block;
   float: left;
   margin-right: 20px;
 }
 
-/* line 354, ../scss/misc.scss */
+/* line 359, ../scss/misc.scss */
 #boxes-box-participants a img {
   height: 100px;
   width: 100px;
 }
 
-/* line 359, ../scss/misc.scss */
+/* line 364, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul {
   border-bottom: 1px dashed #CCCCCC;
   margin-left: 0;
@@ -420,23 +425,23 @@ ul.language-switcher-locale-url li.active {
   padding-left: 0;
 }
 
-/* line 366, ../scss/misc.scss */
+/* line 371, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li:hover {
   background: #eee;
 }
 
-/* line 370, ../scss/misc.scss */
+/* line 375, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li {
   display: block;
 }
 
-/* line 374, ../scss/misc.scss */
+/* line 379, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li a {
   display: block;
   width: 100%;
 }
 
-/* line 379, ../scss/misc.scss */
+/* line 384, ../scss/misc.scss */
 #boxes-box-about_this_discussion .field-name {
   border-bottom: 1px dashed #E1E1E1;
   color: #5B0000;
@@ -445,48 +450,48 @@ ul.language-switcher-locale-url li.active {
   padding-bottom: 2px;
 }
 
-/* line 387, ../scss/misc.scss */
+/* line 392, ../scss/misc.scss */
 body.page-overview #content-inner {
   margin-top: 0;
   padding-top: 0;
 }
 
-/* line 392, ../scss/misc.scss */
+/* line 397, ../scss/misc.scss */
 body.page-overview #content-header {
   display: none;
 }
 
-/* line 396, ../scss/misc.scss */
+/* line 401, ../scss/misc.scss */
 .personal-info .user-picture img {
   /*  width:100px;*/
 }
 
-/* line 400, ../scss/misc.scss */
+/* line 405, ../scss/misc.scss */
 .view-other-nuranis .views-field-picture img {
   /*  width:100px;*/
 }
 
-/* line 404, ../scss/misc.scss */
+/* line 409, ../scss/misc.scss */
 .view-texts table {
   width: 920px;
 }
 
-/* line 408, ../scss/misc.scss */
+/* line 413, ../scss/misc.scss */
 table .field-item, table .view-texts a, table td a {
   font-size: 15px;
 }
 
-/* line 412, ../scss/misc.scss */
+/* line 417, ../scss/misc.scss */
 .no-sidebars #content-header ul.tabs {
   left: 0;
 }
 
-/* line 416, ../scss/misc.scss */
+/* line 421, ../scss/misc.scss */
 #content-header ul.tabs, #content-header ul.tabs li {
   float: none;
 }
 
-/* line 420, ../scss/misc.scss */
+/* line 425, ../scss/misc.scss */
 #content-header ul.tabs li a {
   background-image: -moz-linear-gradient(center top, #ededed 0%, #e0e0e0 100%);
   color: #888888;

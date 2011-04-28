@@ -10,11 +10,19 @@ body.page-glossary {
   }
   
   .views-exposed-form {
-    padding: 10px 30px;
-    select,input#edit-title { font-size:1.6em; }
+    padding: 10px 20px;
+   
+ input#edit-title { 
+	font-size:1.6em; 
+	width: 510px;
+}
     z-index:-1;
   }
   
+select#edit-language {
+	font-size: 1em;
+	width: 100px;
+}	
   h2.block-title {
     display:none;
   }

@@ -9,7 +9,7 @@ body.page-glossary .views-table {
   background: #fff;
   border-collapse: collapse;
   text-align: left;
-  width: 900px;
+  width: 510px;
   margin: 0;
 }
 /* line 10, ../scss/_tables.scss */
@@ -22,7 +22,7 @@ body.page-glossary .views-table thead {
   background-image: -moz-linear-gradient(top, #d8d8d8 0%, #f2f2f2 100%);
   background-image: linear-gradient(top, #d8d8d8 0%, #f2f2f2 100%);
   padding: 15px 0;
-  height: 100px;
+  height: 60px;
   color: #fff;
   border-top: 1px solid black;
   font-size: 1.6em;
@@ -41,6 +41,15 @@ body.page-glossary .views-table td {
   padding: 9px 8px 0px 8px;
 }
 /* line 33, ../scss/_tables.scss */
+body.page-glossary .views-table td.views-field-title {
+  background: #eee;
+  width: 130px;
+}
+/* line 37, ../scss/_tables.scss */
+body.page-glossary .views-table td.views-field-field-part-of-speech-value {
+  width: 120px;
+}
+/* line 40, ../scss/_tables.scss */
 body.page-glossary .views-table tbody tr:hover td {
   background-color: white;
 }
@@ -50,18 +59,24 @@ body.page-glossary #search-block-form {
 }
 /* line 12, ../scss/glossary.scss */
 body.page-glossary .views-exposed-form {
-  padding: 10px 30px;
+  padding: 10px 20px;
   z-index: -1;
 }
-/* line 14, ../scss/glossary.scss */
-body.page-glossary .views-exposed-form select, body.page-glossary .views-exposed-form input#edit-title {
+/* line 15, ../scss/glossary.scss */
+body.page-glossary .views-exposed-form input#edit-title {
   font-size: 1.6em;
+  width: 510px;
 }
-/* line 18, ../scss/glossary.scss */
+/* line 22, ../scss/glossary.scss */
+body.page-glossary select#edit-language {
+  font-size: 1em;
+  width: 100px;
+}
+/* line 26, ../scss/glossary.scss */
 body.page-glossary h2.block-title {
   display: none;
 }
-/* line 22, ../scss/glossary.scss */
+/* line 30, ../scss/glossary.scss */
 body.page-glossary .view-content {
   margin: 0 auto;
   padding: 20px;

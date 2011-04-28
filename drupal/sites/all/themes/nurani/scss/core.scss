@@ -273,7 +273,7 @@ div#walkthrough {display:none;}
     font-size: 24px;
     display: none;
   }
-  #boxes-box-glossary_tools {
+  #boxes-box-add_glossary_term {
     .boxes-box-content {
       a {
         @include button;
@@ -282,6 +282,9 @@ div#walkthrough {display:none;}
         text-align: center;
         } 
     }
+		.boxes-box-controls {
+				margin: 10px 0;
+}
   }
   #boxes-box-add_discussion {
     .boxes-box-content {
@@ -399,7 +402,7 @@ div.field-name-field-texts {
 #sidebar-second {
   h2.block-title {
     border-bottom: 4px double lighten($darkest, 30%); }
-  #boxes-box-glossary_tools {
+  #boxes-box-add_glossary_term {
     .boxes-box-content {
       a {
         color: $identity; } } } }

@@ -333,16 +333,21 @@ ul.language-switcher-locale-url li.active {
   margin-top: 10px;
 }
 
-.view-ibis-glossary .views-summary a {
+.view-glossary-terms .views-summary a {
   
 }
 
-.view-ibis-glossary .view-content {
+.view-glossary-terms .view-content {
   float: left;
 }
 
-.view-ibis-glossary .views-summary {
+.view-glossary-terms .views-summary {
   float: left;
+	display: block;
+	height: 22px;
+	line-height: 22px;
+	padding: 0 5px 0 0;
+	color: #aaa;
 }
 
 #boxes-box-participants a {

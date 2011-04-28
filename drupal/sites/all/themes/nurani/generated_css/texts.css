@@ -14,7 +14,7 @@ body.page-texts #main #content .views-table {
   background: #fff;
   border-collapse: collapse;
   text-align: left;
-  width: 900px;
+  width: 510px;
   margin: 0;
 }
 /* line 10, ../scss/_tables.scss */
@@ -27,7 +27,7 @@ body.page-texts #main #content .views-table thead {
   background-image: -moz-linear-gradient(top, #d8d8d8 0%, #f2f2f2 100%);
   background-image: linear-gradient(top, #d8d8d8 0%, #f2f2f2 100%);
   padding: 15px 0;
-  height: 100px;
+  height: 60px;
   color: #fff;
   border-top: 1px solid black;
   font-size: 1.6em;
@@ -46,6 +46,15 @@ body.page-texts #main #content .views-table td {
   padding: 9px 8px 0px 8px;
 }
 /* line 33, ../scss/_tables.scss */
+body.page-texts #main #content .views-table td.views-field-title {
+  background: #eee;
+  width: 130px;
+}
+/* line 37, ../scss/_tables.scss */
+body.page-texts #main #content .views-table td.views-field-field-part-of-speech-value {
+  width: 120px;
+}
+/* line 40, ../scss/_tables.scss */
 body.page-texts #main #content .views-table tbody tr:hover td {
   background-color: white;
 }
