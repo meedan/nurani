@@ -2,7 +2,7 @@
   <div id="comments" class="<?php print $classes; ?>">
     <?php if ($node->comment_count != 0): ?>
       <h2 id="comments-title">
-        <?php print t('Comments'); ?>
+        <?php print t('Responses'); ?>
       </h2>
     <?php endif; ?>
     <?php print $content; ?>

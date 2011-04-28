@@ -175,6 +175,8 @@ body.discussion #content {
 /*  =Comments
   ------------------------------------------------------ */
 #comments {
+  border-top: 1px solid #D3D7D9;
+
   .comment-inner {
     margin:20px 0;
     span.submitted{
@@ -191,6 +193,10 @@ body.discussion #content {
     p.comment-time {
     font-size: 13px;
     }
+  border-top: 1px solid #D3D7D9;
+
+  border-top: 1px solid #D3D7D9;
+
   }
   .content {;
     border: 1px solid #D3D7D9;

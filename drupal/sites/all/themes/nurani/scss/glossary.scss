@@ -33,3 +33,41 @@ select#edit-language {
     text-align: center;
   }
 }
+/*Glossary term page*/
+
+.node-type-term {
+  .view-empty {
+    font-size: 1.4em;
+  }
+  .field-part-of-speech {
+    margin-bottom: 20px;
+
+    .field-label {
+      float: left;
+      margin-right: 5px;
+    }
+  }
+  .field-group-translations {
+    margin-bottom: 20px;
+
+    .field-label {
+      margin-bottom: 5px;
+    } 
+    .fieldset {
+      clear: both;
+      line-height: 26px;
+     
+      .field-field-translation-term {
+        float: left;
+        margin-right: 5px;
+      }
+    }
+  }
+  .view-glossary-references {
+    
+    .views-row {
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+  }
+}

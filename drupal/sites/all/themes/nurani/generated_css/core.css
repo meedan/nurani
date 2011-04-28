@@ -1241,6 +1241,44 @@ body.page-glossary .view-content {
   text-align: center;
 }
 
+/*Glossary term page*/
+/* line 39, ../scss/glossary.scss */
+.node-type-term .view-empty {
+  font-size: 1.4em;
+}
+/* line 42, ../scss/glossary.scss */
+.node-type-term .field-part-of-speech {
+  margin-bottom: 20px;
+}
+/* line 45, ../scss/glossary.scss */
+.node-type-term .field-part-of-speech .field-label {
+  float: left;
+  margin-right: 5px;
+}
+/* line 50, ../scss/glossary.scss */
+.node-type-term .field-group-translations {
+  margin-bottom: 20px;
+}
+/* line 53, ../scss/glossary.scss */
+.node-type-term .field-group-translations .field-label {
+  margin-bottom: 5px;
+}
+/* line 56, ../scss/glossary.scss */
+.node-type-term .field-group-translations .fieldset {
+  clear: both;
+  line-height: 26px;
+}
+/* line 60, ../scss/glossary.scss */
+.node-type-term .field-group-translations .fieldset .field-field-translation-term {
+  float: left;
+  margin-right: 5px;
+}
+/* line 68, ../scss/glossary.scss */
+.node-type-term .view-glossary-references .views-row {
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
 /* theme core colors*/
 /*basics*/
 /*section names */
@@ -2044,80 +2082,83 @@ body.page-user #content {
 }
 
 /* line 180, ../scss/misc.scss */
-.field-name-body {
+.field-body {
   color: #303030;
 }
 
 /* line 184, ../scss/misc.scss */
-.field-name-body .field-label {
+.field-body .field-label {
   color: #303030;
 }
 
 /* line 188, ../scss/misc.scss */
-body.en .field-name-body .field-label {
+body.i18n-en .field-body .field-label {
   font-style: normal;
   font-weight: normal;
   font-size: 1.5em;
+  margin-bottom: 10px;
 }
 
-/* line 194, ../scss/misc.scss */
-h2.comment-form {
+/* line 195, ../scss/misc.scss */
+#comments .box h2 {
   background: url("../images/comment.png") no-repeat scroll 0 0 transparent;
   text-indent: -9999px;
   float: left;
+  margin: 20px 0;
   width: 100%;
 }
 
-/* line 201, ../scss/misc.scss */
-#comment-form label {
+/* line 203, ../scss/misc.scss */
+#comments #edit-body-wrapper label {
   float: left;
   margin-right: 10px;
 }
 
-/* line 206, ../scss/misc.scss */
-#comment-form .grippie {
+/* line 208, ../scss/misc.scss */
+#comments #edit-body-wrapper .grippie {
   display: none;
 }
 
-/* line 210, ../scss/misc.scss */
-#comment-form input[type=text], #comment-form textarea {
-  border: 1px solid #777777;
+/* line 212, ../scss/misc.scss */
+#comment-form input[type=text], #comments #edit-body-wrapper textarea#edit-body {
   padding: 5px;
+  float: none;
+  height: 85px;
   width: 440px;
 }
 
-/* line 216, ../scss/misc.scss */
+/* line 219, ../scss/misc.scss */
 #comment-form label[for=edit-subject] {
   margin-right: 42px;
 }
 
-/* line 220, ../scss/misc.scss */
+/* line 223, ../scss/misc.scss */
 #comment-form textarea {
   display: inline;
   width: 450px;
 }
 
-/* line 225, ../scss/misc.scss */
+/* line 228, ../scss/misc.scss */
 #comment-form #edit-actions {
   margin-left: 95px;
 }
 
-/* line 229, ../scss/misc.scss */
+/* line 232, ../scss/misc.scss */
 #comment-form #edit-actions input[type=submit] {
   margin-right: 10px;
 }
 
-/* line 233, ../scss/misc.scss */
+/* line 236, ../scss/misc.scss */
 .sidebar-second .block {
   margin-bottom: 20px;
 }
 
-/* line 237, ../scss/misc.scss */
+/* line 240, ../scss/misc.scss */
 #boxes-box-scholars_box img {
   margin-right: 5px;
 }
 
-/* line 241, ../scss/misc.scss */
+/* line 244, ../scss/misc.scss */
 #block-pcp-pcp_profile_percent_complete {
   position: fixed;
   bottom: 0;
@@ -2129,22 +2170,22 @@ h2.comment-form {
   line-height: 1.3em;
   font-size: 16px;
 }
-/* line 251, ../scss/misc.scss */
+/* line 254, ../scss/misc.scss */
 #block-pcp-pcp_profile_percent_complete h2 {
   display: none;
 }
 
-/* line 256, ../scss/misc.scss */
+/* line 259, ../scss/misc.scss */
 #comment-body-add-more-wrapper .filter-wrapper {
   display: none;
 }
 
-/* line 261, ../scss/misc.scss */
+/* line 264, ../scss/misc.scss */
 form#user-profile-form input[type="text"]:focus, #user-profile-form .form-textarea:focus, #user-profile-form input[type="password"]:focus {
   -moz-box-shadow: 1px -1px 3px #777777;
 }
 
-/* line 265, ../scss/misc.scss */
+/* line 268, ../scss/misc.scss */
 div.vertical-tabs {
   border: 1px solid #CCCCCC;
   clear: both;
@@ -2153,7 +2194,7 @@ div.vertical-tabs {
   position: relative;
 }
 
-/* line 273, ../scss/misc.scss */
+/* line 276, ../scss/misc.scss */
 .view-discussions .views-field-title {
   float: left;
   margin-bottom: 5px;
@@ -2161,25 +2202,25 @@ div.vertical-tabs {
   font-weight: 300;
 }
 
-/* line 280, ../scss/misc.scss */
+/* line 283, ../scss/misc.scss */
 .view-discussions .views-field-body {
   border-top: 1px solid #999999;
   clear: both;
   padding-top: 10px;
 }
 
-/* line 286, ../scss/misc.scss */
+/* line 289, ../scss/misc.scss */
 .field-name-field-discussion-text .submitted {
   display: none;
 }
 
-/* line 290, ../scss/misc.scss */
+/* line 293, ../scss/misc.scss */
 .field-name-field-discussion-text h2 {
   font-size: 18px;
   font-weight: bold;
 }
 
-/* line 295, ../scss/misc.scss */
+/* line 298, ../scss/misc.scss */
 .view-discussions .views-row {
   clear: both;
   float: left;
@@ -2187,50 +2228,50 @@ div.vertical-tabs {
   width: 100%;
 }
 
-/* line 303, ../scss/misc.scss */
+/* line 306, ../scss/misc.scss */
 .view-discussions .views-field-phpcode {
   float: left;
   margin-right: 15px;
 }
 
-/* line 308, ../scss/misc.scss */
+/* line 311, ../scss/misc.scss */
 .view-texts-in-discussion .view-header {
   font-weight: bold;
 }
 
-/* line 312, ../scss/misc.scss */
+/* line 315, ../scss/misc.scss */
 body.en .view-texts-in-discussion .view-header {
   font-style: italic;
 }
 
-/* line 316, ../scss/misc.scss */
+/* line 319, ../scss/misc.scss */
 ul.language-switcher-locale-url li {
   display: inline;
 }
 
-/* line 320, ../scss/misc.scss */
+/* line 323, ../scss/misc.scss */
 ul.language-switcher-locale-url li.active {
   display: none;
 }
 
-/* line 325, ../scss/misc.scss */
+/* line 328, ../scss/misc.scss */
 .view-texts-in-discussion .field-name-field-text-source, .view-texts-in-discussion .field-name-field-text-author, .view-texts-in-discussion .field-name-field-text-description {
   display: none;
 }
 
-/* line 330, ../scss/misc.scss */
+/* line 333, ../scss/misc.scss */
 #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: left;
   margin-top: 10px;
 }
 
-/* line 340, ../scss/misc.scss */
+/* line 343, ../scss/misc.scss */
 .view-glossary-terms .view-content {
   float: left;
 }
 
-/* line 344, ../scss/misc.scss */
+/* line 347, ../scss/misc.scss */
 .view-glossary-terms .views-summary {
   float: left;
   display: block;
@@ -2240,20 +2281,20 @@ ul.language-switcher-locale-url li.active {
   color: #aaa;
 }
 
-/* line 353, ../scss/misc.scss */
+/* line 356, ../scss/misc.scss */
 #boxes-box-participants a {
   display: block;
   float: left;
   margin-right: 20px;
 }
 
-/* line 359, ../scss/misc.scss */
+/* line 362, ../scss/misc.scss */
 #boxes-box-participants a img {
   height: 100px;
   width: 100px;
 }
 
-/* line 364, ../scss/misc.scss */
+/* line 367, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul {
   border-bottom: 1px dashed #CCCCCC;
   margin-left: 0;
@@ -2261,23 +2302,23 @@ ul.language-switcher-locale-url li.active {
   padding-left: 0;
 }
 
-/* line 371, ../scss/misc.scss */
+/* line 374, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li:hover {
   background: #eee;
 }
 
-/* line 375, ../scss/misc.scss */
+/* line 378, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li {
   display: block;
 }
 
-/* line 379, ../scss/misc.scss */
+/* line 382, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li a {
   display: block;
   width: 100%;
 }
 
-/* line 384, ../scss/misc.scss */
+/* line 387, ../scss/misc.scss */
 #boxes-box-about_this_discussion .field-name {
   border-bottom: 1px dashed #E1E1E1;
   color: #5B0000;
@@ -2286,48 +2327,48 @@ ul.language-switcher-locale-url li.active {
   padding-bottom: 2px;
 }
 
-/* line 392, ../scss/misc.scss */
+/* line 395, ../scss/misc.scss */
 body.page-overview #content-inner {
   margin-top: 0;
   padding-top: 0;
 }
 
-/* line 397, ../scss/misc.scss */
+/* line 400, ../scss/misc.scss */
 body.page-overview #content-header {
   display: none;
 }
 
-/* line 401, ../scss/misc.scss */
+/* line 404, ../scss/misc.scss */
 .personal-info .user-picture img {
   /*  width:100px;*/
 }
 
-/* line 405, ../scss/misc.scss */
+/* line 408, ../scss/misc.scss */
 .view-other-nuranis .views-field-picture img {
   /*  width:100px;*/
 }
 
-/* line 409, ../scss/misc.scss */
+/* line 412, ../scss/misc.scss */
 .view-texts table {
   width: 920px;
 }
 
-/* line 413, ../scss/misc.scss */
+/* line 416, ../scss/misc.scss */
 table .field-item, table .view-texts a, table td a {
   font-size: 15px;
 }
 
-/* line 417, ../scss/misc.scss */
+/* line 420, ../scss/misc.scss */
 .no-sidebars #content-header ul.tabs {
   left: 0;
 }
 
-/* line 421, ../scss/misc.scss */
+/* line 424, ../scss/misc.scss */
 #content-header ul.tabs, #content-header ul.tabs li {
   float: none;
 }
 
-/* line 425, ../scss/misc.scss */
+/* line 428, ../scss/misc.scss */
 #content-header ul.tabs li a {
   background-image: -moz-linear-gradient(center top, #ededed 0%, #e0e0e0 100%);
   color: #888888;
@@ -2726,32 +2767,38 @@ body.discussion #content #comments div.form-actions input {
 
 /*  =Comments
   ------------------------------------------------------ */
-/* line 178, ../scss/core.scss */
+/* line 177, ../scss/core.scss */
+#comments {
+  border-top: 1px solid #D3D7D9;
+}
+/* line 180, ../scss/core.scss */
 #comments .comment-inner {
   margin: 20px 0;
 }
-/* line 180, ../scss/core.scss */
+/* line 182, ../scss/core.scss */
 #comments .comment-inner span.submitted {
   text-align: left;
 }
 
-/* line 187, ../scss/core.scss */
+/* line 189, ../scss/core.scss */
 .comment-inner .attribution {
   float: left;
   padding-top: 20px;
   width: 110px;
+  border-top: 1px solid #D3D7D9;
+  border-top: 1px solid #D3D7D9;
 }
-/* line 191, ../scss/core.scss */
+/* line 193, ../scss/core.scss */
 .comment-inner .attribution p.comment-time {
   font-size: 13px;
 }
-/* line 195, ../scss/core.scss */
+/* line 201, ../scss/core.scss */
 .comment-inner .content {
   border: 1px solid #D3D7D9;
   margin-left: 140px;
   padding: 10px 25px;
 }
-/* line 199, ../scss/core.scss */
+/* line 205, ../scss/core.scss */
 .comment-inner .content .comment-arrow {
   height: 40px;
   margin-left: -45px;
@@ -2762,56 +2809,56 @@ body.discussion #content #comments div.form-actions input {
 
 /*  =Glossary
   ------------------------------------------------------ */
-/* line 212, ../scss/core.scss */
+/* line 218, ../scss/core.scss */
 .node-type-glossary-term h1 {
   margin-bottom: 0;
 }
 
-/* line 218, ../scss/core.scss */
+/* line 224, ../scss/core.scss */
 div.node-glossary-term .node-inner {
   margin-top: 30px;
 }
-/* line 220, ../scss/core.scss */
+/* line 226, ../scss/core.scss */
 div.node-glossary-term .node-inner .field {
   margin: 20px 0;
 }
-/* line 223, ../scss/core.scss */
+/* line 229, ../scss/core.scss */
 div.node-glossary-term .node-inner a {
   font-weight: normal;
 }
 
-/* line 229, ../scss/core.scss */
+/* line 235, ../scss/core.scss */
 ul#ibis-glossary-term-discussions {
   margin: 0;
   padding-left: 0;
 }
-/* line 232, ../scss/core.scss */
+/* line 238, ../scss/core.scss */
 ul#ibis-glossary-term-discussions li {
   list-style: none;
   margin: 0 0 20px 0;
 }
 
-/* line 238, ../scss/core.scss */
+/* line 244, ../scss/core.scss */
 div#walkthrough {
   display: none;
 }
 
 /*  =Overview
   ------------------------------------------------------ */
-/* line 243, ../scss/core.scss */
+/* line 249, ../scss/core.scss */
 .page-user-overview .block {
   margin-bottom: 50px;
 }
-/* line 245, ../scss/core.scss */
+/* line 251, ../scss/core.scss */
 .page-user-overview .block h2 {
   padding: 10px;
   margin-bottom: 0;
 }
-/* line 249, ../scss/core.scss */
+/* line 255, ../scss/core.scss */
 .page-user-overview .block .content {
   padding: 10px;
 }
-/* line 254, ../scss/core.scss */
+/* line 260, ../scss/core.scss */
 .page-user-overview #highlight
 .block {
   border: none;
@@ -2819,11 +2866,11 @@ div#walkthrough {
 
 /*  =Sidebar Second
   ------------------------------------------------------ */
-/* line 262, ../scss/core.scss */
+/* line 268, ../scss/core.scss */
 #sidebar-second #sidebar-second-inner {
   padding: 20px;
 }
-/* line 266, ../scss/core.scss */
+/* line 272, ../scss/core.scss */
 #sidebar-second #block-ibis_glossary-ibis_glossary_terms #ibis-glossary-highlight-button {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -2857,12 +2904,12 @@ div#walkthrough {
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
   background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
-/* line 272, ../scss/core.scss */
+/* line 278, ../scss/core.scss */
 #sidebar-second h2.block-title {
   font-size: 24px;
   display: none;
 }
-/* line 278, ../scss/core.scss */
+/* line 284, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -2898,11 +2945,11 @@ div#walkthrough {
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
   background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
-/* line 285, ../scss/core.scss */
+/* line 291, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-controls {
   margin: 10px 0;
 }
-/* line 291, ../scss/core.scss */
+/* line 297, ../scss/core.scss */
 #sidebar-second #boxes-box-add_discussion .boxes-box-content a {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -2940,19 +2987,19 @@ div#walkthrough {
   background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 
-/* line 302, ../scss/core.scss */
+/* line 308, ../scss/core.scss */
 .sidebar-right #content-inner {
   background-color: #f8f8f8;
   overflow: hidden;
   *zoom: 1;
 }
 
-/* line 308, ../scss/core.scss */
+/* line 314, ../scss/core.scss */
 #main {
   margin-top: 10px;
 }
 
-/* line 312, ../scss/core.scss */
+/* line 318, ../scss/core.scss */
 div#block-search-form {
   width: 80%;
   margin: 20px;
@@ -2961,61 +3008,61 @@ div#block-search-form {
   border-top: 3px solid #c3c3c3;
 }
 
-/* line 323, ../scss/core.scss */
+/* line 329, ../scss/core.scss */
 .page-user-login #content-header ul.tabs {
   display: none;
 }
-/* line 327, ../scss/core.scss */
+/* line 333, ../scss/core.scss */
 .page-user-login .new-password {
   float: left;
 }
 
-/* line 332, ../scss/core.scss */
+/* line 338, ../scss/core.scss */
 ul.primary li a {
   background: white;
   border: none;
 }
-/* line 335, ../scss/core.scss */
+/* line 341, ../scss/core.scss */
 ul.primary li a.active {
   border: none;
 }
 
-/* line 340, ../scss/core.scss */
+/* line 346, ../scss/core.scss */
 body, #header, #footer {
   background: #f2e9e3;
 }
 
-/* line 344, ../scss/core.scss */
+/* line 350, ../scss/core.scss */
 #sidebar-first {
   background: white;
 }
 
-/* line 347, ../scss/core.scss */
+/* line 353, ../scss/core.scss */
 #sidebar-second {
   background: white;
 }
 
-/* line 350, ../scss/core.scss */
+/* line 356, ../scss/core.scss */
 #main {
   background: white;
 }
 
-/* line 353, ../scss/core.scss */
+/* line 359, ../scss/core.scss */
 div.node {
   border-color: #f2e9e3;
 }
 
-/* line 356, ../scss/core.scss */
+/* line 362, ../scss/core.scss */
 span.submitted {
   color: #7c0000;
 }
 
-/* line 359, ../scss/core.scss */
+/* line 365, ../scss/core.scss */
 span.username {
   color: #7c0000;
 }
 
-/* line 362, ../scss/core.scss */
+/* line 368, ../scss/core.scss */
 a {
   color: black;
 }
@@ -3036,72 +3083,72 @@ a:active {
   color: black;
 }
 
-/* line 366, ../scss/core.scss */
+/* line 372, ../scss/core.scss */
 div#walkthrough {
   background-color: maroon;
 }
-/* line 369, ../scss/core.scss */
+/* line 375, ../scss/core.scss */
 div#walkthrough ul.links li {
   background: #b30000;
   opacity: 50%;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
 }
-/* line 372, ../scss/core.scss */
+/* line 378, ../scss/core.scss */
 div#walkthrough ul.links li a:link {
   color: black;
 }
-/* line 374, ../scss/core.scss */
+/* line 380, ../scss/core.scss */
 div#walkthrough ul.links li a:hover {
   color: #f2e9e3;
 }
 
-/* line 378, ../scss/core.scss */
+/* line 384, ../scss/core.scss */
 div.profile div.field-label {
   background-color: white;
   color: #7c0000;
 }
 
-/* line 383, ../scss/core.scss */
+/* line 389, ../scss/core.scss */
 body.discussion #content img {
   border: 4px double #f2e9e3;
 }
 
-/* line 386, ../scss/core.scss */
+/* line 392, ../scss/core.scss */
 div.field-type-user-reference {
   border: 1px solid #f2e9e3;
 }
 
-/* line 389, ../scss/core.scss */
+/* line 395, ../scss/core.scss */
 div.field-type-user-reference .field-label, div.field-name-field-texts .field-label {
   color: #7c0000;
 }
 
-/* line 396, ../scss/core.scss */
+/* line 402, ../scss/core.scss */
 .page-user-overview .block {
   border: 1px solid #f2e9e3;
 }
-/* line 398, ../scss/core.scss */
+/* line 404, ../scss/core.scss */
 .page-user-overview .block h2 {
   background: white;
   border-bottom: 1px solid #f2e9e3;
 }
 
-/* line 403, ../scss/core.scss */
+/* line 409, ../scss/core.scss */
 #sidebar-second h2.block-title {
   border-bottom: 4px double #990000;
 }
-/* line 407, ../scss/core.scss */
+/* line 413, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a {
   color: #7c0000;
 }
 
-/* line 410, ../scss/core.scss */
+/* line 416, ../scss/core.scss */
 div#block-search-form {
   border-bottom: 1px solid #f2e9e3;
 }
 
-/* line 413, ../scss/core.scss */
+/* line 419, ../scss/core.scss */
 a#admin_toggle {
   color: #7c0000;
   background: white;
@@ -3110,12 +3157,12 @@ a#admin_toggle {
 /* ========================= */
 /* = demo temporary styles = */
 /* ========================= */
-/* line 421, ../scss/core.scss */
+/* line 427, ../scss/core.scss */
 span.form-required {
   color: #7c0000;
 }
 
-/* line 423, ../scss/core.scss */
+/* line 429, ../scss/core.scss */
 .page-node-6 {
   text-align: right;
 }

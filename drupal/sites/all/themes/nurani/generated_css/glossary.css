@@ -86,3 +86,41 @@ body.page-glossary .view-content {
   padding: 20px;
   text-align: center;
 }
+
+/*Glossary term page*/
+/* line 39, ../scss/glossary.scss */
+.node-type-term .view-empty {
+  font-size: 1.4em;
+}
+/* line 42, ../scss/glossary.scss */
+.node-type-term .field-part-of-speech {
+  margin-bottom: 20px;
+}
+/* line 45, ../scss/glossary.scss */
+.node-type-term .field-part-of-speech .field-label {
+  float: left;
+  margin-right: 5px;
+}
+/* line 50, ../scss/glossary.scss */
+.node-type-term .field-group-translations {
+  margin-bottom: 20px;
+}
+/* line 53, ../scss/glossary.scss */
+.node-type-term .field-group-translations .field-label {
+  margin-bottom: 5px;
+}
+/* line 56, ../scss/glossary.scss */
+.node-type-term .field-group-translations .fieldset {
+  clear: both;
+  line-height: 26px;
+}
+/* line 60, ../scss/glossary.scss */
+.node-type-term .field-group-translations .fieldset .field-field-translation-term {
+  float: left;
+  margin-right: 5px;
+}
+/* line 68, ../scss/glossary.scss */
+.node-type-term .view-glossary-references .views-row {
+  margin-bottom: 15px;
+  text-align: justify;
+}
