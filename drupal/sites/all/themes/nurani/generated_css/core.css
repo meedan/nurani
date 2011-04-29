@@ -2148,7 +2148,7 @@ form#user-profile-form input[type="text"]:focus, #user-profile-form .form-textar
 div.vertical-tabs {
   border: 1px solid #CCCCCC;
   clear: both;
-  float: left;
+  /*float: left;*/
   margin: 1em 0 1em 15em;
   position: relative;
 }
