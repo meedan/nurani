@@ -42,6 +42,7 @@
         		<div id="navigation" class="menu <?php if (!empty($primary_links)) { print "with-main-menu"; } if (!empty($secondary_links)) { print " with-sub-menu"; } ?>">
          			<?php if (!empty($primary_links)){ print theme('links', $primary_links, array('id' => 'primary', 'class' => 'links main-menu')); } ?>
         		</div> <!-- /navigation -->
+        		<?php print $header; ?>
         	<?php endif; ?>
 				</div>
      	<?php endif; ?>
