@@ -10,6 +10,95 @@ if (theme_get_setting('nurani_zen_tabs')) {
   drupal_add_css( drupal_get_path('theme', 'nurani') .'/css/tabs.css', 'theme', 'screen');
 }
 
+/**
+ * Implementation of hook_theme().
+ * Some hooks needed for theming, like comment forms.
+ */
+function nurani_theme() {
+
+  $items = array();
+  
+  $items['comment_form'] = array(
+    'arguments' => array('form' => NULL)
+  );
+  
+  $items['comment_node_form'] = array(
+    'arguments' => array('form' => NULL)
+  );
+  
+  $items['annotation_node_form'] = array(
+    'arguments' => array('form' => NULL)
+  );
+  
+  return $items;
+}
+
+/**
+ * Override of theme('comment_form').
+ * 
+ * @see: nurani_theme().
+ */
+function nurani_comment_form($form) {
+  
+  // take the form buttons, and copy them into another variable, then remove them.
+  $top_submission = $form['buttons'];
+  //$top_submission['#weight'] = -10;
+  unset($form['buttons']);
+  
+  $output = '';
+  
+  $output .= '<div class="comment-form-wrapper">';
+  $output .= '<div class="comment-form-top-submit">' . drupal_render($top_submission) . '</div>';
+  $output .= '<div class="comment-form-inner">' . drupal_render($form) . '</div>';
+  $output .= '</div>';
+  
+  return $output;
+}
+
+/**
+ * Override of theme('comment_node_form').
+ * 
+ * @see: nurani_theme().
+ */
+function nurani_comment_node_form($form) {
+  
+  // take the form buttons, and copy them into another variable, then remove them.
+  $top_submission = $form['buttons'];
+  //$top_submission['#weight'] = -10;
+  unset($form['buttons']);
+  
+  $output = '';
+  
+  $output .= '<div class="comment-form-wrapper">';
+  $output .= '<div class="comment-form-top-submit">' . drupal_render($top_submission) . '</div>';
+  $output .= '<div class="comment-form-inner">' . drupal_render($form) . '</div>';
+  $output .= '</div>';
+  
+  return $output;
+}
+
+
+/**
+ * Override of theme('annotation_node_form').
+ * 
+ * @see: nurani_theme().
+ */
+function nurani_annotation_node_form($form) {
+  
+  // take the form buttons, and copy them into another variable, then remove them.
+  $top_submission = $form['buttons'];
+  //$top_submission['#weight'] = -10;
+  unset($form['buttons']);
+  
+  $output = '';
+  
+  $output .= '<div class="comment-form-wrapper">';
+  $output .= '<div class="comment-form-top-submit">' . drupal_render($top_submission) . '</div>';
+  $output .= '<div class="comment-form-inner">' . drupal_render($form) . '</div>';
+  $output .= '</div>';
+  
+  return $output;
+}
 /*
  *	 This function creates the body classes that are relative to each page
  *	
