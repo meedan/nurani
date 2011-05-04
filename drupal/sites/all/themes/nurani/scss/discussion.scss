@@ -6,6 +6,16 @@ $text_width: 218px;
 $text_height: 300px;
 
 body.node-type-discussion {
+  ul#primary {
+    li.first {
+      background: url("../images/bkg_active_nav.png") -5px bottom transparent;
+      a {
+        background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
+      } 
+    }
+  }
+
+ 
   div.view-header {
     display:none;
   }
@@ -86,5 +96,11 @@ body.node-type-discussion {
 
     }
     
+  }
+  #boxes-box-discussion_info {
+    .field-label {
+      border-bottom: 1px dashed #ccc; 
+      margin: 20px 0 10px;
+    }
   }
 }              

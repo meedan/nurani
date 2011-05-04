@@ -5,6 +5,7 @@
 body.page-glossary {    
   @include table-styles();
   
+
   #search-block-form {
     display:none;
   }
@@ -36,7 +37,18 @@ select#edit-language {
 /*Glossary term page*/
 
 .node-type-term {
-  .view-empty {
+  ul#primary {
+    li {
+      background: url("../images/bkg_active_nav.png") -5px bottom transparent;
+      a {
+        background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
+      } 
+    }
+    li.first, li.last {
+      background: transparent;
+    }
+  }
+ .view-empty {
     font-size: 1.4em;
   }
   .field-part-of-speech {

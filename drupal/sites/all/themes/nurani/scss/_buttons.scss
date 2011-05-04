@@ -64,31 +64,34 @@
   background: url("../images/#{$icon}_active.png") no-repeat scroll #{$icon_position} top transparent;  
 }
 
-/*aapplied to lis*/
+/*aapplied to list*/
 @mixin icon_button($icon: d, $icon_position: left) {
   float: left;
   list-style: none outside none;
   padding: 0;
   
   a {
-    font-size: 20px;
+    font-size: 20px; 
     background: url("../images/#{$icon}_inactive.png") no-repeat scroll 10px 20px transparent;
     display: block;
-		padding-top: 30px;
+    padding-top: 30px;
     padding-bottom: 30px;
     float: right;
     clear: none;
     text-decoration: none;
     @if $icon_position == "left" {
-      padding-right:10px;
-      padding-left: 50px;
-    }
+    padding-right:10px;
+    padding-left: 50px;
+  }
     @else {
       padding-right:50px;
       padding-left: 10px;
     }
   }
-  
+  a.active {
+    background: url("../images/#{$icon}_active.png") no-repeat scroll 10px 20px transparent;
+ }
+ 
 }
 
 @mixin button($button_size: "30px", $base_color: $westar) {

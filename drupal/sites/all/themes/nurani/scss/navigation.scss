@@ -12,7 +12,8 @@
 }
 
 @mixin primarynav($bright: $identity, $dark: darken($identity, 80%)) {
-  margin-left: 200px;
+  margin: 0 auto;
+  width: 455px;
   a {
      @include link-colors($bright, $dark, $dark, $bright, $bright );
      font-weight:normal;
@@ -50,14 +51,14 @@ ul#primary {
 
   li.active {
     background: url("../images/bkg_active_nav.png") -5px bottom transparent;
-    a[href="/overview"]~span.icon {
-      @include icon_active("d", "left")
-    }
-    a[href="/glossary"]~span.icon {
-      @include icon_active("g", "left")
-    }
-    a[href="/texts"]~span.icon {
-      @include icon_active("t", "left")
-    }
+  }
+}
+
+#block-locale-0 {
+  width: 70px;
+  float: right;
+
+  h3, li.en {
+    display: none;
   }
 }

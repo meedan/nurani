@@ -35,3 +35,15 @@ body.page-texts {
     }
   } 
 }
+
+.node-type-text {
+  ul#primary {
+    li.last {
+      background: url("../images/bkg_active_nav.png") -5px bottom transparent;
+      a {
+        background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
+      } 
+    }
+  }
+
+}
