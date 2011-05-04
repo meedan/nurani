@@ -12,31 +12,39 @@
 /* ================ */
 /* = icon buttons = */
 /* ================ */
-/*aapplied to lis*/
+/*aapplied to list*/
 /* line 8, ../scss/discussion.scss */
 body.node-type-discussion {
   /* views-row is not a row, actually, just a div ... */
 }
-/* line 9, ../scss/discussion.scss */
+/* line 10, ../scss/discussion.scss */
+body.node-type-discussion ul#primary li.first {
+  background: url("../images/bkg_active_nav.png") -5px bottom transparent;
+}
+/* line 12, ../scss/discussion.scss */
+body.node-type-discussion ul#primary li.first a {
+  background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
+}
+/* line 19, ../scss/discussion.scss */
 body.node-type-discussion div.view-header {
   display: none;
 }
-/* line 12, ../scss/discussion.scss */
+/* line 22, ../scss/discussion.scss */
 body.node-type-discussion div#slash {
   width: 600px;
   margin: 30px 30px 0;
 }
-/* line 18, ../scss/discussion.scss */
+/* line 28, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 {
   width: 960px;
 }
-/* line 22, ../scss/discussion.scss */
+/* line 32, ../scss/discussion.scss */
 body.node-type-discussion h1.title {
   display: block;
   margin: 20px 0;
   padding: 0;
 }
-/* line 28, ../scss/discussion.scss */
+/* line 38, ../scss/discussion.scss */
 body.node-type-discussion li.comment-edit a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -74,7 +82,7 @@ body.node-type-discussion li.comment-edit a:active {
   background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
   background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
-/* line 35, ../scss/discussion.scss */
+/* line 45, ../scss/discussion.scss */
 body.node-type-discussion li.comment-delete a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -112,7 +120,7 @@ body.node-type-discussion li.comment-delete a:active {
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 43, ../scss/discussion.scss */
+/* line 53, ../scss/discussion.scss */
 body.node-type-discussion li.comment-reply a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -150,13 +158,13 @@ body.node-type-discussion li.comment-reply a:active {
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 51, ../scss/discussion.scss */
+/* line 61, ../scss/discussion.scss */
 body.node-type-discussion div.views-row {
   margin: 10px 5px;
   float: left;
   width: 218px;
 }
-/* line 55, ../scss/discussion.scss */
+/* line 65, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary {
   width: 178px;
   background: #eee9e3;
@@ -168,7 +176,7 @@ body.node-type-discussion div.views-row div.buildmode-text_summary {
   min-height: 300px;
   line-height: 1em;
 }
-/* line 65, ../scss/discussion.scss */
+/* line 75, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   font-size: 23px;
   text-transform: inherit;
@@ -178,11 +186,11 @@ body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   text-align: left;
   color: #000;
 }
-/* line 75, ../scss/discussion.scss */
+/* line 85, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-description {
   color: #303030;
 }
-/* line 79, ../scss/discussion.scss */
+/* line 89, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -219,4 +227,9 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
+}
+/* line 101, ../scss/discussion.scss */
+body.node-type-discussion #boxes-box-discussion_info .field-label {
+  border-bottom: 1px dashed #ccc;
+  margin: 20px 0 10px;
 }

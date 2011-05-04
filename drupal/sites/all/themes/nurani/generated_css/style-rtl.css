@@ -7,7 +7,7 @@
 /* ================ */
 /* = icon buttons = */
 /* ================ */
-/*aapplied to lis*/
+/*aapplied to list*/
 /* theme core colors*/
 /*basics*/
 /*section names */
@@ -70,6 +70,10 @@ body.ar ul#primary li.first a {
   padding-right: 50px;
   padding-left: 10px;
 }
+/* line 91, ../scss/_buttons.scss */
+body.ar ul#primary li.first a.active {
+  background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
+}
 /* line 46, ../scss/style-rtl.scss */
 body.ar ul#primary li {
   float: left;
@@ -89,6 +93,10 @@ body.ar ul#primary li a {
   padding-right: 50px;
   padding-left: 10px;
 }
+/* line 91, ../scss/_buttons.scss */
+body.ar ul#primary li a.active {
+  background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
+}
 /* line 47, ../scss/style-rtl.scss */
 body.ar ul#primary li.last {
   float: left;
@@ -107,6 +115,10 @@ body.ar ul#primary li.last a {
   text-decoration: none;
   padding-right: 50px;
   padding-left: 10px;
+}
+/* line 91, ../scss/_buttons.scss */
+body.ar ul#primary li.last a.active {
+  background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 50, ../scss/style-rtl.scss */
 body.ar #block-boxes-welcome_to_nurani_box .more-link {

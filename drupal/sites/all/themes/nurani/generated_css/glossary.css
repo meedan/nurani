@@ -57,30 +57,30 @@ body.page-glossary .views-table tbody tr:hover td {
 body.page-glossary .view-glossary-terms .views-table {
   width: 510px;
 }
-/* line 8, ../scss/glossary.scss */
+/* line 9, ../scss/glossary.scss */
 body.page-glossary #search-block-form {
   display: none;
 }
-/* line 12, ../scss/glossary.scss */
+/* line 13, ../scss/glossary.scss */
 body.page-glossary .views-exposed-form {
   padding: 10px 20px;
   z-index: -1;
 }
-/* line 15, ../scss/glossary.scss */
+/* line 16, ../scss/glossary.scss */
 body.page-glossary .views-exposed-form input#edit-title {
   font-size: 1.6em;
   width: 510px;
 }
-/* line 22, ../scss/glossary.scss */
+/* line 23, ../scss/glossary.scss */
 body.page-glossary select#edit-language {
   font-size: 1em;
   width: 100px;
 }
-/* line 26, ../scss/glossary.scss */
+/* line 27, ../scss/glossary.scss */
 body.page-glossary h2.block-title {
   display: none;
 }
-/* line 30, ../scss/glossary.scss */
+/* line 31, ../scss/glossary.scss */
 body.page-glossary .view-content {
   margin: 0 auto;
   padding: 20px;
@@ -88,38 +88,50 @@ body.page-glossary .view-content {
 }
 
 /*Glossary term page*/
-/* line 39, ../scss/glossary.scss */
+/* line 41, ../scss/glossary.scss */
+.node-type-term ul#primary li {
+  background: url("../images/bkg_active_nav.png") -5px bottom transparent;
+}
+/* line 43, ../scss/glossary.scss */
+.node-type-term ul#primary li a {
+  background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
+}
+/* line 47, ../scss/glossary.scss */
+.node-type-term ul#primary li.first, .node-type-term ul#primary li.last {
+  background: transparent;
+}
+/* line 51, ../scss/glossary.scss */
 .node-type-term .view-empty {
   font-size: 1.4em;
 }
-/* line 42, ../scss/glossary.scss */
+/* line 54, ../scss/glossary.scss */
 .node-type-term .field-part-of-speech {
   margin-bottom: 20px;
 }
-/* line 45, ../scss/glossary.scss */
+/* line 57, ../scss/glossary.scss */
 .node-type-term .field-part-of-speech .field-label {
   float: left;
   margin-right: 5px;
 }
-/* line 50, ../scss/glossary.scss */
+/* line 62, ../scss/glossary.scss */
 .node-type-term .field-group-translations {
   margin-bottom: 20px;
 }
-/* line 53, ../scss/glossary.scss */
+/* line 65, ../scss/glossary.scss */
 .node-type-term .field-group-translations .field-label {
   margin-bottom: 5px;
 }
-/* line 56, ../scss/glossary.scss */
+/* line 68, ../scss/glossary.scss */
 .node-type-term .field-group-translations .fieldset {
   clear: both;
   line-height: 26px;
 }
-/* line 60, ../scss/glossary.scss */
+/* line 72, ../scss/glossary.scss */
 .node-type-term .field-group-translations .fieldset .field-field-translation-term {
   float: left;
   margin-right: 5px;
 }
-/* line 68, ../scss/glossary.scss */
+/* line 80, ../scss/glossary.scss */
 .node-type-term .view-glossary-references .views-row {
   margin-bottom: 15px;
   text-align: justify;
