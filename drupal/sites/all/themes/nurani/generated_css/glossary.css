@@ -89,50 +89,50 @@ body.page-glossary .view-content {
 
 /*Glossary term page*/
 /* line 41, ../scss/glossary.scss */
-.node-type-term ul#primary li {
+.page-glossary ul#primary li {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
 /* line 43, ../scss/glossary.scss */
-.node-type-term ul#primary li a {
+.page-glossary ul#primary li a {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 47, ../scss/glossary.scss */
-.node-type-term ul#primary li.first, .node-type-term ul#primary li.last {
+.page-glossary ul#primary li.first, .page-glossary ul#primary li.last {
   background: transparent;
 }
 /* line 51, ../scss/glossary.scss */
-.node-type-term .view-empty {
+.page-glossary .view-empty {
   font-size: 1.4em;
 }
 /* line 54, ../scss/glossary.scss */
-.node-type-term .field-part-of-speech {
+.page-glossary .field-part-of-speech {
   margin-bottom: 20px;
 }
 /* line 57, ../scss/glossary.scss */
-.node-type-term .field-part-of-speech .field-label {
+.page-glossary .field-part-of-speech .field-label {
   float: left;
   margin-right: 5px;
 }
 /* line 62, ../scss/glossary.scss */
-.node-type-term .field-group-translations {
+.page-glossary .field-group-translations {
   margin-bottom: 20px;
 }
 /* line 65, ../scss/glossary.scss */
-.node-type-term .field-group-translations .field-label {
+.page-glossary .field-group-translations .field-label {
   margin-bottom: 5px;
 }
 /* line 68, ../scss/glossary.scss */
-.node-type-term .field-group-translations .fieldset {
+.page-glossary .field-group-translations .fieldset {
   clear: both;
   line-height: 26px;
 }
 /* line 72, ../scss/glossary.scss */
-.node-type-term .field-group-translations .fieldset .field-field-translation-term {
+.page-glossary .field-group-translations .fieldset .field-field-translation-term {
   float: left;
   margin-right: 5px;
 }
 /* line 80, ../scss/glossary.scss */
-.node-type-term .view-glossary-references .views-row {
+.page-glossary .view-glossary-references .views-row {
   margin-bottom: 15px;
   text-align: justify;
 }
