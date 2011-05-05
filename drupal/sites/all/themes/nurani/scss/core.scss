@@ -76,26 +76,30 @@ div.node { padding-bottom: 20px;  }
 
 /*  =Misc
   ------------------------------------------------------ */
+#comments {
 
-span.submitted {
-  text-transform: capitalize;
-  font-weight: bold;
-  width: 100%;
-  text-align:center;
-  display:block;
-  padding: 50px 0;
-  
-  span { 
-    margin:0 0.2em;
-    }
-  em
-    {
-      text-transform: lowercase;
-      @include en-serif;
-      font-style: italic;
-    }
+  span.submitted {
+    text-transform: capitalize;
+    width: 150px;
+    display:block;
+    padding: 20px 0 0;
+    font-size: 13px;
+    float: left;
+ 
+    a { 
+      font-size: 17px;
+      display: block;
+      }
+  }
+  .comment-content-wrapper {
+    border: 1px solid #D3D7D9;
+    margin-left: 150px;
+    padding: 10px 25px;
+  }
+  .subject {
+    margin-bottom: 5px; 
+  }
 }
-
 span.username {
   font-weight: bold;
   text-transform: capitalize;

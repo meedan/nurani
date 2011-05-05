@@ -19,31 +19,33 @@
   <?php print $picture ?>
   
   <?php if ($submitted): ?>
-    <span class="submitted"><?php print t('!date — !username', array('!username' => theme('username', $node), '!date' => format_date($node->created))); ?></span>
+    <span class="submitted"><?php print t('!username !date', array('!username' => theme('username', $node), '!date' => format_date($node->created))); ?></span>
   <?php endif; ?>
   
-  <div class="subject">
-    <?php print $comment_link; ?>
-  </div>
+  <div class="comment-content-wrapper">
+    <div class="subject">
+      <?php print $comment_link; ?>
+    </div>
 
-  <div class="content">
-    <?php print $content ?>
-  </div>
-  <?php if ($signature): ?>
-  <div class="user-signature clear-block">
-    <?php print $signature ?>
-  </div>
-  <?php endif; ?>
+    <div class="content">
+      <?php print $content ?>
+    </div>
+    <?php if ($signature): ?>
+    <div class="user-signature clear-block">
+      <?php print $signature ?>
+    </div>
+    <?php endif; ?>
 
-  <div class="clear-block clear">
-    <div class="meta">
-    <?php if ($taxonomy): ?>
-      <div class="terms"><?php print $terms ?></div>
-    <?php endif;?>
+    <div class="clear-block clear">
+      <div class="meta">
+      <?php if ($taxonomy): ?>
+        <div class="terms"><?php print $terms ?></div>
+      <?php endif;?>
     </div>
 
     <?php if ($links): ?>
-      <div class="links clear-block"><?php print $links; ?></div>
-    <?php endif; ?>
+    <div class="links clear-block"><?php print $links; ?></div>
+      <?php endif; ?>
+    </div>
   </div>
 </div>

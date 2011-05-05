@@ -35,28 +35,6 @@ body.node-type-discussion {
     padding: 0;
   }
 
-  li.comment-edit a {
-    @include soft_button(#fff);
-    background: url("../images/icons/brown_dark/pen_alt_fill_16x16.png") no-repeat 10px center;
-    padding-left: 30px;
-    text-decoration:none;
-    margin: 0 5px;
-  }
-  li.comment-delete a {
-    @include soft_button;
-    background: url("../images/icons/brown_dark/x_alt_16x16.png") no-repeat 10px center;
-    padding-left: 30px;
-    text-decoration:none;
-    margin: 0 5px;
-  }
-  
-  li.comment-reply a {
-    @include soft_button;
-    background: url("../images/icons/brown_dark/chat_16x16.png") no-repeat 10px center;
-    padding-left: 30px;
-    text-decoration:none;
-    margin: 0 5px;
-  }
   /* views-row is not a row, actually, just a div ... */
   div.views-row {
     margin: 10px 5px;
@@ -103,4 +81,41 @@ body.node-type-discussion {
       margin: 20px 0 10px;
     }
   }
+
+  ul.links li {
+    padding: 0;
+  }
+  li.node_translation_ar a {
+    @include soft_button(#fff);
+    padding-left: 25px;
+    text-decoration:none;
+    margin: 0 2px 10px;
+    width: 40px;
+  }
+  li.comment_edit a {
+    @include soft_button(#fff);
+    background: url("../images/icons/brown_dark/pen_alt_fill_16x16.png") no-repeat 5px center;
+    padding-left: 25px;
+    text-decoration:none;
+    margin: 0 2px 10px;
+    width: 40px;
+  }
+  li.comment_delete a {
+    @include soft_button;
+    background: url("../images/icons/brown_dark/x_alt_16x16.png") no-repeat 5px center;
+    padding-left: 25px;
+    text-decoration:none;
+    margin: 0 2px 10px;
+    width: 40px;
+  }
+  
+  li.comment_reply a {
+    @include soft_button;
+    background: url("../images/icons/brown_dark/chat_16x16.png") no-repeat 5px center;
+    padding-left: 25px;
+    text-decoration:none;
+    margin: 0 2px 10px;
+    width: 40px;
+  }
+
 }              
