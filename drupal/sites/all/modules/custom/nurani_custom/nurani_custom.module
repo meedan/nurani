@@ -1,0 +1,44 @@
+<?php
+// $Id$
+
+/**
+ * Implementation of hook_ds_fields_alter().
+ */
+function nurani_custom_ds_fields_alter(&$fields) {
+}
+
+function nurani_custom_views_data_alter(&$data) {
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ */
+function nurani_custom_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  
+  // If someone highlights a text, and redirected to term add page.
+  if ($op == 'prepare' && $node->type == 'term' && !$node->nid) {
+    
+    if (isset($_GET['title']))
+      $node->title = $_GET['title'];
+    if (isset($_GET['language']))
+      $node->language = $_GET['language'];
+  }
+}
+
+/**
+ * Implementation of template_preprocess_node().
+ */
+function nurani_custom_preprocess_node(&$vars) {
+  
+  if (in_array($vars['node']->type, array('discussion', 'text')) && user_access('create term content')) {
+  
+    $path = drupal_get_path('module', 'nurani_custom');
+    drupal_add_js(array('nurani_custom' => array(
+      'selected_node_lang' => $vars['node']->language // pass to new glossary form
+    )), 'setting');
+    drupal_add_js($path . '/js/jquery.selectlink.js');
+    drupal_add_js($path . '/js/nurani_custom.js');
+  }
+}
+
+
