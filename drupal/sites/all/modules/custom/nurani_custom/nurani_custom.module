@@ -19,7 +19,7 @@ function nurani_custom_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   if ($op == 'prepare' && $node->type == 'term' && !$node->nid) {
     
     if (isset($_GET['title']))
-      $node->title = $_GET['title'];
+      $node->title = strtolower($_GET['title']);
     if (isset($_GET['language']))
       $node->language = $_GET['language'];
   }

@@ -5,7 +5,7 @@ Drupal.behaviors.selectText = function(context) {
     // JS isArray.
     var language = (lang_setting.constructor.toString().indexOf("Array") == -1)? lang_setting : lang_setting[0];
     
-    var addUrl = Drupal.settings.basePath + 'node/add/term?title=%term%&language=' + language + '&diestination=' + Drupal.settings.getQ;
+    var addUrl = Drupal.settings.basePath + 'node/add/term?title=%term%&language=' + language + '&destination=' + Drupal.settings.getQ;
 
     $('#content-area .node-type-discussion, #block-views-discussion_texts-block_1 .views-row, #comments .comment-content-wrapper div.content, .node-type-text div.content', context)
     .not('.nurani-custom-processed').addClass('nurani-custom-processed')
