@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* theme core colors*/
 /*basics*/
 /*section names */
@@ -37,10 +36,10 @@
 /* line 22, ../scss/tabs.scss */
 #content-header ul.tabs li a.active {
   border: 1px solid #c3c3c3;
-  -moz-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
-  -webkit-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
-  -o-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
-  box-shadow: #bfbfbf 0px 1px 2px 1px inset;
+  -moz-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
+  -webkit-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
+  -o-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
+  box-shadow: inset 0px 1px 2px 1px #bfbfbf;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -o-border-radius: 4px;
@@ -53,6 +52,11 @@
 }
 
 /* line 33, ../scss/tabs.scss */
+ul.primary {
+  border-bottom-width: 0px;
+}
+
+/* line 37, ../scss/tabs.scss */
 #content-header ul.tabs li {
   display: inline;
   text-align: center;

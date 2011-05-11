@@ -39,12 +39,7 @@ body.ar #comment-form label[for="edit-subject"] {
   margin-right: 0;
 }
 /* line 35, ../scss/style-rtl.scss */
-body.ar #sidebar-second,
-body.ar .sidebar-second #main,
-body.ar .text,
-body.ar .author-photo,
-body.ar .view-texts-in-discussion .views-row,
-body.ar .view-overview .views-field-title {
+body.ar #sidebar-second, body.ar .sidebar-second #main, body.ar .text, body.ar .author-photo, body.ar .view-texts-in-discussion .views-row, body.ar .view-overview .views-field-title {
   float: right;
 }
 /* line 39, ../scss/style-rtl.scss */
