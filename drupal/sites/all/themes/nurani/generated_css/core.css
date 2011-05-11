@@ -1047,18 +1047,20 @@ h1.title {
 /* ================ */
 /*aapplied to list*/
 /* line 5, ../scss/tabs.scss */
-#content-header ul.tabs {
+ul.tabs {
   float: left;
   width: 500px;
   background: transparent;
 }
 /* line 9, ../scss/tabs.scss */
-#content-header ul.tabs li {
+ul.tabs li {
   padding: 10px 0px 0px;
   float: left;
+  display: inline;
+  text-align: center;
 }
-/* line 12, ../scss/tabs.scss */
-#content-header ul.tabs li a {
+/* line 14, ../scss/tabs.scss */
+ul.tabs li a {
   padding: 5px 8px;
   font-family: arial, sans-serif;
   font-weight: 0;
@@ -1067,8 +1069,8 @@ h1.title {
   color: #888;
   color: #c3c3c3;
 }
-/* line 22, ../scss/tabs.scss */
-#content-header ul.tabs li a.active {
+/* line 24, ../scss/tabs.scss */
+ul.tabs li a.active {
   border: 1px solid #c3c3c3;
   -moz-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
   -webkit-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
@@ -1085,15 +1087,9 @@ h1.title {
   color: black;
 }
 
-/* line 33, ../scss/tabs.scss */
+/* line 35, ../scss/tabs.scss */
 ul.primary {
   border-bottom-width: 0px;
-}
-
-/* line 37, ../scss/tabs.scss */
-#content-header ul.tabs li {
-  display: inline;
-  text-align: center;
 }
 
 /* line 3, ../scss/login.scss */
@@ -2261,26 +2257,17 @@ body.i18n-en .field-body .field-label {
 }
 
 /* line 195, ../scss/misc.scss */
-#comments .box h2 {
-  background: url("../images/comment.png") no-repeat scroll 0 0 transparent;
-  text-indent: -9999px;
-  float: left;
-  margin: 20px 0;
-  width: 100%;
-}
-
-/* line 203, ../scss/misc.scss */
 #comments #edit-body-wrapper label {
   float: left;
   margin-right: 10px;
 }
 
-/* line 208, ../scss/misc.scss */
+/* line 200, ../scss/misc.scss */
 #comments #edit-body-wrapper .grippie {
   display: none;
 }
 
-/* line 212, ../scss/misc.scss */
+/* line 204, ../scss/misc.scss */
 #comment-form input[type=text], #comments #edit-body-wrapper textarea#edit-body {
   padding: 5px;
   float: none;
@@ -2288,38 +2275,38 @@ body.i18n-en .field-body .field-label {
   width: 440px;
 }
 
-/* line 219, ../scss/misc.scss */
+/* line 211, ../scss/misc.scss */
 #comment-form label[for=edit-subject] {
   margin-right: 42px;
 }
 
-/* line 223, ../scss/misc.scss */
+/* line 215, ../scss/misc.scss */
 #comment-form textarea {
   display: inline;
   width: 450px;
 }
 
-/* line 228, ../scss/misc.scss */
+/* line 220, ../scss/misc.scss */
 #comment-form #edit-actions {
   margin-left: 95px;
 }
 
-/* line 232, ../scss/misc.scss */
+/* line 224, ../scss/misc.scss */
 #comment-form #edit-actions input[type=submit] {
   margin-right: 10px;
 }
 
-/* line 236, ../scss/misc.scss */
+/* line 228, ../scss/misc.scss */
 .sidebar-second .block {
   margin-bottom: 20px;
 }
 
-/* line 240, ../scss/misc.scss */
+/* line 232, ../scss/misc.scss */
 #boxes-box-scholars_box img {
   margin-right: 5px;
 }
 
-/* line 244, ../scss/misc.scss */
+/* line 236, ../scss/misc.scss */
 #block-pcp-pcp_profile_percent_complete {
   position: fixed;
   bottom: 0;
@@ -2331,22 +2318,22 @@ body.i18n-en .field-body .field-label {
   line-height: 1.3em;
   font-size: 16px;
 }
-/* line 254, ../scss/misc.scss */
+/* line 246, ../scss/misc.scss */
 #block-pcp-pcp_profile_percent_complete h2 {
   display: none;
 }
 
-/* line 259, ../scss/misc.scss */
+/* line 251, ../scss/misc.scss */
 #comment-body-add-more-wrapper .filter-wrapper {
   display: none;
 }
 
-/* line 264, ../scss/misc.scss */
+/* line 256, ../scss/misc.scss */
 form#user-profile-form input[type="text"]:focus, #user-profile-form .form-textarea:focus, #user-profile-form input[type="password"]:focus {
   -moz-box-shadow: 1px -1px 3px #777777;
 }
 
-/* line 268, ../scss/misc.scss */
+/* line 260, ../scss/misc.scss */
 div.vertical-tabs {
   border: 1px solid #CCCCCC;
   clear: both;
@@ -2355,7 +2342,7 @@ div.vertical-tabs {
   position: relative;
 }
 
-/* line 276, ../scss/misc.scss */
+/* line 268, ../scss/misc.scss */
 .view-discussions .views-field-title {
   float: left;
   margin-bottom: 5px;
@@ -2363,25 +2350,25 @@ div.vertical-tabs {
   font-weight: 300;
 }
 
-/* line 283, ../scss/misc.scss */
+/* line 275, ../scss/misc.scss */
 .view-discussions .views-field-body {
   border-top: 1px solid #999999;
   clear: both;
   padding-top: 10px;
 }
 
-/* line 289, ../scss/misc.scss */
+/* line 281, ../scss/misc.scss */
 .field-name-field-discussion-text .submitted {
   display: none;
 }
 
-/* line 293, ../scss/misc.scss */
+/* line 285, ../scss/misc.scss */
 .field-name-field-discussion-text h2 {
   font-size: 18px;
   font-weight: bold;
 }
 
-/* line 298, ../scss/misc.scss */
+/* line 290, ../scss/misc.scss */
 .view-discussions .views-row {
   clear: both;
   float: left;
@@ -2389,50 +2376,50 @@ div.vertical-tabs {
   width: 100%;
 }
 
-/* line 306, ../scss/misc.scss */
+/* line 298, ../scss/misc.scss */
 .view-discussions .views-field-phpcode {
   float: left;
   margin-right: 15px;
 }
 
-/* line 311, ../scss/misc.scss */
+/* line 303, ../scss/misc.scss */
 .view-texts-in-discussion .view-header {
   font-weight: bold;
 }
 
-/* line 315, ../scss/misc.scss */
+/* line 307, ../scss/misc.scss */
 body.en .view-texts-in-discussion .view-header {
   font-style: italic;
 }
 
-/* line 319, ../scss/misc.scss */
+/* line 311, ../scss/misc.scss */
 ul.language-switcher-locale-url li {
   display: inline;
 }
 
-/* line 323, ../scss/misc.scss */
+/* line 315, ../scss/misc.scss */
 ul.language-switcher-locale-url li.active {
   display: none;
 }
 
-/* line 328, ../scss/misc.scss */
+/* line 320, ../scss/misc.scss */
 .view-texts-in-discussion .field-name-field-text-source, .view-texts-in-discussion .field-name-field-text-author, .view-texts-in-discussion .field-name-field-text-description {
   display: none;
 }
 
-/* line 333, ../scss/misc.scss */
+/* line 325, ../scss/misc.scss */
 #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: left;
   margin-top: 10px;
 }
 
-/* line 343, ../scss/misc.scss */
+/* line 335, ../scss/misc.scss */
 .view-glossary-terms .view-content {
   float: left;
 }
 
-/* line 347, ../scss/misc.scss */
+/* line 339, ../scss/misc.scss */
 .view-glossary-terms .views-summary {
   float: left;
   display: block;
@@ -2442,20 +2429,20 @@ ul.language-switcher-locale-url li.active {
   color: #aaa;
 }
 
-/* line 356, ../scss/misc.scss */
+/* line 348, ../scss/misc.scss */
 #boxes-box-participants a {
   display: block;
   float: left;
   margin-right: 20px;
 }
 
-/* line 362, ../scss/misc.scss */
+/* line 354, ../scss/misc.scss */
 #boxes-box-participants a img {
   height: 100px;
   width: 100px;
 }
 
-/* line 367, ../scss/misc.scss */
+/* line 359, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul {
   border-bottom: 1px dashed #CCCCCC;
   margin-left: 0;
@@ -2463,23 +2450,23 @@ ul.language-switcher-locale-url li.active {
   padding-left: 0;
 }
 
-/* line 374, ../scss/misc.scss */
+/* line 366, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li:hover {
   background: #eee;
 }
 
-/* line 378, ../scss/misc.scss */
+/* line 370, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li {
   display: block;
 }
 
-/* line 382, ../scss/misc.scss */
+/* line 374, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li a {
   display: block;
   width: 100%;
 }
 
-/* line 387, ../scss/misc.scss */
+/* line 379, ../scss/misc.scss */
 #boxes-box-about_this_discussion .field-name {
   border-bottom: 1px dashed #E1E1E1;
   color: #5B0000;
@@ -2488,48 +2475,48 @@ ul.language-switcher-locale-url li.active {
   padding-bottom: 2px;
 }
 
-/* line 395, ../scss/misc.scss */
+/* line 387, ../scss/misc.scss */
 body.page-overview #content-inner {
   margin-top: 0;
   padding-top: 0;
 }
 
-/* line 400, ../scss/misc.scss */
+/* line 392, ../scss/misc.scss */
 body.page-overview #content-header {
   display: none;
 }
 
-/* line 404, ../scss/misc.scss */
+/* line 396, ../scss/misc.scss */
 .personal-info .user-picture img {
   /*  width:100px;*/
 }
 
-/* line 408, ../scss/misc.scss */
+/* line 400, ../scss/misc.scss */
 .view-other-nuranis .views-field-picture img {
   /*  width:100px;*/
 }
 
-/* line 412, ../scss/misc.scss */
+/* line 404, ../scss/misc.scss */
 .view-texts table {
   width: 920px;
 }
 
-/* line 416, ../scss/misc.scss */
+/* line 408, ../scss/misc.scss */
 table .field-item, table .view-texts a, table td a {
   font-size: 15px;
 }
 
-/* line 420, ../scss/misc.scss */
+/* line 412, ../scss/misc.scss */
 .no-sidebars #content-header ul.tabs {
   left: 0;
 }
 
-/* line 424, ../scss/misc.scss */
+/* line 416, ../scss/misc.scss */
 #content-header ul.tabs, #content-header ul.tabs li {
   float: none;
 }
 
-/* line 428, ../scss/misc.scss */
+/* line 420, ../scss/misc.scss */
 #content-header ul.tabs li a {
   background-image: -moz-linear-gradient(center top, #ededed 0%, #e0e0e0 100%);
   color: #888888;

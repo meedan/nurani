@@ -2,13 +2,15 @@
 @import "buttons.scss";
 @import "compass/css3";
 
-#content-header ul.tabs {
+ul.tabs {
   float: left;
   width: 500px;
   background: transparent;
   li {
     padding: 10px 0px 0px;
     float: left;
+    display: inline;
+    text-align: center;
     a {
       padding: 5px 8px;
       font-family: arial, sans-serif;
@@ -32,10 +34,5 @@
 
 ul.primary {
   border-bottom-width:0px;
-}
-
-#content-header ul.tabs li {
-	display: inline;
-	text-align: center;
 }
 
