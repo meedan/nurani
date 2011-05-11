@@ -1,0 +1,4 @@
+name = Nurani Notifications
+description = Nurani notifications custom logic.
+package = Nurani
+core = 6.x
