@@ -256,7 +256,7 @@ h1.title {
 #outer-footer {
   margin: 30px 0 20px;
   clear: both;
-  background: #f2e9e3;
+  background: #eee9e3;
 }
 /* line 8, ../scss/footer.scss */
 #outer-footer li a:hover {
@@ -307,9 +307,9 @@ h1.title {
 }
 /* line 45, ../scss/footer.scss */
 #outer-footer ul#secondary li a {
-  color: #926344 !important;
+  color: #836b4f !important;
   display: inline;
-  border-right: 1px dotted #926344;
+  border-right: 1px dotted #836b4f;
   text-transform: uppercase;
   padding-right: 10px;
   font-family: "trajan-pro-1","trajan-pro-2", "Baskerville", serif;
