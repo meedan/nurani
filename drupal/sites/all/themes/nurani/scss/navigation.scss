@@ -41,15 +41,12 @@
   }
 }
 
-
-ul#primary {
-  /* we're doing it with a mixin so we can override direction in style-rtl */
-  /* TODO the use of first and last needs to be repaired with custom classes, eg li.discussion li.texts li.glossary */
+ul.menu {
   li.first { @include icon_button("d", "left"); }
   li  { @include icon_button("g", "left"); }
   li.last { @include icon_button("t", "left"); }
 
-  li.active {
+  li.active-trail {
     background: url("../images/bkg_active_nav.png") -5px bottom transparent;
   }
 }

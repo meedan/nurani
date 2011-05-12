@@ -1678,8 +1678,9 @@ body.i18n-ar ul#primary li.first {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
+/* line 74, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -1692,7 +1693,7 @@ body.i18n-ar ul#primary li.first a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 91, ../scss/_buttons.scss */
+/* line 92, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -1701,8 +1702,9 @@ body.i18n-ar ul#primary li {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
+/* line 74, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -1715,7 +1717,7 @@ body.i18n-ar ul#primary li a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 91, ../scss/_buttons.scss */
+/* line 92, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -1724,8 +1726,9 @@ body.i18n-ar ul#primary li.last {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
+/* line 74, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -1738,7 +1741,7 @@ body.i18n-ar ul#primary li.last a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 91, ../scss/_buttons.scss */
+/* line 92, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -2595,18 +2598,14 @@ div.profile div.field-label {
 /* ================ */
 /*aapplied to list*/
 /* line 45, ../scss/navigation.scss */
-ul#primary {
-  /* we're doing it with a mixin so we can override direction in style-rtl */
-  /* TODO the use of first and last needs to be repaired with custom classes, eg li.discussion li.texts li.glossary */
-}
-/* line 48, ../scss/navigation.scss */
-ul#primary li.first {
+ul.menu li.first {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
-ul#primary li.first a {
+/* line 74, ../scss/_buttons.scss */
+ul.menu li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -2618,18 +2617,19 @@ ul#primary li.first a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 91, ../scss/_buttons.scss */
-ul#primary li.first a.active {
+/* line 92, ../scss/_buttons.scss */
+ul.menu li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 49, ../scss/navigation.scss */
-ul#primary li {
+/* line 46, ../scss/navigation.scss */
+ul.menu li {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
-ul#primary li a {
+/* line 74, ../scss/_buttons.scss */
+ul.menu li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -2641,18 +2641,19 @@ ul#primary li a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 91, ../scss/_buttons.scss */
-ul#primary li a.active {
+/* line 92, ../scss/_buttons.scss */
+ul.menu li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 50, ../scss/navigation.scss */
-ul#primary li.last {
+/* line 47, ../scss/navigation.scss */
+ul.menu li.last {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
-ul#primary li.last a {
+/* line 74, ../scss/_buttons.scss */
+ul.menu li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -2664,29 +2665,29 @@ ul#primary li.last a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 91, ../scss/_buttons.scss */
-ul#primary li.last a.active {
+/* line 92, ../scss/_buttons.scss */
+ul.menu li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 52, ../scss/navigation.scss */
-ul#primary li.active {
+/* line 49, ../scss/navigation.scss */
+ul.menu li.active-trail {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
 
-/* line 57, ../scss/navigation.scss */
+/* line 54, ../scss/navigation.scss */
 #block-locale-0 {
   width: 70px;
   float: right;
 }
-/* line 61, ../scss/navigation.scss */
+/* line 58, ../scss/navigation.scss */
 #block-locale-0 h3, #block-locale-0 li.en {
   display: none;
 }
-/* line 64, ../scss/navigation.scss */
+/* line 61, ../scss/navigation.scss */
 #block-locale-0 li {
   font-size: 0.6em;
 }
-/* line 66, ../scss/navigation.scss */
+/* line 63, ../scss/navigation.scss */
 #block-locale-0 li a {
   color: white;
   background: #666666;
@@ -2695,7 +2696,7 @@ ul#primary li.active {
 }
 
 /* line 43, ../scss/core.scss */
-#navigation {
+#block-menu-primary-links {
   line-height: 1.2;
   -webkit-box-sizing: border-box;
   display: inline-block;
@@ -2705,46 +2706,39 @@ ul#primary li.active {
 }
 
 /* line 44, ../scss/core.scss */
-#navigation ul#primary {
+#block-menu-primary-links ul.menu {
   margin: 0 auto;
   width: 455px;
 }
 /* line 17, ../scss/navigation.scss */
-#navigation ul#primary a {
+#block-menu-primary-links ul.menu a {
   color: #7c0000;
   font-weight: normal;
   font-size: 20px;
 }
 /* line 18, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
-#navigation ul#primary a:visited {
+#block-menu-primary-links ul.menu a:visited {
   color: #7c0000;
 }
 /* line 21, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
-#navigation ul#primary a:focus {
+#block-menu-primary-links ul.menu a:focus {
   color: #7c0000;
 }
 /* line 24, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
-#navigation ul#primary a:hover {
+#block-menu-primary-links ul.menu a:hover {
   color: black;
 }
 /* line 27, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
-#navigation ul#primary a:active {
+#block-menu-primary-links ul.menu a:active {
   color: black;
 }
 /* line 20, ../scss/navigation.scss */
-#navigation ul#primary a:hover {
+#block-menu-primary-links ul.menu a:hover {
   text-decoration: none;
 }
 /* line 26, ../scss/navigation.scss */
-#navigation ul#primary li.active.active {
+#block-menu-primary-links ul.menu li.active.active {
   color: black;
-}
-
-/* line 45, ../scss/core.scss */
-#navigation ul#secondary {
-  text-align: center;
-  width: 100%;
-  display: block;
 }
 
 /* line 39, ../scss/navigation.scss */
@@ -2752,35 +2746,40 @@ div.content ul {
   list-style-type: none;
 }
 
-/* line 49, ../scss/core.scss */
+/* line 47, ../scss/core.scss */
+#block-menu-primary-links h3 {
+  display: none;
+}
+
+/* line 51, ../scss/core.scss */
 div.node {
   padding-bottom: 20px;
 }
 
-/* line 51, ../scss/core.scss */
+/* line 53, ../scss/core.scss */
 .error {
   border: 4px solid #7c0000 !important;
 }
 
 /*  = Tab styles
   ------------------------------------------------------ */
-/* line 58, ../scss/core.scss */
+/* line 60, ../scss/core.scss */
 #content-header ul.tabs {
   width: 500px;
   margin: 30px auto;
   text-align: center;
 }
-/* line 62, ../scss/core.scss */
+/* line 64, ../scss/core.scss */
 #content-header ul.tabs li {
   display: inline;
   text-align: center;
 }
-/* line 65, ../scss/core.scss */
+/* line 67, ../scss/core.scss */
 #content-header ul.tabs li a {
   font-size: 15px;
 }
 
-/* line 72, ../scss/core.scss */
+/* line 74, ../scss/core.scss */
 #content-wrapper {
   background: url("../images/march_logo_header.png") white no-repeat top center;
   padding-top: 110px;
@@ -2788,7 +2787,7 @@ div.node {
 
 /*  =Misc
   ------------------------------------------------------ */
-/* line 82, ../scss/core.scss */
+/* line 84, ../scss/core.scss */
 #comments span.submitted {
   text-transform: capitalize;
   width: 150px;
@@ -2797,29 +2796,29 @@ div.node {
   font-size: 13px;
   float: left;
 }
-/* line 90, ../scss/core.scss */
+/* line 92, ../scss/core.scss */
 #comments span.submitted a {
   font-size: 17px;
   display: block;
 }
-/* line 95, ../scss/core.scss */
+/* line 97, ../scss/core.scss */
 #comments .comment-content-wrapper {
   border: 1px solid #D3D7D9;
   margin-left: 150px;
   padding: 10px 25px;
 }
-/* line 100, ../scss/core.scss */
+/* line 102, ../scss/core.scss */
 #comments .subject {
   margin-bottom: 5px;
 }
 
-/* line 104, ../scss/core.scss */
+/* line 106, ../scss/core.scss */
 span.username {
   font-weight: bold;
   text-transform: capitalize;
 }
 
-/* line 109, ../scss/core.scss */
+/* line 111, ../scss/core.scss */
 a {
   font-weight: bold;
   text-decoration: none;
@@ -2827,12 +2826,12 @@ a {
 
 /*  = Hidden Stuff!
   ------------------------------------------------------ */
-/* line 117, ../scss/core.scss */
+/* line 119, ../scss/core.scss */
 #site-name, div#skip-link, body div li.node-readmore {
   display: none;
 }
 
-/* line 126, ../scss/core.scss */
+/* line 128, ../scss/core.scss */
 div.error,
 #edit-comment-body-und-0-format,
 p.comment-permalink,
@@ -2842,18 +2841,18 @@ div#edit-author--2 {
   display: none;
 }
 
-/* line 128, ../scss/core.scss */
+/* line 130, ../scss/core.scss */
 div.error, #edit-comment-body-und-0-format, p.comment-permalink, div.links, a#logo, div#edit-author--2 {
   display: none;
 }
 
 /*  = Forms
   ------------------------------------------------------ */
-/* line 136, ../scss/core.scss */
+/* line 138, ../scss/core.scss */
 form #edit-title {
   font-size: 14px;
 }
-/* line 139, ../scss/core.scss */
+/* line 141, ../scss/core.scss */
 form input.form-submit {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -2880,7 +2879,7 @@ form input.form-submit {
   -khtml-border-radius: 4px / 4px;
   border-radius: 4px / 4px;
 }
-/* line 111, ../scss/_buttons.scss */
+/* line 112, ../scss/_buttons.scss */
 form input.form-submit:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
@@ -2889,26 +2888,26 @@ form input.form-submit:active {
 
 /*  =Discussion
   ------------------------------------------------------ */
-/* line 148, ../scss/core.scss */
+/* line 150, ../scss/core.scss */
 body.discussion #content {
   clear: left;
 }
-/* line 150, ../scss/core.scss */
+/* line 152, ../scss/core.scss */
 body.discussion #content div.field {
   text-align: center;
 }
-/* line 153, ../scss/core.scss */
+/* line 155, ../scss/core.scss */
 body.discussion #content p {
   padding: 10px;
   float: left;
 }
-/* line 157, ../scss/core.scss */
+/* line 159, ../scss/core.scss */
 body.discussion #content img {
   float: left;
   display: inline;
   margin: 10px;
 }
-/* line 163, ../scss/core.scss */
+/* line 165, ../scss/core.scss */
 body.discussion #content #comments {
   float: left;
   clear: both;
@@ -2916,31 +2915,31 @@ body.discussion #content #comments {
   width: 600px;
   margin: 0 auto;
 }
-/* line 169, ../scss/core.scss */
+/* line 171, ../scss/core.scss */
 body.discussion #content #comments .filter-wrapper {
   display: none;
 }
-/* line 173, ../scss/core.scss */
+/* line 175, ../scss/core.scss */
 body.discussion #content #comments div.form-actions input {
   margin: 10px;
 }
 
 /*  =Comments
   ------------------------------------------------------ */
-/* line 182, ../scss/core.scss */
+/* line 184, ../scss/core.scss */
 #comments {
   border-top: 1px solid #D3D7D9;
 }
-/* line 185, ../scss/core.scss */
+/* line 187, ../scss/core.scss */
 #comments .comment-inner {
   margin: 20px 0;
 }
-/* line 187, ../scss/core.scss */
+/* line 189, ../scss/core.scss */
 #comments .comment-inner span.submitted {
   text-align: left;
 }
 
-/* line 194, ../scss/core.scss */
+/* line 196, ../scss/core.scss */
 .comment-inner .attribution {
   float: left;
   padding-top: 20px;
@@ -2948,17 +2947,17 @@ body.discussion #content #comments div.form-actions input {
   border-top: 1px solid #D3D7D9;
   border-top: 1px solid #D3D7D9;
 }
-/* line 198, ../scss/core.scss */
+/* line 200, ../scss/core.scss */
 .comment-inner .attribution p.comment-time {
   font-size: 13px;
 }
-/* line 206, ../scss/core.scss */
+/* line 208, ../scss/core.scss */
 .comment-inner .content {
   border: 1px solid #D3D7D9;
   margin-left: 140px;
   padding: 10px 25px;
 }
-/* line 210, ../scss/core.scss */
+/* line 212, ../scss/core.scss */
 .comment-inner .content .comment-arrow {
   height: 40px;
   margin-left: -45px;
@@ -2969,56 +2968,56 @@ body.discussion #content #comments div.form-actions input {
 
 /*  =Glossary
   ------------------------------------------------------ */
-/* line 223, ../scss/core.scss */
+/* line 225, ../scss/core.scss */
 .node-type-glossary-term h1 {
   margin-bottom: 0;
 }
 
-/* line 229, ../scss/core.scss */
+/* line 231, ../scss/core.scss */
 div.node-glossary-term .node-inner {
   margin-top: 30px;
 }
-/* line 231, ../scss/core.scss */
+/* line 233, ../scss/core.scss */
 div.node-glossary-term .node-inner .field {
   margin: 20px 0;
 }
-/* line 234, ../scss/core.scss */
+/* line 236, ../scss/core.scss */
 div.node-glossary-term .node-inner a {
   font-weight: normal;
 }
 
-/* line 240, ../scss/core.scss */
+/* line 242, ../scss/core.scss */
 ul#ibis-glossary-term-discussions {
   margin: 0;
   padding-left: 0;
 }
-/* line 243, ../scss/core.scss */
+/* line 245, ../scss/core.scss */
 ul#ibis-glossary-term-discussions li {
   list-style: none;
   margin: 0 0 20px 0;
 }
 
-/* line 249, ../scss/core.scss */
+/* line 251, ../scss/core.scss */
 div#walkthrough {
   display: none;
 }
 
 /*  =Overview
   ------------------------------------------------------ */
-/* line 254, ../scss/core.scss */
+/* line 256, ../scss/core.scss */
 .page-user-overview .block {
   margin-bottom: 50px;
 }
-/* line 256, ../scss/core.scss */
+/* line 258, ../scss/core.scss */
 .page-user-overview .block h2 {
   padding: 10px;
   margin-bottom: 0;
 }
-/* line 260, ../scss/core.scss */
+/* line 262, ../scss/core.scss */
 .page-user-overview .block .content {
   padding: 10px;
 }
-/* line 265, ../scss/core.scss */
+/* line 267, ../scss/core.scss */
 .page-user-overview #highlight
 .block {
   border: none;
@@ -3026,11 +3025,11 @@ div#walkthrough {
 
 /*  =Sidebar Second
   ------------------------------------------------------ */
-/* line 273, ../scss/core.scss */
+/* line 275, ../scss/core.scss */
 #sidebar-second #sidebar-second-inner {
   padding: 20px;
 }
-/* line 277, ../scss/core.scss */
+/* line 279, ../scss/core.scss */
 #sidebar-second #block-ibis_glossary-ibis_glossary_terms #ibis-glossary-highlight-button {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -3058,18 +3057,18 @@ div#walkthrough {
   border-radius: 4px / 4px;
   margin-bottom: 20px;
 }
-/* line 111, ../scss/_buttons.scss */
+/* line 112, ../scss/_buttons.scss */
 #sidebar-second #block-ibis_glossary-ibis_glossary_terms #ibis-glossary-highlight-button:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
   background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
-/* line 283, ../scss/core.scss */
+/* line 285, ../scss/core.scss */
 #sidebar-second h2.block-title {
   font-size: 24px;
   display: none;
 }
-/* line 289, ../scss/core.scss */
+/* line 291, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -3099,17 +3098,17 @@ div#walkthrough {
   font-size: 14px;
   text-align: center;
 }
-/* line 111, ../scss/_buttons.scss */
+/* line 112, ../scss/_buttons.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
   background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
-/* line 296, ../scss/core.scss */
+/* line 298, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-controls {
   margin: 10px 0;
 }
-/* line 302, ../scss/core.scss */
+/* line 304, ../scss/core.scss */
 #sidebar-second #boxes-box-add_discussion .boxes-box-content a {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -3140,26 +3139,26 @@ div#walkthrough {
   text-align: center;
   color: #7C0000;
 }
-/* line 111, ../scss/_buttons.scss */
+/* line 112, ../scss/_buttons.scss */
 #sidebar-second #boxes-box-add_discussion .boxes-box-content a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
   background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 
-/* line 313, ../scss/core.scss */
+/* line 315, ../scss/core.scss */
 .sidebar-right #content-inner {
   background-color: #f8f8f8;
   overflow: hidden;
   *zoom: 1;
 }
 
-/* line 319, ../scss/core.scss */
+/* line 321, ../scss/core.scss */
 #main {
   margin-top: 10px;
 }
 
-/* line 323, ../scss/core.scss */
+/* line 325, ../scss/core.scss */
 div#block-search-form {
   width: 80%;
   margin: 20px;
@@ -3168,61 +3167,61 @@ div#block-search-form {
   border-top: 3px solid #c3c3c3;
 }
 
-/* line 334, ../scss/core.scss */
+/* line 336, ../scss/core.scss */
 .page-user-login #content-header ul.tabs {
   display: none;
 }
-/* line 338, ../scss/core.scss */
+/* line 340, ../scss/core.scss */
 .page-user-login .new-password {
   float: left;
 }
 
-/* line 343, ../scss/core.scss */
+/* line 345, ../scss/core.scss */
 ul.primary li a {
   background: white;
   border: none;
 }
-/* line 346, ../scss/core.scss */
+/* line 348, ../scss/core.scss */
 ul.primary li a.active {
   border: none;
 }
 
-/* line 351, ../scss/core.scss */
+/* line 353, ../scss/core.scss */
 body, #header, #footer {
   background: #f1e9e4;
 }
 
-/* line 355, ../scss/core.scss */
+/* line 357, ../scss/core.scss */
 #sidebar-first {
   background: white;
 }
 
-/* line 358, ../scss/core.scss */
+/* line 360, ../scss/core.scss */
 #sidebar-second {
   background: white;
 }
 
-/* line 361, ../scss/core.scss */
+/* line 363, ../scss/core.scss */
 #main {
   background: white;
 }
 
-/* line 364, ../scss/core.scss */
+/* line 366, ../scss/core.scss */
 div.node {
   border-color: #f1e9e4;
 }
 
-/* line 367, ../scss/core.scss */
+/* line 369, ../scss/core.scss */
 span.submitted {
   color: #7c0000;
 }
 
-/* line 370, ../scss/core.scss */
+/* line 372, ../scss/core.scss */
 span.username {
   color: #7c0000;
 }
 
-/* line 373, ../scss/core.scss */
+/* line 375, ../scss/core.scss */
 a {
   color: black;
 }
@@ -3243,72 +3242,72 @@ a:active {
   color: black;
 }
 
-/* line 377, ../scss/core.scss */
+/* line 379, ../scss/core.scss */
 div#walkthrough {
   background-color: maroon;
 }
-/* line 380, ../scss/core.scss */
+/* line 382, ../scss/core.scss */
 div#walkthrough ul.links li {
   background: #b30000;
   opacity: 50%;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
 }
-/* line 383, ../scss/core.scss */
+/* line 385, ../scss/core.scss */
 div#walkthrough ul.links li a:link {
   color: black;
 }
-/* line 385, ../scss/core.scss */
+/* line 387, ../scss/core.scss */
 div#walkthrough ul.links li a:hover {
   color: #f1e9e4;
 }
 
-/* line 389, ../scss/core.scss */
+/* line 391, ../scss/core.scss */
 div.profile div.field-label {
   background-color: white;
   color: #7c0000;
 }
 
-/* line 394, ../scss/core.scss */
+/* line 396, ../scss/core.scss */
 body.discussion #content img {
   border: 4px double #f1e9e4;
 }
 
-/* line 397, ../scss/core.scss */
+/* line 399, ../scss/core.scss */
 div.field-type-user-reference {
   border: 1px solid #f1e9e4;
 }
 
-/* line 400, ../scss/core.scss */
+/* line 402, ../scss/core.scss */
 div.field-type-user-reference .field-label, div.field-name-field-texts .field-label {
   color: #7c0000;
 }
 
-/* line 407, ../scss/core.scss */
+/* line 409, ../scss/core.scss */
 .page-user-overview .block {
   border: 1px solid #f1e9e4;
 }
-/* line 409, ../scss/core.scss */
+/* line 411, ../scss/core.scss */
 .page-user-overview .block h2 {
   background: white;
   border-bottom: 1px solid #f1e9e4;
 }
 
-/* line 414, ../scss/core.scss */
+/* line 416, ../scss/core.scss */
 #sidebar-second h2.block-title {
   border-bottom: 4px double #990000;
 }
-/* line 418, ../scss/core.scss */
+/* line 420, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a {
   color: #7c0000;
 }
 
-/* line 421, ../scss/core.scss */
+/* line 423, ../scss/core.scss */
 div#block-search-form {
   border-bottom: 1px solid #f1e9e4;
 }
 
-/* line 424, ../scss/core.scss */
+/* line 426, ../scss/core.scss */
 a#admin_toggle {
   color: #7c0000;
   background: white;
@@ -3317,12 +3316,12 @@ a#admin_toggle {
 /* ========================= */
 /* = demo temporary styles = */
 /* ========================= */
-/* line 432, ../scss/core.scss */
+/* line 434, ../scss/core.scss */
 span.form-required {
   color: #7c0000;
 }
 
-/* line 434, ../scss/core.scss */
+/* line 436, ../scss/core.scss */
 .page-node-6 {
   text-align: right;
 }

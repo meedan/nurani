@@ -40,11 +40,13 @@ div.node-discussion  { @include discussion_header; }
 div.profile { @include profile; }
 
 @import "navigation.scss";
-#navigation  { @include nav; }
-#navigation ul#primary   { @include primarynav;}
-#navigation ul#secondary { @include secondarynav;}
+#block-menu-primary-links  { @include nav; }
+#block-menu-primary-links ul.menu  { @include primarynav;}
 div.content  { @include languageswitcher;}
 
+#block-menu-primary-links h3 { 
+	display: none
+ }
 
 div.node { padding-bottom: 20px;  }
 

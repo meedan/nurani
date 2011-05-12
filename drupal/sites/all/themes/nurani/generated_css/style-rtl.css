@@ -57,8 +57,9 @@ body.i18n-ar ul#primary li.first {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
+/* line 74, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -71,7 +72,7 @@ body.i18n-ar ul#primary li.first a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 91, ../scss/_buttons.scss */
+/* line 92, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -80,8 +81,9 @@ body.i18n-ar ul#primary li {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
+/* line 74, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -94,7 +96,7 @@ body.i18n-ar ul#primary li a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 91, ../scss/_buttons.scss */
+/* line 92, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -103,8 +105,9 @@ body.i18n-ar ul#primary li.last {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
+/* line 74, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -117,7 +120,7 @@ body.i18n-ar ul#primary li.last a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 91, ../scss/_buttons.scss */
+/* line 92, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
