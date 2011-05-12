@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* line 3, ../scss/login.scss */
 body.page-user.not-logged-in {
   background-image: none;
@@ -11,7 +12,9 @@ body.page-user.not-logged-in div.description {
   display: none;
 }
 /* line 15, ../scss/login.scss */
-body.page-user.not-logged-in h1.title, body.page-user.not-logged-in span.form-required, body.page-user.not-logged-in #content-header ul.tabs {
+body.page-user.not-logged-in h1.title,
+body.page-user.not-logged-in span.form-required,
+body.page-user.not-logged-in #content-header ul.tabs {
   display: none;
 }
 /* line 19, ../scss/login.scss */

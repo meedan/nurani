@@ -1,7 +1,7 @@
 @import "buttons.scss";
 @import "_colors.scss";
 
-body.ar {
+body.i18n-ar {
 
   overflow-x: hidden !important;
 
@@ -58,4 +58,11 @@ body.ar {
   }
 }
 
-
+.i18n-ar #block-locale-0 {
+  li.ar {
+    display: none;
+ }
+ li.en {
+    display: block;
+  }
+}

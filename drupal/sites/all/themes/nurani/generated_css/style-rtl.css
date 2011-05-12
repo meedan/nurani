@@ -13,47 +13,52 @@
 /*section names */
 /*bright colors*/
 /* line 4, ../scss/style-rtl.scss */
-body.ar {
+body.i18n-ar {
   overflow-x: hidden !important;
 }
 /* line 8, ../scss/style-rtl.scss */
-body.ar #boxes-box-welcome_to_nurani_box .toggle {
+body.i18n-ar #boxes-box-welcome_to_nurani_box .toggle {
   position: absolute;
   right: auto;
   left: 0;
   top: 1px;
 }
 /* line 15, ../scss/style-rtl.scss */
-body.ar .condense_control {
+body.i18n-ar .condense_control {
   padding: 4px 4px 4px 0;
   background: url("../images/more-ar.png") no-repeat scroll 0 0 transparent;
 }
 /* line 20, ../scss/style-rtl.scss */
-body.ar #comment-form label {
+body.i18n-ar #comment-form label {
   float: right;
   margin-right: 10px;
 }
 /* line 25, ../scss/style-rtl.scss */
-body.ar #comment-form label[for="edit-subject"] {
+body.i18n-ar #comment-form label[for="edit-subject"] {
   margin-left: 42px;
   margin-right: 0;
 }
 /* line 35, ../scss/style-rtl.scss */
-body.ar #sidebar-second, body.ar .sidebar-second #main, body.ar .text, body.ar .author-photo, body.ar .view-texts-in-discussion .views-row, body.ar .view-overview .views-field-title {
+body.i18n-ar #sidebar-second,
+body.i18n-ar .sidebar-second #main,
+body.i18n-ar .text,
+body.i18n-ar .author-photo,
+body.i18n-ar .view-texts-in-discussion .views-row,
+body.i18n-ar .view-overview .views-field-title {
   float: right;
 }
 /* line 39, ../scss/style-rtl.scss */
-body.ar .perosnal-username, body.ar .view-overview .views-field-view-node {
+body.i18n-ar .perosnal-username, body.i18n-ar .view-overview .views-field-view-node {
   float: left;
 }
 /* line 45, ../scss/style-rtl.scss */
-body.ar ul#primary li.first {
+body.i18n-ar ul#primary li.first {
   float: left;
   list-style: none outside none;
   padding: 0;
 }
 /* line 73, ../scss/_buttons.scss */
-body.ar ul#primary li.first a {
+body.i18n-ar ul#primary li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -66,17 +71,17 @@ body.ar ul#primary li.first a {
   padding-left: 10px;
 }
 /* line 91, ../scss/_buttons.scss */
-body.ar ul#primary li.first a.active {
+body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 46, ../scss/style-rtl.scss */
-body.ar ul#primary li {
+body.i18n-ar ul#primary li {
   float: left;
   list-style: none outside none;
   padding: 0;
 }
 /* line 73, ../scss/_buttons.scss */
-body.ar ul#primary li a {
+body.i18n-ar ul#primary li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -89,17 +94,17 @@ body.ar ul#primary li a {
   padding-left: 10px;
 }
 /* line 91, ../scss/_buttons.scss */
-body.ar ul#primary li a.active {
+body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 47, ../scss/style-rtl.scss */
-body.ar ul#primary li.last {
+body.i18n-ar ul#primary li.last {
   float: left;
   list-style: none outside none;
   padding: 0;
 }
 /* line 73, ../scss/_buttons.scss */
-body.ar ul#primary li.last a {
+body.i18n-ar ul#primary li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -112,16 +117,25 @@ body.ar ul#primary li.last a {
   padding-left: 10px;
 }
 /* line 91, ../scss/_buttons.scss */
-body.ar ul#primary li.last a.active {
+body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 50, ../scss/style-rtl.scss */
-body.ar #block-boxes-welcome_to_nurani_box .more-link {
+body.i18n-ar #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: right;
   margin-top: 10px;
 }
 /* line 56, ../scss/style-rtl.scss */
-body.ar .view-ibis-glossary .views-summary {
+body.i18n-ar .view-ibis-glossary .views-summary {
   float: right;
+}
+
+/* line 62, ../scss/style-rtl.scss */
+.i18n-ar #block-locale-0 li.ar {
+  display: none;
+}
+/* line 65, ../scss/style-rtl.scss */
+.i18n-ar #block-locale-0 li.en {
+  display: block;
 }

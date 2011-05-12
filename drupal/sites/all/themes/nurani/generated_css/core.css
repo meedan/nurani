@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* line 1, ../scss/reset.scss */
 * {
   margin: 0;
@@ -370,49 +371,50 @@ div#main div.links {
 /* line 43, ../scss/layout.scss */
 #header-region {
   position: relative;
+  height: 95px;
 }
 
 /* Layout rules. (Disclaimer: do not change if you're not sure you know what you're doing.) */
 /* line 72, ../scss/layout.scss */
-/* line 49, ../scss/layout.scss */
+/* line 50, ../scss/layout.scss */
 #content {
   width: 593.28px;
   margin: 0 auto;
 }
 
 /* line 76, ../scss/layout.scss */
-/* line 55, ../scss/layout.scss */
+/* line 56, ../scss/layout.scss */
 .sidebar-first #content {
   float: right;
   width: 593.28px;
 }
 
-/* line 60, ../scss/layout.scss */
+/* line 61, ../scss/layout.scss */
 .sidebar-right #content {
   float: left;
   width: 593.28px;
 }
 
-/* line 65, ../scss/layout.scss */
+/* line 66, ../scss/layout.scss */
 .sidebar {
   float: left;
   width: 366.72px;
 }
 
-/* line 70, ../scss/layout.scss */
+/* line 71, ../scss/layout.scss */
 #sidebar-second {
   float: right;
   width: 366.72px;
 }
 
-/* line 75, ../scss/layout.scss */
+/* line 76, ../scss/layout.scss */
 #footer {
   float: none;
   clear: both;
 }
 
 /* Layout Helpers */
-/* line 81, ../scss/layout.scss */
+/* line 82, ../scss/layout.scss */
 #header, #footer, .mission, .breadcrumb, .node {
   clear: both;
 }
@@ -425,23 +427,23 @@ div#main div.links {
  * For example, if I want to increase the width of the left sidebar
  * to 300px, I would have to change each '190' to '300'. */
 /* line 119, ../scss/layout.scss */
-/* line 93, ../scss/layout.scss */
+/* line 94, ../scss/layout.scss */
 .two-sidebars .center, .sidebar-first .center {
   margin-left: 190px;
 }
 
-/* line 97, ../scss/layout.scss */
+/* line 98, ../scss/layout.scss */
 #sidebar-first {
   width: 190px;
   margin-right: -190px;
 }
 
-/* line 102, ../scss/layout.scss */
+/* line 103, ../scss/layout.scss */
 .two-sidebars .center, .sidebar-right .center {
   margin-right: 200px;
 }
 
-/* line 106, ../scss/layout.scss */
+/* line 107, ../scss/layout.scss */
 .sidebar-right .center {
   margin-right: 0;
 }
@@ -451,17 +453,17 @@ div#main div.links {
  * You can change the padding inside the columns without changing the
  * width of them by just usinbg the INNER div of each column */
 /* line 141, ../scss/layout.scss */
-/* line 115, ../scss/layout.scss */
+/* line 116, ../scss/layout.scss */
 .inner {
   padding: 20px;
 }
 
-/* line 119, ../scss/layout.scss */
+/* line 120, ../scss/layout.scss */
 body.page-mockup .inner {
   padding: 0;
 }
 
-/* line 123, ../scss/layout.scss */
+/* line 124, ../scss/layout.scss */
 #sidebar-second .inner {
   padding: 0;
 }
@@ -489,11 +491,9 @@ body.page-overview .view-discussions .views-field-view-node a {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -508,40 +508,34 @@ body.page-overview .view-discussions .views-field-view-node a {
 /* line 19, ../scss/_buttons.scss */
 body.page-overview .more-links a:hover,
 body.page-overview .view-discussions .views-field-view-node a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.page-overview .more-links a:active,
 body.page-overview .view-discussions .views-field-view-node a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 /* line 12, ../scss/welcome_message.scss */
 body.page-overview #slash {
   margin: 0px 20px 0;
   padding: 20px;
   position: relative;
-  -moz-box-shadow: 0px 3px 3px #cccccc;
-  -webkit-box-shadow: 0px 3px 3px #cccccc;
-  -o-box-shadow: 0px 3px 3px #cccccc;
-  box-shadow: 0px 3px 3px #cccccc;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fff0c2), color-stop(50%, #fff9e6), color-stop(100%, #fff9e6));
-  background-image: -webkit-linear-gradient(top, #fff0c2, #fff9e6, #fff9e6);
-  background-image: -moz-linear-gradient(top, #fff0c2, #fff9e6, #fff9e6);
-  background-image: -o-linear-gradient(top, #fff0c2, #fff9e6, #fff9e6);
-  background-image: linear-gradient(top, #fff0c2, #fff9e6, #fff9e6);
+  -moz-box-shadow: #cccccc 0px 3px 3px 0;
+  -webkit-box-shadow: #cccccc 0px 3px 3px 0;
+  -o-box-shadow: #cccccc 0px 3px 3px 0;
+  box-shadow: #cccccc 0px 3px 3px 0;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #fff0c2), color-stop(50%, #fff9e6), color-stop(100%, #fff9e6));
+  background-image: -moz-linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
+  background-image: linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
   line-height: 1em;
 }
 /* line 19, ../scss/welcome_message.scss */
 body.page-overview #slash h3 {
-  text-shadow: 0px, 1px, 0px, white;
+  text-shadow: 0px 1px 0px white;
   color: #333;
   font-weight: 300px;
   font-size: 1.6em;
@@ -562,10 +556,10 @@ body.page-overview #slash #block-boxes-welcome_box img.d_ford {
   width: 80px;
   margin: 15px;
   border: 5px solid #fff;
-  -moz-box-shadow: 3px 3px 3px #cccccc;
-  -webkit-box-shadow: 3px 3px 3px #cccccc;
-  -o-box-shadow: 3px 3px 3px #cccccc;
-  box-shadow: 3px 3px 3px #cccccc;
+  -moz-box-shadow: #cccccc 3px 3px 3px 0;
+  -webkit-box-shadow: #cccccc 3px 3px 3px 0;
+  -o-box-shadow: #cccccc 3px 3px 3px 0;
+  box-shadow: #cccccc 3px 3px 3px 0;
 }
 /* line 46, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle {
@@ -602,15 +596,13 @@ body.page-texts #main #content .views-table {
 }
 /* line 10, ../scss/_tables.scss */
 body.page-texts #main #content .views-table thead {
-  -moz-box-shadow: inset 1px 1px 3px 1px #c3c3c3;
-  -webkit-box-shadow: inset 1px 1px 3px 1px #c3c3c3;
-  -o-box-shadow: inset 1px 1px 3px 1px #c3c3c3;
-  box-shadow: inset 1px 1px 3px 1px #c3c3c3;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d8d8d8), color-stop(100%, #f2f2f2));
-  background-image: -webkit-linear-gradient(top, #d8d8d8, #f2f2f2);
-  background-image: -moz-linear-gradient(top, #d8d8d8, #f2f2f2);
-  background-image: -o-linear-gradient(top, #d8d8d8, #f2f2f2);
-  background-image: linear-gradient(top, #d8d8d8, #f2f2f2);
+  -moz-box-shadow: #c3c3c3 1px 1px 3px 1px inset;
+  -webkit-box-shadow: #c3c3c3 1px 1px 3px 1px inset;
+  -o-box-shadow: #c3c3c3 1px 1px 3px 1px inset;
+  box-shadow: #c3c3c3 1px 1px 3px 1px inset;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #d8d8d8), color-stop(100%, #f2f2f2));
+  background-image: -moz-linear-gradient(top, #d8d8d8 0%, #f2f2f2 100%);
+  background-image: linear-gradient(top, #d8d8d8 0%, #f2f2f2 100%);
   padding: 15px 0;
   height: 60px;
   color: #fff;
@@ -1072,10 +1064,10 @@ ul.tabs li a {
 /* line 24, ../scss/tabs.scss */
 ul.tabs li a.active {
   border: 1px solid #c3c3c3;
-  -moz-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
-  -webkit-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
-  -o-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
-  box-shadow: inset 0px 1px 2px 1px #bfbfbf;
+  -moz-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
+  -webkit-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
+  -o-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
+  box-shadow: #bfbfbf 0px 1px 2px 1px inset;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -o-border-radius: 4px;
@@ -1187,15 +1179,13 @@ body.page-glossary .views-table {
 }
 /* line 10, ../scss/_tables.scss */
 body.page-glossary .views-table thead {
-  -moz-box-shadow: inset 1px 1px 3px 1px #c3c3c3;
-  -webkit-box-shadow: inset 1px 1px 3px 1px #c3c3c3;
-  -o-box-shadow: inset 1px 1px 3px 1px #c3c3c3;
-  box-shadow: inset 1px 1px 3px 1px #c3c3c3;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d8d8d8), color-stop(100%, #f2f2f2));
-  background-image: -webkit-linear-gradient(top, #d8d8d8, #f2f2f2);
-  background-image: -moz-linear-gradient(top, #d8d8d8, #f2f2f2);
-  background-image: -o-linear-gradient(top, #d8d8d8, #f2f2f2);
-  background-image: linear-gradient(top, #d8d8d8, #f2f2f2);
+  -moz-box-shadow: #c3c3c3 1px 1px 3px 1px inset;
+  -webkit-box-shadow: #c3c3c3 1px 1px 3px 1px inset;
+  -o-box-shadow: #c3c3c3 1px 1px 3px 1px inset;
+  box-shadow: #c3c3c3 1px 1px 3px 1px inset;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #d8d8d8), color-stop(100%, #f2f2f2));
+  background-image: -moz-linear-gradient(top, #d8d8d8 0%, #f2f2f2 100%);
+  background-image: linear-gradient(top, #d8d8d8 0%, #f2f2f2 100%);
   padding: 15px 0;
   height: 60px;
   color: #fff;
@@ -1397,11 +1387,9 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1419,19 +1407,15 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
 }
 /* line 19, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 /* line 79, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-label {
@@ -1450,11 +1434,9 @@ body.node-type-discussion li.node_translation_ar a {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1472,19 +1454,15 @@ body.node-type-discussion li.node_translation_ar a {
 }
 /* line 19, ../scss/_buttons.scss */
 body.node-type-discussion li.node_translation_ar a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.node-type-discussion li.node_translation_ar a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
 /* line 95, ../scss/discussion.scss */
 body.node-type-discussion li.comment_edit a {
@@ -1494,11 +1472,9 @@ body.node-type-discussion li.comment_edit a {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1517,19 +1493,15 @@ body.node-type-discussion li.comment_edit a {
 }
 /* line 19, ../scss/_buttons.scss */
 body.node-type-discussion li.comment_edit a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.node-type-discussion li.comment_edit a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
 /* line 103, ../scss/discussion.scss */
 body.node-type-discussion li.comment_delete a {
@@ -1539,11 +1511,9 @@ body.node-type-discussion li.comment_delete a {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1562,19 +1532,15 @@ body.node-type-discussion li.comment_delete a {
 }
 /* line 19, ../scss/_buttons.scss */
 body.node-type-discussion li.comment_delete a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.node-type-discussion li.comment_delete a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 /* line 112, ../scss/discussion.scss */
 body.node-type-discussion li.comment_reply a {
@@ -1584,11 +1550,9 @@ body.node-type-discussion li.comment_reply a {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1607,19 +1571,15 @@ body.node-type-discussion li.comment_reply a {
 }
 /* line 19, ../scss/_buttons.scss */
 body.node-type-discussion li.comment_reply a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.node-type-discussion li.comment_reply a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 
 /* ================== */
@@ -1637,52 +1597,52 @@ body.node-type-discussion li.comment_reply a:active {
 /*section names */
 /*bright colors*/
 /* line 4, ../scss/style-rtl.scss */
-body.ar {
+body.i18n-ar {
   overflow-x: hidden !important;
 }
 /* line 8, ../scss/style-rtl.scss */
-body.ar #boxes-box-welcome_to_nurani_box .toggle {
+body.i18n-ar #boxes-box-welcome_to_nurani_box .toggle {
   position: absolute;
   right: auto;
   left: 0;
   top: 1px;
 }
 /* line 15, ../scss/style-rtl.scss */
-body.ar .condense_control {
+body.i18n-ar .condense_control {
   padding: 4px 4px 4px 0;
   background: url("../images/more-ar.png") no-repeat scroll 0 0 transparent;
 }
 /* line 20, ../scss/style-rtl.scss */
-body.ar #comment-form label {
+body.i18n-ar #comment-form label {
   float: right;
   margin-right: 10px;
 }
 /* line 25, ../scss/style-rtl.scss */
-body.ar #comment-form label[for="edit-subject"] {
+body.i18n-ar #comment-form label[for="edit-subject"] {
   margin-left: 42px;
   margin-right: 0;
 }
 /* line 35, ../scss/style-rtl.scss */
-body.ar #sidebar-second,
-body.ar .sidebar-second #main,
-body.ar .text,
-body.ar .author-photo,
-body.ar .view-texts-in-discussion .views-row,
-body.ar .view-overview .views-field-title {
+body.i18n-ar #sidebar-second,
+body.i18n-ar .sidebar-second #main,
+body.i18n-ar .text,
+body.i18n-ar .author-photo,
+body.i18n-ar .view-texts-in-discussion .views-row,
+body.i18n-ar .view-overview .views-field-title {
   float: right;
 }
 /* line 39, ../scss/style-rtl.scss */
-body.ar .perosnal-username, body.ar .view-overview .views-field-view-node {
+body.i18n-ar .perosnal-username, body.i18n-ar .view-overview .views-field-view-node {
   float: left;
 }
 /* line 45, ../scss/style-rtl.scss */
-body.ar ul#primary li.first {
+body.i18n-ar ul#primary li.first {
   float: left;
   list-style: none outside none;
   padding: 0;
 }
 /* line 73, ../scss/_buttons.scss */
-body.ar ul#primary li.first a {
+body.i18n-ar ul#primary li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -1695,17 +1655,17 @@ body.ar ul#primary li.first a {
   padding-left: 10px;
 }
 /* line 91, ../scss/_buttons.scss */
-body.ar ul#primary li.first a.active {
+body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 46, ../scss/style-rtl.scss */
-body.ar ul#primary li {
+body.i18n-ar ul#primary li {
   float: left;
   list-style: none outside none;
   padding: 0;
 }
 /* line 73, ../scss/_buttons.scss */
-body.ar ul#primary li a {
+body.i18n-ar ul#primary li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -1718,17 +1678,17 @@ body.ar ul#primary li a {
   padding-left: 10px;
 }
 /* line 91, ../scss/_buttons.scss */
-body.ar ul#primary li a.active {
+body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 47, ../scss/style-rtl.scss */
-body.ar ul#primary li.last {
+body.i18n-ar ul#primary li.last {
   float: left;
   list-style: none outside none;
   padding: 0;
 }
 /* line 73, ../scss/_buttons.scss */
-body.ar ul#primary li.last a {
+body.i18n-ar ul#primary li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -1741,18 +1701,27 @@ body.ar ul#primary li.last a {
   padding-left: 10px;
 }
 /* line 91, ../scss/_buttons.scss */
-body.ar ul#primary li.last a.active {
+body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 50, ../scss/style-rtl.scss */
-body.ar #block-boxes-welcome_to_nurani_box .more-link {
+body.i18n-ar #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: right;
   margin-top: 10px;
 }
 /* line 56, ../scss/style-rtl.scss */
-body.ar .view-ibis-glossary .views-summary {
+body.i18n-ar .view-ibis-glossary .views-summary {
   float: right;
+}
+
+/* line 62, ../scss/style-rtl.scss */
+.i18n-ar #block-locale-0 li.ar {
+  display: none;
+}
+/* line 65, ../scss/style-rtl.scss */
+.i18n-ar #block-locale-0 li.en {
+  display: block;
 }
 
 /* theme core colors*/
@@ -1799,11 +1768,9 @@ body.ar #block-locale-language ul li.en {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1833,19 +1800,15 @@ body.ar #block-locale-language ul li.en {
 }
 /* line 19, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 /* line 33, ../scss/toggle.scss */
 body.ar #block-locale-language ul li.ar {
@@ -1855,11 +1818,9 @@ body.ar #block-locale-language ul li.ar {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1887,27 +1848,23 @@ body.ar #block-locale-language ul li.ar {
   -khtml-border-bottom-left-radius: 0;
   border-bottom-left-radius: 0;
   float: right;
-  -moz-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  -webkit-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  -o-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  box-shadow: inset 1px 1px 3px 3px #bfbfbf;
+  -moz-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  -webkit-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  -o-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
 /* line 19, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 
 /* line 44, ../scss/toggle.scss */
@@ -1918,11 +1875,9 @@ body.en #block-locale-language ul li.en {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1949,27 +1904,23 @@ body.en #block-locale-language ul li.en {
   -ms-border-bottom-right-radius: 0;
   -khtml-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
-  -moz-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  -webkit-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  -o-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  box-shadow: inset 1px 1px 3px 3px #bfbfbf;
+  -moz-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  -webkit-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  -o-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
 /* line 19, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 /* line 48, ../scss/toggle.scss */
 body.en #block-locale-language ul li.ar {
@@ -1979,11 +1930,9 @@ body.en #block-locale-language ul li.ar {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -2014,19 +1963,15 @@ body.en #block-locale-language ul li.ar {
 }
 /* line 19, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 
 /* line 1, ../scss/misc.scss */
@@ -2719,19 +2664,19 @@ ul#primary li.active {
   font-weight: normal;
   font-size: 20px;
 }
-/* line 18, ../../../../../../../../.rvm/gems/ruby-1.9.2-head/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 18, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #navigation ul#primary a:visited {
   color: #7c0000;
 }
-/* line 21, ../../../../../../../../.rvm/gems/ruby-1.9.2-head/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 21, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #navigation ul#primary a:focus {
   color: #7c0000;
 }
-/* line 24, ../../../../../../../../.rvm/gems/ruby-1.9.2-head/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 24, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #navigation ul#primary a:hover {
   color: black;
 }
-/* line 27, ../../../../../../../../.rvm/gems/ruby-1.9.2-head/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 27, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #navigation ul#primary a:active {
   color: black;
 }
@@ -2865,11 +2810,9 @@ form input.form-submit {
   -ms-border-radius: "30px"/2;
   -khtml-border-radius: "30px"/2;
   border-radius: "30px"/2;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
   line-height: "30px";
   -webkit-box-sizing: border-box;
   padding: 0 "30px"/2;
@@ -2888,11 +2831,9 @@ form input.form-submit {
 }
 /* line 111, ../scss/_buttons.scss */
 form input.form-submit:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
-  background-image: -webkit-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -moz-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -o-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
+  background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
+  background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 
 /*  =Discussion
@@ -3046,11 +2987,9 @@ div#walkthrough {
   -ms-border-radius: "30px"/2;
   -khtml-border-radius: "30px"/2;
   border-radius: "30px"/2;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
   line-height: "30px";
   -webkit-box-sizing: border-box;
   padding: 0 "30px"/2;
@@ -3070,11 +3009,9 @@ div#walkthrough {
 }
 /* line 111, ../scss/_buttons.scss */
 #sidebar-second #block-ibis_glossary-ibis_glossary_terms #ibis-glossary-highlight-button:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
-  background-image: -webkit-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -moz-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -o-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
+  background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
+  background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 /* line 283, ../scss/core.scss */
 #sidebar-second h2.block-title {
@@ -3089,11 +3026,9 @@ div#walkthrough {
   -ms-border-radius: "30px"/2;
   -khtml-border-radius: "30px"/2;
   border-radius: "30px"/2;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
   line-height: "30px";
   -webkit-box-sizing: border-box;
   padding: 0 "30px"/2;
@@ -3115,11 +3050,9 @@ div#walkthrough {
 }
 /* line 111, ../scss/_buttons.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
-  background-image: -webkit-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -moz-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -o-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
+  background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
+  background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 /* line 296, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-controls {
@@ -3133,11 +3066,9 @@ div#walkthrough {
   -ms-border-radius: "30px"/2;
   -khtml-border-radius: "30px"/2;
   border-radius: "30px"/2;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
   line-height: "30px";
   -webkit-box-sizing: border-box;
   padding: 0 "30px"/2;
@@ -3160,11 +3091,9 @@ div#walkthrough {
 }
 /* line 111, ../scss/_buttons.scss */
 #sidebar-second #boxes-box-add_discussion .boxes-box-content a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
-  background-image: -webkit-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -moz-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -o-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
+  background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
+  background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 
 /* line 313, ../scss/core.scss */
@@ -3246,19 +3175,19 @@ span.username {
 a {
   color: black;
 }
-/* line 18, ../../../../../../../../.rvm/gems/ruby-1.9.2-head/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 18, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:visited {
   color: black;
 }
-/* line 21, ../../../../../../../../.rvm/gems/ruby-1.9.2-head/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 21, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:focus {
   color: black;
 }
-/* line 24, ../../../../../../../../.rvm/gems/ruby-1.9.2-head/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 24, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:hover {
   color: #990000;
 }
-/* line 27, ../../../../../../../../.rvm/gems/ruby-1.9.2-head/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 27, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:active {
   color: black;
 }
@@ -3270,9 +3199,9 @@ div#walkthrough {
 /* line 380, ../scss/core.scss */
 div#walkthrough ul.links li {
   background: #b30000;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%)";
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
   opacity: 50%;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
 }
 /* line 383, ../scss/core.scss */
 div#walkthrough ul.links li a:link {
