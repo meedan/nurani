@@ -1,10 +1,13 @@
+// color math!
+@import "_colors";
 
 .node-inner {
  padding-top: 20px; 
 }
-div#top-strip {
-  background: $top-strip;
+
+.logged-in div#top-strip {
   height: 23px;
+	background: $dark_brown;
   padding: 7px 20px 0;
 }
 div#header {

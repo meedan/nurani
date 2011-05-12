@@ -16,7 +16,7 @@
 		<a href="#navigation"><?php print t('Skip to Navigation'); ?></a>
 	</div>  
 	<div id="top-strip">
-	  <?php print $header; ?>
+	  <?php print $top_strip; ?>
 	</div>
 	<div class="page">
 		<div id="header">

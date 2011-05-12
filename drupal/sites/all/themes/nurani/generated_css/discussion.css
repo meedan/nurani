@@ -117,14 +117,20 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
 }
 /* line 79, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-label {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #ccc;
   margin: 20px 0 10px;
+  color: #7c0000;
+  font-family: Helvetica,arial,sans-serif;
+  font-size: 0.8em;
+  font-weight: normal;
+  padding-bottom: 3px;
+  text-transform: uppercase;
 }
-/* line 85, ../scss/discussion.scss */
+/* line 91, ../scss/discussion.scss */
 body.node-type-discussion ul.links li {
   padding: 0;
 }
-/* line 88, ../scss/discussion.scss */
+/* line 94, ../scss/discussion.scss */
 body.node-type-discussion li.node_translation_ar a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -162,7 +168,7 @@ body.node-type-discussion li.node_translation_ar a:active {
   background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
   background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
-/* line 95, ../scss/discussion.scss */
+/* line 101, ../scss/discussion.scss */
 body.node-type-discussion li.comment_edit a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -201,7 +207,7 @@ body.node-type-discussion li.comment_edit a:active {
   background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
   background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
-/* line 103, ../scss/discussion.scss */
+/* line 109, ../scss/discussion.scss */
 body.node-type-discussion li.comment_delete a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -240,7 +246,7 @@ body.node-type-discussion li.comment_delete a:active {
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 112, ../scss/discussion.scss */
+/* line 118, ../scss/discussion.scss */
 body.node-type-discussion li.comment_reply a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -278,4 +284,14 @@ body.node-type-discussion li.comment_reply a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
+}
+/* line 126, ../scss/discussion.scss */
+body.node-type-discussion h3.block-title {
+  color: #7c0000;
+  font-family: Helvetica, arial,sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9em;
+  border-bottom: 1px solid #7c0000;
+  padding-bottom: 4px;
 }

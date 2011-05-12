@@ -325,37 +325,42 @@ h1.title {
   padding: 30px 0 0 0;
 }
 
-/* line 2, ../scss/layout.scss */
+/* theme core colors*/
+/*basics*/
+/*section names */
+/*bright colors*/
+/*dark colors*/
+/* line 4, ../scss/layout.scss */
 .node-inner {
   padding-top: 20px;
 }
 
-/* line 5, ../scss/layout.scss */
-div#top-strip {
-  background: #998d86;
+/* line 8, ../scss/layout.scss */
+.logged-in div#top-strip {
   height: 23px;
+  background: #998d86;
   padding: 7px 20px 0;
 }
 
-/* line 10, ../scss/layout.scss */
+/* line 13, ../scss/layout.scss */
 div#header {
   text-align: center;
   margin: 0;
 }
 
-/* line 15, ../scss/layout.scss */
+/* line 18, ../scss/layout.scss */
 div#footer {
   margin-top: 30px;
   text-align: center;
 }
 
-/* line 20, ../scss/layout.scss */
+/* line 23, ../scss/layout.scss */
 div#main {
   position: relative;
   z-index: 2;
 }
 
-/* line 25, ../scss/layout.scss */
+/* line 28, ../scss/layout.scss */
 div#main div.links {
   line-height: "30px";
   -webkit-box-sizing: border-box;
@@ -365,19 +370,19 @@ div#main div.links {
   font-size: 12px;
 }
 
-/* line 37, ../scss/layout.scss */
+/* line 40, ../scss/layout.scss */
 .page {
   width: 960px;
   margin: 0 auto;
 }
 
-/* line 42, ../scss/layout.scss */
+/* line 45, ../scss/layout.scss */
 .sidebar-right #main {
   float: left;
   width: 593.28px;
 }
 
-/* line 47, ../scss/layout.scss */
+/* line 50, ../scss/layout.scss */
 #header-region {
   position: relative;
   height: 95px;
@@ -385,45 +390,45 @@ div#main div.links {
 
 /* Layout rules. (Disclaimer: do not change if you're not sure you know what you're doing.) */
 /* line 72, ../scss/layout.scss */
-/* line 54, ../scss/layout.scss */
+/* line 57, ../scss/layout.scss */
 #content {
   width: 593.28px;
   margin: 0 auto;
 }
 
 /* line 76, ../scss/layout.scss */
-/* line 60, ../scss/layout.scss */
+/* line 63, ../scss/layout.scss */
 .sidebar-first #content {
   float: right;
   width: 593.28px;
 }
 
-/* line 65, ../scss/layout.scss */
+/* line 68, ../scss/layout.scss */
 .sidebar-right #content {
   float: left;
   width: 593.28px;
 }
 
-/* line 70, ../scss/layout.scss */
+/* line 73, ../scss/layout.scss */
 .sidebar {
   float: left;
   width: 366.72px;
 }
 
-/* line 75, ../scss/layout.scss */
+/* line 78, ../scss/layout.scss */
 #sidebar-second {
   float: right;
   width: 366.72px;
 }
 
-/* line 80, ../scss/layout.scss */
+/* line 83, ../scss/layout.scss */
 #footer {
   float: none;
   clear: both;
 }
 
 /* Layout Helpers */
-/* line 86, ../scss/layout.scss */
+/* line 89, ../scss/layout.scss */
 #header, #footer, .mission, .breadcrumb, .node {
   clear: both;
 }
@@ -436,23 +441,23 @@ div#main div.links {
  * For example, if I want to increase the width of the left sidebar
  * to 300px, I would have to change each '190' to '300'. */
 /* line 119, ../scss/layout.scss */
-/* line 98, ../scss/layout.scss */
+/* line 101, ../scss/layout.scss */
 .two-sidebars .center, .sidebar-first .center {
   margin-left: 190px;
 }
 
-/* line 102, ../scss/layout.scss */
+/* line 105, ../scss/layout.scss */
 #sidebar-first {
   width: 190px;
   margin-right: -190px;
 }
 
-/* line 107, ../scss/layout.scss */
+/* line 110, ../scss/layout.scss */
 .two-sidebars .center, .sidebar-right .center {
   margin-right: 200px;
 }
 
-/* line 111, ../scss/layout.scss */
+/* line 114, ../scss/layout.scss */
 .sidebar-right .center {
   margin-right: 0;
 }
@@ -462,17 +467,17 @@ div#main div.links {
  * You can change the padding inside the columns without changing the
  * width of them by just usinbg the INNER div of each column */
 /* line 141, ../scss/layout.scss */
-/* line 120, ../scss/layout.scss */
+/* line 123, ../scss/layout.scss */
 .inner {
   padding: 20px;
 }
 
-/* line 124, ../scss/layout.scss */
+/* line 127, ../scss/layout.scss */
 body.page-mockup .inner {
   padding: 0;
 }
 
-/* line 128, ../scss/layout.scss */
+/* line 131, ../scss/layout.scss */
 #sidebar-second .inner {
   padding: 0;
 }
@@ -1435,14 +1440,20 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
 }
 /* line 79, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-label {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #ccc;
   margin: 20px 0 10px;
+  color: #7c0000;
+  font-family: Helvetica,arial,sans-serif;
+  font-size: 0.8em;
+  font-weight: normal;
+  padding-bottom: 3px;
+  text-transform: uppercase;
 }
-/* line 85, ../scss/discussion.scss */
+/* line 91, ../scss/discussion.scss */
 body.node-type-discussion ul.links li {
   padding: 0;
 }
-/* line 88, ../scss/discussion.scss */
+/* line 94, ../scss/discussion.scss */
 body.node-type-discussion li.node_translation_ar a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1480,7 +1491,7 @@ body.node-type-discussion li.node_translation_ar a:active {
   background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
   background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
-/* line 95, ../scss/discussion.scss */
+/* line 101, ../scss/discussion.scss */
 body.node-type-discussion li.comment_edit a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1519,7 +1530,7 @@ body.node-type-discussion li.comment_edit a:active {
   background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
   background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
-/* line 103, ../scss/discussion.scss */
+/* line 109, ../scss/discussion.scss */
 body.node-type-discussion li.comment_delete a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1558,7 +1569,7 @@ body.node-type-discussion li.comment_delete a:active {
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 112, ../scss/discussion.scss */
+/* line 118, ../scss/discussion.scss */
 body.node-type-discussion li.comment_reply a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1596,6 +1607,16 @@ body.node-type-discussion li.comment_reply a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
+}
+/* line 126, ../scss/discussion.scss */
+body.node-type-discussion h3.block-title {
+  color: #7c0000;
+  font-family: Helvetica, arial,sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9em;
+  border-bottom: 1px solid #7c0000;
+  padding-bottom: 4px;
 }
 
 /* ================== */

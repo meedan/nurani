@@ -77,8 +77,14 @@ body.node-type-discussion {
   }
   #boxes-box-discussion_info {
     .field-label {
-      border-bottom: 1px dashed #ccc; 
+      border-bottom: 1px solid #ccc; 
       margin: 20px 0 10px;
+   	 	color: $maroon;
+    	font-family: Helvetica,arial,sans-serif;
+    	font-size: 0.8em;
+			font-weight: normal;
+    	padding-bottom: 3px;
+    	text-transform: uppercase;
     }
   }
 
@@ -117,5 +123,13 @@ body.node-type-discussion {
     margin: 0 2px 10px;
     width: 40px;
   }
-
+	h3.block-title {
+		color: $maroon;
+		font-family: Helvetica, arial,sans-serif;
+		text-transform: uppercase;
+		font-weight: bold;
+		font-size: 0.9em;
+		border-bottom: 1px solid $maroon;
+		padding-bottom: 4px;
+}
 }              
