@@ -3,6 +3,7 @@
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* ================== */
 /* = "soft buttons" = */
 /* ================== */
@@ -100,4 +101,15 @@ ul#primary li.active {
 /* line 61, ../scss/navigation.scss */
 #block-locale-0 h3, #block-locale-0 li.en {
   display: none;
+}
+/* line 64, ../scss/navigation.scss */
+#block-locale-0 li {
+  font-size: 0.6em;
+}
+/* line 66, ../scss/navigation.scss */
+#block-locale-0 li a {
+  color: white;
+  background: #666666;
+  padding: 6px 15px;
+  border-radius: 15px;
 }

@@ -2,7 +2,11 @@
 .node-inner {
  padding-top: 20px; 
 }
-
+div#top-strip {
+  background: $top-strip;
+  height: 23px;
+  padding: 7px 20px 0;
+}
 div#header {
   text-align: center;
   margin: 0;

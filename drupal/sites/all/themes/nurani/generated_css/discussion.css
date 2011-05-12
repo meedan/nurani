@@ -3,6 +3,7 @@
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* ================== */
 /* = "soft buttons" = */
 /* ================== */
@@ -53,7 +54,7 @@ body.node-type-discussion div.views-row {
 /* line 43, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary {
   width: 178px;
-  background: #eee9e3;
+  background: #f1e9e4;
   border: 1px solid #ddd;
   color: #868080;
   float: left;

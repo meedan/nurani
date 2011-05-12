@@ -63,6 +63,7 @@
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* ================== */
 /* = "soft buttons" = */
 /* ================== */
@@ -77,6 +78,7 @@
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
@@ -328,25 +330,32 @@ h1.title {
   padding-top: 20px;
 }
 
-/* line 6, ../scss/layout.scss */
+/* line 5, ../scss/layout.scss */
+div#top-strip {
+  background: #998d86;
+  height: 23px;
+  padding: 7px 20px 0;
+}
+
+/* line 10, ../scss/layout.scss */
 div#header {
   text-align: center;
   margin: 0;
 }
 
-/* line 11, ../scss/layout.scss */
+/* line 15, ../scss/layout.scss */
 div#footer {
   margin-top: 30px;
   text-align: center;
 }
 
-/* line 16, ../scss/layout.scss */
+/* line 20, ../scss/layout.scss */
 div#main {
   position: relative;
   z-index: 2;
 }
 
-/* line 21, ../scss/layout.scss */
+/* line 25, ../scss/layout.scss */
 div#main div.links {
   line-height: "30px";
   -webkit-box-sizing: border-box;
@@ -356,19 +365,19 @@ div#main div.links {
   font-size: 12px;
 }
 
-/* line 33, ../scss/layout.scss */
+/* line 37, ../scss/layout.scss */
 .page {
   width: 960px;
   margin: 0 auto;
 }
 
-/* line 38, ../scss/layout.scss */
+/* line 42, ../scss/layout.scss */
 .sidebar-right #main {
   float: left;
   width: 593.28px;
 }
 
-/* line 43, ../scss/layout.scss */
+/* line 47, ../scss/layout.scss */
 #header-region {
   position: relative;
   height: 95px;
@@ -376,45 +385,45 @@ div#main div.links {
 
 /* Layout rules. (Disclaimer: do not change if you're not sure you know what you're doing.) */
 /* line 72, ../scss/layout.scss */
-/* line 50, ../scss/layout.scss */
+/* line 54, ../scss/layout.scss */
 #content {
   width: 593.28px;
   margin: 0 auto;
 }
 
 /* line 76, ../scss/layout.scss */
-/* line 56, ../scss/layout.scss */
+/* line 60, ../scss/layout.scss */
 .sidebar-first #content {
   float: right;
   width: 593.28px;
 }
 
-/* line 61, ../scss/layout.scss */
+/* line 65, ../scss/layout.scss */
 .sidebar-right #content {
   float: left;
   width: 593.28px;
 }
 
-/* line 66, ../scss/layout.scss */
+/* line 70, ../scss/layout.scss */
 .sidebar {
   float: left;
   width: 366.72px;
 }
 
-/* line 71, ../scss/layout.scss */
+/* line 75, ../scss/layout.scss */
 #sidebar-second {
   float: right;
   width: 366.72px;
 }
 
-/* line 76, ../scss/layout.scss */
+/* line 80, ../scss/layout.scss */
 #footer {
   float: none;
   clear: both;
 }
 
 /* Layout Helpers */
-/* line 82, ../scss/layout.scss */
+/* line 86, ../scss/layout.scss */
 #header, #footer, .mission, .breadcrumb, .node {
   clear: both;
 }
@@ -427,23 +436,23 @@ div#main div.links {
  * For example, if I want to increase the width of the left sidebar
  * to 300px, I would have to change each '190' to '300'. */
 /* line 119, ../scss/layout.scss */
-/* line 94, ../scss/layout.scss */
+/* line 98, ../scss/layout.scss */
 .two-sidebars .center, .sidebar-first .center {
   margin-left: 190px;
 }
 
-/* line 98, ../scss/layout.scss */
+/* line 102, ../scss/layout.scss */
 #sidebar-first {
   width: 190px;
   margin-right: -190px;
 }
 
-/* line 103, ../scss/layout.scss */
+/* line 107, ../scss/layout.scss */
 .two-sidebars .center, .sidebar-right .center {
   margin-right: 200px;
 }
 
-/* line 107, ../scss/layout.scss */
+/* line 111, ../scss/layout.scss */
 .sidebar-right .center {
   margin-right: 0;
 }
@@ -453,17 +462,17 @@ div#main div.links {
  * You can change the padding inside the columns without changing the
  * width of them by just usinbg the INNER div of each column */
 /* line 141, ../scss/layout.scss */
-/* line 116, ../scss/layout.scss */
+/* line 120, ../scss/layout.scss */
 .inner {
   padding: 20px;
 }
 
-/* line 120, ../scss/layout.scss */
+/* line 124, ../scss/layout.scss */
 body.page-mockup .inner {
   padding: 0;
 }
 
-/* line 124, ../scss/layout.scss */
+/* line 128, ../scss/layout.scss */
 #sidebar-second .inner {
   padding: 0;
 }
@@ -482,6 +491,7 @@ body.page-mockup .inner {
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* line 8, ../scss/welcome_message.scss */
 body.page-overview .more-links a,
 body.page-overview .view-discussions .views-field-view-node a {
@@ -580,6 +590,7 @@ body.page-overview #slash .toggle a:hover {
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* line 6, ../scss/texts.scss */
 body.page-texts #main #content {
   margin-left: 0;
@@ -710,10 +721,12 @@ ul.pager li {
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* theme core colors*/
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
@@ -964,7 +977,7 @@ h1.title {
 #outer-footer {
   margin: 30px 0 20px;
   clear: both;
-  background: #eee9e3;
+  background: #f1e9e4;
 }
 /* line 8, ../scss/footer.scss */
 #outer-footer li a:hover {
@@ -1015,9 +1028,9 @@ h1.title {
 }
 /* line 45, ../scss/footer.scss */
 #outer-footer ul#secondary li a {
-  color: #836b4f !important;
+  color: #8d6349 !important;
   display: inline;
-  border-right: 1px dotted #836b4f;
+  border-right: 1px dotted #8d6349;
   text-transform: uppercase;
   padding-right: 10px;
   font-family: "trajan-pro-1","trajan-pro-2", "Baskerville", serif;
@@ -1028,6 +1041,7 @@ h1.title {
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* ================== */
 /* = "soft buttons" = */
 /* ================== */
@@ -1168,6 +1182,7 @@ body.page-user.not-logged-in .new-password {
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* line 2, ../scss/_tables.scss */
 body.page-glossary .views-table {
   font-size: 12px;
@@ -1306,6 +1321,7 @@ body.page-glossary .view-content {
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* ================== */
 /* = "soft buttons" = */
 /* ================== */
@@ -1356,7 +1372,7 @@ body.node-type-discussion div.views-row {
 /* line 43, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary {
   width: 178px;
-  background: #eee9e3;
+  background: #f1e9e4;
   border: 1px solid #ddd;
   color: #868080;
   float: left;
@@ -1596,6 +1612,7 @@ body.node-type-discussion li.comment_reply a:active {
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* line 4, ../scss/style-rtl.scss */
 body.i18n-ar {
   overflow-x: hidden !important;
@@ -1728,6 +1745,7 @@ body.i18n-ar .view-ibis-glossary .views-summary {
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* ================== */
 /* = "soft buttons" = */
 /* ================== */
@@ -2544,6 +2562,7 @@ div.profile div.field-label {
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* ================== */
 /* = "soft buttons" = */
 /* ================== */
@@ -2641,6 +2660,17 @@ ul#primary li.active {
 /* line 61, ../scss/navigation.scss */
 #block-locale-0 h3, #block-locale-0 li.en {
   display: none;
+}
+/* line 64, ../scss/navigation.scss */
+#block-locale-0 li {
+  font-size: 0.6em;
+}
+/* line 66, ../scss/navigation.scss */
+#block-locale-0 li a {
+  color: white;
+  background: #666666;
+  padding: 6px 15px;
+  border-radius: 15px;
 }
 
 /* line 43, ../scss/core.scss */
@@ -3138,7 +3168,7 @@ ul.primary li a.active {
 
 /* line 351, ../scss/core.scss */
 body, #header, #footer {
-  background: #eee9e3;
+  background: #f1e9e4;
 }
 
 /* line 355, ../scss/core.scss */
@@ -3158,7 +3188,7 @@ body, #header, #footer {
 
 /* line 364, ../scss/core.scss */
 div.node {
-  border-color: #eee9e3;
+  border-color: #f1e9e4;
 }
 
 /* line 367, ../scss/core.scss */
@@ -3209,7 +3239,7 @@ div#walkthrough ul.links li a:link {
 }
 /* line 385, ../scss/core.scss */
 div#walkthrough ul.links li a:hover {
-  color: #eee9e3;
+  color: #f1e9e4;
 }
 
 /* line 389, ../scss/core.scss */
@@ -3220,12 +3250,12 @@ div.profile div.field-label {
 
 /* line 394, ../scss/core.scss */
 body.discussion #content img {
-  border: 4px double #eee9e3;
+  border: 4px double #f1e9e4;
 }
 
 /* line 397, ../scss/core.scss */
 div.field-type-user-reference {
-  border: 1px solid #eee9e3;
+  border: 1px solid #f1e9e4;
 }
 
 /* line 400, ../scss/core.scss */
@@ -3235,12 +3265,12 @@ div.field-type-user-reference .field-label, div.field-name-field-texts .field-la
 
 /* line 407, ../scss/core.scss */
 .page-user-overview .block {
-  border: 1px solid #eee9e3;
+  border: 1px solid #f1e9e4;
 }
 /* line 409, ../scss/core.scss */
 .page-user-overview .block h2 {
   background: white;
-  border-bottom: 1px solid #eee9e3;
+  border-bottom: 1px solid #f1e9e4;
 }
 
 /* line 414, ../scss/core.scss */
@@ -3254,7 +3284,7 @@ div.field-type-user-reference .field-label, div.field-name-field-texts .field-la
 
 /* line 421, ../scss/core.scss */
 div#block-search-form {
-  border-bottom: 1px solid #eee9e3;
+  border-bottom: 1px solid #f1e9e4;
 }
 
 /* line 424, ../scss/core.scss */

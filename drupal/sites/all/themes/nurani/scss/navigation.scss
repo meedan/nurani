@@ -61,4 +61,13 @@ ul#primary {
   h3, li.en {
     display: none;
   }
+  li {
+    font-size: 0.6em;
+    a {
+      color: $white;
+      background: $dark-gray;
+      padding: 6px 15px;
+      border-radius: 15px;
+    }	
+  }
 }

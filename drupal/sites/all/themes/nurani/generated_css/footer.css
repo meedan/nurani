@@ -3,10 +3,12 @@
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* theme core colors*/
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
@@ -257,7 +259,7 @@ h1.title {
 #outer-footer {
   margin: 30px 0 20px;
   clear: both;
-  background: #eee9e3;
+  background: #f1e9e4;
 }
 /* line 8, ../scss/footer.scss */
 #outer-footer li a:hover {
@@ -308,9 +310,9 @@ h1.title {
 }
 /* line 45, ../scss/footer.scss */
 #outer-footer ul#secondary li a {
-  color: #836b4f !important;
+  color: #8d6349 !important;
   display: inline;
-  border-right: 1px dotted #836b4f;
+  border-right: 1px dotted #8d6349;
   text-transform: uppercase;
   padding-right: 10px;
   font-family: "trajan-pro-1","trajan-pro-2", "Baskerville", serif;

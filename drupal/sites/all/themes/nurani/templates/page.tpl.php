@@ -15,6 +15,9 @@
 		<a href="#content"><?php print t('Skip to Content'); ?></a>
 		<a href="#navigation"><?php print t('Skip to Navigation'); ?></a>
 	</div>  
+	<div id="top-strip">
+	  <?php print $header; ?>
+	</div>
 	<div class="page">
 		<div id="header">
 			<div id="logo-title">
