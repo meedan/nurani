@@ -5,19 +5,25 @@
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
-  src: url('/sites/all/themes/bidinurani/fonts/UthmanTN1v9.otf');
+  src: url('/sites/all/themes/nurani/fonts/UthmanTN1v9.otf');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'UthmanTNBold';
-  src: url('/sites/all/themes/bidinurani/fonts/UthmanTN1Bv9.otf');
+  src: url('/sites/all/themes/nurani/fonts/UthmanTN1Bv9.otf');
   font-weight: normal;
   font-style: normal;
 }
 
 /* the English fonts are from typekit*/
+
+/* the English fonts -New changes for June 15th- */
+@font-face {
+  font-family: 'BergamoStd-BoldItalic-webfont';
+  src: url('/sites/all/themes/nurani/fonts/BergamoStd-BoldItalic-webfont.ttf');
+}
 
 /*CGB TODO: not sure what the arabic language selector is*/
 body.ar {
@@ -44,11 +50,11 @@ body.ar {
 }
 
 @mixin en-serif {
-  font-family: "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
+  font-family: BergamoStd-BoldItalic-webfont, "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
 }
 
 @mixin display {
-  font-family: "trajan-pro-1","trajan-pro-2", "Baskerville", serif;
+  font-family: BergamoStd-BoldItalic-webfont, serif;
 }
 @mixin en-serif-italic {
   font-family: "garamond-premier-pro-display-1","garamond-premier-pro-display-2", Times, serif;
@@ -76,13 +82,13 @@ h1, h2, h3, h4, h5, h6 {
   }
 
 h1 {
-  font-size: 2.2em;
-  font-weight: 300;
+  font-size: 1.8em;
   padding: 10px;
   text-align:center;
   margin-top: 10px; 
   margin-bottom: 20px; 
-  text-transform: uppercase;
+	color: $maroon;
+	font-style: italic;
   }
 
 h2 {

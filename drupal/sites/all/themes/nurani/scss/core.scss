@@ -313,8 +313,8 @@ div#walkthrough {display:none;}
 }
 .sidebar-right {
   #content-inner {
-    background-color: #f8f8f8;
     @include clearfix;
+    background: $barelythere;
   }
 }
 
