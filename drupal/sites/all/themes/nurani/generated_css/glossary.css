@@ -90,15 +90,15 @@ body.page-glossary .view-content {
 
 /*Glossary term page*/
 /* line 41, ../scss/glossary.scss */
-.page-glossary ul#primary li {
+.page-glossary ul.menu li {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
 /* line 43, ../scss/glossary.scss */
-.page-glossary ul#primary li a {
+.page-glossary ul.menu li a {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 47, ../scss/glossary.scss */
-.page-glossary ul#primary li.first, .page-glossary ul#primary li.last {
+.page-glossary ul.menu li.first, .page-glossary ul.menu li.last {
   background: transparent;
 }
 /* line 51, ../scss/glossary.scss */

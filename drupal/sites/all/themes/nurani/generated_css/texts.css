@@ -86,10 +86,10 @@ body.page-texts #main #content div.user-picture img {
 }
 
 /* line 41, ../scss/texts.scss */
-.node-type-text ul#primary li.last {
+.node-type-text ul.menu li.last {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
 /* line 43, ../scss/texts.scss */
-.node-type-text ul#primary li.last a {
+.node-type-text ul.menu li.last a {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }

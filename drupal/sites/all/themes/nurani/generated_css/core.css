@@ -82,34 +82,40 @@
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
-  src: url("/sites/all/themes/bidinurani/fonts/UthmanTN1v9.otf");
+  src: url("/sites/all/themes/nurani/fonts/UthmanTN1v9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'UthmanTNBold';
-  src: url("/sites/all/themes/bidinurani/fonts/UthmanTN1Bv9.otf");
+  src: url("/sites/all/themes/nurani/fonts/UthmanTN1Bv9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 /* the English fonts are from typekit*/
+/* the English fonts -New changes for June 15th- */
+@font-face {
+  font-family: 'BergamoStd-BoldItalic-webfont';
+  src: url("/sites/all/themes/nurani/fonts/BergamoStd-BoldItalic-webfont.ttf");
+}
+
 /*CGB TODO: not sure what the arabic language selector is*/
-/* line 23, ../scss/type.scss */
+/* line 29, ../scss/type.scss */
 body.ar {
   font-family: UthmanTN, Tahoma;
 }
 
-/* line 58, ../scss/type.scss */
+/* line 64, ../scss/type.scss */
 body {
   margin: 0;
-  font-family: "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
+  font-family: BergamoStd-BoldItalic-webfont, "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
   font-size: 1.05em;
 }
 
 /* Titles. */
-/* line 65, ../scss/type.scss */
+/* line 71, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -118,95 +124,95 @@ body {
   margin: 0;
 }
 
-/* line 72, ../scss/type.scss */
+/* line 78, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
-  font-family: "trajan-pro-1","trajan-pro-2", "Baskerville", serif;
+  font-family: BergamoStd-BoldItalic-webfont, serif;
 }
 
-/* line 78, ../scss/type.scss */
+/* line 84, ../scss/type.scss */
 h1 {
-  font-size: 2.2em;
-  font-weight: 300;
+  font-size: 1.8em;
   padding: 10px;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 20px;
-  text-transform: uppercase;
+  color: #7c0000;
+  font-style: italic;
 }
 
-/* line 88, ../scss/type.scss */
+/* line 94, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 93, ../scss/type.scss */
+/* line 99, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 99, ../scss/type.scss */
+/* line 105, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 103, ../scss/type.scss */
+/* line 109, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 108, ../scss/type.scss */
+/* line 114, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 113, ../scss/type.scss */
+/* line 119, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 117, ../scss/type.scss */
+/* line 123, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 122, ../scss/type.scss */
+/* line 128, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 127, ../scss/type.scss */
+/* line 133, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 130, ../scss/type.scss */
+/* line 136, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 134, ../scss/type.scss */
+/* line 140, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 138, ../scss/type.scss */
+/* line 144, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -216,56 +222,56 @@ pre {
 }
 
 /* List styles. */
-/* line 146, ../scss/type.scss */
+/* line 152, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 148, ../scss/type.scss */
+/* line 154, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 150, ../scss/type.scss */
+/* line 156, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 152, ../scss/type.scss */
+/* line 158, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 155, ../scss/type.scss */
+/* line 161, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 157, ../scss/type.scss */
+/* line 163, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 159, ../scss/type.scss */
+/* line 165, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 163, ../scss/type.scss */
+/* line 169, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 168, ../scss/type.scss */
+/* line 174, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 172, ../scss/type.scss */
+/* line 178, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 175, ../scss/type.scss */
+/* line 181, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -274,12 +280,12 @@ abbr {
   color: #777777;
 }
 
-/* line 182, ../scss/type.scss */
+/* line 188, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 195, ../scss/type.scss */
+/* line 201, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -289,7 +295,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 196, ../scss/type.scss */
+/* line 202, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -299,7 +305,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 197, ../scss/type.scss */
+/* line 203, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -309,7 +315,7 @@ div.error {
   text-align: center;
 }
 
-/* line 198, ../scss/type.scss */
+/* line 204, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -319,7 +325,7 @@ div.status {
   text-align: center;
 }
 
-/* line 200, ../scss/type.scss */
+/* line 206, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -678,11 +684,11 @@ body.page-texts #main #content div.user-picture img {
 }
 
 /* line 41, ../scss/texts.scss */
-.node-type-text ul#primary li.last {
+.node-type-text ul.menu li.last {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
 /* line 43, ../scss/texts.scss */
-.node-type-text ul#primary li.last a {
+.node-type-text ul.menu li.last a {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
 
@@ -735,34 +741,40 @@ ul.pager li {
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
-  src: url("/sites/all/themes/bidinurani/fonts/UthmanTN1v9.otf");
+  src: url("/sites/all/themes/nurani/fonts/UthmanTN1v9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'UthmanTNBold';
-  src: url("/sites/all/themes/bidinurani/fonts/UthmanTN1Bv9.otf");
+  src: url("/sites/all/themes/nurani/fonts/UthmanTN1Bv9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 /* the English fonts are from typekit*/
+/* the English fonts -New changes for June 15th- */
+@font-face {
+  font-family: 'BergamoStd-BoldItalic-webfont';
+  src: url("/sites/all/themes/nurani/fonts/BergamoStd-BoldItalic-webfont.ttf");
+}
+
 /*CGB TODO: not sure what the arabic language selector is*/
-/* line 23, ../scss/type.scss */
+/* line 29, ../scss/type.scss */
 body.ar {
   font-family: UthmanTN, Tahoma;
 }
 
-/* line 58, ../scss/type.scss */
+/* line 64, ../scss/type.scss */
 body {
   margin: 0;
-  font-family: "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
+  font-family: BergamoStd-BoldItalic-webfont, "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
   font-size: 1.05em;
 }
 
 /* Titles. */
-/* line 65, ../scss/type.scss */
+/* line 71, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -771,95 +783,95 @@ body {
   margin: 0;
 }
 
-/* line 72, ../scss/type.scss */
+/* line 78, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
-  font-family: "trajan-pro-1","trajan-pro-2", "Baskerville", serif;
+  font-family: BergamoStd-BoldItalic-webfont, serif;
 }
 
-/* line 78, ../scss/type.scss */
+/* line 84, ../scss/type.scss */
 h1 {
-  font-size: 2.2em;
-  font-weight: 300;
+  font-size: 1.8em;
   padding: 10px;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 20px;
-  text-transform: uppercase;
+  color: #7c0000;
+  font-style: italic;
 }
 
-/* line 88, ../scss/type.scss */
+/* line 94, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 93, ../scss/type.scss */
+/* line 99, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 99, ../scss/type.scss */
+/* line 105, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 103, ../scss/type.scss */
+/* line 109, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 108, ../scss/type.scss */
+/* line 114, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 113, ../scss/type.scss */
+/* line 119, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 117, ../scss/type.scss */
+/* line 123, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 122, ../scss/type.scss */
+/* line 128, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 127, ../scss/type.scss */
+/* line 133, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 130, ../scss/type.scss */
+/* line 136, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 134, ../scss/type.scss */
+/* line 140, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 138, ../scss/type.scss */
+/* line 144, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -869,56 +881,56 @@ pre {
 }
 
 /* List styles. */
-/* line 146, ../scss/type.scss */
+/* line 152, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 148, ../scss/type.scss */
+/* line 154, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 150, ../scss/type.scss */
+/* line 156, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 152, ../scss/type.scss */
+/* line 158, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 155, ../scss/type.scss */
+/* line 161, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 157, ../scss/type.scss */
+/* line 163, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 159, ../scss/type.scss */
+/* line 165, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 163, ../scss/type.scss */
+/* line 169, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 168, ../scss/type.scss */
+/* line 174, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 172, ../scss/type.scss */
+/* line 178, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 175, ../scss/type.scss */
+/* line 181, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -927,12 +939,12 @@ abbr {
   color: #777777;
 }
 
-/* line 182, ../scss/type.scss */
+/* line 188, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 195, ../scss/type.scss */
+/* line 201, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -942,7 +954,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 196, ../scss/type.scss */
+/* line 202, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -952,7 +964,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 197, ../scss/type.scss */
+/* line 203, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -962,7 +974,7 @@ div.error {
   text-align: center;
 }
 
-/* line 198, ../scss/type.scss */
+/* line 204, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -972,7 +984,7 @@ div.status {
   text-align: center;
 }
 
-/* line 200, ../scss/type.scss */
+/* line 206, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -1038,7 +1050,7 @@ h1.title {
   border-right: 1px dotted #8d6349;
   text-transform: uppercase;
   padding-right: 10px;
-  font-family: "trajan-pro-1","trajan-pro-2", "Baskerville", serif;
+  font-family: BergamoStd-BoldItalic-webfont, serif;
   font-weight: normal;
 }
 
@@ -1274,15 +1286,15 @@ body.page-glossary .view-content {
 
 /*Glossary term page*/
 /* line 41, ../scss/glossary.scss */
-.page-glossary ul#primary li {
+.page-glossary ul.menu li {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
 /* line 43, ../scss/glossary.scss */
-.page-glossary ul#primary li a {
+.page-glossary ul.menu li a {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 47, ../scss/glossary.scss */
-.page-glossary ul#primary li.first, .page-glossary ul#primary li.last {
+.page-glossary ul.menu li.first, .page-glossary ul.menu li.last {
   background: transparent;
 }
 /* line 51, ../scss/glossary.scss */
@@ -1342,11 +1354,11 @@ body.node-type-discussion {
   /* views-row is not a row, actually, just a div ... */
 }
 /* line 10, ../scss/discussion.scss */
-body.node-type-discussion ul#primary li.first {
+body.node-type-discussion ul.menu li.first {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
 /* line 12, ../scss/discussion.scss */
-body.node-type-discussion ul#primary li.first a {
+body.node-type-discussion ul.menu li.first a {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
 /* line 19, ../scss/discussion.scss */
@@ -1355,38 +1367,53 @@ body.node-type-discussion div.view-header {
 }
 /* line 22, ../scss/discussion.scss */
 body.node-type-discussion div#slash {
-  width: 600px;
   margin: 30px 30px 0;
 }
-/* line 28, ../scss/discussion.scss */
+/* line 27, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 {
-  width: 960px;
+  background: url("../images/borders.png") no-repeat center 7px;
+  width: 900px;
+  text-align: center;
 }
 /* line 32, ../scss/discussion.scss */
+body.node-type-discussion div#block-views-discussion_texts-block_1 h3.block-title {
+  background: white;
+  padding: 0 20px;
+  display: inline;
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+/* line 40, ../scss/discussion.scss */
+body.node-type-discussion div#block-views-discussion_texts-block_1 .content {
+  text-align: left;
+  margin: 20px 0;
+  height: 280px;
+}
+/* line 47, ../scss/discussion.scss */
 body.node-type-discussion h1.title {
   display: block;
   margin: 20px 0;
   padding: 0;
 }
-/* line 39, ../scss/discussion.scss */
+/* line 55, ../scss/discussion.scss */
 body.node-type-discussion div.views-row {
   margin: 10px 5px;
   float: left;
   width: 218px;
 }
-/* line 43, ../scss/discussion.scss */
+/* line 59, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary {
   width: 178px;
   background: #f1e9e4;
   border: 1px solid #ddd;
   color: #868080;
   float: left;
-  padding: 0 10px 20px;
+  padding: 0 10px;
   position: relative;
-  min-height: 300px;
+  min-height: 258px;
   line-height: 1em;
 }
-/* line 53, ../scss/discussion.scss */
+/* line 69, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   font-size: 23px;
   text-transform: inherit;
@@ -1396,11 +1423,11 @@ body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   text-align: left;
   color: #000;
 }
-/* line 63, ../scss/discussion.scss */
+/* line 79, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-description {
   color: #303030;
 }
-/* line 67, ../scss/discussion.scss */
+/* line 83, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1438,7 +1465,7 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 79, ../scss/discussion.scss */
+/* line 95, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-label {
   border-bottom: 1px solid #ccc;
   margin: 20px 0 10px;
@@ -1449,11 +1476,11 @@ body.node-type-discussion #boxes-box-discussion_info .field-label {
   padding-bottom: 3px;
   text-transform: uppercase;
 }
-/* line 91, ../scss/discussion.scss */
+/* line 107, ../scss/discussion.scss */
 body.node-type-discussion ul.links li {
   padding: 0;
 }
-/* line 94, ../scss/discussion.scss */
+/* line 110, ../scss/discussion.scss */
 body.node-type-discussion li.node_translation_ar a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1491,7 +1518,7 @@ body.node-type-discussion li.node_translation_ar a:active {
   background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
   background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
-/* line 101, ../scss/discussion.scss */
+/* line 117, ../scss/discussion.scss */
 body.node-type-discussion li.comment_edit a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1530,7 +1557,7 @@ body.node-type-discussion li.comment_edit a:active {
   background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 100%);
   background-image: linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
-/* line 109, ../scss/discussion.scss */
+/* line 125, ../scss/discussion.scss */
 body.node-type-discussion li.comment_delete a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1569,7 +1596,7 @@ body.node-type-discussion li.comment_delete a:active {
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 118, ../scss/discussion.scss */
+/* line 134, ../scss/discussion.scss */
 body.node-type-discussion li.comment_reply a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1608,8 +1635,9 @@ body.node-type-discussion li.comment_reply a:active {
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 126, ../scss/discussion.scss */
-body.node-type-discussion h3.block-title {
+/* line 143, ../scss/discussion.scss */
+body.node-type-discussion #block-views-nuranis-block_2 h3.block-title,
+body.node-type-discussion #block-boxes-discussion_info h3.block-title {
   color: #7c0000;
   font-family: Helvetica, arial,sans-serif;
   text-transform: uppercase;
@@ -1617,6 +1645,49 @@ body.node-type-discussion h3.block-title {
   font-size: 0.9em;
   border-bottom: 1px solid #7c0000;
   padding-bottom: 4px;
+}
+/* line 152, ../scss/discussion.scss */
+body.node-type-discussion #boxes-box-discussion_info a {
+  padding-bottom: 8px;
+  font-weight: normal;
+  display: block;
+}
+/* line 157, ../scss/discussion.scss */
+body.node-type-discussion #container {
+  background: url("../images/borders.png") no-repeat center top;
+  text-align: center;
+  position: relative;
+  padding: 8px 0 0;
+}
+/* line 163, ../scss/discussion.scss */
+body.node-type-discussion #container #main {
+  position: static;
+}
+/* line 166, ../scss/discussion.scss */
+body.node-type-discussion #container #content-inner {
+  background: transparent;
+}
+/* line 170, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area div.field-label {
+  position: absolute;
+  top: -4px;
+  padding: 0 20px;
+  display: inline;
+  background: white;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+/* line 179, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area p {
+  text-align: left;
+}
+/* line 183, ../scss/discussion.scss */
+body.node-type-discussion #container #sidebar-second {
+  text-align: left;
+}
+/* line 186, ../scss/discussion.scss */
+body.node-type-discussion #container #comments {
+  text-align: left;
 }
 
 /* ================== */
@@ -3148,9 +3219,9 @@ div#walkthrough {
 
 /* line 315, ../scss/core.scss */
 .sidebar-right #content-inner {
-  background-color: #f8f8f8;
   overflow: hidden;
   *zoom: 1;
+  background: #f8f8f8;
 }
 
 /* line 321, ../scss/core.scss */

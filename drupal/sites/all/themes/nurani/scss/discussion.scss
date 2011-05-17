@@ -3,10 +3,10 @@
 @import "_buttons.scss";
 
 $text_width: 218px;
-$text_height: 300px;
+$text_height: 258px;
 
 body.node-type-discussion {
-  ul#primary {
+  ul.menu {
     li.first {
       background: url("../images/bkg_active_nav.png") -5px bottom transparent;
       a {
@@ -20,13 +20,28 @@ body.node-type-discussion {
     display:none;
   }
   div#slash {
-    width: 600px;
     margin: 30px 30px 0;
   }
 
   p {}
   div#block-views-discussion_texts-block_1 {
-    width: 960px;
+		background: url("../images/borders.png") no-repeat center 7px;
+    width: 900px;
+		text-align: center;
+
+			h3.block-title {
+				background: $white;
+				padding: 0 20px;
+				display: inline;
+				font-size: 0.9em;
+				text-transform: uppercase;
+			}
+
+			.content {
+				text-align: left;
+				margin: 20px 0;
+				height: 280px;
+			}
   }
   
   h1.title {
@@ -36,7 +51,8 @@ body.node-type-discussion {
   }
 
   /* views-row is not a row, actually, just a div ... */
-  div.views-row {
+ 
+    div.views-row {
     margin: 10px 5px;
     float: left;
     width: $text_width;
@@ -46,7 +62,7 @@ body.node-type-discussion {
       border: 1px solid #ddd;
       color: #868080;
       float: left;
-      padding: 0 10px 20px;
+      padding: 0 10px;
       position: relative;
       min-height: $text_height;
       line-height: 1em;
@@ -123,7 +139,8 @@ body.node-type-discussion {
     margin: 0 2px 10px;
     width: 40px;
   }
-	h3.block-title {
+	#block-views-nuranis-block_2 h3.block-title,
+	#block-boxes-discussion_info h3.block-title {
 		color: $maroon;
 		font-family: Helvetica, arial,sans-serif;
 		text-transform: uppercase;
@@ -131,5 +148,43 @@ body.node-type-discussion {
 		font-size: 0.9em;
 		border-bottom: 1px solid $maroon;
 		padding-bottom: 4px;
+  }
+	#boxes-box-discussion_info a {
+		padding-bottom: 8px;
+		font-weight: normal;
+		display: block;
+	}
+	#container {
+		background: url("../images/borders.png") no-repeat center top;
+		text-align: center;
+		position: relative;
+		padding: 8px 0 0;		
+		
+		#main {
+			position: static;
+		}
+ 	 #content-inner {
+			background: transparent;
+		}
+			#content-area {
+			div.field-label {
+				position: absolute;
+				top: -4px;
+				padding: 0 20px;
+				display: inline;
+				background: $white;
+		 	  text-transform: uppercase;
+				font-size: 0.9em;
+			}	
+			p {
+				text-align: left;
+			}
+		}
+		#sidebar-second {
+			text-align: left;
+		}		
+		#comments {
+			text-align: left;
 }
+	}
 }              
