@@ -1,5 +1,4 @@
 <?php
-// $Id: agreement.views_default.inc,v 1.2 2010/05/05 06:21:47 pagaille Exp $
 
 /**
  * Implementation of hook_views_default_views().

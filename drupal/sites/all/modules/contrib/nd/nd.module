@@ -39,6 +39,36 @@ function nd_init() {
 }
 
 /**
+ * Implementation of hook_rules_event_info().
+ */
+function nd_rules_event_info() {
+  return array(
+    'nd_node_is_build' => array(
+      'label' => t('DS has build the node display'),
+      'module' => 'nd',
+      'arguments' => array(
+        'node' => array('type' => 'node', 'label' => t('Content')),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_rules_action_info().
+ */
+function nd_rules_action_info() {
+  return array(
+    'nd_rules_disable_fields' => array(
+      'label' => t('Do not show a ND field'),
+      'arguments' => array(
+        'node' => array('type' => 'node', 'label' => t('Content')),
+      ),
+      'module' => 'nd',
+    ),
+  );
+}
+
+/**
  * Implementation of hook_content_build_modes().
  */
 function nd_content_build_modes() {
@@ -175,6 +205,10 @@ function _nd_nodeapi(&$node) {
     // in #content_extra_fields, so update the value there!
     $node->content['#content_extra_fields']['body_field']['weight'] = $node->content['body']['#weight'];
     $node->content['#content_extra_fields']['title']['weight'] = $node->content['title']['#weight'];
+  }
+
+  if (function_exists('rules_invoke_event')) {
+    rules_invoke_event('nd_node_is_build', array('node' => &$node));
   }
 }
 
@@ -319,6 +353,7 @@ function nd_theme() {
   $vocab_formatters  = array(
     'nd_terms_per_vocabulary_space', 'nd_terms_per_vocabulary_linked_space',
     'nd_terms_per_vocabulary_comma', 'nd_terms_per_vocabulary_linked_comma',
+    'nd_terms_per_vocabulary_list', 'nd_terms_per_vocabulary_linked_list',
   );
   foreach ($vocab_formatters as $formatter) {
     $theme_functions[$formatter] = array(
@@ -462,6 +497,8 @@ function nd_ds_fields($type_name, $build_mode, $extra) {
             'nd_terms_per_vocabulary_linked_space' => t('Separated by space, linked to term'),
             'nd_terms_per_vocabulary_comma' => t('Separated by comma'),
             'nd_terms_per_vocabulary_linked_comma' => t('Separated by comma, linked to term'),
+            'nd_terms_per_vocabulary_list' => t('Unordered list'),
+            'nd_terms_per_vocabulary_linked_list' => t('Unordered list, linked to term'),
           ),
         ),
       );
@@ -585,6 +622,7 @@ function theme_nd_post_date($field) {
  */
 function nd_terms_per_vocabulary($field) {
   $content = '';
+
   if (isset($field['object']->taxonomy) && !empty($field['object']->taxonomy)) {
 
     $terms = array();
@@ -593,6 +631,7 @@ function nd_terms_per_vocabulary($field) {
     $formatter_explode = explode('_', $field['formatter']);
     $separators = array('space' => ' ', 'comma' => ', ');
     $separator = $separators[end($formatter_explode)];
+    $list = (end($formatter_explode) == 'list') ? TRUE : FALSE;
     $linked = prev($formatter_explode);
 
     foreach ($field['object']->taxonomy as $tid => $term) {
@@ -601,7 +640,12 @@ function nd_terms_per_vocabulary($field) {
       }
     }
     if (!empty($terms)) {
-      $content = implode($separator, $terms);
+      if ($separator) {
+        $content = implode($separator, $terms);
+      }
+      elseif ($list) {
+        $content = theme('item_list', $terms);
+      }
     }
   }
   return $content;

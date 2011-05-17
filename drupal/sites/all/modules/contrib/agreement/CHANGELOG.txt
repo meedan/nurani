@@ -1,6 +1,7 @@
-$Id: CHANGELOG.txt,v 1.5.2.1 2010/06/08 22:01:24 pagaille Exp $ 
-
-Changes since DRUPAL-6--1:
+#1009980 by jvandyk: Email notification support
+#711908 by yuriy.babenko: Added input format support
+#1116380 by yuriy.babenko: Added 'skip agreement' permission
+#1116370 by yuriy.babenko: Excluded uid = 1 from agreement
 #704108 by pagaille: Appears to only work with node/number vs node/page-name
 #739812 by pagaille: Support for the CAS Module
 #685030 by pagaille: If Enforceable Pages field is left blank, agreement module does not work

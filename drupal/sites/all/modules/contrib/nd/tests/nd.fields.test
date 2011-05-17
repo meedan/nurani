@@ -81,7 +81,6 @@ class NodeDisplaysFields extends DrupalWebTestCase {
 
     // Update field.
     $edit = array(
-      'code_key' => 'test_field',
       'code_title' => 'Test field label 2',
       'code_code' => '<?php echo "test"; ?>',
     );
@@ -114,7 +113,6 @@ class NodeDisplaysFields extends DrupalWebTestCase {
 
     // Override field.
     $edit = array(
-      'code_key' => 'read_more',
       'code_title' => 'Override read more',
       'code_code' => '<?php echo "test"; ?>',
     );
@@ -163,7 +161,6 @@ class NodeDisplaysFields extends DrupalWebTestCase {
 
     // Change same field and see if it's changed (cached fields clear test);
     $edit = array(
-      'code_key' => 'test_field_real',
       'code_title' => 'Real field',
       'code_code' => '<?php echo "Day month: ". date("d M", $object->created); ?>',
       'code_class' => 'custom-class',
@@ -179,7 +176,6 @@ class NodeDisplaysFields extends DrupalWebTestCase {
     if (!empty($token)) {
       module_enable(array('token'));
       $edit = array(
-        'code_key' => 'test_field_real',
         'code_title' => 'Real field',
         'code_code' => 'Day: [d]',
         'code_token' => FALSE,
@@ -191,7 +187,6 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       $this->assertNoText('Day: '. date("j", $page_node->created), t('Custom field not executed with token support.'), t('Fields'));
 
       $edit = array(
-        'code_key' => 'test_field_real',
         'code_title' => 'Real field',
         'code_code' => 'Day: [d]',
         'code_token' => TRUE,
@@ -242,7 +237,6 @@ class NodeDisplaysFields extends DrupalWebTestCase {
 
     // Block rendering without template.
     $edit = array(
-      'block_key' => 'test_field',
       'block_title' => 'Test field label',
       'block_block' => 'user|3',
       'block_render' => DS_BLOCK_TITLE_CONTENT,
@@ -255,7 +249,6 @@ class NodeDisplaysFields extends DrupalWebTestCase {
 
     // Only block content.
     $edit = array(
-      'block_key' => 'test_field',
       'block_title' => 'Test field label',
       'block_block' => 'user|3',
       'block_render' => DS_BLOCK_CONTENT,

@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Drupal Core Poll support for Node displays module.
+ */
+
+/**
+ * Implementation of hook_ds_fields().
+ */
+function nd_poll_ds_fields($type_name, $build_mode, $extra) {
+  $fields = array();
+
+  if ($type_name == 'poll') {
+    $fields = array(
+      'poll_widget' => array(
+        'title' => t('Poll : Choices'),
+        'type' => DS_FIELD_TYPE_FUNCTION,
+        'status' => DS_FIELD_STATUS_STATIC,
+        'properties' => array(
+          'formatters' => array(
+            'nd_poll_choices_default' => t('Default'),
+          ),
+        )
+      ),
+    );
+  }
+
+  return array('nd' => $fields);
+}
+
+/**
+ * Returns the poll choices form as a seperated field.
+ *
+ * @param array $field
+ * @return string
+ */
+function nd_poll_choices_default($field) {
+  return $field['object']->content['body']['#value'];
+}

@@ -78,6 +78,7 @@ function views_filters_reset_settings() {
   foreach ($views as $view) {
     $options[$view->name] = $view->name;
   }
+  asort($options);
 
   $form['views_filters_reset'] = array(
     '#title' => t('Enable reset button for the following views'),

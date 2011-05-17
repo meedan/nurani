@@ -1,8 +1,8 @@
-name = nurani
-description = nurani theme for Drupal 6
+name = Nurani
+description = Nurani theme for Drupal 6.
 screenshot = images/screenshot.gif
 core = "6.x"
-project = "basic"
+project = "nurani"
 engine = phptemplate
 
 regions[content_top] = Content top

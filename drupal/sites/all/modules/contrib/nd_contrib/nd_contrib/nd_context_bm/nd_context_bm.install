@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * install nd_context_bm
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function nd_context_bm_install() {
+  // Ensure that we get called as early as possible among the hooking modules (nodeapi).
+  db_query("UPDATE {system} SET weight = -98 WHERE name = 'nd_context_bm'");
+}
