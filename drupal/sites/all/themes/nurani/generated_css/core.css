@@ -1708,6 +1708,9 @@ body.node-type-discussion #container #comments {
 /* line 4, ../scss/style-rtl.scss */
 body.i18n-ar {
   overflow-x: hidden !important;
+  /*Top strip*/
+  /*Navigation*/
+  /*Welcome*/
 }
 /* line 8, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-welcome_to_nurani_box .toggle {
@@ -1826,25 +1829,34 @@ body.i18n-ar #block-boxes-welcome_to_nurani_box .more-link {
 body.i18n-ar .view-ibis-glossary .views-summary {
   float: right;
 }
-
 /* line 61, ../scss/style-rtl.scss */
-.i18n-ar #block-locale-0 {
+body.i18n-ar #block-locale-0 {
   float: left;
   font-size: 18px;
   line-height: 16px;
   width: 66px;
 }
 /* line 66, ../scss/style-rtl.scss */
-.i18n-ar #block-locale-0 ul {
+body.i18n-ar #block-locale-0 ul {
   padding: 0;
 }
 /* line 69, ../scss/style-rtl.scss */
-.i18n-ar #block-locale-0 li.ar {
+body.i18n-ar #block-locale-0 li.ar {
   display: none;
 }
 /* line 72, ../scss/style-rtl.scss */
-.i18n-ar #block-locale-0 li.en {
+body.i18n-ar #block-locale-0 li.en {
   display: block;
+}
+/* line 80, ../scss/style-rtl.scss */
+body.i18n-ar ul.menu li.last,
+body.i18n-ar ul.menu li.first,
+body.i18n-ar ul.menu li {
+  float: right;
+}
+/* line 84, ../scss/style-rtl.scss */
+body.i18n-ar div#slash div#boxes-box-welcome_box img.d_ford {
+  float: left;
 }
 
 /* theme core colors*/

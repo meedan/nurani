@@ -56,9 +56,9 @@ body.i18n-ar {
   .view-ibis-glossary .views-summary {
     float: right;
   }
-}
 
-.i18n-ar #block-locale-0 {
+/*Top strip*/
+	#block-locale-0 {
 		float: left;
 		font-size: 18px;
 		line-height: 16px;
@@ -66,10 +66,23 @@ body.i18n-ar {
 	ul {
 		padding: 0;
 	}
-  li.ar {
+	li.ar {
     display: none;
  }
- li.en {
+	li.en {
     display: block;
   }
+}
+
+/*Navigation*/
+	ul.menu li.last,
+	ul.menu li.first,
+	ul.menu li {
+    float: right;
+	}
+/*Welcome*/
+	div#slash div#boxes-box-welcome_box img.d_ford {
+		float: left;
+	}
+
 }
