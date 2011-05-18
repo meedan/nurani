@@ -3,5 +3,4 @@ description = Custom module to make nodecomment module work nicely with notifica
 core = 6.x
 package = "Notifications"
 dependencies[] = nodecomment 
-dependencies[] = notifications
-
+dependencies[] = notifications_content
