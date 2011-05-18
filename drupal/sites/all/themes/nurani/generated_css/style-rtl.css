@@ -135,11 +135,22 @@ body.i18n-ar .view-ibis-glossary .views-summary {
   float: right;
 }
 
-/* line 62, ../scss/style-rtl.scss */
+/* line 61, ../scss/style-rtl.scss */
+.i18n-ar #block-locale-0 {
+  float: left;
+  font-size: 18px;
+  line-height: 16px;
+  width: 66px;
+}
+/* line 66, ../scss/style-rtl.scss */
+.i18n-ar #block-locale-0 ul {
+  padding: 0;
+}
+/* line 69, ../scss/style-rtl.scss */
 .i18n-ar #block-locale-0 li.ar {
   display: none;
 }
-/* line 65, ../scss/style-rtl.scss */
+/* line 72, ../scss/style-rtl.scss */
 .i18n-ar #block-locale-0 li.en {
   display: block;
 }

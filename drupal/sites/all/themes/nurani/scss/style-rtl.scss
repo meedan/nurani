@@ -59,6 +59,13 @@ body.i18n-ar {
 }
 
 .i18n-ar #block-locale-0 {
+		float: left;
+		font-size: 18px;
+		line-height: 16px;
+		width: 66px;
+	ul {
+		padding: 0;
+	}
   li.ar {
     display: none;
  }

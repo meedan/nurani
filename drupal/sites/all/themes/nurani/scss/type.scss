@@ -19,12 +19,6 @@
 
 /* the English fonts are from typekit*/
 
-/* the English fonts -New changes for June 15th- */
-@font-face {
-  font-family: 'BergamoStd-BoldItalic-webfont';
-  src: url('/sites/all/themes/nurani/fonts/BergamoStd-BoldItalic-webfont.ttf');
-}
-
 /*CGB TODO: not sure what the arabic language selector is*/
 body.ar {
   font-family: UthmanTN, Tahoma;
@@ -50,11 +44,11 @@ body.ar {
 }
 
 @mixin en-serif {
-  font-family: BergamoStd-BoldItalic-webfont, "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
+  font-family: "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
 }
 
 @mixin display {
-  font-family: BergamoStd-BoldItalic-webfont, serif;
+  font-family: serif;
 }
 @mixin en-serif-italic {
   font-family: "garamond-premier-pro-display-1","garamond-premier-pro-display-2", Times, serif;
