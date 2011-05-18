@@ -6,6 +6,16 @@ $text_width: 218px;
 $text_height: 258px;
 
 body.node-type-discussion {
+	a#popText {
+		display: block;
+		background: url("../images/poptext.png") no-repeat left center;
+		color: $white;
+		padding: 8px 10px 8px 25px;
+		font-weight: normal;
+	}
+	a#popText:hover {
+		background: url("../images/poptext-hover.png") no-repeat left center;
+	}
   ul.menu {
     li.first {
       background: url("../images/bkg_active_nav.png") -5px bottom transparent;
