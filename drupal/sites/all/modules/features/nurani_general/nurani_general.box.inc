@@ -31,7 +31,7 @@ print l(\'Add Glossary Term\', \'node/add/term\');
     'body' => '<?php
 print l(\'Add Text\', \'node/add/text\');
 ?>',
-    'format' => '4',
+    'format' => '3',
   );
 
   $export['add_text'] = $box;
@@ -48,7 +48,7 @@ $vars[\'row\'] = (object) array(\'nid\' => arg(1));
 ds_views_row_node($vars, \'discussion_participants\');
 return $vars[\'object\'];
 ?>',
-    'format' => '4',
+    'format' => '3',
   );
 
   $export['discussion_info'] = $box;
@@ -64,7 +64,7 @@ return $vars[\'object\'];
 <p><a href="<?php print url(\'content/about-nuraniorg\'); ?>">Learn more</a> about Nurani.org.</p>
 <p><a href="<?php print url(\'content/guidance\'); ?>">Find out</a> about the ground rules for discussion.</p>
 <p><a href="<?php print url(\'content/terms\'); ?>">Read</a> the terms of service.</p>',
-    'format' => '4',
+    'format' => '3',
   );
 
   $export['login_footer'] = $box;
@@ -78,7 +78,7 @@ return $vars[\'object\'];
   $box->options = array(
     'body' => '<img id="logo" src="<?php print url(path_to_theme() . \'/images/logo.png\'); ?>" />
 <h2>Currently an Invitation-only Private Project</h2>',
-    'format' => '4',
+    'format' => '3',
   );
 
   $export['login_title'] = $box;
@@ -101,7 +101,7 @@ return $vars[\'object\'];
 <?php 
 print t("I am delighted to welcome you to Nurani - a platform for dialogue between Muslims and Christians in two languages - Arabic and English.  One of the greatest blessings we have been given is our scriptures, so it is not surprising that one of the main ways we are able to bless each other is by sharing them. I have not found anything else that serves so well to sustain ongoing, faith-centred engagement among the Abrahamic traditions. I hope you find the experience of sharing and studying your scriptures with people of other faiths a rich and rewarding experience. <br /><br />With warmest regards, <br />David Ford, Regius Professor of Divinity at the University of Cambridge");
 ?>',
-    'format' => '4',
+    'format' => '3',
   );
 
   $export['welcome_box'] = $box;

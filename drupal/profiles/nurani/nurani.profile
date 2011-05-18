@@ -33,6 +33,7 @@ function nurani_profile_modules() {
     // Misc
     'vertical_tabs', 'admin_menu', 'adminrole', 
     'token', 'pathauto', 'auto_nodetitle', 'agreement',
+    'taxonomy_export',
 
     // CCK
     'content',
@@ -40,7 +41,7 @@ function nurani_profile_modules() {
     // i18n
     'i18nblocks', 'i18ncck', 'i18ncontent', 'i18n', 'l10n_client', 'i18nstrings', 'i18ntaxonomy',
     'icl_content', 'icl_core', 'icl_translate', 'local_translations',
-    
+
     // Strongarm
     'strongarm', 
     
@@ -131,7 +132,9 @@ function nurani_profile_tasks(&$task, $url) {
 
     // Post-installation operations
     $operations[] = array('nurani_config_ctools', array());
+    $operations[] = array('nurani_config_taxonomy', array());
     $operations[] = array('nurani_config_theme', array());
+    $operations[] = array('nurani_config_icl', array());
   
     // Build the batch process
     $batch = array(
@@ -230,6 +233,17 @@ function nurani_config_ctools() {
   }
 }
 
+/**
+ * Configure taxonomy
+ */
+function nurani_config_taxonomy() {
+  module_load_include('inc', 'install_profile_api', 'contrib/taxonomy_export');
+  $path = drupal_get_path('profile', 'nurani') . '/taxonomy';
+  $files = drupal_system_listing('.inc$', $path, 'name', 0);
+  foreach ($files as $file) {
+    install_taxonomy_export_import_from_file($file->filename);
+  }
+}
  
 /**
  * Configure theme
@@ -244,6 +258,15 @@ function nurani_config_theme() {
   // Refresh registry
   list_themes(TRUE);
   drupal_rebuild_theme_registry();
+}
+
+/**
+ * Configure ICanLocalize
+ */
+function nurani_config_icl() {
+  variable_set('icl_translate_role', 8);
+  variable_set('icl_manager_role', 6);
+  db_query("DELETE FROM {role} WHERE name IN ('ICanLocalize translator', 'ICanLocalize manager')");
 }
 
 /**

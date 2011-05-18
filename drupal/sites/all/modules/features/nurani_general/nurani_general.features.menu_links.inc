@@ -48,10 +48,10 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '3',
   );
-  // Exported menu link: secondary-links:node/24
-  $menu_links['secondary-links:node/24'] = array(
+  // Exported menu link: secondary-links:node/1
+  $menu_links['secondary-links:node/1'] = array(
     'menu_name' => 'secondary-links',
-    'link_path' => 'node/24',
+    'link_path' => 'node/1',
     'router_path' => 'node/%',
     'link_title' => 'About Nurani.org',
     'options' => array(
@@ -66,10 +66,10 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '0',
   );
-  // Exported menu link: secondary-links:node/25
-  $menu_links['secondary-links:node/25'] = array(
+  // Exported menu link: secondary-links:node/2
+  $menu_links['secondary-links:node/2'] = array(
     'menu_name' => 'secondary-links',
-    'link_path' => 'node/25',
+    'link_path' => 'node/2',
     'router_path' => 'node/%',
     'link_title' => 'Guidance',
     'options' => array(
@@ -84,10 +84,10 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '1',
   );
-  // Exported menu link: secondary-links:node/26
-  $menu_links['secondary-links:node/26'] = array(
+  // Exported menu link: secondary-links:node/3
+  $menu_links['secondary-links:node/3'] = array(
     'menu_name' => 'secondary-links',
-    'link_path' => 'node/26',
+    'link_path' => 'node/3',
     'router_path' => 'node/%',
     'link_title' => 'Privacy',
     'options' => array(
@@ -102,10 +102,10 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '3',
   );
-  // Exported menu link: secondary-links:node/27
-  $menu_links['secondary-links:node/27'] = array(
+  // Exported menu link: secondary-links:node/4
+  $menu_links['secondary-links:node/4'] = array(
     'menu_name' => 'secondary-links',
-    'link_path' => 'node/27',
+    'link_path' => 'node/4',
     'router_path' => 'node/%',
     'link_title' => 'Terms',
     'options' => array(

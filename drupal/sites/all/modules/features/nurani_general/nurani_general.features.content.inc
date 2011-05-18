@@ -426,6 +426,8 @@ function nurani_general_content_default_fields() {
     'allowed_values' => '',
     'allowed_values_php' => '',
     'widget' => array(
+      'rows' => NULL,
+      'size' => NULL,
       'default_value' => array(
         '0' => array(
           'value' => '',

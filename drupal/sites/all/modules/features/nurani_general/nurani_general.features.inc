@@ -69,17 +69,6 @@ function nurani_general_node_info() {
       'min_word_count' => '0',
       'help' => '',
     ),
-    'comment' => array(
-      'name' => t('Comment'),
-      'module' => 'features',
-      'description' => t('A comment on a discussion.'),
-      'has_title' => '1',
-      'title_label' => t('Subject'),
-      'has_body' => '1',
-      'body_label' => t('Body'),
-      'min_word_count' => '0',
-      'help' => '',
-    ),
     'discussion' => array(
       'name' => t('Discussion'),
       'module' => 'features',

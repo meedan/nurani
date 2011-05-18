@@ -193,7 +193,7 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_comment';
-  $strongarm->value = '0';
+  $strongarm->value = 0;
 
   $export['comment_comment'] = $strongarm;
   $strongarm = new stdClass;
@@ -647,13 +647,7 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'content_profile_profile';
-  $strongarm->value = array(
-    'weight' => '0',
-    'user_display' => 'full',
-    'edit_link' => 0,
-    'edit_tab' => 'sub',
-    'add_link' => 1,
-  );
+  $strongarm->value = array();
 
   $export['content_profile_profile'] = $strongarm;
   $strongarm = new stdClass;
@@ -3633,36 +3627,6 @@ $view->destroy();
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'icl_creating_manager_role';
-  $strongarm->value = 0;
-
-  $export['icl_creating_manager_role'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'icl_creating_translate_role';
-  $strongarm->value = 0;
-
-  $export['icl_creating_translate_role'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'icl_last_selected_translators';
-  $strongarm->value = array(
-    'ar' => 'local-1',
-  );
-
-  $export['icl_last_selected_translators'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'icl_manager_role';
-  $strongarm->value = 11;
-
-  $export['icl_manager_role'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'icl_menus_to_sync';
   $strongarm->value = array();
 
@@ -3674,13 +3638,6 @@ $view->destroy();
   $strongarm->value = TRUE;
 
   $export['icl_status_check_done'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'icl_translate_manager_role';
-  $strongarm->value = '5';
-
-  $export['icl_translate_manager_role'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -3696,13 +3653,6 @@ $view->destroy();
   );
 
   $export['icl_translate_notifications'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'icl_translate_role';
-  $strongarm->value = '7';
-
-  $export['icl_translate_role'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -3773,13 +3723,6 @@ $view->destroy();
   $strongarm->value = 2;
 
   $export['language_count'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'language_negotiation';
-  $strongarm->value = '1';
-
-  $export['language_negotiation'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -4929,24 +4872,10 @@ $view->destroy();
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'site_mail';
-  $strongarm->value = 'admin@example.com';
-
-  $export['site_mail'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'site_mission';
   $strongarm->value = '';
 
   $export['site_mission'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'site_name';
-  $strongarm->value = 'Nurani D6';
-
-  $export['site_name'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -5006,13 +4935,6 @@ $view->destroy();
   );
 
   $export['theme_settings'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_admin_role';
-  $strongarm->value = '5';
-
-  $export['user_admin_role'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
