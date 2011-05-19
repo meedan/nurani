@@ -1,0 +1,18 @@
+diff --git a/icl_content/js/icl_content.js b/icl_content/js/icl_content.js
+index 6fbcee0..5c2e1f3 100644
+--- a/icl_content/js/icl_content.js
++++ b/icl_content/js/icl_content.js
+@@ -1,4 +1,6 @@
+ function icl_content_lang_propagate(lang, speed) {
++  if (typeof(lang) == 'undefined') return;
++
+ 	var id = '#icl-content-translate-' + lang;    
+ 	$('#icl-content').show('slow');
+ 	$('#icl-content fieldset').hide();
+@@ -55,4 +57,4 @@ $(document).ready( function() {
+ 	});
+ 
+ 	icl_content_lang_propagate($('#edit-language').val(), '');
+-});
+\ No newline at end of file
++});
