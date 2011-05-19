@@ -325,9 +325,10 @@ function template_preprocess_views_bulk_operations_table(&$vars, $hook) {
   $vars['class'] = 'views-bulk-operations-table';
   if ($view->style_plugin->options['sticky']) {
     drupal_add_js('misc/tableheader.js');
-    $vars['class'] .= " sticky-enabled";
+    $vars['class'] .= ' sticky-enabled';
   }
   $vars['class'] .= ' cols-'. count($vars['rows']);
+  $vars['class'] .= ' views-table';
 }
 
 
@@ -1434,7 +1435,7 @@ function _views_bulk_operations_batch_process($oid, $row, &$context) {
       '@type' => t($operation['type']),
       '%oid' => $oid,  
     ));
-    continue;
+    return;
   }
 
   if (!_views_bulk_operations_object_permission($operation, $object, $object_info)) {
