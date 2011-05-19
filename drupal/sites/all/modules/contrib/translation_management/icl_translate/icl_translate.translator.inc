@@ -63,7 +63,7 @@ function icl_translate_translator_jobs($uid = null) {
         drupal_set_message(t('User not found.'), 'error');  
         return false;
       }
-      if (false == _icl_translate_is_translator($account)) {
+      if (false == _icl_translate_is_translator($account->uid)) {
         drupal_set_message(t('@name is not a translator.', array('@name'=>$account->name)) . ' ' . l(t('Configure translator.'), _icl_wrapper_get_root_menu('translation-management/translator/'.$uid.'/edit/')), 'error');
         return false;
       }
@@ -86,6 +86,11 @@ function icl_translate_translator_jobs($uid = null) {
         $header[] = t('Translator');
     }
     foreach($jobs as $j){
+      // If the translation job can be linked  to a node, we do provide a link
+      $nid = db_result(db_query("SELECT nid FROM {icl_content_status} WHERE rid = %d", $j['rid']));
+      if($nid){
+        $j['title'] = l($j['title'], 'node/' . $nid);
+      }
         if(!$uid){
           if ($j['status_code'] != ICL_STATUS_SUCCESSFUL && $j['status_code'] != ICL_STATUS_REQUESTED) {
               $j['status'] .= ' <input id="icl-cancel-submit-' . $j['rid'] . '" class="icl-cancel-job-submit" type="submit" value="' . t('Cancel') . '" name="submit">';
@@ -590,7 +595,19 @@ function _icl_translate_local_translator_form($action, $uid = 0) {
       '#name' => 'icl_translate_translator',
       '#default_value' => $uid
     );
+    // Add option to remove user as translator 
+    $form['icl_translate_jobs']['remove'] = array(
+      '#type' => 'checkbox',
+      '#name' => 'icl_translate_remove',
+      '#title' => t('Remove as Translator')
+    );
+    
   }
+
+  $form['icl_translate_jobs']['title'] =  _icl_wrapper_form_create_markup(array(
+    '#value' => '<strong>Languages</strong>'
+  ));
+  
   
   // Get languages lists
   $language_list = language_list('enabled');
@@ -761,7 +778,16 @@ function icl_translate_add_translators_submit(&$form) {
  * Process submit translator's language pairs.
  */
 function icl_translate_translator_submit() {
-  if (user_access(ICL_TRANSLATE_MANAGE_JOBS)) {
+  //Remove Translator if necessary
+  if ($_POST['icl_translate_remove']) {
+    //Update Pairs, by sending empty array
+    _icl_translate_update_translator_pairs($_POST['icl_translate_translator'], array());
+    // Remove Role
+    _icl_translate_remove_role($_POST['icl_translate_translator']);
+
+    drupal_set_message(t('User removed as translator.'));
+  }
+  else  if (user_access(ICL_TRANSLATE_MANAGE_JOBS)) {
     if (isset($_POST['icl_translate_translator']) && isset($_POST['icl_translate_language_pairs'])) {
 
       // Create role is necessary
@@ -781,14 +807,16 @@ function icl_translate_translator_submit() {
  */
 function _icl_translate_get_non_translators() {
   $rid = variable_get('icl_translate_role', 0);
-  $q = _icl_wrapper_db_query("SELECT uid FROM {users} WHERE status=%d ORDER BY name", 1);
+  $q = _icl_wrapper_db_query("SELECT uid, name FROM {users} WHERE status=%d ORDER BY name", 1);
   $rows = array();
   while ($r = db_fetch_array($q)) {
     if ($r['uid'] == 0) {
       continue;
     }
-    $user = user_load($r['uid']);    
-    if (!_icl_translate_is_translator($user)) {
+    if (!_icl_translate_is_translator($r['uid'])) {
+      $user = new stdClass;
+      $user->uid = $r['uid'];
+      $user->name = $r['name'];
       $rows[] = $user;
     }
   }
@@ -808,19 +836,30 @@ function _icl_translate_assign_role($uid) {
 }
 
 /**
+ * Remove 'translator' role to specified user.
+ * @todo Check if Drupal has this function (not found).
+ */
+function _icl_translate_remove_role($uid) {
+  $rid = variable_get('icl_translate_role', 0);
+  _icl_wrapper_db_query("DELETE FROM {users_roles} WHERE uid = %d AND rid = %d", $uid, $rid);
+}
+
+/**
  * Checks if user has 'translator' role.
  * @todo Check if Drupal has this function (not found).
  * 
  * @param object $user (optional)
  *      If not supplied current user is checked.
  */
-function _icl_translate_is_translator($user = null) {
+function _icl_translate_is_translator($uid = 0) {
   $rid = variable_get('icl_translate_role', 0);
   if ($role = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT name FROM {role} WHERE rid=%d", $rid))) {
-    if (is_null($user)) {
+    if ($uid == 0) {
       global $user;
+      $uid = $user->uid;
     }
-    return array_search($role, $user->roles);
+    $found_uid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT uid FROM {users_roles} WHERE rid=%d AND uid=%d", $rid, $uid));
+    return $found_uid == $uid;
   }
   else {
     return false;
@@ -997,7 +1036,7 @@ function _icl_translate_get_translators_for_pair($source, $target) {
 * @return int tjid
 */
 function icl_translator_add_job($uid, $rid){
-    if($uid == -1 || _icl_translate_is_translator(user_load($uid))){
+    if($uid == -1 || _icl_translate_is_translator($uid)){
         $res = db_fetch_array(_icl_wrapper_db_query("SELECT tjid FROM {icl_translate_job} WHERE rid=%d LIMIT 1", $rid));
         if($res){
             $tjid = $res['tjid'];            

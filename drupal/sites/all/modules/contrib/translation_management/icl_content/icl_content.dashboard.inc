@@ -115,8 +115,8 @@ function icl_content_dashboard_filter_form() {
   
   $form['further'] = _icl_wrapper_form_create_markup(array(
     '#type' => 'markup',
-    '#prefix' => '<div id="icl-dashboard-further" class="form-item"'. $hide_advanced_filter_style . '><label id="icl-dashboard-further-label">'.t('Filters').':',    
-    '#suffix' => '</label></div>',
+    '#prefix' => '<div id="icl-dashboard-further" class="form-item"'. $hide_advanced_filter_style . '><label id="icl-dashboard-further-label">'.t('Filters').':</label>',    
+    '#suffix' => '</div>',
   ));
   
   $form['further']['status'] = array(
@@ -1601,23 +1601,23 @@ function _icl_content_dasboard_table_status($list, $node, $contents) {
     switch ($status[$language]) {
       
       case 'complete':
-        $output = sprintf($link, '<img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/RO-Mx1-16_check-boxed-green-tail.png" alt="' . t('Translated') . '" class="icl_dashboard_table_icon" />');
+        $output = sprintf($link, '<img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/RO-Mx1-16_check-boxed-green-tail.png" alt="' . t('Translated') . '" title="' . $name . ' - ' . t('Translated') . '" class="icl_dashboard_table_icon" />');
         break;
       
       case 'not_translated':
-        $output = '<img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/RO-Mx1-16_warning.png" class="icl_dashboard_table_icon" alt="' . t('Not translated') . '" />';
+        $output = '<img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/RO-Mx1-16_warning.png" class="icl_dashboard_table_icon" alt="' . t('Not translated') . '"  title="' . $name . ' - ' . t('Not translated') . '"/>';
         break;
 
       case 'update':
-        $output = sprintf($link, '<img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/RO-Mx1-16_arrow-round-open.png" alt="' . t('Translation needs update') . '" class="icl_dashboard_table_icon" />');
+        $output = sprintf($link, '<img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/RO-Mx1-16_arrow-round-open.png" alt="' . t('Translation needs update') . '"  title="' . $name . ' - ' . t('Translation needs update') . '" class="icl_dashboard_table_icon" />');
         break;
 
       case 'failed':
-        $output = sprintf($link, '<img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/RO-Mx1-16_error_warning.png" alt="' . t('Translation failed') . '" class="icl_dashboard_table_icon" />');
+        $output = sprintf($link, '<img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/RO-Mx1-16_error_warning.png" alt="' . t('Translation failed') . '" title="' . $name . ' - ' . t('Translation failed') . '" class="icl_dashboard_table_icon" />');
         break;
       
       case 'verification':
-        $output = '<a href="#TB_inline?height=200&amp;width=320&amp;inlineId=verification' . $type . $node['#return_value'] . '&amp;modal=true" class="thickbox"><img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/RO-Mx1-16_circle-help-3.png" alt="' . t('Translated - Status verification required') . '" class="icl_dashboard_table_icon" /></a>
+        $output = '<a href="#TB_inline?height=200&amp;width=320&amp;inlineId=verification' . $type . $node['#return_value'] . '&amp;modal=true" class="thickbox"><img src="' . $base_url . '/' . drupal_get_path('module', 'icl_core') . '/images/RO-Mx1-16_circle-help-3.png" alt="' . t('Translated - Status verification required') . '" title="' . $name . ' - ' .  t('Translated - Status verification required') . '" class="icl_dashboard_table_icon" /></a>
 
 <div id="verification'. $type . $node['#return_value'] . '" style="display:none;">
 
