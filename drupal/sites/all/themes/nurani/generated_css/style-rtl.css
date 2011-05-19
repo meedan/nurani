@@ -19,6 +19,8 @@ body.i18n-ar {
   /*Top strip*/
   /*Navigation*/
   /*Welcome*/
+  /*Overview*/
+  /*discussion*/
 }
 /* line 8, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-welcome_to_nurani_box .toggle {
@@ -162,7 +164,34 @@ body.i18n-ar ul.menu li.first,
 body.i18n-ar ul.menu li {
   float: right;
 }
-/* line 84, ../scss/style-rtl.scss */
+/* line 85, ../scss/style-rtl.scss */
 body.i18n-ar div#slash div#boxes-box-welcome_box img.d_ford {
   float: left;
+}
+/* line 90, ../scss/style-rtl.scss */
+body.i18n-ar div#main {
+  float: right;
+}
+/* line 94, ../scss/style-rtl.scss */
+body.i18n-ar .view-discussions .views-field-title {
+  float: right;
+  line-height: 29px;
+}
+/* line 98, ../scss/style-rtl.scss */
+body.i18n-ar .view-discussions .views-field-view-node a {
+  float: left;
+}
+/* line 101, ../scss/style-rtl.scss */
+body.i18n-ar .view-discussions .views-field-phpcode {
+  float: right;
+  margin-left: 15px;
+  margin-right: 0;
+}
+/* line 109, ../scss/style-rtl.scss */
+body.i18n-ar #container #content-area p {
+  text-align: right;
+}
+/* line 112, ../scss/style-rtl.scss */
+body.i18n-ar #container #sidebar-second {
+  text-align: right;
 }

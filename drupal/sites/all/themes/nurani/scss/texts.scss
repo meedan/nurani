@@ -3,39 +3,42 @@
 @import "_tables.scss";
 
 body.page-texts {
-  #main #content {      
+  #main {
+		width: auto;				
+
+		#content {      
     
-    @include table-styles;
-    margin-left:0;
-    width: 960px;
+    	@include table-styles;
+    	margin-left:0;
+    	width: 960px;
     
-    tr {
-      td {
-        width: 150px;
-        max-width: 150px;
-        overflow: hidden;
-        line-height: 1em;
-        vertical-align:top;
-        font-size: 1.2em;
-      }
-    }
+    	tr {
+      	td {
+        	width: 150px;
+	        max-width: 150px;
+  	      overflow: hidden;
+    	    line-height: 1em;
+      	  vertical-align:top;
+        	font-size: 1.2em;
+	      }
+  	  }
 
-    tbody div.field-items {
-      height:50px!important;
-    }
-
-    td.views-field-title {
-      font-size:1.4em;
-    }
-
-    div.user-picture {
-      img {
-        border: none;
-      }
-    }
-  } 
+    	tbody div.field-items {
+      	height:50px!important;
+	    }
+	
+  	  td.views-field-title {
+    	  font-size:1.4em;
+	    }
+	
+	    div.user-picture {
+  	    img {
+    	    border: none;
+      	}
+	    }
+  	} 
+	}
 }
-
 .node-type-text {
   ul.menu {
     li.last {

@@ -80,9 +80,38 @@ body.i18n-ar {
 	ul.menu li {
     float: right;
 	}
+
 /*Welcome*/
 	div#slash div#boxes-box-welcome_box img.d_ford {
 		float: left;
 	}
+
+/*Overview*/
+	 div#main {	
+		float: right;
+	}
+	.view-discussions {
+		.views-field-title {
+  		float: right;
+			line-height: 29px;
+		}
+		.views-field-view-node a {
+			float: left;
+		}
+		.views-field-phpcode {
+			float: right;
+    	margin-left: 15px;
+			margin-right: 0;
+		}
+	}
+
+/*discussion*/
+	#container #content-area p {
+		text-align: right;
+	}
+	#container #sidebar-second {
+		text-align: right;
+	}
+
 
 }

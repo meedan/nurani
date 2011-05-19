@@ -88,52 +88,51 @@ body.page-glossary .view-content {
   text-align: center;
 }
 
-/*Glossary term page*/
-/* line 41, ../scss/glossary.scss */
-.page-glossary ul.menu li {
-  background: url("../images/bkg_active_nav.png") -5px bottom transparent;
-}
-/* line 43, ../scss/glossary.scss */
-.page-glossary ul.menu li a {
-  background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
-}
-/* line 47, ../scss/glossary.scss */
-.page-glossary ul.menu li.first, .page-glossary ul.menu li.last {
-  background: transparent;
-}
-/* line 51, ../scss/glossary.scss */
+/*Glossary alphapet page*/
+/* line 40, ../scss/glossary.scss */
 .page-glossary .view-empty {
   font-size: 1.4em;
 }
-/* line 54, ../scss/glossary.scss */
+/* line 43, ../scss/glossary.scss */
 .page-glossary .field-part-of-speech {
   margin-bottom: 20px;
 }
-/* line 57, ../scss/glossary.scss */
+/* line 46, ../scss/glossary.scss */
 .page-glossary .field-part-of-speech .field-label {
   float: left;
   margin-right: 5px;
 }
-/* line 62, ../scss/glossary.scss */
+/* line 51, ../scss/glossary.scss */
 .page-glossary .field-group-translations {
   margin-bottom: 20px;
 }
-/* line 65, ../scss/glossary.scss */
+/* line 54, ../scss/glossary.scss */
 .page-glossary .field-group-translations .field-label {
   margin-bottom: 5px;
 }
-/* line 68, ../scss/glossary.scss */
+/* line 57, ../scss/glossary.scss */
 .page-glossary .field-group-translations .fieldset {
   clear: both;
   line-height: 26px;
 }
-/* line 72, ../scss/glossary.scss */
+/* line 61, ../scss/glossary.scss */
 .page-glossary .field-group-translations .fieldset .field-field-translation-term {
   float: left;
   margin-right: 5px;
 }
-/* line 80, ../scss/glossary.scss */
+/* line 69, ../scss/glossary.scss */
 .page-glossary .view-glossary-references .views-row {
   margin-bottom: 15px;
   text-align: justify;
+}
+
+/* line 76, ../scss/glossary.scss */
+.node-type-term ul.menu li.glossary {
+  background: url("../images/bkg_active_nav.png") repeat -5px bottom;
+}
+
+/* line 80, ../scss/glossary.scss */
+.node-type-term ul.menu li.glossary a,
+.page-glossary ul.menu li.glossary a {
+  background: url("../images/g.png") no-repeat 10px 20px;
 }
