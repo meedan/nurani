@@ -16,7 +16,7 @@ function nurani_general_default_box() {
     'body' => '<?php
 print l(\'Add Glossary Term\', \'node/add/term\');
 ?>',
-    'format' => '4',
+    'format' => '3',
   );
 
   $export['add_glossary_term'] = $box;

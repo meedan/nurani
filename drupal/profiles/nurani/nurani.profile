@@ -135,6 +135,7 @@ function nurani_profile_tasks(&$task, $url) {
     $operations[] = array('nurani_config_taxonomy', array());
     $operations[] = array('nurani_config_theme', array());
     $operations[] = array('nurani_config_icl', array());
+    $operations[] = array('nurani_config_nodes', array());
   
     // Build the batch process
     $batch = array(
@@ -199,7 +200,7 @@ function nurani_install_languages() {
       'filename' => $file->basename,
       'filepath' => $file->filename,
       );
-    _locale_import_po((object)$po_file, $langcode, LOCALE_IMPORT_OVERWRITE, $file->name);
+    _locale_import_po((object)$po_file, $langcode, LOCALE_IMPORT_OVERWRITE, 'default');
   }
 
   drupal_flush_all_caches();
@@ -238,10 +239,9 @@ function nurani_config_ctools() {
  */
 function nurani_config_taxonomy() {
   module_load_include('inc', 'install_profile_api', 'contrib/taxonomy_export');
-  $path = drupal_get_path('profile', 'nurani') . '/taxonomy';
-  $files = drupal_system_listing('.inc$', $path, 'name', 0);
-  foreach ($files as $file) {
-    install_taxonomy_export_import_from_file($file->filename);
+  $path = drupal_get_path('profile', 'nurani') . '/taxonomy/*.inc';
+  foreach (glob($path) as $file) {
+    install_taxonomy_export_import_from_file($file);
   }
 }
  
@@ -267,6 +267,17 @@ function nurani_config_icl() {
   variable_set('icl_translate_role', 8);
   variable_set('icl_manager_role', 6);
   db_query("DELETE FROM {role} WHERE name IN ('ICanLocalize translator', 'ICanLocalize manager')");
+}
+
+/**
+ * Import static nodes
+ */
+function nurani_config_nodes() {
+  $path = drupal_get_path('profile', 'nurani') . '/nodes/*.inc';
+  foreach (glob($path) as $file) {
+    $node_code = file_get_contents($file);
+    node_export_import($node_code);
+  }
 }
 
 /**

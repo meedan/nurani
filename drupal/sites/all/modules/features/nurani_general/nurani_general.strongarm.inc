@@ -765,2511 +765,6 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ds_fields_cached';
-  $strongarm->value = array(
-    'nd' => array(
-      'profile' => array(
-        'full' => array(
-          'field_title' => array(
-            'field_name' => 'field_title',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => 'dr|Dr.
-mr|Mr.
-mrs|Mrs.
-ms|Ms.
-prof|Prof.',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Title',
-              'weight' => '-4',
-              'description' => '',
-              'type' => 'optionwidgets_select',
-              'module' => 'optionwidgets',
-            ),
-            'storage' => TRUE,
-            'title' => 'Title',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_position' => array(
-            'field_name' => 'field_position',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => '',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'rows' => 5,
-              'size' => '60',
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                  '_error_element' => 'default_value_widget][field_position][0][value',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Position',
-              'weight' => '-3',
-              'description' => '',
-              'type' => 'text_textfield',
-              'module' => 'text',
-            ),
-            'storage' => TRUE,
-            'title' => 'Position',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_city' => array(
-            'field_name' => 'field_city',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => '',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'City',
-              'weight' => '-2',
-              'description' => '',
-              'type' => 'text_textfield',
-              'module' => 'text',
-            ),
-            'storage' => TRUE,
-            'title' => 'City',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_country' => array(
-            'field_name' => 'field_country',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => '',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'rows' => 5,
-              'size' => '60',
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                  '_error_element' => 'default_value_widget][field_country][0][value',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Country',
-              'weight' => '-1',
-              'description' => '',
-              'type' => 'text_textfield',
-              'module' => 'text',
-            ),
-            'storage' => TRUE,
-            'title' => 'Country',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_fluency_en' => array(
-            'field_name' => 'field_fluency_en',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => 'beginner|Beginner
-moderate|Moderate
-fluent|Fluent
-expert|Expert',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'rows' => 5,
-              'size' => '60',
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Fluency in English',
-              'weight' => 0,
-              'description' => '',
-              'type' => 'optionwidgets_select',
-              'module' => 'optionwidgets',
-            ),
-            'storage' => TRUE,
-            'title' => 'Fluency in English',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_fluency_ar' => array(
-            'field_name' => 'field_fluency_ar',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => 'beginner|Beginner
-moderate|Moderate
-fluent|Fluent
-expert|Expert',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'rows' => 5,
-              'size' => '60',
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Fluency in Arabic',
-              'weight' => '1',
-              'description' => '',
-              'type' => 'optionwidgets_select',
-              'module' => 'optionwidgets',
-            ),
-            'storage' => TRUE,
-            'title' => 'Fluency in Arabic',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_education' => array(
-            'field_name' => 'field_education',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => '',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'rows' => '3',
-              'size' => 60,
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                  '_error_element' => 'default_value_widget][field_education][0][value',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Education',
-              'weight' => '2',
-              'description' => '',
-              'type' => 'text_textarea',
-              'module' => 'text',
-            ),
-            'storage' => TRUE,
-            'title' => 'Education',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_societies' => array(
-            'field_name' => 'field_societies',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => '',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'rows' => '3',
-              'size' => 60,
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                  '_error_element' => 'default_value_widget][field_societies][0][value',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Societies',
-              'weight' => '3',
-              'description' => '',
-              'type' => 'text_textarea',
-              'module' => 'text',
-            ),
-            'storage' => TRUE,
-            'title' => 'Societies',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_experience' => array(
-            'field_name' => 'field_experience',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => '',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'rows' => '3',
-              'size' => 60,
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                  '_error_element' => 'default_value_widget][field_experience][0][value',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Experience',
-              'weight' => '4',
-              'description' => '',
-              'type' => 'text_textarea',
-              'module' => 'text',
-            ),
-            'storage' => TRUE,
-            'title' => 'Experience',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_research' => array(
-            'field_name' => 'field_research',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => '',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'rows' => '3',
-              'size' => 60,
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                  '_error_element' => 'default_value_widget][field_research][0][value',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Research',
-              'weight' => '5',
-              'description' => '',
-              'type' => 'text_textarea',
-              'module' => 'text',
-            ),
-            'storage' => TRUE,
-            'title' => 'Research',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_publications' => array(
-            'field_name' => 'field_publications',
-            'type_name' => 'profile',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'above',
-                'exclude' => 0,
-              ),
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'full' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => '',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'rows' => '3',
-              'size' => 60,
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                  '_error_element' => 'default_value_widget][field_publications][0][value',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Publications',
-              'weight' => '6',
-              'description' => '',
-              'type' => 'text_textarea',
-              'module' => 'text',
-            ),
-            'storage' => TRUE,
-            'title' => 'Publications',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'title' => array(
-            'title' => 'Title',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_title_h1_nolink' => 'H1 title',
-                'nd_title_h1_link' => 'H1 title, linked to node',
-                'nd_title_h2_nolink' => 'H2 title',
-                'nd_title_h2_link' => 'H2 title, linked to node',
-                'nd_title_h2_block_nolink' => 'H2 block title',
-                'nd_title_h2_block_link' => 'H2 block title, linked to node',
-                'nd_title_p_nolink' => 'Paragraph title',
-                'nd_title_p_link' => 'Paragraph title, linked to node',
-              ),
-            ),
-          ),
-          'author' => array(
-            'title' => 'Author',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'ds_author_nolink' => 'Author',
-                'ds_author_link' => 'Author linked to profile',
-              ),
-            ),
-          ),
-          'links' => array(
-            'title' => 'Links',
-            'type' => 3,
-            'status' => 1,
-          ),
-          'read_more' => array(
-            'title' => 'Read more',
-            'type' => 5,
-            'status' => 2,
-            'properties' => array(
-              'formatters' => array(
-                'ds_eval_code' => 'Default',
-              ),
-              'code' => '<?php echo l(t("Read more"), "node/$object->nid"); ?>',
-            ),
-          ),
-          'post_date' => array(
-            'title' => 'Post date',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_post_date_long' => 'Long',
-                'nd_post_date_medium' => 'Medium',
-                'nd_post_date_short' => 'Short',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'discussion' => array(
-        'full' => array(
-          'field_texts' => array(
-            'field_name' => 'field_texts',
-            'type_name' => 'discussion',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-91',
-              'discussion_participants' => array(
-                'label' => array(
-                  'format' => 'hidden',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'disabled',
-                'type' => 'nodereference',
-                'parent_id' => '',
-                'field_id' => 'field_texts',
-                'label_value' => '',
-                'exclude' => 1,
-                'weight' => '-91',
-              ),
-              'full' => array(
-                'label' => array(
-                  'format' => 'hidden',
-                ),
-                'format' => 'node_title_body',
-                'css-class' => '',
-                'region' => 'disabled',
-                'type' => 'nodereference',
-                'parent_id' => '',
-                'field_id' => 'field_texts',
-                'label_value' => '',
-                'exclude' => 1,
-                'weight' => '-99',
-              ),
-              'weight' => '-2',
-              'parent' => '',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'nodereference',
-            'required' => '0',
-            'multiple' => '1',
-            'db_storage' => '0',
-            'module' => 'nodereference',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'nid' => array(
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => FALSE,
-                'index' => TRUE,
-              ),
-            ),
-            'referenceable_types' => array(
-              'text' => 'text',
-              'discussion' => 0,
-              'page' => 0,
-              'profile' => 0,
-              'term' => 0,
-            ),
-            'advanced_view' => '--',
-            'advanced_view_args' => '',
-            'widget' => array(
-              'autocomplete_match' => 'contains',
-              'size' => '60',
-              'default_value' => array(
-                0 => array(
-                  'nid' => NULL,
-                  '_error_element' => 'default_value_widget][field_texts][0][nid][nid',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Texts',
-              'weight' => '-2',
-              'description' => '',
-              'type' => 'nodereference_autocomplete',
-              'module' => 'nodereference',
-            ),
-            'storage' => TRUE,
-            'title' => 'Texts',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Title (link)',
-                'plain' => 'Title (no link)',
-                'full' => 'Full node',
-                'teaser' => 'Teaser',
-                'node_full' => 'Build mode: Full node',
-                'node_teaser' => 'Build mode: Teaser',
-                'node_sticky' => 'Build mode: Sticky',
-                'node_4' => 'Build mode: RSS',
-                'node_2' => 'Build mode: Search Index',
-                'node_3' => 'Build mode: Search Result',
-                'node_token' => 'Build mode: Token',
-                'node_text_summary' => 'Build mode: Text summary',
-                'node_discussion_participants' => 'Build mode: Discussion participants',
-              ),
-            ),
-          ),
-          'field_moderators' => array(
-            'field_name' => 'field_moderators',
-            'type_name' => 'discussion',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-99',
-              'discussion_participants' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'middle',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_moderators',
-                'label_value' => '',
-                'exclude' => 0,
-                'weight' => '-99',
-              ),
-              'full' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'disabled',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_moderators',
-                'label_value' => 'Moderators',
-                'exclude' => 1,
-                'weight' => '-96',
-              ),
-              'weight' => '-1',
-              'parent' => '',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'userreference',
-            'required' => '0',
-            'multiple' => '1',
-            'db_storage' => '0',
-            'module' => 'userreference',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'uid' => array(
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => FALSE,
-                'index' => TRUE,
-              ),
-            ),
-            'referenceable_roles' => array(
-              8 => 8,
-              2 => 0,
-              5 => 0,
-              6 => 0,
-              7 => 0,
-            ),
-            'referenceable_status' => '1',
-            'advanced_view' => '--',
-            'advanced_view_args' => '',
-            'widget' => array(
-              'autocomplete_match' => 'contains',
-              'size' => 60,
-              'reverse_link' => 0,
-              'default_value' => array(
-                0 => array(
-                  'uid' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Additional Moderators',
-              'weight' => '-1',
-              'description' => '',
-              'type' => 'userreference_buttons',
-              'module' => 'userreference',
-            ),
-            'storage' => TRUE,
-            'title' => 'Additional Moderators',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-              ),
-            ),
-          ),
-          'field_translators' => array(
-            'field_name' => 'field_translators',
-            'type_name' => 'discussion',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-97',
-              'discussion_participants' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'middle',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_translators',
-                'label_value' => '',
-                'exclude' => 0,
-                'weight' => '-97',
-              ),
-              'full' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'disabled',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_translators',
-                'label_value' => 'Translators',
-                'exclude' => 1,
-                'weight' => '-97',
-              ),
-              'weight' => 0,
-              'parent' => '',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'userreference',
-            'required' => '0',
-            'multiple' => '1',
-            'db_storage' => '0',
-            'module' => 'userreference',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'uid' => array(
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => FALSE,
-                'index' => TRUE,
-              ),
-            ),
-            'referenceable_roles' => array(
-              7 => 7,
-              2 => 0,
-              5 => 0,
-              8 => 0,
-              6 => 0,
-            ),
-            'referenceable_status' => '1',
-            'advanced_view' => '--',
-            'advanced_view_args' => '',
-            'widget' => array(
-              'autocomplete_match' => 'contains',
-              'size' => 60,
-              'reverse_link' => 0,
-              'default_value' => array(
-                0 => array(
-                  'uid' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Translators',
-              'weight' => 0,
-              'description' => '',
-              'type' => 'userreference_buttons',
-              'module' => 'userreference',
-            ),
-            'storage' => TRUE,
-            'title' => 'Translators',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-              ),
-            ),
-          ),
-          'field_scholars' => array(
-            'field_name' => 'field_scholars',
-            'type_name' => 'discussion',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-98',
-              'discussion_participants' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'middle',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_scholars',
-                'label_value' => '',
-                'exclude' => 0,
-                'weight' => '-98',
-              ),
-              'full' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'disabled',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_scholars',
-                'label_value' => 'Scholars',
-                'exclude' => 1,
-                'weight' => '-98',
-              ),
-              'weight' => '1',
-              'parent' => '',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'userreference',
-            'required' => '0',
-            'multiple' => '1',
-            'db_storage' => '0',
-            'module' => 'userreference',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'uid' => array(
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => FALSE,
-                'index' => TRUE,
-              ),
-            ),
-            'referenceable_roles' => array(
-              6 => 6,
-              2 => 0,
-              5 => 0,
-              8 => 0,
-              7 => 0,
-            ),
-            'referenceable_status' => '1',
-            'advanced_view' => '--',
-            'advanced_view_args' => '',
-            'widget' => array(
-              'autocomplete_match' => 'contains',
-              'size' => 60,
-              'reverse_link' => 0,
-              'default_value' => array(
-                0 => array(
-                  'uid' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Scholars',
-              'weight' => '1',
-              'description' => '',
-              'type' => 'userreference_buttons',
-              'module' => 'userreference',
-            ),
-            'storage' => TRUE,
-            'title' => 'Scholars',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-              ),
-            ),
-          ),
-          'title' => array(
-            'title' => 'Title',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_title_h1_nolink' => 'H1 title',
-                'nd_title_h1_link' => 'H1 title, linked to node',
-                'nd_title_h2_nolink' => 'H2 title',
-                'nd_title_h2_link' => 'H2 title, linked to node',
-                'nd_title_h2_block_nolink' => 'H2 block title',
-                'nd_title_h2_block_link' => 'H2 block title, linked to node',
-                'nd_title_p_nolink' => 'Paragraph title',
-                'nd_title_p_link' => 'Paragraph title, linked to node',
-              ),
-            ),
-          ),
-          'author' => array(
-            'title' => 'Author',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'ds_author_nolink' => 'Author',
-                'ds_author_link' => 'Author linked to profile',
-              ),
-            ),
-          ),
-          'links' => array(
-            'title' => 'Links',
-            'type' => 3,
-            'status' => 1,
-          ),
-          'read_more' => array(
-            'title' => 'Read more',
-            'type' => 5,
-            'status' => 2,
-            'properties' => array(
-              'formatters' => array(
-                'ds_eval_code' => 'Default',
-              ),
-              'code' => '<?php echo l(t("Read more"), "node/$object->nid"); ?>',
-            ),
-          ),
-          'post_date' => array(
-            'title' => 'Post date',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_post_date_long' => 'Long',
-                'nd_post_date_medium' => 'Medium',
-                'nd_post_date_short' => 'Short',
-              ),
-            ),
-          ),
-          'body' => array(
-            'title' => 'Body',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_bodyfield' => 'Default',
-              ),
-            ),
-          ),
-        ),
-        'discussion_participants' => array(
-          'field_texts' => array(
-            'field_name' => 'field_texts',
-            'type_name' => 'discussion',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-91',
-              'discussion_participants' => array(
-                'label' => array(
-                  'format' => 'hidden',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'disabled',
-                'type' => 'nodereference',
-                'parent_id' => '',
-                'field_id' => 'field_texts',
-                'label_value' => '',
-                'exclude' => 1,
-                'weight' => '-91',
-              ),
-              'full' => array(
-                'label' => array(
-                  'format' => 'hidden',
-                ),
-                'format' => 'node_title_body',
-                'css-class' => '',
-                'region' => 'disabled',
-                'type' => 'nodereference',
-                'parent_id' => '',
-                'field_id' => 'field_texts',
-                'label_value' => '',
-                'exclude' => 1,
-                'weight' => '-99',
-              ),
-              'weight' => '-2',
-              'parent' => '',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'nodereference',
-            'required' => '0',
-            'multiple' => '1',
-            'db_storage' => '0',
-            'module' => 'nodereference',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'nid' => array(
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => FALSE,
-                'index' => TRUE,
-              ),
-            ),
-            'referenceable_types' => array(
-              'text' => 'text',
-              'discussion' => 0,
-              'page' => 0,
-              'profile' => 0,
-              'term' => 0,
-            ),
-            'advanced_view' => '--',
-            'advanced_view_args' => '',
-            'widget' => array(
-              'autocomplete_match' => 'contains',
-              'size' => '60',
-              'default_value' => array(
-                0 => array(
-                  'nid' => NULL,
-                  '_error_element' => 'default_value_widget][field_texts][0][nid][nid',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Texts',
-              'weight' => '-2',
-              'description' => '',
-              'type' => 'nodereference_autocomplete',
-              'module' => 'nodereference',
-            ),
-            'storage' => TRUE,
-            'title' => 'Texts',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Title (link)',
-                'plain' => 'Title (no link)',
-                'full' => 'Full node',
-                'teaser' => 'Teaser',
-                'node_full' => 'Build mode: Full node',
-                'node_teaser' => 'Build mode: Teaser',
-                'node_sticky' => 'Build mode: Sticky',
-                'node_4' => 'Build mode: RSS',
-                'node_2' => 'Build mode: Search Index',
-                'node_3' => 'Build mode: Search Result',
-                'node_token' => 'Build mode: Token',
-                'node_text_summary' => 'Build mode: Text summary',
-                'node_discussion_participants' => 'Build mode: Discussion participants',
-              ),
-            ),
-          ),
-          'field_moderators' => array(
-            'field_name' => 'field_moderators',
-            'type_name' => 'discussion',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-99',
-              'discussion_participants' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'middle',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_moderators',
-                'label_value' => '',
-                'exclude' => 0,
-                'weight' => '-99',
-              ),
-              'full' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'disabled',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_moderators',
-                'label_value' => 'Moderators',
-                'exclude' => 1,
-                'weight' => '-96',
-              ),
-              'weight' => '-1',
-              'parent' => '',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'userreference',
-            'required' => '0',
-            'multiple' => '1',
-            'db_storage' => '0',
-            'module' => 'userreference',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'uid' => array(
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => FALSE,
-                'index' => TRUE,
-              ),
-            ),
-            'referenceable_roles' => array(
-              8 => 8,
-              2 => 0,
-              5 => 0,
-              6 => 0,
-              7 => 0,
-            ),
-            'referenceable_status' => '1',
-            'advanced_view' => '--',
-            'advanced_view_args' => '',
-            'widget' => array(
-              'autocomplete_match' => 'contains',
-              'size' => 60,
-              'reverse_link' => 0,
-              'default_value' => array(
-                0 => array(
-                  'uid' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Additional Moderators',
-              'weight' => '-1',
-              'description' => '',
-              'type' => 'userreference_buttons',
-              'module' => 'userreference',
-            ),
-            'storage' => TRUE,
-            'title' => 'Additional Moderators',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-              ),
-            ),
-          ),
-          'field_translators' => array(
-            'field_name' => 'field_translators',
-            'type_name' => 'discussion',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-97',
-              'discussion_participants' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'middle',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_translators',
-                'label_value' => '',
-                'exclude' => 0,
-                'weight' => '-97',
-              ),
-              'full' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'disabled',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_translators',
-                'label_value' => 'Translators',
-                'exclude' => 1,
-                'weight' => '-97',
-              ),
-              'weight' => 0,
-              'parent' => '',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'userreference',
-            'required' => '0',
-            'multiple' => '1',
-            'db_storage' => '0',
-            'module' => 'userreference',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'uid' => array(
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => FALSE,
-                'index' => TRUE,
-              ),
-            ),
-            'referenceable_roles' => array(
-              7 => 7,
-              2 => 0,
-              5 => 0,
-              8 => 0,
-              6 => 0,
-            ),
-            'referenceable_status' => '1',
-            'advanced_view' => '--',
-            'advanced_view_args' => '',
-            'widget' => array(
-              'autocomplete_match' => 'contains',
-              'size' => 60,
-              'reverse_link' => 0,
-              'default_value' => array(
-                0 => array(
-                  'uid' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Translators',
-              'weight' => 0,
-              'description' => '',
-              'type' => 'userreference_buttons',
-              'module' => 'userreference',
-            ),
-            'storage' => TRUE,
-            'title' => 'Translators',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-              ),
-            ),
-          ),
-          'field_scholars' => array(
-            'field_name' => 'field_scholars',
-            'type_name' => 'discussion',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-98',
-              'discussion_participants' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'middle',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_scholars',
-                'label_value' => '',
-                'exclude' => 0,
-                'weight' => '-98',
-              ),
-              'full' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'disabled',
-                'type' => 'userreference',
-                'parent_id' => '',
-                'field_id' => 'field_scholars',
-                'label_value' => 'Scholars',
-                'exclude' => 1,
-                'weight' => '-98',
-              ),
-              'weight' => '1',
-              'parent' => '',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'userreference',
-            'required' => '0',
-            'multiple' => '1',
-            'db_storage' => '0',
-            'module' => 'userreference',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'uid' => array(
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => FALSE,
-                'index' => TRUE,
-              ),
-            ),
-            'referenceable_roles' => array(
-              6 => 6,
-              2 => 0,
-              5 => 0,
-              8 => 0,
-              7 => 0,
-            ),
-            'referenceable_status' => '1',
-            'advanced_view' => '--',
-            'advanced_view_args' => '',
-            'widget' => array(
-              'autocomplete_match' => 'contains',
-              'size' => 60,
-              'reverse_link' => 0,
-              'default_value' => array(
-                0 => array(
-                  'uid' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Scholars',
-              'weight' => '1',
-              'description' => '',
-              'type' => 'userreference_buttons',
-              'module' => 'userreference',
-            ),
-            'storage' => TRUE,
-            'title' => 'Scholars',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Default',
-                'plain' => 'Plain text',
-              ),
-            ),
-          ),
-          'title' => array(
-            'title' => 'Title',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_title_h1_nolink' => 'H1 title',
-                'nd_title_h1_link' => 'H1 title, linked to node',
-                'nd_title_h2_nolink' => 'H2 title',
-                'nd_title_h2_link' => 'H2 title, linked to node',
-                'nd_title_h2_block_nolink' => 'H2 block title',
-                'nd_title_h2_block_link' => 'H2 block title, linked to node',
-                'nd_title_p_nolink' => 'Paragraph title',
-                'nd_title_p_link' => 'Paragraph title, linked to node',
-              ),
-            ),
-          ),
-          'author' => array(
-            'title' => 'Author',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'ds_author_nolink' => 'Author',
-                'ds_author_link' => 'Author linked to profile',
-              ),
-            ),
-          ),
-          'links' => array(
-            'title' => 'Links',
-            'type' => 3,
-            'status' => 1,
-          ),
-          'read_more' => array(
-            'title' => 'Read more',
-            'type' => 5,
-            'status' => 2,
-            'properties' => array(
-              'formatters' => array(
-                'ds_eval_code' => 'Default',
-              ),
-              'code' => '<?php echo l(t("Read more"), "node/$object->nid"); ?>',
-            ),
-          ),
-          'post_date' => array(
-            'title' => 'Post date',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_post_date_long' => 'Long',
-                'nd_post_date_medium' => 'Medium',
-                'nd_post_date_short' => 'Short',
-              ),
-            ),
-          ),
-          'body' => array(
-            'title' => 'Body',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_bodyfield' => 'Default',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'comment' => array(
-        'full' => array(
-          'title' => array(
-            'title' => 'Title',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_title_h1_nolink' => 'H1 title',
-                'nd_title_h1_link' => 'H1 title, linked to node',
-                'nd_title_h2_nolink' => 'H2 title',
-                'nd_title_h2_link' => 'H2 title, linked to node',
-                'nd_title_h2_block_nolink' => 'H2 block title',
-                'nd_title_h2_block_link' => 'H2 block title, linked to node',
-                'nd_title_p_nolink' => 'Paragraph title',
-                'nd_title_p_link' => 'Paragraph title, linked to node',
-              ),
-            ),
-          ),
-          'author' => array(
-            'title' => 'Author',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'ds_author_nolink' => 'Author',
-                'ds_author_link' => 'Author linked to profile',
-              ),
-            ),
-          ),
-          'links' => array(
-            'title' => 'Links',
-            'type' => 3,
-            'status' => 1,
-          ),
-          'read_more' => array(
-            'title' => 'Read more',
-            'type' => 5,
-            'status' => 2,
-            'properties' => array(
-              'formatters' => array(
-                'ds_eval_code' => 'Default',
-              ),
-              'code' => '<?php echo l(t("Read more"), "node/$object->nid"); ?>',
-            ),
-          ),
-          'post_date' => array(
-            'title' => 'Post date',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_post_date_long' => 'Long',
-                'nd_post_date_medium' => 'Medium',
-                'nd_post_date_short' => 'Short',
-              ),
-            ),
-          ),
-          'body' => array(
-            'title' => 'Body',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_bodyfield' => 'Default',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'term' => array(
-        'full' => array(
-          'field_part_of_speech' => array(
-            'field_name' => 'field_part_of_speech',
-            'type_name' => 'term',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-100',
-              'full' => array(
-                'label' => array(
-                  'format' => 'above',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'middle',
-                'type' => 'text',
-                'parent_id' => '',
-                'field_id' => 'field_part_of_speech',
-                'label_value' => '',
-                'exclude' => 0,
-                'weight' => '-100',
-              ),
-              'weight' => '-3',
-              'parent' => '',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'text',
-            'required' => '0',
-            'multiple' => '0',
-            'db_storage' => '1',
-            'module' => 'text',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'text',
-                'size' => 'big',
-                'not null' => FALSE,
-                'sortable' => TRUE,
-                'views' => TRUE,
-              ),
-            ),
-            'text_processing' => '0',
-            'max_length' => '',
-            'allowed_values' => 'noun|Noun
-verb|Verb
-adjective|Adjective',
-            'allowed_values_php' => '',
-            'widget' => array(
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Part of Speech',
-              'weight' => '-3',
-              'description' => '',
-              'type' => 'optionwidgets_select',
-              'module' => 'optionwidgets',
-            ),
-            'storage' => TRUE,
-            'title' => 'Part of Speech',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'مبدئي',
-                'plain' => 'Plain text',
-                'trimmed' => 'Trimmed',
-              ),
-            ),
-          ),
-          'field_translation_term' => array(
-            'field_name' => 'field_translation_term',
-            'type_name' => 'term',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-100',
-              'full' => array(
-                'label' => array(
-                  'format' => 'hidden',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'middle',
-                'type' => 'nodereference',
-                'parent_id' => 'group_translations',
-                'field_id' => 'field_translation_term',
-                'label_value' => '',
-                'exclude' => 0,
-                'weight' => '-100',
-              ),
-              'weight' => '12',
-              'parent' => 'group_translations',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'nodereference',
-            'required' => '0',
-            'multiple' => '1',
-            'db_storage' => '0',
-            'module' => 'nodereference',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'nid' => array(
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => FALSE,
-                'index' => TRUE,
-              ),
-            ),
-            'referenceable_types' => array(
-              'term' => 'term',
-              'annotation' => 0,
-              'comment' => 0,
-              'discussion' => 0,
-              'page' => 0,
-              'profile' => 0,
-              'text' => 0,
-            ),
-            'advanced_view' => '--',
-            'advanced_view_args' => '',
-            'widget' => array(
-              'autocomplete_match' => 'contains',
-              'default_value' => array(
-                0 => array(
-                  'nid' => NULL,
-                  '_error_element' => 'default_value_widget][field_translation_term][0][nid][nid',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Term',
-              'weight' => '12',
-              'description' => '',
-              'type' => 'noderefcreate_autocomplete',
-              'module' => 'noderefcreate',
-            ),
-            'storage' => TRUE,
-            'title' => 'Term',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'Title (link)',
-                'plain' => 'Title (no link)',
-                'full' => 'Full node',
-                'teaser' => 'Teaser',
-                'node_full' => 'Build mode: Full node',
-                'node_teaser' => 'Build mode: Teaser',
-                'node_sticky' => 'Build mode: Sticky',
-                'node_4' => 'Build mode: RSS',
-                'node_2' => 'Build mode: Search Index',
-                'node_3' => 'Build mode: Search Result',
-                'node_token' => 'Build mode: Token',
-                'node_text_summary' => 'Build mode: Text summary',
-                'node_discussion_participants' => 'Build mode: Discussion participants',
-              ),
-            ),
-          ),
-          'field_translation_context' => array(
-            'field_name' => 'field_translation_context',
-            'type_name' => 'term',
-            'display_settings' => array(
-              'label' => array(
-                'format' => 'hidden',
-              ),
-              'format' => 'default',
-              'css-class' => array(),
-              'region' => 'disabled',
-              'ds_weight' => '-99',
-              'full' => array(
-                'label' => array(
-                  'format' => 'hidden',
-                ),
-                'format' => 'default',
-                'css-class' => '',
-                'region' => 'middle',
-                'type' => 'content_taxonomy',
-                'parent_id' => 'group_translations',
-                'field_id' => 'field_translation_context',
-                'label_value' => '',
-                'exclude' => 0,
-                'weight' => '-99',
-              ),
-              'weight' => '13',
-              'parent' => 'group_translations',
-              'teaser' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'sticky' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              4 => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'text_summary' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'discussion_participants' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-              'token' => array(
-                'format' => 'default',
-                'exclude' => 0,
-              ),
-            ),
-            'widget_active' => '1',
-            'type' => 'content_taxonomy',
-            'required' => '0',
-            'multiple' => '1',
-            'db_storage' => '0',
-            'module' => 'content_taxonomy',
-            'active' => '1',
-            'locked' => '0',
-            'columns' => array(
-              'value' => array(
-                'type' => 'int',
-                'not null' => FALSE,
-                'sortable' => FALSE,
-              ),
-            ),
-            'save_term_node' => 0,
-            'vid' => '1',
-            'parent' => '0',
-            'parent_php_code' => '',
-            'depth' => '',
-            'widget' => array(
-              'group_parent' => '0',
-              'show_depth' => 1,
-              'default_value' => array(
-                0 => array(
-                  'value' => '',
-                ),
-              ),
-              'default_value_php' => NULL,
-              'label' => 'Context',
-              'weight' => '13',
-              'description' => '',
-              'type' => 'content_taxonomy_select',
-              'module' => 'content_taxonomy_options',
-            ),
-            'storage' => TRUE,
-            'title' => 'Context',
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'default' => 'As Text',
-                'link' => 'As Link',
-              ),
-            ),
-          ),
-          'group_translations' => array(
-            'title' => 'Translations',
-            'type' => 7,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'ds_field' => 'A simple div',
-                'ds_group_fieldset_open' => 'Fieldset open',
-                'ds_group_fieldset_collapsible' => 'Fieldset collapsible',
-                'ds_group_fieldset_collapsed' => 'Fieldset collapsed',
-              ),
-            ),
-          ),
-          'title' => array(
-            'title' => 'العنوان',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_title_h1_nolink' => 'H1 title',
-                'nd_title_h1_link' => 'H1 title, linked to node',
-                'nd_title_h2_nolink' => 'H2 title',
-                'nd_title_h2_link' => 'H2 title, linked to node',
-                'nd_title_h2_block_nolink' => 'H2 block title',
-                'nd_title_h2_block_link' => 'H2 block title, linked to node',
-                'nd_title_p_nolink' => 'Paragraph title',
-                'nd_title_p_link' => 'Paragraph title, linked to node',
-              ),
-            ),
-          ),
-          'author' => array(
-            'title' => 'المؤلف',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'ds_author_nolink' => 'المؤلف',
-                'ds_author_link' => 'Author linked to profile',
-              ),
-            ),
-          ),
-          'links' => array(
-            'title' => 'Links',
-            'type' => 3,
-            'status' => 1,
-          ),
-          'read_more' => array(
-            'title' => 'اقرأ المزيد',
-            'type' => 5,
-            'status' => 2,
-            'properties' => array(
-              'formatters' => array(
-                'ds_eval_code' => 'مبدئي',
-              ),
-              'code' => '<?php echo l(t("Read more"), "node/$object->nid"); ?>',
-            ),
-          ),
-          'post_date' => array(
-            'title' => 'Post date',
-            'type' => 1,
-            'status' => 1,
-            'properties' => array(
-              'formatters' => array(
-                'nd_post_date_long' => 'Long',
-                'nd_post_date_medium' => 'متوسط',
-                'nd_post_date_short' => 'Short',
-              ),
-            ),
-          ),
-          'glossary_references' => array(
-            'title' => 'Glossary references',
-            'type' => 5,
-            'status' => 3,
-            'properties' => array(
-              'formatters' => array(
-                'ds_eval_code' => 'Default',
-              ),
-              'code' => '<?php
-$view = views_get_view(\'glossary_references\');
-$view->set_arguments(array(\'discussion\', $object->title));
-$view->execute();
-print \'<h2>\' . $view->get_title() . \'</h2>\';
-print $view->render();
-$view->destroy();
-
-$view = views_get_view(\'glossary_references\');
-$view->set_arguments(array(\'text\', $object->title));
-$view->execute();
-print \'<h2>\' . $view->get_title() . \'</h2>\';
-print $view->render();
-$view->destroy();
-?>',
-              'token' => 0,
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
-
-  $export['ds_fields_cached'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'i18n_hide_translation_links';
   $strongarm->value = 0;
 
@@ -4586,6 +2081,345 @@ $view->destroy();
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_code';
+  $strongarm->value = 'all';
+
+  $export['node_export_code'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_file_list';
+  $strongarm->value = '10';
+
+  $export['node_export_file_list'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_filename';
+  $strongarm->value = 'node-export[nid-list]([node-count]-nodes).[timestamp].export';
+
+  $export['node_export_filename'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_format';
+  $strongarm->value = array(
+    'node_code' => 'node_code',
+  );
+
+  $export['node_export_format'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_omitted';
+  $strongarm->value = array(
+    'annotation' => 0,
+    'comment' => 0,
+    'discussion' => 0,
+    'page' => 0,
+    'profile' => 0,
+    'term' => 0,
+    'text' => 0,
+  );
+
+  $export['node_export_omitted'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_annotation';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_annotation'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_book_mlid_annotation';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_book_mlid_annotation'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_book_mlid_comment';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_book_mlid_comment'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_book_mlid_discussion';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_book_mlid_discussion'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_book_mlid_page';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_book_mlid_page'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_book_mlid_profile';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_book_mlid_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_book_mlid_term';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_book_mlid_term'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_book_mlid_text';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_book_mlid_text'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_changed_annotation';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_changed_annotation'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_changed_comment';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_changed_comment'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_changed_discussion';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_changed_discussion'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_changed_page';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_changed_page'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_changed_profile';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_changed_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_changed_term';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_changed_term'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_changed_text';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_changed_text'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_comment';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_comment'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_created_annotation';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_created_annotation'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_created_comment';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_created_comment'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_created_discussion';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_created_discussion'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_created_page';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_created_page'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_created_profile';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_created_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_created_term';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_created_term'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_created_text';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_created_text'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_discussion';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_discussion'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_menu_annotation';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_menu_annotation'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_menu_comment';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_menu_comment'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_menu_discussion';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_menu_discussion'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_menu_page';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_menu_page'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_menu_profile';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_menu_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_menu_term';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_menu_term'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_menu_text';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_menu_text'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_page';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_page'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_path_annotation';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_path_annotation'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_path_comment';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_path_comment'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_path_discussion';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_path_discussion'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_path_page';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_path_page'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_path_profile';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_path_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_path_term';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_path_term'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_path_text';
+  $strongarm->value = 1;
+
+  $export['node_export_reset_path_text'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_profile';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_term';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_term'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_export_reset_text';
+  $strongarm->value = 0;
+
+  $export['node_export_reset_text'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'node_options_annotation';
   $strongarm->value = array(
     0 => 'status',
@@ -4938,27 +2772,6 @@ $view->destroy();
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_guidelines';
-  $strongarm->value = '';
-
-  $export['user_picture_guidelines'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_pictures';
-  $strongarm->value = '1';
-
-  $export['user_pictures'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_path';
-  $strongarm->value = 'pictures';
-
-  $export['user_picture_path'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'user_picture_default';
   $strongarm->value = 'sites/all/themes/nurani/images/default.png';
 
@@ -4980,24 +2793,10 @@ $view->destroy();
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_imagecache_profiles_min_width';
+  $strongarm->name = 'user_picture_guidelines';
   $strongarm->value = '';
 
-  $export['user_picture_imagecache_profiles_min_width'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_imagecache_profiles_min_height';
-  $strongarm->value = '';
-
-  $export['user_picture_imagecache_profiles_min_height'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_imagecache_profiles';
-  $strongarm->value = 'thumbnail';
-
-  $export['user_picture_imagecache_profiles'] = $strongarm;
+  $export['user_picture_guidelines'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -5008,10 +2807,45 @@ $view->destroy();
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_imagecache_profiles';
+  $strongarm->value = 'thumbnail';
+
+  $export['user_picture_imagecache_profiles'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'user_picture_imagecache_profiles_default';
   $strongarm->value = 'thumbnail';
 
   $export['user_picture_imagecache_profiles_default'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_imagecache_profiles_min_height';
+  $strongarm->value = '';
+
+  $export['user_picture_imagecache_profiles_min_height'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_imagecache_profiles_min_width';
+  $strongarm->value = '';
+
+  $export['user_picture_imagecache_profiles_min_width'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_path';
+  $strongarm->value = 'pictures';
+
+  $export['user_picture_path'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_pictures';
+  $strongarm->value = '1';
+
+  $export['user_pictures'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
