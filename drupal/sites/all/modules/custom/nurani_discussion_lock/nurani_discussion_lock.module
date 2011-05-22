@@ -1,0 +1,57 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ */
+
+function nurani_discussion_lock_init() {
+  
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function nurani_discussion_lock_theme($existing, $type, $theme, $path) {
+
+  $hooks = array();
+  
+  $hooks['nurani_discussion_lock_formatter_countdown'] = array(
+    'arguments' => array('element' => NULL)
+  );
+  return $hooks;
+}
+
+/**
+ * Implementation of hook_field_formatter_info().
+ */
+function nurani_discussion_lock_field_formatter_info() {
+
+  return array(
+    'countdown' => array(
+      'label' => t('Countdown'),
+      'field types' => array('date', 'datestamp', 'datetime'),
+      'multiple values' => CONTENT_HANDLE_CORE
+    )
+  );
+}
+
+
+function theme_nurani_discussion_lock_formatter_countdown($element) {
+  
+  
+  $timestamp = strtotime($element['#item']['value']);
+  if (time() > $timestamp) {
+    return t('This discussion is closed.');
+  } else {
+    return t('<strong>@time</strong> before close of discussion.', array('@time' => format_interval($timestamp - time(), 1)));
+  }
+  
+}
+
+/**
+ * Implementation of hook_cron().
+ */
+function nurani_discussion_lock_cron() {
+
+}
