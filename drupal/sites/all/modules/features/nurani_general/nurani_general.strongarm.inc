@@ -581,14 +581,14 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = array(
     'title' => '-5',
     'body_field' => '-3',
-    'revision_information' => '3',
-    'author' => '4',
-    'options' => '5',
-    'comment_settings' => '7',
-    'language' => '2',
-    'translation' => '8',
+    'revision_information' => '4',
+    'author' => '5',
+    'options' => '6',
+    'comment_settings' => '8',
+    'language' => '3',
+    'translation' => '9',
     'menu' => '-4',
-    'path' => '6',
+    'path' => '7',
   );
 
   $export['content_extra_weights_discussion'] = $strongarm;
@@ -1402,7 +1402,7 @@ The Service Providers may use session cookies when you visit our website while y
       'fields' => array(
         'field_texts' => array(
           'region' => 'disabled',
-          'weight' => '-91',
+          'weight' => '-90',
           'format' => 'default',
           'css-class' => '',
           'labelformat' => 'hidden',
@@ -1428,9 +1428,16 @@ The Service Providers may use session cookies when you visit our website while y
           'css-class' => '',
           'labelformat' => 'above',
         ),
+        'field_exp_comments' => array(
+          'region' => 'middle',
+          'weight' => '-96',
+          'format' => 'countdown',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
         'title' => array(
           'region' => 'disabled',
-          'weight' => '-92',
+          'weight' => '-91',
           'format' => 'nd_title_h1_nolink',
           'css-class' => '',
           'labelformat' => 'hidden',
@@ -1445,28 +1452,28 @@ The Service Providers may use session cookies when you visit our website while y
         ),
         'links' => array(
           'region' => 'disabled',
-          'weight' => '-96',
+          'weight' => '-95',
           'format' => '',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'read_more' => array(
           'region' => 'disabled',
-          'weight' => '-95',
+          'weight' => '-94',
           'format' => 'ds_eval_code',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'post_date' => array(
           'region' => 'disabled',
-          'weight' => '-94',
+          'weight' => '-93',
           'format' => 'nd_post_date_long',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'body' => array(
           'region' => 'disabled',
-          'weight' => '-93',
+          'weight' => '-92',
           'format' => 'nd_bodyfield',
           'css-class' => '',
           'labelformat' => 'hidden',

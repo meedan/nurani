@@ -6,6 +6,105 @@
 function nurani_general_content_default_fields() {
   $fields = array();
 
+  // Exported field: field_exp_comments
+  $fields['discussion-field_exp_comments'] = array(
+    'field_name' => 'field_exp_comments',
+    'type_name' => 'discussion',
+    'display_settings' => array(
+      'label' => array(
+        'format' => 'hidden',
+      ),
+      'format' => 'default',
+      'css-class' => array(),
+      'region' => 'disabled',
+      'ds_weight' => '-96',
+      'discussion_participants' => array(
+        'label' => array(
+          'format' => 'hidden',
+        ),
+        'format' => 'countdown',
+        'css-class' => '',
+        'region' => 'middle',
+        'type' => 'datestamp',
+        'parent_id' => '',
+        'field_id' => 'field_exp_comments',
+        'label_value' => '',
+        'exclude' => 0,
+        'weight' => '-96',
+      ),
+      'weight' => '2',
+      'parent' => '',
+      'teaser' => array(
+        'format' => 'countdown',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'countdown',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'sticky' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'text_summary' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'datestamp',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'date',
+    'active' => '1',
+    'granularity' => array(
+      'year' => 'year',
+      'month' => 'month',
+      'day' => 'day',
+      'hour' => 'hour',
+      'minute' => 'minute',
+    ),
+    'timezone_db' => 'UTC',
+    'tz_handling' => 'site',
+    'todate' => '',
+    'repeat' => 0,
+    'repeat_collapsed' => '',
+    'default_format' => 'medium',
+    'widget' => array(
+      'default_value' => 'blank',
+      'default_value_code' => '',
+      'default_value2' => 'same',
+      'default_value_code2' => '',
+      'input_format' => 'm/d/Y - H:i:s',
+      'input_format_custom' => '',
+      'increment' => '1',
+      'text_parts' => array(),
+      'year_range' => '-3:+3',
+      'label_position' => 'above',
+      'label' => 'Expire Comments',
+      'weight' => '2',
+      'description' => '',
+      'type' => 'date_select',
+      'module' => 'date',
+    ),
+  );
+
   // Exported field: field_moderators
   $fields['discussion-field_moderators'] = array(
     'field_name' => 'field_moderators',
@@ -1428,6 +1527,7 @@ adjective|Adjective',
   t('Country');
   t('Education');
   t('Experience');
+  t('Expire Comments');
   t('Fluency in Arabic');
   t('Fluency in English');
   t('Part of Speech');

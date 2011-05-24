@@ -6,7 +6,14 @@
  */
 
 function nurani_discussion_lock_init() {
-  
+
+}
+
+function nurani_discussion_lock_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+
+  if ($op == 'view' && $node->type == 'discussion') {
+    //krumo($node);
+  }
 }
 
 /**
@@ -30,7 +37,7 @@ function nurani_discussion_lock_field_formatter_info() {
   return array(
     'countdown' => array(
       'label' => t('Countdown'),
-      'field types' => array('date', 'datestamp', 'datetime'),
+      'field types' => array('datestamp'),
       'multiple values' => CONTENT_HANDLE_CORE
     )
   );
@@ -40,11 +47,14 @@ function nurani_discussion_lock_field_formatter_info() {
 function theme_nurani_discussion_lock_formatter_countdown($element) {
   
   
-  $timestamp = strtotime($element['#item']['value']);
-  if (time() > $timestamp) {
+  $timestamp = $element['#item']['value'];
+  
+  $now = time();
+  //return date('Y-M-d h:i A') . '<br />' . date('Y-M-d h:i A', $timestamp);
+  if ($now > $timestamp) {
     return t('This discussion is closed.');
   } else {
-    return t('<strong>@time</strong> before close of discussion.', array('@time' => format_interval($timestamp - time(), 1)));
+    return t('<strong>@time</strong> before close of discussion.', array('@time' => format_interval($timestamp - $now, 1)));
   }
   
 }
@@ -53,5 +63,18 @@ function theme_nurani_discussion_lock_formatter_countdown($element) {
  * Implementation of hook_cron().
  */
 function nurani_discussion_lock_cron() {
-
+  
+  $current_stamp = time();
+  $node_limit = 200;
+  
+  $result = db_query_range("SELECT nid FROM {content_type_discussion} WHERE field_exp_comments_value < %d", $current_stamp, 0, $node_limit);
+  
+  while ($record = db_fetch_object($result)) {
+    
+    $node = node_load($record->nid);
+    $node->node_comment = 1; // Read-only.
+    node_save($node);
+  }
+  
+  
 }

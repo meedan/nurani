@@ -3,6 +3,5 @@ name = Nurani Discussion Lock
 description = Lock comments after specific time.
 dependencies[] = content
 dependencies[] = date
-dependencies[] = jquery_countdown
 package = Nurani
 core = 6.x
