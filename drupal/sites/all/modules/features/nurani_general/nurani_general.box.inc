@@ -92,11 +92,11 @@ return $vars[\'object\'];
   $box->options = array(
     'body' => '<div class="toggle">
       <a href="#">
-        <img typeof="foaf:Image" src="<?php print url(path_to_theme() . \'/images/icons/brown_dark/x_alt_16x16.png\'); ?>" /> 
+        <img typeof="foaf:Image" src="<?php print base_path() . path_to_theme() . \'/images/icons/brown_dark/x_alt_16x16.png\'; ?>" /> 
       </a>
       </div>
       
-<img class="d_ford" src="<?php print url(path_to_theme() . \'/images/d_ford.jpg\'); ?>" />
+<img class="d_ford" src="<?php print base_path() . path_to_theme() . \'/images/d_ford.jpg\'; ?>" />
 
 <?php 
 print t("I am delighted to welcome you to Nurani - a platform for dialogue between Muslims and Christians in two languages - Arabic and English.  One of the greatest blessings we have been given is our scriptures, so it is not surprising that one of the main ways we are able to bless each other is by sharing them. I have not found anything else that serves so well to sustain ongoing, faith-centred engagement among the Abrahamic traditions. I hope you find the experience of sharing and studying your scriptures with people of other faiths a rich and rewarding experience. <br /><br />With warmest regards, <br />David Ford, Regius Professor of Divinity at the University of Cambridge");
