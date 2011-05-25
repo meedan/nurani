@@ -366,3 +366,8 @@ body.node-type-discussion #container #sidebar-second {
 body.node-type-discussion #container #comments {
   text-align: left;
 }
+
+/* line 201, ../scss/discussion.scss */
+body.section-node-edit div#container {
+  text-align: left;
+}
