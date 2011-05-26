@@ -41,9 +41,13 @@ function theme_nurani_discussion_lock_formatter_countdown($element) {
   
   $now = time();
   
-  if ($now > $timestamp) {
+  if (empty($timestamp)) {
+    return t('This discussion is not time-limited.');
+  }
+  else if ($now > $timestamp) {
     return t('This discussion is closed.');
-  } else {
+  } 
+  else {
     return t('<strong>@time</strong> before close of discussion.', array('@time' => format_interval($timestamp - $now, 1)));
   }
   
