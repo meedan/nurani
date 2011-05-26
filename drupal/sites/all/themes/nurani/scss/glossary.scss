@@ -73,8 +73,23 @@ select#edit-language {
   }
 }
 
-.node-type-term ul.menu li.glossary {
+.node-type-term  {
+	ul.menu li.glossary {
 	  background: url("../images/bkg_active_nav.png") repeat -5px bottom;
+	}
+	.field-group-translations,
+	.field-glossary-references,
+	.field-part-of-speech {
+		margin: 0 0 40px;
+	}
+	.field-glossary-references {
+		.view-glossary-references {
+		margin: 0 50px 30px;
+		}
+	}
+	.box .admin {
+		clear: both;
+	}
 }
 .node-type-term ul.menu li.glossary a,
 .page-glossary ul.menu li.glossary a {

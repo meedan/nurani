@@ -65,43 +65,42 @@ div#main div.links {
 /* line 72, ../scss/layout.scss */
 /* line 57, ../scss/layout.scss */
 #content {
-  width: 593.28px;
   margin: 0 auto;
 }
 
 /* line 76, ../scss/layout.scss */
-/* line 63, ../scss/layout.scss */
+/* line 62, ../scss/layout.scss */
 .sidebar-first #content {
   float: right;
   width: 593.28px;
 }
 
-/* line 68, ../scss/layout.scss */
+/* line 67, ../scss/layout.scss */
 .sidebar-right #content {
   float: left;
   width: 593.28px;
 }
 
-/* line 73, ../scss/layout.scss */
+/* line 72, ../scss/layout.scss */
 .sidebar {
   float: left;
   width: 366.72px;
 }
 
-/* line 78, ../scss/layout.scss */
+/* line 77, ../scss/layout.scss */
 #sidebar-second {
   float: right;
   width: 366.72px;
 }
 
-/* line 83, ../scss/layout.scss */
+/* line 82, ../scss/layout.scss */
 #footer {
   float: none;
   clear: both;
 }
 
 /* Layout Helpers */
-/* line 89, ../scss/layout.scss */
+/* line 88, ../scss/layout.scss */
 #header, #footer, .mission, .breadcrumb, .node {
   clear: both;
 }
@@ -114,23 +113,23 @@ div#main div.links {
  * For example, if I want to increase the width of the left sidebar
  * to 300px, I would have to change each '190' to '300'. */
 /* line 119, ../scss/layout.scss */
-/* line 101, ../scss/layout.scss */
+/* line 100, ../scss/layout.scss */
 .two-sidebars .center, .sidebar-first .center {
   margin-left: 190px;
 }
 
-/* line 105, ../scss/layout.scss */
+/* line 104, ../scss/layout.scss */
 #sidebar-first {
   width: 190px;
   margin-right: -190px;
 }
 
-/* line 110, ../scss/layout.scss */
+/* line 109, ../scss/layout.scss */
 .two-sidebars .center, .sidebar-right .center {
   margin-right: 200px;
 }
 
-/* line 114, ../scss/layout.scss */
+/* line 113, ../scss/layout.scss */
 .sidebar-right .center {
   margin-right: 0;
 }
@@ -140,17 +139,17 @@ div#main div.links {
  * You can change the padding inside the columns without changing the
  * width of them by just usinbg the INNER div of each column */
 /* line 141, ../scss/layout.scss */
-/* line 123, ../scss/layout.scss */
+/* line 122, ../scss/layout.scss */
 .inner {
   padding: 20px;
 }
 
-/* line 127, ../scss/layout.scss */
+/* line 126, ../scss/layout.scss */
 body.page-mockup .inner {
   padding: 0;
 }
 
-/* line 131, ../scss/layout.scss */
+/* line 130, ../scss/layout.scss */
 #sidebar-second .inner {
   padding: 0;
 }

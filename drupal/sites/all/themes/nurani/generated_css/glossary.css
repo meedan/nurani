@@ -7,54 +7,42 @@
 /* line 2, ../scss/_tables.scss */
 body.page-glossary .views-table {
   font-size: 12px;
-  background: #fff;
   border-collapse: collapse;
   text-align: left;
   width: 920px;
   margin: 0;
 }
-/* line 10, ../scss/_tables.scss */
+/* line 9, ../scss/_tables.scss */
 body.page-glossary .views-table thead {
-  -moz-box-shadow: #c3c3c3 1px 1px 3px 1px inset;
-  -webkit-box-shadow: #c3c3c3 1px 1px 3px 1px inset;
-  -o-box-shadow: #c3c3c3 1px 1px 3px 1px inset;
-  box-shadow: #c3c3c3 1px 1px 3px 1px inset;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #d8d8d8), color-stop(100%, #f2f2f2));
-  background-image: -moz-linear-gradient(top, #d8d8d8 0%, #f2f2f2 100%);
-  background-image: linear-gradient(top, #d8d8d8 0%, #f2f2f2 100%);
   padding: 15px 0;
-  height: 60px;
-  color: #fff;
-  border-top: 1px solid black;
-  font-size: 1.6em;
-  color: #7c0000;
+  height: 30px;
+  font-size: 1.4em;
 }
-/* line 21, ../scss/_tables.scss */
+/* line 15, ../scss/_tables.scss */
 body.page-glossary .views-table th, body.page-glossary .views-table th a {
   font-weight: normal;
-  color: #7c0000;
-  padding: 10px 8px;
+  padding: 5px 8px;
   text-decoration: none;
 }
-/* line 28, ../scss/_tables.scss */
+/* line 21, ../scss/_tables.scss */
 body.page-glossary .views-table td {
   color: #333;
   padding: 9px 8px 0px 8px;
 }
-/* line 33, ../scss/_tables.scss */
+/* line 26, ../scss/_tables.scss */
 body.page-glossary .views-table td.views-field-title {
   background: #eee;
   width: 130px;
 }
-/* line 37, ../scss/_tables.scss */
+/* line 30, ../scss/_tables.scss */
 body.page-glossary .views-table td.views-field-field-part-of-speech-value {
   width: 120px;
 }
-/* line 40, ../scss/_tables.scss */
+/* line 33, ../scss/_tables.scss */
 body.page-glossary .views-table tbody tr:hover td {
   background-color: white;
 }
-/* line 42, ../scss/_tables.scss */
+/* line 35, ../scss/_tables.scss */
 body.page-glossary .view-glossary-terms .views-table {
   width: 510px;
 }
@@ -126,12 +114,26 @@ body.page-glossary .view-content {
   text-align: justify;
 }
 
-/* line 76, ../scss/glossary.scss */
+/* line 77, ../scss/glossary.scss */
 .node-type-term ul.menu li.glossary {
   background: url("../images/bkg_active_nav.png") repeat -5px bottom;
 }
+/* line 82, ../scss/glossary.scss */
+.node-type-term .field-group-translations,
+.node-type-term .field-glossary-references,
+.node-type-term .field-part-of-speech {
+  margin: 0 0 40px;
+}
+/* line 86, ../scss/glossary.scss */
+.node-type-term .field-glossary-references .view-glossary-references {
+  margin: 0 50px 30px;
+}
+/* line 90, ../scss/glossary.scss */
+.node-type-term .box .admin {
+  clear: both;
+}
 
-/* line 80, ../scss/glossary.scss */
+/* line 95, ../scss/glossary.scss */
 .node-type-term ul.menu li.glossary a,
 .page-glossary ul.menu li.glossary a {
   background: url("../images/g.png") no-repeat 10px 20px;

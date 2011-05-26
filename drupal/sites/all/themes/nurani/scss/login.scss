@@ -1,7 +1,9 @@
 @import "compass/css3";
 
 body.page-user.not-logged-in {
-  background-image:none;
+  background-image: url(../images/login-header.png); 
+  background-position: center top;
+  background-repeat: no-repeat;
   #content-wrapper, form { 
     padding: 0;
   }
@@ -25,15 +27,16 @@ body.page-user.not-logged-in {
   }
   
   label, input {
-    font-size: 1.8em;
+    font-size: 1em;
     width: 100%;
+    font-weight: normal;
     text-shadow: 0px 1px 0px #fff;
     color: #555;
   }
   
   input.form-submit {
-    width: 200px;
-    margin: 0 auto;
+    width: 70px;
+    margin: 0 0 20px;
     display:block;
   }
   
