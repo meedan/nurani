@@ -1063,7 +1063,6 @@ The Service Providers may use session cookies when you visit our website while y
     'discussion' => array(
       'title' => 'title',
       'body' => 'body',
-      'field_texts' => 'field_texts',
     ),
     'page' => array(
       'title' => 'title',
@@ -1109,6 +1108,7 @@ The Service Providers may use session cookies when you visit our website while y
     18 => -1,
     20 => -1,
     22 => -1,
+    5 => -1,
   );
 
   $export['icl_content_skip_per_node'] = $strongarm;
