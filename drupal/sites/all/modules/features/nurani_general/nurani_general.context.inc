@@ -211,6 +211,18 @@ function nurani_general_context_default_contexts() {
           'region' => 'right',
           'weight' => 0,
         ),
+        'views-new_glossary_terms-block_1' => array(
+          'module' => 'views',
+          'delta' => 'new_glossary_terms-block_1',
+          'region' => 'right',
+          'weight' => 1,
+        ),
+        'views-new_texts-block_1' => array(
+          'module' => 'views',
+          'delta' => 'new_texts-block_1',
+          'region' => 'right',
+          'weight' => 2,
+        ),
       ),
     ),
   );
