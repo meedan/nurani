@@ -1,4 +1,3 @@
-/* $Id: style.css,v 1.38.2.4 2009/09/14 13:10:47 goba Exp $ */
 
 /**
  * Garland, for Drupal 6.x
@@ -1078,11 +1077,3 @@ table.system-status-report tr.ok, table.system-status-report tr.ok th {
   background-color: #dfd;
   border-color: #beb;
 }
-
-/**
- * Quick hack.
- */ 
-.ar {
-  direction: rtl;
-}
-
