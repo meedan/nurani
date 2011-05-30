@@ -40,11 +40,13 @@ div.node-discussion  { @include discussion_header; }
 div.profile { @include profile; }
 
 @import "navigation.scss";
-#navigation  { @include nav; }
-#navigation ul#primary   { @include primarynav;}
-#navigation ul#secondary { @include secondarynav;}
+#block-menu-primary-links  { @include nav; }
+#block-menu-primary-links ul.menu  { @include primarynav;}
 div.content  { @include languageswitcher;}
 
+#block-menu-primary-links h3 { 
+	display: none
+ }
 
 div.node { padding-bottom: 20px;  }
 
@@ -81,7 +83,7 @@ div.node { padding-bottom: 20px;  }
 
   span.submitted {
     text-transform: capitalize;
-    width: 150px;
+    width: 100px;
     display:block;
     padding: 20px 0 0;
     font-size: 13px;
@@ -94,11 +96,11 @@ div.node { padding-bottom: 20px;  }
   }
   .comment-content-wrapper {
     border: 1px solid #D3D7D9;
-    margin-left: 150px;
-    padding: 10px 25px;
+    margin-left: 100px;
+    padding: 10px 20px 0;
   }
   .subject {
-    margin-bottom: 5px; 
+    margin-bottom: 15px; 
   }
 }
 span.username {
@@ -180,16 +182,13 @@ body.discussion #content {
 /*  =Comments
   ------------------------------------------------------ */
 #comments {
-  border-top: 1px solid #D3D7D9;
-
-  .comment-inner {
+	.comment-inner {
     margin:20px 0;
     span.submitted{
       text-align:left;
     }
   }
 }
-
 .comment-inner {
   .attribution {
     float: left;
@@ -311,8 +310,8 @@ div#walkthrough {display:none;}
 }
 .sidebar-right {
   #content-inner {
-    background-color: #f8f8f8;
     @include clearfix;
+    background: $barelythere;
   }
 }
 
@@ -357,9 +356,6 @@ body, #header, #footer {
 
 #sidebar-second {
   background: $sidebar-bkg; }
-
-#main {
-  background: $content-bkg; }
 
 div.node {
   border-color: $body-bkg; }

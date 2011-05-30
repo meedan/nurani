@@ -1,0 +1,14 @@
+name = ND Webform
+description = Webform support for Node Displays
+core = "6.x"
+dependencies[] = nd
+dependencies[] = webform
+package = "Display suite"
+
+
+; Information added by drupal.org packaging script on 2011-05-12
+version = "6.x-2.x-dev"
+core = "6.x"
+project = "nd_contrib"
+datestamp = "1305160162"
+

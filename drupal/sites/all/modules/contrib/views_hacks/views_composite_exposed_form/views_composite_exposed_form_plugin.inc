@@ -91,9 +91,9 @@ class views_composite_exposed_form_plugin extends views_plugin_exposed_form {
     }
   }
 
-  function pre_render() {
+  function pre_render($values) {
     foreach ($this->plugins as $name => $plugin) {
-      $plugin->pre_render();
+      $plugin->pre_render($values);
     }
   }
 

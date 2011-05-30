@@ -5,14 +5,14 @@
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
-  src: url('/sites/all/themes/bidinurani/fonts/UthmanTN1v9.otf');
+  src: url('/sites/all/themes/nurani/fonts/UthmanTN1v9.otf');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'UthmanTNBold';
-  src: url('/sites/all/themes/bidinurani/fonts/UthmanTN1Bv9.otf');
+  src: url('/sites/all/themes/nurani/fonts/UthmanTN1Bv9.otf');
   font-weight: normal;
   font-style: normal;
 }
@@ -48,7 +48,7 @@ body.ar {
 }
 
 @mixin display {
-  font-family: "trajan-pro-1","trajan-pro-2", "Baskerville", serif;
+  font-family: serif;
 }
 @mixin en-serif-italic {
   font-family: "garamond-premier-pro-display-1","garamond-premier-pro-display-2", Times, serif;
@@ -76,13 +76,13 @@ h1, h2, h3, h4, h5, h6 {
   }
 
 h1 {
-  font-size: 2.2em;
-  font-weight: 300;
+  font-size: 1.8em;
   padding: 10px;
   text-align:center;
   margin-top: 10px; 
   margin-bottom: 20px; 
-  text-transform: uppercase;
+	color: $maroon;
+	font-style: italic;
   }
 
 h2 {

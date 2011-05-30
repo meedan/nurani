@@ -3,10 +3,33 @@
 @import "_buttons.scss";
 
 $text_width: 218px;
-$text_height: 300px;
+$text_height: 258px;
 
 body.node-type-discussion {
-  ul#primary {
+  .field-exp-comments {
+		border: 1px solid #b0a9a4;
+		background: #d6cbc0 url(../images/clock.png) no-repeat 20px 25px;
+		padding: 20px 65px;
+		
+		strong {
+			color: $white;
+			display: block;
+			text-transform: uppercase;
+		}
+	}	
+	a#popText {
+		display: block;
+		background: url("../images/poptext.png") no-repeat left center;
+		color: $white;
+		padding: 8px 10px 8px 25px;
+		font-weight: normal;
+	}
+
+	a#popText:hover {
+		background: url("../images/poptext-hover.png") no-repeat left center;
+	}
+
+  ul.menu {
     li.first {
       background: url("../images/bkg_active_nav.png") -5px bottom transparent;
       a {
@@ -14,19 +37,34 @@ body.node-type-discussion {
       } 
     }
   }
-
  
   div.view-header {
     display:none;
   }
+
   div#slash {
-    width: 600px;
     margin: 30px 30px 0;
   }
 
   p {}
   div#block-views-discussion_texts-block_1 {
-    width: 960px;
+		background: url("../images/borders.png") no-repeat center 7px;
+    width: 900px;
+		text-align: center;
+
+			h3.block-title {
+				background: $white;
+				padding: 0 20px;
+				display: inline;
+				font-size: 0.9em;
+				text-transform: uppercase;
+			}
+
+			.content {
+				text-align: left;
+				margin: 20px 0;
+				height: 280px;
+			}
   }
   
   h1.title {
@@ -36,7 +74,8 @@ body.node-type-discussion {
   }
 
   /* views-row is not a row, actually, just a div ... */
-  div.views-row {
+ 
+    div.views-row {
     margin: 10px 5px;
     float: left;
     width: $text_width;
@@ -46,7 +85,7 @@ body.node-type-discussion {
       border: 1px solid #ddd;
       color: #868080;
       float: left;
-      padding: 0 10px 20px;
+      padding: 0 10px;
       position: relative;
       min-height: $text_height;
       line-height: 1em;
@@ -77,45 +116,93 @@ body.node-type-discussion {
   }
   #boxes-box-discussion_info {
     .field-label {
-      border-bottom: 1px dashed #ccc; 
+      border-bottom: 1px solid #ccc; 
       margin: 20px 0 10px;
+   	 	color: $maroon;
+    	font-family: Helvetica,arial,sans-serif;
+    	font-size: 0.8em;
+			font-weight: normal;
+    	padding-bottom: 3px;
+    	text-transform: uppercase;
     }
   }
 
-  ul.links li {
-    padding: 0;
-  }
-  li.node_translation_ar a {
-    @include soft_button(#fff);
-    padding-left: 25px;
-    text-decoration:none;
-    margin: 0 2px 10px;
-    width: 40px;
-  }
-  li.comment_edit a {
-    @include soft_button(#fff);
-    background: url("../images/icons/brown_dark/pen_alt_fill_16x16.png") no-repeat 5px center;
-    padding-left: 25px;
-    text-decoration:none;
-    margin: 0 2px 10px;
-    width: 40px;
-  }
-  li.comment_delete a {
-    @include soft_button;
-    background: url("../images/icons/brown_dark/x_alt_16x16.png") no-repeat 5px center;
-    padding-left: 25px;
-    text-decoration:none;
-    margin: 0 2px 10px;
-    width: 40px;
-  }
-  
-  li.comment_reply a {
-    @include soft_button;
-    background: url("../images/icons/brown_dark/chat_16x16.png") no-repeat 5px center;
-    padding-left: 25px;
-    text-decoration:none;
-    margin: 0 2px 10px;
-    width: 40px;
-  }
+  #container {
+		background: url("../images/borders.png") no-repeat center top;
+		text-align: center;
+		position: relative;
+		padding: 8px 0 0;		
+		
+		#main {
+			position: static;
+		}
+ 	  
+		#content-inner {
+			background: transparent;
+		}
+			#content-area {
+				div.field-label {
+					position: absolute;
+					top: -4px;
+					padding: 0 20px;
+					display: inline;
+					background: $white;
+		 		  text-transform: uppercase;
+					font-size: 0.9em;
+				}	
+			p {
+				text-align: left;
+			}
+		}
+		#sidebar-second {
+			text-align: left;
+		}		
+		#comments {
+			text-align: left;
+			background: url("../images/borders.png") no-repeat center top;
+			padding: 30px 0 0;
+			position: relative;
 
+				h2#comments-title {
+					background: none repeat scroll 0 0 #FFFFFF;
+					font-size: 0.9em;
+					left: 230px;
+					padding: 0 10px;
+					position: absolute;
+					text-transform: uppercase;
+    			top: -5px;
+				}	
+				textarea {
+					box-shadow: 0 3px 0 #eee;
+				}
+			}	
+			ul.links { 
+				border: 1px solid #ccc;
+				padding: 7px 5px;
+				border-radius: 5px;
+				font-size: 1.3em;
+				background-image: -moz-linear-gradient(center top , #FFFFFF 0%, #EEEEEE 100%);
+					li {
+						padding: 0 10px;
+ 				 }
+ 		 }
+		.box {
+			background: url("../images/borders.png") no-repeat center top;
+			padding: 10px 0 0;
+			position: relative;
+	
+		h2 {
+			background: #FFFFFF;
+			font-size: 0.9em;
+			left: 190px;
+			padding: 0 10px;
+			position: absolute;
+			text-transform: uppercase;
+    	top: -5px;
+		}
+	}
+}
 }              
+body.section-node-edit div#container {
+	text-align: left;
+}

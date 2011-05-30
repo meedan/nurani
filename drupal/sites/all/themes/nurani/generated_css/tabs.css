@@ -1,7 +1,9 @@
+@charset "UTF-8";
 /* theme core colors*/
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* ================== */
 /* = "soft buttons" = */
 /* ================== */
@@ -38,10 +40,10 @@ ul.tabs li a {
 /* line 24, ../scss/tabs.scss */
 ul.tabs li a.active {
   border: 1px solid #c3c3c3;
-  -moz-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
-  -webkit-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
-  -o-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
-  box-shadow: inset 0px 1px 2px 1px #bfbfbf;
+  -moz-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
+  -webkit-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
+  -o-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
+  box-shadow: #bfbfbf 0px 1px 2px 1px inset;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -o-border-radius: 4px;

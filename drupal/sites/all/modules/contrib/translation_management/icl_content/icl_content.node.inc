@@ -35,7 +35,7 @@ function icl_content_get_nodes_for_dashboard($icl_content_dashboard_filter) {
     if (isset($icl_content_dashboard_filter['type_type']) && isset($icl_content_dashboard_filter['type_enabled'])) {
       if ($icl_content_dashboard_filter['type_enabled']) {
         $where .= " AND n.type = '%s'";
-        $query_args = $icl_content_dashboard_filter['type_type'];
+        $query_args[] = $icl_content_dashboard_filter['type_type'];
       }
     }
       

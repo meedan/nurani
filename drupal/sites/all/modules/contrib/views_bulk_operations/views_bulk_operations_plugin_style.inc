@@ -24,7 +24,8 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
     $options['display_type'] = array('default' => 0);
     $options['display_result'] = array('default' => TRUE);
     $options['merge_single_action'] = array('default' => TRUE);
-    $options['hide_select_all'] = array('default' => FALSE);
+    $options['hide_selector'] = array('default' => FALSE);
+    $options['preserve_selection'] = array('default' => TRUE);
 
     return $options; 
   }
@@ -57,11 +58,17 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
         t('Each action as a separate button'),
       ),
     );
-    $form['hide_select_all'] = array(
+    $form['hide_selector'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Hide select all checkbox'),
-      '#description' => t('Check this box to hide the "select all" checkbox and associated "select across all pages" button.'),
-      '#default_value' => $this->options['hide_select_all'],
+      '#title' => t('Hide selector dropdown'),
+      '#description' => t('Check this box to hide the selector dropdown.'),
+      '#default_value' => $this->options['hide_selector'],
+    );
+    $form['preserve_selection'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Preserve selection across pages'),
+      '#description' => t('Check this box to preserve item selection across multiple pages. Requires JavaScript.'),
+      '#default_value' => $this->options['preserve_selection'],
     );
     $form['display_result'] = array(
       '#type' => 'checkbox',
@@ -71,8 +78,8 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
     );
     $form['merge_single_action'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Merge single action\'s form with node selection view'),
-      '#description' => t('In case only one action is selected *and* this action is configurable, display its action form along with the node selection view.'),
+      '#title' => t('Merge single action\'s form with item selection view'),
+      '#description' => t('In case only one action is selected *and* this action is configurable, display its action form along with the item selection view.'),
       '#default_value' => $this->options['merge_single_action'],
     );
 
@@ -157,6 +164,42 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
   }
 
   /**
+   * Implementation of hook_views_pre_execute().
+   */
+  function pre_execute() {
+    // If preserving selection across pages, reset the pager.
+    if ($this->options['preserve_selection'] || !$this->options['hide_selector']) {
+      $this->pager = new views_bulk_operations_pager_helper($this->view);
+    }
+  }
+
+  /**
+   * Implementation of hook_views_post_execute().
+   */
+  function post_execute() {
+    // Store the results with their signature.
+    foreach ($this->view->result as $result) {
+      $this->result[md5(serialize($result))] = $result;
+    }
+    // Restore the pager to its original settings.
+    if (!empty($this->pager)) {
+      $this->pager->slice();
+    }
+    // Signal that we did this already.
+    $this->post_executed = TRUE;
+  }
+
+  /**
+   * Implementation of views_plugin::pre_render().
+   */
+  function pre_render($result) {
+    // Check that post_execute wasn't called, which is the case for earlier versions of Views 2.
+    if (empty($this->post_executed)) {
+      $this->post_execute();
+    }
+  }
+
+  /**
    * Implementation of views_plugin::render().
    */
   function render() {
@@ -207,14 +250,8 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
     if (!empty($this->options['operations'][$key]['label'])) {
       $operation['label'] = t($this->options['operations'][$key]['label']);
     }
+    $operation['options'] = $this->options['operations'][$key] + array('settings' => NULL);
     return $operation;
-  }
-
-  /**
-   * API function to get operation settings.
-   */
-  function get_operation_settings($operation) {
-    return isset($this->options['operations'][$operation['key']]['settings']) ? $this->options['operations'][$operation['key']]['settings'] : NULL;
   }
 
   /**
@@ -344,6 +381,77 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
       }
     }
     return $actions;
+  }
+}
+
+/**
+ * Helper class to deal with pager differences between Views 2 and 3.
+ */
+class views_bulk_operations_pager_helper {
+
+  function __construct($view) {
+    $this->view = $view;
+    if (version_compare(views_api_version(), '3', '<')) { // Views 2
+      $this->pager = $this->view->pager;
+      $this->view->set_items_per_page(0);
+    }
+    else { // Views 3
+      $this->pager = array(
+        'limit' => $this->view->query->limit,
+        'offset' => $this->view->query->offset,
+        'use_pager' => TRUE,
+      );
+      $this->view->query->set_limit(0);
+      $this->view->query->set_offset(0);
+    }
+  }
+
+  function slice() {
+    if (isset($this->pager) && $this->pager['use_pager']) {
+      if (version_compare(views_api_version(), '3', '<')) { // Views 2
+        $this->view->pager = $this->pager;
+        if (method_exists($this->view, 'synchronize_pager')) {
+          $this->view->synchronize_pager();
+        }
+        else {
+          $this->synchronize();
+        }
+        $offset = $this->view->pager['current_page'] * $this->view->pager['items_per_page'] + $this->view->pager['offset'];
+        $limit = $this->view->pager['items_per_page'];
+      }
+      else { // Views 3
+        $offset = $this->pager['offset'];
+        $limit = $this->pager['limit'];
+        $this->view->query->set_limit($limit);
+        $this->view->query->set_offset($offset);
+      }
+      $results = array_slice($this->view->result, $offset, $limit);
+      $this->view->result = $results;
+    }
+  }
+
+  function synchronize() {
+    if (!empty($this->view->pager['use_pager'])) {
+    // dump information about what we already know into the globals
+      global $pager_page_array, $pager_total, $pager_total_items;
+      // total rows in query
+      $pager_total_items[$this->view->pager['element']] = $this->view->total_rows;
+      // total pages
+      $pager_total[$this->view->pager['element']] = ceil($pager_total_items[$this->view->pager['element']] / $this->view->pager['items_per_page']);
+
+      // What page was requested:
+      $pager_page_array = isset($_GET['page']) ? explode(',', $_GET['page']) : array();
+
+      // If the requested page was within range. $this->pager['current_page']
+      // defaults to 0 so we don't need to set it in an out-of-range condition.
+      if (!empty($pager_page_array[$this->view->pager['element']])) {
+        $page = intval($pager_page_array[$this->view->pager['element']]);
+        if ($page > 0 && $page < $pager_total[$this->view->pager['element']]) {
+          $this->view->pager['current_page'] = $page;
+        }
+      }
+      $pager_page_array[$this->view->pager['element']] = $this->view->pager['current_page'];
+    }
   }
 }
 

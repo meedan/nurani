@@ -53,6 +53,19 @@ function views_filters_selective_form_views_exposed_form_alter_do(&$form, $form_
     else {
       $view->set_exposed_input($filter->view->exposed_input);
     }
+
+    // Fix case of exposed form in block for view with arguments.
+    if ($filter->view->display_handler->get_option('exposed_block') && !empty($filter->view->argument)) {
+      static $arguments;
+      if (!empty($filter->view->args)) {
+        // Remember the arguments because next time we're here we'll need them.
+        $arguments = $filter->view->args;
+      }
+      else if (!empty($arguments)) {
+        $view->set_arguments($arguments);
+      }
+    }
+
     $items = $view->get_items('field', $filter->view->current_display);
     foreach ($items as $item) {
       if (!empty($item['multiple']['group'])) {
@@ -75,9 +88,11 @@ function views_filters_selective_form_views_exposed_form_alter_do(&$form, $form_
     $view->execute();
 
     // Filter the results.
-    list($limit_type, $field_id) = explode(':', $settings[$filter_id]['vfs_field']);
-    if ($field_id) {
+    $filter_settings = explode(':', $settings[$filter_id]['vfs_field']);
+    $field_id = NULL;
+    if (!empty($filter_settings[1])) {
       // Filter on a field name.
+      $field_id = $filter_settings[1];
       $field_alias = $view->field[$field_id]->field_alias;
       $options = array();
       foreach ($view->result as $row) {
@@ -240,7 +255,7 @@ function views_filters_selective_form_views_ui_config_item_form_alter_do($filter
   $form['vfs_selective'] = array(
     '#type' => 'checkbox',
     '#title' => t('Limit!label values to result set', array('!label' => $show_label ? ' ' . $label : '')),
-    '#default_value' => $options['vfs_selective'],
+    '#default_value' => @$options['vfs_selective'],
     '#description' => t(
       'If checked, the only items presented to the user will be the ones present in the result set.'
     ),
@@ -248,7 +263,7 @@ function views_filters_selective_form_views_ui_config_item_form_alter_do($filter
   $form['vfs_active'] = array(
     '#type' => 'checkbox',
     '#title' => t('Further limit values to active filters'),
-    '#default_value' => $options['vfs_active'],
+    '#default_value' => @$options['vfs_active'],
     '#description' => t(
       'If checked, the items presented to the user will be further restricted according to
        the values of all active exposed filters (i.e., those with selected values).'
@@ -266,7 +281,7 @@ function views_filters_selective_form_views_ui_config_item_form_alter_do($filter
   $form['vfs_field'] = array(
     '#type' => 'select',
     '#title' => t('Limiting field'),
-    '#default_value' => $options['vfs_field'],
+    '#default_value' => @$options['vfs_field'],
     '#description' => t(
       'Leave this as Default unless a specific filter is not handled properly. In that case, you can create a field that holds the possible filter values.'
     ),
@@ -279,7 +294,7 @@ function views_filters_selective_form_views_ui_config_item_form_alter_do($filter
   $form['vfs_hide_empty'] = array(
     '#type' => 'checkbox',
     '#title' => t('Hide if empty'),
-    '#default_value' => $options['vfs_hide_empty'],
+    '#default_value' => @$options['vfs_hide_empty'],
     '#description' => t(
       'Hide the exposed filter if no values apply to the current view results.'
     ),

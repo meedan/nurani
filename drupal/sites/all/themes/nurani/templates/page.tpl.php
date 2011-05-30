@@ -15,6 +15,9 @@
 		<a href="#content"><?php print t('Skip to Content'); ?></a>
 		<a href="#navigation"><?php print t('Skip to Navigation'); ?></a>
 	</div>  
+	<div id="top-strip">
+	  <?php print $top_strip; ?>
+	</div>
 	<div class="page">
 		<div id="header">
 			<div id="logo-title">
@@ -38,12 +41,7 @@
 			</div> <!-- /logo-title -->
       <?php if ($header): ?>
       	<div id="header-region">
-					<?php if (!empty($primary_links) || !empty($secondary_links)): ?>
-        		<div id="navigation" class="menu <?php if (!empty($primary_links)) { print "with-main-menu"; } if (!empty($secondary_links)) { print " with-sub-menu"; } ?>">
-         			<?php if (!empty($primary_links)){ print theme('links', $primary_links, array('id' => 'primary', 'class' => 'links main-menu')); } ?>
-        		</div> <!-- /navigation -->
-        		<?php print $header; ?>
-        	<?php endif; ?>
+       		<?php print $header; ?>
 				</div>
      	<?php endif; ?>
 			<?php // Uncomment to add the search box.// print $search_box; ?>
@@ -60,45 +58,47 @@
         </div> <!-- /#slash -->
       <?php endif; ?>
 
-			<div id="main" class="clearfix">
-      	<div id="content">
-      		<div id="content-inner" class="inner column center">
-        		<?php if ($breadcrumb || $messages || $help || $tabs): ?>
-          		<div id="content-header">
-            		<?php print $messages; ?>
-              	<?php print $help; ?> 
-              	<?php if ($tabs): ?>
-                	<div class="tabs"><?php print $tabs; ?></div>
-              	<?php endif; ?>
-            	</div> <!-- /#content-header -->
-          	<?php endif; ?>
-          	<div id="content-area">
-            	<?php print $content; ?>
-          		<?php print $feed_icons; ?>
-          	</div> <!-- /#content-area -->
-          	<?php if ($content_bottom): ?>
-            	<div id="content-bottom">
-              	<?php print $content_bottom; ?>
-            	</div><!-- /#content-bottom -->
-          	<?php endif; ?>
-        	</div> <!-- content-inner -->
-        </div> <!-- content -->
-      </div> <!-- /main -->
-	 		<?php if ($left): ?>
-				<div id="sidebar-first" class="column sidebar first">
-       		<div id="sidebar-first-inner" class="inner">
-       			<?php print $left; ?>
-          </div>
-        </div>
-      <?php endif; ?> <!-- /sidebar-left -->
-      <?php if ($right): ?>
-      	<div id="sidebar-second" class="column sidebar second">
-          <div id="sidebar-second-inner" class="inner">
-            <?php print $right; ?>
-          </div>
-        </div>
-      <?php endif; ?> <!-- /sidebar-second -->
-			<div class="clearfix"></div>
+			<div id="container">
+				<div id="main" class="clearfix">
+      		<div id="content">
+      			<div id="content-inner" class="inner column center">
+        			<?php if ($breadcrumb || $messages || $help || $tabs): ?>
+          			<div id="content-header">
+            			<?php print $messages; ?>
+	              	<?php print $help; ?> 
+  	            	<?php if ($tabs): ?>
+    	            	<div class="tabs"><?php print $tabs; ?></div>
+      	        	<?php endif; ?>
+        	    	</div> <!-- /#content-header -->
+          		<?php endif; ?>
+          		<div id="content-area">
+	            	<?php print $content; ?>
+  	        		<?php print $feed_icons; ?>
+    	      	</div> <!-- /#content-area -->
+      	    	<?php if ($content_bottom): ?>
+        	    	<div id="content-bottom">
+          	    	<?php print $content_bottom; ?>
+            		</div><!-- /#content-bottom -->
+	          	<?php endif; ?>
+  	      	</div> <!-- content-inner -->
+    	    </div> <!-- content -->
+      	</div> <!-- /main -->
+		 		<?php if ($left): ?>
+					<div id="sidebar-first" class="column sidebar first">
+    	   		<div id="sidebar-first-inner" class="inner">
+      	 			<?php print $left; ?>
+        	  </div>
+	        </div>
+  	    <?php endif; ?> <!-- /sidebar-left -->
+    	  <?php if ($right): ?>
+     		 	<div id="sidebar-second" class="column sidebar second">
+        	  <div id="sidebar-second-inner" class="inner">
+          	  <?php print $right; ?>
+          	</div>
+ 	       </div>
+  	    <?php endif; ?> <!-- /sidebar-second --> 
+				<div class="clearfix"></div>
+			</div> <!-- container -->
 		</div> <!-- /content-wrapper -->
 	</div> <!-- /pager -->
   <?php if(!empty($footer_message) || !empty($footer_block)): ?>

@@ -1,7 +1,9 @@
+@charset "UTF-8";
 /* theme core colors*/
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* ================== */
 /* = "soft buttons" = */
 /* ================== */
@@ -16,52 +18,91 @@
 body.node-type-discussion {
   /* views-row is not a row, actually, just a div ... */
 }
-/* line 10, ../scss/discussion.scss */
-body.node-type-discussion ul#primary li.first {
+/* line 9, ../scss/discussion.scss */
+body.node-type-discussion .field-exp-comments {
+  border: 1px solid #b0a9a4;
+  background: #d6cbc0 url(../images/clock.png) no-repeat 20px 25px;
+  padding: 20px 65px;
+}
+/* line 14, ../scss/discussion.scss */
+body.node-type-discussion .field-exp-comments strong {
+  color: white;
+  display: block;
+  text-transform: uppercase;
+}
+/* line 20, ../scss/discussion.scss */
+body.node-type-discussion a#popText {
+  display: block;
+  background: url("../images/poptext.png") no-repeat left center;
+  color: white;
+  padding: 8px 10px 8px 25px;
+  font-weight: normal;
+}
+/* line 28, ../scss/discussion.scss */
+body.node-type-discussion a#popText:hover {
+  background: url("../images/poptext-hover.png") no-repeat left center;
+}
+/* line 33, ../scss/discussion.scss */
+body.node-type-discussion ul.menu li.first {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
-/* line 12, ../scss/discussion.scss */
-body.node-type-discussion ul#primary li.first a {
+/* line 35, ../scss/discussion.scss */
+body.node-type-discussion ul.menu li.first a {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 19, ../scss/discussion.scss */
+/* line 41, ../scss/discussion.scss */
 body.node-type-discussion div.view-header {
   display: none;
 }
-/* line 22, ../scss/discussion.scss */
+/* line 45, ../scss/discussion.scss */
 body.node-type-discussion div#slash {
-  width: 600px;
   margin: 30px 30px 0;
 }
-/* line 28, ../scss/discussion.scss */
+/* line 50, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 {
-  width: 960px;
+  background: url("../images/borders.png") no-repeat center 7px;
+  width: 900px;
+  text-align: center;
 }
-/* line 32, ../scss/discussion.scss */
+/* line 55, ../scss/discussion.scss */
+body.node-type-discussion div#block-views-discussion_texts-block_1 h3.block-title {
+  background: white;
+  padding: 0 20px;
+  display: inline;
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+/* line 63, ../scss/discussion.scss */
+body.node-type-discussion div#block-views-discussion_texts-block_1 .content {
+  text-align: left;
+  margin: 20px 0;
+  height: 280px;
+}
+/* line 70, ../scss/discussion.scss */
 body.node-type-discussion h1.title {
   display: block;
   margin: 20px 0;
   padding: 0;
 }
-/* line 39, ../scss/discussion.scss */
+/* line 78, ../scss/discussion.scss */
 body.node-type-discussion div.views-row {
   margin: 10px 5px;
   float: left;
   width: 218px;
 }
-/* line 43, ../scss/discussion.scss */
+/* line 82, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary {
   width: 178px;
-  background: #eee9e3;
+  background: #f1e9e4;
   border: 1px solid #ddd;
   color: #868080;
   float: left;
-  padding: 0 10px 20px;
+  padding: 0 10px;
   position: relative;
-  min-height: 300px;
+  min-height: 258px;
   line-height: 1em;
 }
-/* line 53, ../scss/discussion.scss */
+/* line 92, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   font-size: 23px;
   text-transform: inherit;
@@ -71,11 +112,11 @@ body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   text-align: left;
   color: #000;
 }
-/* line 63, ../scss/discussion.scss */
+/* line 102, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-description {
   color: #303030;
 }
-/* line 67, ../scss/discussion.scss */
+/* line 106, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -83,11 +124,9 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -105,205 +144,111 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
 }
 /* line 19, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 23, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 79, ../scss/discussion.scss */
+/* line 118, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-label {
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px solid #ccc;
   margin: 20px 0 10px;
-}
-/* line 85, ../scss/discussion.scss */
-body.node-type-discussion ul.links li {
-  padding: 0;
-}
-/* line 88, ../scss/discussion.scss */
-body.node-type-discussion li.node_translation_ar a {
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -o-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -khtml-border-radius: 15px;
-  border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
-  border: 1px solid #d3d3d3;
-  float: right;
-  padding: 3px 7px 0;
-  color: gray;
+  color: #7c0000;
+  font-family: Helvetica,arial,sans-serif;
+  font-size: 0.8em;
   font-weight: normal;
-  font-family: arial, sans-serif;
+  padding-bottom: 3px;
   text-transform: uppercase;
-  display: block;
-  font-size: 0.9em;
-  text-decoration: none;
-  padding-left: 25px;
-  text-decoration: none;
-  margin: 0 2px 10px;
-  width: 40px;
 }
-/* line 19, ../scss/_buttons.scss */
-body.node-type-discussion li.node_translation_ar a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
+/* line 130, ../scss/discussion.scss */
+body.node-type-discussion #container {
+  background: url("../images/borders.png") no-repeat center top;
+  text-align: center;
+  position: relative;
+  padding: 8px 0 0;
 }
-/* line 23, ../scss/_buttons.scss */
-body.node-type-discussion li.node_translation_ar a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
+/* line 136, ../scss/discussion.scss */
+body.node-type-discussion #container #main {
+  position: static;
 }
-/* line 95, ../scss/discussion.scss */
-body.node-type-discussion li.comment_edit a {
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -o-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -khtml-border-radius: 15px;
-  border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
-  border: 1px solid #d3d3d3;
-  float: right;
-  padding: 3px 7px 0;
-  color: gray;
-  font-weight: normal;
-  font-family: arial, sans-serif;
+/* line 140, ../scss/discussion.scss */
+body.node-type-discussion #container #content-inner {
+  background: transparent;
+}
+/* line 144, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area div.field-label {
+  position: absolute;
+  top: -4px;
+  padding: 0 20px;
+  display: inline;
+  background: white;
   text-transform: uppercase;
-  display: block;
   font-size: 0.9em;
-  text-decoration: none;
-  background: url("../images/icons/brown_dark/pen_alt_fill_16x16.png") no-repeat 5px center;
-  padding-left: 25px;
-  text-decoration: none;
-  margin: 0 2px 10px;
-  width: 40px;
 }
-/* line 19, ../scss/_buttons.scss */
-body.node-type-discussion li.comment_edit a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
+/* line 153, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area p {
+  text-align: left;
 }
-/* line 23, ../scss/_buttons.scss */
-body.node-type-discussion li.comment_edit a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-  background-image: linear-gradient(top, #ffffff, #ffffff);
+/* line 157, ../scss/discussion.scss */
+body.node-type-discussion #container #sidebar-second {
+  text-align: left;
 }
-/* line 103, ../scss/discussion.scss */
-body.node-type-discussion li.comment_delete a {
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -o-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -khtml-border-radius: 15px;
-  border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
-  border: 1px solid #d3d3d3;
-  float: right;
-  padding: 3px 7px 0;
-  color: gray;
-  font-weight: normal;
-  font-family: arial, sans-serif;
+/* line 160, ../scss/discussion.scss */
+body.node-type-discussion #container #comments {
+  text-align: left;
+  background: url("../images/borders.png") no-repeat center top;
+  padding: 30px 0 0;
+  position: relative;
+}
+/* line 166, ../scss/discussion.scss */
+body.node-type-discussion #container #comments h2#comments-title {
+  background: none repeat scroll 0 0 #FFFFFF;
+  font-size: 0.9em;
+  left: 230px;
+  padding: 0 10px;
+  position: absolute;
   text-transform: uppercase;
-  display: block;
+  top: -5px;
+}
+/* line 175, ../scss/discussion.scss */
+body.node-type-discussion #container #comments textarea {
+  box-shadow: 0 3px 0 #eee;
+}
+/* line 179, ../scss/discussion.scss */
+body.node-type-discussion #container ul.links {
+  border: 1px solid #ccc;
+  padding: 7px 5px;
+  border-radius: 5px;
+  font-size: 1.3em;
+  background-image: -moz-linear-gradient(center top, white 0%, #eeeeee 100%);
+}
+/* line 185, ../scss/discussion.scss */
+body.node-type-discussion #container ul.links li {
+  padding: 0 10px;
+}
+/* line 189, ../scss/discussion.scss */
+body.node-type-discussion #container .box {
+  background: url("../images/borders.png") no-repeat center top;
+  padding: 10px 0 0;
+  position: relative;
+}
+/* line 194, ../scss/discussion.scss */
+body.node-type-discussion #container .box h2 {
+  background: #FFFFFF;
   font-size: 0.9em;
-  text-decoration: none;
-  background: url("../images/icons/brown_dark/x_alt_16x16.png") no-repeat 5px center;
-  padding-left: 25px;
-  text-decoration: none;
-  margin: 0 2px 10px;
-  width: 40px;
-}
-/* line 19, ../scss/_buttons.scss */
-body.node-type-discussion li.comment_delete a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
-}
-/* line 23, ../scss/_buttons.scss */
-body.node-type-discussion li.comment_delete a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
-}
-/* line 112, ../scss/discussion.scss */
-body.node-type-discussion li.comment_reply a {
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -o-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -khtml-border-radius: 15px;
-  border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
-  border: 1px solid #d3d3d3;
-  float: right;
-  padding: 3px 7px 0;
-  color: gray;
-  font-weight: normal;
-  font-family: arial, sans-serif;
+  left: 190px;
+  padding: 0 10px;
+  position: absolute;
   text-transform: uppercase;
-  display: block;
-  font-size: 0.9em;
-  text-decoration: none;
-  background: url("../images/icons/brown_dark/chat_16x16.png") no-repeat 5px center;
-  padding-left: 25px;
-  text-decoration: none;
-  margin: 0 2px 10px;
-  width: 40px;
+  top: -5px;
 }
-/* line 19, ../scss/_buttons.scss */
-body.node-type-discussion li.comment_reply a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
-}
-/* line 23, ../scss/_buttons.scss */
-body.node-type-discussion li.comment_reply a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+
+/* line 206, ../scss/discussion.scss */
+body.section-node-edit div#container {
+  text-align: left;
 }

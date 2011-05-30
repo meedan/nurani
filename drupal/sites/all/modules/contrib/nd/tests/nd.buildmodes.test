@@ -137,7 +137,6 @@ class NodeDisplaysBuildModes extends DrupalWebTestCase {
 
     // Update build mode.
     $edit = array(
-      'key' => 'test_key',
       'name' => 'Test label 2',
     );
     $this->drupalPost('admin/build/ds/nd/buildmodes/edit/test_key', $edit, t('Save build mode'));

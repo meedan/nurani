@@ -1,63 +1,69 @@
+@charset "UTF-8";
 /* line 3, ../scss/login.scss */
 body.page-user.not-logged-in {
-  background-image: none;
+  background-image: url(../images/login-header.png);
+  background-position: center top;
+  background-repeat: no-repeat;
 }
-/* line 5, ../scss/login.scss */
+/* line 7, ../scss/login.scss */
 body.page-user.not-logged-in #content-wrapper, body.page-user.not-logged-in form {
   padding: 0;
 }
-/* line 9, ../scss/login.scss */
+/* line 11, ../scss/login.scss */
 body.page-user.not-logged-in div.description {
   display: none;
 }
-/* line 15, ../scss/login.scss */
-body.page-user.not-logged-in h1.title, body.page-user.not-logged-in span.form-required, body.page-user.not-logged-in #content-header ul.tabs {
+/* line 17, ../scss/login.scss */
+body.page-user.not-logged-in h1.title,
+body.page-user.not-logged-in span.form-required,
+body.page-user.not-logged-in #content-header ul.tabs {
   display: none;
 }
-/* line 19, ../scss/login.scss */
+/* line 21, ../scss/login.scss */
 body.page-user.not-logged-in #page {
   width: 600px;
   margin: 0 auto;
 }
-/* line 27, ../scss/login.scss */
+/* line 29, ../scss/login.scss */
 body.page-user.not-logged-in label, body.page-user.not-logged-in input {
-  font-size: 1.8em;
+  font-size: 1em;
   width: 100%;
+  font-weight: normal;
   text-shadow: 0px 1px 0px #fff;
   color: #555;
 }
-/* line 34, ../scss/login.scss */
+/* line 37, ../scss/login.scss */
 body.page-user.not-logged-in input.form-submit {
-  width: 200px;
-  margin: 0 auto;
+  width: 70px;
+  margin: 0 0 20px;
   display: block;
 }
-/* line 40, ../scss/login.scss */
+/* line 43, ../scss/login.scss */
 body.page-user.not-logged-in #boxes-box-user_login_footer {
   font-size: 1.0em;
   font-family: "helvetica neue", sans-serif;
 }
-/* line 43, ../scss/login.scss */
+/* line 46, ../scss/login.scss */
 body.page-user.not-logged-in #boxes-box-user_login_footer p {
   margin: 10px 0;
 }
-/* line 48, ../scss/login.scss */
+/* line 51, ../scss/login.scss */
 body.page-user.not-logged-in #block-boxes-login_title {
   margin: 50px 0 0;
   text-align: center;
 }
-/* line 51, ../scss/login.scss */
+/* line 54, ../scss/login.scss */
 body.page-user.not-logged-in #block-boxes-login_title h1 {
   margin: 0;
 }
-/* line 55, ../scss/login.scss */
+/* line 58, ../scss/login.scss */
 body.page-user.not-logged-in #block-boxes-login_title h2 {
   font-size: 30px;
   font-style: italic;
   font-family: "BergamoStdItalic", serif;
   color: #333;
 }
-/* line 63, ../scss/login.scss */
+/* line 66, ../scss/login.scss */
 body.page-user.not-logged-in #content-wrapper {
   margin: 0 auto;
   width: 960px;
@@ -66,12 +72,12 @@ body.page-user.not-logged-in #content-wrapper {
    @include border-radius(4px);
    @include linear-gradient(color_stops(white,#c3c3c3));*/
 }
-/* line 72, ../scss/login.scss */
+/* line 75, ../scss/login.scss */
 body.page-user.not-logged-in #main {
   width: 470px;
   margin: 0 auto;
 }
-/* line 76, ../scss/login.scss */
+/* line 79, ../scss/login.scss */
 body.page-user.not-logged-in .new-password {
   float: left;
 }

@@ -1,5 +1,4 @@
 <?php
-// $Id: agreement.test,v 1.4.2.1 2010/06/08 22:01:24 pagaille Exp $
 
 /**
  * @file
@@ -143,7 +142,7 @@ class AgreementDefaultsPrivilegedUserTestCase extends AgreementTestCase {
 
     // Try submitting agreement form
     $this->submitAgreementFormWithoutAgreeing($this->privileged_user->uid);
-    $this->submitAgreementFormWithAgreeing($$this->privileged_user->uid);
+    $this->submitAgreementFormWithAgreeing($this->privileged_user->uid);
 
     $this->drupalGet('admin');
     $this->isNotAgreementPage();
@@ -178,7 +177,7 @@ class AgreementDefaultsUnprivilegedUserTestCase extends AgreementTestCase {
 
     // Try submitting agreement form
     $this->submitAgreementFormWithoutAgreeing($this->unprivileged_user->uid);
-    $this->submitAgreementFormWithAgreeing($$this->unprivileged_user->uid);
+    $this->submitAgreementFormWithAgreeing($this->unprivileged_user->uid);
 
     $this->drupalGet('admin/settings/agreement');
     $this->assertResponse(403, t('User is not allowed to access agreement settings page.'));

@@ -1,0 +1,34 @@
+<?php
+// $Id$
+
+/**
+ * Implementation of hook_install().
+ */
+function nurani_discussion_lock_install() {
+  drupal_load('module', 'content');
+  content_notify('install', 'nurani_discussion_lock');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function nurani_discussion_lock_uninstall() {
+  drupal_load('module', 'content');
+  content_notify('uninstall', 'nurani_discussion_lock');
+}
+
+/**
+ * Implementation of hook_enable().
+ */
+function nurani_discussion_lock_enable() {
+  drupal_load('module', 'content');
+  content_notify('enable', 'nurani_discussion_lock');
+}
+
+/**
+ * Implementation of hook_disable().
+ */
+function nurani_discussion_lock_disable() {
+  drupal_load('module', 'content');
+  content_notify('disable', 'nurani_discussion_lock');
+}

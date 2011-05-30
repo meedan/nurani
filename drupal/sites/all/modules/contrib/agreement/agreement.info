@@ -1,10 +1,9 @@
-; $Id: agreement.info,v 1.2 2010/04/27 19:42:36 pagaille Exp $
 name = "Agreement"
 description = "Module allows administrators to display an agreement to users of a particular role."
 core = 6.x
-; Information added by drupal.org packaging script on 2010-06-08
-version = "6.x-2.0-rc1"
+; Information added by drupal.org packaging script on 2011-04-29
+version = "6.x-2.0-rc2"
 core = "6.x"
 project = "agreement"
-datestamp = "1276035004"
+datestamp = "1304038915"
 

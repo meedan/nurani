@@ -1,18 +1,20 @@
+@charset "UTF-8";
 /* theme core colors*/
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
-  src: url("/sites/all/themes/bidinurani/fonts/UthmanTN1v9.otf");
+  src: url("/sites/all/themes/nurani/fonts/UthmanTN1v9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'UthmanTNBold';
-  src: url("/sites/all/themes/bidinurani/fonts/UthmanTN1Bv9.otf");
+  src: url("/sites/all/themes/nurani/fonts/UthmanTN1Bv9.otf");
   font-weight: normal;
   font-style: normal;
 }
@@ -45,18 +47,18 @@ body {
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
-  font-family: "trajan-pro-1","trajan-pro-2", "Baskerville", serif;
+  font-family: serif;
 }
 
 /* line 78, ../scss/type.scss */
 h1 {
-  font-size: 2.2em;
-  font-weight: 300;
+  font-size: 1.8em;
   padding: 10px;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 20px;
-  text-transform: uppercase;
+  color: #7c0000;
+  font-style: italic;
 }
 
 /* line 88, ../scss/type.scss */

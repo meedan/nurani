@@ -1,4 +1,6 @@
 function icl_content_lang_propagate(lang, speed) {
+  if (typeof(lang) == 'undefined') return;
+
 	var id = '#icl-content-translate-' + lang;    
 	$('#icl-content').show('slow');
 	$('#icl-content fieldset').hide();

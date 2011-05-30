@@ -19,15 +19,10 @@
      <caption><?php print $title; ?></caption>
    <?php endif; ?>
   <thead>
-    <?php if ($select_all_rows): ?>
-      </tr>
-        <td colspan="<?php print $select_all_rows['colspan']; ?>" class="<?php print $select_all_rows['class']; ?>"><?php print $select_all_rows['data'] ?></td>
-      </tr>
-    <?php endif; ?>
     <tr>
       <?php foreach ($header as $key => $value): ?>
         <?php if ($key == 'select') { ?>
-          <th class="<?php print $value['class']; ?>"></th>
+          <th class="<?php print $class[$key] ?>"><?php print $value ?></th>
         <?php } else { ?>
           <th class="views-field views-field-<?php print $class[$key] ?>"><?php print $value ?></th>
         <?php } ?>

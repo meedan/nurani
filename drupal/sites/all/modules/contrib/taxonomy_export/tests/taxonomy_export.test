@@ -1,0 +1,203 @@
+<?php
+// $Id: taxonomy_export.test,v 1.1.2.1 2010/12/05 21:54:09 jamesandres Exp $
+
+/**
+ * Test the basic functionality of the taxonomy_export module.
+ */
+class TaxonomyExportTests extends DrupalWebTestCase {
+
+  /**
+   * Implementation of the DrupalTestCase "get_info" method.
+   **/
+  function getInfo() {
+    return array(
+      'name' => t('Taxonomy Export Tests'),
+      'description' => t('Test the basic functionality of the taxonomy_export module.'),
+      'group' => 'Taxonomy Export'
+    );
+  }
+
+  /**
+   * Clean out the testing environment.
+   **/
+  function setUp() {
+    parent::setUp('taxonomy_export');
+
+    // Access to TE functions
+    module_load_include('inc', 'taxonomy_export', 'taxonomy_export.pages');
+
+    // The export files to test against
+    $this->path = drupal_get_path('module', 'taxonomy_export') . '/tests';
+
+    // The account used to run tests
+    $this->account = $this->drupalCreateUser(array('administer taxonomy'));
+    $this->drupalLogin($this->account);
+  }
+
+  /**
+   * Clean out the testing environment.
+   **/
+  function tearDown() {
+    parent::tearDown();
+  }
+
+  /**
+   * Helper method, imports a named taxonomy_export.
+   */
+  function importTaxonomyExport($name, $vid = '') {
+    $file = $this->path . '/' . $name . '.taxonomy_export.inc';
+
+    $export = file_get_contents($file);
+    $this->drupalPost('admin/content/taxonomy/import', array('update' => $vid, 'import_data' => $export), t('Import'));
+    $vid = db_result(db_query("SELECT vid FROM {vocabulary} ORDER BY vid DESC"));
+
+    return array($vid, $export);
+  }
+
+  /**
+   * Helper method, asserts that no duplicate vocabularies have been
+   * accidentally created.
+   */
+  function checkForDuplicateVocabulary() {
+    $vocabularies = taxonomy_get_vocabularies();
+    $this->verbose("checkForDuplicateVocabulary: " . var_export($vocabularies, 1));
+    $this->assertEqual(count($vocabularies), 1, "Number of vocabularies is still just 1.");
+  }
+
+  /**
+   * Helper method, runs the export routines and checks that the output
+   * matches a known $export string.
+   */
+  function checkExportMatchesExpectations($vid, $export) {
+    $this->drupalPost('admin/content/taxonomy/export', array('vid' => $vid, 'include_terms' => 1), t('Export'));
+    // Look for trimmed and escaped text, this is how Drupal will format the
+    // textarea contents
+    $this->assertRaw(trim(check_plain($export)), "The export text was the same as what was just imported.");
+  }
+
+  /**
+   * Basic tests of the taxonomy_export module.
+   **/
+  function testTemplateImportExport($update = '') {
+    list($vid, $export) = $this->importTaxonomyExport('template', $update);
+
+    $this->assertNoText(t("Error parsing import data."), "There were no parsing errors.");
+    $this->assertNoText("User warning: ", "There were no database errors.");
+    if ($update) {
+      $this->assertText("Updated vocabulary Taxonomy Export SimpleTest Template, 7 terms updated and 0 removed.", "Template was imported (updated) sucessfully, with the correct number of terms.");
+    }
+    else {
+      $this->assertText("Created vocabulary Taxonomy Export SimpleTest Template, 7 terms imported successfully.", "Template was imported (created) sucessfully, with the correct number of terms.");
+    }
+
+    // Get the latest vocabulary, ensure it is expected.
+    $vocabulary = taxonomy_vocabulary_load($vid);
+    $terms = taxonomy_get_tree($vid);
+
+    $this->assertEqual($vocabulary->name, 'Taxonomy Export SimpleTest Template', "The template vocabulary name is correct.");
+    $this->assertEqual(count($terms), 7, "Number of imported terms verifies as 7.");
+
+    $this->checkExportMatchesExpectations($vid, $export);
+
+    return $vid;
+  }
+
+  /**
+   * This is a basic update test.
+   *
+   * Tests a "Double run" import export, to ensure vocabulary and terms are
+   * updated seamlessly.  Nothing should change in the DB from the end of
+   * the first run to the end of the second run.
+   */
+  function testDoubleRun() {
+    list($vid, $export) = $this->importTaxonomyExport('template');
+    $this->testTemplateImportExport($vid);
+    $this->checkForDuplicateVocabulary();
+  }
+
+  /**
+   * Basic change and update test.
+   *
+   * Start with the test template then import a modified template with additional
+   * terms.  Does the DB contain expected values?
+   */
+  function testAddTerms() {
+    list($update, $export) = $this->importTaxonomyExport('template');
+    list($vid, $export) = $this->importTaxonomyExport('addedTerms', $update);
+    $this->assertText("Updated vocabulary Taxonomy Export SimpleTest Template, 8 terms updated and 0 removed.", "Additional term was added sucessfully, nothing was removed.");
+
+    $this->checkForDuplicateVocabulary();
+
+    $num_terms = db_result(db_query("SELECT COUNT(tid) FROM {term_data} WHERE vid = %d", $vid));
+    $this->assertEqual($num_terms, 8, "Number of imported terms verifies as 8.");
+
+    $term_h = current(taxonomy_get_term_by_name('Term H'));
+    $this->assertTrue(is_object($term_h), "Newly added term was found in DB.");
+    $this->assertEqual($term_h->name, "Term H", "Newly added term has the correct name 'Term H'.");
+  }
+
+  /**
+   * Basic removal test.
+   *
+   * Start with the test template then import a modified template with removed
+   * terms.  Does the DB contain expected values?
+   */
+  function testRemoveTerms() {
+    list($update, $export) = $this->importTaxonomyExport('template');
+    list($vid, $export) = $this->importTaxonomyExport('removedTerms', $update);
+    $this->assertText("Updated vocabulary Taxonomy Export SimpleTest Template, 6 terms updated and 1 removed.", "'Term C' was removed correctly.");
+
+    $this->checkForDuplicateVocabulary();
+
+    // Because, current(array()) === FALSE
+    $term_c = current(taxonomy_get_term_by_name('Term C'));
+    $this->assertFalse($term_c, "'Term C' can no longer be found in the DB.");
+  }
+
+  /**
+   * Basic alteration test.
+   *
+   * Start with the test template then import a altered template.  Does the 
+   * DB contain expected values?
+   */
+  function testAlteredImport() {
+    list($update, $export) = $this->importTaxonomyExport('template');
+    list($vid, $export) = $this->importTaxonomyExport('alteredImport', $update);
+
+    $this->assertText("Updated vocabulary A Changed Taxonomy Export SimpleTest Template, 7 terms updated and 0 removed.", "Imported altered vocabulary.");
+
+    $vocabulary = taxonomy_vocabulary_load($vid, TRUE);
+    $this->assertEqual($vocabulary->name, "A Changed Taxonomy Export SimpleTest Template", "Vocabulary name was changed.");
+    $this->assertEqual($vocabulary->description, "This is a changed template vocabulary on which SimpleTest routines are run.", "Vocabulary description was changed.");
+    $this->assertEqual($vocabulary->hierarchy, 0, "Vocabulary hierarchy was disabled.");
+    $this->assertEqual($vocabulary->nodes['story'], "story", "Vocabulary 'story' was added to allowed node types.");
+
+    $term = taxonomy_get_term(1, TRUE);
+    $this->assertEqual($term->name, "Term A Changed", "'Term A' name was changed.");
+    $this->assertEqual($term->description, "Term A Changed's description.", "'Term A' description was changed.");
+  }
+
+  /**
+   * Basic alteration test.
+   *
+   * Start with the test template then import a altered template.  Does the 
+   * DB contain expected values?
+   */
+  function testUpdateHierarchy() {
+    list($update, $export) = $this->importTaxonomyExport('template');
+    list($vid, $export) = $this->importTaxonomyExport('updateHierarchy', $update);
+
+    $this->checkExportMatchesExpectations($vid, $export);
+  }
+
+  // TODO: Test, run a set of changes to the vocab capture exports and compare with expected copies.
+  //     √ change nothing, export and import, nothing should be changed
+  //     √ add terms, ex / im, terms should be added no TIDs should change
+  //     √ deleted added terms, ex / im, terms should be removed correctly
+  //     √ alter existing terms, ex / im, terms should be altered as expected
+  //     √ alter hierarchy, ex / im, terms should be as expected
+  //     * delete a term, add a new term with the same name
+  // TODO: Test more difficult, impossible?, cases
+  //     ∞ attempt to import a vocab such that it would collide with existing VIDs or TIDs of a different vocabulary
+
+}

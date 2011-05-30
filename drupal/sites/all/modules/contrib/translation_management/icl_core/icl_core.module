@@ -7,6 +7,7 @@
  */
 
 define ( 'ICL_PERM_ADMINISTER', 'administer icanlocalize' );
+define ( 'ICL_PERM_OPT_NOTIFY', 'opt out from ICL notifications' );
 
 define ( 'ICL_STATUS_INQUEUE', 0 );
 define ( 'ICL_STATUS_REQUESTED', 1 );
@@ -50,7 +51,8 @@ include_once dirname(__FILE__) . '/../icl_content/icl_content.stats.inc';
  */
 function icl_core_perm() {
   return array (
-      ICL_PERM_ADMINISTER);
+      ICL_PERM_ADMINISTER,
+      ICL_PERM_OPT_NOTIFY);
 }
 
 /**
@@ -1685,4 +1687,47 @@ function icl_core_ignore_url_submit($form, &$form_state) {
   $icl_url_ignore = md5($base_url.$form['icl_url_changed']['icl_old_url']['#value']);
   variable_set('icl_current_url_ignore', $icl_url_ignore);
   _icl_wrapper_drupal_goto($_GET['q']);
+}
+
+/**
+ * Implementation of hook_user().
+ */
+function icl_core_user($type, $edit, &$user, $category = NULL) {
+  switch ($type) {
+    case 'form':
+      if ((user_access('can do translation jobs') && user_access(ICL_PERM_OPT_NOTIFY)) && $category == 'account') {
+        $form['icl_core'] = array(
+          '#type'        => 'fieldset',
+          '#title'       => t('Translation Manager settings'),
+          '#weight'      => 5,
+          '#collapsible' => TRUE,
+        );
+        $form['icl_core']['icl_send'] = array(
+          '#type' => 'radios',
+          '#title' => t('Receive Translation Manager notifications'),
+          '#options' => array(
+                          '1' => t('Receive notifications'),
+                          '0' => t('Do not receive notifications')
+                        ),
+          '#default_value' => icl_core_user_setting($user),
+        );
+        return $form;
+      }
+      break;
+  }
+}
+/**
+ * Gets a user setting, defaults to default system setting
+ * 
+ * @param $account
+ *   Optional user account, will default to current user
+ */
+function icl_core_user_setting($account = NULL) {
+  global $user;
+  $account = $account ? $account : $user;
+  if (isset($account->icl_send)) {
+    return $account->icl_send;
+  } else {
+    return 1;
+  }
 }

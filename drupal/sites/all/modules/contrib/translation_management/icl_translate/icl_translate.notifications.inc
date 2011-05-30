@@ -89,7 +89,11 @@ function _icl_translate_notifications($k = 'all') {
   $messages = array(
     'translator_new_job' => array(
       'name' => t('Notify translator about new job'),
-      '#options' => array('1' => t('Notify immediately')),
+      '#options' => array(
+                      '1' => t('Notify immediately'),
+                      '2' => t('Daily notifications summary'),
+                      '0' => t('No notification')
+                    ),
       '#default_value' => 1
     ),
     'manager_job_completed' => array(
@@ -155,7 +159,6 @@ function icl_translate_notifications_form() {
     '#submit' => array('icl_translate_notifications_form_submit'),
     '#value' => t('Save')
   );
-  
   return $form;
 }
 
@@ -173,7 +176,6 @@ function icl_translate_notifications_form_submit() {
  *      Key to get from _icl_translate_notifications()
  */
 function _icl_translate_notify($uid, $key, $rid = 0, $from = '', $to = '') {
-  
   $settings = variable_get('icl_translate_notifications', _icl_translate_notifications('defaults'));
   
   if (!$settings[$key]) {
@@ -192,7 +194,7 @@ function _icl_translate_notify($uid, $key, $rid = 0, $from = '', $to = '') {
     $account = user_load($uid);
   }
   
-  if ($account) {
+  if ($account && !$account->icl_send == 0) {
     $params['account'] = $account;
     $params['rid'] = $rid;
     $params['from'] = $from;
@@ -254,10 +256,12 @@ function _icl_translate_notify_daily_digest_process($time = 86400) {
     $params['account'] = $account;
     // Store all messages in $params
     $params['messages'] = $messages;
-    $result = drupal_mail('icl_translate', 'daily_digest', $account->mail, user_preferred_language($account), $params);
-    // If sent update statuses of all messages
-    if ($result['result']) {
-      _icl_translate_notification_dismiss(array_keys($messages), ICL_NOTIFICATIONS_MAIL_SENT);
+    if(!$account->icl_send == 0){
+      $result = drupal_mail('icl_translate', 'daily_digest', $account->mail, user_preferred_language($account), $params);
+      // If sent update statuses of all messages
+      if ($result['result']) {
+        _icl_translate_notification_dismiss(array_keys($messages), ICL_NOTIFICATIONS_MAIL_SENT);
+      }
     }
   }
   variable_set('icl_notifications_daily_processed', time());
@@ -427,9 +431,11 @@ function _icl_translate_notify_first_available($key, $rid, $from, $to) {
       $params['rid'] = $rid;
       $params['from'] = $from;
       $params['to'] = $to;
-      $result = drupal_mail('icl_translate', $key, $account->mail, user_preferred_language($account), $params);
-      if ($result['result']) {
-        drupal_set_message(t('Notification sent to %name (%mail)', array('%name' => $account->name, '%mail'=> $account->mail)));
+      if(!$account->icl_send == 0){
+        $result = drupal_mail('icl_translate', $key, $account->mail, user_preferred_language($account), $params);
+        if ($result['result']) {
+          drupal_set_message(t('Notification sent to %name (%mail)', array('%name' => $account->name, '%mail'=> $account->mail)));
+        }
       }
       else {
         drupal_set_message(t('Error occurred while notifying %name (%mail)', array('%name' => $account->name, '%mail'=> $account->mail)), 'error');

@@ -1,7 +1,9 @@
+@charset "UTF-8";
 /* theme core colors*/
 /*basics*/
 /*section names */
 /*bright colors*/
+/*dark colors*/
 /* ================== */
 /* = "soft buttons" = */
 /* ================== */
@@ -13,18 +15,14 @@
 /* ================ */
 /*aapplied to list*/
 /* line 45, ../scss/navigation.scss */
-ul#primary {
-  /* we're doing it with a mixin so we can override direction in style-rtl */
-  /* TODO the use of first and last needs to be repaired with custom classes, eg li.discussion li.texts li.glossary */
-}
-/* line 48, ../scss/navigation.scss */
-ul#primary li.first {
+ul.menu li.first {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
-ul#primary li.first a {
+/* line 74, ../scss/_buttons.scss */
+ul.menu li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -36,18 +34,19 @@ ul#primary li.first a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 91, ../scss/_buttons.scss */
-ul#primary li.first a.active {
+/* line 92, ../scss/_buttons.scss */
+ul.menu li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 49, ../scss/navigation.scss */
-ul#primary li {
+/* line 46, ../scss/navigation.scss */
+ul.menu li {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
-ul#primary li a {
+/* line 74, ../scss/_buttons.scss */
+ul.menu li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -59,18 +58,19 @@ ul#primary li a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 91, ../scss/_buttons.scss */
-ul#primary li a.active {
+/* line 92, ../scss/_buttons.scss */
+ul.menu li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 50, ../scss/navigation.scss */
-ul#primary li.last {
+/* line 47, ../scss/navigation.scss */
+ul.menu li.last {
   float: left;
   list-style: none outside none;
   padding: 0;
+  margin: 0;
 }
-/* line 73, ../scss/_buttons.scss */
-ul#primary li.last a {
+/* line 74, ../scss/_buttons.scss */
+ul.menu li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
@@ -82,21 +82,32 @@ ul#primary li.last a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 91, ../scss/_buttons.scss */
-ul#primary li.last a.active {
+/* line 92, ../scss/_buttons.scss */
+ul.menu li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 52, ../scss/navigation.scss */
-ul#primary li.active {
+/* line 49, ../scss/navigation.scss */
+ul.menu li.active-trail {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
 
-/* line 57, ../scss/navigation.scss */
+/* line 54, ../scss/navigation.scss */
 #block-locale-0 {
   width: 70px;
   float: right;
 }
-/* line 61, ../scss/navigation.scss */
+/* line 58, ../scss/navigation.scss */
 #block-locale-0 h3, #block-locale-0 li.en {
   display: none;
+}
+/* line 61, ../scss/navigation.scss */
+#block-locale-0 li {
+  font-size: 0.6em;
+}
+/* line 63, ../scss/navigation.scss */
+#block-locale-0 li a {
+  color: white;
+  background: #666666;
+  padding: 6px 15px;
+  border-radius: 15px;
 }

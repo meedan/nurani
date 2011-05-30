@@ -5,9 +5,9 @@ dependencies[] = ds
 dependencies[] = ds_ui
 package = "Display suite"
 
-; Information added by drupal.org packaging script on 2011-03-15
+; Information added by drupal.org packaging script on 2011-05-01
 version = "6.x-2.x-dev"
 core = "6.x"
 project = "nd"
-datestamp = "1300147952"
+datestamp = "1304251995"
 

@@ -15,16 +15,20 @@ function views_filters_autosubmit_form_views_exposed_form_alter(&$form, &$form_s
   // Inject the necessary Javascript.
   static $forms = array();
   if (!isset($forms[$form['#id']])) {
-    $exceptions = module_invoke_all('views_filters_autosubmit_exceptions', $form, $view);
+    $exceptions = module_invoke_all('views_filters_autosubmit_exceptions', $form, $form_state['view']);
     drupal_add_js(array('vfas' => array($form['#id'] => array('exceptions' => implode(',', $exceptions)))), 'setting');
     $forms[$form['#id']] = TRUE;
   }
+	
+	// Add hidden field to support field re-focus.
+	$form['views_exposed_form_focused_field']['#type'] = 'hidden';
 }
 
 /**
  * Implementation of hook_views_filters_autosubmit_exceptions().
  */
 function views_filters_autosubmit_views_filters_autosubmit_exceptions($form, $view) {
+  $exceptions = array();
   foreach (element_children($form) as $child) {
     // Find filters that have min and max value: disable auto-submit on min.
     if (isset($form[$child]['min']) && isset($form[$child]['max'])) {
@@ -63,6 +67,7 @@ function views_filters_autosubmit_settings() {
   foreach ($views as $view) {
     $options[$view->name] = $view->name;
   }
+  asort($options);
 
   $form['views_filters_autosubmit'] = array(
     '#title' => t('Enable auto-submit for the following views'),

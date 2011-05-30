@@ -1,7 +1,7 @@
 @import "buttons.scss";
 @import "_colors.scss";
 
-body.ar {
+body.i18n-ar {
 
   overflow-x: hidden !important;
 
@@ -56,6 +56,62 @@ body.ar {
   .view-ibis-glossary .views-summary {
     float: right;
   }
+
+/*Top strip*/
+	#block-locale-0 {
+		float: left;
+		font-size: 18px;
+		line-height: 16px;
+		width: 66px;
+	ul {
+		padding: 0;
+	}
+	li.ar {
+    display: none;
+ }
+	li.en {
+    display: block;
+  }
 }
 
+/*Navigation*/
+	ul.menu li.last,
+	ul.menu li.first,
+	ul.menu li {
+    float: right;
+	}
 
+/*Welcome*/
+	div#slash div#boxes-box-welcome_box img.d_ford {
+		float: left;
+	}
+
+/*Overview*/
+	 div#main {	
+		float: right;
+	}
+	.view-discussions {
+		.views-field-title {
+  		float: right;
+			line-height: 29px;
+		}
+		.views-field-view-node a {
+			float: left;
+		}
+		.views-field-phpcode {
+			float: right;
+    	margin-left: 15px;
+			margin-right: 0;
+		}
+	}
+
+/*discussion*/
+	#container #content-area p {
+		text-align: right;
+	}
+	#container #sidebar-second {
+		text-align: right;
+	}
+
+
+}

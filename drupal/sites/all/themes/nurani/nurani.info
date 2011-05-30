@@ -1,8 +1,8 @@
-name = nurani
-description = nurani theme for Drupal 6
+name = Nurani
+description = Nurani theme for Drupal 6.
 screenshot = images/screenshot.gif
 core = "6.x"
-project = "basic"
+project = "nurani"
 engine = phptemplate
 
 regions[content_top] = Content top
@@ -11,6 +11,7 @@ regions[left] = First sidebar
 regions[right] = Second sidebar
 regions[footer_block] = Footer
 regions[content_bottom] = Content bottom
+regions[top_strip] = Top strip
 
 features[] = logo
 features[] = name
