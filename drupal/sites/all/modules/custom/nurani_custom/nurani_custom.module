@@ -2,15 +2,6 @@
 // $Id$
 
 /**
- * Implementation of hook_ds_fields_alter().
- */
-function nurani_custom_ds_fields_alter(&$fields) {
-}
-
-function nurani_custom_views_data_alter(&$data) {
-}
-
-/**
  * Implementation of hook_nodeapi().
  */
 function nurani_custom_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
@@ -41,4 +32,11 @@ function nurani_custom_preprocess_node(&$vars) {
   }
 }
 
+/**
+ * Implementation of hook_menu_alter().
+ */
+function nurani_custom_menu_alter(&$items) {
+  // Prohibit access to "Translate" tab because Translation Management module takes care of this.
+  $items['node/%node/translate']['access callback'] = FALSE;
+}
 
