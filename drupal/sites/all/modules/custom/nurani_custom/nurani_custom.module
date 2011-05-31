@@ -40,3 +40,53 @@ function nurani_custom_menu_alter(&$items) {
   $items['node/%node/translate']['access callback'] = FALSE;
 }
 
+/**
+ * Implementation of hook_theme().
+ */
+function nurani_custom_theme() {
+  return array(
+    'translation_status' => array(
+      'arguments' => array('node' => NULL),
+      'template' => 'translation-status',
+    ),
+  );
+}
+
+/**
+ * Template preprocessor for theme('translation_status').
+ */
+function nurani_custom_preprocess_translation_status(&$vars) {
+  $node = $vars['node'];
+  $classes = array();
+  $captions = array();
+  if (empty($node->tnid)) {
+    $classes[] = 'translation-status-untranslated';
+    $captions[] = t('This !type is not translated.', array('!type' => $node->type));
+  }
+  else {
+    if ($node->tnid == $node->nid) {
+      $classes[] = 'translation-status-original';
+      $original = $node;
+      $translations = translation_node_get_translations($node->tnid);
+      unset($translations[$node->language]);
+      $translation = node_load(current($translations)->nid);
+    }
+    else {
+      $classes[] = 'translation-status-translation';
+      $original = node_load($node->tnid);
+      $translation = $node;
+    }
+    $languages = language_list();
+    $captions[] = t('Original !type in !original.', array(
+      '!type' => $original->type, 
+      '!original' => t($languages[$original->language]->name),
+    ));
+    $captions[] = t('Translated to !translation by !translator.', array(
+      '!translation' => t($languages[$translation->language]->name), 
+      '!translator' => $translation->name,
+    ));
+  }
+  $vars['classes'] = $classes;
+  $vars['captions'] = $captions;
+}
+

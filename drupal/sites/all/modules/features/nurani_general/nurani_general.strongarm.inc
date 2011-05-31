@@ -1309,84 +1309,58 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'nd_display_settings_discussion';
+  $strongarm->name = 'nd_display_settings_comment';
   $strongarm->value = array(
     'full' => array(
       'fields' => array(
-        'field_texts' => array(
-          'region' => 'disabled',
-          'weight' => '-99',
-          'format' => 'node_title_body',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'field_moderators' => array(
-          'region' => 'disabled',
-          'weight' => '-96',
-          'format' => 'default',
-          'css-class' => '',
-          'label_value' => 'Moderators',
-          'labelformat' => 'above',
-        ),
-        'field_translators' => array(
-          'region' => 'disabled',
-          'weight' => '-97',
-          'format' => 'default',
-          'css-class' => '',
-          'label_value' => 'Translators',
-          'labelformat' => 'above',
-        ),
-        'field_scholars' => array(
-          'region' => 'disabled',
-          'weight' => '-98',
-          'format' => 'default',
-          'css-class' => '',
-          'label_value' => 'Scholars',
-          'labelformat' => 'above',
-        ),
         'title' => array(
           'region' => 'disabled',
-          'weight' => '-91',
+          'weight' => '-94',
           'format' => 'nd_title_h1_nolink',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'author' => array(
-          'region' => 'disabled',
-          'weight' => '-95',
-          'format' => 'ds_author_link',
+          'region' => 'header',
+          'weight' => '-100',
+          'format' => 'ds_author_nolink',
           'css-class' => '',
-          'label_value' => 'Author',
-          'labelformat' => 'above',
+          'labelformat' => 'hidden',
         ),
         'links' => array(
-          'region' => 'disabled',
-          'weight' => '-94',
+          'region' => 'footer',
+          'weight' => '-96',
           'format' => '',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'read_more' => array(
           'region' => 'disabled',
-          'weight' => '-93',
+          'weight' => '-95',
           'format' => 'ds_eval_code',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'post_date' => array(
-          'region' => 'disabled',
-          'weight' => '-92',
+          'region' => 'header',
+          'weight' => '-99',
           'format' => 'nd_post_date_long',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'body' => array(
           'region' => 'middle',
-          'weight' => '-100',
+          'weight' => '-98',
           'format' => 'nd_bodyfield',
           'css-class' => '',
-          'label_value' => 'Thoughts from the Moderator',
-          'labelformat' => 'above',
+          'labelformat' => 'hidden',
+        ),
+        'translation_status' => array(
+          'region' => 'middle',
+          'weight' => '-97',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
         ),
       ),
       'status' => 1,
@@ -1398,6 +1372,14 @@ The Service Providers may use session cookies when you visit our website while y
         'footer' => '',
       ),
     ),
+  );
+
+  $export['nd_display_settings_comment'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nd_display_settings_discussion';
+  $strongarm->value = array(
     'discussion_participants' => array(
       'fields' => array(
         'field_texts' => array(
@@ -1475,6 +1457,107 @@ The Service Providers may use session cookies when you visit our website while y
           'region' => 'disabled',
           'weight' => '-92',
           'format' => 'nd_bodyfield',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+      ),
+      'status' => 1,
+      'region_styles' => array(
+        'header' => '',
+        'left' => '',
+        'middle' => '',
+        'right' => '',
+        'footer' => '',
+      ),
+    ),
+    'full' => array(
+      'fields' => array(
+        'field_texts' => array(
+          'region' => 'disabled',
+          'weight' => '-98',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'field_moderators' => array(
+          'region' => 'disabled',
+          'weight' => '-95',
+          'format' => 'default',
+          'css-class' => '',
+          'label_value' => 'Moderators',
+          'labelformat' => 'above',
+        ),
+        'field_translators' => array(
+          'region' => 'disabled',
+          'weight' => '-96',
+          'format' => 'default',
+          'css-class' => '',
+          'label_value' => 'Translators',
+          'labelformat' => 'above',
+        ),
+        'field_scholars' => array(
+          'region' => 'disabled',
+          'weight' => '-97',
+          'format' => 'default',
+          'css-class' => '',
+          'label_value' => 'Scholars',
+          'labelformat' => 'above',
+        ),
+        'field_exp_comments' => array(
+          'region' => 'disabled',
+          'weight' => '-89',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'title' => array(
+          'region' => 'disabled',
+          'weight' => '-90',
+          'format' => 'nd_title_h1_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'author' => array(
+          'region' => 'disabled',
+          'weight' => '-94',
+          'format' => 'ds_author_link',
+          'css-class' => '',
+          'label_value' => 'Author',
+          'labelformat' => 'above',
+        ),
+        'links' => array(
+          'region' => 'disabled',
+          'weight' => '-93',
+          'format' => '',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'read_more' => array(
+          'region' => 'disabled',
+          'weight' => '-92',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'post_date' => array(
+          'region' => 'disabled',
+          'weight' => '-91',
+          'format' => 'nd_post_date_long',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'body' => array(
+          'region' => 'middle',
+          'weight' => '-100',
+          'format' => 'nd_bodyfield',
+          'css-class' => '',
+          'label_value' => 'Thoughts from the Moderator',
+          'labelformat' => 'above',
+        ),
+        'translation_status' => array(
+          'region' => 'middle',
+          'weight' => '-99',
+          'format' => 'ds_eval_code',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
@@ -1784,6 +1867,29 @@ $view->execute();
 print \'<h2>\' . $view->get_title() . \'</h2>\';
 print $view->render();
 $view->destroy();
+?>',
+        'token' => 0,
+      ),
+    ),
+    'translation_status' => array(
+      'title' => 'Translation status',
+      'exclude' => array(
+        'page' => 'page',
+        'annotation' => 0,
+        'discussion' => 0,
+        'profile' => 0,
+        'term' => 0,
+        'text' => 0,
+        'comment' => 0,
+      ),
+      'type' => 5,
+      'status' => 3,
+      'properties' => array(
+        'formatters' => array(
+          'ds_eval_code' => 'Default',
+        ),
+        'code' => '<?php
+return theme(\'translation_status\', $object);
 ?>',
         'token' => 0,
       ),
@@ -2853,21 +2959,6 @@ $view->destroy();
   $strongarm->value = '1';
 
   $export['user_pictures'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'uuid_automatic_for_nodes';
-  $strongarm->value = array(
-    'page' => 'page',
-    'annotation' => 0,
-    'comment' => 0,
-    'discussion' => 0,
-    'profile' => 0,
-    'term' => 0,
-    'text' => 0,
-  );
-
-  $export['uuid_automatic_for_nodes'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
