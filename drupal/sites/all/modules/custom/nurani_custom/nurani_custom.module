@@ -62,10 +62,20 @@ function nurani_custom_preprocess_translation_status(&$vars) {
   $captions = array();
 
   if (empty($node->tnid)) {
+    // Should not come here because auto-translate is active.
     $classes[] = 'translation-status-untranslated';
     $captions[] = t('This !type is awaiting translation.', array('!type' => $node->type));
   }
   else {
+    // Find translation status for node.
+    $in_progress = TRUE;
+    $statuses = _icl_content_statuses($node->tnid, 'node');
+    foreach ($statuses as $status) {
+      if ($status >= ICL_STATUS_READY) {
+        $in_progress = FALSE;
+      }
+    }
+    // Build CSS class.
     if ($node->tnid == $node->nid) {
       $classes[] = 'translation-status-original';
       $original = $node;
@@ -73,20 +83,37 @@ function nurani_custom_preprocess_translation_status(&$vars) {
       unset($translations[$node->language]);
       $translation = node_load(current($translations)->nid);
     }
+    else if ($in_progress) {
+      $classes[] = 'translation-status-placeholder';
+      $original = node_load($node->tnid);
+      $translation = $node;
+    }
     else {
       $classes[] = 'translation-status-translation';
       $original = node_load($node->tnid);
       $translation = $node;
     }
+    // Build status captions.
     $languages = language_list();
     $captions[] = t('Original !type in !original.', array(
       '!type' => $original->type, 
       '!original' => t($languages[$original->language]->name),
     ));
-    $captions[] = t('Translated to !translation by !translator.', array(
-      '!translation' => t($languages[$translation->language]->name), 
-      '!translator' => $translation->name,
-    ));
+    if ($in_progress) {
+      $captions[] = t('This !type is awaiting translation.', array('!type' => $node->type));
+    }
+    else {
+      $uid = db_result(db_query("
+SELECT tj.uid 
+FROM {icl_translate_job} tj 
+INNER JOIN {icl_content_status} cs ON tj.rid = cs.rid
+WHERE cs.nid = %d
+      ", $node->tnid));
+      $captions[] = t('Translated to !translation by !translator.', array(
+        '!translation' => t($languages[$translation->language]->name), 
+        '!translator' => user_load($uid)->name,
+      ));
+    }
   }
   $vars['classes'] = $classes;
   $vars['captions'] = $captions;
@@ -119,12 +146,6 @@ function _nurani_custom_autotranslate($node) {
       }
     }
     if (in_array($new_node->type, $node_comment_types)) {
-      if ($node->language == 'en') {
-        $t_lang = 'ar';
-      }
-      elseif ($new_node->language == 'ar') {
-        $t_lang = 'en';
-      }
       $new_node->comment_target_nid = db_result(db_query("
 SELECT translation.nid
 FROM {node} parent LEFT JOIN {node} translation ON parent.tnid = translation.tnid

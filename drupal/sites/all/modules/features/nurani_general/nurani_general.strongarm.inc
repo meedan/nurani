@@ -1192,26 +1192,6 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'icl_content_skip_per_node';
-  $strongarm->value = array(
-    1 => -1,
-    3 => -1,
-    6 => -1,
-    7 => -1,
-    8 => -1,
-    14 => -1,
-    16 => -1,
-    17 => -1,
-    18 => -1,
-    20 => -1,
-    22 => -1,
-    5 => -1,
-  );
-
-  $export['icl_content_skip_per_node'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'icl_content_update_links_options';
   $strongarm->value = 'update_links';
 

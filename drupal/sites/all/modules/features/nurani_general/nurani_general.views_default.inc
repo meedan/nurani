@@ -1454,8 +1454,7 @@ return theme_item_list($translations);
     'perm' => '',
   ));
   $handler->override_option('cache', array(
-    'type' => 'nodecomment_comments',
-    'argument' => 'nid',
+    'type' => 'none',
   ));
   $handler->override_option('use_pager', '1');
   $handler->override_option('style_options', array(
