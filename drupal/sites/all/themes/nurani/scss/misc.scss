@@ -1,3 +1,7 @@
+// color math!
+@import "_colors";
+
+
 #edit-body {
   float: left;
 }
@@ -268,14 +272,16 @@ div.vertical-tabs {
 .view-discussions .views-field-title {
   float: left;
   margin-bottom: 5px;
-	font-size: 1.6em;
-	font-weight: 300;
+  font-size: 1.6em;
+  font-weight: 300;
+  width: 480px;
 }
 
 .view-discussions .views-field-body {
   border-top: 1px solid #999999;
   clear: both;
   padding-top: 10px;
+	text-align: justify;
 }
 
 .field-name-field-discussion-text .submitted {
@@ -424,4 +430,44 @@ table .field-item, table .view-texts a , table td a{
     padding: 5px 8px 1px;
     position: relative;
     z-index: 9;
+}
+#block-views-new_texts-block_1 h3,
+#block-views-new_glossary_terms-block_1 h3 {
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	padding: 10px 0 10px 20px;
+	color: $maroon;
+	background: url(../images/arrow-collapse.png) no-repeat left;
+	cursor: pointer;
+	margin-bottom: 0;
+}
+#block-views-nuranis-block_1 h3 {
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	padding: 10px 0 10px 20px;
+	color: $maroon;
+	background: url(../images/arrow-expand.png) no-repeat left;
+	cursor: pointer;
+	margin-bottom: 0;
+}
+#block-views-new_texts-block_1 h3.expand,
+#block-views-new_glossary_terms-block_1 h3.expand {
+	background: url(../images/arrow-expand.png) no-repeat left;
+}
+#block-views-nuranis-block_1 h3.collapsed {
+	background: url(../images/arrow-collapse.png) no-repeat left;
+}
+#block-views-nuranis-block_1 .content {
+	padding: 20px 0 0;
+}
+#block-views-new_texts-block_1 .content,
+#block-views-new_glossary_terms-block_1 .content {
+	padding: 20px 0 0;
+	displaY: none;
+}
+#block-views-new_texts-block_1 .views-row,
+#block-views-new_glossary_terms-block_1 .views-row {	
+	padding: 0 0 10px 15px;
+	margin: 0 0 0 20px;
+	background: url(../images/point.png) no-repeat left 3px;
 }

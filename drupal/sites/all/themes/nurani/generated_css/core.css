@@ -2020,17 +2020,22 @@ body.en #block-locale-language ul li.ar:active {
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 
-/* line 1, ../scss/misc.scss */
+/* theme core colors*/
+/*basics*/
+/*section names */
+/*bright colors*/
+/*dark colors*/
+/* line 5, ../scss/misc.scss */
 #edit-body {
   float: left;
 }
 
-/* line 5, ../scss/misc.scss */
+/* line 9, ../scss/misc.scss */
 body.page-admin h3 {
   margin-bottom: 0 !important;
 }
 
-/* line 9, ../scss/misc.scss */
+/* line 13, ../scss/misc.scss */
 #perosnal-nav {
   -moz-box-shadow: 0 3px 20px #000000;
   background: none repeat scroll 0 0 #000000;
@@ -2039,20 +2044,20 @@ body.page-admin h3 {
   width: 100%;
 }
 
-/* line 17, ../scss/misc.scss */
+/* line 21, ../scss/misc.scss */
 .perosnal-username a {
   color: #FFFFFF;
   font-family: "Lucida Grande", Verdana, sans-serif;
   padding: 4px;
 }
 
-/* line 23, ../scss/misc.scss */
+/* line 27, ../scss/misc.scss */
 .perosnal-username a:hover {
   -moz-border-radius: 10px 10px 10px 10px;
   background: none repeat scroll 0 0 #777777;
 }
 
-/* line 28, ../scss/misc.scss */
+/* line 32, ../scss/misc.scss */
 .perosnal-username {
   color: #FFFFFF;
   float: right;
@@ -2061,46 +2066,46 @@ body.page-admin h3 {
   padding-top: 7px;
 }
 
-/* line 36, ../scss/misc.scss */
+/* line 40, ../scss/misc.scss */
 form#user-profile-form #edit-locale {
   display: none;
 }
 
-/* line 41, ../scss/misc.scss */
+/* line 45, ../scss/misc.scss */
 #edit-field-user-title, #edit-field-user-fname, #edit-field-user-lname, #edit-field-user-suffix, #edit-field-user-city, #edit-field-user-country, #edit-field-user-arabic, #edit-field-user-english {
   float: left;
   margin-right: 10px;
 }
 
-/* line 47, ../scss/misc.scss */
+/* line 51, ../scss/misc.scss */
 form#user-profile-form input[type=text], #user-profile-form .form-textarea, #user-profile-form input[type=password] {
   -moz-box-shadow: 1px -1px 3px #777777;
   border: 1px solid #C7C7C7;
   padding: 5px;
 }
 
-/* line 53, ../scss/misc.scss */
+/* line 57, ../scss/misc.scss */
 form#user-profile-form label {
   color: #555555;
   margin-bottom: 7px;
 }
 
-/* line 58, ../scss/misc.scss */
+/* line 62, ../scss/misc.scss */
 #edit-field-user-position {
   clear: both;
 }
 
-/* line 62, ../scss/misc.scss */
+/* line 66, ../scss/misc.scss */
 #edit-field-user-arabic, #edit-field-user-education {
   clear: both;
 }
 
-/* line 66, ../scss/misc.scss */
+/* line 70, ../scss/misc.scss */
 body.page-user-edit #content {
   width: 100%;
 }
 
-/* line 70, ../scss/misc.scss */
+/* line 74, ../scss/misc.scss */
 body.page-user-edit h1 {
   font-size: 2.2em;
   font-weight: 300;
@@ -2111,75 +2116,75 @@ body.page-user-edit h1 {
   width: 100%;
 }
 
-/* line 80, ../scss/misc.scss */
+/* line 84, ../scss/misc.scss */
 body.page-user-edit .inner {
   padding: 0 20px 20px;
 }
 
-/* line 84, ../scss/misc.scss */
+/* line 88, ../scss/misc.scss */
 body.page-user-edit #content-header {
   margin-bottom: 20px;
   padding-top: 20px;
 }
 
-/* line 89, ../scss/misc.scss */
+/* line 93, ../scss/misc.scss */
 #user-profile-form .filter-wrapper, #user-profile-form .grippie {
   display: none;
 }
 
-/* line 93, ../scss/misc.scss */
+/* line 97, ../scss/misc.scss */
 #user-profile-form .form-textarea {
   width: 530px;
 }
 
-/* line 98, ../scss/misc.scss */
+/* line 102, ../scss/misc.scss */
 .field-name-field-user-title, .field-name-field-user-fname, .field-name-field-user-lname, .field-name-field-user-suffix {
   float: left;
   font-size: 20px;
   margin-right: 4px;
 }
 
-/* line 104, ../scss/misc.scss */
+/* line 108, ../scss/misc.scss */
 .do {
   left: 125px;
   position: absolute;
   top: 60px;
 }
 
-/* line 110, ../scss/misc.scss */
+/* line 114, ../scss/misc.scss */
 body.en .do {
   font-style: italic;
 }
 
-/* line 114, ../scss/misc.scss */
+/* line 118, ../scss/misc.scss */
 .profile .user-picture {
   float: left;
   margin: 0 1em 1em 0;
 }
 
-/* line 119, ../scss/misc.scss */
+/* line 123, ../scss/misc.scss */
 .field-name-field-user-arabic {
   clear: both;
 }
 
-/* line 123, ../scss/misc.scss */
+/* line 127, ../scss/misc.scss */
 .field-name-field-user-city {
   clear: both;
   float: left;
   margin-right: 10px;
 }
 
-/* line 129, ../scss/misc.scss */
+/* line 133, ../scss/misc.scss */
 .field-name-field-user-country {
   float: left;
 }
 
-/* line 133, ../scss/misc.scss */
+/* line 137, ../scss/misc.scss */
 body.page-user #content {
   width: 100%;
 }
 
-/* line 137, ../scss/misc.scss */
+/* line 141, ../scss/misc.scss */
 .personal-info {
   background: none repeat scroll 0 0 #E7E7E7;
   display: block;
@@ -2190,56 +2195,56 @@ body.page-user #content {
   width: 100%;
 }
 
-/* line 147, ../scss/misc.scss */
+/* line 151, ../scss/misc.scss */
 .residence {
   left: 125px;
   position: absolute;
   top: 85px;
 }
 
-/* line 153, ../scss/misc.scss */
+/* line 157, ../scss/misc.scss */
 .profile-name {
   margin-top: 20px;
 }
 
-/* line 157, ../scss/misc.scss */
+/* line 161, ../scss/misc.scss */
 .user-picture img {
   float: left;
   /*  width: 32px; */
 }
 
-/* line 162, ../scss/misc.scss */
+/* line 166, ../scss/misc.scss */
 .profile .field-items {
   clear: both;
 }
 
-/* line 166, ../scss/misc.scss */
+/* line 170, ../scss/misc.scss */
 .prof-info {
   border-top: 1px solid #777777;
   padding: 10px;
 }
 
-/* line 172, ../scss/misc.scss */
+/* line 176, ../scss/misc.scss */
 #slash.node {
   background: none;
 }
 
-/* line 176, ../scss/misc.scss */
+/* line 180, ../scss/misc.scss */
 #block-block-3 a {
   margin-right: 10px;
 }
 
-/* line 180, ../scss/misc.scss */
+/* line 184, ../scss/misc.scss */
 .field-body {
   color: #303030;
 }
 
-/* line 184, ../scss/misc.scss */
+/* line 188, ../scss/misc.scss */
 .field-body .field-label {
   color: #303030;
 }
 
-/* line 188, ../scss/misc.scss */
+/* line 192, ../scss/misc.scss */
 body.i18n-en .field-body .field-label {
   font-style: normal;
   font-weight: normal;
@@ -2247,18 +2252,18 @@ body.i18n-en .field-body .field-label {
   margin-bottom: 10px;
 }
 
-/* line 195, ../scss/misc.scss */
+/* line 199, ../scss/misc.scss */
 #comments #edit-body-wrapper label {
   float: left;
   margin-right: 10px;
 }
 
-/* line 200, ../scss/misc.scss */
+/* line 204, ../scss/misc.scss */
 #comments #edit-body-wrapper .grippie {
   display: none;
 }
 
-/* line 204, ../scss/misc.scss */
+/* line 208, ../scss/misc.scss */
 #comment-form input[type=text], #comments #edit-body-wrapper textarea#edit-body {
   padding: 5px;
   float: none;
@@ -2266,38 +2271,38 @@ body.i18n-en .field-body .field-label {
   width: 440px;
 }
 
-/* line 211, ../scss/misc.scss */
+/* line 215, ../scss/misc.scss */
 #comment-form label[for=edit-subject] {
   margin-right: 42px;
 }
 
-/* line 215, ../scss/misc.scss */
+/* line 219, ../scss/misc.scss */
 #comment-form textarea {
   display: inline;
   width: 450px;
 }
 
-/* line 220, ../scss/misc.scss */
+/* line 224, ../scss/misc.scss */
 #comment-form #edit-actions {
   margin-left: 95px;
 }
 
-/* line 224, ../scss/misc.scss */
+/* line 228, ../scss/misc.scss */
 #comment-form #edit-actions input[type=submit] {
   margin-right: 10px;
 }
 
-/* line 228, ../scss/misc.scss */
+/* line 232, ../scss/misc.scss */
 .sidebar-second .block {
   margin-bottom: 20px;
 }
 
-/* line 232, ../scss/misc.scss */
+/* line 236, ../scss/misc.scss */
 #boxes-box-scholars_box img {
   margin-right: 5px;
 }
 
-/* line 236, ../scss/misc.scss */
+/* line 240, ../scss/misc.scss */
 #block-pcp-pcp_profile_percent_complete {
   position: fixed;
   bottom: 0;
@@ -2309,22 +2314,22 @@ body.i18n-en .field-body .field-label {
   line-height: 1.3em;
   font-size: 16px;
 }
-/* line 246, ../scss/misc.scss */
+/* line 250, ../scss/misc.scss */
 #block-pcp-pcp_profile_percent_complete h2 {
   display: none;
 }
 
-/* line 251, ../scss/misc.scss */
+/* line 255, ../scss/misc.scss */
 #comment-body-add-more-wrapper .filter-wrapper {
   display: none;
 }
 
-/* line 256, ../scss/misc.scss */
+/* line 260, ../scss/misc.scss */
 form#user-profile-form input[type="text"]:focus, #user-profile-form .form-textarea:focus, #user-profile-form input[type="password"]:focus {
   -moz-box-shadow: 1px -1px 3px #777777;
 }
 
-/* line 260, ../scss/misc.scss */
+/* line 264, ../scss/misc.scss */
 div.vertical-tabs {
   border: 1px solid #CCCCCC;
   clear: both;
@@ -2333,33 +2338,35 @@ div.vertical-tabs {
   position: relative;
 }
 
-/* line 268, ../scss/misc.scss */
+/* line 272, ../scss/misc.scss */
 .view-discussions .views-field-title {
   float: left;
   margin-bottom: 5px;
   font-size: 1.6em;
   font-weight: 300;
+  width: 480px;
 }
 
-/* line 275, ../scss/misc.scss */
+/* line 280, ../scss/misc.scss */
 .view-discussions .views-field-body {
   border-top: 1px solid #999999;
   clear: both;
   padding-top: 10px;
+  text-align: justify;
 }
 
-/* line 281, ../scss/misc.scss */
+/* line 287, ../scss/misc.scss */
 .field-name-field-discussion-text .submitted {
   display: none;
 }
 
-/* line 285, ../scss/misc.scss */
+/* line 291, ../scss/misc.scss */
 .field-name-field-discussion-text h2 {
   font-size: 18px;
   font-weight: bold;
 }
 
-/* line 290, ../scss/misc.scss */
+/* line 296, ../scss/misc.scss */
 .view-discussions .views-row {
   clear: both;
   float: left;
@@ -2367,50 +2374,50 @@ div.vertical-tabs {
   width: 100%;
 }
 
-/* line 298, ../scss/misc.scss */
+/* line 304, ../scss/misc.scss */
 .view-discussions .views-field-phpcode {
   float: left;
   margin-right: 15px;
 }
 
-/* line 303, ../scss/misc.scss */
+/* line 309, ../scss/misc.scss */
 .view-texts-in-discussion .view-header {
   font-weight: bold;
 }
 
-/* line 307, ../scss/misc.scss */
+/* line 313, ../scss/misc.scss */
 body.en .view-texts-in-discussion .view-header {
   font-style: italic;
 }
 
-/* line 311, ../scss/misc.scss */
+/* line 317, ../scss/misc.scss */
 ul.language-switcher-locale-url li {
   display: inline;
 }
 
-/* line 315, ../scss/misc.scss */
+/* line 321, ../scss/misc.scss */
 ul.language-switcher-locale-url li.active {
   display: none;
 }
 
-/* line 320, ../scss/misc.scss */
+/* line 326, ../scss/misc.scss */
 .view-texts-in-discussion .field-name-field-text-source, .view-texts-in-discussion .field-name-field-text-author, .view-texts-in-discussion .field-name-field-text-description {
   display: none;
 }
 
-/* line 325, ../scss/misc.scss */
+/* line 331, ../scss/misc.scss */
 #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: left;
   margin-top: 10px;
 }
 
-/* line 335, ../scss/misc.scss */
+/* line 341, ../scss/misc.scss */
 .view-glossary-terms .view-content {
   float: left;
 }
 
-/* line 339, ../scss/misc.scss */
+/* line 345, ../scss/misc.scss */
 .view-glossary-terms .views-summary {
   float: left;
   display: block;
@@ -2420,20 +2427,20 @@ ul.language-switcher-locale-url li.active {
   color: #aaa;
 }
 
-/* line 348, ../scss/misc.scss */
+/* line 354, ../scss/misc.scss */
 #boxes-box-participants a {
   display: block;
   float: left;
   margin-right: 20px;
 }
 
-/* line 354, ../scss/misc.scss */
+/* line 360, ../scss/misc.scss */
 #boxes-box-participants a img {
   height: 100px;
   width: 100px;
 }
 
-/* line 359, ../scss/misc.scss */
+/* line 365, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul {
   border-bottom: 1px dashed #CCCCCC;
   margin-left: 0;
@@ -2441,23 +2448,23 @@ ul.language-switcher-locale-url li.active {
   padding-left: 0;
 }
 
-/* line 366, ../scss/misc.scss */
+/* line 372, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li:hover {
   background: #eee;
 }
 
-/* line 370, ../scss/misc.scss */
+/* line 376, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li {
   display: block;
 }
 
-/* line 374, ../scss/misc.scss */
+/* line 380, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li a {
   display: block;
   width: 100%;
 }
 
-/* line 379, ../scss/misc.scss */
+/* line 385, ../scss/misc.scss */
 #boxes-box-about_this_discussion .field-name {
   border-bottom: 1px dashed #E1E1E1;
   color: #5B0000;
@@ -2466,48 +2473,48 @@ ul.language-switcher-locale-url li.active {
   padding-bottom: 2px;
 }
 
-/* line 387, ../scss/misc.scss */
+/* line 393, ../scss/misc.scss */
 body.page-overview #content-inner {
   margin-top: 0;
   padding-top: 0;
 }
 
-/* line 392, ../scss/misc.scss */
+/* line 398, ../scss/misc.scss */
 body.page-overview #content-header {
   display: none;
 }
 
-/* line 396, ../scss/misc.scss */
+/* line 402, ../scss/misc.scss */
 .personal-info .user-picture img {
   /*  width:100px;*/
 }
 
-/* line 400, ../scss/misc.scss */
+/* line 406, ../scss/misc.scss */
 .view-other-nuranis .views-field-picture img {
   /*  width:100px;*/
 }
 
-/* line 404, ../scss/misc.scss */
+/* line 410, ../scss/misc.scss */
 .view-texts table {
   width: 920px;
 }
 
-/* line 408, ../scss/misc.scss */
+/* line 414, ../scss/misc.scss */
 table .field-item, table .view-texts a, table td a {
   font-size: 15px;
 }
 
-/* line 412, ../scss/misc.scss */
+/* line 418, ../scss/misc.scss */
 .no-sidebars #content-header ul.tabs {
   left: 0;
 }
 
-/* line 416, ../scss/misc.scss */
+/* line 422, ../scss/misc.scss */
 #content-header ul.tabs, #content-header ul.tabs li {
   float: none;
 }
 
-/* line 420, ../scss/misc.scss */
+/* line 426, ../scss/misc.scss */
 #content-header ul.tabs li a {
   background-image: -moz-linear-gradient(center top, #ededed 0%, #e0e0e0 100%);
   color: #888888;
@@ -2515,6 +2522,60 @@ table .field-item, table .view-texts a, table td a {
   padding: 5px 8px 1px;
   position: relative;
   z-index: 9;
+}
+
+/* line 435, ../scss/misc.scss */
+#block-views-new_texts-block_1 h3,
+#block-views-new_glossary_terms-block_1 h3 {
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  padding: 10px 0 10px 20px;
+  color: #7c0000;
+  background: url(../images/arrow-collapse.png) no-repeat left;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+/* line 444, ../scss/misc.scss */
+#block-views-nuranis-block_1 h3 {
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  padding: 10px 0 10px 20px;
+  color: #7c0000;
+  background: url(../images/arrow-expand.png) no-repeat left;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+/* line 454, ../scss/misc.scss */
+#block-views-new_texts-block_1 h3.expand,
+#block-views-new_glossary_terms-block_1 h3.expand {
+  background: url(../images/arrow-expand.png) no-repeat left;
+}
+
+/* line 457, ../scss/misc.scss */
+#block-views-nuranis-block_1 h3.collapsed {
+  background: url(../images/arrow-collapse.png) no-repeat left;
+}
+
+/* line 460, ../scss/misc.scss */
+#block-views-nuranis-block_1 .content {
+  padding: 20px 0 0;
+}
+
+/* line 464, ../scss/misc.scss */
+#block-views-new_texts-block_1 .content,
+#block-views-new_glossary_terms-block_1 .content {
+  padding: 20px 0 0;
+  displaY: none;
+}
+
+/* line 469, ../scss/misc.scss */
+#block-views-new_texts-block_1 .views-row,
+#block-views-new_glossary_terms-block_1 .views-row {
+  padding: 0 0 10px 15px;
+  margin: 0 0 0 20px;
+  background: url(../images/point.png) no-repeat left 3px;
 }
 
 /* line 15, ../scss/discussion_header.scss */
@@ -2720,19 +2781,19 @@ ul.menu li.active-trail {
   font-weight: normal;
   font-size: 20px;
 }
-/* line 18, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 18, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:visited {
   color: #7c0000;
 }
-/* line 21, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 21, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:focus {
   color: #7c0000;
 }
-/* line 24, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 24, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:hover {
   color: black;
 }
-/* line 27, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 27, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:active {
   color: black;
 }
@@ -3220,19 +3281,19 @@ span.username {
 a {
   color: black;
 }
-/* line 18, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 18, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:visited {
   color: black;
 }
-/* line 21, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 21, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:focus {
   color: black;
 }
-/* line 24, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 24, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:hover {
   color: #990000;
 }
-/* line 27, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 27, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:active {
   color: black;
 }
