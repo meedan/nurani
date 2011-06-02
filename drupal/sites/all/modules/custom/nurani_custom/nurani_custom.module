@@ -68,13 +68,8 @@ function nurani_custom_preprocess_translation_status(&$vars) {
   }
   else {
     // Find translation status for node.
-    $in_progress = TRUE;
-    $statuses = _icl_content_statuses($node->tnid, 'node');
-    foreach ($statuses as $status) {
-      if ($status >= ICL_STATUS_READY) {
-        $in_progress = FALSE;
-      }
-    }
+    $in_progress = _nurani_custom_translation_pending($node);
+
     // Build CSS class.
     if ($node->tnid == $node->nid) {
       $classes[] = 'translation-status-original';
@@ -99,16 +94,26 @@ function nurani_custom_preprocess_translation_status(&$vars) {
       '!type' => $original->type, 
       '!original' => t($languages[$original->language]->name),
     ));
-    if ($in_progress) {
-      $captions[] = t('This !type is awaiting translation.', array('!type' => $node->type));
-    }
-    else {
-      $uid = db_result(db_query("
+    $uid = db_result(db_query("
 SELECT tj.uid 
 FROM {icl_translate_job} tj 
 INNER JOIN {icl_content_status} cs ON tj.rid = cs.rid
 WHERE cs.nid = %d
-      ", $node->tnid));
+    ", $node->tnid));
+    if ($in_progress) {
+      if (empty($uid)) {
+        $captions[] = t('This !type is awaiting translation.', array(
+          '!type' => $node->type
+        ));
+      }
+      else {
+        $captions[] = t('This !type is awaiting translation by !translator.', array(
+          '!type' => $node->type, 
+          '!translator' => user_load($uid)->name
+        ));
+      }
+    }
+    else {
       $captions[] = t('Translated to !translation by !translator.', array(
         '!translation' => t($languages[$translation->language]->name), 
         '!translator' => user_load($uid)->name,
@@ -174,6 +179,9 @@ function nurani_custom_translation_dashboard_filter_nodes($translation, $content
   return $content;
 }
 
+/**
+ * Implementation of hook_link_alter().
+ */
 function nurani_custom_link_alter(&$links, $node, $comment = NULL) {
   // Hide language links from comments.
   if (!empty($links)) foreach ($links as $key => $link) {
@@ -183,4 +191,70 @@ function nurani_custom_link_alter(&$links, $node, $comment = NULL) {
   }
 }
 
+/**
+ * Implementation of hook_link().
+ */
+function nurani_custom_link($type, $object, $teaser = FALSE) {
+  if ($type != 'node' || !translation_supported_type($object->type)) return;
+
+  $links = array();
+  if (_nurani_custom_translation_pending($object, TRUE) && user_access(ICL_TRANSLATE_DO_JOBS)) {
+    // Create a translate link for translators if the node is pending translation.
+    // TODO: For discussions and discussion comments, check that the translator exists in field_translators.
+    // TODO: Check that translator can translate from source language to target language.
+    $links[] = array(
+      'title' => t('translate'),
+      'href' => 'translation/' . $object->nid,
+    );
+  }
+  return $links;
+}
+
+/** 
+ * Implementation of hook_menu().
+ */
+function nurani_custom_menu() {
+  $items = array();
+
+  $items['translation/%node'] = array(
+    'title' => 'Translate content',
+    'page callback' => '_nurani_translation',
+    'page arguments' => array(1),
+    'access arguments' => array(ICL_TRANSLATE_DO_JOBS),
+  );
+
+  return $items;
+}
+
+/**
+ * Menu callback function to create a new translation job on the fly.
+ */
+function _nurani_translation($node) {
+  $languages = i18n_language_list(); // get all enabled languages
+  unset($languages[$node->language]); //unset the languages of source node
+  global $user;
+  $translators = array();
+  foreach ($languages as $langcode => $langname) {
+    $translators[$langcode] = array(
+      'id' => $user->uid,
+      'translation_service' => 'local',
+    );
+  }
+  icl_content_translate_posts(array($node->nid), array_keys($languages), $translators); 
+  $rid = db_result(db_query("SELECT rid FROM {icl_content_status} WHERE nid=%d", $node->nid));
+  drupal_goto('translate/' . $rid);
+}
+
+/**
+ * Helper function to check if a node is pending translation.
+ */
+function _nurani_custom_translation_pending($node, $true_only_if_not_in_queue = FALSE) {
+  $statuses = _icl_content_statuses($node->tnid, 'node');
+  foreach ($statuses as $status) {
+    if ($status >= ICL_STATUS_READY || $true_only_if_not_in_queue) {
+      return FALSE;
+    }
+  }
+  return TRUE;
+}
 
