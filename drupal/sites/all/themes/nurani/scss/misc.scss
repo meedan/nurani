@@ -198,8 +198,8 @@ body.i18n-en .field-body .field-label {
 
 #comments #edit-body-wrapper label {
   float: left;
-  margin: 0 10px 0 48px;
-	font-style: italic;
+  margin: 0 10px 0 0;
+  font-style: italic;
 }
 #comments .resizable-textarea {
 	width: auto;
@@ -212,7 +212,7 @@ body.i18n-en .field-body .field-label {
   padding: 5px;
   float: none;
   height: 160px;
-  width: 440px;
+  width: 469px;
 }
 
 #comment-form label[for=edit-subject] {

@@ -57,7 +57,7 @@ body.i18n-ar {
     float: right;
   }
 
-/*Top strip*/
+	/*Top strip*/
 	#block-locale-0 {
 		float: left;
 		font-size: 18px;
@@ -74,19 +74,19 @@ body.i18n-ar {
   }
 }
 
-/*Navigation*/
+	/*Navigation*/
 	ul.menu li.last,
 	ul.menu li.first,
 	ul.menu li {
     float: right;
 	}
 
-/*Welcome*/
+	/*Welcome*/
 	div#slash div#boxes-box-welcome_box img.d_ford {
 		float: left;
 	}
 
-/*Overview*/
+	/*Overview*/
 	 div#main {	
 		float: right;
 	}
@@ -105,13 +105,94 @@ body.i18n-ar {
 		}
 	}
 
+	/*vertical tabs*/
+	div.vertical-tabs {
+			float: right;		
+			margin: 1em 15em 0 0;		
+
+			ul.vertical-tabs-list {
+			float: right;
+			left: auto;
+			right: 2em;
+		
+			li {
+				text-align: right;
+			}	
+			li.selected {
+				border-left: 0;
+				border-right: 1px solid #ccc;
+			}
+		}
+	}
+}
 /*discussion*/
-	#container #content-area p {
-		text-align: right;
+body.i18n-ar.node-type-discussion {
+	div#block-views-discussion_texts-block_1 {	
+		h1 {
+			text-align: right;
+		}
+		.content { 
+			text-align: right;
+		}		
 	}
 	#container #sidebar-second {
 		text-align: right;
 	}
-
-
+	.view-discussion-texts .views-row {
+		float: right;
+	}
+	#container {
+		#content-area {
+			.node p {
+				text-align: right;
+				margin: 0 1.1em 1em 0;	
+			}
+			.field-translation-status {
+				float: left;
+			}
+	 	}
+		#comments {
+			margin: 0 20px 0 0;
+		 
+			h2#comments-title {
+				padding: 0 0 0 202px;
+			}	
+			.buildmode-full {
+				padding: 10px 10px 0 0;
+			}
+			.field-author {
+					float: right;
+			}
+			.field-post-date {
+				float: left;
+				padding: 0 0 0 10px;
+			}
+			.node p {
+				margin: 0 0 1em 0;
+			}				
+			.field-translation-status {
+				border: 1px solid $gray;
+				border-left: 0;
+				border-bottom: 0;
+				text-align: right;
+			}
+			.nd-region-footer {
+				text-align: right;
+			}
+			label {
+				float: right;
+				margin: 0 0 0 10px;
+			}
+		}
+		#sidebar-second {
+			margin-left: 1.2em;
+			margin-right: 0;
+		
+				#sidebar-second-inner {
+					padding-right: 7px;
+					padding-left: 20px;
+				}
+		}
+	}
 }
+	

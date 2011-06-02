@@ -233,7 +233,7 @@ body.i18n-en .field-body .field-label {
 /* line 199, ../scss/misc.scss */
 #comments #edit-body-wrapper label {
   float: left;
-  margin: 0 10px 0 48px;
+  margin: 0 10px 0 0;
   font-style: italic;
 }
 
@@ -252,7 +252,7 @@ body.i18n-en .field-body .field-label {
   padding: 5px;
   float: none;
   height: 160px;
-  width: 440px;
+  width: 469px;
 }
 
 /* line 218, ../scss/misc.scss */

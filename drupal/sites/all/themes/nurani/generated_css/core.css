@@ -1553,51 +1553,52 @@ body.node-type-discussion #container #comments {
   text-align: left;
   padding: 30px 0 0;
   position: relative;
+  margin: 0 0 0 20px;
 }
-/* line 193, ../scss/discussion.scss */
+/* line 194, ../scss/discussion.scss */
 body.node-type-discussion #container #comments h2#comments-title {
   background: white url("../images/borders-comment.png") no-repeat center 10px;
   font-size: 1.4em;
   padding: 0 0 0 212px;
   text-transform: uppercase;
 }
-/* line 199, ../scss/discussion.scss */
+/* line 200, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .buildmode-full {
   border: 1px solid #cccccc;
   margin: 0 0 20px;
   padding: 10px 0 0 10px;
   position: relative;
 }
-/* line 205, ../scss/discussion.scss */
+/* line 206, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node {
   padding: 0;
 }
-/* line 207, ../scss/discussion.scss */
+/* line 208, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-author {
   float: left;
   margin: 0 10px 0 0;
 }
-/* line 211, ../scss/discussion.scss */
+/* line 212, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-post-date {
   color: #cccccc;
   float: right;
   padding: 0 10px 0 0;
   font-size: 0.9em;
 }
-/* line 217, ../scss/discussion.scss */
+/* line 218, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-body {
   margin: 20px 0 0;
 }
-/* line 221, ../scss/discussion.scss */
+/* line 222, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .field-translation-status {
   border-bottom: 0;
   border-right: 0;
 }
-/* line 225, ../scss/discussion.scss */
+/* line 226, ../scss/discussion.scss */
 body.node-type-discussion #container #comments textarea {
   box-shadow: 0 3px 0 #eeeeee;
 }
-/* line 229, ../scss/discussion.scss */
+/* line 230, ../scss/discussion.scss */
 body.node-type-discussion #container ul.links {
   border: 1px solid #ccc;
   padding: 7px 5px;
@@ -1607,18 +1608,18 @@ body.node-type-discussion #container ul.links {
   position: absolute;
   bottom: 6px;
 }
-/* line 237, ../scss/discussion.scss */
+/* line 238, ../scss/discussion.scss */
 body.node-type-discussion #container ul.links li {
   padding: 0 10px;
 }
-/* line 241, ../scss/discussion.scss */
+/* line 242, ../scss/discussion.scss */
 body.node-type-discussion #container .box {
   background: url("../images/borders.png") no-repeat center top;
   padding: 10px 0 0;
   margin: 50px 0 0;
   position: relative;
 }
-/* line 247, ../scss/discussion.scss */
+/* line 248, ../scss/discussion.scss */
 body.node-type-discussion #container .box h2 {
   background: #FFFFFF;
   font-size: 1.4em;
@@ -1629,7 +1630,7 @@ body.node-type-discussion #container .box h2 {
   top: -10px;
 }
 
-/* line 259, ../scss/discussion.scss */
+/* line 260, ../scss/discussion.scss */
 body.section-node-edit div#container {
   text-align: left;
 }
@@ -1656,7 +1657,7 @@ body.i18n-ar {
   /*Navigation*/
   /*Welcome*/
   /*Overview*/
-  /*discussion*/
+  /*vertical tabs*/
 }
 /* line 8, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-welcome_to_nurani_box .toggle {
@@ -1824,12 +1825,102 @@ body.i18n-ar .view-discussions .views-field-phpcode {
   margin-right: 0;
 }
 /* line 109, ../scss/style-rtl.scss */
-body.i18n-ar #container #content-area p {
+body.i18n-ar div.vertical-tabs {
+  float: right;
+  margin: 1em 15em 0 0;
+}
+/* line 113, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs ul.vertical-tabs-list {
+  float: right;
+  left: auto;
+  right: 2em;
+}
+/* line 118, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li {
   text-align: right;
 }
-/* line 112, ../scss/style-rtl.scss */
-body.i18n-ar #container #sidebar-second {
+/* line 121, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li.selected {
+  border-left: 0;
+  border-right: 1px solid #ccc;
+}
+
+/*discussion*/
+/* line 131, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h1 {
   text-align: right;
+}
+/* line 134, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 .content {
+  text-align: right;
+}
+/* line 138, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #sidebar-second {
+  text-align: right;
+}
+/* line 141, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion .view-discussion-texts .views-row {
+  float: right;
+}
+/* line 146, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node p {
+  text-align: right;
+  margin: 0 1.1em 1em 0;
+}
+/* line 150, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .field-translation-status {
+  float: left;
+}
+/* line 154, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments {
+  margin: 0 20px 0 0;
+}
+/* line 157, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments h2#comments-title {
+  padding: 0 0 0 202px;
+}
+/* line 160, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .buildmode-full {
+  padding: 10px 10px 0 0;
+}
+/* line 163, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .field-author {
+  float: right;
+}
+/* line 166, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .field-post-date {
+  float: left;
+  padding: 0 0 0 10px;
+}
+/* line 170, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .node p {
+  margin: 0 0 1em 0;
+}
+/* line 173, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .field-translation-status {
+  border: 1px solid #cccccc;
+  border-left: 0;
+  border-bottom: 0;
+  text-align: right;
+}
+/* line 179, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .nd-region-footer {
+  text-align: right;
+}
+/* line 182, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments label {
+  float: right;
+  margin: 0 0 0 10px;
+}
+/* line 187, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #sidebar-second {
+  margin-left: 1.2em;
+  margin-right: 0;
+}
+/* line 191, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inner {
+  padding-right: 7px;
+  padding-left: 20px;
 }
 
 /* theme core colors*/
@@ -2318,7 +2409,7 @@ body.i18n-en .field-body .field-label {
 /* line 199, ../scss/misc.scss */
 #comments #edit-body-wrapper label {
   float: left;
-  margin: 0 10px 0 48px;
+  margin: 0 10px 0 0;
   font-style: italic;
 }
 
@@ -2337,7 +2428,7 @@ body.i18n-en .field-body .field-label {
   padding: 5px;
   float: none;
   height: 160px;
-  width: 440px;
+  width: 469px;
 }
 
 /* line 218, ../scss/misc.scss */
