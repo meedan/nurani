@@ -2160,7 +2160,7 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_comment_view_discussion';
-  $strongarm->value = 'nodecomments';
+  $strongarm->value = 'nurani_comments';
 
   $export['node_comment_view_discussion'] = $strongarm;
   $strongarm = new stdClass;
@@ -2181,7 +2181,7 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_comment_view_term';
-  $strongarm->value = 'nodecomments';
+  $strongarm->value = 'nurani_comments';
 
   $export['node_comment_view_term'] = $strongarm;
   $strongarm = new stdClass;
