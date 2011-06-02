@@ -230,8 +230,9 @@ function nurani_custom_menu() {
  * Menu callback function to create a new translation job on the fly.
  */
 function _nurani_translation($node) {
+  $original = node_load($node->tnid);
   $languages = i18n_language_list(); // get all enabled languages
-  unset($languages[$node->language]); //unset the languages of source node
+  unset($languages[$original->language]); //unset the languages of source node
   global $user;
   $translators = array();
   foreach ($languages as $langcode => $langname) {
@@ -240,8 +241,8 @@ function _nurani_translation($node) {
       'translation_service' => 'local',
     );
   }
-  icl_content_translate_posts(array($node->nid), array_keys($languages), $translators); 
-  $rid = db_result(db_query("SELECT rid FROM {icl_content_status} WHERE nid=%d", $node->nid));
+  icl_content_translate_posts(array($original->nid), array_keys($languages), $translators); 
+  $rid = db_result(db_query("SELECT rid FROM {icl_content_status} WHERE nid=%d", $original->nid));
   drupal_goto('translate/' . $rid);
 }
 
