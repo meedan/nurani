@@ -5,24 +5,25 @@
  * Implementation of hook_nodeapi().
  */
 function nurani_custom_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
-  
   // If someone highlights a text, and redirected to term add page.
   if ($op == 'prepare' && $node->type == 'term' && !$node->nid) {
-    
     if (isset($_GET['title']))
       $node->title = strtolower($_GET['title']);
     if (isset($_GET['language']))
       $node->language = $_GET['language'];
   }
+  
+  // Auto-translate content on content creation.
+  if ($op == 'insert') {
+    _nurani_custom_autotranslate($node);
+  }
 }
 
 /**
- * Implementation of template_preprocess_node().
+ * Template preprocessor for theme('node').
  */
 function nurani_custom_preprocess_node(&$vars) {
-  
-  if (in_array($vars['node']->type, array('discussion', 'text')) && user_access('create term content')) {
-  
+  if (in_array($vars['node']->type, array('discussion', 'text')) && user_access('create term content')) {  
     $path = drupal_get_path('module', 'nurani_custom');
     drupal_add_js(array('nurani_custom' => array(
       'selected_node_lang' => $vars['node']->language // pass to new glossary form
@@ -59,9 +60,10 @@ function nurani_custom_preprocess_translation_status(&$vars) {
   $node = $vars['node'];
   $classes = array();
   $captions = array();
+
   if (empty($node->tnid)) {
     $classes[] = 'translation-status-untranslated';
-    $captions[] = t('This !type is not translated.', array('!type' => $node->type));
+    $captions[] = t('This !type is awaiting translation.', array('!type' => $node->type));
   }
   else {
     if ($node->tnid == $node->nid) {
@@ -89,4 +91,75 @@ function nurani_custom_preprocess_translation_status(&$vars) {
   $vars['classes'] = $classes;
   $vars['captions'] = $captions;
 }
+
+/**
+ * Helper function to autocreate a placeholder translation for each translatable node.
+ */
+function _nurani_custom_autotranslate($node) {
+  if (!translation_supported_type($node->type)) return;
+  if (!empty($node->translation_source) || !empty($node->tnid)) return;
+
+  $languages = i18n_language_list(); // get all enabled languages
+  unset($languages[$node->language]); //unset the languages of source node
+
+  foreach ($languages as $langcode => $language) {
+    $new_node = clone($node);
+    unset($new_node->nid);
+    unset($new_node->vid);
+    unset($new_node->path);
+    $new_node->language = $langcode;
+    $new_node->tnid = $node->nid;
+    $new_node->translation_source = $node;
+
+    $node_comment_types = array();
+    foreach (node_get_types() as $type) {
+      $node_comment_type = variable_get('node_comment_type_' . $type->type, '');
+      if (!empty($node_comment_type)) {
+        $node_comment_types[] = $node_comment_type;
+      }
+    }
+    if (in_array($new_node->type, $node_comment_types)) {
+      if ($node->language == 'en') {
+        $t_lang = 'ar';
+      }
+      elseif ($new_node->language == 'ar') {
+        $t_lang = 'en';
+      }
+      $new_node->comment_target_nid = db_result(db_query("
+SELECT translation.nid
+FROM {node} parent LEFT JOIN {node} translation ON parent.tnid = translation.tnid
+WHERE parent.nid = %d
+AND translation.language = '%s'
+      ", $node->comment_target_nid, $new_node->language));
+    }
+    node_save(node_submit($new_node));
+  }
+  
+  // Update original node's tnid.
+  $node->tnid = $node->nid;
+  node_save($node);
+}
+
+/**
+ * Implementation of hook_translation_dashboard_filter_nodes().
+ */
+function nurani_custom_translation_dashboard_filter_nodes($translation, $content) {
+  // Hide static pages from translation dashboard.
+  foreach ($content as $key => $item) {
+    if ($item['type'] == 'page') {
+      unset($content[$key]);
+    }
+  }
+  return $content;
+}
+
+function nurani_custom_link_alter(&$links, $node, $comment = NULL) {
+  // Hide language links from comments.
+  if (!empty($links)) foreach ($links as $key => $link) {
+    if (isset($link['language'])) {
+      unset($links[$key]);
+    }
+  }
+}
+
 

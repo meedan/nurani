@@ -39,7 +39,7 @@ function nurani_profile_modules() {
     'content',
 
     // i18n
-    'i18nblocks', 'i18ncck', 'i18ncontent', 'i18n', 'l10n_client', 'i18nstrings', 'i18ntaxonomy',
+    'i18nblocks', 'i18ncck', 'i18ncontent', 'i18n', 'l10n_client', 'i18nstrings', 'i18ntaxonomy', 'i18nsync',
     'icl_content', 'icl_core', 'icl_translate', 'local_translations',
 
     // Strongarm

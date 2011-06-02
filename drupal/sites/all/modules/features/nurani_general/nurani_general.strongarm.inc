@@ -193,7 +193,7 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_comment';
-  $strongarm->value = 0;
+  $strongarm->value = '0';
 
   $export['comment_comment'] = $strongarm;
   $strongarm = new stdClass;
@@ -598,14 +598,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->name = 'content_extra_weights_profile';
   $strongarm->value = array(
     'title' => '-5',
-    'body_field' => '8',
     'revision_information' => '10',
     'author' => '11',
     'options' => '12',
     'comment_settings' => '14',
     'language' => '9',
     'translation' => '15',
-    'menu' => '7',
+    'menu' => '8',
     'path' => '13',
   );
 
@@ -1010,6 +1009,93 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'i18nsync_nodeapi_annotation';
+  $strongarm->value = array();
+
+  $export['i18nsync_nodeapi_annotation'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18nsync_nodeapi_comment';
+  $strongarm->value = array();
+
+  $export['i18nsync_nodeapi_comment'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18nsync_nodeapi_discussion';
+  $strongarm->value = array(
+    0 => 'name',
+    1 => 'status',
+    2 => 'promote',
+    3 => 'moderate',
+    4 => 'sticky',
+    5 => 'revision',
+    6 => 'parent',
+    7 => 'taxonomy',
+    8 => 'comment',
+    9 => 'field_texts',
+    10 => 'field_moderators',
+    11 => 'field_translators',
+    12 => 'field_scholars',
+    13 => 'field_exp_comments',
+  );
+
+  $export['i18nsync_nodeapi_discussion'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18nsync_nodeapi_page';
+  $strongarm->value = array();
+
+  $export['i18nsync_nodeapi_page'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18nsync_nodeapi_profile';
+  $strongarm->value = array(
+    0 => 'name',
+    1 => 'status',
+    2 => 'promote',
+    3 => 'moderate',
+    4 => 'sticky',
+    5 => 'revision',
+    6 => 'parent',
+    7 => 'taxonomy',
+    8 => 'comment',
+    9 => 'field_title',
+    10 => 'field_fluency_en',
+    11 => 'field_fluency_ar',
+  );
+
+  $export['i18nsync_nodeapi_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18nsync_nodeapi_term';
+  $strongarm->value = array();
+
+  $export['i18nsync_nodeapi_term'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18nsync_nodeapi_text';
+  $strongarm->value = array(
+    0 => 'name',
+    1 => 'status',
+    2 => 'promote',
+    3 => 'moderate',
+    4 => 'sticky',
+    5 => 'revision',
+    6 => 'parent',
+    7 => 'taxonomy',
+    8 => 'comment',
+  );
+
+  $export['i18nsync_nodeapi_text'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'i18ntaxonomy_vocabulary';
   $strongarm->value = array(
     1 => '1',
@@ -1058,6 +1144,7 @@ The Service Providers may use session cookies when you visit our website while y
     'text' => array(
       'title' => 'title',
       'body' => 'body',
+      'field_description' => 'field_description',
     ),
     'term' => array(),
     'discussion' => array(
@@ -1068,7 +1155,17 @@ The Service Providers may use session cookies when you visit our website while y
       'title' => 'title',
       'body' => 'body',
     ),
-    'profile' => array(),
+    'profile' => array(
+      'field_fullname' => 'field_fullname',
+      'field_position' => 'field_position',
+      'field_city' => 'field_city',
+      'field_country' => 'field_country',
+      'field_education' => 'field_education',
+      'field_societies' => 'field_societies',
+      'field_experience' => 'field_experience',
+      'field_research' => 'field_research',
+      'field_publications' => 'field_publications',
+    ),
     'comment' => array(
       'body' => 'body',
     ),
@@ -1211,13 +1308,6 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = '2';
 
   $export['language_content_type_text'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'language_count';
-  $strongarm->value = 2;
-
-  $export['language_count'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
