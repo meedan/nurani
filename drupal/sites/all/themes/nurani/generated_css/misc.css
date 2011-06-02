@@ -233,54 +233,60 @@ body.i18n-en .field-body .field-label {
 /* line 199, ../scss/misc.scss */
 #comments #edit-body-wrapper label {
   float: left;
-  margin-right: 10px;
+  margin: 0 10px 0 48px;
+  font-style: italic;
 }
 
 /* line 204, ../scss/misc.scss */
+#comments .resizable-textarea {
+  width: auto;
+}
+
+/* line 207, ../scss/misc.scss */
 #comments #edit-body-wrapper .grippie {
   display: none;
 }
 
-/* line 208, ../scss/misc.scss */
+/* line 211, ../scss/misc.scss */
 #comment-form input[type=text], #comments #edit-body-wrapper textarea#edit-body {
   padding: 5px;
   float: none;
-  height: 85px;
+  height: 160px;
   width: 440px;
 }
 
-/* line 215, ../scss/misc.scss */
+/* line 218, ../scss/misc.scss */
 #comment-form label[for=edit-subject] {
   margin-right: 42px;
 }
 
-/* line 219, ../scss/misc.scss */
+/* line 222, ../scss/misc.scss */
 #comment-form textarea {
   display: inline;
   width: 450px;
 }
 
-/* line 224, ../scss/misc.scss */
+/* line 227, ../scss/misc.scss */
 #comment-form #edit-actions {
   margin-left: 95px;
 }
 
-/* line 228, ../scss/misc.scss */
+/* line 231, ../scss/misc.scss */
 #comment-form #edit-actions input[type=submit] {
   margin-right: 10px;
 }
 
-/* line 232, ../scss/misc.scss */
+/* line 235, ../scss/misc.scss */
 .sidebar-second .block {
   margin-bottom: 20px;
 }
 
-/* line 236, ../scss/misc.scss */
+/* line 239, ../scss/misc.scss */
 #boxes-box-scholars_box img {
   margin-right: 5px;
 }
 
-/* line 240, ../scss/misc.scss */
+/* line 243, ../scss/misc.scss */
 #block-pcp-pcp_profile_percent_complete {
   position: fixed;
   bottom: 0;
@@ -292,22 +298,22 @@ body.i18n-en .field-body .field-label {
   line-height: 1.3em;
   font-size: 16px;
 }
-/* line 250, ../scss/misc.scss */
+/* line 253, ../scss/misc.scss */
 #block-pcp-pcp_profile_percent_complete h2 {
   display: none;
 }
 
-/* line 255, ../scss/misc.scss */
+/* line 258, ../scss/misc.scss */
 #comment-body-add-more-wrapper .filter-wrapper {
   display: none;
 }
 
-/* line 260, ../scss/misc.scss */
+/* line 263, ../scss/misc.scss */
 form#user-profile-form input[type="text"]:focus, #user-profile-form .form-textarea:focus, #user-profile-form input[type="password"]:focus {
   -moz-box-shadow: 1px -1px 3px #777777;
 }
 
-/* line 264, ../scss/misc.scss */
+/* line 267, ../scss/misc.scss */
 div.vertical-tabs {
   border: 1px solid #CCCCCC;
   clear: both;
@@ -316,7 +322,7 @@ div.vertical-tabs {
   position: relative;
 }
 
-/* line 272, ../scss/misc.scss */
+/* line 275, ../scss/misc.scss */
 .view-discussions .views-field-title {
   float: left;
   margin-bottom: 5px;
@@ -325,7 +331,7 @@ div.vertical-tabs {
   width: 480px;
 }
 
-/* line 280, ../scss/misc.scss */
+/* line 283, ../scss/misc.scss */
 .view-discussions .views-field-body {
   border-top: 1px solid #999999;
   clear: both;
@@ -333,18 +339,18 @@ div.vertical-tabs {
   text-align: justify;
 }
 
-/* line 287, ../scss/misc.scss */
+/* line 290, ../scss/misc.scss */
 .field-name-field-discussion-text .submitted {
   display: none;
 }
 
-/* line 291, ../scss/misc.scss */
+/* line 294, ../scss/misc.scss */
 .field-name-field-discussion-text h2 {
   font-size: 18px;
   font-weight: bold;
 }
 
-/* line 296, ../scss/misc.scss */
+/* line 299, ../scss/misc.scss */
 .view-discussions .views-row {
   clear: both;
   float: left;
@@ -352,50 +358,50 @@ div.vertical-tabs {
   width: 100%;
 }
 
-/* line 304, ../scss/misc.scss */
+/* line 307, ../scss/misc.scss */
 .view-discussions .views-field-phpcode {
   float: left;
   margin-right: 15px;
 }
 
-/* line 309, ../scss/misc.scss */
+/* line 312, ../scss/misc.scss */
 .view-texts-in-discussion .view-header {
   font-weight: bold;
 }
 
-/* line 313, ../scss/misc.scss */
+/* line 316, ../scss/misc.scss */
 body.en .view-texts-in-discussion .view-header {
   font-style: italic;
 }
 
-/* line 317, ../scss/misc.scss */
+/* line 320, ../scss/misc.scss */
 ul.language-switcher-locale-url li {
   display: inline;
 }
 
-/* line 321, ../scss/misc.scss */
+/* line 324, ../scss/misc.scss */
 ul.language-switcher-locale-url li.active {
   display: none;
 }
 
-/* line 326, ../scss/misc.scss */
+/* line 329, ../scss/misc.scss */
 .view-texts-in-discussion .field-name-field-text-source, .view-texts-in-discussion .field-name-field-text-author, .view-texts-in-discussion .field-name-field-text-description {
   display: none;
 }
 
-/* line 331, ../scss/misc.scss */
+/* line 334, ../scss/misc.scss */
 #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: left;
   margin-top: 10px;
 }
 
-/* line 341, ../scss/misc.scss */
+/* line 344, ../scss/misc.scss */
 .view-glossary-terms .view-content {
   float: left;
 }
 
-/* line 345, ../scss/misc.scss */
+/* line 348, ../scss/misc.scss */
 .view-glossary-terms .views-summary {
   float: left;
   display: block;
@@ -405,20 +411,20 @@ ul.language-switcher-locale-url li.active {
   color: #aaa;
 }
 
-/* line 354, ../scss/misc.scss */
+/* line 357, ../scss/misc.scss */
 #boxes-box-participants a {
   display: block;
   float: left;
   margin-right: 20px;
 }
 
-/* line 360, ../scss/misc.scss */
+/* line 363, ../scss/misc.scss */
 #boxes-box-participants a img {
   height: 100px;
   width: 100px;
 }
 
-/* line 365, ../scss/misc.scss */
+/* line 368, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul {
   border-bottom: 1px dashed #CCCCCC;
   margin-left: 0;
@@ -426,23 +432,23 @@ ul.language-switcher-locale-url li.active {
   padding-left: 0;
 }
 
-/* line 372, ../scss/misc.scss */
+/* line 375, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li:hover {
   background: #eee;
 }
 
-/* line 376, ../scss/misc.scss */
+/* line 379, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li {
   display: block;
 }
 
-/* line 380, ../scss/misc.scss */
+/* line 383, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li a {
   display: block;
   width: 100%;
 }
 
-/* line 385, ../scss/misc.scss */
+/* line 388, ../scss/misc.scss */
 #boxes-box-about_this_discussion .field-name {
   border-bottom: 1px dashed #E1E1E1;
   color: #5B0000;
@@ -451,48 +457,48 @@ ul.language-switcher-locale-url li.active {
   padding-bottom: 2px;
 }
 
-/* line 393, ../scss/misc.scss */
+/* line 396, ../scss/misc.scss */
 body.page-overview #content-inner {
   margin-top: 0;
   padding-top: 0;
 }
 
-/* line 398, ../scss/misc.scss */
+/* line 401, ../scss/misc.scss */
 body.page-overview #content-header {
   display: none;
 }
 
-/* line 402, ../scss/misc.scss */
+/* line 405, ../scss/misc.scss */
 .personal-info .user-picture img {
   /*  width:100px;*/
 }
 
-/* line 406, ../scss/misc.scss */
+/* line 409, ../scss/misc.scss */
 .view-other-nuranis .views-field-picture img {
   /*  width:100px;*/
 }
 
-/* line 410, ../scss/misc.scss */
+/* line 413, ../scss/misc.scss */
 .view-texts table {
   width: 920px;
 }
 
-/* line 414, ../scss/misc.scss */
+/* line 417, ../scss/misc.scss */
 table .field-item, table .view-texts a, table td a {
   font-size: 15px;
 }
 
-/* line 418, ../scss/misc.scss */
+/* line 421, ../scss/misc.scss */
 .no-sidebars #content-header ul.tabs {
   left: 0;
 }
 
-/* line 422, ../scss/misc.scss */
+/* line 425, ../scss/misc.scss */
 #content-header ul.tabs, #content-header ul.tabs li {
   float: none;
 }
 
-/* line 426, ../scss/misc.scss */
+/* line 429, ../scss/misc.scss */
 #content-header ul.tabs li a {
   background-image: -moz-linear-gradient(center top, #ededed 0%, #e0e0e0 100%);
   color: #888888;
@@ -502,7 +508,7 @@ table .field-item, table .view-texts a, table td a {
   z-index: 9;
 }
 
-/* line 435, ../scss/misc.scss */
+/* line 438, ../scss/misc.scss */
 #block-views-new_texts-block_1 h3,
 #block-views-new_glossary_terms-block_1 h3 {
   border-bottom: 1px solid #ccc;
@@ -514,7 +520,7 @@ table .field-item, table .view-texts a, table td a {
   margin-bottom: 0;
 }
 
-/* line 444, ../scss/misc.scss */
+/* line 447, ../scss/misc.scss */
 #block-views-nuranis-block_1 h3 {
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
@@ -525,30 +531,30 @@ table .field-item, table .view-texts a, table td a {
   margin-bottom: 0;
 }
 
-/* line 454, ../scss/misc.scss */
+/* line 457, ../scss/misc.scss */
 #block-views-new_texts-block_1 h3.expand,
 #block-views-new_glossary_terms-block_1 h3.expand {
   background: url(../images/arrow-expand.png) no-repeat left;
 }
 
-/* line 457, ../scss/misc.scss */
+/* line 460, ../scss/misc.scss */
 #block-views-nuranis-block_1 h3.collapsed {
   background: url(../images/arrow-collapse.png) no-repeat left;
 }
 
-/* line 460, ../scss/misc.scss */
+/* line 463, ../scss/misc.scss */
 #block-views-nuranis-block_1 .content {
   padding: 20px 0 0;
 }
 
-/* line 464, ../scss/misc.scss */
+/* line 467, ../scss/misc.scss */
 #block-views-new_texts-block_1 .content,
 #block-views-new_glossary_terms-block_1 .content {
   padding: 20px 0 0;
   displaY: none;
 }
 
-/* line 469, ../scss/misc.scss */
+/* line 472, ../scss/misc.scss */
 #block-views-new_texts-block_1 .views-row,
 #block-views-new_glossary_terms-block_1 .views-row {
   padding: 0 0 10px 15px;
