@@ -91,23 +91,51 @@ ul.menu li.active-trail {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
 
-/* line 54, ../scss/navigation.scss */
+/*Language switcher*/
+/* line 55, ../scss/navigation.scss */
 #block-locale-0 {
   width: 70px;
   float: right;
 }
-/* line 58, ../scss/navigation.scss */
+/* line 59, ../scss/navigation.scss */
 #block-locale-0 h3, #block-locale-0 li.en {
   display: none;
 }
-/* line 61, ../scss/navigation.scss */
+/* line 62, ../scss/navigation.scss */
 #block-locale-0 li {
   font-size: 0.6em;
 }
-/* line 63, ../scss/navigation.scss */
+/* line 64, ../scss/navigation.scss */
 #block-locale-0 li a {
   color: white;
   background: #666666;
-  padding: 6px 15px;
+  padding: 5px 15px 4px;
+  display: inline-block;
   border-radius: 15px;
+}
+
+/*Action links*/
+/* line 76, ../scss/navigation.scss */
+#boxes-box-action_links .boxes-box-content {
+  float: left;
+  margin: 0 10px 0 0;
+}
+/* line 80, ../scss/navigation.scss */
+#boxes-box-action_links ul {
+  margin: 0;
+  padding: 0;
+}
+/* line 84, ../scss/navigation.scss */
+#boxes-box-action_links ul li {
+  padding: 0;
+}
+/* line 87, ../scss/navigation.scss */
+#boxes-box-action_links ul a {
+  font-size: 0.8em;
+  color: white;
+  background: #666666;
+  padding: 5px 15px 3px;
+  display: inline-block;
+  border-radius: 15px;
+  font-weight: normal;
 }

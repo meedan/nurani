@@ -5,6 +5,20 @@ body.i18n-ar {
 
   overflow-x: hidden !important;
 
+	/*action links*/
+	#boxes-box-action_links ul a {
+		line-height: 15px;
+	}
+	#boxes-box-action_links .boxes-box-content {
+    float: right;
+    margin: 0 0 0 10px;
+	}
+
+	/*language switcher*/
+	#block-locale-0 li a {
+		padding:  5px 15px 3px;
+	}
+	
   #boxes-box-welcome_to_nurani_box .toggle {
       position: absolute;
       right: auto;
@@ -217,4 +231,3 @@ body.i18n-ar.node-type-discussion {
 		}
 	}
 }
-	

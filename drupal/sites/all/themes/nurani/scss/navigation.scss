@@ -51,6 +51,7 @@ ul.menu {
   }
 }
 
+/*Language switcher*/
 #block-locale-0 {
   width: 70px;
   float: right;
@@ -63,8 +64,34 @@ ul.menu {
     a {
       color: $white;
       background: $dark-gray;
-      padding: 6px 15px;
+      padding: 5px 15px 4px;
+			display: inline-block;
       border-radius: 15px;
     }	
   }
+}
+/*Action links*/
+#boxes-box-action_links {
+
+	.boxes-box-content {
+		float: left;
+		margin: 0 10px 0 0;
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+	
+		li {
+			padding: 0;	
+		}	
+		a {
+			font-size: 0.8em;
+			color: $white;
+      background: $dark-gray;
+      padding: 5px 15px 3px;
+			display: inline-block;
+      border-radius: 15px;
+			font-weight: normal;
+		}	
+	}
 }
