@@ -331,6 +331,11 @@ function nurani_custom_action_links($user = NULL) {
     );
   }
 
+  $links[] = array(
+    'title' => t('Logout'),
+    'href' => 'logout',
+  );
+
   return $links;
 }
 
