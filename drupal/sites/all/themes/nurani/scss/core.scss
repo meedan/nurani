@@ -54,6 +54,11 @@ div.node { padding-bottom: 20px;  }
   border: 4px solid $maroon!important;
 }
 
+/*  = Views admin links
+  ------------------------------------------------------ */
+div.view div.views-admin-links {
+    padding-top: 4em;
+}
 /*  = Tab styles
   ------------------------------------------------------ */
 #content-header {

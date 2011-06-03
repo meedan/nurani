@@ -281,7 +281,7 @@ body.node-type-discussion #container #comments textarea {
   box-shadow: 0 3px 0 #eeeeee;
 }
 /* line 230, ../scss/discussion.scss */
-body.node-type-discussion #container ul.links {
+body.node-type-discussion #container .node-type-comment ul.links {
   border: 1px solid #ccc;
   padding: 7px 5px;
   border-radius: 5px;
@@ -291,7 +291,7 @@ body.node-type-discussion #container ul.links {
   bottom: 6px;
 }
 /* line 238, ../scss/discussion.scss */
-body.node-type-discussion #container ul.links li {
+body.node-type-discussion #container .node-type-comment ul.links li {
   padding: 0 10px;
 }
 /* line 242, ../scss/discussion.scss */
