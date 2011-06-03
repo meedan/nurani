@@ -179,12 +179,26 @@ body.i18n-ar.node-type-discussion {
 	}
 	#container {
 		#content-area {
-			.node p {
-				text-align: right;
-				margin: 0 1.1em 1em 0;	
+			.node-type-discussion {
+				padding: 20px 0 0 0;
+				margin: 0 20px 0 0;
+				.field-body {
+					padding: 0 0 0 20px;
+
+					p {
+						text-align: right;
+						margin: 0 1.1em 1em 0;	
+					}	
+				}
+				li.nurani_translation a {
+					left: auto;
+					right: 20px;
+				}
 			}
 			.field-translation-status {
 				float: left;
+				border-left: 0;
+				border-right: 1px solid $gray;
 			}
 	 	}
 		#comments {
@@ -214,6 +228,9 @@ body.i18n-ar.node-type-discussion {
 			}
 			.nd-region-footer {
 				text-align: right;
+					ul.links {
+						line-height: 20px;
+					}
 			}
 			label {
 				float: right;
