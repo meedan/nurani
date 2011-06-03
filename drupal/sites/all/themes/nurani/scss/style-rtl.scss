@@ -104,6 +104,28 @@ body.i18n-ar {
 			margin-right: 0;
 		}
 	}
+	#block-views-new_texts-block_1 h3, 
+	#block-views-new_glossary_terms-block_1 h3 {
+		background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
+		padding: 10px 20px 10px 0;
+	}
+	#block-views-nuranis-block_1 h3 {
+		background-position: right;
+		padding: 10px 20px 10px 0;
+	}
+	#block-views-nuranis-block_1 h3.collapsed {
+		background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
+	}
+	#block-views-new_texts-block_1 h3.expand,
+	#block-views-new_glossary_terms-block_1 h3.expand {
+    background: url("../images/arrow-expand.png") no-repeat right center;
+}	
+	#block-views-new_texts-block_1 .views-row,
+	#block-views-new_glossary_terms-block_1 .views-row {
+    background: url("../images/point-rtl.png") no-repeat right 6px;
+		margin: 0 20px 0 0;
+		padding: 0 15px 10px 0;	
+	}
 
 	/*vertical tabs*/
 	div.vertical-tabs {
