@@ -141,7 +141,6 @@ function _nurani_custom_autotranslate($node) {
     unset($new_node->path);
     $new_node->language = $langcode;
     $new_node->tnid = $node->nid;
-    $new_node->translation_source = $node;
 
     $node_comment_types = array();
     foreach (node_get_types() as $type) {
@@ -183,9 +182,9 @@ function nurani_custom_translation_dashboard_filter_nodes($translation, $content
  * Implementation of hook_link_alter().
  */
 function nurani_custom_link_alter(&$links, $node, $comment = NULL) {
-  // Hide language links from comments.
+  // Hide language and comment links.
   if (!empty($links)) foreach ($links as $key => $link) {
-    if (isset($link['language'])) {
+    if (in_array($key, array('comment_add', 'node_translation_ar', 'node_translation_en'))) {
       unset($links[$key]);
     }
   }
@@ -202,7 +201,7 @@ function nurani_custom_link($type, $object, $teaser = FALSE) {
     // Create a translate link for translators if the node is pending translation.
     // TODO: For discussions and discussion comments, check that the translator exists in field_translators.
     // TODO: Check that translator can translate from source language to target language.
-    $links[] = array(
+    $links['nurani_translation'] = array(
       'title' => t('translate'),
       'href' => 'translation/' . $object->nid,
     );
@@ -249,13 +248,49 @@ function _nurani_translation($node) {
 /**
  * Helper function to check if a node is pending translation.
  */
-function _nurani_custom_translation_pending($node, $true_only_if_not_in_queue = FALSE) {
+function _nurani_custom_translation_pending($node, $true_only_if_not_in_queue_or_not_assigned_to_current_user = FALSE) {
   $statuses = _icl_content_statuses($node->tnid, 'node');
   foreach ($statuses as $status) {
-    if ($status >= ICL_STATUS_READY || $true_only_if_not_in_queue) {
+    if ($status >= ICL_STATUS_READY) {
       return FALSE;
+    }
+    if ($true_only_if_not_in_queue_or_not_assigned_to_current_user) {
+      $uid = db_result(db_query("
+SELECT job.uid 
+FROM {icl_translate_job} job
+INNER JOIN {icl_content_status} content ON content.rid = job.rid
+WHERE content.nid = %d
+      ", $node->nid));
+      global $user;
+      if ($uid != $user->uid) {
+        return FALSE;
+      }
     }
   }
   return TRUE;
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function nurani_custom_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'icl_translate_editor') {
+    // Redirect to translated content, not jobs page.
+    $rid = $form['rid']['#default_value'];
+    $job = db_fetch_object(db_query("
+SELECT content.nid, core.target 
+FROM {icl_core_status} core
+INNER JOIN {icl_content_status} content ON core.rid = content.rid
+WHERE core.rid = %d
+    ", $rid));
+    $original = node_load($job->nid);
+//    $translations = translation_node_get_translations($original->tnid);
+//    $translation = node_load($translations[$job->target]->nid);
+    $target_nid = $original->nid;
+    if (!empty($original->comment_target_nid)) {
+      $target_nid = $original->comment_target_nid;
+    }
+    $form['#redirect'] = 'node/' . $target_nid;
+  }
 }
 
