@@ -164,14 +164,14 @@ function nurani_general_ds_default_settings() {
           'fields' => array(
             'field_texts' => array(
               'region' => 'disabled',
-              'weight' => '-98',
+              'weight' => '-97',
               'format' => 'default',
               'css-class' => '',
               'labelformat' => 'hidden',
             ),
             'field_moderators' => array(
               'region' => 'disabled',
-              'weight' => '-95',
+              'weight' => '-94',
               'format' => 'default',
               'css-class' => '',
               'label_value' => 'Moderators',
@@ -179,7 +179,7 @@ function nurani_general_ds_default_settings() {
             ),
             'field_translators' => array(
               'region' => 'disabled',
-              'weight' => '-96',
+              'weight' => '-95',
               'format' => 'default',
               'css-class' => '',
               'label_value' => 'Translators',
@@ -187,7 +187,7 @@ function nurani_general_ds_default_settings() {
             ),
             'field_scholars' => array(
               'region' => 'disabled',
-              'weight' => '-97',
+              'weight' => '-96',
               'format' => 'default',
               'css-class' => '',
               'label_value' => 'Scholars',
@@ -209,15 +209,15 @@ function nurani_general_ds_default_settings() {
             ),
             'author' => array(
               'region' => 'disabled',
-              'weight' => '-94',
+              'weight' => '-93',
               'format' => 'ds_author_link',
               'css-class' => '',
               'label_value' => 'Author',
               'labelformat' => 'above',
             ),
             'links' => array(
-              'region' => 'disabled',
-              'weight' => '-93',
+              'region' => 'middle',
+              'weight' => '-99',
               'format' => '',
               'css-class' => '',
               'labelformat' => 'hidden',
@@ -246,7 +246,7 @@ function nurani_general_ds_default_settings() {
             ),
             'translation_status' => array(
               'region' => 'middle',
-              'weight' => '-99',
+              'weight' => '-98',
               'format' => 'ds_eval_code',
               'css-class' => '',
               'labelformat' => 'hidden',

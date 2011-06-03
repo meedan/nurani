@@ -8,6 +8,22 @@ function nurani_general_default_box() {
   $box = new stdClass;
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;
+  $box->delta = 'action_links';
+  $box->plugin_key = 'simple';
+  $box->title = '';
+  $box->description = 'Action links';
+  $box->options = array(
+    'body' => '<?php
+$links = nurani_custom_action_links();
+print theme(\'links\', $links);
+?>',
+    'format' => '3',
+  );
+
+  $export['action_links'] = $box;
+  $box = new stdClass;
+  $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
+  $box->api_version = 1;
   $box->delta = 'add_glossary_term';
   $box->plugin_key = 'simple';
   $box->title = '';

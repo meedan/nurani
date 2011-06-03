@@ -87,6 +87,12 @@ function nurani_general_context_default_contexts() {
           'region' => 'top_strip',
           'weight' => 0,
         ),
+        'boxes-action_links' => array(
+          'module' => 'boxes',
+          'delta' => 'action_links',
+          'region' => 'top_strip',
+          'weight' => 1,
+        ),
       ),
     ),
   );

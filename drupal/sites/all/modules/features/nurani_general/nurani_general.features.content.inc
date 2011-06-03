@@ -124,7 +124,7 @@ function nurani_general_content_default_fields() {
       'format' => 'default',
       'css-class' => array(),
       'region' => 'disabled',
-      'ds_weight' => '-95',
+      'ds_weight' => '-94',
       'full' => array(
         'label' => array(
           'format' => 'above',
@@ -137,7 +137,7 @@ function nurani_general_content_default_fields() {
         'field_id' => 'field_moderators',
         'label_value' => 'Moderators',
         'exclude' => 1,
-        'weight' => '-95',
+        'weight' => '-94',
       ),
       'discussion_participants' => array(
         'label' => array(
@@ -217,7 +217,7 @@ function nurani_general_content_default_fields() {
       'format' => 'default',
       'css-class' => array(),
       'region' => 'disabled',
-      'ds_weight' => '-97',
+      'ds_weight' => '-96',
       'full' => array(
         'label' => array(
           'format' => 'above',
@@ -230,7 +230,7 @@ function nurani_general_content_default_fields() {
         'field_id' => 'field_scholars',
         'label_value' => 'Scholars',
         'exclude' => 1,
-        'weight' => '-97',
+        'weight' => '-96',
       ),
       'discussion_participants' => array(
         'label' => array(
@@ -310,7 +310,7 @@ function nurani_general_content_default_fields() {
       'format' => 'default',
       'css-class' => array(),
       'region' => 'disabled',
-      'ds_weight' => '-98',
+      'ds_weight' => '-97',
       'full' => array(
         'label' => array(
           'format' => 'hidden',
@@ -323,7 +323,7 @@ function nurani_general_content_default_fields() {
         'field_id' => 'field_texts',
         'label_value' => '',
         'exclude' => 1,
-        'weight' => '-98',
+        'weight' => '-97',
       ),
       'discussion_participants' => array(
         'label' => array(
@@ -404,7 +404,7 @@ function nurani_general_content_default_fields() {
       'format' => 'default',
       'css-class' => array(),
       'region' => 'disabled',
-      'ds_weight' => '-96',
+      'ds_weight' => '-95',
       'full' => array(
         'label' => array(
           'format' => 'above',
@@ -417,7 +417,7 @@ function nurani_general_content_default_fields() {
         'field_id' => 'field_translators',
         'label_value' => 'Translators',
         'exclude' => 1,
-        'weight' => '-96',
+        'weight' => '-95',
       ),
       'discussion_participants' => array(
         'label' => array(

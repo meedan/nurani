@@ -294,3 +294,43 @@ WHERE core.rid = %d
   }
 }
 
+/**
+ * API function to return action links based on given user
+ */
+function nurani_custom_action_links($user = NULL) {
+  if (empty($user)) {
+    global $user;
+  }
+  $links = array();
+
+  if (user_access(ICL_TRANSLATE_DO_JOBS, $user)) {
+    $links[] = array(
+      'title' => t('Translation jobs'),
+      'href' => 'translator',
+    );
+  }
+
+  if (user_access('create discussion content')) {
+    $links[] = array(
+      'title' => t('Start a new discussion'),
+      'href' => 'node/add/discussion',
+    );
+  }
+
+  if (user_access('create text content')) {
+    $links[] = array(
+      'title' => t('Add a new text excerpt'),
+      'href' => 'node/add/text',
+    );
+  }
+
+  if (user_access('create term content')) {
+    $links[] = array(
+      'title' => t('Add a new glossary term'),
+      'href' => 'node/add/term',
+    );
+  }
+
+  return $links;
+}
+
