@@ -142,14 +142,8 @@ function _nurani_custom_autotranslate($node) {
     $new_node->language = $langcode;
     $new_node->tnid = $node->nid;
 
-    $node_comment_types = array();
-    foreach (node_get_types() as $type) {
-      $node_comment_type = variable_get('node_comment_type_' . $type->type, '');
-      if (!empty($node_comment_type)) {
-        $node_comment_types[] = $node_comment_type;
-      }
-    }
-    if (in_array($new_node->type, $node_comment_types)) {
+    // If it's a comment, link to correct parent.
+    if (!empty($node->comment_target_nid)) {
       $new_node->comment_target_nid = db_result(db_query("
 SELECT translation.nid
 FROM {node} parent LEFT JOIN {node} translation ON parent.tnid = translation.tnid
@@ -157,6 +151,7 @@ WHERE parent.nid = %d
 AND translation.language = '%s'
       ", $node->comment_target_nid, $new_node->language));
     }
+
     node_save(node_submit($new_node));
   }
   
@@ -284,13 +279,12 @@ INNER JOIN {icl_content_status} content ON core.rid = content.rid
 WHERE core.rid = %d
     ", $rid));
     $original = node_load($job->nid);
-//    $translations = translation_node_get_translations($original->tnid);
-//    $translation = node_load($translations[$job->target]->nid);
     $target_nid = $original->nid;
     if (!empty($original->comment_target_nid)) {
       $target_nid = $original->comment_target_nid;
     }
-    $form['#redirect'] = 'node/' . $target_nid;
+    //$translations = translation_path_get_translations('node/' . $target_nid);
+    $form['#redirect'] = drupal_get_path_alias('node/' . $target_nid);
   }
 }
 
