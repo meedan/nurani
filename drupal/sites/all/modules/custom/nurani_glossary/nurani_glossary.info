@@ -1,0 +1,4 @@
+name = Nurani Glossary
+description = Glossary functionality for Nurani.
+package = Nurani
+core = 6.x

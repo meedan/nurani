@@ -30,7 +30,7 @@
           //get the text selected
           var q = getSelectedText();
           //check limit
-          if (q && String(q).length > opts.min && String(q).length < opts.max) {
+          if (q && String(q).length >= opts.min && String(q).length <= opts.max) {
             //remove any popText
             $("#popText").remove();
 
@@ -42,8 +42,8 @@
                 target : opts.target
               }).html(opts.text.replace('%term%',q)).css({
                 'position' : 'absolute',
-                'top' : e.pageY - 40,
-                'left' : e.pageX - 10,
+                'top' : e.pageY - 20,
+                'left' : e.pageX + 10,
                 'zIndex': 100
               }).hide();
             }
