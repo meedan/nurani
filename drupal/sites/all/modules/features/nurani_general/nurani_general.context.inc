@@ -117,18 +117,7 @@ function nurani_general_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'boxes-add_glossary_term' => array(
-          'module' => 'boxes',
-          'delta' => 'add_glossary_term',
-          'region' => 'right',
-          'weight' => 0,
-        ),
-      ),
-    ),
-  );
+  $context->reactions = array();
   $context->condition_mode = 1;
 
   // Translatables
@@ -253,18 +242,7 @@ function nurani_general_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'boxes-add_text' => array(
-          'module' => 'boxes',
-          'delta' => 'add_text',
-          'region' => 'right',
-          'weight' => 0,
-        ),
-      ),
-    ),
-  );
+  $context->reactions = array();
   $context->condition_mode = 0;
 
   // Translatables

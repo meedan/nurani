@@ -1910,11 +1910,11 @@ The Service Providers may use session cookies when you visit our website while y
       'title' => 'Glossary references',
       'exclude' => array(
         'annotation' => 'annotation',
-        'comment' => 'comment',
         'discussion' => 'discussion',
         'page' => 'page',
         'profile' => 'profile',
         'text' => 'text',
+        'comment' => 'comment',
         'term' => 0,
       ),
       'type' => 5,
@@ -1924,19 +1924,8 @@ The Service Providers may use session cookies when you visit our website while y
           'ds_eval_code' => 'Default',
         ),
         'code' => '<?php
-$view = views_get_view(\'glossary_references\');
-$view->set_arguments(array(\'discussion\', $object->title));
-$view->execute();
-print \'<h2>\' . $view->get_title() . \'</h2>\';
-print $view->render();
-$view->destroy();
-
-$view = views_get_view(\'glossary_references\');
-$view->set_arguments(array(\'text\', $object->title));
-$view->execute();
-print \'<h2>\' . $view->get_title() . \'</h2>\';
-print $view->render();
-$view->destroy();
+print theme(\'glossary_search_results\', $object, \'discussion\');
+print theme(\'glossary_search_results\', $object, \'text\');
 ?>',
         'token' => 0,
       ),
@@ -2715,7 +2704,7 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_bulkupdate';
-  $strongarm->value = FALSE;
+  $strongarm->value = 0;
 
   $export['pathauto_node_bulkupdate'] = $strongarm;
   $strongarm = new stdClass;
@@ -2764,14 +2753,14 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_punctuation_hyphen';
-  $strongarm->value = 1;
+  $strongarm->value = '1';
 
   $export['pathauto_punctuation_hyphen'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_punctuation_quotes';
-  $strongarm->value = 0;
+  $strongarm->value = '0';
 
   $export['pathauto_punctuation_quotes'] = $strongarm;
   $strongarm = new stdClass;
@@ -2799,14 +2788,14 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_taxonomy_applytofeeds';
-  $strongarm->value = FALSE;
+  $strongarm->value = '';
 
   $export['pathauto_taxonomy_applytofeeds'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_taxonomy_bulkupdate';
-  $strongarm->value = FALSE;
+  $strongarm->value = 0;
 
   $export['pathauto_taxonomy_bulkupdate'] = $strongarm;
   $strongarm = new stdClass;
@@ -2841,7 +2830,7 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_user_bulkupdate';
-  $strongarm->value = FALSE;
+  $strongarm->value = 0;
 
   $export['pathauto_user_bulkupdate'] = $strongarm;
   $strongarm = new stdClass;
@@ -2858,13 +2847,6 @@ return theme(\'translation_status\', $object);
   $strongarm->value = '';
 
   $export['pathauto_user_supportsfeeds'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'pathauto_verbose';
-  $strongarm->value = FALSE;
-
-  $export['pathauto_verbose'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;

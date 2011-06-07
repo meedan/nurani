@@ -131,6 +131,7 @@ function nurani_profile_tasks(&$task, $url) {
     }
 
     // Post-installation operations
+    $operations[] = array('nurani_config_filters', array());
     $operations[] = array('nurani_config_ctools', array());
     $operations[] = array('nurani_config_taxonomy', array());
     $operations[] = array('nurani_config_theme', array());
@@ -204,6 +205,19 @@ function nurani_install_languages() {
   }
 
   drupal_flush_all_caches();
+}
+
+/**
+ * Configure filters
+ */
+function nurani_config_filters() {
+  // Add Nurani glossary filter to Filtered HTML
+  $filter = new stdClass;
+  $filter->format = 1;
+  $filter->module = 'nurani_glossary';
+  $filter->delta = 0;
+  $filter->weight = 10;
+  drupal_write_record('filters', $filter);
 }
 
 /**

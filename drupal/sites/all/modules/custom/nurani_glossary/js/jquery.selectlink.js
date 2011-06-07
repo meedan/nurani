@@ -17,7 +17,8 @@
       text : '?',
       url : '#',
       target : '_blank',
-      title : 'Select link'
+      title : 'Select link',
+      exceptions : ''
     };
 
     // build main options
@@ -27,6 +28,10 @@
         $this = $(this);
         
         $(this).mouseup(function(e) {
+          if (opts.exceptions.length && $(e.target).filter(opts.exceptions).length > 0) {
+            return;
+          }
+
           //get the text selected
           var q = getSelectedText();
           //check limit

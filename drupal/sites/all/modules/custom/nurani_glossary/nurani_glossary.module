@@ -14,6 +14,21 @@ function nurani_glossary_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 }
 
 /**
+ * Implementation of hook_theme().
+ */
+function nurani_glossary_theme() {
+  return array(
+    'glossary_search_results' => array(
+      'arguments' => array(
+        'term' => NULL,
+        'type' => NULL,
+      ),
+      'template' => 'glossary-search-results',
+    ),
+  );
+}
+
+/**
  * Template preprocessor for theme('node').
  */
 function nurani_glossary_preprocess_node(&$vars) {
@@ -30,5 +45,82 @@ function nurani_glossary_preprocess_node(&$vars) {
       drupal_add_js($path . '/js/nurani_glossary.js');
     }
   }
+}
+
+/**
+ * Template preprocessor for theme('glossary_search_results').
+ */
+function nurani_glossary_preprocess_glossary_search_results(&$vars) {
+  $term = $vars['term']->title;
+  $type = $vars['type'];
+
+  static $results = NULL;
+  if (!isset($results[$term])) {
+    $results[$term] = module_invoke('node', 'search', 'search', $term);
+  }
+
+  $return = array();
+  foreach ($results[$term] as $result) {
+    if ($result['node']->language != $vars['term']->language) {
+      continue;
+    }
+    if ($result['node']->type == $type) {
+      // Do nothing.
+    }
+    elseif (!empty($result['node']->comment_target_nid)) {
+      $parent = node_load($result['node']->comment_target_nid);
+      if ($parent->type == $type) {
+        $result['node'] = $parent;
+      }
+      else {
+        continue;
+      }
+    }
+    else {
+      continue;
+    }
+    $return[$result['node']->nid]['node'] = $result['node'];
+    $return[$result['node']->nid]['snippet'][] = $result['snippet'];
+  }
+
+  $vars['results'] = $return;
+
+  $type_object = node_get_types('type', $type);
+  $vars['title'] = t('!types referencing %term', array(
+    '!types' => t($type_object->name . 's'),
+    '%term' => $term,
+  ));
+}
+
+/**
+ * Implementation of hook_filter().
+ */
+function nurani_glossary_filter($op, $delta = 0, $format = -1, $text = '', $cache_id = 0) {
+  switch ($op) {
+    case 'list':
+      return array(0 => t('Nurani glossary filter'));
+
+    case 'description':
+      return t('Highlights glossary terms.');
+
+    case 'process':
+      return nurani_glossary_filter_process($text);
+
+    case 'no cache':
+      return TRUE;
+
+    default:
+      return $text;
+  }
+}
+
+function nurani_glossary_filter_process($text) {
+  global $language;
+  $terms = array();
+  $result = db_query("SELECT title FROM {node} WHERE type = 'term' AND language = '%s'", $language->language);
+  while ($term = db_fetch_object($result)) {
+    $terms[] = "/(\W)({$term->title})(\W)/i";
+  }
+  return preg_replace($terms, '$1<span class="glossary-term">$2</span>$3', $text);
 }
 

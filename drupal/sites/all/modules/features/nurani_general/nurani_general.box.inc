@@ -24,36 +24,6 @@ print theme(\'links\', $links);
   $box = new stdClass;
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;
-  $box->delta = 'add_glossary_term';
-  $box->plugin_key = 'simple';
-  $box->title = '';
-  $box->description = 'Add glossary term';
-  $box->options = array(
-    'body' => '<?php
-print l(\'Add Glossary Term\', \'node/add/term\');
-?>',
-    'format' => '3',
-  );
-
-  $export['add_glossary_term'] = $box;
-  $box = new stdClass;
-  $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
-  $box->api_version = 1;
-  $box->delta = 'add_text';
-  $box->plugin_key = 'simple';
-  $box->title = '';
-  $box->description = 'Add text';
-  $box->options = array(
-    'body' => '<?php
-print l(\'Add Text\', \'node/add/text\');
-?>',
-    'format' => '3',
-  );
-
-  $export['add_text'] = $box;
-  $box = new stdClass;
-  $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
-  $box->api_version = 1;
   $box->delta = 'discussion_info';
   $box->plugin_key = 'simple';
   $box->title = 'About This Discussion';
