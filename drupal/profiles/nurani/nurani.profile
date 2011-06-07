@@ -218,6 +218,8 @@ function nurani_config_filters() {
   $filter->delta = 0;
   $filter->weight = 10;
   drupal_write_record('filters', $filter);
+
+  db_query("UPDATE {filter_formats} SET cache = 0 WHERE format = 1");
 }
 
 /**
