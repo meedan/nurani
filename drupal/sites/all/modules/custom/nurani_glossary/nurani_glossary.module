@@ -116,6 +116,7 @@ SELECT n.nid, n.title
 FROM {node} n
 INNER JOIN {search_index} si ON si.word = n.title AND si.type = 'node'
 WHERE n.type = 'term'
+AND n.language = '%s'
 AND (si.sid = %d 
   OR si.sid IN (
     SELECT cid 
@@ -124,7 +125,7 @@ AND (si.sid = %d
   )
 )
 ORDER BY n.title ASC
-  ", $node->nid, $node->nid);
+  ", $node->language, $node->nid, $node->nid);
   while ($term = db_fetch_object($result)) {
     $terms[] = $term;
   }

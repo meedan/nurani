@@ -291,7 +291,7 @@ function nurani_custom_action_links($user = NULL) {
 
   if (user_access('create text content')) {
     $links[] = array(
-      'title' => t('Add a new text excerpt'),
+      'title' => t('Add a new citation'),
       'href' => 'node/add/text',
     );
   }
