@@ -193,7 +193,7 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_comment';
-  $strongarm->value = '0';
+  $strongarm->value = 0;
 
   $export['comment_comment'] = $strongarm;
   $strongarm = new stdClass;
@@ -2704,7 +2704,7 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_bulkupdate';
-  $strongarm->value = 0;
+  $strongarm->value = FALSE;
 
   $export['pathauto_node_bulkupdate'] = $strongarm;
   $strongarm = new stdClass;
@@ -2753,14 +2753,14 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_punctuation_hyphen';
-  $strongarm->value = '1';
+  $strongarm->value = 1;
 
   $export['pathauto_punctuation_hyphen'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_punctuation_quotes';
-  $strongarm->value = '0';
+  $strongarm->value = 0;
 
   $export['pathauto_punctuation_quotes'] = $strongarm;
   $strongarm = new stdClass;
@@ -2788,14 +2788,14 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_taxonomy_applytofeeds';
-  $strongarm->value = '';
+  $strongarm->value = FALSE;
 
   $export['pathauto_taxonomy_applytofeeds'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_taxonomy_bulkupdate';
-  $strongarm->value = 0;
+  $strongarm->value = FALSE;
 
   $export['pathauto_taxonomy_bulkupdate'] = $strongarm;
   $strongarm = new stdClass;
@@ -2830,7 +2830,7 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_user_bulkupdate';
-  $strongarm->value = 0;
+  $strongarm->value = FALSE;
 
   $export['pathauto_user_bulkupdate'] = $strongarm;
   $strongarm = new stdClass;

@@ -4,7 +4,7 @@
 <?php foreach ($results as $result) : ?>
 <div class="glossary-search-result">
 <div class="field-title">
-<?php print l($result['node']->title, 'node/' . $result['node']->nid) ?>
+<?php print $result['node']->title ?>
 </div>
 <div class="field-snippets">
 <?php foreach ($result['snippet'] as $snippet) : ?>
@@ -12,6 +12,9 @@
 <?php print $snippet ?>
 </div>
 <?php endforeach ?>
+</div>
+<div class="field-link">
+<?php print l('View reference', 'node/' . $result['node']->nid) ?>
 </div>
 </div>
 <?php endforeach ?>

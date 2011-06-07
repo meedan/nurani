@@ -11,6 +11,11 @@ function nurani_glossary_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     if (isset($_GET['language']))
       $node->language = $_GET['language'];
   }
+
+  // When creating a new glossary term, index it right away.
+  if ($op == 'insert' && $node->type == 'term') {
+    search_cron();
+  }
 }
 
 /**
@@ -24,6 +29,12 @@ function nurani_glossary_theme() {
         'type' => NULL,
       ),
       'template' => 'glossary-search-results',
+    ),
+    'glossary_references' => array(
+      'arguments' => array(
+        'node' => NULL
+      ),
+      'template' => 'glossary-references',
     ),
   );
 }
@@ -59,7 +70,7 @@ function nurani_glossary_preprocess_glossary_search_results(&$vars) {
     $results[$term] = module_invoke('node', 'search', 'search', $term);
   }
 
-  $return = array();
+  $references = array();
   foreach ($results[$term] as $result) {
     if ($result['node']->language != $vars['term']->language) {
       continue;
@@ -79,17 +90,68 @@ function nurani_glossary_preprocess_glossary_search_results(&$vars) {
     else {
       continue;
     }
-    $return[$result['node']->nid]['node'] = $result['node'];
-    $return[$result['node']->nid]['snippet'][] = $result['snippet'];
+    $references[$result['node']->nid]['node'] = $result['node'];
+    $references[$result['node']->nid]['snippet'][] = $result['snippet'];
   }
 
-  $vars['results'] = $return;
+  $vars['results'] = $references;
 
   $type_object = node_get_types('type', $type);
-  $vars['title'] = t('!types referencing %term', array(
+  $vars['title'] = t('!types referring to %term', array(
     '!types' => t($type_object->name . 's'),
     '%term' => $term,
   ));
+}
+
+/**
+ * Template preprocessor for theme('glossary_references').
+ */
+function nurani_glossary_preprocess_glossary_references(&$vars) {
+  $node = $vars['node'];
+
+  // Find all terms that are mentioned in given node and all its comments.
+  $terms = array();
+  $result = db_query("
+SELECT n.nid, n.title 
+FROM {node} n
+INNER JOIN {search_index} si ON si.word = n.title AND si.type = 'node'
+WHERE n.type = 'term'
+AND (si.sid = %d 
+  OR si.sid IN (
+    SELECT cid 
+    FROM {node_comments} nc 
+    WHERE nc.nid = %d
+  )
+)
+ORDER BY n.title ASC
+  ", $node->nid, $node->nid);
+  while ($term = db_fetch_object($result)) {
+    $terms[] = $term;
+  }
+  $vars['results'] = $terms;
+}
+
+/**
+ * Implementation of hook_block().
+ */
+function nurani_glossary_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
+    case 'list':
+      return array(
+        0 => array(
+          'info' => t('Nurani glossary references'),
+          'cache' => BLOCK_NO_CACHE,
+        ),
+      );
+    
+    case 'view':
+      $node = menu_get_object();
+      $type = node_get_types('type', $node->type);
+      return array(
+        'subject' => t('Glossary terms in this !type', array('!type' => t($type->name))),
+        'content' => theme('glossary_references', $node),
+      );
+  }
 }
 
 /**
@@ -116,12 +178,14 @@ function nurani_glossary_filter($op, $delta = 0, $format = -1, $text = '', $cach
 
 function nurani_glossary_filter_process($text) {
   global $language;
-  $terms = array();
-  $result = db_query("SELECT title FROM {node} WHERE type = 'term' AND language = '%s'", $language->language);
+  $search = array();
+  $replace = array();
+  $result = db_query("SELECT title, nid FROM {node} WHERE type = 'term' AND language = '%s'", $language->language);
   while ($term = db_fetch_object($result)) {
-    $terms[] = "/(\W)({$term->title})(\W)/i";
+    $search[] = "/(\W)({$term->title})(\W)/i";
+    $replace[] = '$1<span class="glossary-term"><a href="' . url('node/' . $term->nid) . '">$2</a></span>$3';
   }
-  return preg_replace($terms, '$1<span class="glossary-term">$2</span>$3', $text);
+  return preg_replace($search, $replace, $text);
 }
 
 function nurani_glossary_noderefcreate_alter(&$node, $element) {

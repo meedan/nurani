@@ -42,6 +42,12 @@ function nurani_general_context_default_contexts() {
           'region' => 'right',
           'weight' => 1,
         ),
+        'nurani_glossary-0' => array(
+          'module' => 'nurani_glossary',
+          'delta' => 0,
+          'region' => 'right',
+          'weight' => 2,
+        ),
       ),
     ),
   );
