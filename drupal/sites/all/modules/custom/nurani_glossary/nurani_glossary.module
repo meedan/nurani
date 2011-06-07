@@ -124,3 +124,8 @@ function nurani_glossary_filter_process($text) {
   return preg_replace($terms, '$1<span class="glossary-term">$2</span>$3', $text);
 }
 
+function nurani_glossary_noderefcreate_alter(&$node, $element) {
+  global $language;
+  $node->language = $language->language == 'en' ? 'ar' : 'en';
+}
+

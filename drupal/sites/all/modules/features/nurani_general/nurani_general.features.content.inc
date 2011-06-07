@@ -1419,7 +1419,7 @@ adjective|Adjective',
       'show_depth' => 1,
       'default_value' => array(
         '0' => array(
-          'value' => '',
+          'value' => '14',
         ),
       ),
       'default_value_php' => NULL,
