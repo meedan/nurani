@@ -28,7 +28,7 @@
         $this = $(this);
         
         $(this).mouseup(function(e) {
-          if (opts.exceptions.length && $(e.target).filter(opts.exceptions).length > 0) {
+          if (opts.exceptions.length && $(e.target).parents().andSelf().filter(opts.exceptions).length > 0) {
             return;
           }
 
