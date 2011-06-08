@@ -233,7 +233,7 @@ SELECT job.uid
 FROM {icl_translate_job} job
 INNER JOIN {icl_content_status} content ON content.rid = job.rid
 WHERE content.nid = %d
-      ", $node->nid));
+      ", $node->tnid));
       global $user;
       if ($uid != $user->uid) {
         return FALSE;
