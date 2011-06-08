@@ -1,0 +1,24 @@
+/* Provide fixed button pane at bottom of the dialog*/
+#nodereference-explorer-modalframe-form {
+  color: #369;
+  border: 2px solid #D4D0C8;
+  position:fixed;
+  /**adjust location**/ 
+  right: 0px;
+  bottom: 0px;
+  padding: 0 10px 0 10px;
+  width: 100%;
+  background: #D4D0C8;
+}
+
+/* Position of form buttons*/
+#nodereference-explorer-modalframe-form div {
+  float: right;	
+}
+
+/* Appearance of form buttons*/
+#nodereference-explorer-modalframe-form div .form-submit {
+  width: 80px;
+  margin: 5px;
+  padding: 3px;
+}

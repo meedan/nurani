@@ -1,0 +1,8 @@
+.views-item-selectable:hover, /* Mouseover of selectable item*/
+.viewItemSelected, /*Highlighting selected view item*/
+.viewItemSelected td, .viewItemSelected td.active /*Additional highlighting of table cells*/
+{
+	cursor: pointer !important;
+	background-color: #004466 !important;
+	color: #FFFFFF !important;
+}

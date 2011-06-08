@@ -891,10 +891,29 @@ return theme_item_list($translations);
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Recent Citations');
-  $handler->override_option('items_per_page', 20);
+  $handler->override_option('empty', 'There are no texts available. You can add a new one.');
+  $handler->override_option('empty_format', '1');
+  $handler->override_option('use_ajax', TRUE);
+  $handler->override_option('items_per_page', 6);
   $handler->override_option('use_pager', '1');
-  $handler->override_option('style_plugin', 'table');
+  $handler->override_option('style_plugin', 'table_selectable');
+  $handler->override_option('row_plugin', 'fields_selectable');
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->override_option('path', 'language_texts');
+  $handler->override_option('menu', array(
+    'type' => 'none',
+    'title' => '',
+    'description' => '',
+    'weight' => 0,
+    'name' => 'navigation',
+  ));
+  $handler->override_option('tab_options', array(
+    'type' => 'none',
+    'title' => '',
+    'description' => '',
+    'weight' => 0,
+    'name' => 'navigation',
+  ));
 
   $views[$view->name] = $view;
 
@@ -1622,7 +1641,7 @@ return implode(\'+\', $uids);',
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Recent Citations');
+  $handler->override_option('title', 'Texts');
   $handler->override_option('items_per_page', 20);
   $handler->override_option('use_pager', '1');
   $handler->override_option('style_plugin', 'table');

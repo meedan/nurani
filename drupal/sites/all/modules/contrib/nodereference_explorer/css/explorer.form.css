@@ -1,0 +1,14 @@
+.nodereference-explorer input.nodereference-explorer-button {
+	margin-left: 1em;
+    text-transform: capitalize;
+}
+/* positioning action buttons behind autocomplete field
+ * (override display:block in node forms)
+ */
+.nodereference-explorer .form-autocomplete, .nodereference-explorer-wrapper, .nodereference-explorer-actions {
+	display: inline !important;
+}
+
+.nodereference-explorer-preview {
+  margin: .75em;
+}

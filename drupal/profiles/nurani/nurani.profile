@@ -42,6 +42,11 @@ function nurani_profile_modules() {
     'i18nblocks', 'i18ncck', 'i18ncontent', 'i18n', 'l10n_client', 'i18nstrings', 'i18ntaxonomy', 'i18nsync',
     'icl_content', 'icl_core', 'icl_translate', 'local_translations',
 
+    // jQuery
+    'jquery_update', 'jquery_ui', 
+    'modalframe',
+    'popups', 'popups_reference',
+
     // Strongarm
     'strongarm', 
     

@@ -1,0 +1,157 @@
+/* This file skins dialog */
+
+/*
+ * Overall dialog container
+ */
+.nodereference-explorer-dialog .ui-dialog {
+  background: #fcfdfd url(images/dialog-background) 0 bottom repeat-x;
+  border: 2px solid #1b5084;
+  overflow: auto;
+}
+/*
+ * Title bar
+ */
+.nodereference-explorer-dialog .ui-dialog-titlebar {
+  position: relative;
+  height: 26px;
+  background: #003366 url(images/dialog-titlebar-background.png) 0 50% repeat-x;
+  border: 1px solid #6694c6;
+  white-space: nowrap;
+}
+/*
+ * Change mouse cursor to move cursor if dialog draggable
+ */
+.nodereference-explorer-dialog.ui-draggable .ui-dialog-titlebar {
+	cursor: move;
+}
+
+/*
+ * Formatting of the dialog title text
+ */ 
+.nodereference-explorer-dialog .ui-dialog-title {
+  display: block;
+  position: absolute;
+  top: 3px; left: 0;
+  margin: 0.2em 0.5em;
+  padding: 0;
+  color: white;
+  font-weight: bold;
+}
+
+/*
+ * Image and position of the close button
+ */
+.nodereference-explorer-dialog .ui-dialog-titlebar-close {
+  display: block;
+  position: absolute;
+  top: 0; right: 0;
+  margin: 0;
+  padding: 0.85em 1em 0.4em 0.35em;
+  width: 11px;
+  height: 11px;
+  background: url(images/dialog-close.gif) no-repeat center;
+}
+
+/*
+ * Close button internals (do not show)
+ */
+.nodereference-explorer-dialog .ui-dialog-titlebar-close span {
+  display: none;
+}
+
+/*
+ * Image change when hovering the close button
+ */
+.nodereference-explorer-dialog.ui-dialog .ui-dialog-titlebar-close:hover {
+	background: url(images/dialog-close-hover.gif) center no-repeat;
+}
+
+/*
+ * Image change when activating the close button
+ */
+.nodereference-explorer-dialog.ui-dialog .ui-dialog-titlebar-close:active {
+	background: url(images/dialog-close-active.gif) center no-repeat;
+}
+
+/*
+ * Dialog area without title bar and button pane
+ */
+.nodereference-explorer-dialog .ui-dialog-content {
+  background: white url(images/dialog-background.png) 0 50% repeat-x;
+  margin-left:  .4em;
+  margin-right: .4em;
+  margin-bottom: .6em;
+  overflow: auto;
+  width: auto !important; /* new style attribute: necessary for Safari & Chrome */
+}
+
+/*
+ * Dialog overlay
+ */
+.ui-dialog-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: #aaaaaa;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+/*
+ * Buttons panel
+ */
+.nodereference-explorer-dialog.ui-dialog .ui-dialog-buttonpane {
+	position: absolute;
+	bottom: 8px;
+	left: .1em;
+	right: .1em;
+	width: 100%;
+	text-align: right;
+	border-top: 1px solid #a6c9e2;
+	background: #fcfdfd;
+}
+
+/*
+ * Single buttons
+ */
+.nodereference-explorer-dialog.ui-dialog .ui-dialog-buttonpane button {
+	margin: .5em 1.2em 1.0em 8px;
+	color: #FFFFFF;
+	background: #003366 url(images/dialog-button.png) 0 50% repeat-x;
+	font-size: 1em;
+	border: 1px solid #c5dbec;
+	cursor: pointer;
+	padding: .2em .6em .3em .6em;
+	line-height: 1.4em;
+	width: 7.5em;
+}
+
+/*
+ * Hovering a button
+ */
+.nodereference-explorer-dialog.ui-dialog .ui-dialog-buttonpane button:hover {
+	color: #003366;
+	background: #d0e5f5 url(images/dialog-button-hover.png) 0 50% repeat-x;
+	border: 1px solid #79b7e7;
+}
+
+/*
+ * Activating a button
+ */
+.nodereference-explorer-dialog.ui-dialog .ui-dialog-buttonpane button:active {
+	color: #003366;
+	background: #f5f8f9 url(images/dialog-button-active.png) 0 50% repeat-x;
+	border: 1px solid #79b7e7;
+}
+
+/*
+ * Dialog overlay
+ */
+.ui-dialog-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: #aaaaaa;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
