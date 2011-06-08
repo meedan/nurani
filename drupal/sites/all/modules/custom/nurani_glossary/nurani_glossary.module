@@ -113,9 +113,8 @@ function nurani_glossary_preprocess_glossary_search_results(&$vars) {
 
   $vars['results'] = $references;
 
-  $type_object = node_get_types('type', $type);
   $vars['title'] = t('!types referring to %term', array(
-    '!types' => t($type_object->name . 's'),
+    '!types' => t($type . 's'),
     '%term' => $term,
   ));
 }

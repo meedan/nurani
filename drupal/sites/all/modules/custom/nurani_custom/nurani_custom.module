@@ -36,13 +36,14 @@ function nurani_custom_theme() {
  */
 function nurani_custom_preprocess_translation_status(&$vars) {
   $node = $vars['node'];
+  $types = node_get_types();
   $classes = array();
   $captions = array();
 
   if (empty($node->tnid)) {
     // Should not come here because auto-translate is active.
     $classes[] = 'translation-status-untranslated';
-    $captions[] = t('This !type is awaiting translation.', array('!type' => $node->type));
+    $captions[] = t('This !type is awaiting translation.', array('!type' => mb_strtolower($types[$node->type]->name)));
   }
   else {
     // Find translation status for node.
@@ -69,7 +70,7 @@ function nurani_custom_preprocess_translation_status(&$vars) {
     // Build status captions.
     $languages = language_list();
     $captions[] = t('Original !type in !original.', array(
-      '!type' => $original->type, 
+      '!type' => mb_strtolower($types[$original->type]->name), 
       '!original' => t($languages[$original->language]->name),
     ));
     $uid = db_result(db_query("
@@ -81,13 +82,13 @@ WHERE cs.nid = %d
     if ($in_progress) {
       if (empty($uid)) {
         $captions[] = t('This !type is awaiting translation.', array(
-          '!type' => $node->type
+          '!type' => mb_strtolower($types[$node->type]->name),
         ));
       }
       else {
         $captions[] = t('This !type is awaiting translation by !translator.', array(
-          '!type' => $node->type, 
-          '!translator' => user_load($uid)->name
+          '!type' => mb_strtolower($types[$node->type]->name),
+          '!translator' => user_load($uid)->name,
         ));
       }
     }
