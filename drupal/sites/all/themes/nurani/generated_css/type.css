@@ -21,12 +21,17 @@
 
 /* the English fonts are from typekit*/
 /*CGB TODO: not sure what the arabic language selector is*/
-/* line 23, ../scss/type.scss */
-body.ar {
-  font-family: UthmanTN, Tahoma;
+/* line 24, ../scss/type.scss */
+body.i18n-ar {
+  font-family: Traditional Arabic, sans-serif;
+  font-size: 1.3em;
+}
+/* line 28, ../scss/type.scss */
+body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
+  font-family: Traditional Arabic, sans-serif;
 }
 
-/* line 58, ../scss/type.scss */
+/* line 64, ../scss/type.scss */
 body {
   margin: 0;
   font-family: Georgia, Times, Times New Roman, serif;
@@ -35,7 +40,7 @@ body {
 }
 
 /* Titles. */
-/* line 66, ../scss/type.scss */
+/* line 72, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -44,14 +49,14 @@ body {
   margin: 0;
 }
 
-/* line 73, ../scss/type.scss */
+/* line 79, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
   font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 79, ../scss/type.scss */
+/* line 85, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -62,77 +67,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 89, ../scss/type.scss */
+/* line 95, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 94, ../scss/type.scss */
+/* line 100, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 100, ../scss/type.scss */
+/* line 106, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 104, ../scss/type.scss */
+/* line 110, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 109, ../scss/type.scss */
+/* line 115, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 114, ../scss/type.scss */
+/* line 120, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 118, ../scss/type.scss */
+/* line 124, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 123, ../scss/type.scss */
+/* line 129, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 128, ../scss/type.scss */
+/* line 134, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 131, ../scss/type.scss */
+/* line 137, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 135, ../scss/type.scss */
+/* line 141, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 139, ../scss/type.scss */
+/* line 145, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -142,56 +147,56 @@ pre {
 }
 
 /* List styles. */
-/* line 147, ../scss/type.scss */
+/* line 153, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 149, ../scss/type.scss */
+/* line 155, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 151, ../scss/type.scss */
+/* line 157, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 153, ../scss/type.scss */
+/* line 159, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 156, ../scss/type.scss */
+/* line 162, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 158, ../scss/type.scss */
+/* line 164, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 160, ../scss/type.scss */
+/* line 166, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 164, ../scss/type.scss */
+/* line 170, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 169, ../scss/type.scss */
+/* line 175, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 173, ../scss/type.scss */
+/* line 179, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 176, ../scss/type.scss */
+/* line 182, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -200,12 +205,12 @@ abbr {
   color: #777777;
 }
 
-/* line 183, ../scss/type.scss */
+/* line 189, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 196, ../scss/type.scss */
+/* line 202, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -215,7 +220,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 197, ../scss/type.scss */
+/* line 203, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -225,7 +230,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 198, ../scss/type.scss */
+/* line 204, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -235,7 +240,7 @@ div.error {
   text-align: center;
 }
 
-/* line 199, ../scss/type.scss */
+/* line 205, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -245,7 +250,7 @@ div.status {
   text-align: center;
 }
 
-/* line 201, ../scss/type.scss */
+/* line 207, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;

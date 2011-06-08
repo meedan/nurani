@@ -17,11 +17,17 @@
   font-style: normal;
 }
 
+
 /* the English fonts are from typekit*/
 
 /*CGB TODO: not sure what the arabic language selector is*/
-body.ar {
-  font-family: UthmanTN, Tahoma;
+body.i18n-ar {
+  font-family: Traditional Arabic, sans-serif;
+	font-size: 1.3em;
+
+	h1, h2, h3, h4, h5, h6 {
+  font-family: Traditional Arabic, sans-serif;
+	}
 }
 
 @mixin header_anchor($base_color: $westar) {
