@@ -48,14 +48,16 @@ function theme_nurani_discussion_lock_formatter_countdown($element) {
 function nurani_discussion_lock_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   // When loading a discussion, check comment status.
   if ($op == 'load' && $node->type == 'discussion') {
-    if ($node->field_exp_comments[0]['value'] < time()) {
+    if (!empty($node->field_exp_comments[0]['value']) && $node->field_exp_comments[0]['value'] < time()) {
       $node->node_comment = COMMENT_NODE_READ_ONLY;
     }
   }
 
   // When saving a discussion, check comment status.
   if ($op == 'presave' && $node->type == 'discussion') {
-    $node->node_comment = $node->comment = $node->field_exp_comments[0]['value'] < time() ? COMMENT_NODE_READ_ONLY : COMMENT_NODE_READ_WRITE;
+    if (!empty($node->field_exp_comments[0]['value'])) {
+      $node->node_comment = $node->comment = $node->field_exp_comments[0]['value'] < time() ? COMMENT_NODE_READ_ONLY : COMMENT_NODE_READ_WRITE;
+    }
   }
 }
 
