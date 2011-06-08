@@ -57,6 +57,7 @@ body.ar #block-locale-language ul li.en {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -74,13 +75,13 @@ body.ar #block-locale-language ul li.en {
   -khtml-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -107,6 +108,7 @@ body.ar #block-locale-language ul li.ar {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -130,13 +132,13 @@ body.ar #block-locale-language ul li.ar {
   box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -164,6 +166,7 @@ body.en #block-locale-language ul li.en {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -186,13 +189,13 @@ body.en #block-locale-language ul li.en {
   box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -219,6 +222,7 @@ body.en #block-locale-language ul li.ar {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -237,13 +241,13 @@ body.en #block-locale-language ul li.ar {
   border-bottom-left-radius: 0;
   float: right;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);

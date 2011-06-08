@@ -104,12 +104,13 @@ body.ar {
 /* line 58, ../scss/type.scss */
 body {
   margin: 0;
-  font-family: "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
+  font-family: Georgia, Times, Times New Roman, serif;
   font-size: 1.05em;
+  line-height: 1.3em;
 }
 
 /* Titles. */
-/* line 65, ../scss/type.scss */
+/* line 66, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -118,14 +119,14 @@ body {
   margin: 0;
 }
 
-/* line 72, ../scss/type.scss */
+/* line 73, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
-  font-family: serif;
+  font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 78, ../scss/type.scss */
+/* line 79, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -136,77 +137,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 88, ../scss/type.scss */
+/* line 89, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 93, ../scss/type.scss */
+/* line 94, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 99, ../scss/type.scss */
+/* line 100, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 103, ../scss/type.scss */
+/* line 104, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 108, ../scss/type.scss */
+/* line 109, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 113, ../scss/type.scss */
+/* line 114, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 117, ../scss/type.scss */
+/* line 118, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 122, ../scss/type.scss */
+/* line 123, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 127, ../scss/type.scss */
+/* line 128, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 130, ../scss/type.scss */
+/* line 131, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 134, ../scss/type.scss */
+/* line 135, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 138, ../scss/type.scss */
+/* line 139, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -216,56 +217,56 @@ pre {
 }
 
 /* List styles. */
-/* line 146, ../scss/type.scss */
+/* line 147, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 148, ../scss/type.scss */
+/* line 149, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 150, ../scss/type.scss */
+/* line 151, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 152, ../scss/type.scss */
+/* line 153, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 155, ../scss/type.scss */
+/* line 156, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 157, ../scss/type.scss */
+/* line 158, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 159, ../scss/type.scss */
+/* line 160, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 163, ../scss/type.scss */
+/* line 164, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 168, ../scss/type.scss */
+/* line 169, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 172, ../scss/type.scss */
+/* line 173, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 175, ../scss/type.scss */
+/* line 176, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -274,12 +275,12 @@ abbr {
   color: #777777;
 }
 
-/* line 182, ../scss/type.scss */
+/* line 183, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 195, ../scss/type.scss */
+/* line 196, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -289,7 +290,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 196, ../scss/type.scss */
+/* line 197, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -299,7 +300,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 197, ../scss/type.scss */
+/* line 198, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -309,7 +310,7 @@ div.error {
   text-align: center;
 }
 
-/* line 198, ../scss/type.scss */
+/* line 199, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -319,7 +320,7 @@ div.status {
   text-align: center;
 }
 
-/* line 200, ../scss/type.scss */
+/* line 201, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -337,7 +338,7 @@ h1.title {
 
 /* line 8, ../scss/layout.scss */
 .logged-in div#top-strip {
-  height: 27px;
+  height: 28px;
   background: #998d86;
   padding: 4px 20px 0;
 }
@@ -518,15 +519,16 @@ body.page-overview .view-discussions .views-field-view-node a {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.page-overview .more-links a:hover,
 body.page-overview .view-discussions .views-field-view-node a:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.page-overview .more-links a:active,
 body.page-overview .view-discussions .views-field-view-node a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
@@ -545,26 +547,25 @@ body.page-overview #slash {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #fff0c2), color-stop(50%, #fff9e6), color-stop(100%, #fff9e6));
   background-image: -moz-linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
   background-image: linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
-  line-height: 1em;
 }
-/* line 19, ../scss/welcome_message.scss */
+/* line 18, ../scss/welcome_message.scss */
 body.page-overview #slash h3 {
   text-shadow: 0px 1px 0px white;
   color: #333;
   font-weight: 300px;
   font-size: 1.6em;
 }
-/* line 26, ../scss/welcome_message.scss */
+/* line 25, ../scss/welcome_message.scss */
 body.page-overview #slash div.block .contextual-links-wrapper {
   display: none;
 }
-/* line 30, ../scss/welcome_message.scss */
+/* line 29, ../scss/welcome_message.scss */
 body.page-overview #slash div.block .edit {
   top: auto;
   right: 0px;
   bottom: 0px;
 }
-/* line 37, ../scss/welcome_message.scss */
+/* line 36, ../scss/welcome_message.scss */
 body.page-overview #slash #block-boxes-welcome_box img.d_ford {
   float: right;
   width: 80px;
@@ -575,17 +576,17 @@ body.page-overview #slash #block-boxes-welcome_box img.d_ford {
   -o-box-shadow: #cccccc 3px 3px 3px 0;
   box-shadow: #cccccc 3px 3px 3px 0;
 }
-/* line 46, ../scss/welcome_message.scss */
+/* line 45, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle {
   position: absolute;
   right: 20px;
   top: 20px;
 }
-/* line 51, ../scss/welcome_message.scss */
+/* line 50, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle a {
   color: #888;
 }
-/* line 53, ../scss/welcome_message.scss */
+/* line 52, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle a:hover {
   text-decoration: underline;
 }
@@ -748,12 +749,13 @@ body.ar {
 /* line 58, ../scss/type.scss */
 body {
   margin: 0;
-  font-family: "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
+  font-family: Georgia, Times, Times New Roman, serif;
   font-size: 1.05em;
+  line-height: 1.3em;
 }
 
 /* Titles. */
-/* line 65, ../scss/type.scss */
+/* line 66, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -762,14 +764,14 @@ body {
   margin: 0;
 }
 
-/* line 72, ../scss/type.scss */
+/* line 73, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
-  font-family: serif;
+  font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 78, ../scss/type.scss */
+/* line 79, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -780,77 +782,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 88, ../scss/type.scss */
+/* line 89, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 93, ../scss/type.scss */
+/* line 94, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 99, ../scss/type.scss */
+/* line 100, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 103, ../scss/type.scss */
+/* line 104, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 108, ../scss/type.scss */
+/* line 109, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 113, ../scss/type.scss */
+/* line 114, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 117, ../scss/type.scss */
+/* line 118, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 122, ../scss/type.scss */
+/* line 123, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 127, ../scss/type.scss */
+/* line 128, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 130, ../scss/type.scss */
+/* line 131, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 134, ../scss/type.scss */
+/* line 135, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 138, ../scss/type.scss */
+/* line 139, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -860,56 +862,56 @@ pre {
 }
 
 /* List styles. */
-/* line 146, ../scss/type.scss */
+/* line 147, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 148, ../scss/type.scss */
+/* line 149, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 150, ../scss/type.scss */
+/* line 151, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 152, ../scss/type.scss */
+/* line 153, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 155, ../scss/type.scss */
+/* line 156, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 157, ../scss/type.scss */
+/* line 158, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 159, ../scss/type.scss */
+/* line 160, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 163, ../scss/type.scss */
+/* line 164, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 168, ../scss/type.scss */
+/* line 169, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 172, ../scss/type.scss */
+/* line 173, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 175, ../scss/type.scss */
+/* line 176, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -918,12 +920,12 @@ abbr {
   color: #777777;
 }
 
-/* line 182, ../scss/type.scss */
+/* line 183, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 195, ../scss/type.scss */
+/* line 196, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -933,7 +935,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 196, ../scss/type.scss */
+/* line 197, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -943,7 +945,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 197, ../scss/type.scss */
+/* line 198, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -953,7 +955,7 @@ div.error {
   text-align: center;
 }
 
-/* line 198, ../scss/type.scss */
+/* line 199, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -963,7 +965,7 @@ div.status {
   text-align: center;
 }
 
-/* line 200, ../scss/type.scss */
+/* line 201, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -1029,7 +1031,7 @@ h1.title {
   border-right: 1px dotted #8d6349;
   text-transform: uppercase;
   padding-right: 10px;
-  font-family: serif;
+  font-family: Georgia, Times, Times New Roman, serif;
   font-weight: normal;
 }
 
@@ -1379,7 +1381,7 @@ body.node-type-discussion div#slash {
 }
 /* line 51, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 {
-  background: url("../images/borders.png") no-repeat center 7px;
+  background: url("../images/borders.png") no-repeat center 9px;
   width: 900px;
   text-align: center;
 }
@@ -1417,26 +1419,28 @@ body.node-type-discussion div.views-row div.buildmode-text_summary {
   padding: 0 10px;
   position: relative;
   height: 265px;
-  line-height: 1em;
+  line-height: 1.3em;
+  font-size: 0.8em;
 }
-/* line 91, ../scss/discussion.scss */
+/* line 92, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
-  font-size: 23px;
+  font-size: 1.5em;
   text-transform: inherit;
-  font-weight: bold;
   line-height: 1.2em;
   letter-spacing: -0.3px;
   text-align: left;
   color: #000;
   margin: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
-/* line 102, ../scss/discussion.scss */
+/* line 104, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-description {
-  height: 150px;
+  height: 158px;
   overflow: hidden;
   color: #303030;
 }
-/* line 108, ../scss/discussion.scss */
+/* line 110, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1457,24 +1461,25 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   position: absolute;
   right: 10px;
   bottom: 10px;
   font-size: 13px;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 120, ../scss/discussion.scss */
+/* line 122, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-label {
   border-bottom: 1px solid #cccccc;
   margin: 20px 0 10px;
@@ -1484,90 +1489,95 @@ body.node-type-discussion #boxes-box-discussion_info .field-label {
   font-weight: normal;
   text-transform: uppercase;
 }
-/* line 129, ../scss/discussion.scss */
+/* line 131, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-item {
   margin: 0 0 8px;
 }
-/* line 134, ../scss/discussion.scss */
+/* line 136, ../scss/discussion.scss */
 body.node-type-discussion #container {
   background: url("../images/borders.png") no-repeat center top;
   text-align: center;
   position: relative;
   padding: 8px 0 0;
 }
-/* line 140, ../scss/discussion.scss */
+/* line 142, ../scss/discussion.scss */
 body.node-type-discussion #container #main {
   position: static;
 }
-/* line 144, ../scss/discussion.scss */
+/* line 146, ../scss/discussion.scss */
 body.node-type-discussion #container #content-inner {
   background: transparent;
 }
-/* line 147, ../scss/discussion.scss */
+/* line 149, ../scss/discussion.scss */
 body.node-type-discussion #container ul.tabs {
   margin: 0 0 15px;
 }
-/* line 151, ../scss/discussion.scss */
+/* line 153, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area div.field-label {
   position: absolute;
-  top: -4px;
+  top: -6px;
   padding: 0 20px;
   display: inline;
   background: white;
   text-transform: uppercase;
   font-size: 0.9em;
 }
-/* line 160, ../scss/discussion.scss */
+/* line 162, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion {
   border: 1px solid #cccccc;
   padding: 20px 0 0 20px;
+  margin: 0 0 0 20px;
 }
-/* line 164, ../scss/discussion.scss */
+/* line 167, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-body {
   padding: 0 20px 0 0;
 }
-/* line 167, ../scss/discussion.scss */
+/* line 170, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-body p {
   text-align: justify;
   margin: 0 0 1em;
 }
-/* line 172, ../scss/discussion.scss */
+/* line 175, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion ul.links {
   position: relative;
   width: 100%;
   display: inline-block;
 }
-/* line 177, ../scss/discussion.scss */
+/* line 180, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
   background-image: -moz-linear-gradient(center top, white 0%, #eeeeee 100%);
   border: 1px solid #cccccc;
   border-radius: 5px 5px 5px 5px;
-  bottom: -41px;
+  bottom: -38px;
   left: -5px;
-  font-size: 1em;
-  padding: 7px 5px;
+  font-size: 0.8em;
+  padding: 4px 10px;
   position: absolute;
 }
-/* line 188, ../scss/discussion.scss */
+/* line 191, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .field-translation-status {
   border-top: 1px solid #cccccc;
   border-left: 1px solid #cccccc;
   text-align: left;
-  width: 265px;
+  width: 235px;
   padding: 5px;
   float: right;
+  /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
+  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
+  font-size: 0.8em;
+  line-height: 1.3em;
 }
-/* line 197, ../scss/discussion.scss */
+/* line 203, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second {
   text-align: left;
   margin-right: 1.2em;
   width: 346px;
 }
-/* line 202, ../scss/discussion.scss */
+/* line 208, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding-left: 7px;
 }
-/* line 206, ../scss/discussion.scss */
+/* line 212, ../scss/discussion.scss */
 body.node-type-discussion #container h3.block-title {
   color: #7c0000;
   border-bottom: 1px solid #7c0000;
@@ -1575,84 +1585,85 @@ body.node-type-discussion #container h3.block-title {
   font-size: 1em;
   font-weight: bold;
 }
-/* line 213, ../scss/discussion.scss */
+/* line 219, ../scss/discussion.scss */
 body.node-type-discussion #container #comments {
   text-align: left;
-  padding: 30px 0 0;
+  padding: 40px 0 0;
   position: relative;
   margin: 0 0 0 20px;
 }
-/* line 219, ../scss/discussion.scss */
+/* line 225, ../scss/discussion.scss */
 body.node-type-discussion #container #comments h2#comments-title {
-  background: white url("../images/borders-comment.png") no-repeat center 10px;
-  font-size: 1.4em;
-  padding: 0 0 0 212px;
+  background: white url("../images/borders-comment.png") no-repeat left 7px;
+  font-size: 0.9em;
+  padding: 0 0 0 217px;
   text-transform: uppercase;
 }
-/* line 225, ../scss/discussion.scss */
+/* line 231, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .buildmode-full {
   border: 1px solid #cccccc;
   margin: 0 0 20px;
   padding: 10px 0 0 10px;
   position: relative;
 }
-/* line 231, ../scss/discussion.scss */
+/* line 237, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node {
   padding: 0;
 }
-/* line 233, ../scss/discussion.scss */
+/* line 239, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-author {
   float: left;
   margin: 0 10px 0 0;
+  font-weight: bold;
 }
-/* line 237, ../scss/discussion.scss */
+/* line 244, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-post-date {
   color: #cccccc;
   float: right;
   padding: 0 10px 0 0;
   font-size: 0.9em;
 }
-/* line 243, ../scss/discussion.scss */
+/* line 250, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-body {
-  margin: 20px 0 0;
+  margin: 20px 10px 0 0;
 }
-/* line 247, ../scss/discussion.scss */
+/* line 254, ../scss/discussion.scss */
 body.node-type-discussion #container #comments textarea {
   box-shadow: 0 3px 0 #eeeeee;
 }
-/* line 251, ../scss/discussion.scss */
+/* line 258, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-comment ul.links {
   border: 1px solid #ccc;
-  padding: 7px 5px;
+  padding: 4px 5px;
   border-radius: 5px;
-  font-size: 1em;
+  font-size: 0.8em;
   background-image: -moz-linear-gradient(center top, white 0%, #eeeeee 100%);
   position: absolute;
-  bottom: 6px;
+  bottom: 7px;
 }
-/* line 259, ../scss/discussion.scss */
+/* line 266, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-comment ul.links li {
   padding: 0 5px;
 }
-/* line 263, ../scss/discussion.scss */
+/* line 270, ../scss/discussion.scss */
 body.node-type-discussion #container .box {
   background: url("../images/borders.png") no-repeat center top;
   padding: 10px 0 0;
   margin: 50px 0 0;
   position: relative;
 }
-/* line 269, ../scss/discussion.scss */
+/* line 276, ../scss/discussion.scss */
 body.node-type-discussion #container .box h2 {
   background: #FFFFFF;
-  font-size: 1.4em;
-  left: 148px;
+  font-size: 0.9em;
+  left: 158px;
   padding: 0 10px;
   position: absolute;
   text-transform: uppercase;
-  top: -10px;
+  top: -6px;
 }
 
-/* line 281, ../scss/discussion.scss */
+/* line 288, ../scss/discussion.scss */
 body.section-node-edit div#container {
   text-align: left;
 }
@@ -1738,7 +1749,7 @@ body.i18n-ar ul#primary li.first {
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -1751,7 +1762,7 @@ body.i18n-ar ul#primary li.first a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -1762,7 +1773,7 @@ body.i18n-ar ul#primary li {
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -1775,7 +1786,7 @@ body.i18n-ar ul#primary li a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -1786,7 +1797,7 @@ body.i18n-ar ul#primary li.last {
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -1799,7 +1810,7 @@ body.i18n-ar ul#primary li.last a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -2065,6 +2076,7 @@ body.ar #block-locale-language ul li.en {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -2082,13 +2094,13 @@ body.ar #block-locale-language ul li.en {
   -khtml-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -2115,6 +2127,7 @@ body.ar #block-locale-language ul li.ar {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -2138,13 +2151,13 @@ body.ar #block-locale-language ul li.ar {
   box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -2172,6 +2185,7 @@ body.en #block-locale-language ul li.en {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -2194,13 +2208,13 @@ body.en #block-locale-language ul li.en {
   box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -2227,6 +2241,7 @@ body.en #block-locale-language ul li.ar {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -2245,13 +2260,13 @@ body.en #block-locale-language ul li.ar {
   border-bottom-left-radius: 0;
   float: right;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -2512,7 +2527,7 @@ body.i18n-en .field-body .field-label {
   padding: 5px;
   float: none;
   height: 160px;
-  width: 469px;
+  width: 458px;
 }
 
 /* line 218, ../scss/misc.scss */
@@ -2856,7 +2871,7 @@ div.node-discussion .field-name-field-translator {
 /* line 32, ../scss/discussion_header.scss */
 div.node-discussion div.field-type-user-reference .field-label, div.node-discussion div.field-name-field-texts .field-label {
   /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
-  font-family: "Helvetica Neue", helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
   text-transform: uppercase;
   font-size: 13px;
   font-weight: normal;
@@ -2913,7 +2928,7 @@ ul.menu li.first {
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 ul.menu li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -2926,7 +2941,7 @@ ul.menu li.first a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 ul.menu li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -2937,7 +2952,7 @@ ul.menu li {
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 ul.menu li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -2950,7 +2965,7 @@ ul.menu li a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 ul.menu li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -2961,7 +2976,7 @@ ul.menu li.last {
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 ul.menu li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -2974,7 +2989,7 @@ ul.menu li.last a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 ul.menu li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -3001,35 +3016,40 @@ ul.menu li.active-trail {
 #block-locale-0 li a {
   color: white;
   background: #666666;
-  padding: 5px 15px 4px;
+  padding: 0 15px;
+  font-size: 1.2em;
   display: inline-block;
   border-radius: 15px;
+  line-height: 2em;
 }
 
 /*Action links*/
-/* line 76, ../scss/navigation.scss */
+/* line 78, ../scss/navigation.scss */
 #boxes-box-action_links .boxes-box-content {
   float: left;
   margin: 0 10px 0 0;
 }
-/* line 80, ../scss/navigation.scss */
+/* line 82, ../scss/navigation.scss */
 #boxes-box-action_links ul {
   margin: 0;
   padding: 0;
 }
-/* line 84, ../scss/navigation.scss */
+/* line 86, ../scss/navigation.scss */
 #boxes-box-action_links ul li {
   padding: 0;
 }
-/* line 87, ../scss/navigation.scss */
+/* line 89, ../scss/navigation.scss */
 #boxes-box-action_links ul a {
-  font-size: 0.8em;
+  font-size: 0.7em;
+  line-height: 2em;
   color: white;
   background: #666666;
-  padding: 5px 15px 3px;
+  padding: 0 15px;
   display: inline-block;
   border-radius: 15px;
   font-weight: normal;
+  /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
+  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
 }
 
 /* line 43, ../scss/core.scss */
@@ -3045,7 +3065,7 @@ ul.menu li.active-trail {
 /* line 44, ../scss/core.scss */
 #block-menu-primary-links ul.menu {
   margin: 0 auto;
-  width: 455px;
+  width: 465px;
 }
 /* line 17, ../scss/navigation.scss */
 #block-menu-primary-links ul.menu a {
@@ -3223,7 +3243,7 @@ form input.form-submit {
   -khtml-border-radius: 4px / 4px;
   border-radius: 4px / 4px;
 }
-/* line 112, ../scss/_buttons.scss */
+/* line 113, ../scss/_buttons.scss */
 form input.form-submit:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
@@ -3397,7 +3417,7 @@ div#walkthrough {
   border-radius: 4px / 4px;
   margin-bottom: 20px;
 }
-/* line 112, ../scss/_buttons.scss */
+/* line 113, ../scss/_buttons.scss */
 #sidebar-second #block-ibis_glossary-ibis_glossary_terms #ibis-glossary-highlight-button:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
@@ -3438,7 +3458,7 @@ div#walkthrough {
   font-size: 14px;
   text-align: center;
 }
-/* line 112, ../scss/_buttons.scss */
+/* line 113, ../scss/_buttons.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
@@ -3479,7 +3499,7 @@ div#walkthrough {
   text-align: center;
   color: #7C0000;
 }
-/* line 112, ../scss/_buttons.scss */
+/* line 113, ../scss/_buttons.scss */
 #sidebar-second #boxes-box-add_discussion .boxes-box-content a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);

@@ -16,6 +16,7 @@
   display:block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   &:hover {
     @include linear-gradient(color_stops( lighten($color, 60%), lighten($color, 30%)));
   }
