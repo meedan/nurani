@@ -150,21 +150,46 @@ msgstr "قابل مستخدمي نوراني الآخرين"
 msgid "Discussants"
 msgstr "مناقشون"
 
-#: /ar
-msgid "Add a new @plugin"
-msgstr "Add a new @plugin"
+msgid "Add box"
+msgstr "أضف صندوقًا"
 
-#: /ar
+msgid "Add custom page"
+msgstr "أضف صفحة مخصصة "
+
+msgid "Add a new @plugin"
+msgstr "أضف @plugin جديد"
+
+msgid "Add flexible layout"
+msgstr "أضف تصميمًا قابلاً للتعديل"
+
+msgid "Add"
+msgstr "أضف"
+
+msgid "Administration menu"
+msgstr "قائمة إدارة الصفحة"
+
+msgid "Adjust administration menu settings."
+msgstr "تعديل إعدادات قائمة إدارة الصفحة"
+
+msgid "Add format"
+msgstr "أضف شكلاً "
+
+msgid "Agreement settings"
+msgstr "إعداد الاتفاقيات "
+
+msgid "Agreements"
+msgstr "الاتفاقيات"
+
 msgid "A list of all agreements"
-msgstr "قائمة الإتفاقيات كلها"
+msgstr "قائمة الاتفاقيات كلها"
 
 #: /ar
 msgid "Translation to %language"
-msgstr "الترجمة للغة"
+msgstr "الترجمة لللغة ال@language"
 
 #: /ar/node/11
 msgid "Add new @comment_type"
-msgstr "اضف تعليق جديد ! اكتب"
+msgstr "اضف @comment_type جديد "
 
 #: /ar/node/11
 msgid "Moderators"
@@ -175,7 +200,7 @@ msgstr "أفكار من مدير الحوار "
 
 #: /ar/node/11
 msgid "Post new !type"
-msgstr "تعليق جديد ! اكتب"
+msgstr "أضف !type جديد"
 
 #: /ar/node/11
 msgid "Translate strings"
@@ -183,7 +208,7 @@ msgstr "ترجمة متسلسلة"
 
 #: /ar/node/11
 msgid "Translation status: "
-msgstr "وضع الترجمة:"
+msgstr "وضع الترجمة: "
 
 #: /ar/node/11
 msgid "Moderator"
@@ -191,7 +216,7 @@ msgstr "مشرف"
 
 #: /ar/node/11
 msgid "Add @type"
-msgstr "اضف @اكتب"
+msgstr "أضف @type"
 
 #: /ar/node/add/discussion?translation=11&language=ar
 msgid "Add another item"
@@ -200,7 +225,7 @@ msgstr "اضف مصطلح جديد"
 #: /ar/content/%D8%A7%D9%84%D8%AD%D9%83%D9%85%D8%A9-0
 msgid "This comment was auto translated from !language. See !note_link."
 msgstr ""
-"تعليق مترجم آلياً من لغة ... انظر الرابط "
+"تعليق مترجم آلياً من لغة !language انظر الرابط !node_link"
 ""
 
 #: /ar/texts
@@ -241,15 +266,15 @@ msgstr "مناقشة غير مقيدة زمنياً"
 
 #: /ar/content/%D8%A7%D9%84%D8%AD%D9%83%D9%85%D8%A9-0
 msgid "This !type is not translated."
-msgstr "هذا غير مترجم"
+msgstr "هذا ال!type غير مترجم."
 
 #: /ar/content/%D8%A7%D9%84%D8%AD%D9%83%D9%85%D8%A9-0
 msgid "Original !type in !original."
-msgstr "الأصلي ! اكتب في ! الأصلي"
+msgstr "ال!type الأصلي بال!original"
 
 #: /ar/content/%D8%A7%D9%84%D8%AD%D9%83%D9%85%D8%A9-0
 msgid "Translated to !translation by !translator."
-msgstr "مترجم إلى! مترجم بواسطة! المترجم"
+msgstr "مترجم إلى ال!translation بواسطة !translator."
 
 #: /ar/admin/content/translation-management/translator
 msgid "Translation jobs for"
@@ -261,7 +286,7 @@ msgstr "مترجم"
 
 #: /ar/users/admin
 msgid "Create your @profile_node."
-msgstr "انشيء @عقدة ملفك الشخصي "
+msgstr "انشيء ملفك الشخصي"
 
 #: /ar/admin/content/translation-management/dashboard
 msgid "Translated to"
@@ -281,7 +306,7 @@ msgstr "اختيارات الترجمة"
 
 #: /ar/admin/content/translation-management/dashboard
 msgid "Translate to @lang "
-msgstr "ترجم ل@لغة"
+msgstr "ترجم للغة @lang"
 
 #: /ar/admin/content/translation-management/dashboard
 msgid "Translate selected documents"
@@ -306,4 +331,10 @@ msgstr "مطلوب التحقق من ترجمة"
 #: /ar/overview?boxes_delta=welcome_box
 msgid "Discussions overview"
 msgstr "نظرة عامة على المناقشات"
+
+msgid "Add a new text excerpt"
+msgstr "أضف مقتطف نصي جديد"
+
+msgid "Add a new glossary term"
+msgstr "أضف مصطلح معجمي جديد"
 
