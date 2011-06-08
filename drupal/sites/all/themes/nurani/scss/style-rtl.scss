@@ -5,9 +5,19 @@ body.i18n-ar {
 
   overflow-x: hidden !important;
 
+	/*Typo*/
+	h1 {
+		font-style: normal;
+		font-weight: bold;
+	}
 	/*action links*/
+	#top-strip {
+		height: 27px;
+	}
 	#boxes-box-action_links ul a {
-		line-height: 15px;
+		line-height: 1.9em;
+		font-size: 0.7em; 
+		float: right;
 	}
 	#boxes-box-action_links .boxes-box-content {
     float: right;
@@ -16,9 +26,18 @@ body.i18n-ar {
 
 	/*language switcher*/
 	#block-locale-0 li a {
-		padding:  5px 15px 3px;
+		padding: 0 15px;
+		line-height: 1.8em;
 	}
-	
+	#block-menu-primary-links ul.menu {
+		
+		a {
+			font-size: 1.3em;
+			padding: 19px 65px 30px 20px;
+			font-weight: bold;
+			background-position: 105px 20px;
+		}
+	}	
   #boxes-box-welcome_to_nurani_box .toggle {
       position: absolute;
       right: auto;
@@ -51,8 +70,8 @@ body.i18n-ar {
   }
 
   .perosnal-username, .view-overview .views-field-view-node {
-      float: left;
-  }
+    float: left;
+	  }
 
 
   ul#primary {
@@ -96,6 +115,11 @@ body.i18n-ar {
 	}
 
 	/*Welcome*/
+	div#slash h3 {
+		margin-right: 30px;
+		margin-top: 0;
+		line-height: 0.6em;
+	}
 	div#slash div#boxes-box-welcome_box img.d_ford {
 		float: left;
 	}
@@ -110,7 +134,10 @@ body.i18n-ar {
 			line-height: 29px;
 		}
 		.views-field-view-node a {
-			float: left;
+			font-size: 0.8em;
+    line-height: 1.2em;
+    padding-bottom: 3px;
+	float: left;
 		}
 		.views-field-phpcode {
 			float: right;
@@ -163,7 +190,19 @@ body.i18n-ar {
 }
 /*discussion*/
 body.i18n-ar.node-type-discussion {
+	h1.title {
+		margon-top: 40px;
+	}
+	.field-exp-comments {
+		background-position: 270px 33px;
+	}
 	div#block-views-discussion_texts-block_1 {	
+		h3 {
+			font-size: 1em;
+			padding: 0 15px;
+			font-size: 1em;
+			padding: 0 15px;;
+		}
 		h1 {
 			text-align: right;
 		}
@@ -180,8 +219,15 @@ body.i18n-ar.node-type-discussion {
 	#container {
 		#content-area {
 			.node-type-discussion {
-				padding: 20px 0 0 0;
 				margin: 0 20px 0 0;
+				padding: 20px 0 0 0;
+
+				div.field-label {
+			    font-size: 0.9em;
+					padding: 0 15px;
+					right: 400px;
+					top: -10px;
+				}
 				.field-body {
 					padding: 0 0 0 20px;
 
@@ -199,16 +245,18 @@ body.i18n-ar.node-type-discussion {
 				float: left;
 				border-left: 0;
 				border-right: 1px solid $gray;
+				text-align: right;
+				font-size: 0.8em;
 			}
 	 	}
 		#comments {
 			margin: 0 20px 0 0;
 		 
 			h2#comments-title {
-				padding: 0 0 0 202px;
+				padding: 0 0 0 238px;
 			}	
 			.buildmode-full {
-				padding: 10px 10px 0 0;
+				padding: 10px 0 0 10px;
 			}
 			.field-author {
 					float: right;
@@ -224,12 +272,12 @@ body.i18n-ar.node-type-discussion {
 				border: 1px solid $gray;
 				border-left: 0;
 				border-bottom: 0;
-				text-align: right;
 			}
 			.nd-region-footer {
 				text-align: right;
 					ul.links {
 						line-height: 20px;
+						right: 5px;
 					}
 			}
 			label {
@@ -238,7 +286,7 @@ body.i18n-ar.node-type-discussion {
 			}
 		}
 		#sidebar-second {
-			margin-left: 1.2em;
+			margin-left: 0;
 			margin-right: 0;
 		
 				#sidebar-second-inner {

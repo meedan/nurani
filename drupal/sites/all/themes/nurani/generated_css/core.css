@@ -82,31 +82,37 @@
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
-  src: url("/sites/all/themes/nurani/fonts/UthmanTN1v9.otf");
+  src: url("../fonts/UthmanTN1v9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'UthmanTNBold';
-  src: url("/sites/all/themes/nurani/fonts/UthmanTN1Bv9.otf");
+  src: url("../fonts/UthmanTN1Bv9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
-/* the English fonts are from typekit*/
-/*CGB TODO: not sure what the arabic language selector is*/
-/* line 24, ../scss/type.scss */
-body.i18n-ar {
-  font-family: Traditional Arabic, sans-serif;
-  font-size: 1.3em;
-}
-/* line 28, ../scss/type.scss */
-body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
-  font-family: Traditional Arabic, sans-serif;
+@font-face {
+  font-family: AmiriWeb;
+  src: url("../fonts/amiri-regular.eot") format("eot"), url("../fonts/amiri-regular.woff") format("woff"), url("../fonts/amiri-regular.ttf") format("truetype");
 }
 
-/* line 64, ../scss/type.scss */
+/* the English fonts are from typekit*/
+/*CGB TODO: not sure what the arabic language selector is*/
+/* line 29, ../scss/type.scss */
+body.i18n-ar {
+  font-family: UthmanTN, AmiriWeb, serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+/* line 34, ../scss/type.scss */
+body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
+  font-family: AmiriWeb, serif;
+}
+
+/* line 70, ../scss/type.scss */
 body {
   margin: 0;
   font-family: Georgia, Times, Times New Roman, serif;
@@ -115,7 +121,7 @@ body {
 }
 
 /* Titles. */
-/* line 72, ../scss/type.scss */
+/* line 78, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -124,14 +130,14 @@ body {
   margin: 0;
 }
 
-/* line 79, ../scss/type.scss */
+/* line 85, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
   font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 85, ../scss/type.scss */
+/* line 91, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -142,77 +148,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 95, ../scss/type.scss */
+/* line 101, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 100, ../scss/type.scss */
+/* line 106, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 106, ../scss/type.scss */
+/* line 112, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 110, ../scss/type.scss */
+/* line 116, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 115, ../scss/type.scss */
+/* line 121, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 120, ../scss/type.scss */
+/* line 126, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 124, ../scss/type.scss */
+/* line 130, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 129, ../scss/type.scss */
+/* line 135, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 134, ../scss/type.scss */
+/* line 140, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 137, ../scss/type.scss */
+/* line 143, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 141, ../scss/type.scss */
+/* line 147, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 145, ../scss/type.scss */
+/* line 151, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -222,56 +228,56 @@ pre {
 }
 
 /* List styles. */
-/* line 153, ../scss/type.scss */
+/* line 159, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 155, ../scss/type.scss */
+/* line 161, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 157, ../scss/type.scss */
+/* line 163, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 159, ../scss/type.scss */
+/* line 165, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 162, ../scss/type.scss */
+/* line 168, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 164, ../scss/type.scss */
+/* line 170, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 166, ../scss/type.scss */
+/* line 172, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 170, ../scss/type.scss */
+/* line 176, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 175, ../scss/type.scss */
+/* line 181, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 179, ../scss/type.scss */
+/* line 185, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 182, ../scss/type.scss */
+/* line 188, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -280,12 +286,12 @@ abbr {
   color: #777777;
 }
 
-/* line 189, ../scss/type.scss */
+/* line 195, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 202, ../scss/type.scss */
+/* line 208, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -295,7 +301,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 203, ../scss/type.scss */
+/* line 209, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -305,7 +311,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 204, ../scss/type.scss */
+/* line 210, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -315,7 +321,7 @@ div.error {
   text-align: center;
 }
 
-/* line 205, ../scss/type.scss */
+/* line 211, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -325,7 +331,7 @@ div.status {
   text-align: center;
 }
 
-/* line 207, ../scss/type.scss */
+/* line 213, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -732,31 +738,37 @@ ul.pager li {
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
-  src: url("/sites/all/themes/nurani/fonts/UthmanTN1v9.otf");
+  src: url("../fonts/UthmanTN1v9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'UthmanTNBold';
-  src: url("/sites/all/themes/nurani/fonts/UthmanTN1Bv9.otf");
+  src: url("../fonts/UthmanTN1Bv9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
-/* the English fonts are from typekit*/
-/*CGB TODO: not sure what the arabic language selector is*/
-/* line 24, ../scss/type.scss */
-body.i18n-ar {
-  font-family: Traditional Arabic, sans-serif;
-  font-size: 1.3em;
-}
-/* line 28, ../scss/type.scss */
-body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
-  font-family: Traditional Arabic, sans-serif;
+@font-face {
+  font-family: AmiriWeb;
+  src: url("../fonts/amiri-regular.eot") format("eot"), url("../fonts/amiri-regular.woff") format("woff"), url("../fonts/amiri-regular.ttf") format("truetype");
 }
 
-/* line 64, ../scss/type.scss */
+/* the English fonts are from typekit*/
+/*CGB TODO: not sure what the arabic language selector is*/
+/* line 29, ../scss/type.scss */
+body.i18n-ar {
+  font-family: UthmanTN, AmiriWeb, serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+/* line 34, ../scss/type.scss */
+body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
+  font-family: AmiriWeb, serif;
+}
+
+/* line 70, ../scss/type.scss */
 body {
   margin: 0;
   font-family: Georgia, Times, Times New Roman, serif;
@@ -765,7 +777,7 @@ body {
 }
 
 /* Titles. */
-/* line 72, ../scss/type.scss */
+/* line 78, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -774,14 +786,14 @@ body {
   margin: 0;
 }
 
-/* line 79, ../scss/type.scss */
+/* line 85, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
   font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 85, ../scss/type.scss */
+/* line 91, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -792,77 +804,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 95, ../scss/type.scss */
+/* line 101, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 100, ../scss/type.scss */
+/* line 106, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 106, ../scss/type.scss */
+/* line 112, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 110, ../scss/type.scss */
+/* line 116, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 115, ../scss/type.scss */
+/* line 121, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 120, ../scss/type.scss */
+/* line 126, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 124, ../scss/type.scss */
+/* line 130, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 129, ../scss/type.scss */
+/* line 135, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 134, ../scss/type.scss */
+/* line 140, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 137, ../scss/type.scss */
+/* line 143, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 141, ../scss/type.scss */
+/* line 147, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 145, ../scss/type.scss */
+/* line 151, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -872,56 +884,56 @@ pre {
 }
 
 /* List styles. */
-/* line 153, ../scss/type.scss */
+/* line 159, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 155, ../scss/type.scss */
+/* line 161, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 157, ../scss/type.scss */
+/* line 163, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 159, ../scss/type.scss */
+/* line 165, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 162, ../scss/type.scss */
+/* line 168, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 164, ../scss/type.scss */
+/* line 170, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 166, ../scss/type.scss */
+/* line 172, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 170, ../scss/type.scss */
+/* line 176, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 175, ../scss/type.scss */
+/* line 181, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 179, ../scss/type.scss */
+/* line 185, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 182, ../scss/type.scss */
+/* line 188, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -930,12 +942,12 @@ abbr {
   color: #777777;
 }
 
-/* line 189, ../scss/type.scss */
+/* line 195, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 202, ../scss/type.scss */
+/* line 208, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -945,7 +957,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 203, ../scss/type.scss */
+/* line 209, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -955,7 +967,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 204, ../scss/type.scss */
+/* line 210, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -965,7 +977,7 @@ div.error {
   text-align: center;
 }
 
-/* line 205, ../scss/type.scss */
+/* line 211, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -975,7 +987,7 @@ div.status {
   text-align: center;
 }
 
-/* line 207, ../scss/type.scss */
+/* line 213, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -1696,6 +1708,7 @@ body.section-node-edit div#container {
 /* line 4, ../scss/style-rtl.scss */
 body.i18n-ar {
   overflow-x: hidden !important;
+  /*Typo*/
   /*action links*/
   /*language switcher*/
   /*Top strip*/
@@ -1705,41 +1718,60 @@ body.i18n-ar {
   /*vertical tabs*/
 }
 /* line 9, ../scss/style-rtl.scss */
-body.i18n-ar #boxes-box-action_links ul a {
-  line-height: 15px;
+body.i18n-ar h1 {
+  font-style: normal;
+  font-weight: bold;
 }
-/* line 12, ../scss/style-rtl.scss */
+/* line 14, ../scss/style-rtl.scss */
+body.i18n-ar #top-strip {
+  height: 27px;
+}
+/* line 17, ../scss/style-rtl.scss */
+body.i18n-ar #boxes-box-action_links ul a {
+  line-height: 1.9em;
+  font-size: 0.7em;
+  float: right;
+}
+/* line 22, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-action_links .boxes-box-content {
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 18, ../scss/style-rtl.scss */
+/* line 28, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li a {
-  padding: 5px 15px 3px;
+  padding: 0 15px;
+  line-height: 1.8em;
 }
-/* line 22, ../scss/style-rtl.scss */
+/* line 34, ../scss/style-rtl.scss */
+body.i18n-ar #block-menu-primary-links ul.menu a {
+  font-size: 1.3em;
+  padding: 19px 65px 30px 20px;
+  font-weight: bold;
+  background-position: 105px 20px;
+}
+/* line 41, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-welcome_to_nurani_box .toggle {
   position: absolute;
   right: auto;
   left: 0;
   top: 1px;
 }
-/* line 29, ../scss/style-rtl.scss */
+/* line 48, ../scss/style-rtl.scss */
 body.i18n-ar .condense_control {
   padding: 4px 4px 4px 0;
   background: url("../images/more-ar.png") no-repeat scroll 0 0 transparent;
 }
-/* line 34, ../scss/style-rtl.scss */
+/* line 53, ../scss/style-rtl.scss */
 body.i18n-ar #comment-form label {
   float: right;
   margin-right: 10px;
 }
-/* line 39, ../scss/style-rtl.scss */
+/* line 58, ../scss/style-rtl.scss */
 body.i18n-ar #comment-form label[for="edit-subject"] {
   margin-left: 42px;
   margin-right: 0;
 }
-/* line 49, ../scss/style-rtl.scss */
+/* line 68, ../scss/style-rtl.scss */
 body.i18n-ar #sidebar-second,
 body.i18n-ar .sidebar-second #main,
 body.i18n-ar .text,
@@ -1748,11 +1780,11 @@ body.i18n-ar .view-texts-in-discussion .views-row,
 body.i18n-ar .view-overview .views-field-title {
   float: right;
 }
-/* line 53, ../scss/style-rtl.scss */
+/* line 72, ../scss/style-rtl.scss */
 body.i18n-ar .perosnal-username, body.i18n-ar .view-overview .views-field-view-node {
   float: left;
 }
-/* line 59, ../scss/style-rtl.scss */
+/* line 78, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li.first {
   float: left;
   list-style: none outside none;
@@ -1776,7 +1808,7 @@ body.i18n-ar ul#primary li.first a {
 body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 60, ../scss/style-rtl.scss */
+/* line 79, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li {
   float: left;
   list-style: none outside none;
@@ -1800,7 +1832,7 @@ body.i18n-ar ul#primary li a {
 body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 61, ../scss/style-rtl.scss */
+/* line 80, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li.last {
   float: left;
   list-style: none outside none;
@@ -1824,205 +1856,238 @@ body.i18n-ar ul#primary li.last a {
 body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 64, ../scss/style-rtl.scss */
+/* line 83, ../scss/style-rtl.scss */
 body.i18n-ar #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: right;
   margin-top: 10px;
 }
-/* line 70, ../scss/style-rtl.scss */
+/* line 89, ../scss/style-rtl.scss */
 body.i18n-ar .view-ibis-glossary .views-summary {
   float: right;
 }
-/* line 75, ../scss/style-rtl.scss */
+/* line 94, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 {
   float: left;
   font-size: 18px;
   line-height: 16px;
   width: 66px;
 }
-/* line 80, ../scss/style-rtl.scss */
+/* line 99, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 ul {
   padding: 0;
 }
-/* line 83, ../scss/style-rtl.scss */
+/* line 102, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li.ar {
   display: none;
 }
-/* line 86, ../scss/style-rtl.scss */
+/* line 105, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li.en {
   display: block;
 }
-/* line 94, ../scss/style-rtl.scss */
+/* line 113, ../scss/style-rtl.scss */
 body.i18n-ar ul.menu li.last,
 body.i18n-ar ul.menu li.first,
 body.i18n-ar ul.menu li {
   float: right;
 }
-/* line 99, ../scss/style-rtl.scss */
+/* line 118, ../scss/style-rtl.scss */
+body.i18n-ar div#slash h3 {
+  margin-right: 30px;
+  margin-top: 0;
+  line-height: 0.6em;
+}
+/* line 123, ../scss/style-rtl.scss */
 body.i18n-ar div#slash div#boxes-box-welcome_box img.d_ford {
   float: left;
 }
-/* line 104, ../scss/style-rtl.scss */
+/* line 128, ../scss/style-rtl.scss */
 body.i18n-ar div#main {
   float: right;
 }
-/* line 108, ../scss/style-rtl.scss */
+/* line 132, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-title {
   float: right;
   line-height: 29px;
 }
-/* line 112, ../scss/style-rtl.scss */
+/* line 136, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-view-node a {
+  font-size: 0.8em;
+  line-height: 1.2em;
+  padding-bottom: 3px;
   float: left;
 }
-/* line 115, ../scss/style-rtl.scss */
+/* line 142, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-phpcode {
   float: right;
   margin-left: 15px;
   margin-right: 0;
 }
-/* line 122, ../scss/style-rtl.scss */
+/* line 149, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-new_texts-block_1 h3,
 body.i18n-ar #block-views-new_glossary_terms-block_1 h3 {
   background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
   padding: 10px 20px 10px 0;
 }
-/* line 126, ../scss/style-rtl.scss */
+/* line 153, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-nuranis-block_1 h3 {
   background-position: right;
   padding: 10px 20px 10px 0;
 }
-/* line 130, ../scss/style-rtl.scss */
+/* line 157, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-nuranis-block_1 h3.collapsed {
   background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
 }
-/* line 134, ../scss/style-rtl.scss */
+/* line 161, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-new_texts-block_1 h3.expand,
 body.i18n-ar #block-views-new_glossary_terms-block_1 h3.expand {
   background: url("../images/arrow-expand.png") no-repeat right center;
 }
-/* line 138, ../scss/style-rtl.scss */
+/* line 165, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-new_texts-block_1 .views-row,
 body.i18n-ar #block-views-new_glossary_terms-block_1 .views-row {
   background: url("../images/point-rtl.png") no-repeat right 6px;
   margin: 0 20px 0 0;
   padding: 0 15px 10px 0;
 }
-/* line 145, ../scss/style-rtl.scss */
+/* line 172, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs {
   float: right;
   margin: 1em 15em 0 0;
 }
-/* line 149, ../scss/style-rtl.scss */
+/* line 176, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs ul.vertical-tabs-list {
   float: right;
   left: auto;
   right: 2em;
 }
-/* line 154, ../scss/style-rtl.scss */
+/* line 181, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li {
   text-align: right;
 }
-/* line 157, ../scss/style-rtl.scss */
+/* line 184, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li.selected {
   border-left: 0;
   border-right: 1px solid #ccc;
 }
 
 /*discussion*/
-/* line 167, ../scss/style-rtl.scss */
+/* line 193, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion h1.title {
+  margon-top: 40px;
+}
+/* line 196, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion .field-exp-comments {
+  background-position: 270px 33px;
+}
+/* line 200, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h3 {
+  font-size: 1em;
+  padding: 0 15px;
+  font-size: 1em;
+  padding: 0 15px;
+}
+/* line 206, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h1 {
   text-align: right;
 }
-/* line 170, ../scss/style-rtl.scss */
+/* line 209, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 .content {
   text-align: right;
 }
-/* line 174, ../scss/style-rtl.scss */
+/* line 213, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second {
   text-align: right;
 }
-/* line 177, ../scss/style-rtl.scss */
+/* line 216, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion .view-discussion-texts .views-row {
   float: right;
 }
-/* line 182, ../scss/style-rtl.scss */
+/* line 221, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion {
-  padding: 20px 0 0 0;
   margin: 0 20px 0 0;
+  padding: 20px 0 0 0;
 }
-/* line 185, ../scss/style-rtl.scss */
+/* line 225, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion div.field-label {
+  font-size: 0.9em;
+  padding: 0 15px;
+  right: 400px;
+  top: -10px;
+}
+/* line 231, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-body {
   padding: 0 0 0 20px;
 }
-/* line 188, ../scss/style-rtl.scss */
+/* line 234, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-body p {
   text-align: right;
   margin: 0 1.1em 1em 0;
 }
-/* line 193, ../scss/style-rtl.scss */
+/* line 239, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
   left: auto;
   right: 20px;
 }
-/* line 198, ../scss/style-rtl.scss */
+/* line 244, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .field-translation-status {
   float: left;
   border-left: 0;
   border-right: 1px solid #cccccc;
+  text-align: right;
+  font-size: 0.8em;
 }
-/* line 204, ../scss/style-rtl.scss */
+/* line 252, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments {
   margin: 0 20px 0 0;
 }
-/* line 207, ../scss/style-rtl.scss */
+/* line 255, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments h2#comments-title {
-  padding: 0 0 0 202px;
+  padding: 0 0 0 238px;
 }
-/* line 210, ../scss/style-rtl.scss */
+/* line 258, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .buildmode-full {
-  padding: 10px 10px 0 0;
+  padding: 10px 0 0 10px;
 }
-/* line 213, ../scss/style-rtl.scss */
+/* line 261, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-author {
   float: right;
 }
-/* line 216, ../scss/style-rtl.scss */
+/* line 264, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-post-date {
   float: left;
   padding: 0 0 0 10px;
 }
-/* line 220, ../scss/style-rtl.scss */
+/* line 268, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .node p {
   margin: 0 0 1em 0;
 }
-/* line 223, ../scss/style-rtl.scss */
+/* line 271, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-translation-status {
   border: 1px solid #cccccc;
   border-left: 0;
   border-bottom: 0;
-  text-align: right;
 }
-/* line 229, ../scss/style-rtl.scss */
+/* line 276, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer {
   text-align: right;
 }
-/* line 231, ../scss/style-rtl.scss */
+/* line 278, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer ul.links {
   line-height: 20px;
+  right: 5px;
 }
-/* line 235, ../scss/style-rtl.scss */
+/* line 283, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments label {
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 240, ../scss/style-rtl.scss */
+/* line 288, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second {
-  margin-left: 1.2em;
+  margin-left: 0;
   margin-right: 0;
 }
-/* line 244, ../scss/style-rtl.scss */
+/* line 292, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding-right: 7px;
   padding-left: 20px;
@@ -3055,7 +3120,9 @@ ul.menu li.active-trail {
   color: white;
   background: #666666;
   padding: 0 15px;
-  display: inline-block;
+  display: block;
+  float: left;
+  margin: 0 3px;
   border-radius: 15px;
   font-weight: normal;
   /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
@@ -3081,7 +3148,7 @@ ul.menu li.active-trail {
 #block-menu-primary-links ul.menu a {
   color: #7c0000;
   font-weight: normal;
-  font-size: 20px;
+  font-size: 1.2em;
 }
 /* line 18, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:visited {

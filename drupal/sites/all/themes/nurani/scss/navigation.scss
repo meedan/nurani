@@ -20,7 +20,7 @@
      &:hover {
        text-decoration:none;
      }
-     font-size:20px;
+     font-size:1.2em;
    }
    li.active {
      &.active {
@@ -92,7 +92,9 @@ ul.menu {
 			color: $white;
       background: $dark-gray;
       padding: 0 15px; 
-			display: inline-block;
+			display: block;
+			float: left;
+			margin: 0 3px;
       border-radius: 15px;
 			font-weight: normal;
   		@include en-sans;
