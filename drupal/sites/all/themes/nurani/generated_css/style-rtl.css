@@ -348,54 +348,55 @@ body.i18n-ar.node-type-discussion #container #content-area .field-translation-st
 /* line 252, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments {
   margin: 0 20px 0 0;
+  text-align: right;
 }
-/* line 255, ../scss/style-rtl.scss */
+/* line 256, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments h2#comments-title {
   padding: 0 0 0 238px;
 }
-/* line 258, ../scss/style-rtl.scss */
+/* line 259, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .buildmode-full {
   padding: 10px 0 0 10px;
 }
-/* line 261, ../scss/style-rtl.scss */
+/* line 262, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-author {
   float: right;
 }
-/* line 264, ../scss/style-rtl.scss */
+/* line 265, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-post-date {
   float: left;
   padding: 0 0 0 10px;
 }
-/* line 268, ../scss/style-rtl.scss */
+/* line 269, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .node p {
   margin: 0 0 1em 0;
 }
-/* line 271, ../scss/style-rtl.scss */
+/* line 272, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-translation-status {
   border: 1px solid #cccccc;
   border-left: 0;
   border-bottom: 0;
 }
-/* line 276, ../scss/style-rtl.scss */
+/* line 277, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer {
   text-align: right;
 }
-/* line 278, ../scss/style-rtl.scss */
+/* line 279, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer ul.links {
   line-height: 20px;
   right: 5px;
 }
-/* line 283, ../scss/style-rtl.scss */
+/* line 284, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments label {
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 288, ../scss/style-rtl.scss */
+/* line 289, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second {
   margin-left: 0;
   margin-right: 0;
 }
-/* line 292, ../scss/style-rtl.scss */
+/* line 293, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding-right: 7px;
   padding-left: 20px;

@@ -1421,7 +1421,7 @@ body.node-type-discussion div#block-views-discussion_texts-block_1 {
 /* line 56, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 h3.block-title {
   background: white;
-  padding: 0 20px;
+  padding: 0 10px;
   display: inline;
   font-size: 0.9em;
   text-transform: uppercase;
@@ -1549,7 +1549,7 @@ body.node-type-discussion #container ul.tabs {
 body.node-type-discussion #container #content-area div.field-label {
   position: absolute;
   top: -6px;
-  padding: 0 20px;
+  padding: 0 10px;
   display: inline;
   background: white;
   text-transform: uppercase;
@@ -1589,28 +1589,35 @@ body.node-type-discussion #container #content-area .node-type-discussion li.nura
 }
 /* line 191, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .field-translation-status {
-  border-top: 1px solid #cccccc;
-  border-left: 1px solid #cccccc;
   text-align: left;
-  width: 235px;
-  padding: 5px;
+  width: 245px;
   float: right;
   /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
   font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
   font-size: 0.8em;
   line-height: 1.3em;
+  margin: 0 -1px -1px 0;
 }
-/* line 203, ../scss/discussion.scss */
+/* line 200, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area .translation-status-placeholder {
+  border: 1px solid #ffcd93;
+  border-right: 1px solid #fe9820;
+  border-bottom: 1px solid #fe9820;
+  padding: 5px;
+  background: #ffcd93;
+  border-radius: 5px 0 0 0;
+}
+/* line 209, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second {
   text-align: left;
   margin-right: 1.2em;
   width: 346px;
 }
-/* line 208, ../scss/discussion.scss */
+/* line 214, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding-left: 7px;
 }
-/* line 212, ../scss/discussion.scss */
+/* line 218, ../scss/discussion.scss */
 body.node-type-discussion #container h3.block-title {
   color: #7c0000;
   border-bottom: 1px solid #7c0000;
@@ -1618,53 +1625,53 @@ body.node-type-discussion #container h3.block-title {
   font-size: 1em;
   font-weight: bold;
 }
-/* line 219, ../scss/discussion.scss */
+/* line 225, ../scss/discussion.scss */
 body.node-type-discussion #container #comments {
   text-align: left;
   padding: 40px 0 0;
   position: relative;
   margin: 0 0 0 20px;
 }
-/* line 225, ../scss/discussion.scss */
+/* line 231, ../scss/discussion.scss */
 body.node-type-discussion #container #comments h2#comments-title {
   background: white url("../images/borders-comment.png") no-repeat left 7px;
   font-size: 0.9em;
   padding: 0 0 0 217px;
   text-transform: uppercase;
 }
-/* line 231, ../scss/discussion.scss */
+/* line 237, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .buildmode-full {
   border: 1px solid #cccccc;
   margin: 0 0 20px;
   padding: 10px 0 0 10px;
   position: relative;
 }
-/* line 237, ../scss/discussion.scss */
+/* line 243, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node {
   padding: 0;
 }
-/* line 239, ../scss/discussion.scss */
+/* line 245, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-author {
   float: left;
   margin: 0 10px 0 0;
   font-weight: bold;
 }
-/* line 244, ../scss/discussion.scss */
+/* line 250, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-post-date {
   color: #cccccc;
   float: right;
   padding: 0 10px 0 0;
   font-size: 0.9em;
 }
-/* line 250, ../scss/discussion.scss */
+/* line 256, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-body {
   margin: 20px 10px 0 0;
 }
-/* line 254, ../scss/discussion.scss */
+/* line 260, ../scss/discussion.scss */
 body.node-type-discussion #container #comments textarea {
   box-shadow: 0 3px 0 #eeeeee;
 }
-/* line 258, ../scss/discussion.scss */
+/* line 264, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-comment ul.links {
   border: 1px solid #ccc;
   padding: 4px 5px;
@@ -1674,18 +1681,18 @@ body.node-type-discussion #container .node-type-comment ul.links {
   position: absolute;
   bottom: 7px;
 }
-/* line 266, ../scss/discussion.scss */
+/* line 272, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-comment ul.links li {
   padding: 0 5px;
 }
-/* line 270, ../scss/discussion.scss */
+/* line 276, ../scss/discussion.scss */
 body.node-type-discussion #container .box {
   background: url("../images/borders.png") no-repeat center top;
   padding: 10px 0 0;
   margin: 50px 0 0;
   position: relative;
 }
-/* line 276, ../scss/discussion.scss */
+/* line 282, ../scss/discussion.scss */
 body.node-type-discussion #container .box h2 {
   background: #FFFFFF;
   font-size: 0.9em;
@@ -1696,7 +1703,7 @@ body.node-type-discussion #container .box h2 {
   top: -6px;
 }
 
-/* line 288, ../scss/discussion.scss */
+/* line 294, ../scss/discussion.scss */
 body.section-node-edit div#container {
   text-align: left;
 }
@@ -2051,54 +2058,55 @@ body.i18n-ar.node-type-discussion #container #content-area .field-translation-st
 /* line 252, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments {
   margin: 0 20px 0 0;
+  text-align: right;
 }
-/* line 255, ../scss/style-rtl.scss */
+/* line 256, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments h2#comments-title {
   padding: 0 0 0 238px;
 }
-/* line 258, ../scss/style-rtl.scss */
+/* line 259, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .buildmode-full {
   padding: 10px 0 0 10px;
 }
-/* line 261, ../scss/style-rtl.scss */
+/* line 262, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-author {
   float: right;
 }
-/* line 264, ../scss/style-rtl.scss */
+/* line 265, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-post-date {
   float: left;
   padding: 0 0 0 10px;
 }
-/* line 268, ../scss/style-rtl.scss */
+/* line 269, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .node p {
   margin: 0 0 1em 0;
 }
-/* line 271, ../scss/style-rtl.scss */
+/* line 272, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-translation-status {
   border: 1px solid #cccccc;
   border-left: 0;
   border-bottom: 0;
 }
-/* line 276, ../scss/style-rtl.scss */
+/* line 277, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer {
   text-align: right;
 }
-/* line 278, ../scss/style-rtl.scss */
+/* line 279, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer ul.links {
   line-height: 20px;
   right: 5px;
 }
-/* line 283, ../scss/style-rtl.scss */
+/* line 284, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments label {
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 288, ../scss/style-rtl.scss */
+/* line 289, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second {
   margin-left: 0;
   margin-right: 0;
 }
-/* line 292, ../scss/style-rtl.scss */
+/* line 293, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding-right: 7px;
   padding-left: 20px;
