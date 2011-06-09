@@ -1118,6 +1118,11 @@ ul.primary {
   border-bottom-width: 0px;
 }
 
+/* line 2, ../scss/admin.scss */
+.page-admin #content {
+  width: 100%;
+}
+
 /* line 3, ../scss/login.scss */
 body.page-user.not-logged-in {
   background-image: url(../images/login-header.png);

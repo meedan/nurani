@@ -16,16 +16,7 @@
   font-weight: normal;
   font-style: normal;
 }
-@font-face {
-    font-family: AmiriWeb;
-    src: url('../fonts/amiri-regular.eot') format('eot'),
-         url('../fonts/amiri-regular.woff') format('woff'),
-         url('../fonts/amiri-regular.ttf')  format('truetype');
-}
 
-/* the English fonts are from typekit*/
-
-/*CGB TODO: not sure what the arabic language selector is*/
 body.i18n-ar {
   font-family:  UthmanTN, AmiriWeb, serif;
 	font-size: 1.1em;
@@ -51,7 +42,6 @@ body.i18n-ar {
 }
 
 @mixin en-sans {
-  /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
   font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
 }
 
@@ -61,10 +51,6 @@ body.i18n-ar {
 
 @mixin display {
   font-family: Georgia, Times, Times New Roman, serif;
-}
-@mixin en-serif-italic {
-  font-family: "garamond-premier-pro-display-1","garamond-premier-pro-display-2", Times, serif;
-  font-style: italic;
 }
 
 body {
@@ -194,8 +180,6 @@ abbr {
 
 #edit-delete {
   color: #cc0000; }
-
-
 
 @mixin messages($color:$midnight_blue, $background:$frenchpass_blue, $border:$cornflower_blue ) {
   padding: 9px;
