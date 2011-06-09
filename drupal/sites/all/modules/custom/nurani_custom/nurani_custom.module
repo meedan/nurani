@@ -283,31 +283,46 @@ function nurani_custom_action_links($user = NULL) {
     );
   }
 
-  if (user_access('create discussion content')) {
+  if (user_access('create discussion content', $user)) {
     $links[] = array(
       'title' => t('Start a new discussion'),
       'href' => 'node/add/discussion',
     );
   }
 
-  if (user_access('create text content')) {
+  if (user_access('create text content', $user)) {
     $links[] = array(
       'title' => t('Add a new text'),
       'href' => 'node/add/text',
     );
   }
 
-  if (user_access('create term content')) {
+  if (user_access('create term content', $user)) {
     $links[] = array(
       'title' => t('Add a new glossary term'),
       'href' => 'node/add/term',
     );
   }
 
-  $links[] = array(
-    'title' => t('Logout'),
-    'href' => 'logout',
-  );
+  if (user_access('administer users', $user)) {
+    $links[] = array(
+      'title' => t('Administer users'),
+      'href' => 'admin/user/user',
+    );
+  }
+
+  if ($user->uid > 0) {
+    $links[] = array(
+      'title' => t('Logout'),
+      'href' => 'logout',
+    );
+  }
+  else {
+    $links[] = array(
+      'title' => t('Login'),
+      'href' => 'user',
+    );
+  }
 
   return $links;
 }

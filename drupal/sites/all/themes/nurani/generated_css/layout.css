@@ -9,7 +9,7 @@
 }
 
 /* line 8, ../scss/layout.scss */
-.logged-in div#top-strip {
+div#top-strip {
   height: 28px;
   background: #998d86;
   padding: 4px 20px 0;
