@@ -1,0 +1,12 @@
+DRUPAL-6--2-0-ALPHA1
+ * Branching.
+ * Designed to working with Popup API 2.0-Alpha5 and up.
+New Features
+ * Can now call Add New Popup from inside of popup! Infinite stacking.
+
+Drupal-6-1-0-RC3
+ * Recommended for use with Popups API 6.x-1.2
+Bug Fixes
+ * http://drupal.org/node/390146 (cYu) - Allow users with "admin nodes" permission to see links.
+ * http://drupal.org/node/388406 - Only autofill a single autocomplete field if there are mutliples.
+ 

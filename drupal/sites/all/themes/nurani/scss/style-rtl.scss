@@ -5,6 +5,39 @@ body.i18n-ar {
 
   overflow-x: hidden !important;
 
+	/*Typo*/
+	h1 {
+		font-style: normal;
+		font-weight: bold;
+	}
+	/*action links*/
+	#top-strip {
+		height: 27px;
+	}
+	#boxes-box-action_links ul a {
+		line-height: 1.9em;
+		font-size: 0.7em; 
+		float: right;
+	}
+	#boxes-box-action_links .boxes-box-content {
+    float: right;
+    margin: 0 0 0 10px;
+	}
+
+	/*language switcher*/
+	#block-locale-0 li a {
+		padding: 0 15px;
+		line-height: 1.8em;
+	}
+	#block-menu-primary-links ul.menu {
+		
+		a {
+			font-size: 1.3em;
+			padding: 19px 65px 30px 20px;
+			font-weight: bold;
+			background-position: 105px 20px;
+		}
+	}	
   #boxes-box-welcome_to_nurani_box .toggle {
       position: absolute;
       right: auto;
@@ -37,8 +70,8 @@ body.i18n-ar {
   }
 
   .perosnal-username, .view-overview .views-field-view-node {
-      float: left;
-  }
+    float: left;
+	  }
 
 
   ul#primary {
@@ -57,7 +90,7 @@ body.i18n-ar {
     float: right;
   }
 
-/*Top strip*/
+	/*Top strip*/
 	#block-locale-0 {
 		float: left;
 		font-size: 18px;
@@ -74,19 +107,24 @@ body.i18n-ar {
   }
 }
 
-/*Navigation*/
+	/*Navigation*/
 	ul.menu li.last,
 	ul.menu li.first,
 	ul.menu li {
     float: right;
 	}
 
-/*Welcome*/
+	/*Welcome*/
+	div#slash h3 {
+		margin-right: 30px;
+		margin-top: 0;
+		line-height: 0.6em;
+	}
 	div#slash div#boxes-box-welcome_box img.d_ford {
 		float: left;
 	}
 
-/*Overview*/
+	/*Overview*/
 	 div#main {	
 		float: right;
 	}
@@ -96,7 +134,10 @@ body.i18n-ar {
 			line-height: 29px;
 		}
 		.views-field-view-node a {
-			float: left;
+			font-size: 0.8em;
+    line-height: 1.2em;
+    padding-bottom: 3px;
+	float: left;
 		}
 		.views-field-phpcode {
 			float: right;
@@ -104,14 +145,154 @@ body.i18n-ar {
 			margin-right: 0;
 		}
 	}
+	#block-views-new_texts-block_1 h3, 
+	#block-views-new_glossary_terms-block_1 h3 {
+		background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
+		padding: 10px 20px 10px 0;
+	}
+	#block-views-nuranis-block_1 h3 {
+		background-position: right;
+		padding: 10px 20px 10px 0;
+	}
+	#block-views-nuranis-block_1 h3.collapsed {
+		background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
+	}
+	#block-views-new_texts-block_1 h3.expand,
+	#block-views-new_glossary_terms-block_1 h3.expand {
+    background: url("../images/arrow-expand.png") no-repeat right center;
+}	
+	#block-views-new_texts-block_1 .views-row,
+	#block-views-new_glossary_terms-block_1 .views-row {
+    background: url("../images/point-rtl.png") no-repeat right 6px;
+		margin: 0 20px 0 0;
+		padding: 0 15px 10px 0;	
+	}
 
+	/*vertical tabs*/
+	div.vertical-tabs {
+			float: right;		
+			margin: 1em 15em 0 0;		
+
+			ul.vertical-tabs-list {
+			float: right;
+			left: auto;
+			right: 2em;
+		
+			li {
+				text-align: right;
+			}	
+			li.selected {
+				border-left: 0;
+				border-right: 1px solid #ccc;
+			}
+		}
+	}
+}
 /*discussion*/
-	#container #content-area p {
-		text-align: right;
+body.i18n-ar.node-type-discussion {
+	h1.title {
+		margon-top: 40px;
+	}
+	.field-exp-comments {
+		background-position: 270px 33px;
+	}
+	div#block-views-discussion_texts-block_1 {	
+		h3 {
+			font-size: 1em;
+			padding: 0 15px;
+			font-size: 1em;
+			padding: 0 15px;;
+		}
+		h1 {
+			text-align: right;
+		}
+		.content { 
+			text-align: right;
+		}		
 	}
 	#container #sidebar-second {
 		text-align: right;
 	}
+	.view-discussion-texts .views-row {
+		float: right;
+	}
+	#container {
+		#content-area {
+			.node-type-discussion {
+				margin: 0 20px 0 0;
+				padding: 20px 0 0 0;
 
+				div.field-label {
+			    font-size: 0.9em;
+					padding: 0 15px;
+					right: 400px;
+					top: -10px;
+				}
+				.field-body {
+					padding: 0 0 0 20px;
 
+					p {
+						text-align: right;
+						margin: 0 1.1em 1em 0;	
+					}	
+				}
+				li.nurani_translation a {
+					left: auto;
+					right: 20px;
+				}
+			}
+			.field-translation-status {
+				float: left;
+				border-left: 0;
+				border-right: 1px solid $gray;
+				text-align: right;
+				font-size: 0.8em;
+			}
+	 	}
+		#comments {
+			margin: 0 20px 0 0;
+		 
+			h2#comments-title {
+				padding: 0 0 0 238px;
+			}	
+			.buildmode-full {
+				padding: 10px 0 0 10px;
+			}
+			.field-author {
+					float: right;
+			}
+			.field-post-date {
+				float: left;
+				padding: 0 0 0 10px;
+			}
+			.node p {
+				margin: 0 0 1em 0;
+			}				
+			.field-translation-status {
+				border: 1px solid $gray;
+				border-left: 0;
+				border-bottom: 0;
+			}
+			.nd-region-footer {
+				text-align: right;
+					ul.links {
+						line-height: 20px;
+						right: 5px;
+					}
+			}
+			label {
+				float: right;
+				margin: 0 0 0 10px;
+			}
+		}
+		#sidebar-second {
+			margin-left: 0;
+			margin-right: 0;
+		
+				#sidebar-second-inner {
+					padding-right: 7px;
+					padding-left: 20px;
+				}
+		}
+	}
 }

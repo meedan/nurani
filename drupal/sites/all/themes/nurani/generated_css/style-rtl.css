@@ -16,35 +16,70 @@
 /* line 4, ../scss/style-rtl.scss */
 body.i18n-ar {
   overflow-x: hidden !important;
+  /*Typo*/
+  /*action links*/
+  /*language switcher*/
   /*Top strip*/
   /*Navigation*/
   /*Welcome*/
   /*Overview*/
-  /*discussion*/
+  /*vertical tabs*/
 }
-/* line 8, ../scss/style-rtl.scss */
+/* line 9, ../scss/style-rtl.scss */
+body.i18n-ar h1 {
+  font-style: normal;
+  font-weight: bold;
+}
+/* line 14, ../scss/style-rtl.scss */
+body.i18n-ar #top-strip {
+  height: 27px;
+}
+/* line 17, ../scss/style-rtl.scss */
+body.i18n-ar #boxes-box-action_links ul a {
+  line-height: 1.9em;
+  font-size: 0.7em;
+  float: right;
+}
+/* line 22, ../scss/style-rtl.scss */
+body.i18n-ar #boxes-box-action_links .boxes-box-content {
+  float: right;
+  margin: 0 0 0 10px;
+}
+/* line 28, ../scss/style-rtl.scss */
+body.i18n-ar #block-locale-0 li a {
+  padding: 0 15px;
+  line-height: 1.8em;
+}
+/* line 34, ../scss/style-rtl.scss */
+body.i18n-ar #block-menu-primary-links ul.menu a {
+  font-size: 1.3em;
+  padding: 19px 65px 30px 20px;
+  font-weight: bold;
+  background-position: 105px 20px;
+}
+/* line 41, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-welcome_to_nurani_box .toggle {
   position: absolute;
   right: auto;
   left: 0;
   top: 1px;
 }
-/* line 15, ../scss/style-rtl.scss */
+/* line 48, ../scss/style-rtl.scss */
 body.i18n-ar .condense_control {
   padding: 4px 4px 4px 0;
   background: url("../images/more-ar.png") no-repeat scroll 0 0 transparent;
 }
-/* line 20, ../scss/style-rtl.scss */
+/* line 53, ../scss/style-rtl.scss */
 body.i18n-ar #comment-form label {
   float: right;
   margin-right: 10px;
 }
-/* line 25, ../scss/style-rtl.scss */
+/* line 58, ../scss/style-rtl.scss */
 body.i18n-ar #comment-form label[for="edit-subject"] {
   margin-left: 42px;
   margin-right: 0;
 }
-/* line 35, ../scss/style-rtl.scss */
+/* line 68, ../scss/style-rtl.scss */
 body.i18n-ar #sidebar-second,
 body.i18n-ar .sidebar-second #main,
 body.i18n-ar .text,
@@ -53,18 +88,18 @@ body.i18n-ar .view-texts-in-discussion .views-row,
 body.i18n-ar .view-overview .views-field-title {
   float: right;
 }
-/* line 39, ../scss/style-rtl.scss */
+/* line 72, ../scss/style-rtl.scss */
 body.i18n-ar .perosnal-username, body.i18n-ar .view-overview .views-field-view-node {
   float: left;
 }
-/* line 45, ../scss/style-rtl.scss */
+/* line 78, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li.first {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -77,18 +112,18 @@ body.i18n-ar ul#primary li.first a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 46, ../scss/style-rtl.scss */
+/* line 79, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -101,18 +136,18 @@ body.i18n-ar ul#primary li a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 47, ../scss/style-rtl.scss */
+/* line 80, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li.last {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -125,73 +160,243 @@ body.i18n-ar ul#primary li.last a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 50, ../scss/style-rtl.scss */
+/* line 83, ../scss/style-rtl.scss */
 body.i18n-ar #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: right;
   margin-top: 10px;
 }
-/* line 56, ../scss/style-rtl.scss */
+/* line 89, ../scss/style-rtl.scss */
 body.i18n-ar .view-ibis-glossary .views-summary {
   float: right;
 }
-/* line 61, ../scss/style-rtl.scss */
+/* line 94, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 {
   float: left;
   font-size: 18px;
   line-height: 16px;
   width: 66px;
 }
-/* line 66, ../scss/style-rtl.scss */
+/* line 99, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 ul {
   padding: 0;
 }
-/* line 69, ../scss/style-rtl.scss */
+/* line 102, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li.ar {
   display: none;
 }
-/* line 72, ../scss/style-rtl.scss */
+/* line 105, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li.en {
   display: block;
 }
-/* line 80, ../scss/style-rtl.scss */
+/* line 113, ../scss/style-rtl.scss */
 body.i18n-ar ul.menu li.last,
 body.i18n-ar ul.menu li.first,
 body.i18n-ar ul.menu li {
   float: right;
 }
-/* line 85, ../scss/style-rtl.scss */
+/* line 118, ../scss/style-rtl.scss */
+body.i18n-ar div#slash h3 {
+  margin-right: 30px;
+  margin-top: 0;
+  line-height: 0.6em;
+}
+/* line 123, ../scss/style-rtl.scss */
 body.i18n-ar div#slash div#boxes-box-welcome_box img.d_ford {
   float: left;
 }
-/* line 90, ../scss/style-rtl.scss */
+/* line 128, ../scss/style-rtl.scss */
 body.i18n-ar div#main {
   float: right;
 }
-/* line 94, ../scss/style-rtl.scss */
+/* line 132, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-title {
   float: right;
   line-height: 29px;
 }
-/* line 98, ../scss/style-rtl.scss */
+/* line 136, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-view-node a {
+  font-size: 0.8em;
+  line-height: 1.2em;
+  padding-bottom: 3px;
   float: left;
 }
-/* line 101, ../scss/style-rtl.scss */
+/* line 142, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-phpcode {
   float: right;
   margin-left: 15px;
   margin-right: 0;
 }
-/* line 109, ../scss/style-rtl.scss */
-body.i18n-ar #container #content-area p {
+/* line 149, ../scss/style-rtl.scss */
+body.i18n-ar #block-views-new_texts-block_1 h3,
+body.i18n-ar #block-views-new_glossary_terms-block_1 h3 {
+  background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
+  padding: 10px 20px 10px 0;
+}
+/* line 153, ../scss/style-rtl.scss */
+body.i18n-ar #block-views-nuranis-block_1 h3 {
+  background-position: right;
+  padding: 10px 20px 10px 0;
+}
+/* line 157, ../scss/style-rtl.scss */
+body.i18n-ar #block-views-nuranis-block_1 h3.collapsed {
+  background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
+}
+/* line 161, ../scss/style-rtl.scss */
+body.i18n-ar #block-views-new_texts-block_1 h3.expand,
+body.i18n-ar #block-views-new_glossary_terms-block_1 h3.expand {
+  background: url("../images/arrow-expand.png") no-repeat right center;
+}
+/* line 165, ../scss/style-rtl.scss */
+body.i18n-ar #block-views-new_texts-block_1 .views-row,
+body.i18n-ar #block-views-new_glossary_terms-block_1 .views-row {
+  background: url("../images/point-rtl.png") no-repeat right 6px;
+  margin: 0 20px 0 0;
+  padding: 0 15px 10px 0;
+}
+/* line 172, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs {
+  float: right;
+  margin: 1em 15em 0 0;
+}
+/* line 176, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs ul.vertical-tabs-list {
+  float: right;
+  left: auto;
+  right: 2em;
+}
+/* line 181, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li {
   text-align: right;
 }
-/* line 112, ../scss/style-rtl.scss */
-body.i18n-ar #container #sidebar-second {
+/* line 184, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li.selected {
+  border-left: 0;
+  border-right: 1px solid #ccc;
+}
+
+/*discussion*/
+/* line 193, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion h1.title {
+  margon-top: 40px;
+}
+/* line 196, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion .field-exp-comments {
+  background-position: 270px 33px;
+}
+/* line 200, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h3 {
+  font-size: 1em;
+  padding: 0 15px;
+  font-size: 1em;
+  padding: 0 15px;
+}
+/* line 206, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h1 {
   text-align: right;
+}
+/* line 209, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 .content {
+  text-align: right;
+}
+/* line 213, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #sidebar-second {
+  text-align: right;
+}
+/* line 216, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion .view-discussion-texts .views-row {
+  float: right;
+}
+/* line 221, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion {
+  margin: 0 20px 0 0;
+  padding: 20px 0 0 0;
+}
+/* line 225, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion div.field-label {
+  font-size: 0.9em;
+  padding: 0 15px;
+  right: 400px;
+  top: -10px;
+}
+/* line 231, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-body {
+  padding: 0 0 0 20px;
+}
+/* line 234, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-body p {
+  text-align: right;
+  margin: 0 1.1em 1em 0;
+}
+/* line 239, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
+  left: auto;
+  right: 20px;
+}
+/* line 244, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .field-translation-status {
+  float: left;
+  border-left: 0;
+  border-right: 1px solid #cccccc;
+  text-align: right;
+  font-size: 0.8em;
+}
+/* line 252, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments {
+  margin: 0 20px 0 0;
+}
+/* line 255, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments h2#comments-title {
+  padding: 0 0 0 238px;
+}
+/* line 258, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .buildmode-full {
+  padding: 10px 0 0 10px;
+}
+/* line 261, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .field-author {
+  float: right;
+}
+/* line 264, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .field-post-date {
+  float: left;
+  padding: 0 0 0 10px;
+}
+/* line 268, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .node p {
+  margin: 0 0 1em 0;
+}
+/* line 271, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .field-translation-status {
+  border: 1px solid #cccccc;
+  border-left: 0;
+  border-bottom: 0;
+}
+/* line 276, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .nd-region-footer {
+  text-align: right;
+}
+/* line 278, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .nd-region-footer ul.links {
+  line-height: 20px;
+  right: 5px;
+}
+/* line 283, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments label {
+  float: right;
+  margin: 0 0 0 10px;
+}
+/* line 288, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #sidebar-second {
+  margin-left: 0;
+  margin-right: 0;
+}
+/* line 292, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inner {
+  padding-right: 7px;
+  padding-left: 20px;
 }

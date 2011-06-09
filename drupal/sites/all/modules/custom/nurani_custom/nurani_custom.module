@@ -2,43 +2,313 @@
 // $Id$
 
 /**
- * Implementation of hook_ds_fields_alter().
- */
-function nurani_custom_ds_fields_alter(&$fields) {
-}
-
-function nurani_custom_views_data_alter(&$data) {
-}
-
-/**
  * Implementation of hook_nodeapi().
  */
 function nurani_custom_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
-  
-  // If someone highlights a text, and redirected to term add page.
-  if ($op == 'prepare' && $node->type == 'term' && !$node->nid) {
-    
-    if (isset($_GET['title']))
-      $node->title = strtolower($_GET['title']);
-    if (isset($_GET['language']))
-      $node->language = $_GET['language'];
+  // Auto-translate content on content creation.
+  if ($op == 'insert') {
+    _nurani_custom_autotranslate($node);
   }
 }
 
 /**
- * Implementation of template_preprocess_node().
+ * Implementation of hook_menu_alter().
  */
-function nurani_custom_preprocess_node(&$vars) {
+function nurani_custom_menu_alter(&$items) {
+  // Prohibit access to "Translate" tab because Translation Management module takes care of this.
+  $items['node/%node/translate']['access callback'] = FALSE;
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function nurani_custom_theme() {
+  return array(
+    'translation_status' => array(
+      'arguments' => array('node' => NULL),
+      'template' => 'translation-status',
+    ),
+  );
+}
+
+/**
+ * Template preprocessor for theme('translation_status').
+ */
+function nurani_custom_preprocess_translation_status(&$vars) {
+  $node = $vars['node'];
+  $types = node_get_types();
+  $classes = array();
+  $captions = array();
+
+  if (empty($node->tnid)) {
+    // Should not come here because auto-translate is active.
+    $classes[] = 'translation-status-untranslated';
+    $captions[] = t('This !type is awaiting translation.', array('!type' => mb_strtolower($types[$node->type]->name)));
+  }
+  else {
+    // Find translation status for node.
+    $in_progress = _nurani_custom_translation_pending($node);
+
+    // Build CSS class.
+    if ($node->tnid == $node->nid) {
+      $classes[] = 'translation-status-original';
+      $original = $node;
+      $translations = translation_node_get_translations($node->tnid);
+      unset($translations[$node->language]);
+      $translation = node_load(current($translations)->nid);
+    }
+    else if ($in_progress) {
+      $classes[] = 'translation-status-placeholder';
+      $original = node_load($node->tnid);
+      $translation = $node;
+    }
+    else {
+      $classes[] = 'translation-status-translation';
+      $original = node_load($node->tnid);
+      $translation = $node;
+    }
+    // Build status captions.
+    $languages = language_list();
+    $captions[] = t('Original !type in !original.', array(
+      '!type' => mb_strtolower($types[$original->type]->name), 
+      '!original' => t($languages[$original->language]->name),
+    ));
+    $uid = db_result(db_query("
+SELECT tj.uid 
+FROM {icl_translate_job} tj 
+INNER JOIN {icl_content_status} cs ON tj.rid = cs.rid
+WHERE cs.nid = %d
+    ", $node->tnid));
+    if ($in_progress) {
+      if (empty($uid)) {
+        $captions[] = t('This !type is awaiting translation.', array(
+          '!type' => mb_strtolower($types[$node->type]->name),
+        ));
+      }
+      else {
+        $captions[] = t('This !type is awaiting translation by !translator.', array(
+          '!type' => mb_strtolower($types[$node->type]->name),
+          '!translator' => user_load($uid)->name,
+        ));
+      }
+    }
+    else {
+      $captions[] = t('Translated to !translation by !translator.', array(
+        '!translation' => t($languages[$translation->language]->name), 
+        '!translator' => user_load($uid)->name,
+      ));
+    }
+  }
+  $vars['classes'] = $classes;
+  $vars['captions'] = $captions;
+}
+
+/**
+ * Helper function to autocreate a placeholder translation for each translatable node.
+ */
+function _nurani_custom_autotranslate($node) {
+  if (!translation_supported_type($node->type)) return;
+  if (!empty($node->translation_source) || !empty($node->tnid)) return;
+
+  $languages = i18n_language_list(); // get all enabled languages
+  unset($languages[$node->language]); //unset the languages of source node
+
+  foreach ($languages as $langcode => $language) {
+    $new_node = clone($node);
+    unset($new_node->nid);
+    unset($new_node->vid);
+    unset($new_node->path);
+    $new_node->language = $langcode;
+    $new_node->tnid = $node->nid;
+
+    // If it's a comment, link to correct parent.
+    if (!empty($node->comment_target_nid)) {
+      $new_node->comment_target_nid = db_result(db_query("
+SELECT translation.nid
+FROM {node} parent LEFT JOIN {node} translation ON parent.tnid = translation.tnid
+WHERE parent.nid = %d
+AND translation.language = '%s'
+      ", $node->comment_target_nid, $new_node->language));
+    }
+
+    node_save(node_submit($new_node));
+  }
   
-  if (in_array($vars['node']->type, array('discussion', 'text')) && user_access('create term content')) {
-  
-    $path = drupal_get_path('module', 'nurani_custom');
-    drupal_add_js(array('nurani_custom' => array(
-      'selected_node_lang' => $vars['node']->language // pass to new glossary form
-    )), 'setting');
-    drupal_add_js($path . '/js/jquery.selectlink.js');
-    drupal_add_js($path . '/js/nurani_custom.js');
+  // Update original node's tnid.
+  $node->tnid = $node->nid;
+  node_save($node);
+}
+
+/**
+ * Implementation of hook_translation_dashboard_filter_nodes().
+ */
+function nurani_custom_translation_dashboard_filter_nodes($translation, $content) {
+  // Hide static pages from translation dashboard.
+  foreach ($content as $key => $item) {
+    if ($item['type'] == 'page') {
+      unset($content[$key]);
+    }
+  }
+  return $content;
+}
+
+/**
+ * Implementation of hook_link_alter().
+ */
+function nurani_custom_link_alter(&$links, $node, $comment = NULL) {
+  // Hide language and comment links.
+  if (!empty($links)) foreach ($links as $key => $link) {
+    if (in_array($key, array('comment_add', 'node_translation_ar', 'node_translation_en'))) {
+      unset($links[$key]);
+    }
   }
 }
 
+/**
+ * Implementation of hook_link().
+ */
+function nurani_custom_link($type, $object, $teaser = FALSE) {
+  if ($type != 'node' || !translation_supported_type($object->type)) return;
+
+  $links = array();
+  if (_nurani_custom_translation_pending($object, TRUE) && user_access(ICL_TRANSLATE_DO_JOBS)) {
+    // Create a translate link for translators if the node is pending translation.
+    // TODO: For discussions and discussion comments, check that the translator exists in field_translators.
+    // TODO: Check that translator can translate from source language to target language.
+    $links['nurani_translation'] = array(
+      'title' => t('translate'),
+      'href' => 'translation/' . $object->nid,
+    );
+  }
+  return $links;
+}
+
+/** 
+ * Implementation of hook_menu().
+ */
+function nurani_custom_menu() {
+  $items = array();
+
+  $items['translation/%node'] = array(
+    'title' => 'Translate content',
+    'page callback' => '_nurani_translation',
+    'page arguments' => array(1),
+    'access arguments' => array(ICL_TRANSLATE_DO_JOBS),
+  );
+
+  return $items;
+}
+
+/**
+ * Menu callback function to create a new translation job on the fly.
+ */
+function _nurani_translation($node) {
+  $original = node_load($node->tnid);
+  $languages = i18n_language_list(); // get all enabled languages
+  unset($languages[$original->language]); //unset the languages of source node
+  global $user;
+  $translators = array();
+  foreach ($languages as $langcode => $langname) {
+    $translators[$langcode] = array(
+      'id' => $user->uid,
+      'translation_service' => 'local',
+    );
+  }
+  icl_content_translate_posts(array($original->nid), array_keys($languages), $translators); 
+  $rid = db_result(db_query("SELECT rid FROM {icl_content_status} WHERE nid=%d", $original->nid));
+  drupal_goto('translate/' . $rid);
+}
+
+/**
+ * Helper function to check if a node is pending translation.
+ */
+function _nurani_custom_translation_pending($node, $true_only_if_not_in_queue_or_not_assigned_to_current_user = FALSE) {
+  $statuses = _icl_content_statuses($node->tnid, 'node');
+  foreach ($statuses as $status) {
+    if ($status >= ICL_STATUS_READY) {
+      return FALSE;
+    }
+    if ($true_only_if_not_in_queue_or_not_assigned_to_current_user) {
+      $uid = db_result(db_query("
+SELECT job.uid 
+FROM {icl_translate_job} job
+INNER JOIN {icl_content_status} content ON content.rid = job.rid
+WHERE content.nid = %d
+      ", $node->tnid));
+      global $user;
+      if ($uid != $user->uid) {
+        return FALSE;
+      }
+    }
+  }
+  return TRUE;
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function nurani_custom_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'icl_translate_editor') {
+    // Redirect to translated content, not jobs page.
+    $rid = $form['rid']['#default_value'];
+    $job = db_fetch_object(db_query("
+SELECT content.nid, core.target 
+FROM {icl_core_status} core
+INNER JOIN {icl_content_status} content ON core.rid = content.rid
+WHERE core.rid = %d
+    ", $rid));
+    $original = node_load($job->nid);
+    $target_nid = $original->nid;
+    if (!empty($original->comment_target_nid)) {
+      $target_nid = $original->comment_target_nid;
+    }
+    //$translations = translation_path_get_translations('node/' . $target_nid);
+    $form['#redirect'] = drupal_get_path_alias('node/' . $target_nid);
+  }
+}
+
+/**
+ * API function to return action links based on given user
+ */
+function nurani_custom_action_links($user = NULL) {
+  if (empty($user)) {
+    global $user;
+  }
+  $links = array();
+
+  if (user_access(ICL_TRANSLATE_DO_JOBS, $user)) {
+    $links[] = array(
+      'title' => t('Translation jobs'),
+      'href' => 'translator',
+    );
+  }
+
+  if (user_access('create discussion content')) {
+    $links[] = array(
+      'title' => t('Start a new discussion'),
+      'href' => 'node/add/discussion',
+    );
+  }
+
+  if (user_access('create text content')) {
+    $links[] = array(
+      'title' => t('Add a new text'),
+      'href' => 'node/add/text',
+    );
+  }
+
+  if (user_access('create term content')) {
+    $links[] = array(
+      'title' => t('Add a new glossary term'),
+      'href' => 'node/add/term',
+    );
+  }
+
+  $links[] = array(
+    'title' => t('Logout'),
+    'href' => 'logout',
+  );
+
+  return $links;
+}
 

@@ -1,113 +1,85 @@
-@charset "UTF-8";
-/* theme core colors*/
-/*basics*/
-/*section names */
-/*bright colors*/
-/*dark colors*/
-/* ================== */
-/* = "soft buttons" = */
-/* ================== */
-/* =================== */
-/* = toggle buttons = */
-/* =================== */
-/* ================ */
-/* = icon buttons = */
-/* ================ */
-/*aapplied to list*/
-/* line 45, ../scss/navigation.scss */
-ul.menu li.first {
-  float: left;
-  list-style: none outside none;
-  padding: 0;
-  margin: 0;
-}
-/* line 74, ../scss/_buttons.scss */
-ul.menu li.first a {
-  font-size: 20px;
-  background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
-  display: block;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  float: right;
-  clear: none;
-  text-decoration: none;
-  padding-right: 10px;
-  padding-left: 50px;
-}
-/* line 92, ../scss/_buttons.scss */
-ul.menu li.first a.active {
-  background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
-}
-/* line 46, ../scss/navigation.scss */
-ul.menu li {
-  float: left;
-  list-style: none outside none;
-  padding: 0;
-  margin: 0;
-}
-/* line 74, ../scss/_buttons.scss */
-ul.menu li a {
-  font-size: 20px;
-  background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
-  display: block;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  float: right;
-  clear: none;
-  text-decoration: none;
-  padding-right: 10px;
-  padding-left: 50px;
-}
-/* line 92, ../scss/_buttons.scss */
-ul.menu li a.active {
-  background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
-}
-/* line 47, ../scss/navigation.scss */
-ul.menu li.last {
-  float: left;
-  list-style: none outside none;
-  padding: 0;
-  margin: 0;
-}
-/* line 74, ../scss/_buttons.scss */
-ul.menu li.last a {
-  font-size: 20px;
-  background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
-  display: block;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  float: right;
-  clear: none;
-  text-decoration: none;
-  padding-right: 10px;
-  padding-left: 50px;
-}
-/* line 92, ../scss/_buttons.scss */
-ul.menu li.last a.active {
-  background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
-}
-/* line 49, ../scss/navigation.scss */
-ul.menu li.active-trail {
-  background: url("../images/bkg_active_nav.png") -5px bottom transparent;
-}
+/*
+Syntax error: Undefined mixin 'en-sans'.
+        on line 100 of /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss, in `en-sans'
+        from line 100 of /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss
 
-/* line 54, ../scss/navigation.scss */
-#block-locale-0 {
-  width: 70px;
-  float: right;
-}
-/* line 58, ../scss/navigation.scss */
-#block-locale-0 h3, #block-locale-0 li.en {
-  display: none;
-}
-/* line 61, ../scss/navigation.scss */
-#block-locale-0 li {
-  font-size: 0.6em;
-}
-/* line 63, ../scss/navigation.scss */
-#block-locale-0 li a {
-  color: white;
-  background: #666666;
-  padding: 6px 15px;
-  border-radius: 15px;
-}
+Backtrace:
+/Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss:100:in `en-sans'
+/Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss:100
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/mixin_node.rb:62:in `perform!'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:305:in `_perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:213:in `perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `map'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:317:in `perform!'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/rule_node.rb:191:in `perform!'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:305:in `_perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:213:in `perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `map'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:317:in `perform!'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/rule_node.rb:191:in `perform!'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:305:in `_perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:213:in `perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `map'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:317:in `perform!'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/rule_node.rb:191:in `perform!'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:305:in `_perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:213:in `perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `map'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:317:in `perform!'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/root_node.rb:59:in `perform!'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:305:in `_perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:213:in `perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/root_node.rb:37:in `perform'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/root_node.rb:29:in `render'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/engine.rb:197:in `_render'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/engine.rb:169:in `render'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/haml/util.rb:294:in `silence_haml_warnings'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/engine.rb:169:in `render'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/compiler.rb:103:in `compile'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/logger.rb:43:in `red'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/compiler.rb:102:in `compile'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/compiler.rb:93:in `compile_if_required'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/compiler.rb:84:in `run'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/compiler.rb:82:in `each'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/compiler.rb:82:in `run'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/commands/watch_project.rb:92:in `recompile'
+/Library/Ruby/Site/1.8/rubygems/custom_require.rb:36:in `to_proc'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/path.rb:71:in `call'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/path.rb:71:in `run_callback'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/path.rb:54:in `callback_action'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/path.rb:34:in `update'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/state/directory.rb:32:in `modified'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/state/directory.rb:31:in `each'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/state/directory.rb:31:in `modified'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/state/directory.rb:16:in `refresh'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/fsevents.rb:15:in `add_handler'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/fsevents.rb:14:in `each'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/fsevents.rb:14:in `add_handler'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/rubycocoa/fsevents.rb:107:in `call'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/rubycocoa/fsevents.rb:107:in `initialize'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `call'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `CFRunLoopRun'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/fsevents.rb:27:in `run'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/monitor.rb:24:in `run'
+/Library/Ruby/Gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm.rb:17:in `monitor'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/commands/watch_project.rb:61:in `perform'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/commands/base.rb:18:in `execute'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/commands/project_base.rb:19:in `execute'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/exec/sub_command_ui.rb:38:in `perform!'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/lib/compass/exec/sub_command_ui.rb:15:in `run!'
+/Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/bin/compass:26
+/usr/bin/compass:19:in `load'
+/usr/bin/compass:19
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined mixin 'en-sans'.\A         on line 100 of /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss, in `en-sans'\A         from line 100 of /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss"; }

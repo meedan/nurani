@@ -5,23 +5,35 @@
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
-  src: url('/sites/all/themes/nurani/fonts/UthmanTN1v9.otf');
+  src: url('../fonts/UthmanTN1v9.otf');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'UthmanTNBold';
-  src: url('/sites/all/themes/nurani/fonts/UthmanTN1Bv9.otf');
+  src: url('../fonts/UthmanTN1Bv9.otf');
   font-weight: normal;
   font-style: normal;
+}
+@font-face {
+    font-family: AmiriWeb;
+    src: url('../fonts/amiri-regular.eot') format('eot'),
+         url('../fonts/amiri-regular.woff') format('woff'),
+         url('../fonts/amiri-regular.ttf')  format('truetype');
 }
 
 /* the English fonts are from typekit*/
 
 /*CGB TODO: not sure what the arabic language selector is*/
-body.ar {
-  font-family: UthmanTN, Tahoma;
+body.i18n-ar {
+  font-family:  UthmanTN, AmiriWeb, serif;
+	font-size: 1.1em;
+	line-height: 1.5em;
+
+	h1, h2, h3, h4, h5, h6 {
+  font-family: AmiriWeb, serif;
+	}
 }
 
 @mixin header_anchor($base_color: $westar) {
@@ -40,15 +52,15 @@ body.ar {
 
 @mixin en-sans {
   /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
-  font-family: "Helvetica Neue", helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
 }
 
 @mixin en-serif {
-  font-family: "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
+  font-family: Georgia, Times, Times New Roman, serif;
 }
 
 @mixin display {
-  font-family: serif;
+  font-family: Georgia, Times, Times New Roman, serif;
 }
 @mixin en-serif-italic {
   font-family: "garamond-premier-pro-display-1","garamond-premier-pro-display-2", Times, serif;
@@ -59,6 +71,7 @@ body {
   margin: 0;
   @include en-serif;
   font-size: 1.05em;
+  line-height: 1.3em;
 }
 
 /* Titles. */
@@ -72,7 +85,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em; 
   font-weight: normal;
-  @include display;
+  @include en-serif;
   }
 
 h1 {
@@ -81,8 +94,8 @@ h1 {
   text-align:center;
   margin-top: 10px; 
   margin-bottom: 20px; 
-	color: $maroon;
-	font-style: italic;
+  color: $maroon;
+  font-style: italic;
   }
 
 h2 {

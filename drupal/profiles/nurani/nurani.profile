@@ -39,8 +39,13 @@ function nurani_profile_modules() {
     'content',
 
     // i18n
-    'i18nblocks', 'i18ncck', 'i18ncontent', 'i18n', 'l10n_client', 'i18nstrings', 'i18ntaxonomy',
+    'i18nblocks', 'i18ncck', 'i18ncontent', 'i18n', 'l10n_client', 'i18nstrings', 'i18ntaxonomy', 'i18nsync',
     'icl_content', 'icl_core', 'icl_translate', 'local_translations',
+
+    // jQuery
+    'jquery_update', 'jquery_ui', 
+    'modalframe',
+    'popups', 'popups_reference',
 
     // Strongarm
     'strongarm', 
@@ -131,6 +136,7 @@ function nurani_profile_tasks(&$task, $url) {
     }
 
     // Post-installation operations
+    $operations[] = array('nurani_config_filters', array());
     $operations[] = array('nurani_config_ctools', array());
     $operations[] = array('nurani_config_taxonomy', array());
     $operations[] = array('nurani_config_theme', array());
@@ -204,6 +210,21 @@ function nurani_install_languages() {
   }
 
   drupal_flush_all_caches();
+}
+
+/**
+ * Configure filters
+ */
+function nurani_config_filters() {
+  // Add Nurani glossary filter to Filtered HTML
+  $filter = new stdClass;
+  $filter->format = 1;
+  $filter->module = 'nurani_glossary';
+  $filter->delta = 0;
+  $filter->weight = 10;
+  drupal_write_record('filters', $filter);
+
+  db_query("UPDATE {filter_formats} SET cache = 0 WHERE format = 1");
 }
 
 /**

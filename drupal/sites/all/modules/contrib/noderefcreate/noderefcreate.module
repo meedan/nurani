@@ -122,9 +122,12 @@ function noderefcreate_autocomplete_validate($element, &$form_state) {
           }
         }
         global $user;
+        node_object_prepare($newnode);
         $newnode->uid = $user->uid;
+        $newnode->name = $user->name;
         $newnode->title = $value;
-        node_save($newnode);
+        drupal_alter('noderefcreate', $newnode, $element);
+        node_save(node_submit($newnode));
         $nid = $newnode->nid;
       }
       else {

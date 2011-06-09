@@ -409,7 +409,8 @@ function _icl_content_extract_node($node_in, $targets = NULL) {
       // Make sure that the created translation points to the translated parent
       // and not the original language parent.
       $nid = $node->comment_target_nid;
-      $translated_nid = translation_node_get_translations($node->comment_target_nid);
+      $parent = node_load($nid);
+      $translated_nid = translation_node_get_translations($parent->tnid);
 
       foreach ($translated_nid as $tnid) {
 	$target = $targets[0];

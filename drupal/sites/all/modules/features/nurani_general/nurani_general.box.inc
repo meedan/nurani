@@ -8,33 +8,19 @@ function nurani_general_default_box() {
   $box = new stdClass;
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;
-  $box->delta = 'add_glossary_term';
+  $box->delta = 'action_links';
   $box->plugin_key = 'simple';
   $box->title = '';
-  $box->description = 'Add glossary term';
+  $box->description = 'Action links';
   $box->options = array(
     'body' => '<?php
-print l(\'Add Glossary Term\', \'node/add/term\');
+$links = nurani_custom_action_links();
+print theme(\'links\', $links);
 ?>',
     'format' => '3',
   );
 
-  $export['add_glossary_term'] = $box;
-  $box = new stdClass;
-  $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
-  $box->api_version = 1;
-  $box->delta = 'add_text';
-  $box->plugin_key = 'simple';
-  $box->title = '';
-  $box->description = 'Add text';
-  $box->options = array(
-    'body' => '<?php
-print l(\'Add Text\', \'node/add/text\');
-?>',
-    'format' => '3',
-  );
-
-  $export['add_text'] = $box;
+  $export['action_links'] = $box;
   $box = new stdClass;
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;

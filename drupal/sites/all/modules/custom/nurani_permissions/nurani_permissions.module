@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function nurani_permissions_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'comment_node_form' && !empty($form['#node']->comment_target_nid)) {
+    $discussion = node_load($form['#node']->comment_target_nid);
+    if (!_nurani_permissions_discussion_access($discussion)) {
+      $form['#access'] = FALSE;
+      // Really ugly hack to prevent theme('box') from rendering the whole comment form + title. 
+      // Out theme's box.tpl.php checks that this variable is FALSE before rendering.
+      global $discussion_comment_form_disabled;
+      $discussion_comment_form_disabled = TRUE;
+    }
+  }
+}
+
+/**
+ * Helper to check if a user is invited to a discussion.
+ */
+function _nurani_permissions_discussion_access($discussion, $user = NULL) {
+  $uids = array($discussion->uid);
+  foreach (array('field_moderators', 'field_scholars', 'field_translators') as $field) {
+    foreach ($discussion->{$field} as $item) {
+      $uids[] = $item['uid'];
+    }
+  }
+  if (empty($user)) {
+    global $user;
+  }
+  return in_array($user->uid, $uids);
+}
+
+/**
+ * Implementation of hook_link_alter().
+ */
+function nurani_permissions_link_alter(&$links, $node, $comment = NULL) {
+  if ($node->type == 'comment') {
+    $discussion = node_load($node->comment_target_nid);
+    if (!_nurani_permissions_discussion_access($discussion)) {
+      unset($links['comment_edit']);
+      unset($links['comment_delete']);
+      unset($links['comment_reply']);
+      unset($links['nurani_translation']);
+    }
+  }
+  else if ($node->type == 'discussion') {
+    if (!_nurani_permissions_discussion_access($node)) {
+      unset($links['nurani_translation']);
+    }
+  }
+}
+

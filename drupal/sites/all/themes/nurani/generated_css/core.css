@@ -82,34 +82,46 @@
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
-  src: url("/sites/all/themes/nurani/fonts/UthmanTN1v9.otf");
+  src: url("../fonts/UthmanTN1v9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'UthmanTNBold';
-  src: url("/sites/all/themes/nurani/fonts/UthmanTN1Bv9.otf");
+  src: url("../fonts/UthmanTN1Bv9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
-/* the English fonts are from typekit*/
-/*CGB TODO: not sure what the arabic language selector is*/
-/* line 23, ../scss/type.scss */
-body.ar {
-  font-family: UthmanTN, Tahoma;
+@font-face {
+  font-family: AmiriWeb;
+  src: url("../fonts/amiri-regular.eot") format("eot"), url("../fonts/amiri-regular.woff") format("woff"), url("../fonts/amiri-regular.ttf") format("truetype");
 }
 
-/* line 58, ../scss/type.scss */
+/* the English fonts are from typekit*/
+/*CGB TODO: not sure what the arabic language selector is*/
+/* line 29, ../scss/type.scss */
+body.i18n-ar {
+  font-family: UthmanTN, AmiriWeb, serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+/* line 34, ../scss/type.scss */
+body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
+  font-family: AmiriWeb, serif;
+}
+
+/* line 70, ../scss/type.scss */
 body {
   margin: 0;
-  font-family: "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
+  font-family: Georgia, Times, Times New Roman, serif;
   font-size: 1.05em;
+  line-height: 1.3em;
 }
 
 /* Titles. */
-/* line 65, ../scss/type.scss */
+/* line 78, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -118,14 +130,14 @@ body {
   margin: 0;
 }
 
-/* line 72, ../scss/type.scss */
+/* line 85, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
-  font-family: serif;
+  font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 78, ../scss/type.scss */
+/* line 91, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -136,77 +148,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 88, ../scss/type.scss */
+/* line 101, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 93, ../scss/type.scss */
+/* line 106, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 99, ../scss/type.scss */
+/* line 112, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 103, ../scss/type.scss */
+/* line 116, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 108, ../scss/type.scss */
+/* line 121, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 113, ../scss/type.scss */
+/* line 126, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 117, ../scss/type.scss */
+/* line 130, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 122, ../scss/type.scss */
+/* line 135, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 127, ../scss/type.scss */
+/* line 140, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 130, ../scss/type.scss */
+/* line 143, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 134, ../scss/type.scss */
+/* line 147, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 138, ../scss/type.scss */
+/* line 151, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -216,56 +228,56 @@ pre {
 }
 
 /* List styles. */
-/* line 146, ../scss/type.scss */
+/* line 159, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 148, ../scss/type.scss */
+/* line 161, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 150, ../scss/type.scss */
+/* line 163, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 152, ../scss/type.scss */
+/* line 165, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 155, ../scss/type.scss */
+/* line 168, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 157, ../scss/type.scss */
+/* line 170, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 159, ../scss/type.scss */
+/* line 172, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 163, ../scss/type.scss */
+/* line 176, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 168, ../scss/type.scss */
+/* line 181, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 172, ../scss/type.scss */
+/* line 185, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 175, ../scss/type.scss */
+/* line 188, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -274,12 +286,12 @@ abbr {
   color: #777777;
 }
 
-/* line 182, ../scss/type.scss */
+/* line 195, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 195, ../scss/type.scss */
+/* line 208, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -289,7 +301,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 196, ../scss/type.scss */
+/* line 209, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -299,7 +311,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 197, ../scss/type.scss */
+/* line 210, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -309,7 +321,7 @@ div.error {
   text-align: center;
 }
 
-/* line 198, ../scss/type.scss */
+/* line 211, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -319,7 +331,7 @@ div.status {
   text-align: center;
 }
 
-/* line 200, ../scss/type.scss */
+/* line 213, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -337,9 +349,9 @@ h1.title {
 
 /* line 8, ../scss/layout.scss */
 .logged-in div#top-strip {
-  height: 23px;
+  height: 28px;
   background: #998d86;
-  padding: 7px 20px 0;
+  padding: 4px 20px 0;
 }
 
 /* line 13, ../scss/layout.scss */
@@ -518,15 +530,16 @@ body.page-overview .view-discussions .views-field-view-node a {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.page-overview .more-links a:hover,
 body.page-overview .view-discussions .views-field-view-node a:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.page-overview .more-links a:active,
 body.page-overview .view-discussions .views-field-view-node a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
@@ -545,26 +558,25 @@ body.page-overview #slash {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #fff0c2), color-stop(50%, #fff9e6), color-stop(100%, #fff9e6));
   background-image: -moz-linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
   background-image: linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
-  line-height: 1em;
 }
-/* line 19, ../scss/welcome_message.scss */
+/* line 18, ../scss/welcome_message.scss */
 body.page-overview #slash h3 {
   text-shadow: 0px 1px 0px white;
   color: #333;
   font-weight: 300px;
   font-size: 1.6em;
 }
-/* line 26, ../scss/welcome_message.scss */
+/* line 25, ../scss/welcome_message.scss */
 body.page-overview #slash div.block .contextual-links-wrapper {
   display: none;
 }
-/* line 30, ../scss/welcome_message.scss */
+/* line 29, ../scss/welcome_message.scss */
 body.page-overview #slash div.block .edit {
   top: auto;
   right: 0px;
   bottom: 0px;
 }
-/* line 37, ../scss/welcome_message.scss */
+/* line 36, ../scss/welcome_message.scss */
 body.page-overview #slash #block-boxes-welcome_box img.d_ford {
   float: right;
   width: 80px;
@@ -575,17 +587,17 @@ body.page-overview #slash #block-boxes-welcome_box img.d_ford {
   -o-box-shadow: #cccccc 3px 3px 3px 0;
   box-shadow: #cccccc 3px 3px 3px 0;
 }
-/* line 46, ../scss/welcome_message.scss */
+/* line 45, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle {
   position: absolute;
   right: 20px;
   top: 20px;
 }
-/* line 51, ../scss/welcome_message.scss */
+/* line 50, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle a {
   color: #888;
 }
-/* line 53, ../scss/welcome_message.scss */
+/* line 52, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle a:hover {
   text-decoration: underline;
 }
@@ -726,34 +738,46 @@ ul.pager li {
 /* arabic fonts for scripture */
 @font-face {
   font-family: 'UthmanTN';
-  src: url("/sites/all/themes/nurani/fonts/UthmanTN1v9.otf");
+  src: url("../fonts/UthmanTN1v9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'UthmanTNBold';
-  src: url("/sites/all/themes/nurani/fonts/UthmanTN1Bv9.otf");
+  src: url("../fonts/UthmanTN1Bv9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
-/* the English fonts are from typekit*/
-/*CGB TODO: not sure what the arabic language selector is*/
-/* line 23, ../scss/type.scss */
-body.ar {
-  font-family: UthmanTN, Tahoma;
+@font-face {
+  font-family: AmiriWeb;
+  src: url("../fonts/amiri-regular.eot") format("eot"), url("../fonts/amiri-regular.woff") format("woff"), url("../fonts/amiri-regular.ttf") format("truetype");
 }
 
-/* line 58, ../scss/type.scss */
+/* the English fonts are from typekit*/
+/*CGB TODO: not sure what the arabic language selector is*/
+/* line 29, ../scss/type.scss */
+body.i18n-ar {
+  font-family: UthmanTN, AmiriWeb, serif;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+/* line 34, ../scss/type.scss */
+body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
+  font-family: AmiriWeb, serif;
+}
+
+/* line 70, ../scss/type.scss */
 body {
   margin: 0;
-  font-family: "adobe-caslon-pro-1","adobe-caslon-pro-2", Times, serif;
+  font-family: Georgia, Times, Times New Roman, serif;
   font-size: 1.05em;
+  line-height: 1.3em;
 }
 
 /* Titles. */
-/* line 65, ../scss/type.scss */
+/* line 78, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -762,14 +786,14 @@ body {
   margin: 0;
 }
 
-/* line 72, ../scss/type.scss */
+/* line 85, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
-  font-family: serif;
+  font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 78, ../scss/type.scss */
+/* line 91, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -780,77 +804,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 88, ../scss/type.scss */
+/* line 101, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 93, ../scss/type.scss */
+/* line 106, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 99, ../scss/type.scss */
+/* line 112, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 103, ../scss/type.scss */
+/* line 116, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 108, ../scss/type.scss */
+/* line 121, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 113, ../scss/type.scss */
+/* line 126, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 117, ../scss/type.scss */
+/* line 130, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 122, ../scss/type.scss */
+/* line 135, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 127, ../scss/type.scss */
+/* line 140, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 130, ../scss/type.scss */
+/* line 143, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 134, ../scss/type.scss */
+/* line 147, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 138, ../scss/type.scss */
+/* line 151, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -860,56 +884,56 @@ pre {
 }
 
 /* List styles. */
-/* line 146, ../scss/type.scss */
+/* line 159, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 148, ../scss/type.scss */
+/* line 161, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 150, ../scss/type.scss */
+/* line 163, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 152, ../scss/type.scss */
+/* line 165, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 155, ../scss/type.scss */
+/* line 168, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 157, ../scss/type.scss */
+/* line 170, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 159, ../scss/type.scss */
+/* line 172, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 163, ../scss/type.scss */
+/* line 176, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 168, ../scss/type.scss */
+/* line 181, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 172, ../scss/type.scss */
+/* line 185, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 175, ../scss/type.scss */
+/* line 188, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -918,12 +942,12 @@ abbr {
   color: #777777;
 }
 
-/* line 182, ../scss/type.scss */
+/* line 195, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 195, ../scss/type.scss */
+/* line 208, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -933,7 +957,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 196, ../scss/type.scss */
+/* line 209, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -943,7 +967,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 197, ../scss/type.scss */
+/* line 210, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -953,7 +977,7 @@ div.error {
   text-align: center;
 }
 
-/* line 198, ../scss/type.scss */
+/* line 211, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -963,7 +987,7 @@ div.status {
   text-align: center;
 }
 
-/* line 200, ../scss/type.scss */
+/* line 213, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -1029,7 +1053,7 @@ h1.title {
   border-right: 1px dotted #8d6349;
   text-transform: uppercase;
   padding-right: 10px;
-  font-family: serif;
+  font-family: Georgia, Times, Times New Roman, serif;
   font-weight: normal;
 }
 
@@ -1322,6 +1346,17 @@ body.page-glossary .view-content {
   background: url("../images/g.png") no-repeat 10px 20px;
 }
 
+/* line 98, ../scss/glossary.scss */
+.glossary-term a {
+  font-weight: normal;
+}
+
+/* line 101, ../scss/glossary.scss */
+.glossary-term a:hover {
+  color: #7c0000;
+  text-decoration: underline;
+}
+
 /* theme core colors*/
 /*basics*/
 /*section names */
@@ -1346,14 +1381,15 @@ body.node-type-discussion .field-exp-comments {
   border: 1px solid #b0a9a4;
   background: #d6cbc0 url(../images/clock.png) no-repeat 20px 25px;
   padding: 20px 65px;
+  margin: 40px 0 0;
 }
-/* line 14, ../scss/discussion.scss */
+/* line 15, ../scss/discussion.scss */
 body.node-type-discussion .field-exp-comments strong {
   color: white;
   display: block;
   text-transform: uppercase;
 }
-/* line 20, ../scss/discussion.scss */
+/* line 21, ../scss/discussion.scss */
 body.node-type-discussion a#popText {
   display: block;
   background: url("../images/poptext.png") no-repeat left center;
@@ -1361,33 +1397,33 @@ body.node-type-discussion a#popText {
   padding: 8px 10px 8px 25px;
   font-weight: normal;
 }
-/* line 28, ../scss/discussion.scss */
+/* line 29, ../scss/discussion.scss */
 body.node-type-discussion a#popText:hover {
   background: url("../images/poptext-hover.png") no-repeat left center;
 }
-/* line 33, ../scss/discussion.scss */
+/* line 34, ../scss/discussion.scss */
 body.node-type-discussion ul.menu li.first {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
-/* line 35, ../scss/discussion.scss */
+/* line 36, ../scss/discussion.scss */
 body.node-type-discussion ul.menu li.first a {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 41, ../scss/discussion.scss */
+/* line 42, ../scss/discussion.scss */
 body.node-type-discussion div.view-header {
   display: none;
 }
-/* line 45, ../scss/discussion.scss */
+/* line 46, ../scss/discussion.scss */
 body.node-type-discussion div#slash {
   margin: 30px 30px 0;
 }
-/* line 50, ../scss/discussion.scss */
+/* line 51, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 {
-  background: url("../images/borders.png") no-repeat center 7px;
+  background: url("../images/borders.png") no-repeat center 9px;
   width: 900px;
   text-align: center;
 }
-/* line 55, ../scss/discussion.scss */
+/* line 56, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 h3.block-title {
   background: white;
   padding: 0 20px;
@@ -1395,25 +1431,23 @@ body.node-type-discussion div#block-views-discussion_texts-block_1 h3.block-titl
   font-size: 0.9em;
   text-transform: uppercase;
 }
-/* line 63, ../scss/discussion.scss */
+/* line 64, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 .content {
   text-align: left;
-  margin: 20px 0;
-  height: 280px;
 }
-/* line 70, ../scss/discussion.scss */
+/* line 69, ../scss/discussion.scss */
 body.node-type-discussion h1.title {
   display: block;
   margin: 20px 0;
   padding: 0;
 }
-/* line 78, ../scss/discussion.scss */
+/* line 77, ../scss/discussion.scss */
 body.node-type-discussion div.views-row {
-  margin: 10px 5px;
+  margin: 30px 5px 40px;
   float: left;
   width: 218px;
 }
-/* line 82, ../scss/discussion.scss */
+/* line 81, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary {
   width: 178px;
   background: #f1e9e4;
@@ -1422,24 +1456,29 @@ body.node-type-discussion div.views-row div.buildmode-text_summary {
   float: left;
   padding: 0 10px;
   position: relative;
-  min-height: 258px;
-  line-height: 1em;
+  height: 265px;
+  line-height: 1.3em;
+  font-size: 0.8em;
 }
 /* line 92, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
-  font-size: 23px;
+  font-size: 1.5em;
   text-transform: inherit;
-  font-weight: bold;
   line-height: 1.2em;
   letter-spacing: -0.3px;
   text-align: left;
   color: #000;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
-/* line 102, ../scss/discussion.scss */
+/* line 104, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-description {
+  height: 158px;
+  overflow: hidden;
   color: #303030;
 }
-/* line 106, ../scss/discussion.scss */
+/* line 110, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1460,118 +1499,209 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   position: absolute;
   right: 10px;
   bottom: 10px;
   font-size: 13px;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 118, ../scss/discussion.scss */
+/* line 122, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-label {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #cccccc;
   margin: 20px 0 10px;
   color: #7c0000;
   font-family: Helvetica,arial,sans-serif;
   font-size: 0.8em;
   font-weight: normal;
-  padding-bottom: 3px;
   text-transform: uppercase;
 }
-/* line 130, ../scss/discussion.scss */
+/* line 131, ../scss/discussion.scss */
+body.node-type-discussion #boxes-box-discussion_info .field-item {
+  margin: 0 0 8px;
+}
+/* line 136, ../scss/discussion.scss */
 body.node-type-discussion #container {
   background: url("../images/borders.png") no-repeat center top;
   text-align: center;
   position: relative;
   padding: 8px 0 0;
 }
-/* line 136, ../scss/discussion.scss */
+/* line 142, ../scss/discussion.scss */
 body.node-type-discussion #container #main {
   position: static;
 }
-/* line 140, ../scss/discussion.scss */
+/* line 146, ../scss/discussion.scss */
 body.node-type-discussion #container #content-inner {
   background: transparent;
 }
-/* line 144, ../scss/discussion.scss */
+/* line 149, ../scss/discussion.scss */
+body.node-type-discussion #container ul.tabs {
+  margin: 0 0 15px;
+}
+/* line 153, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area div.field-label {
   position: absolute;
-  top: -4px;
+  top: -6px;
   padding: 0 20px;
   display: inline;
   background: white;
   text-transform: uppercase;
   font-size: 0.9em;
 }
-/* line 153, ../scss/discussion.scss */
-body.node-type-discussion #container #content-area p {
-  text-align: left;
+/* line 162, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area .node-type-discussion {
+  border: 1px solid #cccccc;
+  padding: 20px 0 0 20px;
+  margin: 0 0 0 20px;
 }
-/* line 157, ../scss/discussion.scss */
-body.node-type-discussion #container #sidebar-second {
-  text-align: left;
+/* line 167, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area .node-type-discussion .field-body {
+  padding: 0 20px 0 0;
 }
-/* line 160, ../scss/discussion.scss */
-body.node-type-discussion #container #comments {
-  text-align: left;
-  background: url("../images/borders.png") no-repeat center top;
-  padding: 30px 0 0;
-  position: relative;
-}
-/* line 166, ../scss/discussion.scss */
-body.node-type-discussion #container #comments h2#comments-title {
-  background: none repeat scroll 0 0 #FFFFFF;
-  font-size: 0.9em;
-  left: 230px;
-  padding: 0 10px;
-  position: absolute;
-  text-transform: uppercase;
-  top: -5px;
+/* line 170, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area .node-type-discussion .field-body p {
+  text-align: justify;
+  margin: 0 0 1em;
 }
 /* line 175, ../scss/discussion.scss */
-body.node-type-discussion #container #comments textarea {
-  box-shadow: 0 3px 0 #eee;
+body.node-type-discussion #container #content-area .node-type-discussion ul.links {
+  position: relative;
+  width: 100%;
+  display: inline-block;
 }
-/* line 179, ../scss/discussion.scss */
-body.node-type-discussion #container ul.links {
-  border: 1px solid #ccc;
-  padding: 7px 5px;
-  border-radius: 5px;
-  font-size: 1.3em;
+/* line 180, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
   background-image: -moz-linear-gradient(center top, white 0%, #eeeeee 100%);
+  border: 1px solid #cccccc;
+  border-radius: 5px 5px 5px 5px;
+  bottom: -38px;
+  left: -5px;
+  font-size: 0.8em;
+  padding: 4px 10px;
+  position: absolute;
 }
-/* line 185, ../scss/discussion.scss */
-body.node-type-discussion #container ul.links li {
-  padding: 0 10px;
+/* line 191, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area .field-translation-status {
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  text-align: left;
+  width: 235px;
+  padding: 5px;
+  float: right;
+  /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
+  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
+  font-size: 0.8em;
+  line-height: 1.3em;
 }
-/* line 189, ../scss/discussion.scss */
+/* line 203, ../scss/discussion.scss */
+body.node-type-discussion #container #sidebar-second {
+  text-align: left;
+  margin-right: 1.2em;
+  width: 346px;
+}
+/* line 208, ../scss/discussion.scss */
+body.node-type-discussion #container #sidebar-second #sidebar-second-inner {
+  padding-left: 7px;
+}
+/* line 212, ../scss/discussion.scss */
+body.node-type-discussion #container h3.block-title {
+  color: #7c0000;
+  border-bottom: 1px solid #7c0000;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+}
+/* line 219, ../scss/discussion.scss */
+body.node-type-discussion #container #comments {
+  text-align: left;
+  padding: 40px 0 0;
+  position: relative;
+  margin: 0 0 0 20px;
+}
+/* line 225, ../scss/discussion.scss */
+body.node-type-discussion #container #comments h2#comments-title {
+  background: white url("../images/borders-comment.png") no-repeat left 7px;
+  font-size: 0.9em;
+  padding: 0 0 0 217px;
+  text-transform: uppercase;
+}
+/* line 231, ../scss/discussion.scss */
+body.node-type-discussion #container #comments .buildmode-full {
+  border: 1px solid #cccccc;
+  margin: 0 0 20px;
+  padding: 10px 0 0 10px;
+  position: relative;
+}
+/* line 237, ../scss/discussion.scss */
+body.node-type-discussion #container #comments .node {
+  padding: 0;
+}
+/* line 239, ../scss/discussion.scss */
+body.node-type-discussion #container #comments .node .field-author {
+  float: left;
+  margin: 0 10px 0 0;
+  font-weight: bold;
+}
+/* line 244, ../scss/discussion.scss */
+body.node-type-discussion #container #comments .node .field-post-date {
+  color: #cccccc;
+  float: right;
+  padding: 0 10px 0 0;
+  font-size: 0.9em;
+}
+/* line 250, ../scss/discussion.scss */
+body.node-type-discussion #container #comments .node .field-body {
+  margin: 20px 10px 0 0;
+}
+/* line 254, ../scss/discussion.scss */
+body.node-type-discussion #container #comments textarea {
+  box-shadow: 0 3px 0 #eeeeee;
+}
+/* line 258, ../scss/discussion.scss */
+body.node-type-discussion #container .node-type-comment ul.links {
+  border: 1px solid #ccc;
+  padding: 4px 5px;
+  border-radius: 5px;
+  font-size: 0.8em;
+  background-image: -moz-linear-gradient(center top, white 0%, #eeeeee 100%);
+  position: absolute;
+  bottom: 7px;
+}
+/* line 266, ../scss/discussion.scss */
+body.node-type-discussion #container .node-type-comment ul.links li {
+  padding: 0 5px;
+}
+/* line 270, ../scss/discussion.scss */
 body.node-type-discussion #container .box {
   background: url("../images/borders.png") no-repeat center top;
   padding: 10px 0 0;
+  margin: 50px 0 0;
   position: relative;
 }
-/* line 194, ../scss/discussion.scss */
+/* line 276, ../scss/discussion.scss */
 body.node-type-discussion #container .box h2 {
   background: #FFFFFF;
   font-size: 0.9em;
-  left: 190px;
+  left: 158px;
   padding: 0 10px;
   position: absolute;
   text-transform: uppercase;
-  top: -5px;
+  top: -6px;
 }
 
-/* line 206, ../scss/discussion.scss */
+/* line 288, ../scss/discussion.scss */
 body.section-node-edit div#container {
   text-align: left;
 }
@@ -1594,35 +1724,70 @@ body.section-node-edit div#container {
 /* line 4, ../scss/style-rtl.scss */
 body.i18n-ar {
   overflow-x: hidden !important;
+  /*Typo*/
+  /*action links*/
+  /*language switcher*/
   /*Top strip*/
   /*Navigation*/
   /*Welcome*/
   /*Overview*/
-  /*discussion*/
+  /*vertical tabs*/
 }
-/* line 8, ../scss/style-rtl.scss */
+/* line 9, ../scss/style-rtl.scss */
+body.i18n-ar h1 {
+  font-style: normal;
+  font-weight: bold;
+}
+/* line 14, ../scss/style-rtl.scss */
+body.i18n-ar #top-strip {
+  height: 27px;
+}
+/* line 17, ../scss/style-rtl.scss */
+body.i18n-ar #boxes-box-action_links ul a {
+  line-height: 1.9em;
+  font-size: 0.7em;
+  float: right;
+}
+/* line 22, ../scss/style-rtl.scss */
+body.i18n-ar #boxes-box-action_links .boxes-box-content {
+  float: right;
+  margin: 0 0 0 10px;
+}
+/* line 28, ../scss/style-rtl.scss */
+body.i18n-ar #block-locale-0 li a {
+  padding: 0 15px;
+  line-height: 1.8em;
+}
+/* line 34, ../scss/style-rtl.scss */
+body.i18n-ar #block-menu-primary-links ul.menu a {
+  font-size: 1.3em;
+  padding: 19px 65px 30px 20px;
+  font-weight: bold;
+  background-position: 105px 20px;
+}
+/* line 41, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-welcome_to_nurani_box .toggle {
   position: absolute;
   right: auto;
   left: 0;
   top: 1px;
 }
-/* line 15, ../scss/style-rtl.scss */
+/* line 48, ../scss/style-rtl.scss */
 body.i18n-ar .condense_control {
   padding: 4px 4px 4px 0;
   background: url("../images/more-ar.png") no-repeat scroll 0 0 transparent;
 }
-/* line 20, ../scss/style-rtl.scss */
+/* line 53, ../scss/style-rtl.scss */
 body.i18n-ar #comment-form label {
   float: right;
   margin-right: 10px;
 }
-/* line 25, ../scss/style-rtl.scss */
+/* line 58, ../scss/style-rtl.scss */
 body.i18n-ar #comment-form label[for="edit-subject"] {
   margin-left: 42px;
   margin-right: 0;
 }
-/* line 35, ../scss/style-rtl.scss */
+/* line 68, ../scss/style-rtl.scss */
 body.i18n-ar #sidebar-second,
 body.i18n-ar .sidebar-second #main,
 body.i18n-ar .text,
@@ -1631,18 +1796,18 @@ body.i18n-ar .view-texts-in-discussion .views-row,
 body.i18n-ar .view-overview .views-field-title {
   float: right;
 }
-/* line 39, ../scss/style-rtl.scss */
+/* line 72, ../scss/style-rtl.scss */
 body.i18n-ar .perosnal-username, body.i18n-ar .view-overview .views-field-view-node {
   float: left;
 }
-/* line 45, ../scss/style-rtl.scss */
+/* line 78, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li.first {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -1655,18 +1820,18 @@ body.i18n-ar ul#primary li.first a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 46, ../scss/style-rtl.scss */
+/* line 79, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -1679,18 +1844,18 @@ body.i18n-ar ul#primary li a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 47, ../scss/style-rtl.scss */
+/* line 80, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li.last {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -1703,75 +1868,245 @@ body.i18n-ar ul#primary li.last a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 50, ../scss/style-rtl.scss */
+/* line 83, ../scss/style-rtl.scss */
 body.i18n-ar #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: right;
   margin-top: 10px;
 }
-/* line 56, ../scss/style-rtl.scss */
+/* line 89, ../scss/style-rtl.scss */
 body.i18n-ar .view-ibis-glossary .views-summary {
   float: right;
 }
-/* line 61, ../scss/style-rtl.scss */
+/* line 94, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 {
   float: left;
   font-size: 18px;
   line-height: 16px;
   width: 66px;
 }
-/* line 66, ../scss/style-rtl.scss */
+/* line 99, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 ul {
   padding: 0;
 }
-/* line 69, ../scss/style-rtl.scss */
+/* line 102, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li.ar {
   display: none;
 }
-/* line 72, ../scss/style-rtl.scss */
+/* line 105, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li.en {
   display: block;
 }
-/* line 80, ../scss/style-rtl.scss */
+/* line 113, ../scss/style-rtl.scss */
 body.i18n-ar ul.menu li.last,
 body.i18n-ar ul.menu li.first,
 body.i18n-ar ul.menu li {
   float: right;
 }
-/* line 85, ../scss/style-rtl.scss */
+/* line 118, ../scss/style-rtl.scss */
+body.i18n-ar div#slash h3 {
+  margin-right: 30px;
+  margin-top: 0;
+  line-height: 0.6em;
+}
+/* line 123, ../scss/style-rtl.scss */
 body.i18n-ar div#slash div#boxes-box-welcome_box img.d_ford {
   float: left;
 }
-/* line 90, ../scss/style-rtl.scss */
+/* line 128, ../scss/style-rtl.scss */
 body.i18n-ar div#main {
   float: right;
 }
-/* line 94, ../scss/style-rtl.scss */
+/* line 132, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-title {
   float: right;
   line-height: 29px;
 }
-/* line 98, ../scss/style-rtl.scss */
+/* line 136, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-view-node a {
+  font-size: 0.8em;
+  line-height: 1.2em;
+  padding-bottom: 3px;
   float: left;
 }
-/* line 101, ../scss/style-rtl.scss */
+/* line 142, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-phpcode {
   float: right;
   margin-left: 15px;
   margin-right: 0;
 }
-/* line 109, ../scss/style-rtl.scss */
-body.i18n-ar #container #content-area p {
+/* line 149, ../scss/style-rtl.scss */
+body.i18n-ar #block-views-new_texts-block_1 h3,
+body.i18n-ar #block-views-new_glossary_terms-block_1 h3 {
+  background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
+  padding: 10px 20px 10px 0;
+}
+/* line 153, ../scss/style-rtl.scss */
+body.i18n-ar #block-views-nuranis-block_1 h3 {
+  background-position: right;
+  padding: 10px 20px 10px 0;
+}
+/* line 157, ../scss/style-rtl.scss */
+body.i18n-ar #block-views-nuranis-block_1 h3.collapsed {
+  background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
+}
+/* line 161, ../scss/style-rtl.scss */
+body.i18n-ar #block-views-new_texts-block_1 h3.expand,
+body.i18n-ar #block-views-new_glossary_terms-block_1 h3.expand {
+  background: url("../images/arrow-expand.png") no-repeat right center;
+}
+/* line 165, ../scss/style-rtl.scss */
+body.i18n-ar #block-views-new_texts-block_1 .views-row,
+body.i18n-ar #block-views-new_glossary_terms-block_1 .views-row {
+  background: url("../images/point-rtl.png") no-repeat right 6px;
+  margin: 0 20px 0 0;
+  padding: 0 15px 10px 0;
+}
+/* line 172, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs {
+  float: right;
+  margin: 1em 15em 0 0;
+}
+/* line 176, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs ul.vertical-tabs-list {
+  float: right;
+  left: auto;
+  right: 2em;
+}
+/* line 181, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li {
   text-align: right;
 }
-/* line 112, ../scss/style-rtl.scss */
-body.i18n-ar #container #sidebar-second {
+/* line 184, ../scss/style-rtl.scss */
+body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li.selected {
+  border-left: 0;
+  border-right: 1px solid #ccc;
+}
+
+/*discussion*/
+/* line 193, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion h1.title {
+  margon-top: 40px;
+}
+/* line 196, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion .field-exp-comments {
+  background-position: 270px 33px;
+}
+/* line 200, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h3 {
+  font-size: 1em;
+  padding: 0 15px;
+  font-size: 1em;
+  padding: 0 15px;
+}
+/* line 206, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h1 {
   text-align: right;
+}
+/* line 209, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 .content {
+  text-align: right;
+}
+/* line 213, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #sidebar-second {
+  text-align: right;
+}
+/* line 216, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion .view-discussion-texts .views-row {
+  float: right;
+}
+/* line 221, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion {
+  margin: 0 20px 0 0;
+  padding: 20px 0 0 0;
+}
+/* line 225, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion div.field-label {
+  font-size: 0.9em;
+  padding: 0 15px;
+  right: 400px;
+  top: -10px;
+}
+/* line 231, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-body {
+  padding: 0 0 0 20px;
+}
+/* line 234, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-body p {
+  text-align: right;
+  margin: 0 1.1em 1em 0;
+}
+/* line 239, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
+  left: auto;
+  right: 20px;
+}
+/* line 244, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .field-translation-status {
+  float: left;
+  border-left: 0;
+  border-right: 1px solid #cccccc;
+  text-align: right;
+  font-size: 0.8em;
+}
+/* line 252, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments {
+  margin: 0 20px 0 0;
+}
+/* line 255, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments h2#comments-title {
+  padding: 0 0 0 238px;
+}
+/* line 258, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .buildmode-full {
+  padding: 10px 0 0 10px;
+}
+/* line 261, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .field-author {
+  float: right;
+}
+/* line 264, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .field-post-date {
+  float: left;
+  padding: 0 0 0 10px;
+}
+/* line 268, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .node p {
+  margin: 0 0 1em 0;
+}
+/* line 271, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .field-translation-status {
+  border: 1px solid #cccccc;
+  border-left: 0;
+  border-bottom: 0;
+}
+/* line 276, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .nd-region-footer {
+  text-align: right;
+}
+/* line 278, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments .nd-region-footer ul.links {
+  line-height: 20px;
+  right: 5px;
+}
+/* line 283, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #comments label {
+  float: right;
+  margin: 0 0 0 10px;
+}
+/* line 288, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #sidebar-second {
+  margin-left: 0;
+  margin-right: 0;
+}
+/* line 292, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inner {
+  padding-right: 7px;
+  padding-left: 20px;
 }
 
 /* theme core colors*/
@@ -1832,6 +2167,7 @@ body.ar #block-locale-language ul li.en {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -1849,13 +2185,13 @@ body.ar #block-locale-language ul li.en {
   -khtml-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -1882,6 +2218,7 @@ body.ar #block-locale-language ul li.ar {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -1905,13 +2242,13 @@ body.ar #block-locale-language ul li.ar {
   box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -1939,6 +2276,7 @@ body.en #block-locale-language ul li.en {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -1961,13 +2299,13 @@ body.en #block-locale-language ul li.en {
   box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -1994,6 +2332,7 @@ body.en #block-locale-language ul li.ar {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
+  margin-top: -5px;
   display: block;
   float: left;
   font-size: 11px;
@@ -2012,30 +2351,35 @@ body.en #block-locale-language ul li.ar {
   border-bottom-left-radius: 0;
   float: right;
 }
-/* line 19, ../scss/_buttons.scss */
+/* line 20, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 23, ../scss/_buttons.scss */
+/* line 24, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 
-/* line 1, ../scss/misc.scss */
+/* theme core colors*/
+/*basics*/
+/*section names */
+/*bright colors*/
+/*dark colors*/
+/* line 5, ../scss/misc.scss */
 #edit-body {
   float: left;
 }
 
-/* line 5, ../scss/misc.scss */
+/* line 9, ../scss/misc.scss */
 body.page-admin h3 {
   margin-bottom: 0 !important;
 }
 
-/* line 9, ../scss/misc.scss */
+/* line 13, ../scss/misc.scss */
 #perosnal-nav {
   -moz-box-shadow: 0 3px 20px #000000;
   background: none repeat scroll 0 0 #000000;
@@ -2044,20 +2388,20 @@ body.page-admin h3 {
   width: 100%;
 }
 
-/* line 17, ../scss/misc.scss */
+/* line 21, ../scss/misc.scss */
 .perosnal-username a {
   color: #FFFFFF;
   font-family: "Lucida Grande", Verdana, sans-serif;
   padding: 4px;
 }
 
-/* line 23, ../scss/misc.scss */
+/* line 27, ../scss/misc.scss */
 .perosnal-username a:hover {
   -moz-border-radius: 10px 10px 10px 10px;
   background: none repeat scroll 0 0 #777777;
 }
 
-/* line 28, ../scss/misc.scss */
+/* line 32, ../scss/misc.scss */
 .perosnal-username {
   color: #FFFFFF;
   float: right;
@@ -2066,46 +2410,46 @@ body.page-admin h3 {
   padding-top: 7px;
 }
 
-/* line 36, ../scss/misc.scss */
+/* line 40, ../scss/misc.scss */
 form#user-profile-form #edit-locale {
   display: none;
 }
 
-/* line 41, ../scss/misc.scss */
+/* line 45, ../scss/misc.scss */
 #edit-field-user-title, #edit-field-user-fname, #edit-field-user-lname, #edit-field-user-suffix, #edit-field-user-city, #edit-field-user-country, #edit-field-user-arabic, #edit-field-user-english {
   float: left;
   margin-right: 10px;
 }
 
-/* line 47, ../scss/misc.scss */
+/* line 51, ../scss/misc.scss */
 form#user-profile-form input[type=text], #user-profile-form .form-textarea, #user-profile-form input[type=password] {
   -moz-box-shadow: 1px -1px 3px #777777;
   border: 1px solid #C7C7C7;
   padding: 5px;
 }
 
-/* line 53, ../scss/misc.scss */
+/* line 57, ../scss/misc.scss */
 form#user-profile-form label {
   color: #555555;
   margin-bottom: 7px;
 }
 
-/* line 58, ../scss/misc.scss */
+/* line 62, ../scss/misc.scss */
 #edit-field-user-position {
   clear: both;
 }
 
-/* line 62, ../scss/misc.scss */
+/* line 66, ../scss/misc.scss */
 #edit-field-user-arabic, #edit-field-user-education {
   clear: both;
 }
 
-/* line 66, ../scss/misc.scss */
+/* line 70, ../scss/misc.scss */
 body.page-user-edit #content {
   width: 100%;
 }
 
-/* line 70, ../scss/misc.scss */
+/* line 74, ../scss/misc.scss */
 body.page-user-edit h1 {
   font-size: 2.2em;
   font-weight: 300;
@@ -2116,75 +2460,75 @@ body.page-user-edit h1 {
   width: 100%;
 }
 
-/* line 80, ../scss/misc.scss */
+/* line 84, ../scss/misc.scss */
 body.page-user-edit .inner {
   padding: 0 20px 20px;
 }
 
-/* line 84, ../scss/misc.scss */
+/* line 88, ../scss/misc.scss */
 body.page-user-edit #content-header {
   margin-bottom: 20px;
   padding-top: 20px;
 }
 
-/* line 89, ../scss/misc.scss */
+/* line 93, ../scss/misc.scss */
 #user-profile-form .filter-wrapper, #user-profile-form .grippie {
   display: none;
 }
 
-/* line 93, ../scss/misc.scss */
+/* line 97, ../scss/misc.scss */
 #user-profile-form .form-textarea {
   width: 530px;
 }
 
-/* line 98, ../scss/misc.scss */
+/* line 102, ../scss/misc.scss */
 .field-name-field-user-title, .field-name-field-user-fname, .field-name-field-user-lname, .field-name-field-user-suffix {
   float: left;
   font-size: 20px;
   margin-right: 4px;
 }
 
-/* line 104, ../scss/misc.scss */
+/* line 108, ../scss/misc.scss */
 .do {
   left: 125px;
   position: absolute;
   top: 60px;
 }
 
-/* line 110, ../scss/misc.scss */
+/* line 114, ../scss/misc.scss */
 body.en .do {
   font-style: italic;
 }
 
-/* line 114, ../scss/misc.scss */
+/* line 118, ../scss/misc.scss */
 .profile .user-picture {
   float: left;
   margin: 0 1em 1em 0;
 }
 
-/* line 119, ../scss/misc.scss */
+/* line 123, ../scss/misc.scss */
 .field-name-field-user-arabic {
   clear: both;
 }
 
-/* line 123, ../scss/misc.scss */
+/* line 127, ../scss/misc.scss */
 .field-name-field-user-city {
   clear: both;
   float: left;
   margin-right: 10px;
 }
 
-/* line 129, ../scss/misc.scss */
+/* line 133, ../scss/misc.scss */
 .field-name-field-user-country {
   float: left;
 }
 
-/* line 133, ../scss/misc.scss */
+/* line 137, ../scss/misc.scss */
 body.page-user #content {
   width: 100%;
 }
 
-/* line 137, ../scss/misc.scss */
+/* line 141, ../scss/misc.scss */
 .personal-info {
   background: none repeat scroll 0 0 #E7E7E7;
   display: block;
@@ -2195,56 +2539,56 @@ body.page-user #content {
   width: 100%;
 }
 
-/* line 147, ../scss/misc.scss */
+/* line 151, ../scss/misc.scss */
 .residence {
   left: 125px;
   position: absolute;
   top: 85px;
 }
 
-/* line 153, ../scss/misc.scss */
+/* line 157, ../scss/misc.scss */
 .profile-name {
   margin-top: 20px;
 }
 
-/* line 157, ../scss/misc.scss */
+/* line 161, ../scss/misc.scss */
 .user-picture img {
   float: left;
   /*  width: 32px; */
 }
 
-/* line 162, ../scss/misc.scss */
+/* line 166, ../scss/misc.scss */
 .profile .field-items {
   clear: both;
 }
 
-/* line 166, ../scss/misc.scss */
+/* line 170, ../scss/misc.scss */
 .prof-info {
   border-top: 1px solid #777777;
   padding: 10px;
 }
 
-/* line 172, ../scss/misc.scss */
+/* line 176, ../scss/misc.scss */
 #slash.node {
   background: none;
 }
 
-/* line 176, ../scss/misc.scss */
+/* line 180, ../scss/misc.scss */
 #block-block-3 a {
   margin-right: 10px;
 }
 
-/* line 180, ../scss/misc.scss */
+/* line 184, ../scss/misc.scss */
 .field-body {
   color: #303030;
 }
 
-/* line 184, ../scss/misc.scss */
+/* line 188, ../scss/misc.scss */
 .field-body .field-label {
   color: #303030;
 }
 
-/* line 188, ../scss/misc.scss */
+/* line 192, ../scss/misc.scss */
 body.i18n-en .field-body .field-label {
   font-style: normal;
   font-weight: normal;
@@ -2252,57 +2596,63 @@ body.i18n-en .field-body .field-label {
   margin-bottom: 10px;
 }
 
-/* line 195, ../scss/misc.scss */
+/* line 199, ../scss/misc.scss */
 #comments #edit-body-wrapper label {
   float: left;
-  margin-right: 10px;
+  margin: 0 10px 0 0;
+  font-style: italic;
 }
 
-/* line 200, ../scss/misc.scss */
+/* line 204, ../scss/misc.scss */
+#comments .resizable-textarea {
+  width: auto;
+}
+
+/* line 207, ../scss/misc.scss */
 #comments #edit-body-wrapper .grippie {
   display: none;
 }
 
-/* line 204, ../scss/misc.scss */
+/* line 211, ../scss/misc.scss */
 #comment-form input[type=text], #comments #edit-body-wrapper textarea#edit-body {
   padding: 5px;
   float: none;
-  height: 85px;
-  width: 440px;
+  height: 160px;
+  width: 458px;
 }
 
-/* line 211, ../scss/misc.scss */
+/* line 218, ../scss/misc.scss */
 #comment-form label[for=edit-subject] {
   margin-right: 42px;
 }
 
-/* line 215, ../scss/misc.scss */
+/* line 222, ../scss/misc.scss */
 #comment-form textarea {
   display: inline;
   width: 450px;
 }
 
-/* line 220, ../scss/misc.scss */
+/* line 227, ../scss/misc.scss */
 #comment-form #edit-actions {
   margin-left: 95px;
 }
 
-/* line 224, ../scss/misc.scss */
+/* line 231, ../scss/misc.scss */
 #comment-form #edit-actions input[type=submit] {
   margin-right: 10px;
 }
 
-/* line 228, ../scss/misc.scss */
+/* line 235, ../scss/misc.scss */
 .sidebar-second .block {
   margin-bottom: 20px;
 }
 
-/* line 232, ../scss/misc.scss */
+/* line 239, ../scss/misc.scss */
 #boxes-box-scholars_box img {
   margin-right: 5px;
 }
 
-/* line 236, ../scss/misc.scss */
+/* line 243, ../scss/misc.scss */
 #block-pcp-pcp_profile_percent_complete {
   position: fixed;
   bottom: 0;
@@ -2314,22 +2664,22 @@ body.i18n-en .field-body .field-label {
   line-height: 1.3em;
   font-size: 16px;
 }
-/* line 246, ../scss/misc.scss */
+/* line 253, ../scss/misc.scss */
 #block-pcp-pcp_profile_percent_complete h2 {
   display: none;
 }
 
-/* line 251, ../scss/misc.scss */
+/* line 258, ../scss/misc.scss */
 #comment-body-add-more-wrapper .filter-wrapper {
   display: none;
 }
 
-/* line 256, ../scss/misc.scss */
+/* line 263, ../scss/misc.scss */
 form#user-profile-form input[type="text"]:focus, #user-profile-form .form-textarea:focus, #user-profile-form input[type="password"]:focus {
   -moz-box-shadow: 1px -1px 3px #777777;
 }
 
-/* line 260, ../scss/misc.scss */
+/* line 267, ../scss/misc.scss */
 div.vertical-tabs {
   border: 1px solid #CCCCCC;
   clear: both;
@@ -2338,33 +2688,35 @@ div.vertical-tabs {
   position: relative;
 }
 
-/* line 268, ../scss/misc.scss */
+/* line 275, ../scss/misc.scss */
 .view-discussions .views-field-title {
   float: left;
   margin-bottom: 5px;
   font-size: 1.6em;
   font-weight: 300;
+  width: 480px;
 }
 
-/* line 275, ../scss/misc.scss */
+/* line 283, ../scss/misc.scss */
 .view-discussions .views-field-body {
   border-top: 1px solid #999999;
   clear: both;
   padding-top: 10px;
+  text-align: justify;
 }
 
-/* line 281, ../scss/misc.scss */
+/* line 290, ../scss/misc.scss */
 .field-name-field-discussion-text .submitted {
   display: none;
 }
 
-/* line 285, ../scss/misc.scss */
+/* line 294, ../scss/misc.scss */
 .field-name-field-discussion-text h2 {
   font-size: 18px;
   font-weight: bold;
 }
 
-/* line 290, ../scss/misc.scss */
+/* line 299, ../scss/misc.scss */
 .view-discussions .views-row {
   clear: both;
   float: left;
@@ -2372,50 +2724,50 @@ div.vertical-tabs {
   width: 100%;
 }
 
-/* line 298, ../scss/misc.scss */
+/* line 307, ../scss/misc.scss */
 .view-discussions .views-field-phpcode {
   float: left;
   margin-right: 15px;
 }
 
-/* line 303, ../scss/misc.scss */
+/* line 312, ../scss/misc.scss */
 .view-texts-in-discussion .view-header {
   font-weight: bold;
 }
 
-/* line 307, ../scss/misc.scss */
+/* line 316, ../scss/misc.scss */
 body.en .view-texts-in-discussion .view-header {
   font-style: italic;
 }
 
-/* line 311, ../scss/misc.scss */
+/* line 320, ../scss/misc.scss */
 ul.language-switcher-locale-url li {
   display: inline;
 }
 
-/* line 315, ../scss/misc.scss */
+/* line 324, ../scss/misc.scss */
 ul.language-switcher-locale-url li.active {
   display: none;
 }
 
-/* line 320, ../scss/misc.scss */
+/* line 329, ../scss/misc.scss */
 .view-texts-in-discussion .field-name-field-text-source, .view-texts-in-discussion .field-name-field-text-author, .view-texts-in-discussion .field-name-field-text-description {
   display: none;
 }
 
-/* line 325, ../scss/misc.scss */
+/* line 334, ../scss/misc.scss */
 #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: left;
   margin-top: 10px;
 }
 
-/* line 335, ../scss/misc.scss */
+/* line 344, ../scss/misc.scss */
 .view-glossary-terms .view-content {
   float: left;
 }
 
-/* line 339, ../scss/misc.scss */
+/* line 348, ../scss/misc.scss */
 .view-glossary-terms .views-summary {
   float: left;
   display: block;
@@ -2425,20 +2777,20 @@ ul.language-switcher-locale-url li.active {
   color: #aaa;
 }
 
-/* line 348, ../scss/misc.scss */
+/* line 357, ../scss/misc.scss */
 #boxes-box-participants a {
   display: block;
   float: left;
   margin-right: 20px;
 }
 
-/* line 354, ../scss/misc.scss */
+/* line 363, ../scss/misc.scss */
 #boxes-box-participants a img {
   height: 100px;
   width: 100px;
 }
 
-/* line 359, ../scss/misc.scss */
+/* line 368, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul {
   border-bottom: 1px dashed #CCCCCC;
   margin-left: 0;
@@ -2446,23 +2798,23 @@ ul.language-switcher-locale-url li.active {
   padding-left: 0;
 }
 
-/* line 366, ../scss/misc.scss */
+/* line 375, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li:hover {
   background: #eee;
 }
 
-/* line 370, ../scss/misc.scss */
+/* line 379, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li {
   display: block;
 }
 
-/* line 374, ../scss/misc.scss */
+/* line 383, ../scss/misc.scss */
 #boxes-box-about_this_discussion ul li a {
   display: block;
   width: 100%;
 }
 
-/* line 379, ../scss/misc.scss */
+/* line 388, ../scss/misc.scss */
 #boxes-box-about_this_discussion .field-name {
   border-bottom: 1px dashed #E1E1E1;
   color: #5B0000;
@@ -2471,48 +2823,48 @@ ul.language-switcher-locale-url li.active {
   padding-bottom: 2px;
 }
 
-/* line 387, ../scss/misc.scss */
+/* line 396, ../scss/misc.scss */
 body.page-overview #content-inner {
   margin-top: 0;
   padding-top: 0;
 }
 
-/* line 392, ../scss/misc.scss */
+/* line 401, ../scss/misc.scss */
 body.page-overview #content-header {
   display: none;
 }
 
-/* line 396, ../scss/misc.scss */
+/* line 405, ../scss/misc.scss */
 .personal-info .user-picture img {
   /*  width:100px;*/
 }
 
-/* line 400, ../scss/misc.scss */
+/* line 409, ../scss/misc.scss */
 .view-other-nuranis .views-field-picture img {
   /*  width:100px;*/
 }
 
-/* line 404, ../scss/misc.scss */
+/* line 413, ../scss/misc.scss */
 .view-texts table {
   width: 920px;
 }
 
-/* line 408, ../scss/misc.scss */
+/* line 417, ../scss/misc.scss */
 table .field-item, table .view-texts a, table td a {
   font-size: 15px;
 }
 
-/* line 412, ../scss/misc.scss */
+/* line 421, ../scss/misc.scss */
 .no-sidebars #content-header ul.tabs {
   left: 0;
 }
 
-/* line 416, ../scss/misc.scss */
+/* line 425, ../scss/misc.scss */
 #content-header ul.tabs, #content-header ul.tabs li {
   float: none;
 }
 
-/* line 420, ../scss/misc.scss */
+/* line 429, ../scss/misc.scss */
 #content-header ul.tabs li a {
   background-image: -moz-linear-gradient(center top, #ededed 0%, #e0e0e0 100%);
   color: #888888;
@@ -2520,6 +2872,60 @@ table .field-item, table .view-texts a, table td a {
   padding: 5px 8px 1px;
   position: relative;
   z-index: 9;
+}
+
+/* line 438, ../scss/misc.scss */
+#block-views-new_texts-block_1 h3,
+#block-views-new_glossary_terms-block_1 h3 {
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  padding: 10px 0 10px 20px;
+  color: #7c0000;
+  background: url(../images/arrow-collapse.png) no-repeat left;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+/* line 447, ../scss/misc.scss */
+#block-views-nuranis-block_1 h3 {
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  padding: 10px 0 10px 20px;
+  color: #7c0000;
+  background: url(../images/arrow-expand.png) no-repeat left;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+/* line 457, ../scss/misc.scss */
+#block-views-new_texts-block_1 h3.expand,
+#block-views-new_glossary_terms-block_1 h3.expand {
+  background: url(../images/arrow-expand.png) no-repeat left;
+}
+
+/* line 460, ../scss/misc.scss */
+#block-views-nuranis-block_1 h3.collapsed {
+  background: url(../images/arrow-collapse.png) no-repeat left;
+}
+
+/* line 463, ../scss/misc.scss */
+#block-views-nuranis-block_1 .content {
+  padding: 20px 0 0;
+}
+
+/* line 467, ../scss/misc.scss */
+#block-views-new_texts-block_1 .content,
+#block-views-new_glossary_terms-block_1 .content {
+  padding: 20px 0 0;
+  displaY: none;
+}
+
+/* line 472, ../scss/misc.scss */
+#block-views-new_texts-block_1 .views-row,
+#block-views-new_glossary_terms-block_1 .views-row {
+  padding: 0 0 10px 15px;
+  margin: 0 0 0 20px;
+  background: url(../images/point.png) no-repeat left 3px;
 }
 
 /* line 15, ../scss/discussion_header.scss */
@@ -2556,7 +2962,7 @@ div.node-discussion .field-name-field-translator {
 /* line 32, ../scss/discussion_header.scss */
 div.node-discussion div.field-type-user-reference .field-label, div.node-discussion div.field-name-field-texts .field-label {
   /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
-  font-family: "Helvetica Neue", helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
   text-transform: uppercase;
   font-size: 13px;
   font-weight: normal;
@@ -2613,7 +3019,7 @@ ul.menu li.first {
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 ul.menu li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -2626,7 +3032,7 @@ ul.menu li.first a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 ul.menu li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -2637,7 +3043,7 @@ ul.menu li {
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 ul.menu li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -2650,7 +3056,7 @@ ul.menu li a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 ul.menu li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -2661,7 +3067,7 @@ ul.menu li.last {
   padding: 0;
   margin: 0;
 }
-/* line 74, ../scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 ul.menu li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -2674,7 +3080,7 @@ ul.menu li.last a {
   padding-right: 10px;
   padding-left: 50px;
 }
-/* line 92, ../scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 ul.menu li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -2683,25 +3089,60 @@ ul.menu li.active-trail {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
 
-/* line 54, ../scss/navigation.scss */
+/*Language switcher*/
+/* line 55, ../scss/navigation.scss */
 #block-locale-0 {
   width: 70px;
   float: right;
 }
-/* line 58, ../scss/navigation.scss */
+/* line 59, ../scss/navigation.scss */
 #block-locale-0 h3, #block-locale-0 li.en {
   display: none;
 }
-/* line 61, ../scss/navigation.scss */
+/* line 62, ../scss/navigation.scss */
 #block-locale-0 li {
   font-size: 0.6em;
 }
-/* line 63, ../scss/navigation.scss */
+/* line 64, ../scss/navigation.scss */
 #block-locale-0 li a {
   color: white;
   background: #666666;
-  padding: 6px 15px;
+  padding: 0 15px;
+  font-size: 1.2em;
+  display: inline-block;
   border-radius: 15px;
+  line-height: 2em;
+}
+
+/*Action links*/
+/* line 78, ../scss/navigation.scss */
+#boxes-box-action_links .boxes-box-content {
+  float: left;
+  margin: 0 10px 0 0;
+}
+/* line 82, ../scss/navigation.scss */
+#boxes-box-action_links ul {
+  margin: 0;
+  padding: 0;
+}
+/* line 86, ../scss/navigation.scss */
+#boxes-box-action_links ul li {
+  padding: 0;
+}
+/* line 89, ../scss/navigation.scss */
+#boxes-box-action_links ul a {
+  font-size: 0.7em;
+  line-height: 2em;
+  color: white;
+  background: #666666;
+  padding: 0 15px;
+  display: block;
+  float: left;
+  margin: 0 3px;
+  border-radius: 15px;
+  font-weight: normal;
+  /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
+  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
 }
 
 /* line 43, ../scss/core.scss */
@@ -2717,27 +3158,27 @@ ul.menu li.active-trail {
 /* line 44, ../scss/core.scss */
 #block-menu-primary-links ul.menu {
   margin: 0 auto;
-  width: 455px;
+  width: 465px;
 }
 /* line 17, ../scss/navigation.scss */
 #block-menu-primary-links ul.menu a {
   color: #7c0000;
   font-weight: normal;
-  font-size: 20px;
+  font-size: 1.2em;
 }
-/* line 18, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 18, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:visited {
   color: #7c0000;
 }
-/* line 21, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 21, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:focus {
   color: #7c0000;
 }
-/* line 24, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 24, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:hover {
   color: black;
 }
-/* line 27, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 27, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:active {
   color: black;
 }
@@ -2770,25 +3211,32 @@ div.node {
   border: 4px solid #7c0000 !important;
 }
 
+/*  = Views admin links
+  ------------------------------------------------------ */
+/* line 59, ../scss/core.scss */
+div.view div.views-admin-links {
+  padding-top: 4em;
+}
+
 /*  = Tab styles
   ------------------------------------------------------ */
-/* line 60, ../scss/core.scss */
+/* line 65, ../scss/core.scss */
 #content-header ul.tabs {
   width: 500px;
   margin: 30px auto;
   text-align: center;
 }
-/* line 64, ../scss/core.scss */
+/* line 69, ../scss/core.scss */
 #content-header ul.tabs li {
   display: inline;
   text-align: center;
 }
-/* line 67, ../scss/core.scss */
+/* line 72, ../scss/core.scss */
 #content-header ul.tabs li a {
   font-size: 15px;
 }
 
-/* line 74, ../scss/core.scss */
+/* line 79, ../scss/core.scss */
 #content-wrapper {
   background: url("../images/march_logo_header.png") white no-repeat top center;
   padding-top: 110px;
@@ -2796,7 +3244,7 @@ div.node {
 
 /*  =Misc
   ------------------------------------------------------ */
-/* line 84, ../scss/core.scss */
+/* line 89, ../scss/core.scss */
 #comments span.submitted {
   text-transform: capitalize;
   width: 100px;
@@ -2805,29 +3253,29 @@ div.node {
   font-size: 13px;
   float: left;
 }
-/* line 92, ../scss/core.scss */
+/* line 97, ../scss/core.scss */
 #comments span.submitted a {
   font-size: 17px;
   display: block;
 }
-/* line 97, ../scss/core.scss */
+/* line 102, ../scss/core.scss */
 #comments .comment-content-wrapper {
   border: 1px solid #D3D7D9;
   margin-left: 100px;
   padding: 10px 20px 0;
 }
-/* line 102, ../scss/core.scss */
+/* line 107, ../scss/core.scss */
 #comments .subject {
   margin-bottom: 15px;
 }
 
-/* line 106, ../scss/core.scss */
+/* line 111, ../scss/core.scss */
 span.username {
   font-weight: bold;
   text-transform: capitalize;
 }
 
-/* line 111, ../scss/core.scss */
+/* line 116, ../scss/core.scss */
 a {
   font-weight: bold;
   text-decoration: none;
@@ -2835,12 +3283,12 @@ a {
 
 /*  = Hidden Stuff!
   ------------------------------------------------------ */
-/* line 119, ../scss/core.scss */
+/* line 124, ../scss/core.scss */
 #site-name, div#skip-link, body div li.node-readmore {
   display: none;
 }
 
-/* line 128, ../scss/core.scss */
+/* line 133, ../scss/core.scss */
 div.error,
 #edit-comment-body-und-0-format,
 p.comment-permalink,
@@ -2850,18 +3298,18 @@ div#edit-author--2 {
   display: none;
 }
 
-/* line 130, ../scss/core.scss */
+/* line 135, ../scss/core.scss */
 div.error, #edit-comment-body-und-0-format, p.comment-permalink, div.links, a#logo, div#edit-author--2 {
   display: none;
 }
 
 /*  = Forms
   ------------------------------------------------------ */
-/* line 138, ../scss/core.scss */
+/* line 143, ../scss/core.scss */
 form #edit-title {
   font-size: 14px;
 }
-/* line 141, ../scss/core.scss */
+/* line 146, ../scss/core.scss */
 form input.form-submit {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -2888,7 +3336,7 @@ form input.form-submit {
   -khtml-border-radius: 4px / 4px;
   border-radius: 4px / 4px;
 }
-/* line 112, ../scss/_buttons.scss */
+/* line 113, ../scss/_buttons.scss */
 form input.form-submit:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
@@ -2897,26 +3345,26 @@ form input.form-submit:active {
 
 /*  =Discussion
   ------------------------------------------------------ */
-/* line 150, ../scss/core.scss */
+/* line 155, ../scss/core.scss */
 body.discussion #content {
   clear: left;
 }
-/* line 152, ../scss/core.scss */
+/* line 157, ../scss/core.scss */
 body.discussion #content div.field {
   text-align: center;
 }
-/* line 155, ../scss/core.scss */
+/* line 160, ../scss/core.scss */
 body.discussion #content p {
   padding: 10px;
   float: left;
 }
-/* line 159, ../scss/core.scss */
+/* line 164, ../scss/core.scss */
 body.discussion #content img {
   float: left;
   display: inline;
   margin: 10px;
 }
-/* line 165, ../scss/core.scss */
+/* line 170, ../scss/core.scss */
 body.discussion #content #comments {
   float: left;
   clear: both;
@@ -2924,27 +3372,27 @@ body.discussion #content #comments {
   width: 600px;
   margin: 0 auto;
 }
-/* line 171, ../scss/core.scss */
+/* line 176, ../scss/core.scss */
 body.discussion #content #comments .filter-wrapper {
   display: none;
 }
-/* line 175, ../scss/core.scss */
+/* line 180, ../scss/core.scss */
 body.discussion #content #comments div.form-actions input {
   margin: 10px;
 }
 
 /*  =Comments
   ------------------------------------------------------ */
-/* line 185, ../scss/core.scss */
+/* line 190, ../scss/core.scss */
 #comments .comment-inner {
   margin: 20px 0;
 }
-/* line 187, ../scss/core.scss */
+/* line 192, ../scss/core.scss */
 #comments .comment-inner span.submitted {
   text-align: left;
 }
 
-/* line 193, ../scss/core.scss */
+/* line 198, ../scss/core.scss */
 .comment-inner .attribution {
   float: left;
   padding-top: 20px;
@@ -2952,17 +3400,17 @@ body.discussion #content #comments div.form-actions input {
   border-top: 1px solid #D3D7D9;
   border-top: 1px solid #D3D7D9;
 }
-/* line 197, ../scss/core.scss */
+/* line 202, ../scss/core.scss */
 .comment-inner .attribution p.comment-time {
   font-size: 13px;
 }
-/* line 205, ../scss/core.scss */
+/* line 210, ../scss/core.scss */
 .comment-inner .content {
   border: 1px solid #D3D7D9;
   margin-left: 140px;
   padding: 10px 25px;
 }
-/* line 209, ../scss/core.scss */
+/* line 214, ../scss/core.scss */
 .comment-inner .content .comment-arrow {
   height: 40px;
   margin-left: -45px;
@@ -2973,56 +3421,56 @@ body.discussion #content #comments div.form-actions input {
 
 /*  =Glossary
   ------------------------------------------------------ */
-/* line 222, ../scss/core.scss */
+/* line 227, ../scss/core.scss */
 .node-type-glossary-term h1 {
   margin-bottom: 0;
 }
 
-/* line 228, ../scss/core.scss */
+/* line 233, ../scss/core.scss */
 div.node-glossary-term .node-inner {
   margin-top: 30px;
 }
-/* line 230, ../scss/core.scss */
+/* line 235, ../scss/core.scss */
 div.node-glossary-term .node-inner .field {
   margin: 20px 0;
 }
-/* line 233, ../scss/core.scss */
+/* line 238, ../scss/core.scss */
 div.node-glossary-term .node-inner a {
   font-weight: normal;
 }
 
-/* line 239, ../scss/core.scss */
+/* line 244, ../scss/core.scss */
 ul#ibis-glossary-term-discussions {
   margin: 0;
   padding-left: 0;
 }
-/* line 242, ../scss/core.scss */
+/* line 247, ../scss/core.scss */
 ul#ibis-glossary-term-discussions li {
   list-style: none;
   margin: 0 0 20px 0;
 }
 
-/* line 248, ../scss/core.scss */
+/* line 253, ../scss/core.scss */
 div#walkthrough {
   display: none;
 }
 
 /*  =Overview
   ------------------------------------------------------ */
-/* line 253, ../scss/core.scss */
+/* line 258, ../scss/core.scss */
 .page-user-overview .block {
   margin-bottom: 50px;
 }
-/* line 255, ../scss/core.scss */
+/* line 260, ../scss/core.scss */
 .page-user-overview .block h2 {
   padding: 10px;
   margin-bottom: 0;
 }
-/* line 259, ../scss/core.scss */
+/* line 264, ../scss/core.scss */
 .page-user-overview .block .content {
   padding: 10px;
 }
-/* line 264, ../scss/core.scss */
+/* line 269, ../scss/core.scss */
 .page-user-overview #highlight
 .block {
   border: none;
@@ -3030,11 +3478,11 @@ div#walkthrough {
 
 /*  =Sidebar Second
   ------------------------------------------------------ */
-/* line 272, ../scss/core.scss */
+/* line 277, ../scss/core.scss */
 #sidebar-second #sidebar-second-inner {
   padding: 20px;
 }
-/* line 276, ../scss/core.scss */
+/* line 281, ../scss/core.scss */
 #sidebar-second #block-ibis_glossary-ibis_glossary_terms #ibis-glossary-highlight-button {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -3062,18 +3510,18 @@ div#walkthrough {
   border-radius: 4px / 4px;
   margin-bottom: 20px;
 }
-/* line 112, ../scss/_buttons.scss */
+/* line 113, ../scss/_buttons.scss */
 #sidebar-second #block-ibis_glossary-ibis_glossary_terms #ibis-glossary-highlight-button:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
   background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
-/* line 282, ../scss/core.scss */
+/* line 287, ../scss/core.scss */
 #sidebar-second h2.block-title {
   font-size: 24px;
   display: none;
 }
-/* line 288, ../scss/core.scss */
+/* line 293, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -3103,17 +3551,17 @@ div#walkthrough {
   font-size: 14px;
   text-align: center;
 }
-/* line 112, ../scss/_buttons.scss */
+/* line 113, ../scss/_buttons.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
   background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
-/* line 295, ../scss/core.scss */
+/* line 300, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-controls {
   margin: 10px 0;
 }
-/* line 301, ../scss/core.scss */
+/* line 306, ../scss/core.scss */
 #sidebar-second #boxes-box-add_discussion .boxes-box-content a {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -3144,26 +3592,26 @@ div#walkthrough {
   text-align: center;
   color: #7C0000;
 }
-/* line 112, ../scss/_buttons.scss */
+/* line 113, ../scss/_buttons.scss */
 #sidebar-second #boxes-box-add_discussion .boxes-box-content a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
   background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
   background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 
-/* line 312, ../scss/core.scss */
+/* line 317, ../scss/core.scss */
 .sidebar-right #content-inner {
   overflow: hidden;
   *zoom: 1;
   background: #f8f8f8;
 }
 
-/* line 318, ../scss/core.scss */
+/* line 323, ../scss/core.scss */
 #main {
   margin-top: 10px;
 }
 
-/* line 322, ../scss/core.scss */
+/* line 327, ../scss/core.scss */
 div#block-search-form {
   width: 80%;
   margin: 20px;
@@ -3172,142 +3620,142 @@ div#block-search-form {
   border-top: 3px solid #c3c3c3;
 }
 
-/* line 333, ../scss/core.scss */
+/* line 338, ../scss/core.scss */
 .page-user-login #content-header ul.tabs {
   display: none;
 }
-/* line 337, ../scss/core.scss */
+/* line 342, ../scss/core.scss */
 .page-user-login .new-password {
   float: left;
 }
 
-/* line 342, ../scss/core.scss */
+/* line 347, ../scss/core.scss */
 ul.primary li a {
   background: white;
   border: none;
 }
-/* line 345, ../scss/core.scss */
+/* line 350, ../scss/core.scss */
 ul.primary li a.active {
   border: none;
 }
 
-/* line 350, ../scss/core.scss */
+/* line 355, ../scss/core.scss */
 body, #header, #footer {
   background: #f1e9e4;
 }
 
-/* line 354, ../scss/core.scss */
+/* line 359, ../scss/core.scss */
 #sidebar-first {
   background: white;
 }
 
-/* line 357, ../scss/core.scss */
+/* line 362, ../scss/core.scss */
 #sidebar-second {
   background: white;
 }
 
-/* line 360, ../scss/core.scss */
+/* line 365, ../scss/core.scss */
 div.node {
   border-color: #f1e9e4;
 }
 
-/* line 363, ../scss/core.scss */
+/* line 368, ../scss/core.scss */
 span.submitted {
   color: #7c0000;
 }
 
-/* line 366, ../scss/core.scss */
+/* line 371, ../scss/core.scss */
 span.username {
   color: #7c0000;
 }
 
-/* line 369, ../scss/core.scss */
+/* line 374, ../scss/core.scss */
 a {
   color: black;
 }
-/* line 18, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 18, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:visited {
   color: black;
 }
-/* line 21, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 21, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:focus {
   color: black;
 }
-/* line 24, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 24, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:hover {
   color: #990000;
 }
-/* line 27, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
+/* line 27, ../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:active {
   color: black;
 }
 
-/* line 373, ../scss/core.scss */
+/* line 378, ../scss/core.scss */
 div#walkthrough {
   background-color: maroon;
 }
-/* line 376, ../scss/core.scss */
+/* line 381, ../scss/core.scss */
 div#walkthrough ul.links li {
   background: #b30000;
   opacity: 50%;
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
 }
-/* line 379, ../scss/core.scss */
+/* line 384, ../scss/core.scss */
 div#walkthrough ul.links li a:link {
   color: black;
 }
-/* line 381, ../scss/core.scss */
+/* line 386, ../scss/core.scss */
 div#walkthrough ul.links li a:hover {
   color: #f1e9e4;
 }
 
-/* line 385, ../scss/core.scss */
+/* line 390, ../scss/core.scss */
 div.profile div.field-label {
   background-color: white;
   color: #7c0000;
 }
 
-/* line 390, ../scss/core.scss */
+/* line 395, ../scss/core.scss */
 body.discussion #content img {
   border: 4px double #f1e9e4;
 }
 
-/* line 393, ../scss/core.scss */
+/* line 398, ../scss/core.scss */
 div.field-type-user-reference {
   border: 1px solid #f1e9e4;
 }
 
-/* line 396, ../scss/core.scss */
+/* line 401, ../scss/core.scss */
 div.field-type-user-reference .field-label, div.field-name-field-texts .field-label {
   color: #7c0000;
 }
 
-/* line 403, ../scss/core.scss */
+/* line 408, ../scss/core.scss */
 .page-user-overview .block {
   border: 1px solid #f1e9e4;
 }
-/* line 405, ../scss/core.scss */
+/* line 410, ../scss/core.scss */
 .page-user-overview .block h2 {
   background: white;
   border-bottom: 1px solid #f1e9e4;
 }
 
-/* line 410, ../scss/core.scss */
+/* line 415, ../scss/core.scss */
 #sidebar-second h2.block-title {
   border-bottom: 4px double #990000;
 }
-/* line 414, ../scss/core.scss */
+/* line 419, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a {
   color: #7c0000;
 }
 
-/* line 417, ../scss/core.scss */
+/* line 422, ../scss/core.scss */
 div#block-search-form {
   border-bottom: 1px solid #f1e9e4;
 }
 
-/* line 420, ../scss/core.scss */
+/* line 425, ../scss/core.scss */
 a#admin_toggle {
   color: #7c0000;
   background: white;
@@ -3316,12 +3764,12 @@ a#admin_toggle {
 /* ========================= */
 /* = demo temporary styles = */
 /* ========================= */
-/* line 428, ../scss/core.scss */
+/* line 433, ../scss/core.scss */
 span.form-required {
   color: #7c0000;
 }
 
-/* line 430, ../scss/core.scss */
+/* line 435, ../scss/core.scss */
 .page-node-6 {
   text-align: right;
 }

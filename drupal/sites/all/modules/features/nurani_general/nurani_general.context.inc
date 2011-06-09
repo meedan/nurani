@@ -42,6 +42,12 @@ function nurani_general_context_default_contexts() {
           'region' => 'right',
           'weight' => 1,
         ),
+        'nurani_glossary-0' => array(
+          'module' => 'nurani_glossary',
+          'delta' => 0,
+          'region' => 'right',
+          'weight' => 2,
+        ),
       ),
     ),
   );
@@ -87,6 +93,12 @@ function nurani_general_context_default_contexts() {
           'region' => 'top_strip',
           'weight' => 0,
         ),
+        'boxes-action_links' => array(
+          'module' => 'boxes',
+          'delta' => 'action_links',
+          'region' => 'top_strip',
+          'weight' => 1,
+        ),
       ),
     ),
   );
@@ -111,18 +123,7 @@ function nurani_general_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'boxes-add_glossary_term' => array(
-          'module' => 'boxes',
-          'delta' => 'add_glossary_term',
-          'region' => 'right',
-          'weight' => 0,
-        ),
-      ),
-    ),
-  );
+  $context->reactions = array();
   $context->condition_mode = 1;
 
   // Translatables
@@ -211,6 +212,18 @@ function nurani_general_context_default_contexts() {
           'region' => 'right',
           'weight' => 0,
         ),
+        'views-new_glossary_terms-block_1' => array(
+          'module' => 'views',
+          'delta' => 'new_glossary_terms-block_1',
+          'region' => 'right',
+          'weight' => 1,
+        ),
+        'views-new_texts-block_1' => array(
+          'module' => 'views',
+          'delta' => 'new_texts-block_1',
+          'region' => 'right',
+          'weight' => 2,
+        ),
       ),
     ),
   );
@@ -235,18 +248,7 @@ function nurani_general_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'boxes-add_text' => array(
-          'module' => 'boxes',
-          'delta' => 'add_text',
-          'region' => 'right',
-          'weight' => 0,
-        ),
-      ),
-    ),
-  );
+  $context->reactions = array();
   $context->condition_mode = 0;
 
   // Translatables

@@ -1,0 +1,212 @@
+<?php
+
+/**
+ * Implementation of hook_nodeapi().
+ */
+function nurani_glossary_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  // If someone highlights a text, and redirected to term add page.
+  if ($op == 'prepare' && $node->type == 'term' && !$node->nid) {
+    if (isset($_GET['language'])) {
+      $node->language = $_GET['language'];
+    }
+    if (isset($_GET['title'])) {
+      $title = strtolower(trim($_GET['title']));
+      // Normalize Arabic terms.
+      if ($node->language == 'ar') {
+        require_once('sites/all/libraries/ArPHP/Arabic.php');
+        $ar = new Arabic('ArNormalise');
+        $title = $ar->normalise($title);
+      }
+      $node->title = $title;
+    }
+  }
+
+  // When creating a new term, refresh the index immediately.
+  if (in_array($op, array('insert', 'update'))) {
+    node_update_index();
+    search_update_totals();
+  }
+
+  // When indexing, normalize Arabic text.
+  if ($op == 'view' && !empty($node->build_mode) && $node->build_mode == NODE_BUILD_SEARCH_INDEX && $node->language == 'ar') {
+    require_once('sites/all/libraries/ArPHP/Arabic.php');
+    $ar = new Arabic('ArNormalise');
+    $node->content['body'] = $ar->normalise($node->content['body']);
+  }
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function nurani_glossary_theme() {
+  return array(
+    'glossary_search_results' => array(
+      'arguments' => array(
+        'term' => NULL,
+        'type' => NULL,
+      ),
+      'template' => 'glossary-search-results',
+    ),
+    'glossary_references' => array(
+      'arguments' => array(
+        'node' => NULL
+      ),
+      'template' => 'glossary-references',
+    ),
+  );
+}
+
+/**
+ * Template preprocessor for theme('node').
+ */
+function nurani_glossary_preprocess_node(&$vars) {
+  if (in_array($vars['node']->type, array('discussion', 'text')) && user_access('create term content')) {
+    static $once = FALSE;
+    if (!$once) {
+      $once = TRUE;
+      $path = drupal_get_path('module', 'nurani_glossary');
+      drupal_add_js(array('nurani_glossary' => array(
+        'language' => $vars['node']->language, // pass to new glossary form
+        'url' => url('node/add/term'),
+      )), 'setting');
+      drupal_add_js($path . '/js/jquery.selectlink.js');
+      drupal_add_js($path . '/js/nurani_glossary.js');
+    }
+  }
+}
+
+/**
+ * Template preprocessor for theme('glossary_search_results').
+ */
+function nurani_glossary_preprocess_glossary_search_results(&$vars) {
+  $term = $vars['term']->title;
+  $type = $vars['type'];
+
+  static $results = NULL;
+  if (!isset($results[$term])) {
+    $results[$term] = module_invoke('node', 'search', 'search', $term);
+  }
+
+  $references = array();
+  foreach ($results[$term] as $result) {
+    if ($result['node']->language != $vars['term']->language) {
+      continue;
+    }
+    if ($result['node']->type == $type) {
+      // Do nothing.
+    }
+    elseif (!empty($result['node']->comment_target_nid)) {
+      $parent = node_load($result['node']->comment_target_nid);
+      if ($parent->type == $type) {
+        $result['node'] = $parent;
+      }
+      else {
+        continue;
+      }
+    }
+    else {
+      continue;
+    }
+    $references[$result['node']->nid]['node'] = $result['node'];
+    $references[$result['node']->nid]['snippet'][] = $result['snippet'];
+  }
+
+  $vars['results'] = $references;
+
+  $vars['title'] = t('!types referring to %term', array(
+    '!types' => t($type . 's'),
+    '%term' => $term,
+  ));
+}
+
+/**
+ * Template preprocessor for theme('glossary_references').
+ */
+function nurani_glossary_preprocess_glossary_references(&$vars) {
+  $node = $vars['node'];
+
+  // Find all terms that are mentioned in given node and all its comments.
+  $terms = array();
+  $result = db_query("
+SELECT DISTINCT(n.nid), n.title 
+FROM {node} n
+INNER JOIN {search_index} si ON si.word = n.title AND si.type = 'node'
+WHERE n.type = 'term'
+AND n.language = '%s'
+AND (si.sid = %d 
+  OR si.sid IN (
+    SELECT cid 
+    FROM {node_comments} nc 
+    WHERE nc.nid = %d
+  )
+)
+ORDER BY n.title ASC
+  ", $node->language, $node->nid, $node->nid);
+  while ($term = db_fetch_object($result)) {
+    $terms[] = $term;
+  }
+  $vars['results'] = $terms;
+}
+
+/**
+ * Implementation of hook_block().
+ */
+function nurani_glossary_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
+    case 'list':
+      return array(
+        0 => array(
+          'info' => t('Nurani glossary references'),
+          'cache' => BLOCK_NO_CACHE,
+        ),
+      );
+    
+    case 'view':
+      $node = menu_get_object();
+      $type = node_get_types('type', $node->type);
+      return array(
+        'subject' => t('Glossary terms in this !type', array('!type' => t($type->name))),
+        'content' => theme('glossary_references', $node),
+      );
+  }
+}
+
+/**
+ * Implementation of hook_filter().
+ */
+function nurani_glossary_filter($op, $delta = 0, $format = -1, $text = '', $cache_id = 0) {
+  switch ($op) {
+    case 'list':
+      return array(0 => t('Nurani glossary filter'));
+
+    case 'description':
+      return t('Highlights glossary terms.');
+
+    case 'process':
+      return nurani_glossary_filter_process($text);
+
+    case 'no cache':
+      return TRUE;
+
+    default:
+      return $text;
+  }
+}
+
+function nurani_glossary_filter_process($text) {
+  global $language;
+  $search = array();
+  $replace = array();
+  $result = db_query("SELECT title, nid FROM {node} WHERE type = 'term' AND language = '%s'", $language->language);
+  while ($term = db_fetch_object($result)) {
+    $search[] = "/(\W)({$term->title})(\W)/i";
+    $replace[] = '$1<span class="glossary-term"><a href="' . url('node/' . $term->nid) . '">$2</a></span>$3';
+  }
+  return preg_replace($search, $replace, $text);
+}
+
+function nurani_glossary_noderefcreate_alter(&$node, $element) {
+  global $language;
+  $node->language = $language->language == 'en' ? 'ar' : 'en';
+}
+

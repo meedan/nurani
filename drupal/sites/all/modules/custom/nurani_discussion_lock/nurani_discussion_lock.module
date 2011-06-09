@@ -1,21 +1,15 @@
 <?php
-// $Id$
-
-/**
- * @file
- */
-
 
 /**
  * Implementation of hook_theme().
  */
 function nurani_discussion_lock_theme($existing, $type, $theme, $path) {
-
   $hooks = array();
   
   $hooks['nurani_discussion_lock_formatter_countdown'] = array(
-    'arguments' => array('element' => NULL)
+    'arguments' => array('element' => NULL),
   );
+
   return $hooks;
 }
 
@@ -23,7 +17,6 @@ function nurani_discussion_lock_theme($existing, $type, $theme, $path) {
  * Implementation of hook_field_formatter_info().
  */
 function nurani_discussion_lock_field_formatter_info() {
-
   return array(
     'countdown' => array(
       'label' => t('Countdown'),
@@ -35,12 +28,9 @@ function nurani_discussion_lock_field_formatter_info() {
 
 
 function theme_nurani_discussion_lock_formatter_countdown($element) {
-  
-  
   $timestamp = $element['#item']['value'];
-  
   $now = time();
-  
+
   if (empty($timestamp)) {
     return t('This discussion is not time-limited.');
   }
@@ -50,23 +40,24 @@ function theme_nurani_discussion_lock_formatter_countdown($element) {
   else {
     return t('<strong>@time</strong> before close of discussion.', array('@time' => format_interval($timestamp - $now, 1)));
   }
-  
 }
 
 /**
- * Implementation of hook_cron().
+ * Implementation of hook_nodeapi().
  */
-function nurani_discussion_lock_cron() {
-  
-  $current_stamp = time();
-  $node_limit = 200;
-  
-  $result = db_query_range("SELECT nid FROM {content_type_discussion} WHERE field_exp_comments_value < %d", $current_stamp, 0, $node_limit);
-  
-  while ($record = db_fetch_object($result)) {
-    
-    $node = node_load($record->nid);
-    $node->node_comment = 1; // Read-only.
-    node_save($node);
+function nurani_discussion_lock_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  // When loading a discussion, check comment status.
+  if ($op == 'load' && $node->type == 'discussion') {
+    if (!empty($node->field_exp_comments[0]['value']) && $node->field_exp_comments[0]['value'] < time()) {
+      $node->node_comment = COMMENT_NODE_READ_ONLY;
+    }
+  }
+
+  // When saving a discussion, check comment status.
+  if ($op == 'presave' && $node->type == 'discussion') {
+    if (!empty($node->field_exp_comments[0]['value'])) {
+      $node->node_comment = $node->comment = $node->field_exp_comments[0]['value'] < time() ? COMMENT_NODE_READ_ONLY : COMMENT_NODE_READ_WRITE;
+    }
   }
 }
+

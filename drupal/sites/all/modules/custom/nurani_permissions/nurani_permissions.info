@@ -1,0 +1,4 @@
+name = Nurani permissions
+description = Permission logic for Nurani.
+package = Nurani
+core = 6.x

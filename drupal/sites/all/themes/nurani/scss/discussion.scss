@@ -10,6 +10,7 @@ body.node-type-discussion {
 		border: 1px solid #b0a9a4;
 		background: #d6cbc0 url(../images/clock.png) no-repeat 20px 25px;
 		padding: 20px 65px;
+		margin: 40px 0 0;
 		
 		strong {
 			color: $white;
@@ -48,7 +49,7 @@ body.node-type-discussion {
 
   p {}
   div#block-views-discussion_texts-block_1 {
-		background: url("../images/borders.png") no-repeat center 7px;
+		background: url("../images/borders.png") no-repeat center 9px;
     width: 900px;
 		text-align: center;
 
@@ -62,8 +63,6 @@ body.node-type-discussion {
 
 			.content {
 				text-align: left;
-				margin: 20px 0;
-				height: 280px;
 			}
   }
   
@@ -76,7 +75,7 @@ body.node-type-discussion {
   /* views-row is not a row, actually, just a div ... */
  
     div.views-row {
-    margin: 10px 5px;
+    margin: 30px 5px 40px;
     float: left;
     width: $text_width;
     div.buildmode-text_summary {
@@ -87,19 +86,24 @@ body.node-type-discussion {
       float: left;
       padding: 0 10px;
       position: relative;
-      min-height: $text_height;
-      line-height: 1em;
+      height: 265px;
+      line-height: 1.3em;
+			font-size: 0.8em;
       h1 {
-        font-size: 23px;
-	text-transform: inherit;
-        font-weight: bold;
+        font-size: 1.5em;
+				text-transform: inherit;
         line-height: 1.2em;
         letter-spacing: -0.3px;
-	text-align: left;
+				text-align: left;
         color: #000;
+				margin: 0;
+				padding-left: 0;
+				padding-right: 0;
         }
 			
 	.field-description {
+		height: 158px;
+		overflow: hidden;
 		color: #303030;
 	}
       
@@ -116,15 +120,17 @@ body.node-type-discussion {
   }
   #boxes-box-discussion_info {
     .field-label {
-      border-bottom: 1px solid #ccc; 
+      border-bottom: 1px solid $gray; 
       margin: 20px 0 10px;
    	 	color: $maroon;
     	font-family: Helvetica,arial,sans-serif;
     	font-size: 0.8em;
 			font-weight: normal;
-    	padding-bottom: 3px;
     	text-transform: uppercase;
     }
+		.field-item {
+			margin: 0 0 8px;
+		}
   }
 
   #container {
@@ -140,65 +146,141 @@ body.node-type-discussion {
 		#content-inner {
 			background: transparent;
 		}
+			ul.tabs {
+				margin: 0 0 15px;
+			}
 			#content-area {
 				div.field-label {
 					position: absolute;
-					top: -4px;
+					top: -6px;
 					padding: 0 20px;
 					display: inline;
 					background: $white;
 		 		  text-transform: uppercase;
 					font-size: 0.9em;
 				}	
-			p {
+			.node-type-discussion {
+			  border: 1px solid $gray;
+				padding: 20px 0 0 20px;
+				margin: 0 0 0 20px;
+			
+				.field-body {
+					padding: 0 20px 0 0;		
+		
+					p {
+						text-align: justify;
+						margin: 0 0 1em;
+					}
+				}
+				ul.links {
+					position: relative;
+					width: 100%;
+					display: inline-block;
+				}
+				li.nurani_translation a {
+					background-image: -moz-linear-gradient(center top , $white 0%, #EEEEEE 100%);
+    			border: 1px solid $gray;
+    			border-radius: 5px 5px 5px 5px;
+    			bottom: -38px;
+					left: -5px;
+    			font-size: 0.8em;
+    			padding: 4px 10px;
+    			position: absolute;
+				}
+			}
+			.field-translation-status {
+				border-top: 1px solid $gray;
+				border-left: 1px solid $gray;
 				text-align: left;
+				width: 235px;
+				padding: 5px;
+				float: right;
+				@include en-sans;
+				font-size: 0.8em;
+				line-height: 1.3em;
 			}
 		}
 		#sidebar-second {
 			text-align: left;
+			margin-right: 1.2em;
+			width: 346px;
+	
+			#sidebar-second-inner {
+				padding-left: 7px;
+			}
 		}		
+		h3.block-title {
+			color: $maroon;
+			border-bottom: 1px solid $maroon;
+			text-transform: uppercase;
+			font-size: 1em;
+			font-weight: bold;
+		}
 		#comments {
 			text-align: left;
-			background: url("../images/borders.png") no-repeat center top;
-			padding: 30px 0 0;
+			padding:40px 0 0;
 			position: relative;
+			margin: 0 0 0 20px;
 
-				h2#comments-title {
-					background: none repeat scroll 0 0 #FFFFFF;
-					font-size: 0.9em;
-					left: 230px;
-					padding: 0 10px;
-					position: absolute;
-					text-transform: uppercase;
-    			top: -5px;
-				}	
-				textarea {
-					box-shadow: 0 3px 0 #eee;
-				}
+			h2#comments-title {
+				background: #fff url("../images/borders-comment.png") no-repeat left 7px;
+				font-size: 0.9em;
+				padding: 0 0 0 217px;
+				text-transform: uppercase;
 			}	
-			ul.links { 
-				border: 1px solid #ccc;
-				padding: 7px 5px;
-				border-radius: 5px;
-				font-size: 1.3em;
-				background-image: -moz-linear-gradient(center top , #FFFFFF 0%, #EEEEEE 100%);
-					li {
-						padding: 0 10px;
- 				 }
+			.buildmode-full {
+				border: 1px solid $gray;
+				margin: 0 0 20px;
+				padding: 10px 0 0 10px;
+				position: relative;
+			}
+			.node {
+				padding: 0;	
+				.field-author {
+					float: left;
+					margin: 0 10px 0 0;
+					font-weight: bold;
+				}
+				.field-post-date {
+					color: $gray;
+					float: right;
+					padding: 0 10px 0 0;
+					font-size: 0.9em;
+				}
+				.field-body {
+					margin: 20px 10px 0 0;
+				}
+			}
+			textarea {
+				box-shadow: 0 3px 0 $lightgray;
+			}
+		}	
+		.node-type-comment ul.links { 
+			border: 1px solid #ccc;
+			padding: 4px 5px;
+			border-radius: 5px;
+			font-size: 0.8em;
+			background-image: -moz-linear-gradient(center top , #FFFFFF 0%, #EEEEEE 100%);
+			position: absolute;
+			bottom: 7px;
+				li {
+					padding: 0 5px;
+ 			 }
  		 }
 		.box {
 			background: url("../images/borders.png") no-repeat center top;
 			padding: 10px 0 0;
+			margin: 50px 0 0;
 			position: relative;
 	
 		h2 {
 			background: #FFFFFF;
 			font-size: 0.9em;
-			left: 190px;
+			left: 158px;
 			padding: 0 10px;
 			position: absolute;
 			text-transform: uppercase;
-    	top: -5px;
+    	top: -6px;
 		}
 	}
 }

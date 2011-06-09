@@ -15,7 +15,6 @@ body.page-overview {
     position: relative;
     @include box-shadow(#ccc, 0px, 3px, 3px);
     @include linear-gradient(color_stops(darken($postit,7%),$postit,$postit));
-    line-height: 1em;
     h3 {
       @include text-shadow(0px, 1px, 0px, #fff);
       color: #333;

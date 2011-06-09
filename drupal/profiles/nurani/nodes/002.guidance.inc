@@ -11,7 +11,7 @@ array(
     'promote' => '0',
     'moderate' => '0',
     'sticky' => '0',
-    'tnid' => '0',
+    'tnid' => '2',
     'translate' => '0',
     'vid' => '2',
     'revision_uid' => '1',
