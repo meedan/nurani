@@ -95,3 +95,11 @@ select#edit-language {
 .page-glossary ul.menu li.glossary a {
 	background: url("../images/g.png") no-repeat 10px 20px;
 }
+	.glossary-term a {
+		font-weight: normal;
+	}
+	.glossary-term a:hover {
+		color: $maroon;
+		text-decoration: underline;
+	}
+

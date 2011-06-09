@@ -138,3 +138,14 @@ body.page-glossary .view-content {
 .page-glossary ul.menu li.glossary a {
   background: url("../images/g.png") no-repeat 10px 20px;
 }
+
+/* line 98, ../scss/glossary.scss */
+.glossary-term a {
+  font-weight: normal;
+}
+
+/* line 101, ../scss/glossary.scss */
+.glossary-term a:hover {
+  color: #7c0000;
+  text-decoration: underline;
+}
