@@ -55,7 +55,7 @@ body.node-type-discussion {
 
 			h3.block-title {
 				background: $white;
-				padding: 0 20px;
+				padding: 0 10px;
 				display: inline;
 				font-size: 0.9em;
 				text-transform: uppercase;
@@ -153,7 +153,7 @@ body.node-type-discussion {
 				div.field-label {
 					position: absolute;
 					top: -6px;
-					padding: 0 20px;
+					padding: 0 10px;
 					display: inline;
 					background: $white;
 		 		  text-transform: uppercase;
@@ -189,15 +189,25 @@ body.node-type-discussion {
 				}
 			}
 			.field-translation-status {
-				border-top: 1px solid $gray;
-				border-left: 1px solid $gray;
-				text-align: left;
-				width: 235px;
-				padding: 5px;
+			  text-align: left;
+				width: 245px;
 				float: right;
 				@include en-sans;
 				font-size: 0.8em;
 				line-height: 1.3em;
+				margin: 0 -1px -1px 0;
+			}
+			.translation-status-original {
+				border: 1px solid $gray;
+				padding: 5px;
+				background: $white;
+				border-radius: 5px 0 0 0;
+			}
+			.translation-status-placeholder {
+				border: 1px solid $yellow_orange;
+				padding: 5px;
+				background: $yellow_orange;
+				border-radius: 5px 0 0 0;
 			}
 		}
 		#sidebar-second {
