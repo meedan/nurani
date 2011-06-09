@@ -197,10 +197,14 @@ body.node-type-discussion {
 				line-height: 1.3em;
 				margin: 0 -1px -1px 0;
 			}
+			.translation-status-original {
+				border: 1px solid $gray;
+				padding: 5px;
+				background: $white;
+				border-radius: 5px 0 0 0;
+			}
 			.translation-status-placeholder {
 				border: 1px solid $yellow_orange;
-				border-right: 1px solid #fe9820;
-				border-bottom: 1px solid #fe9820;
 				padding: 5px;
 				background: $yellow_orange;
 				border-radius: 5px 0 0 0;

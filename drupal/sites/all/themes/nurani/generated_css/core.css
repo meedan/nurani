@@ -94,25 +94,18 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: AmiriWeb;
-  src: url("../fonts/amiri-regular.eot") format("eot"), url("../fonts/amiri-regular.woff") format("woff"), url("../fonts/amiri-regular.ttf") format("truetype");
-}
-
-/* the English fonts are from typekit*/
-/*CGB TODO: not sure what the arabic language selector is*/
-/* line 29, ../scss/type.scss */
+/* line 20, ../scss/type.scss */
 body.i18n-ar {
   font-family: UthmanTN, AmiriWeb, serif;
   font-size: 1.1em;
   line-height: 1.5em;
 }
-/* line 34, ../scss/type.scss */
+/* line 25, ../scss/type.scss */
 body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
   font-family: AmiriWeb, serif;
 }
 
-/* line 70, ../scss/type.scss */
+/* line 56, ../scss/type.scss */
 body {
   margin: 0;
   font-family: Georgia, Times, Times New Roman, serif;
@@ -121,7 +114,7 @@ body {
 }
 
 /* Titles. */
-/* line 78, ../scss/type.scss */
+/* line 64, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -130,14 +123,14 @@ body {
   margin: 0;
 }
 
-/* line 85, ../scss/type.scss */
+/* line 71, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
   font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 91, ../scss/type.scss */
+/* line 77, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -148,77 +141,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 101, ../scss/type.scss */
+/* line 87, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 106, ../scss/type.scss */
+/* line 92, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 112, ../scss/type.scss */
+/* line 98, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 116, ../scss/type.scss */
+/* line 102, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 121, ../scss/type.scss */
+/* line 107, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 126, ../scss/type.scss */
+/* line 112, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 130, ../scss/type.scss */
+/* line 116, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 135, ../scss/type.scss */
+/* line 121, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 140, ../scss/type.scss */
+/* line 126, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 143, ../scss/type.scss */
+/* line 129, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 147, ../scss/type.scss */
+/* line 133, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 151, ../scss/type.scss */
+/* line 137, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -228,56 +221,56 @@ pre {
 }
 
 /* List styles. */
-/* line 159, ../scss/type.scss */
+/* line 145, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 161, ../scss/type.scss */
+/* line 147, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 163, ../scss/type.scss */
+/* line 149, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 165, ../scss/type.scss */
+/* line 151, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 168, ../scss/type.scss */
+/* line 154, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 170, ../scss/type.scss */
+/* line 156, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 172, ../scss/type.scss */
+/* line 158, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 176, ../scss/type.scss */
+/* line 162, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 181, ../scss/type.scss */
+/* line 167, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 185, ../scss/type.scss */
+/* line 171, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 188, ../scss/type.scss */
+/* line 174, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -286,12 +279,12 @@ abbr {
   color: #777777;
 }
 
-/* line 195, ../scss/type.scss */
+/* line 181, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 208, ../scss/type.scss */
+/* line 192, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -301,7 +294,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 209, ../scss/type.scss */
+/* line 193, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -311,7 +304,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 210, ../scss/type.scss */
+/* line 194, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -321,7 +314,7 @@ div.error {
   text-align: center;
 }
 
-/* line 211, ../scss/type.scss */
+/* line 195, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -331,7 +324,7 @@ div.status {
   text-align: center;
 }
 
-/* line 213, ../scss/type.scss */
+/* line 197, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -750,25 +743,18 @@ ul.pager li {
   font-style: normal;
 }
 
-@font-face {
-  font-family: AmiriWeb;
-  src: url("../fonts/amiri-regular.eot") format("eot"), url("../fonts/amiri-regular.woff") format("woff"), url("../fonts/amiri-regular.ttf") format("truetype");
-}
-
-/* the English fonts are from typekit*/
-/*CGB TODO: not sure what the arabic language selector is*/
-/* line 29, ../scss/type.scss */
+/* line 20, ../scss/type.scss */
 body.i18n-ar {
   font-family: UthmanTN, AmiriWeb, serif;
   font-size: 1.1em;
   line-height: 1.5em;
 }
-/* line 34, ../scss/type.scss */
+/* line 25, ../scss/type.scss */
 body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
   font-family: AmiriWeb, serif;
 }
 
-/* line 70, ../scss/type.scss */
+/* line 56, ../scss/type.scss */
 body {
   margin: 0;
   font-family: Georgia, Times, Times New Roman, serif;
@@ -777,7 +763,7 @@ body {
 }
 
 /* Titles. */
-/* line 78, ../scss/type.scss */
+/* line 64, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -786,14 +772,14 @@ body {
   margin: 0;
 }
 
-/* line 85, ../scss/type.scss */
+/* line 71, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
   font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 91, ../scss/type.scss */
+/* line 77, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -804,77 +790,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 101, ../scss/type.scss */
+/* line 87, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 106, ../scss/type.scss */
+/* line 92, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 112, ../scss/type.scss */
+/* line 98, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 116, ../scss/type.scss */
+/* line 102, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 121, ../scss/type.scss */
+/* line 107, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 126, ../scss/type.scss */
+/* line 112, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 130, ../scss/type.scss */
+/* line 116, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 135, ../scss/type.scss */
+/* line 121, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 140, ../scss/type.scss */
+/* line 126, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 143, ../scss/type.scss */
+/* line 129, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 147, ../scss/type.scss */
+/* line 133, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 151, ../scss/type.scss */
+/* line 137, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -884,56 +870,56 @@ pre {
 }
 
 /* List styles. */
-/* line 159, ../scss/type.scss */
+/* line 145, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 161, ../scss/type.scss */
+/* line 147, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 163, ../scss/type.scss */
+/* line 149, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 165, ../scss/type.scss */
+/* line 151, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 168, ../scss/type.scss */
+/* line 154, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 170, ../scss/type.scss */
+/* line 156, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 172, ../scss/type.scss */
+/* line 158, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 176, ../scss/type.scss */
+/* line 162, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 181, ../scss/type.scss */
+/* line 167, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 185, ../scss/type.scss */
+/* line 171, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 188, ../scss/type.scss */
+/* line 174, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -942,12 +928,12 @@ abbr {
   color: #777777;
 }
 
-/* line 195, ../scss/type.scss */
+/* line 181, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 208, ../scss/type.scss */
+/* line 192, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -957,7 +943,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 209, ../scss/type.scss */
+/* line 193, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -967,7 +953,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 210, ../scss/type.scss */
+/* line 194, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -977,7 +963,7 @@ div.error {
   text-align: center;
 }
 
-/* line 211, ../scss/type.scss */
+/* line 195, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -987,7 +973,7 @@ div.status {
   text-align: center;
 }
 
-/* line 213, ../scss/type.scss */
+/* line 197, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -1597,32 +1583,36 @@ body.node-type-discussion #container #content-area .field-translation-status {
   text-align: left;
   width: 245px;
   float: right;
-  /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
   font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
   font-size: 0.8em;
   line-height: 1.3em;
   margin: 0 -1px -1px 0;
 }
 /* line 200, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area .translation-status-original {
+  border: 1px solid #cccccc;
+  padding: 5px;
+  background: white;
+  border-radius: 5px 0 0 0;
+}
+/* line 206, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .translation-status-placeholder {
   border: 1px solid #ffcd93;
-  border-right: 1px solid #fe9820;
-  border-bottom: 1px solid #fe9820;
   padding: 5px;
   background: #ffcd93;
   border-radius: 5px 0 0 0;
 }
-/* line 209, ../scss/discussion.scss */
+/* line 213, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second {
   text-align: left;
   margin-right: 1.2em;
   width: 346px;
 }
-/* line 214, ../scss/discussion.scss */
+/* line 218, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding-left: 7px;
 }
-/* line 218, ../scss/discussion.scss */
+/* line 222, ../scss/discussion.scss */
 body.node-type-discussion #container h3.block-title {
   color: #7c0000;
   border-bottom: 1px solid #7c0000;
@@ -1630,53 +1620,53 @@ body.node-type-discussion #container h3.block-title {
   font-size: 1em;
   font-weight: bold;
 }
-/* line 225, ../scss/discussion.scss */
+/* line 229, ../scss/discussion.scss */
 body.node-type-discussion #container #comments {
   text-align: left;
   padding: 40px 0 0;
   position: relative;
   margin: 0 0 0 20px;
 }
-/* line 231, ../scss/discussion.scss */
+/* line 235, ../scss/discussion.scss */
 body.node-type-discussion #container #comments h2#comments-title {
   background: white url("../images/borders-comment.png") no-repeat left 7px;
   font-size: 0.9em;
   padding: 0 0 0 217px;
   text-transform: uppercase;
 }
-/* line 237, ../scss/discussion.scss */
+/* line 241, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .buildmode-full {
   border: 1px solid #cccccc;
   margin: 0 0 20px;
   padding: 10px 0 0 10px;
   position: relative;
 }
-/* line 243, ../scss/discussion.scss */
+/* line 247, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node {
   padding: 0;
 }
-/* line 245, ../scss/discussion.scss */
+/* line 249, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-author {
   float: left;
   margin: 0 10px 0 0;
   font-weight: bold;
 }
-/* line 250, ../scss/discussion.scss */
+/* line 254, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-post-date {
   color: #cccccc;
   float: right;
   padding: 0 10px 0 0;
   font-size: 0.9em;
 }
-/* line 256, ../scss/discussion.scss */
+/* line 260, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-body {
   margin: 20px 10px 0 0;
 }
-/* line 260, ../scss/discussion.scss */
+/* line 264, ../scss/discussion.scss */
 body.node-type-discussion #container #comments textarea {
   box-shadow: 0 3px 0 #eeeeee;
 }
-/* line 264, ../scss/discussion.scss */
+/* line 268, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-comment ul.links {
   border: 1px solid #ccc;
   padding: 4px 5px;
@@ -1686,18 +1676,18 @@ body.node-type-discussion #container .node-type-comment ul.links {
   position: absolute;
   bottom: 7px;
 }
-/* line 272, ../scss/discussion.scss */
+/* line 276, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-comment ul.links li {
   padding: 0 5px;
 }
-/* line 276, ../scss/discussion.scss */
+/* line 280, ../scss/discussion.scss */
 body.node-type-discussion #container .box {
   background: url("../images/borders.png") no-repeat center top;
   padding: 10px 0 0;
   margin: 50px 0 0;
   position: relative;
 }
-/* line 282, ../scss/discussion.scss */
+/* line 286, ../scss/discussion.scss */
 body.node-type-discussion #container .box h2 {
   background: #FFFFFF;
   font-size: 0.9em;
@@ -1708,7 +1698,7 @@ body.node-type-discussion #container .box h2 {
   top: -6px;
 }
 
-/* line 294, ../scss/discussion.scss */
+/* line 298, ../scss/discussion.scss */
 body.section-node-edit div#container {
   text-align: left;
 }
@@ -2969,7 +2959,6 @@ div.node-discussion .field-name-field-translator {
 }
 /* line 32, ../scss/discussion_header.scss */
 div.node-discussion div.field-type-user-reference .field-label, div.node-discussion div.field-name-field-texts .field-label {
-  /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
   font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
   text-transform: uppercase;
   font-size: 13px;
@@ -3149,7 +3138,6 @@ ul.menu li.active-trail {
   margin: 0 3px;
   border-radius: 15px;
   font-weight: normal;
-  /* http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
   font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
 }
 
