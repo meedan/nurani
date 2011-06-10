@@ -10,6 +10,9 @@ body.i18n-ar {
 		font-style: normal;
 		font-weight: bold;
 	}
+	#content-header ul.tabs li a {
+ 		font-family: UthmanTN,serif;
+	}
 	/*action links*/
 	#top-strip {
 		height: 27px;
@@ -193,15 +196,18 @@ body.i18n-ar.node-type-discussion {
 	h1.title {
 		margon-top: 40px;
 	}
+  div#container	.inner {
+	}
 	.field-exp-comments {
 		background-position: 270px 33px;
 	}
 	div#block-views-discussion_texts-block_1 {	
 		h3 {
-			font-size: 1em;
+			font-size: 0.9em;
 			padding: 0 15px;
 			font-size: 1em;
 			padding: 0 15px;;
+			font-weight: bold;
 		}
 		h1 {
 			text-align: right;
@@ -218,46 +224,50 @@ body.i18n-ar.node-type-discussion {
 	}
 	#container {
 		#content-area {
+			background-position: -338px top;
 			.node-type-discussion {
 				margin: 0 20px 0 0;
-				padding: 20px 0 0 0;
+				padding: 10px 10px 0 0;
 
+				.field-body {
+					padding: 0 0 0 10px;
+				}
 				div.field-label {
-			    font-size: 0.9em;
-					padding: 0 15px;
-					right: 400px;
+			    font-size: 1em;
+					left: 200px;
+					font-weight: bold;
 					top: -10px;
 				}
-				.field-body {
-					padding: 0 0 0 20px;
-
-					p {
-						text-align: right;
-						margin: 0 1.1em 1em 0;	
-					}	
-				}
+				p {
+					text-align: right;
+				}	
 				li.nurani_translation a {
 					left: auto;
 					right: 20px;
 				}
 			}
-			.field-translation-status {
-				float: left;
-				border-left: 0;
-				border-right: 1px solid $gray;
-				text-align: right;
-				font-size: 0.8em;
-			}
-	 	}
+				.translation-status,
+				.translation-status-original {
+					border-radius: 0 5px 0 0;
+				}
+				.field-translation-status {
+					float: left;
+					text-align: right;
+					margin: 0 0 -1px -1px;
+				}
+}
 		#comments {
 			margin: 0 20px 0 0;
 	text-align: right;
 		 
 			h2#comments-title {
 				padding: 0 0 0 238px;
+				background: url("../images/borders-comment-ar.png") no-repeat left 7px white;
+				padding: 0 246px 0 0;
+				font-weight: bold;
 			}	
 			.buildmode-full {
-				padding: 10px 0 0 10px;
+				padding: 10px 10px 0 0;
 			}
 			.field-author {
 					float: right;
@@ -266,19 +276,19 @@ body.i18n-ar.node-type-discussion {
 				float: left;
 				padding: 0 0 0 10px;
 			}
-			.node p {
-				margin: 0 0 1em 0;
+			.node {
+				.field-body {
+					margin: 20px 0 0 10px;
+					p {
+						margin: 0 0 1em 0;
+					}
+				}
 			}				
-			.field-translation-status {
-				border: 1px solid $gray;
-				border-left: 0;
-				border-bottom: 0;
-			}
 			.nd-region-footer {
 				text-align: right;
 					ul.links {
 						line-height: 20px;
-						right: 5px;
+						right: 10px;
 					}
 			}
 			label {

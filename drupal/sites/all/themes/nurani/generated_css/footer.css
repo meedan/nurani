@@ -26,13 +26,13 @@
 
 /* line 20, ../scss/type.scss */
 body.i18n-ar {
-  font-family: UthmanTN, AmiriWeb, serif;
+  font-family: UthmanTN, serif;
   font-size: 1.1em;
   line-height: 1.5em;
 }
 /* line 25, ../scss/type.scss */
 body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
-  font-family: AmiriWeb, serif;
+  font-family: UthmanTN, serif;
 }
 
 /* line 56, ../scss/type.scss */

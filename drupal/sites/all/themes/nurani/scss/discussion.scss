@@ -75,7 +75,7 @@ body.node-type-discussion {
   /* views-row is not a row, actually, just a div ... */
  
     div.views-row {
-    margin: 30px 5px 40px;
+    margin: 30px 5px 10px;
     float: left;
     width: $text_width;
     div.buildmode-text_summary {
@@ -134,39 +134,44 @@ body.node-type-discussion {
   }
 
   #container {
-		background: url("../images/borders.png") no-repeat center top;
 		text-align: center;
-		position: relative;
 		padding: 8px 0 0;		
 		
 		#main {
 			position: static;
 		}
- 	  
 		#content-inner {
 			background: transparent;
 		}
+		.inner {
+			padding: 20px 10px 20px 20px;
+		}
+		#content-area {
+			background: url("../images/borders.png") no-repeat 20px top;
+			position: relative;
+			padding: 30px 0 0;
+		}
 			ul.tabs {
-				margin: 0 0 15px;
+				margin: 0 0 30px;
 			}
 			#content-area {
 				div.field-label {
 					position: absolute;
 					top: -6px;
 					padding: 0 10px;
-					display: inline;
 					background: $white;
 		 		  text-transform: uppercase;
 					font-size: 0.9em;
+					left: 141px;
 				}	
 			.node-type-discussion {
 			  border: 1px solid $gray;
-				padding: 20px 0 0 20px;
+				padding: 10px 0 0 10px;
 				margin: 0 0 0 20px;
 			
 				.field-body {
-					padding: 0 20px 0 0;		
-		
+					padding: 0 10px 0 0;		
+	
 					p {
 						text-align: justify;
 						margin: 0 0 1em;
@@ -197,6 +202,7 @@ body.node-type-discussion {
 				line-height: 1.3em;
 				margin: 0 -1px -1px 0;
 			}
+			.translation-status,
 			.translation-status-original {
 				border: 1px solid $gray;
 				padding: 5px;
@@ -249,7 +255,6 @@ body.node-type-discussion {
 				.field-author {
 					float: left;
 					margin: 0 10px 0 0;
-					font-weight: bold;
 				}
 				.field-post-date {
 					color: $gray;
