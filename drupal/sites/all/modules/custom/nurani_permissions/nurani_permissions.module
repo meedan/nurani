@@ -22,7 +22,7 @@ function nurani_permissions_form_alter(&$form, $form_state, $form_id) {
 function _nurani_permissions_discussion_access($discussion, $user = NULL) {
   $uids = array($discussion->uid);
   foreach (array('field_moderators', 'field_scholars', 'field_translators') as $field) {
-    foreach ($discussion->{$field} as $item) {
+    if (!empty($dicussion->{$field})) foreach ($discussion->{$field} as $item) {
       $uids[] = $item['uid'];
     }
   }

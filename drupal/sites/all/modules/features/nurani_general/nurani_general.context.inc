@@ -68,6 +68,7 @@ function nurani_general_context_default_contexts() {
   $context->conditions = array(
     'user' => array(
       'values' => array(
+        'anonymous user' => 'anonymous user',
         'authenticated user' => 'authenticated user',
       ),
     ),
