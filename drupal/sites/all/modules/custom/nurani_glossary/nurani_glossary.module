@@ -125,7 +125,7 @@ function nurani_glossary_preprocess_glossary_search_results(&$vars) {
 function nurani_glossary_preprocess_glossary_references(&$vars) {
   $node = $vars['node'];
 
-  // Find all terms that are mentioned in given node and all its comments.
+  // Find all terms that are mentioned in given node and all its comments and associated texts.
   $terms = array();
   $result = db_query("
 SELECT DISTINCT(n.nid), n.title 
@@ -139,9 +139,14 @@ AND (si.sid = %d
     FROM {node_comments} nc 
     WHERE nc.nid = %d
   )
+  OR si.sid IN (
+    SELECT field_texts_nid
+    FROM {content_field_texts} cft
+    WHERE cft.nid = %d
+  )
 )
 ORDER BY n.title ASC
-  ", $node->language, $node->nid, $node->nid);
+  ", $node->language, $node->nid, $node->nid, $node->nid);
   while ($term = db_fetch_object($result)) {
     $terms[] = $term;
   }

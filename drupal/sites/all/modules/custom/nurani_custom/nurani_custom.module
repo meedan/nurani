@@ -40,6 +40,8 @@ function nurani_custom_preprocess_translation_status(&$vars) {
   $classes = array();
   $captions = array();
 
+  drupal_add_js(drupal_get_path('module', 'nurani_custom') . '/js/translation_status.js');
+
   if (empty($node->tnid)) {
     // Should not come here because auto-translate is active.
     $classes[] = 'translation-status-untranslated';
@@ -162,6 +164,8 @@ function nurani_custom_link_alter(&$links, $node, $comment = NULL) {
       unset($links[$key]);
     }
   }
+  // Hide login/register link from everywhere.
+  unset($links['login_register']);
 }
 
 /**
