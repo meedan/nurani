@@ -287,6 +287,13 @@ function nurani_custom_action_links($user = NULL) {
     );
   }
 
+  if (user_access(ICL_TRANSLATE_MANAGE_JOBS, $user)) {
+    $links[] = array(
+      'title' => t('Manage translation'),
+      'href' => 'admin/content/translation-management/dashboard',
+    );
+  }
+
   if (user_access('create discussion content', $user)) {
     $links[] = array(
       'title' => t('Start a new discussion'),
@@ -310,7 +317,7 @@ function nurani_custom_action_links($user = NULL) {
 
   if (user_access('administer users', $user)) {
     $links[] = array(
-      'title' => t('Administer users'),
+      'title' => t('Manage users'),
       'href' => 'admin/user/user',
     );
   }
