@@ -4,6 +4,7 @@
  * Implementation of hook_form_alter().
  */
 function nurani_permissions_form_alter(&$form, $form_state, $form_id) {
+  // Lock discussion comments from non-participants.
   if ($form_id == 'comment_node_form' && !empty($form['#node']->comment_target_nid)) {
     $discussion = node_load($form['#node']->comment_target_nid);
     if (!_nurani_permissions_discussion_access($discussion)) {
@@ -13,6 +14,16 @@ function nurani_permissions_form_alter(&$form, $form_state, $form_id) {
       global $discussion_comment_form_disabled;
       $discussion_comment_form_disabled = TRUE;
     }
+  }
+
+  // Prevent moderators from applying administrator role.
+  $rid = 3; // administrator role
+  if (in_array($form_id, array('user_register', 'user_profile_form')) && !user_access('administer site configuration')) {
+    unset($form['account']['roles']['#options'][$rid]);
+  }
+  if ($form_id == 'user_admin_account' && !user_access('administer site configuration')) {
+    unset($form['options']['operation']['#options']['Add a role to the selected users']["add_role-$rid"]);
+    unset($form['options']['operation']['#options']['Remove a role from the selected users']["remove_role-$rid"]);
   }
 }
 
