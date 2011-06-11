@@ -79,17 +79,14 @@ body.node-type-discussion {
     float: left;
     width: $text_width;
     div.buildmode-text_summary {
-      width: $text_width - 40px;
-      background: $paper;
-      border: 1px solid #ddd;
       color: #868080;
       float: left;
-      padding: 0 10px;
       position: relative;
-      height: 265px;
       line-height: 1.3em;
 			font-size: 0.8em;
       h1 {
+      width: $text_width - 40px;
+     	 	background: $paper;
         font-size: 1.5em;
 				text-transform: inherit;
         line-height: 1.2em;
@@ -97,21 +94,33 @@ body.node-type-discussion {
 				text-align: left;
         color: #000;
 				margin: 0;
-				padding-left: 0;
-				padding-right: 0;
-        }
-			
-	.field-description {
-		height: 158px;
-		overflow: hidden;
-		color: #303030;
-	}
+    	  padding: 10px;
+      }
+			.nd-region-middle {
+      	border: 1px solid #ddd;
+			}
+			.nurani-glossary-processed {
+      	width: $text_width - 40px;
+    	  padding: 10px 10px 35px;
+				background: $paper;
+				border-bottom: 35px solid $paper;
+				height: 160px;
+				overflow: hidden;
+			}
+			.text-expand {
+				height: auto;
+			}
+		.field-description {
+			height: 158px;
+			overflow: hidden;
+			color: #303030;
+		}
       
      .nd-region-footer a {
         @include soft_button;
         position: absolute;
         right: 10px;
-        bottom: 10px;
+        bottom: 30px;
         font-size: 13px;
       }
 
@@ -168,9 +177,17 @@ body.node-type-discussion {
 			  border: 1px solid $gray;
 				padding: 10px 0 0 10px;
 				margin: 0 0 0 20px;
-			
+				.field-author {
+					float: left;
+				}	
+				.field-post-date {
+					float: right;
+					color: $gray;
+					padding: 0 10px 0;
+				}
 				.field-body {
-					padding: 0 10px 0 0;		
+					padding: 20px 10px 0 0;		
+					clear: both;
 	
 					p {
 						text-align: justify;
@@ -205,14 +222,13 @@ body.node-type-discussion {
 			.translation-status,
 			.translation-status-original {
 				border: 1px solid $gray;
+				font-size: 0.9em;
 				padding: 5px;
 				background: $white;
 				border-radius: 5px 0 0 0;
 			}
-			.translation-status-placeholder {
-				border: 1px solid $yellow_orange;
-				padding: 5px;
-				background: $yellow_orange;
+			 #comments .buildmode-full.translation-status-placeholder {
+				background: $verylightgray;
 				border-radius: 5px 0 0 0;
 			}
 		}
@@ -254,7 +270,7 @@ body.node-type-discussion {
 				padding: 0;	
 				.field-author {
 					float: left;
-					margin: 0 10px 0 0;
+					margin: 0;
 				}
 				.field-post-date {
 					color: $gray;

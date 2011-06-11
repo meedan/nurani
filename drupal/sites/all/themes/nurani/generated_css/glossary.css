@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* theme core colors*/
 /*basics*/
 /*section names */
@@ -118,7 +119,9 @@ body.page-glossary .view-content {
   background: url("../images/bkg_active_nav.png") repeat -5px bottom;
 }
 /* line 82, ../scss/glossary.scss */
-.node-type-term .field-group-translations, .node-type-term .field-glossary-references, .node-type-term .field-part-of-speech {
+.node-type-term .field-group-translations,
+.node-type-term .field-glossary-references,
+.node-type-term .field-part-of-speech {
   margin: 0 0 40px;
 }
 /* line 86, ../scss/glossary.scss */

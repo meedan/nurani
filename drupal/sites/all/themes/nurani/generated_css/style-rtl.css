@@ -103,7 +103,7 @@ body.i18n-ar ul#primary li.first {
   padding: 0;
   margin: 0;
 }
-/* line 75, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -116,7 +116,7 @@ body.i18n-ar ul#primary li.first a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 93, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -127,7 +127,7 @@ body.i18n-ar ul#primary li {
   padding: 0;
   margin: 0;
 }
-/* line 75, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -140,7 +140,7 @@ body.i18n-ar ul#primary li a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 93, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -151,7 +151,7 @@ body.i18n-ar ul#primary li.last {
   padding: 0;
   margin: 0;
 }
-/* line 75, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
+/* line 75, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -164,7 +164,7 @@ body.i18n-ar ul#primary li.last a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 93, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
+/* line 93, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -292,7 +292,11 @@ body.i18n-ar.node-type-discussion h1.title {
 body.i18n-ar.node-type-discussion .field-exp-comments {
   background-position: 270px 33px;
 }
-/* line 205, ../scss/style-rtl.scss */
+/* line 204, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 {
+  background-position: center 11px;
+}
+/* line 206, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h3 {
   font-size: 0.9em;
   padding: 0 15px;
@@ -300,115 +304,123 @@ body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h3 {
   padding: 0 15px;
   font-weight: bold;
 }
-/* line 212, ../scss/style-rtl.scss */
+/* line 213, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h1 {
   text-align: right;
 }
-/* line 215, ../scss/style-rtl.scss */
+/* line 216, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 .content {
   text-align: right;
 }
-/* line 219, ../scss/style-rtl.scss */
+/* line 220, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second {
   text-align: right;
 }
-/* line 222, ../scss/style-rtl.scss */
+/* line 223, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion .view-discussion-texts .views-row {
   float: right;
 }
-/* line 226, ../scss/style-rtl.scss */
+/* line 227, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area {
   background-position: -338px top;
 }
-/* line 228, ../scss/style-rtl.scss */
+/* line 229, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion {
   margin: 0 20px 0 0;
   padding: 10px 10px 0 0;
 }
-/* line 232, ../scss/style-rtl.scss */
-body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-body {
-  padding: 0 0 0 10px;
+/* line 233, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-author {
+  float: right;
 }
-/* line 235, ../scss/style-rtl.scss */
+/* line 236, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-post-date {
+  float: left;
+}
+/* line 239, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-body {
+  padding: 20px 0 0 10px;
+}
+/* line 242, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion div.field-label {
   font-size: 1em;
   left: 200px;
   font-weight: bold;
   top: -10px;
 }
-/* line 241, ../scss/style-rtl.scss */
+/* line 248, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion p {
   text-align: right;
 }
-/* line 244, ../scss/style-rtl.scss */
+/* line 251, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
   left: auto;
   right: 20px;
 }
-/* line 250, ../scss/style-rtl.scss */
+/* line 257, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .translation-status,
 body.i18n-ar.node-type-discussion #container #content-area .translation-status-original {
   border-radius: 0 5px 0 0;
 }
-/* line 253, ../scss/style-rtl.scss */
+/* line 260, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .field-translation-status {
   float: left;
   text-align: right;
   margin: 0 0 -1px -1px;
 }
-/* line 259, ../scss/style-rtl.scss */
+/* line 266, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments {
   margin: 0 20px 0 0;
   text-align: right;
 }
-/* line 263, ../scss/style-rtl.scss */
+/* line 270, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments h2#comments-title {
   padding: 0 0 0 238px;
   background: url("../images/borders-comment-ar.png") no-repeat left 7px white;
   padding: 0 246px 0 0;
   font-weight: bold;
 }
-/* line 269, ../scss/style-rtl.scss */
+/* line 276, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .buildmode-full {
   padding: 10px 10px 0 0;
 }
-/* line 272, ../scss/style-rtl.scss */
+/* line 279, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-author {
   float: right;
 }
-/* line 275, ../scss/style-rtl.scss */
+/* line 282, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-post-date {
   float: left;
   padding: 0 0 0 10px;
 }
-/* line 280, ../scss/style-rtl.scss */
+/* line 287, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .node .field-body {
   margin: 20px 0 0 10px;
 }
-/* line 282, ../scss/style-rtl.scss */
+/* line 289, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .node .field-body p {
   margin: 0 0 1em 0;
 }
-/* line 287, ../scss/style-rtl.scss */
+/* line 294, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer {
   text-align: right;
 }
-/* line 289, ../scss/style-rtl.scss */
+/* line 296, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer ul.links {
   line-height: 20px;
   right: 10px;
 }
-/* line 294, ../scss/style-rtl.scss */
+/* line 301, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments label {
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 299, ../scss/style-rtl.scss */
+/* line 306, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second {
   margin-left: 0;
   margin-right: 0;
 }
-/* line 303, ../scss/style-rtl.scss */
+/* line 310, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding-right: 7px;
   padding-left: 20px;

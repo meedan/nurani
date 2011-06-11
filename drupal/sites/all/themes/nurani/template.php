@@ -446,6 +446,17 @@ drupal_add_js (
 			});		
 		});		
 
-
 	});','inline'
+);
+
+drupal_add_js (
+	'$(document).ready(function(){	
+		$(".nurani-glossary-processed").mouseover(function() {
+				$(this).addClass("text-expand");
+		});	
+		$(".nurani-glossary-processed").mouseleave(function() {
+				$(this).removeClass("text-expand");
+		});		
+
+});','inline'
 );
