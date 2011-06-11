@@ -43,6 +43,15 @@ function nurani_general_user_default_permissions() {
     ),
   );
 
+  // Exported permission: administer users
+  $permissions['administer users'] = array(
+    'name' => 'administer users',
+    'roles' => array(
+      '0' => 'administrator',
+      '1' => 'moderator',
+    ),
+  );
+
   // Exported permission: can do translation jobs
   $permissions['can do translation jobs'] = array(
     'name' => 'can do translation jobs',
