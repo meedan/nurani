@@ -2687,7 +2687,7 @@ body.i18n-en .field-body .field-label {
 }
 
 /* line 199, ../scss/misc.scss */
-#edit-body-wrapper label {
+#comments #edit-body-wrapper label {
   display: none;
 }
 
