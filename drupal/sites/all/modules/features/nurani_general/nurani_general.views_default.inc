@@ -1461,7 +1461,7 @@ return implode(\'+\', $uids);',
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
     'title' => array(
-      'label' => 'Source',
+      'label' => 'Title',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',
@@ -1489,9 +1489,12 @@ return implode(\'+\', $uids);',
       'table' => 'node',
       'field' => 'title',
       'relationship' => 'none',
+      'override' => array(
+        'button' => 'Override',
+      ),
     ),
     'field_description_value' => array(
-      'label' => 'Summary',
+      'label' => 'Further Information',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',
@@ -1527,9 +1530,12 @@ return implode(\'+\', $uids);',
       'table' => 'node_data_field_description',
       'field' => 'field_description_value',
       'relationship' => 'none',
+      'override' => array(
+        'button' => 'Override',
+      ),
     ),
     'body' => array(
-      'label' => 'Body',
+      'label' => 'Text Passage',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',

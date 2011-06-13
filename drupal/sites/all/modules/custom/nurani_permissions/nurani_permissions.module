@@ -47,7 +47,7 @@ function _nurani_permissions_discussion_access($discussion, $user = NULL) {
  * Implementation of hook_link_alter().
  */
 function nurani_permissions_link_alter(&$links, $node, $comment = NULL) {
-  if ($node->type == 'comment') {
+  if ($node->type == 'response') {
     $discussion = node_load($node->comment_target_nid);
     if (!_nurani_permissions_discussion_access($discussion)) {
       unset($links['comment_edit']);

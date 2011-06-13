@@ -171,6 +171,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_anonymous_response';
+  $strongarm->value = 0;
+
+  $export['comment_anonymous_response'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_term';
   $strongarm->value = 0;
 
@@ -227,6 +234,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_controls_response';
+  $strongarm->value = '3';
+
+  $export['comment_controls_response'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_controls_term';
   $strongarm->value = '3';
 
@@ -273,6 +287,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = '4';
 
   $export['comment_default_mode_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_default_mode_response';
+  $strongarm->value = '4';
+
+  $export['comment_default_mode_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -325,6 +346,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_default_order_response';
+  $strongarm->value = '1';
+
+  $export['comment_default_order_response'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_default_order_term';
   $strongarm->value = '1';
 
@@ -371,6 +399,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = '50';
 
   $export['comment_default_per_page_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_default_per_page_response';
+  $strongarm->value = '50';
+
+  $export['comment_default_per_page_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -430,6 +465,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_form_location_response';
+  $strongarm->value = '0';
+
+  $export['comment_form_location_response'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_form_location_term';
   $strongarm->value = '1';
 
@@ -486,6 +528,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_preview_response';
+  $strongarm->value = '1';
+
+  $export['comment_preview_response'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_preview_term';
   $strongarm->value = '0';
 
@@ -504,6 +553,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = '0';
 
   $export['comment_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_response';
+  $strongarm->value = '0';
+
+  $export['comment_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -542,6 +598,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_subject_field_response';
+  $strongarm->value = '1';
+
+  $export['comment_subject_field_response'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_subject_field_term';
   $strongarm->value = '0';
 
@@ -574,14 +637,14 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = array(
     'title' => '-5',
     'body_field' => '-3',
-    'revision_information' => '4',
-    'author' => '5',
-    'options' => '6',
-    'comment_settings' => '8',
-    'language' => '3',
-    'translation' => '9',
-    'menu' => '-4',
-    'path' => '7',
+    'revision_information' => '3',
+    'author' => '4',
+    'options' => '5',
+    'comment_settings' => '7',
+    'language' => '2',
+    'translation' => '8',
+    'menu' => '9',
+    'path' => '6',
   );
 
   $export['content_extra_weights_discussion'] = $strongarm;
@@ -677,6 +740,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = 1;
 
   $export['content_profile_use_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'content_profile_use_response';
+  $strongarm->value = 0;
+
+  $export['content_profile_use_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -799,6 +869,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'i18n_lock_node_response';
+  $strongarm->value = 1;
+
+  $export['i18n_lock_node_response'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'i18n_lock_node_story';
   $strongarm->value = 1;
 
@@ -852,6 +929,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = 1;
 
   $export['i18n_newnode_current_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18n_newnode_current_response';
+  $strongarm->value = 1;
+
+  $export['i18n_newnode_current_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -911,6 +995,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'i18n_node_response';
+  $strongarm->value = '1';
+
+  $export['i18n_node_response'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'i18n_node_story';
   $strongarm->value = '1';
 
@@ -964,6 +1055,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = 1;
 
   $export['i18n_required_node_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18n_required_node_response';
+  $strongarm->value = 1;
+
+  $export['i18n_required_node_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -1028,10 +1126,10 @@ The Service Providers may use session cookies when you visit our website while y
     7 => 'taxonomy',
     8 => 'comment',
     9 => 'field_texts',
-    10 => 'field_moderators',
-    11 => 'field_translators',
-    12 => 'field_scholars',
-    13 => 'field_exp_comments',
+    10 => 'field_exp_comments',
+    11 => 'field_moderators',
+    12 => 'field_translators',
+    13 => 'field_scholars',
   );
 
   $export['i18nsync_nodeapi_discussion'] = $strongarm;
@@ -1062,6 +1160,23 @@ The Service Providers may use session cookies when you visit our website while y
   );
 
   $export['i18nsync_nodeapi_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18nsync_nodeapi_response';
+  $strongarm->value = array(
+    0 => 'name',
+    1 => 'status',
+    2 => 'promote',
+    3 => 'moderate',
+    4 => 'sticky',
+    5 => 'revision',
+    6 => 'parent',
+    7 => 'taxonomy',
+    8 => 'comment',
+  );
+
+  $export['i18nsync_nodeapi_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -1163,6 +1278,9 @@ The Service Providers may use session cookies when you visit our website while y
       'body' => 'body',
     ),
     'annotation' => array(
+      'body' => 'body',
+    ),
+    'response' => array(
       'body' => 'body',
     ),
   );
@@ -1267,6 +1385,13 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = '2';
 
   $export['language_content_type_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_response';
+  $strongarm->value = '2';
+
+  $export['language_content_type_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -1637,6 +1762,89 @@ The Service Providers may use session cookies when you visit our website while y
   );
 
   $export['nd_display_settings_discussion'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nd_display_settings_response';
+  $strongarm->value = array(
+    'full' => array(
+      'fields' => array(
+        'title' => array(
+          'region' => 'disabled',
+          'weight' => '-92',
+          'format' => 'nd_title_h1_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'author' => array(
+          'region' => 'header',
+          'weight' => '-100',
+          'format' => 'ds_author_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'links' => array(
+          'region' => 'footer',
+          'weight' => '-96',
+          'format' => '',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'read_more' => array(
+          'region' => 'disabled',
+          'weight' => '-93',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'post_date' => array(
+          'region' => 'header',
+          'weight' => '-99',
+          'format' => 'nd_post_date_long',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'body' => array(
+          'region' => 'middle',
+          'weight' => '-98',
+          'format' => 'nd_bodyfield',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'view_text' => array(
+          'region' => 'disabled',
+          'weight' => '-95',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'glossary_references' => array(
+          'region' => 'disabled',
+          'weight' => '-94',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'translation_status' => array(
+          'region' => 'middle',
+          'weight' => '-97',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+      ),
+      'status' => 1,
+      'region_styles' => array(
+        'header' => '',
+        'left' => '',
+        'middle' => '',
+        'right' => '',
+        'footer' => '',
+      ),
+    ),
+  );
+
+  $export['nd_display_settings_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -2051,7 +2259,7 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_comment_plural_discussion';
-  $strongarm->value = 'comments';
+  $strongarm->value = 'responses';
 
   $export['node_comment_plural_discussion'] = $strongarm;
   $strongarm = new stdClass;
@@ -2068,6 +2276,13 @@ return theme(\'translation_status\', $object);
   $strongarm->value = 'comments';
 
   $export['node_comment_plural_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_comment_plural_response';
+  $strongarm->value = 'comments';
+
+  $export['node_comment_plural_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -2089,6 +2304,13 @@ return theme(\'translation_status\', $object);
   $strongarm->value = 0;
 
   $export['node_comment_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_comment_response';
+  $strongarm->value = 0;
+
+  $export['node_comment_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -2141,6 +2363,13 @@ return theme(\'translation_status\', $object);
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'node_comment_topic_review_response';
+  $strongarm->value = '0';
+
+  $export['node_comment_topic_review_response'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'node_comment_topic_review_term';
   $strongarm->value = '0';
 
@@ -2170,7 +2399,7 @@ return theme(\'translation_status\', $object);
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_comment_type_discussion';
-  $strongarm->value = 'comment';
+  $strongarm->value = 'response';
 
   $export['node_comment_type_discussion'] = $strongarm;
   $strongarm = new stdClass;
@@ -2187,6 +2416,13 @@ return theme(\'translation_status\', $object);
   $strongarm->value = '';
 
   $export['node_comment_type_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_comment_type_response';
+  $strongarm->value = '';
+
+  $export['node_comment_type_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -2236,6 +2472,13 @@ return theme(\'translation_status\', $object);
   $strongarm->value = 'nodecomments';
 
   $export['node_comment_view_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_comment_view_response';
+  $strongarm->value = 'nodecomments';
+
+  $export['node_comment_view_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -2635,6 +2878,15 @@ return theme(\'translation_status\', $object);
   );
 
   $export['node_options_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_options_response';
+  $strongarm->value = array(
+    0 => 'status',
+  );
+
+  $export['node_options_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;

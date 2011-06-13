@@ -252,8 +252,8 @@ WHERE content.nid = %d
  * Implementation of hook_form_alter().
  */
 function nurani_custom_form_alter(&$form, &$form_state, $form_id) {
+  // Redirect to translated content, not jobs page.
   if ($form_id == 'icl_translate_editor') {
-    // Redirect to translated content, not jobs page.
     $rid = $form['rid']['#default_value'];
     $job = db_fetch_object(db_query("
 SELECT content.nid, core.target 
@@ -268,6 +268,12 @@ WHERE core.rid = %d
     }
     //$translations = translation_path_get_translations('node/' . $target_nid);
     $form['#redirect'] = drupal_get_path_alias('node/' . $target_nid);
+  }
+
+  // Add title description.
+  if ($form_id == 'text_node_form') {
+    $form['title']['#description'] = t('Include text, verse and chapter - for example Qur\'an 2:8-18 or Deuteronomy 4:5-8 or Corinthians 1:17-29.');
+    $form['body']['#description'] = t('Submit the text passage here.');
   }
 }
 
@@ -336,5 +342,17 @@ function nurani_custom_action_links($user = NULL) {
   }
 
   return $links;
+}
+
+/**
+ * Implementation of hook_t_alter().
+ */
+function nurani_custom_t_alter(&$string, &$args, $langcode) {
+  if ($string == 'Post new !type') {
+    $string = 'Submit !type';
+  }
+  else if ($string == 'Create @name') {
+    $string = 'Submit @name';
+  }
 }
 

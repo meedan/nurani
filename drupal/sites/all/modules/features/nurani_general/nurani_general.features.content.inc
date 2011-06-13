@@ -105,9 +105,9 @@ function nurani_general_content_default_fields() {
       'text_parts' => array(),
       'year_range' => '-0:+2',
       'label_position' => 'above',
-      'label' => 'Expire Comments',
-      'weight' => '2',
-      'description' => '',
+      'label' => 'Discussion Closing Date',
+      'weight' => '-2',
+      'description' => 'Enter a date beyond which the discussion will be closed and responses will no longer be accepted.',
       'type' => 'date_select',
       'module' => 'date',
     ),
@@ -198,7 +198,7 @@ function nurani_general_content_default_fields() {
         ),
       ),
       'default_value_php' => NULL,
-      'label' => 'Additional Moderators',
+      'label' => 'Invited Moderators',
       'weight' => '-1',
       'description' => '',
       'type' => 'userreference_buttons',
@@ -291,7 +291,7 @@ function nurani_general_content_default_fields() {
         ),
       ),
       'default_value_php' => NULL,
-      'label' => 'Scholars',
+      'label' => 'Invited Participants',
       'weight' => '1',
       'description' => '',
       'type' => 'userreference_buttons',
@@ -408,7 +408,7 @@ function nurani_general_content_default_fields() {
       'dialog_show' => 'null',
       'dialog_hide' => 'null',
       'label' => 'Texts',
-      'weight' => '-2',
+      'weight' => '-4',
       'description' => '',
       'type' => 'nodereference_explorer',
       'module' => 'nodereference_explorer',
@@ -500,7 +500,7 @@ function nurani_general_content_default_fields() {
         ),
       ),
       'default_value_php' => NULL,
-      'label' => 'Translators',
+      'label' => 'Invited Translators',
       'weight' => 0,
       'description' => '',
       'type' => 'userreference_buttons',
@@ -1447,7 +1447,7 @@ adjective|Adjective',
       'default_value_php' => NULL,
       'label' => 'Context',
       'weight' => '13',
-      'description' => '',
+      'description' => 'Suggest a context when to use this translation.',
       'type' => 'content_taxonomy_select',
       'module' => 'content_taxonomy_options',
     ),
@@ -1532,7 +1532,7 @@ adjective|Adjective',
         ),
       ),
       'default_value_php' => NULL,
-      'label' => 'Term',
+      'label' => 'Translation of this Term',
       'weight' => '12',
       'description' => '',
       'type' => 'noderefcreate_autocomplete',
@@ -1613,13 +1613,14 @@ adjective|Adjective',
       'default_value' => array(
         '0' => array(
           'value' => '',
+          'format' => '1',
           '_error_element' => 'default_value_widget][field_description][0][value',
         ),
       ),
       'default_value_php' => NULL,
-      'label' => 'Summary',
+      'label' => 'Further Information',
       'weight' => '-3',
-      'description' => '',
+      'description' => 'Use this field to provide further source information. If it is a commentary that you are sharing you might note the author (eg. for Tafsir al-Jalalayn you might write \'Composed by the two “Jalals” -- Jalal al-Din al-Mahalli (d. 864 ah / 1459 ce) and his pupil Jalal al-Din al-Suyuti (d. 911 ah / 1505 ce)\' or if it is a passage of the Bible that you are sharing, you might note the specific version (eg. American Standard Version, New Century Version etc.)',
       'type' => 'text_textarea',
       'module' => 'text',
     ),
@@ -1627,27 +1628,27 @@ adjective|Adjective',
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Additional Moderators');
   t('City');
   t('Context');
   t('Country');
+  t('Discussion Closing Date');
   t('Education');
   t('Experience');
-  t('Expire Comments');
   t('Fluency in Arabic');
   t('Fluency in English');
   t('Full Name');
+  t('Further Information');
+  t('Invited Moderators');
+  t('Invited Participants');
+  t('Invited Translators');
   t('Part of Speech');
   t('Position');
   t('Publications');
   t('Research');
-  t('Scholars');
   t('Societies');
-  t('Summary');
-  t('Term');
   t('Texts');
   t('Title');
-  t('Translators');
+  t('Translation of this Term');
 
   return $fields;
 }

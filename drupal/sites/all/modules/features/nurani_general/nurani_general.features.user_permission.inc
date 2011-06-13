@@ -97,15 +97,6 @@ function nurani_general_user_default_permissions() {
     ),
   );
 
-  // Exported permission: create comment content
-  $permissions['create comment content'] = array(
-    'name' => 'create comment content',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
-    ),
-  );
-
   // Exported permission: create discussion content
   $permissions['create discussion content'] = array(
     'name' => 'create discussion content',
@@ -126,6 +117,15 @@ function nurani_general_user_default_permissions() {
   // Exported permission: create profile content
   $permissions['create profile content'] = array(
     'name' => 'create profile content',
+    'roles' => array(
+      '0' => 'administrator',
+      '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: create response content
+  $permissions['create response content'] = array(
+    'name' => 'create response content',
     'roles' => array(
       '0' => 'administrator',
       '1' => 'authenticated user',
@@ -159,15 +159,6 @@ function nurani_general_user_default_permissions() {
     ),
   );
 
-  // Exported permission: edit own comment content
-  $permissions['edit own comment content'] = array(
-    'name' => 'edit own comment content',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
-    ),
-  );
-
   // Exported permission: edit own discussion content
   $permissions['edit own discussion content'] = array(
     'name' => 'edit own discussion content',
@@ -191,6 +182,14 @@ function nurani_general_user_default_permissions() {
     'roles' => array(
       '0' => 'administrator',
       '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: edit own response content
+  $permissions['edit own response content'] = array(
+    'name' => 'edit own response content',
+    'roles' => array(
+      '0' => 'administrator',
     ),
   );
 
