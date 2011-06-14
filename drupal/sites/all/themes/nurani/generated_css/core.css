@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* line 1, ../scss/reset.scss */
 * {
   margin: 0;
@@ -95,16 +96,17 @@
 
 /* line 20, ../scss/type.scss */
 body.i18n-ar {
-  font-family: UthmanTN, serif;
+  font-family: Georgia, UthmanTN, serif;
   font-size: 1.1em;
   line-height: 1.5em;
 }
 /* line 25, ../scss/type.scss */
 body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
-  font-family: UthmanTN, serif;
+  font-family: Georgia, UthmanTN, serif;
+  font-weight: normal;
 }
 
-/* line 56, ../scss/type.scss */
+/* line 57, ../scss/type.scss */
 body {
   margin: 0;
   font-family: Georgia, Times, Times New Roman, serif;
@@ -113,7 +115,7 @@ body {
 }
 
 /* Titles. */
-/* line 64, ../scss/type.scss */
+/* line 65, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -122,14 +124,14 @@ body {
   margin: 0;
 }
 
-/* line 71, ../scss/type.scss */
+/* line 72, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
   font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 77, ../scss/type.scss */
+/* line 78, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -140,77 +142,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 87, ../scss/type.scss */
+/* line 88, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 92, ../scss/type.scss */
+/* line 93, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 98, ../scss/type.scss */
+/* line 99, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 102, ../scss/type.scss */
+/* line 103, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 107, ../scss/type.scss */
+/* line 108, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 112, ../scss/type.scss */
+/* line 113, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 116, ../scss/type.scss */
+/* line 117, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 121, ../scss/type.scss */
+/* line 122, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 126, ../scss/type.scss */
+/* line 127, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 129, ../scss/type.scss */
+/* line 130, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 133, ../scss/type.scss */
+/* line 134, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 137, ../scss/type.scss */
+/* line 138, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -220,56 +222,56 @@ pre {
 }
 
 /* List styles. */
-/* line 145, ../scss/type.scss */
+/* line 146, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 147, ../scss/type.scss */
+/* line 148, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 149, ../scss/type.scss */
+/* line 150, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 151, ../scss/type.scss */
+/* line 152, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 154, ../scss/type.scss */
+/* line 155, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 156, ../scss/type.scss */
+/* line 157, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 158, ../scss/type.scss */
+/* line 159, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 162, ../scss/type.scss */
+/* line 163, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 167, ../scss/type.scss */
+/* line 168, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 171, ../scss/type.scss */
+/* line 172, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 174, ../scss/type.scss */
+/* line 175, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -278,12 +280,12 @@ abbr {
   color: #777777;
 }
 
-/* line 181, ../scss/type.scss */
+/* line 182, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 192, ../scss/type.scss */
+/* line 193, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -293,7 +295,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 193, ../scss/type.scss */
+/* line 194, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -303,7 +305,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 194, ../scss/type.scss */
+/* line 195, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -313,7 +315,7 @@ div.error {
   text-align: center;
 }
 
-/* line 195, ../scss/type.scss */
+/* line 196, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -323,7 +325,7 @@ div.status {
   text-align: center;
 }
 
-/* line 197, ../scss/type.scss */
+/* line 198, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -509,11 +511,9 @@ body.page-overview .view-discussions .views-field-view-node a {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -529,39 +529,33 @@ body.page-overview .view-discussions .views-field-view-node a {
 /* line 20, ../scss/_buttons.scss */
 body.page-overview .more-links a:hover,
 body.page-overview .view-discussions .views-field-view-node a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 24, ../scss/_buttons.scss */
 body.page-overview .more-links a:active,
 body.page-overview .view-discussions .views-field-view-node a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 /* line 12, ../scss/welcome_message.scss */
 body.page-overview #slash {
   margin: 0px 20px 0;
   padding: 20px;
   position: relative;
-  -moz-box-shadow: 0px 3px 3px #cccccc;
-  -webkit-box-shadow: 0px 3px 3px #cccccc;
-  -o-box-shadow: 0px 3px 3px #cccccc;
-  box-shadow: 0px 3px 3px #cccccc;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fff0c2), color-stop(50%, #fff9e6), color-stop(100%, #fff9e6));
-  background-image: -webkit-linear-gradient(top, #fff0c2, #fff9e6, #fff9e6);
-  background-image: -moz-linear-gradient(top, #fff0c2, #fff9e6, #fff9e6);
-  background-image: -o-linear-gradient(top, #fff0c2, #fff9e6, #fff9e6);
-  background-image: linear-gradient(top, #fff0c2, #fff9e6, #fff9e6);
+  -moz-box-shadow: #cccccc 0px 3px 3px 0;
+  -webkit-box-shadow: #cccccc 0px 3px 3px 0;
+  -o-box-shadow: #cccccc 0px 3px 3px 0;
+  box-shadow: #cccccc 0px 3px 3px 0;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #fff0c2), color-stop(50%, #fff9e6), color-stop(100%, #fff9e6));
+  background-image: -moz-linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
+  background-image: linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
 }
 /* line 18, ../scss/welcome_message.scss */
 body.page-overview #slash h3 {
-  text-shadow: 0px, 1px, 0px, white;
+  text-shadow: 0px 1px 0px white;
   color: #333;
   font-weight: 300px;
   font-size: 1.6em;
@@ -582,10 +576,10 @@ body.page-overview #slash #block-boxes-welcome_box img.d_ford {
   width: 80px;
   margin: 15px;
   border: 5px solid #fff;
-  -moz-box-shadow: 3px 3px 3px #cccccc;
-  -webkit-box-shadow: 3px 3px 3px #cccccc;
-  -o-box-shadow: 3px 3px 3px #cccccc;
-  box-shadow: 3px 3px 3px #cccccc;
+  -moz-box-shadow: #cccccc 3px 3px 3px 0;
+  -webkit-box-shadow: #cccccc 3px 3px 3px 0;
+  -o-box-shadow: #cccccc 3px 3px 3px 0;
+  box-shadow: #cccccc 3px 3px 3px 0;
 }
 /* line 45, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle {
@@ -752,16 +746,17 @@ ul.pager li {
 
 /* line 20, ../scss/type.scss */
 body.i18n-ar {
-  font-family: UthmanTN, serif;
+  font-family: Georgia, UthmanTN, serif;
   font-size: 1.1em;
   line-height: 1.5em;
 }
 /* line 25, ../scss/type.scss */
 body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar h5, body.i18n-ar h6 {
-  font-family: UthmanTN, serif;
+  font-family: Georgia, UthmanTN, serif;
+  font-weight: normal;
 }
 
-/* line 56, ../scss/type.scss */
+/* line 57, ../scss/type.scss */
 body {
   margin: 0;
   font-family: Georgia, Times, Times New Roman, serif;
@@ -770,7 +765,7 @@ body {
 }
 
 /* Titles. */
-/* line 64, ../scss/type.scss */
+/* line 65, ../scss/type.scss */
 #site-name {
   font-size: 2.2em;
   line-height: 1.3em;
@@ -779,14 +774,14 @@ body {
   margin: 0;
 }
 
-/* line 71, ../scss/type.scss */
+/* line 72, ../scss/type.scss */
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
   font-family: Georgia, Times, Times New Roman, serif;
 }
 
-/* line 77, ../scss/type.scss */
+/* line 78, ../scss/type.scss */
 h1 {
   font-size: 1.8em;
   padding: 10px;
@@ -797,77 +792,77 @@ h1 {
   font-style: italic;
 }
 
-/* line 87, ../scss/type.scss */
+/* line 88, ../scss/type.scss */
 h2 {
   font-size: 1.6em;
   font-weight: 300;
   margin-bottom: 0.75em;
 }
 
-/* line 92, ../scss/type.scss */
+/* line 93, ../scss/type.scss */
 h3 {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-top: 10px;
 }
 
-/* line 98, ../scss/type.scss */
+/* line 99, ../scss/type.scss */
 h4 {
   font-size: 1.2em;
   margin-bottom: 0.8em;
 }
 
-/* line 102, ../scss/type.scss */
+/* line 103, ../scss/type.scss */
 h5 {
   font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 }
 
-/* line 107, ../scss/type.scss */
+/* line 108, ../scss/type.scss */
 h6 {
   font-size: 1em;
   font-weight: bold;
 }
 
 /* Paragraph styles. */
-/* line 112, ../scss/type.scss */
+/* line 113, ../scss/type.scss */
 p {
   margin: 0 0 1em 0;
 }
 
 /* List styles. */
-/* line 116, ../scss/type.scss */
+/* line 117, ../scss/type.scss */
 ul, ol {
   margin-left: 0;
   padding-left: 2em;
 }
 
 /* Table styles. */
-/* line 121, ../scss/type.scss */
+/* line 122, ../scss/type.scss */
 table {
   width: 99%;
 }
 
-/* line 126, ../scss/type.scss */
+/* line 127, ../scss/type.scss */
 tr.even td,
 tr.odd td {
   padding: 10px 5px;
 }
 
-/* line 129, ../scss/type.scss */
+/* line 130, ../scss/type.scss */
 tr.odd {
   background-color: white;
 }
 
 /* Code. */
-/* line 133, ../scss/type.scss */
+/* line 134, ../scss/type.scss */
 pre, code, tt {
   font: 1em "andale mono", "lucida console", monospace;
   line-height: 1.5;
 }
 
-/* line 137, ../scss/type.scss */
+/* line 138, ../scss/type.scss */
 pre {
   background-color: #efefef;
   display: block;
@@ -877,56 +872,56 @@ pre {
 }
 
 /* List styles. */
-/* line 145, ../scss/type.scss */
+/* line 146, ../scss/type.scss */
 ul {
   list-style-type: disc;
 }
-/* line 147, ../scss/type.scss */
+/* line 148, ../scss/type.scss */
 ul ul {
   list-style-type: circle;
 }
-/* line 149, ../scss/type.scss */
+/* line 150, ../scss/type.scss */
 ul ul ul {
   list-style-type: square;
 }
-/* line 151, ../scss/type.scss */
+/* line 152, ../scss/type.scss */
 ul ul ul ul {
   list-style-type: circle;
 }
 
-/* line 154, ../scss/type.scss */
+/* line 155, ../scss/type.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 156, ../scss/type.scss */
+/* line 157, ../scss/type.scss */
 ol ol {
   list-style-type: lower-alpha;
 }
-/* line 158, ../scss/type.scss */
+/* line 159, ../scss/type.scss */
 ol ol ol {
   list-style-type: decimal;
 }
 
 /* Abbreviation. */
-/* line 162, ../scss/type.scss */
+/* line 163, ../scss/type.scss */
 abbr {
   border-bottom: 1px dotted #666666;
   cursor: help;
   white-space: nowrap;
 }
 
-/* line 167, ../scss/type.scss */
+/* line 168, ../scss/type.scss */
 #edit-title {
   font-size: 24px;
   width: 99%;
 }
 
-/* line 171, ../scss/type.scss */
+/* line 172, ../scss/type.scss */
 #system-themes-form img {
   width: 100px;
 }
 
-/* line 174, ../scss/type.scss */
+/* line 175, ../scss/type.scss */
 .form-item .description {
   font-style: italic;
   line-height: 1.2em;
@@ -935,12 +930,12 @@ abbr {
   color: #777777;
 }
 
-/* line 181, ../scss/type.scss */
+/* line 182, ../scss/type.scss */
 #edit-delete {
   color: #cc0000;
 }
 
-/* line 192, ../scss/type.scss */
+/* line 193, ../scss/type.scss */
 div.messages {
   padding: 9px;
   margin: 1em 0;
@@ -950,7 +945,7 @@ div.messages {
   text-align: center;
 }
 
-/* line 193, ../scss/type.scss */
+/* line 194, ../scss/type.scss */
 div.warning {
   padding: 9px;
   margin: 1em 0;
@@ -960,7 +955,7 @@ div.warning {
   text-align: center;
 }
 
-/* line 194, ../scss/type.scss */
+/* line 195, ../scss/type.scss */
 div.error {
   padding: 9px;
   margin: 1em 0;
@@ -970,7 +965,7 @@ div.error {
   text-align: center;
 }
 
-/* line 195, ../scss/type.scss */
+/* line 196, ../scss/type.scss */
 div.status {
   padding: 9px;
   margin: 1em 0;
@@ -980,7 +975,7 @@ div.status {
   text-align: center;
 }
 
-/* line 197, ../scss/type.scss */
+/* line 198, ../scss/type.scss */
 h1.title {
   margin: 0;
   padding: 30px 0 0 0;
@@ -1091,10 +1086,10 @@ ul.tabs li a {
 /* line 24, ../scss/tabs.scss */
 ul.tabs li a.active {
   border: 1px solid #c3c3c3;
-  -moz-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
-  -webkit-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
-  -o-box-shadow: inset 0px 1px 2px 1px #bfbfbf;
-  box-shadow: inset 0px 1px 2px 1px #bfbfbf;
+  -moz-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
+  -webkit-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
+  -o-box-shadow: #bfbfbf 0px 1px 2px 1px inset;
+  box-shadow: #bfbfbf 0px 1px 2px 1px inset;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -o-border-radius: 4px;
@@ -1375,14 +1370,15 @@ body.node-type-discussion .field-exp-comments {
   background: #d6cbc0 url(../images/clock.png) no-repeat 20px 25px;
   padding: 20px 65px;
   margin: 40px 0 0;
+  font-size: 0.9em;
 }
-/* line 15, ../scss/discussion.scss */
+/* line 16, ../scss/discussion.scss */
 body.node-type-discussion .field-exp-comments strong {
   color: white;
   display: block;
   text-transform: uppercase;
 }
-/* line 21, ../scss/discussion.scss */
+/* line 22, ../scss/discussion.scss */
 body.node-type-discussion a#popText {
   display: block;
   background: url("../images/poptext.png") no-repeat left center;
@@ -1390,33 +1386,33 @@ body.node-type-discussion a#popText {
   padding: 8px 10px 8px 25px;
   font-weight: normal;
 }
-/* line 29, ../scss/discussion.scss */
+/* line 30, ../scss/discussion.scss */
 body.node-type-discussion a#popText:hover {
   background: url("../images/poptext-hover.png") no-repeat left center;
 }
-/* line 34, ../scss/discussion.scss */
+/* line 35, ../scss/discussion.scss */
 body.node-type-discussion ul.menu li.first {
   background: url("../images/bkg_active_nav.png") -5px bottom transparent;
 }
-/* line 36, ../scss/discussion.scss */
+/* line 37, ../scss/discussion.scss */
 body.node-type-discussion ul.menu li.first a {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 42, ../scss/discussion.scss */
+/* line 43, ../scss/discussion.scss */
 body.node-type-discussion div.view-header {
   display: none;
 }
-/* line 46, ../scss/discussion.scss */
+/* line 47, ../scss/discussion.scss */
 body.node-type-discussion div#slash {
   margin: 30px 30px 0;
 }
-/* line 51, ../scss/discussion.scss */
+/* line 52, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 {
   background: url("../images/borders.png") no-repeat center 9px;
   width: 900px;
   text-align: center;
 }
-/* line 56, ../scss/discussion.scss */
+/* line 57, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 h3.block-title {
   background: white;
   padding: 0 10px;
@@ -1424,23 +1420,27 @@ body.node-type-discussion div#block-views-discussion_texts-block_1 h3.block-titl
   font-size: 0.9em;
   text-transform: uppercase;
 }
-/* line 64, ../scss/discussion.scss */
+/* line 65, ../scss/discussion.scss */
 body.node-type-discussion div#block-views-discussion_texts-block_1 .content {
   text-align: left;
 }
 /* line 69, ../scss/discussion.scss */
+body.node-type-discussion .view-discussion-texts {
+  padding-top: 20px;
+}
+/* line 72, ../scss/discussion.scss */
 body.node-type-discussion h1.title {
   display: block;
   margin: 20px 0;
   padding: 0;
 }
-/* line 77, ../scss/discussion.scss */
+/* line 80, ../scss/discussion.scss */
 body.node-type-discussion div.views-row {
-  margin: 30px 5px 10px;
+  margin: 30px 1px 10px;
   float: left;
   width: 218px;
 }
-/* line 81, ../scss/discussion.scss */
+/* line 84, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary {
   color: #868080;
   float: left;
@@ -1448,7 +1448,7 @@ body.node-type-discussion div.views-row div.buildmode-text_summary {
   line-height: 1.3em;
   font-size: 0.8em;
 }
-/* line 87, ../scss/discussion.scss */
+/* line 90, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   width: 178px;
   background: #f1e9e4;
@@ -1461,30 +1461,72 @@ body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   margin: 0;
   padding: 10px;
 }
-/* line 99, ../scss/discussion.scss */
+/* line 102, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-middle {
   border: 1px solid #ddd;
 }
-/* line 102, ../scss/discussion.scss */
+/* line 105, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nurani-glossary-processed {
   width: 178px;
   padding: 10px 10px 35px;
   background: #f1e9e4;
-  border-bottom: 35px solid #f1e9e4;
-  height: 160px;
+  height: 166px;
   overflow: hidden;
 }
-/* line 110, ../scss/discussion.scss */
+/* line 112, ../scss/discussion.scss */
+body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links {
+  background: #f1e9e4;
+  padding: 10px 0;
+}
+/* line 115, ../scss/discussion.scss */
+body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links li a {
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -o-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -khtml-border-radius: 15px;
+  border-radius: 15px;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  border: 1px solid #d3d3d3;
+  float: right;
+  padding: 3px 7px 0;
+  color: gray;
+  font-weight: normal;
+  font-family: arial, sans-serif;
+  text-transform: uppercase;
+  display: block;
+  font-size: 0.9em;
+  text-decoration: none;
+  margin-top: -5px;
+  font-size: 13px;
+  margin: 0 5px;
+  display: inline-block;
+}
+/* line 20, ../scss/_buttons.scss */
+body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links li a:hover {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+}
+/* line 24, ../scss/_buttons.scss */
+body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links li a:active {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
+}
+/* line 122, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .text-expand {
   height: auto;
 }
-/* line 113, ../scss/discussion.scss */
+/* line 125, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-description {
   height: 158px;
   overflow: hidden;
   color: #303030;
 }
-/* line 119, ../scss/discussion.scss */
+/* line 131, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1492,11 +1534,9 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1515,21 +1555,17 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
 }
 /* line 20, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 24, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 131, ../scss/discussion.scss */
+/* line 143, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-label {
   border-bottom: 1px solid #cccccc;
   margin: 20px 0 10px;
@@ -1539,38 +1575,39 @@ body.node-type-discussion #boxes-box-discussion_info .field-label {
   font-weight: normal;
   text-transform: uppercase;
 }
-/* line 140, ../scss/discussion.scss */
+/* line 152, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-item {
   margin: 0 0 8px;
 }
-/* line 145, ../scss/discussion.scss */
+/* line 157, ../scss/discussion.scss */
 body.node-type-discussion #container {
   text-align: center;
-  padding: 8px 0 0;
 }
-/* line 149, ../scss/discussion.scss */
+/* line 160, ../scss/discussion.scss */
 body.node-type-discussion #container #main {
   position: static;
+  margin-top: 0;
 }
-/* line 152, ../scss/discussion.scss */
+/* line 164, ../scss/discussion.scss */
 body.node-type-discussion #container #content-inner {
   background: transparent;
+  padding-top: 2px;
 }
-/* line 155, ../scss/discussion.scss */
+/* line 168, ../scss/discussion.scss */
 body.node-type-discussion #container .inner {
   padding: 20px 10px 20px 20px;
 }
-/* line 158, ../scss/discussion.scss */
+/* line 171, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area {
   background: url("../images/borders.png") no-repeat 20px top;
   position: relative;
   padding: 30px 0 0;
 }
-/* line 163, ../scss/discussion.scss */
+/* line 176, ../scss/discussion.scss */
 body.node-type-discussion #container ul.tabs {
   margin: 0 0 30px;
 }
-/* line 167, ../scss/discussion.scss */
+/* line 180, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area div.field-label {
   position: absolute;
   top: -6px;
@@ -1580,39 +1617,39 @@ body.node-type-discussion #container #content-area div.field-label {
   font-size: 0.9em;
   left: 141px;
 }
-/* line 176, ../scss/discussion.scss */
+/* line 189, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion {
   border: 1px solid #cccccc;
   padding: 10px 0 0 10px;
   margin: 0 0 0 20px;
 }
-/* line 180, ../scss/discussion.scss */
+/* line 193, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-author {
   float: left;
 }
-/* line 183, ../scss/discussion.scss */
+/* line 196, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-post-date {
   float: right;
   color: #cccccc;
   padding: 0 10px 0;
 }
-/* line 188, ../scss/discussion.scss */
+/* line 201, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-body {
   padding: 20px 10px 0 0;
   clear: both;
 }
-/* line 192, ../scss/discussion.scss */
+/* line 205, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-body p {
   text-align: justify;
   margin: 0 0 1em;
 }
-/* line 197, ../scss/discussion.scss */
+/* line 210, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion ul.links {
   position: relative;
   width: 100%;
   display: inline-block;
 }
-/* line 202, ../scss/discussion.scss */
+/* line 215, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
   background-image: -moz-linear-gradient(center top, white 0%, #eeeeee 100%);
   border: 1px solid #cccccc;
@@ -1623,7 +1660,7 @@ body.node-type-discussion #container #content-area .node-type-discussion li.nura
   padding: 4px 10px;
   position: absolute;
 }
-/* line 213, ../scss/discussion.scss */
+/* line 226, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .field-translation-status {
   text-align: left;
   width: 245px;
@@ -1633,7 +1670,7 @@ body.node-type-discussion #container #content-area .field-translation-status {
   line-height: 1.3em;
   margin: 0 -1px -1px 0;
 }
-/* line 223, ../scss/discussion.scss */
+/* line 236, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .translation-status,
 body.node-type-discussion #container #content-area .translation-status-original {
   border: 1px solid #cccccc;
@@ -1642,75 +1679,80 @@ body.node-type-discussion #container #content-area .translation-status-original 
   background: white;
   border-radius: 5px 0 0 0;
 }
-/* line 230, ../scss/discussion.scss */
+/* line 243, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area #comments .buildmode-full.translation-status-placeholder {
   background: #f5f5f5;
-  border-radius: 5px 0 0 0;
 }
-/* line 235, ../scss/discussion.scss */
+/* line 246, ../scss/discussion.scss */
+body.node-type-discussion #container #content-area .buildmode-full.translation-status-placeholder .node-type-discussion {
+  background: #f5f5f5;
+}
+/* line 250, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second {
   text-align: left;
-  margin-right: 1.2em;
-  width: 346px;
+  margin-right: 2.5em;
+  width: 19.3em;
 }
-/* line 240, ../scss/discussion.scss */
+/* line 255, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second #sidebar-second-inner {
-  padding-left: 7px;
+  padding: 0 0 0 7px;
 }
-/* line 244, ../scss/discussion.scss */
+/* line 259, ../scss/discussion.scss */
 body.node-type-discussion #container h3.block-title {
   color: #7c0000;
   border-bottom: 1px solid #7c0000;
   text-transform: uppercase;
   font-size: 1em;
   font-weight: bold;
+  margin-top: 0;
 }
-/* line 251, ../scss/discussion.scss */
+/* line 267, ../scss/discussion.scss */
 body.node-type-discussion #container #comments {
   text-align: left;
   padding: 40px 0 0;
   position: relative;
   margin: 0 0 0 20px;
 }
-/* line 257, ../scss/discussion.scss */
+/* line 273, ../scss/discussion.scss */
 body.node-type-discussion #container #comments h2#comments-title {
   background: white url("../images/borders-comment.png") no-repeat left 7px;
   font-size: 0.9em;
   padding: 0 0 0 217px;
   text-transform: uppercase;
 }
-/* line 263, ../scss/discussion.scss */
+/* line 279, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .buildmode-full {
   border: 1px solid #cccccc;
   margin: 0 0 20px;
   padding: 10px 0 0 10px;
   position: relative;
 }
-/* line 269, ../scss/discussion.scss */
+/* line 285, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node {
   padding: 0;
 }
-/* line 271, ../scss/discussion.scss */
+/* line 287, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-author {
   float: left;
   margin: 0;
 }
-/* line 275, ../scss/discussion.scss */
+/* line 291, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-post-date {
   color: #cccccc;
   float: right;
   padding: 0 10px 0 0;
   font-size: 0.9em;
 }
-/* line 281, ../scss/discussion.scss */
+/* line 297, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-body {
+  text-align: justify;
   margin: 20px 10px 0 0;
 }
-/* line 285, ../scss/discussion.scss */
+/* line 302, ../scss/discussion.scss */
 body.node-type-discussion #container #comments textarea {
   box-shadow: 0 3px 0 #eeeeee;
 }
-/* line 289, ../scss/discussion.scss */
+/* line 306, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-response ul.links {
   border: 1px solid #ccc;
   padding: 4px 5px;
@@ -1720,18 +1762,18 @@ body.node-type-discussion #container .node-type-response ul.links {
   position: absolute;
   bottom: 7px;
 }
-/* line 297, ../scss/discussion.scss */
+/* line 314, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-response ul.links li {
   padding: 0 5px;
 }
-/* line 301, ../scss/discussion.scss */
+/* line 318, ../scss/discussion.scss */
 body.node-type-discussion #container .box {
   background: url("../images/borders.png") no-repeat center top;
   padding: 10px 0 0;
   margin: 50px 0 0;
   position: relative;
 }
-/* line 307, ../scss/discussion.scss */
+/* line 324, ../scss/discussion.scss */
 body.node-type-discussion #container .box h2 {
   background: #FFFFFF;
   font-size: 0.9em;
@@ -1742,7 +1784,7 @@ body.node-type-discussion #container .box h2 {
   top: -6px;
 }
 
-/* line 319, ../scss/discussion.scss */
+/* line 336, ../scss/discussion.scss */
 body.section-node-edit div#container {
   text-align: left;
 }
@@ -1777,62 +1819,61 @@ body.i18n-ar {
 /* line 9, ../scss/style-rtl.scss */
 body.i18n-ar h1 {
   font-style: normal;
-  font-weight: bold;
 }
-/* line 13, ../scss/style-rtl.scss */
+/* line 12, ../scss/style-rtl.scss */
 body.i18n-ar #content-header ul.tabs li a {
   font-family: UthmanTN,serif;
 }
-/* line 17, ../scss/style-rtl.scss */
+/* line 16, ../scss/style-rtl.scss */
 body.i18n-ar #top-strip {
   height: 27px;
 }
-/* line 20, ../scss/style-rtl.scss */
+/* line 19, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-action_links ul a {
   line-height: 1.9em;
   font-size: 0.7em;
   float: right;
 }
-/* line 25, ../scss/style-rtl.scss */
+/* line 24, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-action_links .boxes-box-content {
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 31, ../scss/style-rtl.scss */
+/* line 30, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li a {
   padding: 0 15px;
   line-height: 1.8em;
 }
-/* line 37, ../scss/style-rtl.scss */
+/* line 36, ../scss/style-rtl.scss */
 body.i18n-ar #block-menu-primary-links ul.menu a {
   font-size: 1.3em;
   padding: 19px 65px 30px 20px;
   font-weight: bold;
   background-position: 105px 20px;
 }
-/* line 44, ../scss/style-rtl.scss */
+/* line 43, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-welcome_to_nurani_box .toggle {
   position: absolute;
   right: auto;
   left: 0;
   top: 1px;
 }
-/* line 51, ../scss/style-rtl.scss */
+/* line 50, ../scss/style-rtl.scss */
 body.i18n-ar .condense_control {
   padding: 4px 4px 4px 0;
   background: url("../images/more-ar.png") no-repeat scroll 0 0 transparent;
 }
-/* line 56, ../scss/style-rtl.scss */
+/* line 55, ../scss/style-rtl.scss */
 body.i18n-ar #comment-form label {
   float: right;
   margin-right: 10px;
 }
-/* line 61, ../scss/style-rtl.scss */
+/* line 60, ../scss/style-rtl.scss */
 body.i18n-ar #comment-form label[for="edit-subject"] {
   margin-left: 42px;
   margin-right: 0;
 }
-/* line 71, ../scss/style-rtl.scss */
+/* line 70, ../scss/style-rtl.scss */
 body.i18n-ar #sidebar-second,
 body.i18n-ar .sidebar-second #main,
 body.i18n-ar .text,
@@ -1841,11 +1882,11 @@ body.i18n-ar .view-texts-in-discussion .views-row,
 body.i18n-ar .view-overview .views-field-title {
   float: right;
 }
-/* line 75, ../scss/style-rtl.scss */
+/* line 74, ../scss/style-rtl.scss */
 body.i18n-ar .perosnal-username, body.i18n-ar .view-overview .views-field-view-node {
   float: left;
 }
-/* line 81, ../scss/style-rtl.scss */
+/* line 80, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li.first {
   float: left;
   list-style: none outside none;
@@ -1869,7 +1910,7 @@ body.i18n-ar ul#primary li.first a {
 body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 82, ../scss/style-rtl.scss */
+/* line 81, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li {
   float: left;
   list-style: none outside none;
@@ -1893,7 +1934,7 @@ body.i18n-ar ul#primary li a {
 body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 83, ../scss/style-rtl.scss */
+/* line 82, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li.last {
   float: left;
   list-style: none outside none;
@@ -1917,259 +1958,265 @@ body.i18n-ar ul#primary li.last a {
 body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 86, ../scss/style-rtl.scss */
+/* line 85, ../scss/style-rtl.scss */
 body.i18n-ar #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: right;
   margin-top: 10px;
 }
-/* line 92, ../scss/style-rtl.scss */
+/* line 91, ../scss/style-rtl.scss */
 body.i18n-ar .view-ibis-glossary .views-summary {
   float: right;
 }
-/* line 97, ../scss/style-rtl.scss */
+/* line 96, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 {
   float: left;
   font-size: 18px;
   line-height: 16px;
   width: 66px;
 }
-/* line 102, ../scss/style-rtl.scss */
+/* line 101, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 ul {
   padding: 0;
 }
-/* line 105, ../scss/style-rtl.scss */
+/* line 104, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li.ar {
   display: none;
 }
-/* line 108, ../scss/style-rtl.scss */
+/* line 107, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li.en {
   display: block;
 }
-/* line 116, ../scss/style-rtl.scss */
+/* line 115, ../scss/style-rtl.scss */
 body.i18n-ar ul.menu li.last,
 body.i18n-ar ul.menu li.first,
 body.i18n-ar ul.menu li {
   float: right;
 }
-/* line 121, ../scss/style-rtl.scss */
+/* line 120, ../scss/style-rtl.scss */
 body.i18n-ar div#slash h3 {
   margin-right: 30px;
   margin-top: 0;
   line-height: 0.6em;
 }
-/* line 126, ../scss/style-rtl.scss */
+/* line 125, ../scss/style-rtl.scss */
 body.i18n-ar div#slash div#boxes-box-welcome_box img.d_ford {
   float: left;
 }
-/* line 131, ../scss/style-rtl.scss */
+/* line 130, ../scss/style-rtl.scss */
 body.i18n-ar div#main {
   float: right;
 }
-/* line 135, ../scss/style-rtl.scss */
+/* line 134, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-title {
   float: right;
   line-height: 29px;
 }
-/* line 139, ../scss/style-rtl.scss */
+/* line 138, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-view-node a {
   font-size: 0.8em;
   line-height: 1.2em;
   padding-bottom: 3px;
   float: left;
 }
-/* line 145, ../scss/style-rtl.scss */
+/* line 144, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-phpcode {
   float: right;
   margin-left: 15px;
   margin-right: 0;
 }
-/* line 152, ../scss/style-rtl.scss */
+/* line 151, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-new_texts-block_1 h3,
 body.i18n-ar #block-views-new_glossary_terms-block_1 h3 {
   background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
   padding: 10px 20px 10px 0;
 }
-/* line 156, ../scss/style-rtl.scss */
+/* line 155, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-nuranis-block_1 h3 {
   background-position: right;
   padding: 10px 20px 10px 0;
 }
-/* line 160, ../scss/style-rtl.scss */
+/* line 159, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-nuranis-block_1 h3.collapsed {
   background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
 }
-/* line 164, ../scss/style-rtl.scss */
+/* line 163, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-new_texts-block_1 h3.expand,
 body.i18n-ar #block-views-new_glossary_terms-block_1 h3.expand {
   background: url("../images/arrow-expand.png") no-repeat right center;
 }
-/* line 168, ../scss/style-rtl.scss */
+/* line 167, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-new_texts-block_1 .views-row,
 body.i18n-ar #block-views-new_glossary_terms-block_1 .views-row {
   background: url("../images/point-rtl.png") no-repeat right 6px;
   margin: 0 20px 0 0;
   padding: 0 15px 10px 0;
 }
-/* line 175, ../scss/style-rtl.scss */
+/* line 174, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs {
   float: right;
   margin: 1em 15em 0 0;
 }
-/* line 179, ../scss/style-rtl.scss */
+/* line 178, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs ul.vertical-tabs-list {
   float: right;
   left: auto;
   right: 2em;
 }
-/* line 184, ../scss/style-rtl.scss */
+/* line 183, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li {
   text-align: right;
 }
-/* line 187, ../scss/style-rtl.scss */
+/* line 186, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li.selected {
   border-left: 0;
   border-right: 1px solid #ccc;
 }
 
 /*discussion*/
-/* line 196, ../scss/style-rtl.scss */
+/* line 195, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion h1.title {
   margon-top: 40px;
 }
-/* line 201, ../scss/style-rtl.scss */
+/* line 200, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion .field-exp-comments {
   background-position: 270px 33px;
 }
-/* line 204, ../scss/style-rtl.scss */
+/* line 203, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 {
   background-position: center 11px;
 }
-/* line 206, ../scss/style-rtl.scss */
+/* line 205, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h3 {
   font-size: 0.9em;
   padding: 0 15px;
   font-size: 1em;
   padding: 0 15px;
-  font-weight: bold;
 }
-/* line 213, ../scss/style-rtl.scss */
+/* line 211, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h1 {
   text-align: right;
 }
-/* line 216, ../scss/style-rtl.scss */
+/* line 213, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h1 a {
+  font-weight: normal;
+}
+/* line 215, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 .content {
   text-align: right;
 }
-/* line 220, ../scss/style-rtl.scss */
+/* line 219, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second {
   text-align: right;
 }
-/* line 223, ../scss/style-rtl.scss */
+/* line 222, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion .view-discussion-texts .views-row {
   float: right;
 }
-/* line 227, ../scss/style-rtl.scss */
-body.i18n-ar.node-type-discussion #container #content-area {
-  background-position: -338px top;
+/* line 226, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-inner {
+  padding-top: 7px;
 }
 /* line 229, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #container #content-area {
+  background-position: -338px 4px;
+}
+/* line 231, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion {
   margin: 0 20px 0 0;
   padding: 10px 10px 0 0;
 }
-/* line 233, ../scss/style-rtl.scss */
+/* line 235, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-author {
   float: right;
 }
-/* line 236, ../scss/style-rtl.scss */
+/* line 238, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-post-date {
   float: left;
 }
-/* line 239, ../scss/style-rtl.scss */
+/* line 241, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-body {
   padding: 20px 0 0 10px;
 }
-/* line 242, ../scss/style-rtl.scss */
+/* line 244, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion div.field-label {
   font-size: 1em;
   left: 200px;
-  font-weight: bold;
+  font-weight: normal;
   top: -10px;
 }
-/* line 248, ../scss/style-rtl.scss */
+/* line 250, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion p {
-  text-align: right;
+  text-align: justify;
 }
-/* line 251, ../scss/style-rtl.scss */
+/* line 253, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
   left: auto;
-  right: 20px;
+  right: 0px;
 }
-/* line 257, ../scss/style-rtl.scss */
+/* line 259, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .translation-status,
 body.i18n-ar.node-type-discussion #container #content-area .translation-status-original {
   border-radius: 0 5px 0 0;
 }
-/* line 260, ../scss/style-rtl.scss */
+/* line 262, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .field-translation-status {
   float: left;
   text-align: right;
   margin: 0 0 -1px -1px;
 }
-/* line 266, ../scss/style-rtl.scss */
+/* line 268, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments {
   margin: 0 20px 0 0;
   text-align: right;
 }
-/* line 270, ../scss/style-rtl.scss */
+/* line 272, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments h2#comments-title {
   padding: 0 0 0 238px;
-  background: url("../images/borders-comment-ar.png") no-repeat left 7px white;
+  background: url("../images/borders-comment-ar.png") no-repeat left 10px white;
   padding: 0 246px 0 0;
-  font-weight: bold;
 }
-/* line 276, ../scss/style-rtl.scss */
+/* line 277, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .buildmode-full {
   padding: 10px 10px 0 0;
 }
-/* line 279, ../scss/style-rtl.scss */
+/* line 280, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-author {
   float: right;
 }
-/* line 282, ../scss/style-rtl.scss */
+/* line 283, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-post-date {
   float: left;
   padding: 0 0 0 10px;
 }
-/* line 287, ../scss/style-rtl.scss */
+/* line 288, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .node .field-body {
   margin: 20px 0 0 10px;
 }
-/* line 289, ../scss/style-rtl.scss */
+/* line 290, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .node .field-body p {
   margin: 0 0 1em 0;
 }
-/* line 294, ../scss/style-rtl.scss */
+/* line 295, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer {
   text-align: right;
 }
-/* line 296, ../scss/style-rtl.scss */
+/* line 297, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer ul.links {
   line-height: 20px;
   right: 10px;
 }
-/* line 301, ../scss/style-rtl.scss */
+/* line 302, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments label {
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 306, ../scss/style-rtl.scss */
+/* line 307, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second {
   margin-left: 0;
   margin-right: 0;
 }
-/* line 310, ../scss/style-rtl.scss */
+/* line 311, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding-right: 7px;
   padding-left: 20px;
@@ -2220,11 +2267,9 @@ body.ar #block-locale-language ul li.en {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -2255,19 +2300,15 @@ body.ar #block-locale-language ul li.en {
 }
 /* line 20, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 24, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 /* line 33, ../scss/toggle.scss */
 body.ar #block-locale-language ul li.ar {
@@ -2277,11 +2318,9 @@ body.ar #block-locale-language ul li.ar {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -2310,27 +2349,23 @@ body.ar #block-locale-language ul li.ar {
   -khtml-border-bottom-left-radius: 0;
   border-bottom-left-radius: 0;
   float: right;
-  -moz-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  -webkit-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  -o-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  box-shadow: inset 1px 1px 3px 3px #bfbfbf;
+  -moz-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  -webkit-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  -o-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
 /* line 20, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 24, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 
 /* line 44, ../scss/toggle.scss */
@@ -2341,11 +2376,9 @@ body.en #block-locale-language ul li.en {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -2373,27 +2406,23 @@ body.en #block-locale-language ul li.en {
   -ms-border-bottom-right-radius: 0;
   -khtml-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
-  -moz-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  -webkit-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  -o-box-shadow: inset 1px 1px 3px 3px #bfbfbf;
-  box-shadow: inset 1px 1px 3px 3px #bfbfbf;
+  -moz-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  -webkit-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  -o-box-shadow: #bfbfbf 1px 1px 3px 3px inset;
+  box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
 /* line 20, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 24, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 /* line 48, ../scss/toggle.scss */
 body.en #block-locale-language ul li.ar {
@@ -2403,11 +2432,9 @@ body.en #block-locale-language ul li.ar {
   -ms-border-radius: 15px;
   -khtml-border-radius: 15px;
   border-radius: 15px;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -2439,19 +2466,15 @@ body.en #block-locale-language ul li.ar {
 }
 /* line 20, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:hover {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: -o-linear-gradient(top, #ffffff, #d5d5d5);
-  background-image: linear-gradient(top, #ffffff, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
 /* line 24, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
-  background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -moz-linear-gradient(top, #888888, #d5d5d5);
-  background-image: -o-linear-gradient(top, #888888, #d5d5d5);
-  background-image: linear-gradient(top, #888888, #d5d5d5);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
+  background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
+  background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
 
 /* theme core colors*/
@@ -3016,6 +3039,16 @@ table .field-item, table .view-texts a, table td a {
   background: url(../images/point.png) no-repeat left 3px;
 }
 
+/* line 474, ../scss/misc.scss */
+.indented {
+  margin-left: 20px;
+}
+
+/* line 477, ../scss/misc.scss */
+.indented .indented {
+  margin: 0;
+}
+
 /* line 15, ../scss/discussion_header.scss */
 div.node-discussion .field-label {
   margin-bottom: 10px;
@@ -3252,19 +3285,19 @@ ul.menu li.active-trail {
   font-weight: normal;
   font-size: 1.2em;
 }
-/* line 18, ../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 18, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:visited {
   color: #7c0000;
 }
-/* line 21, ../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 21, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:focus {
   color: #7c0000;
 }
-/* line 24, ../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 24, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:hover {
   color: black;
 }
-/* line 27, ../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 27, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 #block-menu-primary-links ul.menu a:active {
   color: black;
 }
@@ -3403,11 +3436,9 @@ form input.form-submit {
   -ms-border-radius: "30px"/2;
   -khtml-border-radius: "30px"/2;
   border-radius: "30px"/2;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
   line-height: "30px";
   -webkit-box-sizing: border-box;
   padding: 0 "30px"/2;
@@ -3426,11 +3457,9 @@ form input.form-submit {
 }
 /* line 113, ../scss/_buttons.scss */
 form input.form-submit:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
-  background-image: -webkit-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -moz-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -o-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
+  background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
+  background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 
 /*  =Discussion
@@ -3580,11 +3609,9 @@ div#walkthrough {
   -ms-border-radius: "30px"/2;
   -khtml-border-radius: "30px"/2;
   border-radius: "30px"/2;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
   line-height: "30px";
   -webkit-box-sizing: border-box;
   padding: 0 "30px"/2;
@@ -3604,11 +3631,9 @@ div#walkthrough {
 }
 /* line 113, ../scss/_buttons.scss */
 #sidebar-second #block-ibis_glossary-ibis_glossary_terms #ibis-glossary-highlight-button:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
-  background-image: -webkit-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -moz-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -o-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
+  background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
+  background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 /* line 287, ../scss/core.scss */
 #sidebar-second h2.block-title {
@@ -3623,11 +3648,9 @@ div#walkthrough {
   -ms-border-radius: "30px"/2;
   -khtml-border-radius: "30px"/2;
   border-radius: "30px"/2;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
   line-height: "30px";
   -webkit-box-sizing: border-box;
   padding: 0 "30px"/2;
@@ -3649,11 +3672,9 @@ div#walkthrough {
 }
 /* line 113, ../scss/_buttons.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
-  background-image: -webkit-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -moz-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -o-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
+  background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
+  background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 /* line 300, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-controls {
@@ -3667,11 +3688,9 @@ div#walkthrough {
   -ms-border-radius: "30px"/2;
   -khtml-border-radius: "30px"/2;
   border-radius: "30px"/2;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -moz-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: -o-linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
-  background-image: linear-gradient(top, #ffffff, #ffffff 4%, #e7e4e1);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(4%, #ffffff), color-stop(100%, #e7e4e1));
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #ffffff 4%, #e7e4e1 100%);
   line-height: "30px";
   -webkit-box-sizing: border-box;
   padding: 0 "30px"/2;
@@ -3694,11 +3713,9 @@ div#walkthrough {
 }
 /* line 113, ../scss/_buttons.scss */
 #sidebar-second #boxes-box-add_discussion .boxes-box-content a:active {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
-  background-image: -webkit-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -moz-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: -o-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
-  background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #a3988c), color-stop(4%, #c5beb6), color-stop(100%, #d7d2cd));
+  background-image: -moz-linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
+  background-image: linear-gradient(top, #a3988c 0%, #c5beb6 4%, #d7d2cd 100%);
 }
 
 /* line 317, ../scss/core.scss */
@@ -3775,19 +3792,19 @@ span.username {
 a {
   color: black;
 }
-/* line 18, ../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 18, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:visited {
   color: black;
 }
-/* line 21, ../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 21, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:focus {
   color: black;
 }
-/* line 24, ../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 24, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:hover {
   color: #990000;
 }
-/* line 27, ../../../../../../../../../../var/lib/gems/1.8/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+/* line 27, ../../../../../../../../../../../Users/zsamir/.gem/ruby/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_link-colors.scss */
 a:active {
   color: black;
 }
@@ -3799,9 +3816,9 @@ div#walkthrough {
 /* line 381, ../scss/core.scss */
 div#walkthrough ul.links li {
   background: #b30000;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%)";
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
   opacity: 50%;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
 }
 /* line 384, ../scss/core.scss */
 div#walkthrough ul.links li a:link {

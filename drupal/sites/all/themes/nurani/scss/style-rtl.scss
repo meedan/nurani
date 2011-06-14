@@ -8,7 +8,6 @@ body.i18n-ar {
 	/*Typo*/
 	h1 {
 		font-style: normal;
-		font-weight: bold;
 	}
 	#content-header ul.tabs li a {
  		font-family: UthmanTN,serif;
@@ -208,10 +207,10 @@ body.i18n-ar.node-type-discussion {
 			padding: 0 15px;
 			font-size: 1em;
 			padding: 0 15px;;
-			font-weight: bold;
 		}
 		h1 {
 			text-align: right;
+			a { font-weight: normal;}
 		}
 		.content { 
 			text-align: right;
@@ -224,8 +223,11 @@ body.i18n-ar.node-type-discussion {
 		float: right;
 	}
 	#container {
+		#content-inner {
+			padding-top: 7px;
+		}
 		#content-area {
-			background-position: -338px top;
+			background-position: -338px 4px;
 			.node-type-discussion {
 				margin: 0 20px 0 0;
 				padding: 10px 10px 0 0;
@@ -242,15 +244,15 @@ body.i18n-ar.node-type-discussion {
 				div.field-label {
 			    font-size: 1em;
 					left: 200px;
-					font-weight: bold;
+					font-weight: normal;
 					top: -10px;
 				}
 				p {
-					text-align: right;
+					text-align: justify;
 				}	
 				li.nurani_translation a {
 					left: auto;
-					right: 20px;
+					right: 0px;
 				}
 			}
 				.translation-status,
@@ -269,9 +271,8 @@ body.i18n-ar.node-type-discussion {
 		 
 			h2#comments-title {
 				padding: 0 0 0 238px;
-				background: url("../images/borders-comment-ar.png") no-repeat left 7px white;
+				background: url("../images/borders-comment-ar.png") no-repeat left 10px white;
 				padding: 0 246px 0 0;
-				font-weight: bold;
 			}	
 			.buildmode-full {
 				padding: 10px 10px 0 0;

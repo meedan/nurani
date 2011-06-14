@@ -471,3 +471,9 @@ table .field-item, table .view-texts a , table td a{
 	margin: 0 0 0 20px;
 	background: url(../images/point.png) no-repeat left 3px;
 }
+.indented {
+	margin-left: 20px;
+}
+.indented .indented {
+	margin: 0;
+}

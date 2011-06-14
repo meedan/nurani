@@ -11,6 +11,7 @@ body.node-type-discussion {
 		background: #d6cbc0 url(../images/clock.png) no-repeat 20px 25px;
 		padding: 20px 65px;
 		margin: 40px 0 0;
+		font-size: 0.9em;	
 		
 		strong {
 			color: $white;
@@ -65,7 +66,9 @@ body.node-type-discussion {
 				text-align: left;
 			}
   }
-  
+	.view-discussion-texts {
+		padding-top: 20px;
+	} 
   h1.title {
     display: block;
     margin: 20px 0;
@@ -75,7 +78,7 @@ body.node-type-discussion {
   /* views-row is not a row, actually, just a div ... */
  
     div.views-row {
-    margin: 30px 5px 10px;
+    margin: 30px 1px 10px;
     float: left;
     width: $text_width;
     div.buildmode-text_summary {
@@ -103,9 +106,18 @@ body.node-type-discussion {
       	width: $text_width - 40px;
     	  padding: 10px 10px 35px;
 				background: $paper;
-				border-bottom: 35px solid $paper;
-				height: 160px;
+				height: 166px;
 				overflow: hidden;
+			}
+			.field-text-links {
+				background: $paper;
+				padding: 10px 0;
+				li a {
+				 	@include soft_button;
+        	font-size: 13px;
+					margin: 0 5px;	
+					display: inline-block;
+				}
 			}
 			.text-expand {
 				height: auto;
@@ -144,13 +156,14 @@ body.node-type-discussion {
 
   #container {
 		text-align: center;
-		padding: 8px 0 0;		
 		
 		#main {
 			position: static;
+			margin-top: 0;
 		}
 		#content-inner {
 			background: transparent;
+			padding-top: 2px;
 		}
 		.inner {
 			padding: 20px 10px 20px 20px;
@@ -229,16 +242,18 @@ body.node-type-discussion {
 			}
 			 #comments .buildmode-full.translation-status-placeholder {
 				background: $verylightgray;
-				border-radius: 5px 0 0 0;
+			}
+ 			.buildmode-full.translation-status-placeholder .node-type-discussion {
+				background: $verylightgray;
 			}
 		}
 		#sidebar-second {
 			text-align: left;
-			margin-right: 1.2em;
-			width: 346px;
+			margin-right: 2.5em;
+			width: 19.3em;
 	
 			#sidebar-second-inner {
-				padding-left: 7px;
+				padding: 0 0 0 7px;
 			}
 		}		
 		h3.block-title {
@@ -247,6 +262,7 @@ body.node-type-discussion {
 			text-transform: uppercase;
 			font-size: 1em;
 			font-weight: bold;
+			margin-top: 0;
 		}
 		#comments {
 			text-align: left;
@@ -279,6 +295,7 @@ body.node-type-discussion {
 					font-size: 0.9em;
 				}
 				.field-body {
+					text-align: justify;
 					margin: 20px 10px 0 0;
 				}
 			}

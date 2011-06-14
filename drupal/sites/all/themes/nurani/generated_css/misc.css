@@ -559,3 +559,13 @@ table .field-item, table .view-texts a, table td a {
   margin: 0 0 0 20px;
   background: url(../images/point.png) no-repeat left 3px;
 }
+
+/* line 474, ../scss/misc.scss */
+.indented {
+  margin-left: 20px;
+}
+
+/* line 477, ../scss/misc.scss */
+.indented .indented {
+  margin: 0;
+}
