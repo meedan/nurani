@@ -1125,11 +1125,10 @@ The Service Providers may use session cookies when you visit our website while y
     6 => 'parent',
     7 => 'taxonomy',
     8 => 'comment',
-    9 => 'field_texts',
-    10 => 'field_exp_comments',
-    11 => 'field_moderators',
-    12 => 'field_translators',
-    13 => 'field_scholars',
+    9 => 'field_exp_comments',
+    10 => 'field_moderators',
+    11 => 'field_translators',
+    12 => 'field_scholars',
   );
 
   $export['i18nsync_nodeapi_discussion'] = $strongarm;

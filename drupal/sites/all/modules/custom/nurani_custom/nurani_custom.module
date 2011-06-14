@@ -316,6 +316,13 @@ function nurani_custom_action_links($user = NULL) {
   }
   $links = array();
 
+  if ($user->uid > 0) {
+    $links[] = array(
+      'title' => t('Profile'),
+      'href' => 'user',
+    );
+  }
+
   if (user_access(ICL_TRANSLATE_DO_JOBS, $user)) {
     $links[] = array(
       'title' => t('Translation jobs'),
@@ -325,7 +332,7 @@ function nurani_custom_action_links($user = NULL) {
 
   if (user_access(ICL_TRANSLATE_MANAGE_JOBS, $user)) {
     $links[] = array(
-      'title' => t('Manage translation'),
+      'title' => t('Manage translations'),
       'href' => 'admin/content/translation-management/dashboard',
     );
   }

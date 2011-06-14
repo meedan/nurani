@@ -1236,25 +1236,6 @@ return theme_item_list($translations);
       'field' => 'status',
       'relationship' => 'none',
     ),
-    'language' => array(
-      'operator' => 'in',
-      'value' => array(
-        '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
-      ),
-      'group' => '0',
-      'exposed' => FALSE,
-      'expose' => array(
-        'operator' => FALSE,
-        'label' => '',
-      ),
-      'id' => 'language',
-      'table' => 'node',
-      'field' => 'language',
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
-    ),
   ));
   $handler->override_option('access', array(
     'type' => 'none',
