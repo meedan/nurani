@@ -55,6 +55,9 @@ function nurani_general_views_default_views() {
       'table' => 'node_data_field_texts',
       'field' => 'field_texts_nid',
       'relationship' => 'none',
+      'override' => array(
+        'button' => 'Override',
+      ),
     ),
   ));
   $handler->override_option('arguments', array(

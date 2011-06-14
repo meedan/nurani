@@ -6,9 +6,9 @@ dependencies[] = nd
 dependencies[] = search
 package = "Display suite"
 
-; Information added by drupal.org packaging script on 2011-02-25
+; Information added by drupal.org packaging script on 2011-06-09
 version = "6.x-2.x-dev"
 core = "6.x"
 project = "nd_contrib"
-datestamp = "1298619705"
+datestamp = "1307621517"
 

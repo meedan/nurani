@@ -1409,6 +1409,41 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'ld_condition_snippet';
+  $strongarm->value = '';
+
+  $export['ld_condition_snippet'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'ld_condition_type';
+  $strongarm->value = 'always';
+
+  $export['ld_condition_type'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'ld_destination';
+  $strongarm->value = 1;
+
+  $export['ld_destination'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'ld_url_destination';
+  $strongarm->value = 'overview';
+
+  $export['ld_url_destination'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'ld_url_type';
+  $strongarm->value = 'static';
+
+  $export['ld_url_type'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'nd_build_modes';
   $strongarm->value = array(
     'text_summary' => 'Text summary',
@@ -2022,20 +2057,20 @@ The Service Providers may use session cookies when you visit our website while y
         'title' => array(
           'region' => 'middle',
           'weight' => '-100',
-          'format' => 'nd_title_h1_nolink',
+          'format' => 'nd_title_h1_link',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'author' => array(
           'region' => 'disabled',
-          'weight' => '-93',
+          'weight' => '-94',
           'format' => 'ds_author_nolink',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'links' => array(
           'region' => 'disabled',
-          'weight' => '-94',
+          'weight' => '-92',
           'format' => '',
           'css-class' => '',
           'labelformat' => 'hidden',
@@ -2061,16 +2096,16 @@ The Service Providers may use session cookies when you visit our website while y
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
-        'view_text' => array(
-          'region' => 'footer',
-          'weight' => '-98',
+        'translation_status' => array(
+          'region' => 'disabled',
+          'weight' => '-93',
           'format' => 'ds_eval_code',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
-        'translation_status' => array(
-          'region' => 'disabled',
-          'weight' => '-92',
+        'text_links' => array(
+          'region' => 'middle',
+          'weight' => '-98',
           'format' => 'ds_eval_code',
           'css-class' => '',
           'labelformat' => 'hidden',
@@ -2093,27 +2128,6 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->api_version = 1;
   $strongarm->name = 'nd_fields';
   $strongarm->value = array(
-    'view_text' => array(
-      'title' => 'View text',
-      'exclude' => array(
-        'annotation' => 'annotation',
-        'comment' => 'comment',
-        'discussion' => 'discussion',
-        'page' => 'page',
-        'profile' => 'profile',
-        'term' => 'term',
-        'text' => 0,
-      ),
-      'type' => 5,
-      'status' => 3,
-      'properties' => array(
-        'formatters' => array(
-          'ds_eval_code' => 'Default',
-        ),
-        'code' => '<?php echo l(t("View Text"), "node/$object->nid"); ?>',
-        'token' => 0,
-      ),
-    ),
     'glossary_references' => array(
       'title' => 'Glossary references',
       'exclude' => array(
@@ -2121,6 +2135,7 @@ The Service Providers may use session cookies when you visit our website while y
         'discussion' => 'discussion',
         'page' => 'page',
         'profile' => 'profile',
+        'response' => 'response',
         'text' => 'text',
         'comment' => 'comment',
         'term' => 0,
@@ -2145,6 +2160,7 @@ print theme(\'glossary_search_results\', $object, \'text\');
         'annotation' => 0,
         'discussion' => 0,
         'profile' => 0,
+        'response' => 0,
         'term' => 0,
         'text' => 0,
         'comment' => 0,
@@ -2157,6 +2173,32 @@ print theme(\'glossary_search_results\', $object, \'text\');
         ),
         'code' => '<?php
 return theme(\'translation_status\', $object);
+?>',
+        'token' => 0,
+      ),
+    ),
+    'text_links' => array(
+      'title' => 'Text links',
+      'exclude' => array(
+        'annotation' => 'annotation',
+        'discussion' => 'discussion',
+        'page' => 'page',
+        'profile' => 'profile',
+        'response' => 'response',
+        'term' => 'term',
+        'comment' => 'comment',
+        'text' => 0,
+      ),
+      'type' => 5,
+      'status' => 3,
+      'properties' => array(
+        'formatters' => array(
+          'ds_eval_code' => 'Default',
+        ),
+        'code' => '<?php 
+$links = module_invoke_all(\'link\', \'node\', $object, FALSE);
+drupal_alter(\'link\', $links, $object, NULL);
+return theme(\'links\', $links); 
 ?>',
         'token' => 0,
       ),

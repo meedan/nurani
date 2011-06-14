@@ -451,12 +451,21 @@ drupal_add_js (
 
 drupal_add_js (
 	'$(document).ready(function(){	
-		$(".nurani-glossary-processed").mouseover(function() {
-				$(this).addClass("text-expand");
+		$(".text_more a").click(function() {
+      $link = $(this);
+      $link.parents(".node-type-text").find(".nurani-glossary-processed").each(function() {
+        $text = $(this);
+        if ($text.hasClass("text-expand")) {
+          $text.removeClass("text-expand");
+          $link.text(Drupal.t("more"));
+        }
+        else {
+          $text.addClass("text-expand");
+          $link.text(Drupal.t("less"));
+        }
+      });
+      return false;
 		});	
-		$(".nurani-glossary-processed").mouseleave(function() {
-				$(this).removeClass("text-expand");
-		});		
-
 });','inline'
 );
+

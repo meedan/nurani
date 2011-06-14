@@ -33,7 +33,7 @@ function nurani_profile_modules() {
     // Misc
     'vertical_tabs', 'admin_menu', 'adminrole', 
     'token', 'pathauto', 'auto_nodetitle', 'agreement',
-    'taxonomy_export', 'logintoboggan',
+    'taxonomy_export', 'logintoboggan', 'login_destination',
 
     // CCK
     'content',

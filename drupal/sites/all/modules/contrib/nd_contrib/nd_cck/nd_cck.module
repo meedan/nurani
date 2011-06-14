@@ -206,6 +206,40 @@ function nd_cck_theme() {
 }
 
 /**
+ * Implementation of hook_ds_settings_import().
+ */
+function nd_cck_ds_settings_import($module, $type, $settings) {
+
+  // Only works for Node Displays.
+  if ($module != 'nd') {
+    return;
+  }
+
+  $info = _content_type_info();
+  $fields = $info['content types'][$type]['fields'];
+
+  foreach ($settings as $build_mode => $settings) {
+    foreach ($settings['fields'] as $field_key => $field_value) {
+      if (isset($fields[$field_key])) {
+        $fields[$field_key]['display_settings'][$build_mode]['weight'] = $field_value['weight'];
+        $fields[$field_key]['display_settings'][$build_mode]['css-class'] = $field_value['css-class'];
+        $fields[$field_key]['display_settings'][$build_mode]['format'] = $field_value['format'];
+        $fields[$field_key]['display_settings'][$build_mode]['label']['format'] = $field_value['labelformat'];
+        $exclude = (isset($field_value['region']) && $field_value['region'] == 'disabled') ? 1 : 0;
+        $fields[$field_key]['display_settings'][$build_mode]['exclude'] = $exclude;
+        if (isset($field_value['label_value'])) {
+          $fields[$field_key]['display_settings'][$build_mode]['label_value'] = $field_value['label_value'];
+        }
+      }
+    }
+  }
+
+  foreach ($fields as $field) {
+    content_field_instance_update($field);
+  }
+}
+
+/**
  * Node reference theme formatter to support Node Displays.
  * Based on theme_nodereference_formatter_full_teaser.
  */
@@ -238,7 +272,7 @@ function theme_nd_cck_node_formatter($element) {
         _nodereference_titles($element['#item']['nid'], $referenced_node->title);
         $page = FALSE;
         $teaser = TRUE;
-        if ($build_mode == 'full') {
+        if (TRUE/*$build_mode == 'full'*/) {
           $page = TRUE;
           $teaser = FALSE;
         }

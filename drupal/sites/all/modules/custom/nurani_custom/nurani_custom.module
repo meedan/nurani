@@ -164,6 +164,7 @@ function nurani_custom_link_alter(&$links, $node, $comment = NULL) {
       unset($links[$key]);
     }
   }
+
   // Hide login/register link from everywhere.
   unset($links['login_register']);
 }
@@ -172,18 +173,38 @@ function nurani_custom_link_alter(&$links, $node, $comment = NULL) {
  * Implementation of hook_link().
  */
 function nurani_custom_link($type, $object, $teaser = FALSE) {
-  if ($type != 'node' || !translation_supported_type($object->type)) return;
-
   $links = array();
-  if (_nurani_custom_translation_pending($object, TRUE) && user_access(ICL_TRANSLATE_DO_JOBS)) {
-    // Create a translate link for translators if the node is pending translation.
-    // TODO: For discussions and discussion comments, check that the translator exists in field_translators.
-    // TODO: Check that translator can translate from source language to target language.
-    $links['nurani_translation'] = array(
-      'title' => t('translate'),
-      'href' => 'translation/' . $object->nid,
-    );
+
+  if ($type == 'node' && $object->type == 'text') {
+    $context = menu_get_object();
+    if ($context && $context->type == 'discussion') {
+      $links['text_more'] = array(
+        'title' => t('more'),
+        'href' => $_GET['q'],
+      );
+    }
   }
+
+  if ($type == 'node' && translation_supported_type($object->type)) {
+    if (($language = _nurani_custom_translation_pending($object, TRUE)) && user_access(ICL_TRANSLATE_DO_JOBS)) {
+      // Create a translate link for translators if the node is pending translation.
+      // TODO: For discussions and discussion comments, check that the translator exists in field_translators.
+      // TODO: Check that translator can translate from source language to target language.
+      $languages = i18n_language_list(); // get all enabled languages
+      $links['nurani_translation'] = array(
+        'title' => $object->type == 'text' ? $languages[$language] : t('translate'),
+        'href' => 'translation/' . $object->nid,
+      );
+      // If we're translating a text in the context of a discussion, go back to this discussion after translation.
+      if ($object->type == 'text') {
+        $context = menu_get_object();
+        if ($context && $context->type == 'discussion') {
+          $links['nurani_translation']['query'] = array('destination' => 'node/' . $context->nid);
+        }
+      }
+    }
+  }
+
   return $links;
 }
 
@@ -220,7 +241,12 @@ function _nurani_translation($node) {
   }
   icl_content_translate_posts(array($original->nid), array_keys($languages), $translators); 
   $rid = db_result(db_query("SELECT rid FROM {icl_content_status} WHERE nid=%d", $original->nid));
-  drupal_goto('translate/' . $rid);
+
+  if (isset($_REQUEST['destination'])) {
+    $destination = $_REQUEST['destination'];
+    unset($_REQUEST['destination']);
+  }
+  drupal_goto('translate/' . $rid, empty($destination) ? NULL : array('destination' => $destination));
 }
 
 /**
@@ -245,7 +271,11 @@ WHERE content.nid = %d
       }
     }
   }
-  return TRUE;
+  // Return the language name.
+  $original = node_load($node->tnid);
+  $languages = i18n_language_list(); // get all enabled languages
+  unset($languages[$original->language]); //unset the languages of source node
+  return key($languages);
 }
 
 /**
