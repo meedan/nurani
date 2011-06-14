@@ -305,6 +305,11 @@ WHERE core.rid = %d
     $form['title']['#description'] = t('Include text, verse and chapter - for example Qur\'an 2:8-18 or Deuteronomy 4:5-8 or Corinthians 1:17-29.');
     $form['body']['#description'] = t('Submit the text passage here.');
   }
+
+  // Disable autocomplete for password.
+  if ($form_id == 'user_profile_form') {
+    $form['#attributes']['autocomplete'] = 'off';
+  }
 }
 
 /**
