@@ -1,0 +1,16 @@
+name = Node Relationships
+description = Provides methods to complete two way relationships between content types enhancing the features of node reference fields.
+package = CCK
+dependencies[] = content
+dependencies[] = nodereference
+dependencies[] = views
+dependencies[] = modalframe
+dependencies[] = jquery_ui
+core = 6.x
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "noderelationships"
+datestamp = "1298619748"
+

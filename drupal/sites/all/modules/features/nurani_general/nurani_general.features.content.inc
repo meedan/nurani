@@ -371,9 +371,10 @@ function nurani_general_content_default_fields() {
       'discussion' => 0,
       'page' => 0,
       'profile' => 0,
+      'response' => 0,
       'term' => 0,
     ),
-    'advanced_view' => 'language_texts',
+    'advanced_view' => 'text_references',
     'advanced_view_args' => '',
     'widget' => array(
       'autocomplete_match' => 'contains',
@@ -382,10 +383,6 @@ function nurani_general_content_default_fields() {
         '0' => array(
           'nid' => NULL,
           '_error_element' => 'default_value_widget][field_texts][0][nid][nid',
-          'actions' => array(
-            'browse' => 'Browse',
-            'remove' => 'Remove',
-          ),
         ),
       ),
       'default_value_php' => NULL,
@@ -410,8 +407,8 @@ function nurani_general_content_default_fields() {
       'label' => 'Texts',
       'weight' => '-4',
       'description' => '',
-      'type' => 'nodereference_explorer',
-      'module' => 'nodereference_explorer',
+      'type' => 'nodereference_autocomplete',
+      'module' => 'nodereference',
     ),
   );
 
