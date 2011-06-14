@@ -45,7 +45,6 @@ function nurani_profile_modules() {
     // jQuery
     'jquery_update', 'jquery_ui', 
     'modalframe',
-    'popups', 'popups_reference',
 
     // Strongarm
     'strongarm', 
@@ -142,6 +141,7 @@ function nurani_profile_tasks(&$task, $url) {
     $operations[] = array('nurani_config_theme', array());
     $operations[] = array('nurani_config_icl', array());
     $operations[] = array('nurani_config_nodes', array());
+    $operations[] = array('nurani_config_noderelationships', array());
   
     // Build the batch process
     $batch = array(
@@ -299,6 +299,20 @@ function nurani_config_nodes() {
     $node_code = file_get_contents($file);
     node_export_import($node_code);
   }
+}
+
+/**
+ * Configure Node Relationships
+ */
+function nurani_config_noderelationships() {
+  $noderelationships_setting = array(
+    'type_name' => 'discussion',
+    'relation_type' => 'noderef',
+    'related_type' => '',
+    'field_name' => 'field_texts',
+    'settings' => 'a:2:{s:25:\"search_and_reference_view\";s:26:\"text_references:page_table\";s:20:\"create_and_reference\";s:11:\"field_texts\";}',
+  );
+  drupal_write_record('noderelationships_settings', $noderelationships_setting);
 }
 
 /**

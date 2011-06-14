@@ -1125,10 +1125,11 @@ The Service Providers may use session cookies when you visit our website while y
     6 => 'parent',
     7 => 'taxonomy',
     8 => 'comment',
-    9 => 'field_exp_comments',
-    10 => 'field_moderators',
-    11 => 'field_translators',
-    12 => 'field_scholars',
+    9 => 'field_texts',
+    10 => 'field_exp_comments',
+    11 => 'field_moderators',
+    12 => 'field_translators',
+    13 => 'field_scholars',
   );
 
   $export['i18nsync_nodeapi_discussion'] = $strongarm;
@@ -1461,16 +1462,8 @@ The Service Providers may use session cookies when you visit our website while y
       'teaser' => 0,
       'sticky' => 0,
       4 => 0,
-      'token' => 0,
-      'text_summary' => 1,
-      'discussion_participants' => 1,
-    ),
-    'comment' => array(
-      'ds_block_all' => 0,
-      'full' => 0,
-      'teaser' => 0,
-      'sticky' => 0,
-      4 => 0,
+      2 => 0,
+      3 => 0,
       'token' => 0,
       'text_summary' => 1,
       'discussion_participants' => 1,
@@ -1481,6 +1474,8 @@ The Service Providers may use session cookies when you visit our website while y
       'teaser' => 0,
       'sticky' => 0,
       4 => 0,
+      2 => 0,
+      3 => 0,
       'token' => 0,
       'text_summary' => 1,
       'discussion_participants' => 0,
@@ -1491,6 +1486,8 @@ The Service Providers may use session cookies when you visit our website while y
       'teaser' => 0,
       'sticky' => 0,
       4 => 0,
+      2 => 0,
+      3 => 0,
       'token' => 0,
       'text_summary' => 1,
       'discussion_participants' => 1,
@@ -1501,6 +1498,20 @@ The Service Providers may use session cookies when you visit our website while y
       'teaser' => 0,
       'sticky' => 0,
       4 => 0,
+      2 => 0,
+      3 => 0,
+      'token' => 0,
+      'text_summary' => 1,
+      'discussion_participants' => 1,
+    ),
+    'response' => array(
+      'ds_block_all' => 0,
+      'full' => 0,
+      'teaser' => 0,
+      'sticky' => 0,
+      4 => 0,
+      2 => 0,
+      3 => 0,
       'token' => 0,
       'text_summary' => 1,
       'discussion_participants' => 1,
@@ -1511,6 +1522,8 @@ The Service Providers may use session cookies when you visit our website while y
       'teaser' => 0,
       'sticky' => 0,
       4 => 0,
+      2 => 0,
+      3 => 0,
       'token' => 0,
       'text_summary' => 1,
       'discussion_participants' => 1,
@@ -1521,8 +1534,22 @@ The Service Providers may use session cookies when you visit our website while y
       'teaser' => 0,
       'sticky' => 0,
       4 => 0,
+      2 => 0,
+      3 => 0,
       'token' => 0,
       'text_summary' => 0,
+      'discussion_participants' => 1,
+    ),
+    'comment' => array(
+      'ds_block_all' => 0,
+      'full' => 0,
+      'teaser' => 0,
+      'sticky' => 0,
+      4 => 0,
+      2 => 0,
+      3 => 0,
+      'token' => 0,
+      'text_summary' => 1,
       'discussion_participants' => 1,
     ),
   );
@@ -2156,11 +2183,11 @@ print theme(\'glossary_search_results\', $object, \'text\');
       'title' => 'Translation status',
       'exclude' => array(
         'page' => 'page',
+        'term' => 'term',
         'annotation' => 0,
         'discussion' => 0,
         'profile' => 0,
         'response' => 0,
-        'term' => 0,
         'text' => 0,
         'comment' => 0,
       ),
@@ -2240,6 +2267,13 @@ return theme(\'links\', $links);
   $strongarm->value = 0;
 
   $export['nd_type_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nd_type_response';
+  $strongarm->value = 0;
+
+  $export['nd_type_response'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -2901,6 +2935,15 @@ return theme(\'links\', $links);
   );
 
   $export['node_options_discussion'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_options_forum';
+  $strongarm->value = array(
+    0 => 'status',
+  );
+
+  $export['node_options_forum'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
