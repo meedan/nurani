@@ -1,7 +1,8 @@
+@charset "UTF-8";
 /* line 3, ../scss/login.scss */
 body.page-user.not-logged-in {
   background-image: url(../images/login-header.png);
-  background-position: center top;
+  background-position: center 130px;
   background-repeat: no-repeat;
 }
 /* line 7, ../scss/login.scss */
@@ -48,7 +49,7 @@ body.page-user.not-logged-in #boxes-box-user_login_footer p {
 }
 /* line 51, ../scss/login.scss */
 body.page-user.not-logged-in #block-boxes-login_title {
-  margin: 50px 0 0;
+  margin: 140px 0 0;
   text-align: center;
 }
 /* line 54, ../scss/login.scss */

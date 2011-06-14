@@ -26,6 +26,7 @@ body.page-overview .view-discussions .views-field-view-node a {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -38,14 +39,14 @@ body.page-overview .view-discussions .views-field-view-node a {
   text-decoration: none;
   margin-top: -5px;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.page-overview .more-links a:hover,
 body.page-overview .view-discussions .views-field-view-node a:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.page-overview .more-links a:active,
 body.page-overview .view-discussions .views-field-view-node a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
@@ -64,25 +65,26 @@ body.page-overview #slash {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #fff0c2), color-stop(50%, #fff9e6), color-stop(100%, #fff9e6));
   background-image: -moz-linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
   background-image: linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
+  background-color: #fff9e6;
 }
-/* line 18, ../scss/welcome_message.scss */
+/* line 19, ../scss/welcome_message.scss */
 body.page-overview #slash h3 {
   text-shadow: 0px 1px 0px white;
   color: #333;
   font-weight: 300px;
   font-size: 1.6em;
 }
-/* line 25, ../scss/welcome_message.scss */
+/* line 26, ../scss/welcome_message.scss */
 body.page-overview #slash div.block .contextual-links-wrapper {
   display: none;
 }
-/* line 29, ../scss/welcome_message.scss */
+/* line 30, ../scss/welcome_message.scss */
 body.page-overview #slash div.block .edit {
   top: auto;
   right: 0px;
   bottom: 0px;
 }
-/* line 36, ../scss/welcome_message.scss */
+/* line 37, ../scss/welcome_message.scss */
 body.page-overview #slash #block-boxes-welcome_box img.d_ford {
   float: right;
   width: 80px;
@@ -93,17 +95,17 @@ body.page-overview #slash #block-boxes-welcome_box img.d_ford {
   -o-box-shadow: #cccccc 3px 3px 3px 0;
   box-shadow: #cccccc 3px 3px 3px 0;
 }
-/* line 45, ../scss/welcome_message.scss */
+/* line 46, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle {
   position: absolute;
   right: 20px;
   top: 20px;
 }
-/* line 50, ../scss/welcome_message.scss */
+/* line 51, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle a {
   color: #888;
 }
-/* line 52, ../scss/welcome_message.scss */
+/* line 53, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle a:hover {
   text-decoration: underline;
 }

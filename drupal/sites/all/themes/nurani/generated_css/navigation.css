@@ -1,26 +1,12 @@
 /*
 Syntax error: Undefined mixin 'en-sans'.
-        on line 100 of /Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss, in `en-sans'
-        from line 100 of /Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss
+        on line 58 of /Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss, in `en-sans'
+        from line 58 of /Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss
 
 Backtrace:
-/Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss:100:in `en-sans'
-/Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss:100
+/Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss:58:in `en-sans'
+/Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss:58
 /Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/mixin_node.rb:62:in `perform!'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:305:in `_perform'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:213:in `perform'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `map'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:317:in `perform!'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/rule_node.rb:191:in `perform!'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:305:in `_perform'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:213:in `perform'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `map'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:317:in `perform!'
-/Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/rule_node.rb:191:in `perform!'
 /Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:305:in `_perform'
 /Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:213:in `perform'
 /Library/Ruby/Gems/1.8/gems/haml-3.0.25/lib/sass/tree/node.rb:327:in `perform_children'
@@ -82,4 +68,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'en-sans'.\A         on line 100 of /Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss, in `en-sans'\A         from line 100 of /Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss"; }
+  content: "Syntax error: Undefined mixin 'en-sans'.\A         on line 58 of /Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss, in `en-sans'\A         from line 58 of /Applications/MAMP/htdocs/nu/meedan-nurani/drupal/sites/all/themes/nurani/scss/navigation.scss"; }

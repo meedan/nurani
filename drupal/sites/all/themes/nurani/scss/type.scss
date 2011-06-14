@@ -43,11 +43,11 @@ body.i18n-ar {
 }
 
 @mixin en-sans {
-  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
 }
 
 @mixin en-serif {
-  font-family: Georgia, Times, Times New Roman, serif;
+  font-family: Georgia, UthmanTN, Times, Times New Roman, serif;
 }
 
 @mixin display {

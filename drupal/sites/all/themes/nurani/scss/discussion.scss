@@ -78,9 +78,9 @@ body.node-type-discussion {
   /* views-row is not a row, actually, just a div ... */
  
     div.views-row {
-    margin: 30px 1px 10px;
+    margin: 30px 14px 10px;
     float: left;
-    width: $text_width;
+    width: 195px;
     div.buildmode-text_summary {
       color: #868080;
       float: left;
@@ -88,7 +88,7 @@ body.node-type-discussion {
       line-height: 1.3em;
 			font-size: 0.8em;
       h1 {
-      width: $text_width - 40px;
+  	    width: $text_width - 40px;
      	 	background: $paper;
         font-size: 1.5em;
 				text-transform: inherit;
@@ -98,15 +98,17 @@ body.node-type-discussion {
         color: #000;
 				margin: 0;
     	  padding: 10px;
+				a { font-weight: normal; }
       }
 			.nd-region-middle {
       	border: 1px solid #ddd;
 			}
+			.field-body,
 			.nurani-glossary-processed {
       	width: $text_width - 40px;
     	  padding: 10px 10px 35px;
 				background: $paper;
-				height: 166px;
+				height: 160px;
 				overflow: hidden;
 			}
 			.field-text-links {
@@ -214,6 +216,7 @@ body.node-type-discussion {
 				}
 				li.nurani_translation a {
 					background-image: -moz-linear-gradient(center top , $white 0%, #EEEEEE 100%);
+					background-color: #eee;
     			border: 1px solid $gray;
     			border-radius: 5px 5px 5px 5px;
     			bottom: -38px;
@@ -309,6 +312,7 @@ body.node-type-discussion {
 			border-radius: 5px;
 			font-size: 0.8em;
 			background-image: -moz-linear-gradient(center top , #FFFFFF 0%, #EEEEEE 100%);
+			background-color: #eee;
 			position: absolute;
 			bottom: 7px;
 				li {

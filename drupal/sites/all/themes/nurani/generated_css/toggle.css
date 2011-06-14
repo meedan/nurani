@@ -47,6 +47,7 @@ body.ar #block-locale-language ul li.en {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -75,13 +76,13 @@ body.ar #block-locale-language ul li.en {
   -khtml-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -98,6 +99,7 @@ body.ar #block-locale-language ul li.ar {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -132,13 +134,13 @@ body.ar #block-locale-language ul li.ar {
   box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -156,6 +158,7 @@ body.en #block-locale-language ul li.en {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -189,13 +192,13 @@ body.en #block-locale-language ul li.en {
   box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -212,6 +215,7 @@ body.en #block-locale-language ul li.ar {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -241,13 +245,13 @@ body.en #block-locale-language ul li.ar {
   border-bottom-left-radius: 0;
   float: right;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);

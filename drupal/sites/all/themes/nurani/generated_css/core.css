@@ -109,7 +109,7 @@ body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar
 /* line 57, ../scss/type.scss */
 body {
   margin: 0;
-  font-family: Georgia, Times, Times New Roman, serif;
+  font-family: Georgia, UthmanTN, Times, Times New Roman, serif;
   font-size: 1.05em;
   line-height: 1.3em;
 }
@@ -128,7 +128,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
-  font-family: Georgia, Times, Times New Roman, serif;
+  font-family: Georgia, UthmanTN, Times, Times New Roman, serif;
 }
 
 /* line 78, ../scss/type.scss */
@@ -343,7 +343,7 @@ h1.title {
 
 /* line 8, ../scss/layout.scss */
 div#top-strip {
-  height: 28px;
+  height: 27px;
   background: #998d86;
   padding: 4px 20px 0;
 }
@@ -514,6 +514,7 @@ body.page-overview .view-discussions .views-field-view-node a {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -526,14 +527,14 @@ body.page-overview .view-discussions .views-field-view-node a {
   text-decoration: none;
   margin-top: -5px;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.page-overview .more-links a:hover,
 body.page-overview .view-discussions .views-field-view-node a:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.page-overview .more-links a:active,
 body.page-overview .view-discussions .views-field-view-node a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
@@ -552,25 +553,26 @@ body.page-overview #slash {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #fff0c2), color-stop(50%, #fff9e6), color-stop(100%, #fff9e6));
   background-image: -moz-linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
   background-image: linear-gradient(top, #fff0c2 0%, #fff9e6 50%, #fff9e6 100%);
+  background-color: #fff9e6;
 }
-/* line 18, ../scss/welcome_message.scss */
+/* line 19, ../scss/welcome_message.scss */
 body.page-overview #slash h3 {
   text-shadow: 0px 1px 0px white;
   color: #333;
   font-weight: 300px;
   font-size: 1.6em;
 }
-/* line 25, ../scss/welcome_message.scss */
+/* line 26, ../scss/welcome_message.scss */
 body.page-overview #slash div.block .contextual-links-wrapper {
   display: none;
 }
-/* line 29, ../scss/welcome_message.scss */
+/* line 30, ../scss/welcome_message.scss */
 body.page-overview #slash div.block .edit {
   top: auto;
   right: 0px;
   bottom: 0px;
 }
-/* line 36, ../scss/welcome_message.scss */
+/* line 37, ../scss/welcome_message.scss */
 body.page-overview #slash #block-boxes-welcome_box img.d_ford {
   float: right;
   width: 80px;
@@ -581,17 +583,17 @@ body.page-overview #slash #block-boxes-welcome_box img.d_ford {
   -o-box-shadow: #cccccc 3px 3px 3px 0;
   box-shadow: #cccccc 3px 3px 3px 0;
 }
-/* line 45, ../scss/welcome_message.scss */
+/* line 46, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle {
   position: absolute;
   right: 20px;
   top: 20px;
 }
-/* line 50, ../scss/welcome_message.scss */
+/* line 51, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle a {
   color: #888;
 }
-/* line 52, ../scss/welcome_message.scss */
+/* line 53, ../scss/welcome_message.scss */
 body.page-overview #slash .toggle a:hover {
   text-decoration: underline;
 }
@@ -759,7 +761,7 @@ body.i18n-ar h1, body.i18n-ar h2, body.i18n-ar h3, body.i18n-ar h4, body.i18n-ar
 /* line 57, ../scss/type.scss */
 body {
   margin: 0;
-  font-family: Georgia, Times, Times New Roman, serif;
+  font-family: Georgia, UthmanTN, Times, Times New Roman, serif;
   font-size: 1.05em;
   line-height: 1.3em;
 }
@@ -778,7 +780,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.3em;
   font-weight: normal;
-  font-family: Georgia, Times, Times New Roman, serif;
+  font-family: Georgia, UthmanTN, Times, Times New Roman, serif;
 }
 
 /* line 78, ../scss/type.scss */
@@ -1114,7 +1116,7 @@ ul.primary {
 /* line 3, ../scss/login.scss */
 body.page-user.not-logged-in {
   background-image: url(../images/login-header.png);
-  background-position: center top;
+  background-position: center 130px;
   background-repeat: no-repeat;
 }
 /* line 7, ../scss/login.scss */
@@ -1161,7 +1163,7 @@ body.page-user.not-logged-in #boxes-box-user_login_footer p {
 }
 /* line 51, ../scss/login.scss */
 body.page-user.not-logged-in #block-boxes-login_title {
-  margin: 50px 0 0;
+  margin: 140px 0 0;
   text-align: center;
 }
 /* line 54, ../scss/login.scss */
@@ -1436,9 +1438,9 @@ body.node-type-discussion h1.title {
 }
 /* line 80, ../scss/discussion.scss */
 body.node-type-discussion div.views-row {
-  margin: 30px 1px 10px;
+  margin: 30px 14px 10px;
   float: left;
-  width: 218px;
+  width: 195px;
 }
 /* line 84, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary {
@@ -1461,24 +1463,29 @@ body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   margin: 0;
   padding: 10px;
 }
-/* line 102, ../scss/discussion.scss */
+/* line 101, ../scss/discussion.scss */
+body.node-type-discussion div.views-row div.buildmode-text_summary h1 a {
+  font-weight: normal;
+}
+/* line 103, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-middle {
   border: 1px solid #ddd;
 }
-/* line 105, ../scss/discussion.scss */
+/* line 107, ../scss/discussion.scss */
+body.node-type-discussion div.views-row div.buildmode-text_summary .field-body,
 body.node-type-discussion div.views-row div.buildmode-text_summary .nurani-glossary-processed {
   width: 178px;
   padding: 10px 10px 35px;
   background: #f1e9e4;
-  height: 166px;
+  height: 160px;
   overflow: hidden;
 }
-/* line 112, ../scss/discussion.scss */
+/* line 114, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links {
   background: #f1e9e4;
   padding: 10px 0;
 }
-/* line 115, ../scss/discussion.scss */
+/* line 117, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links li a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1489,6 +1496,7 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-l
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1504,29 +1512,29 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-l
   margin: 0 5px;
   display: inline-block;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links li a:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links li a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 122, ../scss/discussion.scss */
+/* line 124, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .text-expand {
   height: auto;
 }
-/* line 125, ../scss/discussion.scss */
+/* line 127, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-description {
   height: 158px;
   overflow: hidden;
   color: #303030;
 }
-/* line 131, ../scss/discussion.scss */
+/* line 133, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1537,6 +1545,7 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -1553,19 +1562,19 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
   bottom: 30px;
   font-size: 13px;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 143, ../scss/discussion.scss */
+/* line 145, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-label {
   border-bottom: 1px solid #cccccc;
   margin: 20px 0 10px;
@@ -1575,39 +1584,39 @@ body.node-type-discussion #boxes-box-discussion_info .field-label {
   font-weight: normal;
   text-transform: uppercase;
 }
-/* line 152, ../scss/discussion.scss */
+/* line 154, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-item {
   margin: 0 0 8px;
 }
-/* line 157, ../scss/discussion.scss */
+/* line 159, ../scss/discussion.scss */
 body.node-type-discussion #container {
   text-align: center;
 }
-/* line 160, ../scss/discussion.scss */
+/* line 162, ../scss/discussion.scss */
 body.node-type-discussion #container #main {
   position: static;
   margin-top: 0;
 }
-/* line 164, ../scss/discussion.scss */
+/* line 166, ../scss/discussion.scss */
 body.node-type-discussion #container #content-inner {
   background: transparent;
   padding-top: 2px;
 }
-/* line 168, ../scss/discussion.scss */
+/* line 170, ../scss/discussion.scss */
 body.node-type-discussion #container .inner {
   padding: 20px 10px 20px 20px;
 }
-/* line 171, ../scss/discussion.scss */
+/* line 173, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area {
   background: url("../images/borders.png") no-repeat 20px top;
   position: relative;
   padding: 30px 0 0;
 }
-/* line 176, ../scss/discussion.scss */
+/* line 178, ../scss/discussion.scss */
 body.node-type-discussion #container ul.tabs {
   margin: 0 0 30px;
 }
-/* line 180, ../scss/discussion.scss */
+/* line 182, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area div.field-label {
   position: absolute;
   top: -6px;
@@ -1617,41 +1626,42 @@ body.node-type-discussion #container #content-area div.field-label {
   font-size: 0.9em;
   left: 141px;
 }
-/* line 189, ../scss/discussion.scss */
+/* line 191, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion {
   border: 1px solid #cccccc;
   padding: 10px 0 0 10px;
   margin: 0 0 0 20px;
 }
-/* line 193, ../scss/discussion.scss */
+/* line 195, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-author {
   float: left;
 }
-/* line 196, ../scss/discussion.scss */
+/* line 198, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-post-date {
   float: right;
   color: #cccccc;
   padding: 0 10px 0;
 }
-/* line 201, ../scss/discussion.scss */
+/* line 203, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-body {
   padding: 20px 10px 0 0;
   clear: both;
 }
-/* line 205, ../scss/discussion.scss */
+/* line 207, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-body p {
   text-align: justify;
   margin: 0 0 1em;
 }
-/* line 210, ../scss/discussion.scss */
+/* line 212, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion ul.links {
   position: relative;
   width: 100%;
   display: inline-block;
 }
-/* line 215, ../scss/discussion.scss */
+/* line 217, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
   background-image: -moz-linear-gradient(center top, white 0%, #eeeeee 100%);
+  background-color: #eee;
   border: 1px solid #cccccc;
   border-radius: 5px 5px 5px 5px;
   bottom: -38px;
@@ -1660,17 +1670,17 @@ body.node-type-discussion #container #content-area .node-type-discussion li.nura
   padding: 4px 10px;
   position: absolute;
 }
-/* line 226, ../scss/discussion.scss */
+/* line 229, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .field-translation-status {
   text-align: left;
   width: 245px;
   float: right;
-  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
   font-size: 0.8em;
   line-height: 1.3em;
   margin: 0 -1px -1px 0;
 }
-/* line 236, ../scss/discussion.scss */
+/* line 239, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .translation-status,
 body.node-type-discussion #container #content-area .translation-status-original {
   border: 1px solid #cccccc;
@@ -1679,25 +1689,25 @@ body.node-type-discussion #container #content-area .translation-status-original 
   background: white;
   border-radius: 5px 0 0 0;
 }
-/* line 243, ../scss/discussion.scss */
+/* line 246, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area #comments .buildmode-full.translation-status-placeholder {
   background: #f5f5f5;
 }
-/* line 246, ../scss/discussion.scss */
+/* line 249, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .buildmode-full.translation-status-placeholder .node-type-discussion {
   background: #f5f5f5;
 }
-/* line 250, ../scss/discussion.scss */
+/* line 253, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second {
   text-align: left;
   margin-right: 2.5em;
   width: 19.3em;
 }
-/* line 255, ../scss/discussion.scss */
+/* line 258, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding: 0 0 0 7px;
 }
-/* line 259, ../scss/discussion.scss */
+/* line 262, ../scss/discussion.scss */
 body.node-type-discussion #container h3.block-title {
   color: #7c0000;
   border-bottom: 1px solid #7c0000;
@@ -1706,74 +1716,75 @@ body.node-type-discussion #container h3.block-title {
   font-weight: bold;
   margin-top: 0;
 }
-/* line 267, ../scss/discussion.scss */
+/* line 270, ../scss/discussion.scss */
 body.node-type-discussion #container #comments {
   text-align: left;
   padding: 40px 0 0;
   position: relative;
   margin: 0 0 0 20px;
 }
-/* line 273, ../scss/discussion.scss */
+/* line 276, ../scss/discussion.scss */
 body.node-type-discussion #container #comments h2#comments-title {
   background: white url("../images/borders-comment.png") no-repeat left 7px;
   font-size: 0.9em;
   padding: 0 0 0 217px;
   text-transform: uppercase;
 }
-/* line 279, ../scss/discussion.scss */
+/* line 282, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .buildmode-full {
   border: 1px solid #cccccc;
   margin: 0 0 20px;
   padding: 10px 0 0 10px;
   position: relative;
 }
-/* line 285, ../scss/discussion.scss */
+/* line 288, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node {
   padding: 0;
 }
-/* line 287, ../scss/discussion.scss */
+/* line 290, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-author {
   float: left;
   margin: 0;
 }
-/* line 291, ../scss/discussion.scss */
+/* line 294, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-post-date {
   color: #cccccc;
   float: right;
   padding: 0 10px 0 0;
   font-size: 0.9em;
 }
-/* line 297, ../scss/discussion.scss */
+/* line 300, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-body {
   text-align: justify;
   margin: 20px 10px 0 0;
 }
-/* line 302, ../scss/discussion.scss */
+/* line 305, ../scss/discussion.scss */
 body.node-type-discussion #container #comments textarea {
   box-shadow: 0 3px 0 #eeeeee;
 }
-/* line 306, ../scss/discussion.scss */
+/* line 309, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-response ul.links {
   border: 1px solid #ccc;
   padding: 4px 5px;
   border-radius: 5px;
   font-size: 0.8em;
   background-image: -moz-linear-gradient(center top, white 0%, #eeeeee 100%);
+  background-color: #eee;
   position: absolute;
   bottom: 7px;
 }
-/* line 314, ../scss/discussion.scss */
+/* line 318, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-response ul.links li {
   padding: 0 5px;
 }
-/* line 318, ../scss/discussion.scss */
+/* line 322, ../scss/discussion.scss */
 body.node-type-discussion #container .box {
   background: url("../images/borders.png") no-repeat center top;
   padding: 10px 0 0;
   margin: 50px 0 0;
   position: relative;
 }
-/* line 324, ../scss/discussion.scss */
+/* line 328, ../scss/discussion.scss */
 body.node-type-discussion #container .box h2 {
   background: #FFFFFF;
   font-size: 0.9em;
@@ -1784,7 +1795,7 @@ body.node-type-discussion #container .box h2 {
   top: -6px;
 }
 
-/* line 336, ../scss/discussion.scss */
+/* line 340, ../scss/discussion.scss */
 body.section-node-edit div#container {
   text-align: left;
 }
@@ -1806,7 +1817,6 @@ body.section-node-edit div#container {
 /*dark colors*/
 /* line 4, ../scss/style-rtl.scss */
 body.i18n-ar {
-  overflow-x: hidden !important;
   /*Typo*/
   /*action links*/
   /*language switcher*/
@@ -1816,64 +1826,63 @@ body.i18n-ar {
   /*Overview*/
   /*vertical tabs*/
 }
-/* line 9, ../scss/style-rtl.scss */
+/* line 8, ../scss/style-rtl.scss */
 body.i18n-ar h1 {
   font-style: normal;
 }
-/* line 12, ../scss/style-rtl.scss */
+/* line 11, ../scss/style-rtl.scss */
 body.i18n-ar #content-header ul.tabs li a {
   font-family: UthmanTN,serif;
 }
-/* line 16, ../scss/style-rtl.scss */
+/* line 15, ../scss/style-rtl.scss */
 body.i18n-ar #top-strip {
   height: 27px;
 }
-/* line 19, ../scss/style-rtl.scss */
+/* line 18, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-action_links ul a {
   line-height: 1.9em;
   font-size: 0.7em;
-  float: right;
 }
-/* line 24, ../scss/style-rtl.scss */
+/* line 22, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-action_links .boxes-box-content {
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 30, ../scss/style-rtl.scss */
+/* line 28, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li a {
   padding: 0 15px;
   line-height: 1.8em;
 }
-/* line 36, ../scss/style-rtl.scss */
+/* line 34, ../scss/style-rtl.scss */
 body.i18n-ar #block-menu-primary-links ul.menu a {
   font-size: 1.3em;
   padding: 19px 65px 30px 20px;
   font-weight: bold;
   background-position: 105px 20px;
 }
-/* line 43, ../scss/style-rtl.scss */
+/* line 41, ../scss/style-rtl.scss */
 body.i18n-ar #boxes-box-welcome_to_nurani_box .toggle {
   position: absolute;
   right: auto;
   left: 0;
   top: 1px;
 }
-/* line 50, ../scss/style-rtl.scss */
+/* line 48, ../scss/style-rtl.scss */
 body.i18n-ar .condense_control {
   padding: 4px 4px 4px 0;
   background: url("../images/more-ar.png") no-repeat scroll 0 0 transparent;
 }
-/* line 55, ../scss/style-rtl.scss */
+/* line 53, ../scss/style-rtl.scss */
 body.i18n-ar #comment-form label {
   float: right;
   margin-right: 10px;
 }
-/* line 60, ../scss/style-rtl.scss */
+/* line 58, ../scss/style-rtl.scss */
 body.i18n-ar #comment-form label[for="edit-subject"] {
   margin-left: 42px;
   margin-right: 0;
 }
-/* line 70, ../scss/style-rtl.scss */
+/* line 68, ../scss/style-rtl.scss */
 body.i18n-ar #sidebar-second,
 body.i18n-ar .sidebar-second #main,
 body.i18n-ar .text,
@@ -1882,25 +1891,24 @@ body.i18n-ar .view-texts-in-discussion .views-row,
 body.i18n-ar .view-overview .views-field-title {
   float: right;
 }
-/* line 74, ../scss/style-rtl.scss */
+/* line 72, ../scss/style-rtl.scss */
 body.i18n-ar .perosnal-username, body.i18n-ar .view-overview .views-field-view-node {
   float: left;
 }
-/* line 80, ../scss/style-rtl.scss */
+/* line 78, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li.first {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 75, ../scss/_buttons.scss */
+/* line 76, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
   padding-top: 30px;
   padding-bottom: 30px;
-  float: right;
   clear: none;
   text-decoration: none;
   padding-right: 50px;
@@ -1910,21 +1918,20 @@ body.i18n-ar ul#primary li.first a {
 body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 81, ../scss/style-rtl.scss */
+/* line 79, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 75, ../scss/_buttons.scss */
+/* line 76, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
   padding-top: 30px;
   padding-bottom: 30px;
-  float: right;
   clear: none;
   text-decoration: none;
   padding-right: 50px;
@@ -1934,21 +1941,20 @@ body.i18n-ar ul#primary li a {
 body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 82, ../scss/style-rtl.scss */
+/* line 80, ../scss/style-rtl.scss */
 body.i18n-ar ul#primary li.last {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 75, ../scss/_buttons.scss */
+/* line 76, ../scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
   padding-top: 30px;
   padding-bottom: 30px;
-  float: right;
   clear: none;
   text-decoration: none;
   padding-right: 50px;
@@ -1958,265 +1964,265 @@ body.i18n-ar ul#primary li.last a {
 body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 85, ../scss/style-rtl.scss */
+/* line 83, ../scss/style-rtl.scss */
 body.i18n-ar #block-boxes-welcome_to_nurani_box .more-link {
   display: block;
   float: right;
   margin-top: 10px;
 }
-/* line 91, ../scss/style-rtl.scss */
+/* line 89, ../scss/style-rtl.scss */
 body.i18n-ar .view-ibis-glossary .views-summary {
   float: right;
 }
-/* line 96, ../scss/style-rtl.scss */
+/* line 94, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 {
   float: left;
   font-size: 18px;
   line-height: 16px;
   width: 66px;
 }
-/* line 101, ../scss/style-rtl.scss */
+/* line 99, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 ul {
   padding: 0;
 }
-/* line 104, ../scss/style-rtl.scss */
+/* line 102, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li.ar {
   display: none;
 }
-/* line 107, ../scss/style-rtl.scss */
+/* line 105, ../scss/style-rtl.scss */
 body.i18n-ar #block-locale-0 li.en {
   display: block;
 }
-/* line 115, ../scss/style-rtl.scss */
+/* line 113, ../scss/style-rtl.scss */
 body.i18n-ar ul.menu li.last,
 body.i18n-ar ul.menu li.first,
 body.i18n-ar ul.menu li {
   float: right;
 }
-/* line 120, ../scss/style-rtl.scss */
+/* line 118, ../scss/style-rtl.scss */
 body.i18n-ar div#slash h3 {
   margin-right: 30px;
   margin-top: 0;
   line-height: 0.6em;
 }
-/* line 125, ../scss/style-rtl.scss */
+/* line 123, ../scss/style-rtl.scss */
 body.i18n-ar div#slash div#boxes-box-welcome_box img.d_ford {
   float: left;
 }
-/* line 130, ../scss/style-rtl.scss */
+/* line 128, ../scss/style-rtl.scss */
 body.i18n-ar div#main {
   float: right;
 }
-/* line 134, ../scss/style-rtl.scss */
+/* line 132, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-title {
   float: right;
   line-height: 29px;
 }
-/* line 138, ../scss/style-rtl.scss */
+/* line 136, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-view-node a {
   font-size: 0.8em;
   line-height: 1.2em;
   padding-bottom: 3px;
   float: left;
 }
-/* line 144, ../scss/style-rtl.scss */
+/* line 142, ../scss/style-rtl.scss */
 body.i18n-ar .view-discussions .views-field-phpcode {
   float: right;
   margin-left: 15px;
   margin-right: 0;
 }
-/* line 151, ../scss/style-rtl.scss */
+/* line 149, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-new_texts-block_1 h3,
 body.i18n-ar #block-views-new_glossary_terms-block_1 h3 {
   background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
   padding: 10px 20px 10px 0;
 }
-/* line 155, ../scss/style-rtl.scss */
+/* line 153, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-nuranis-block_1 h3 {
   background-position: right;
   padding: 10px 20px 10px 0;
 }
-/* line 159, ../scss/style-rtl.scss */
+/* line 157, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-nuranis-block_1 h3.collapsed {
   background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
 }
-/* line 163, ../scss/style-rtl.scss */
+/* line 161, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-new_texts-block_1 h3.expand,
 body.i18n-ar #block-views-new_glossary_terms-block_1 h3.expand {
   background: url("../images/arrow-expand.png") no-repeat right center;
 }
-/* line 167, ../scss/style-rtl.scss */
+/* line 165, ../scss/style-rtl.scss */
 body.i18n-ar #block-views-new_texts-block_1 .views-row,
 body.i18n-ar #block-views-new_glossary_terms-block_1 .views-row {
   background: url("../images/point-rtl.png") no-repeat right 6px;
   margin: 0 20px 0 0;
   padding: 0 15px 10px 0;
 }
-/* line 174, ../scss/style-rtl.scss */
+/* line 172, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs {
   float: right;
   margin: 1em 15em 0 0;
 }
-/* line 178, ../scss/style-rtl.scss */
+/* line 176, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs ul.vertical-tabs-list {
   float: right;
   left: auto;
   right: 2em;
 }
-/* line 183, ../scss/style-rtl.scss */
+/* line 181, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li {
   text-align: right;
 }
-/* line 186, ../scss/style-rtl.scss */
+/* line 184, ../scss/style-rtl.scss */
 body.i18n-ar div.vertical-tabs ul.vertical-tabs-list li.selected {
   border-left: 0;
   border-right: 1px solid #ccc;
 }
 
 /*discussion*/
-/* line 195, ../scss/style-rtl.scss */
+/* line 193, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion h1.title {
   margon-top: 40px;
 }
-/* line 200, ../scss/style-rtl.scss */
+/* line 198, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion .field-exp-comments {
   background-position: 270px 33px;
 }
-/* line 203, ../scss/style-rtl.scss */
+/* line 201, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 {
   background-position: center 11px;
 }
-/* line 205, ../scss/style-rtl.scss */
+/* line 203, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h3 {
   font-size: 0.9em;
   padding: 0 15px;
   font-size: 1em;
   padding: 0 15px;
 }
-/* line 211, ../scss/style-rtl.scss */
+/* line 209, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h1 {
   text-align: right;
 }
-/* line 213, ../scss/style-rtl.scss */
+/* line 211, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 h1 a {
   font-weight: normal;
 }
-/* line 215, ../scss/style-rtl.scss */
+/* line 213, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion div#block-views-discussion_texts-block_1 .content {
   text-align: right;
 }
-/* line 219, ../scss/style-rtl.scss */
+/* line 217, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second {
   text-align: right;
 }
-/* line 222, ../scss/style-rtl.scss */
+/* line 220, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion .view-discussion-texts .views-row {
   float: right;
 }
-/* line 226, ../scss/style-rtl.scss */
+/* line 224, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-inner {
   padding-top: 7px;
 }
-/* line 229, ../scss/style-rtl.scss */
+/* line 227, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area {
   background-position: -338px 4px;
 }
-/* line 231, ../scss/style-rtl.scss */
+/* line 229, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion {
   margin: 0 20px 0 0;
   padding: 10px 10px 0 0;
 }
-/* line 235, ../scss/style-rtl.scss */
+/* line 233, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-author {
   float: right;
 }
-/* line 238, ../scss/style-rtl.scss */
+/* line 236, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-post-date {
   float: left;
 }
-/* line 241, ../scss/style-rtl.scss */
+/* line 239, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion .field-body {
   padding: 20px 0 0 10px;
 }
-/* line 244, ../scss/style-rtl.scss */
+/* line 242, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion div.field-label {
   font-size: 1em;
   left: 200px;
   font-weight: normal;
   top: -10px;
 }
-/* line 250, ../scss/style-rtl.scss */
+/* line 248, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion p {
   text-align: justify;
 }
-/* line 253, ../scss/style-rtl.scss */
+/* line 251, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
   left: auto;
   right: 0px;
 }
-/* line 259, ../scss/style-rtl.scss */
+/* line 257, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .translation-status,
 body.i18n-ar.node-type-discussion #container #content-area .translation-status-original {
   border-radius: 0 5px 0 0;
 }
-/* line 262, ../scss/style-rtl.scss */
+/* line 260, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #content-area .field-translation-status {
   float: left;
   text-align: right;
   margin: 0 0 -1px -1px;
 }
-/* line 268, ../scss/style-rtl.scss */
+/* line 266, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments {
   margin: 0 20px 0 0;
   text-align: right;
 }
-/* line 272, ../scss/style-rtl.scss */
+/* line 270, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments h2#comments-title {
   padding: 0 0 0 238px;
   background: url("../images/borders-comment-ar.png") no-repeat left 10px white;
   padding: 0 246px 0 0;
 }
-/* line 277, ../scss/style-rtl.scss */
+/* line 275, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .buildmode-full {
   padding: 10px 10px 0 0;
 }
-/* line 280, ../scss/style-rtl.scss */
+/* line 278, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-author {
   float: right;
 }
-/* line 283, ../scss/style-rtl.scss */
+/* line 281, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .field-post-date {
   float: left;
   padding: 0 0 0 10px;
 }
-/* line 288, ../scss/style-rtl.scss */
+/* line 286, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .node .field-body {
   margin: 20px 0 0 10px;
 }
-/* line 290, ../scss/style-rtl.scss */
+/* line 288, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .node .field-body p {
   margin: 0 0 1em 0;
 }
-/* line 295, ../scss/style-rtl.scss */
+/* line 293, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer {
   text-align: right;
 }
-/* line 297, ../scss/style-rtl.scss */
+/* line 295, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments .nd-region-footer ul.links {
   line-height: 20px;
   right: 10px;
 }
-/* line 302, ../scss/style-rtl.scss */
+/* line 300, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #comments label {
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 307, ../scss/style-rtl.scss */
+/* line 305, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second {
   margin-left: 0;
   margin-right: 0;
 }
-/* line 311, ../scss/style-rtl.scss */
+/* line 309, ../scss/style-rtl.scss */
 body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding-right: 7px;
   padding-left: 20px;
@@ -2270,6 +2276,7 @@ body.ar #block-locale-language ul li.en {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -2298,13 +2305,13 @@ body.ar #block-locale-language ul li.en {
   -khtml-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -2321,6 +2328,7 @@ body.ar #block-locale-language ul li.ar {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -2355,13 +2363,13 @@ body.ar #block-locale-language ul li.ar {
   box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -2379,6 +2387,7 @@ body.en #block-locale-language ul li.en {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -2412,13 +2421,13 @@ body.en #block-locale-language ul li.en {
   box-shadow: #bfbfbf 1px 1px 3px 3px inset;
   border-left: 1px solid #999999;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -2435,6 +2444,7 @@ body.en #block-locale-language ul li.ar {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
+  background-color: white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -2464,13 +2474,13 @@ body.en #block-locale-language ul li.ar {
   border-bottom-left-radius: 0;
   float: right;
 }
-/* line 20, ../scss/_buttons.scss */
+/* line 21, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #ffffff 0%, #d5d5d5 100%);
 }
-/* line 24, ../scss/_buttons.scss */
+/* line 25, ../scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
@@ -2936,7 +2946,7 @@ ul.language-switcher-locale-url li.active {
 
 /* line 393, ../scss/misc.scss */
 body.page-overview #content-inner {
-  margin-top: 0;
+  margin-top: 10px;
   padding-top: 0;
 }
 
@@ -3082,7 +3092,7 @@ div.node-discussion .field-name-field-translator {
 }
 /* line 32, ../scss/discussion_header.scss */
 div.node-discussion div.field-type-user-reference .field-label, div.node-discussion div.field-name-field-texts .field-label {
-  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
   text-transform: uppercase;
   font-size: 13px;
   font-weight: normal;
@@ -3132,21 +3142,20 @@ div.profile div.field-label {
 /* = icon buttons = */
 /* ================ */
 /*aapplied to list*/
-/* line 45, ../scss/navigation.scss */
+/* line 46, ../scss/navigation.scss */
 ul.menu li.first {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 75, ../scss/_buttons.scss */
+/* line 76, ../scss/_buttons.scss */
 ul.menu li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
   padding-top: 30px;
   padding-bottom: 30px;
-  float: right;
   clear: none;
   text-decoration: none;
   padding-right: 10px;
@@ -3156,21 +3165,20 @@ ul.menu li.first a {
 ul.menu li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 46, ../scss/navigation.scss */
+/* line 47, ../scss/navigation.scss */
 ul.menu li {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 75, ../scss/_buttons.scss */
+/* line 76, ../scss/_buttons.scss */
 ul.menu li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
   padding-top: 30px;
   padding-bottom: 30px;
-  float: right;
   clear: none;
   text-decoration: none;
   padding-right: 10px;
@@ -3180,21 +3188,20 @@ ul.menu li a {
 ul.menu li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 47, ../scss/navigation.scss */
+/* line 48, ../scss/navigation.scss */
 ul.menu li.last {
   float: left;
   list-style: none outside none;
   padding: 0;
   margin: 0;
 }
-/* line 75, ../scss/_buttons.scss */
+/* line 76, ../scss/_buttons.scss */
 ul.menu li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
   display: block;
   padding-top: 30px;
   padding-bottom: 30px;
-  float: right;
   clear: none;
   text-decoration: none;
   padding-right: 10px;
@@ -3204,64 +3211,66 @@ ul.menu li.last a {
 ul.menu li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }
-/* line 49, ../scss/navigation.scss */
+/* line 50, ../scss/navigation.scss */
 ul.menu li.active-trail {
-  background: url("../images/bkg_active_nav.png") -5px bottom transparent;
+  background: url("../images/bkg_active_nav.png") no-repeat -5px bottom transparent;
 }
 
 /*Language switcher*/
-/* line 55, ../scss/navigation.scss */
+/* line 56, ../scss/navigation.scss */
 #block-locale-0 {
   width: 70px;
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
   float: right;
 }
-/* line 59, ../scss/navigation.scss */
+/* line 61, ../scss/navigation.scss */
 #block-locale-0 h3, #block-locale-0 li.en {
   display: none;
 }
-/* line 62, ../scss/navigation.scss */
+/* line 64, ../scss/navigation.scss */
 #block-locale-0 li {
   font-size: 0.6em;
 }
-/* line 64, ../scss/navigation.scss */
+/* line 66, ../scss/navigation.scss */
 #block-locale-0 li a {
   color: white;
   background: #666666;
-  padding: 0 15px;
-  font-size: 1.2em;
+  padding: 0 10px;
+  font-size: 1.1em;
   display: inline-block;
   border-radius: 15px;
   line-height: 2em;
+  font-weight: normal;
 }
 
 /*Action links*/
-/* line 78, ../scss/navigation.scss */
+/* line 81, ../scss/navigation.scss */
 #boxes-box-action_links .boxes-box-content {
   float: left;
-  margin: 0 10px 0 0;
+  margin: 0;
 }
-/* line 82, ../scss/navigation.scss */
+/* line 85, ../scss/navigation.scss */
 #boxes-box-action_links ul {
   margin: 0;
   padding: 0;
 }
-/* line 86, ../scss/navigation.scss */
+/* line 89, ../scss/navigation.scss */
 #boxes-box-action_links ul li {
   padding: 0;
 }
-/* line 89, ../scss/navigation.scss */
+/* line 92, ../scss/navigation.scss */
 #boxes-box-action_links ul a {
-  font-size: 0.7em;
-  line-height: 2em;
+  font-size: 0.56em;
+  line-height: 2.3em;
   color: white;
   background: #666666;
-  padding: 0 15px;
+  padding: 0 10px;
   display: block;
   float: left;
-  margin: 0 3px;
-  border-radius: 15px;
+  margin: 0 1px;
+  border-radius: 10px;
   font-weight: normal;
-  font-family: "Helvetica Neue", helvetica, Verdana, Arial, sans-serif;
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
 }
 
 /* line 43, ../scss/core.scss */
@@ -3278,8 +3287,9 @@ ul.menu li.active-trail {
 #block-menu-primary-links ul.menu {
   margin: 0 auto;
   width: 465px;
+  padding: 0;
 }
-/* line 17, ../scss/navigation.scss */
+/* line 18, ../scss/navigation.scss */
 #block-menu-primary-links ul.menu a {
   color: #7c0000;
   font-weight: normal;
@@ -3301,16 +3311,16 @@ ul.menu li.active-trail {
 #block-menu-primary-links ul.menu a:active {
   color: black;
 }
-/* line 20, ../scss/navigation.scss */
+/* line 21, ../scss/navigation.scss */
 #block-menu-primary-links ul.menu a:hover {
   text-decoration: none;
 }
-/* line 26, ../scss/navigation.scss */
+/* line 27, ../scss/navigation.scss */
 #block-menu-primary-links ul.menu li.active.active {
   color: black;
 }
 
-/* line 39, ../scss/navigation.scss */
+/* line 40, ../scss/navigation.scss */
 div.content ul {
   list-style-type: none;
 }
@@ -3599,7 +3609,7 @@ div#walkthrough {
   ------------------------------------------------------ */
 /* line 277, ../scss/core.scss */
 #sidebar-second #sidebar-second-inner {
-  padding: 20px;
+  padding: 10px 20px 20px;
 }
 /* line 281, ../scss/core.scss */
 #sidebar-second #block-ibis_glossary-ibis_glossary_terms #ibis-glossary-highlight-button {

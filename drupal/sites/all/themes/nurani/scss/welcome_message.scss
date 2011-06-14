@@ -15,11 +15,12 @@ body.page-overview {
     position: relative;
     @include box-shadow(#ccc, 0px, 3px, 3px);
     @include linear-gradient(color_stops(darken($postit,7%),$postit,$postit));
+		background-color: $postit;
     h3 {
       @include text-shadow(0px, 1px, 0px, #fff);
       color: #333;
-			font-weight: 300px;
-			font-size: 1.6em;		
+	font-weight: 300px;
+	font-size: 1.6em;		
     }
 
     div.block .contextual-links-wrapper {

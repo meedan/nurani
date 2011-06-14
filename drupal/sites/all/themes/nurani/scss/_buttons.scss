@@ -6,6 +6,7 @@
 @mixin soft_button($color:#888) {
   @include border-radius(15px);
   @include linear-gradient(color_stops( lighten($color, 100%), lighten($color, 30%)));
+  background-color: $white;
   border: 1px solid #d3d3d3;
   float: right;
   padding: 3px 7px 0;
@@ -78,7 +79,6 @@
     display: block;
     padding-top: 30px;
     padding-bottom: 30px;
-    float: right;
     clear: none;
     text-decoration: none;
     @if $icon_position == "left" {

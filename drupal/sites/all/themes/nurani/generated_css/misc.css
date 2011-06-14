@@ -457,7 +457,7 @@ ul.language-switcher-locale-url li.active {
 
 /* line 393, ../scss/misc.scss */
 body.page-overview #content-inner {
-  margin-top: 0;
+  margin-top: 10px;
   padding-top: 0;
 }
 
