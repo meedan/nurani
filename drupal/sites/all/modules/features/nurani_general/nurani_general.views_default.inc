@@ -380,6 +380,136 @@ return $count;
 
   $views[$view->name] = $view;
 
+  // Exported view: eligible_participants
+  $view = new view;
+  $view->name = 'eligible_participants';
+  $view->description = 'List of Nuranis who are eligible participants to a discussion';
+  $view->tag = 'nurani';
+  $view->view_php = '';
+  $view->base_table = 'users';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+  $handler = $view->new_display('default', 'Defaults', 'default');
+  $handler->override_option('fields', array(
+    'name' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'link_to_user' => 0,
+      'overwrite_anonymous' => 0,
+      'anonymous_text' => '',
+      'exclude' => 0,
+      'id' => 'name',
+      'table' => 'users',
+      'field' => 'name',
+      'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('arguments', array(
+    'rid' => array(
+      'default_action' => 'not found',
+      'style_plugin' => 'default_summary',
+      'style_options' => array(),
+      'wildcard' => 'all',
+      'wildcard_substitution' => 'All',
+      'title' => '',
+      'breadcrumb' => '',
+      'default_argument_type' => 'fixed',
+      'default_argument' => '',
+      'validate_type' => 'none',
+      'validate_fail' => 'not found',
+      'break_phrase' => 0,
+      'add_table' => 0,
+      'require_value' => 0,
+      'reduce_duplicates' => 0,
+      'id' => 'rid',
+      'table' => 'users_roles',
+      'field' => 'rid',
+      'validate_user_argument_type' => 'uid',
+      'validate_user_roles' => array(
+        '2' => 0,
+        '3' => 0,
+        '6' => 0,
+        '7' => 0,
+        '8' => 0,
+      ),
+      'relationship' => 'none',
+      'default_options_div_prefix' => '',
+      'default_argument_fixed' => '',
+      'default_argument_user' => 0,
+      'default_argument_php' => '',
+      'validate_argument_node_type' => array(
+        'annotation' => 0,
+        'discussion' => 0,
+        'page' => 0,
+        'profile' => 0,
+        'response' => 0,
+        'term' => 0,
+        'text' => 0,
+        'comment' => 0,
+      ),
+      'validate_argument_node_access' => 0,
+      'validate_argument_nid_type' => 'nid',
+      'validate_argument_vocabulary' => array(
+        '1' => 0,
+      ),
+      'validate_argument_type' => 'tid',
+      'validate_argument_transform' => 0,
+      'validate_user_restrict_roles' => 0,
+      'validate_argument_php' => '',
+    ),
+  ));
+  $handler->override_option('filters', array(
+    'agreed_date' => array(
+      'operator' => '>',
+      'value' => array(
+        'type' => 'date',
+        'value' => '1971-11-26',
+        'min' => '',
+        'max' => '',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'agreed_date',
+      'table' => 'agreement',
+      'field' => 'agreed_date',
+      'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('access', array(
+    'type' => 'none',
+  ));
+  $handler->override_option('cache', array(
+    'type' => 'none',
+  ));
+  $handler->override_option('empty_format', '1');
+
+  $views[$view->name] = $view;
+
   // Exported view: glossary_terms
   $view = new view;
   $view->name = 'glossary_terms';
@@ -1328,9 +1458,9 @@ return theme_item_list($translations);
     'rid' => array(
       'operator' => 'or',
       'value' => array(
-        '5' => '5',
-        '8' => '8',
         '6' => '6',
+        '7' => '7',
+        '8' => '8',
       ),
       'group' => '0',
       'exposed' => FALSE,
@@ -1343,6 +1473,31 @@ return theme_item_list($translations);
       'field' => 'rid',
       'relationship' => 'none',
       'reduce_duplicates' => 0,
+      'override' => array(
+        'button' => 'Override',
+      ),
+    ),
+    'agreed_date' => array(
+      'operator' => '>',
+      'value' => array(
+        'type' => 'date',
+        'value' => '1971-11-26',
+        'min' => '',
+        'max' => '',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'agreed_date',
+      'table' => 'agreement',
+      'field' => 'agreed_date',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
     ),
   ));
   $handler->override_option('access', array(
