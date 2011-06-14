@@ -99,6 +99,7 @@
   	    <?php endif; ?> <!-- /sidebar-second --> 
 				<div class="clearfix"></div>
 			</div> <!-- container -->
+				<div class="clear"></div>
 		</div> <!-- /content-wrapper -->
 	</div> <!-- /pager -->
   <?php if(!empty($footer_message) || !empty($footer_block)): ?>
