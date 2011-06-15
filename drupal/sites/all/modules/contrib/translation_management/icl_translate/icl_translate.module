@@ -89,18 +89,39 @@ function icl_translate_help($path, $arg) {
   } else if ($path == _icl_wrapper_get_root_menu('translation-management/translator/%/edit')) {
       return t('Use the language selectors to specify which languages this translator can translate from and to.');
   } else if ($path == _icl_wrapper_get_root_menu('translation-management')) {
-    return '<fieldset class=" collapsible collapsed"><legend class="collapse">' .
-	  t('Getting started') . '</legend>' .
-	  t('<p>Welcome to your site\'s translation control panel.</p>
-
-	    <p>First thing to do is <a href="@link_translators">add translators</a>. You can use your in-house translators or professional services. <a href="http://drupal-translation.com/content/setting-translators">More on getting translators</a></p>
-
-	    <p>Then, use the <a href="@dashboard">Translation Dashboard</a> to send jobs to translation.</p>
-
-	    <p>If you\'re getting started, have a look at the <a href="http://drupal-translation.com/content/guide-content-admins">guide for content admins</a>. It includes everything you need to know about efficiently running a multilingual Drupal site.</p>',
-	    array('@link_translators' => _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/manage-translator')),
-		  '@dashboard' => _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/dashboard')))) .
-	  '</fieldset>';
+    if (!defined('ICL_D7')) {
+	  return '<fieldset class=" collapsible collapsed"><legend class="collapse">' .
+		t('Getting started') . '</legend>' .
+		t('<p>Welcome to your site\'s translation control panel.</p>
+  
+		  <p>First thing to do is <a href="@link_translators">add translators</a>. You can use your in-house translators or professional services. <a href="http://drupal-translation.com/content/setting-translators">More on getting translators</a></p>
+  
+		  <p>Then, use the <a href="@dashboard">Translation Dashboard</a> to send jobs to translation.</p>
+  
+		  <p>If you\'re getting started, have a look at the <a href="http://drupal-translation.com/content/guide-content-admins">guide for content admins</a>. It includes everything you need to know about efficiently running a multilingual Drupal site.</p>',
+		  array('@link_translators' => _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/manage-translator')),
+			'@dashboard' => _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/dashboard')))) .
+		'</fieldset>';
+	} else {
+      $form = array();
+      $form['getting_started'] = array(
+        '#type' => 'fieldset',
+		'#title' => t('Getting started'),
+		'#collapsible' => TRUE,
+		'#collapsed' => TRUE,
+		);
+	  $form['getting_started']['details'] = _icl_wrapper_form_create_markup(array(
+		'#type' => 'markup',
+		'#value' => t('<p>Welcome to your site\'s translation control panel.</p>
+		  <p>First thing to do is <a href="!link_translators">add translators</a>. You can use your in-house translators or professional services. <a href="http://drupal-translation.com/content/setting-translators">More on getting translators</a></p>
+		  <p>Then, use the <a href="!dashboard">Translation Dashboard</a> to send jobs to translation.</p>
+		  <p>If you\'re getting started, have a look at the <a href="http://drupal-translation.com/content/guide-content-admins">guide for content admins</a>. It includes everything you need to know about efficiently running a multilingual Drupal site.</p>',
+		  array('!link_translators' => _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/manage-translator')),
+			'!dashboard' => _icl_wrapper_url(_icl_wrapper_get_root_menu('translation-management/dashboard')))),
+		));
+	  return drupal_render($form);
+	  
+	}
   }
 }
 
@@ -361,7 +382,11 @@ function _icl_translation_get_translator_jobs($uid, $filter = array()) {
     $duplicates = array();
     
     // get nodes
-    $q = _icl_wrapper_db_query("SELECT n.nid, cs.rid, n.title FROM {node} n JOIN {icl_content_status} cs ON cs.nid = n.nid WHERE cs.rid IN (%s)", join(',', $rids));
+    $query_rids = $rids;
+    if (!defined('ICL_D7')) {
+      $query_rids = implode(',', $query_rids);
+    }
+    $q = _icl_wrapper_db_query("SELECT n.nid, cs.rid, n.title FROM {node} n JOIN {icl_content_status} cs ON cs.nid = n.nid WHERE cs.rid IN (%s)", $query_rids);
     while ($r = db_fetch_array($q)) {
       $exclude_rids[] =  $r['rid'];
       

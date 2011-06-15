@@ -63,7 +63,7 @@ function icl_content_get_string_translation_status($string, $decode = true) {
               sg.string_type='%s'
           ";   
 
-  $query = db_query($sql, $string['string_id'], $string['string_type']);
+  $query = _icl_wrapper_db_query($sql, $string['string_id'], $string['string_type']);
   while ( $item = db_fetch_object($query)) {
     if ($decode) {
       $status[$item->target] = icl_decode_translation_status_id($item->status);
@@ -99,7 +99,7 @@ function icl_content_alter_locale_translate_seek_form(&$form, $form_state) {
   $form['action']['operations'] = array(
     '#type' => 'fieldset',
     '#title' => t('Translation options'),
-    '#attributes' => array('id' => 'dashboard-actions'),
+    '#attributes' => _icl_wrapper_form_create_attributes(array('id' => 'dashboard-actions')),
   );
   //$form['action']['operations']['#title'] = t('Translation options');
   $form['action']['#weight'] = -10; // put at the top.
@@ -107,7 +107,7 @@ function icl_content_alter_locale_translate_seek_form(&$form, $form_state) {
   $form['action']['icl_check'] = array(
     '#type' => 'checkbox',
     '#title' => '',
-    '#attributes' => array('style' => "display:none;"),
+    '#attributes' => _icl_wrapper_form_create_attributes(array('style' => "display:none;")),
   );
   
   $form['action']['operations']['translate_request'] = array(
@@ -222,7 +222,7 @@ function icl_content_string_status() {
       }
     }
   } else if ($_POST['icl_ajx_action'] == 'icl_single_string_status') {
-    $st_id = _icl_wrapper_db_result(db_query("SELECT lid FROM {locales_source} WHERE source = '%s' AND textgroup = '%s'", $_POST['source'], 'default'));
+    $st_id = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT lid FROM {locales_source} WHERE source = '%s' AND textgroup = '%s'", $_POST['source'], 'default'));
     
     if (icl_content_is_string_queued($st_id)) {
       echo 1 . '|' . t("In queue");
@@ -261,11 +261,11 @@ function icl_content_string_send() {
   global $language;
   
   $string = $_POST['string'];
-  $st_id = _icl_wrapper_db_result(db_query("SELECT lid FROM {locales_source} WHERE source = '%s' AND textgroup = '%s'", $string, 'default'));
+  $st_id = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT lid FROM {locales_source} WHERE source = '%s' AND textgroup = '%s'", $string, 'default'));
 
   if (!$st_id) {
-    db_query("INSERT INTO {locales_source} (location, source, textgroup) VALUES ('%s', '%s', '%s')", NULL, $string, 'default');
-    $st_id = _icl_wrapper_db_result(db_query("SELECT lid FROM {locales_source} WHERE source = '%s' AND textgroup = '%s'", $source, 'default'));
+    _icl_wrapper_db_query("INSERT INTO {locales_source} (location, source, textgroup) VALUES ('%s', '%s', '%s')", NULL, $string, 'default');
+    $st_id = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT lid FROM {locales_source} WHERE source = '%s' AND textgroup = '%s'", $source, 'default'));
   }
   
   if ($st_id === false) {
@@ -312,7 +312,7 @@ function icl_content_string_form_table($string_id) {
   } else {
     // get the strings from the database table icl_string_group
     $strings_for_translation = array();
-    $query = db_query("SELECT string_id, string_type FROM {icl_string_group} WHERE translation_group_id = %d", $string_id);
+    $query = _icl_wrapper_db_query("SELECT string_id, string_type FROM {icl_string_group} WHERE translation_group_id = %d", $string_id);
     while ($row = db_fetch_array($query)) {
       $strings_for_translation[] = $row;
     }
@@ -322,7 +322,7 @@ function icl_content_string_form_table($string_id) {
     $form['id'][$id] = array('#value' => $st_data['string_id']);
     
     if ($st_data['string_type'] == 'locale') {
-      $string_source = _icl_wrapper_db_result(db_query("SELECT source FROM {locales_source} WHERE lid=%d", $st_data['string_id']));
+      $string_source = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT source FROM {locales_source} WHERE lid=%d", $st_data['string_id']));
       
       $form['string'][$id] = array('#value' => $string_source);
       $strings[$id] = $id;
@@ -462,10 +462,10 @@ function icl_content_translate_strings($strings, $origin, $langcodes, $translato
     if ($group == 'queued') {
       
       // create a new string group
-      $translation_group_id = _icl_wrapper_db_result(db_query("SELECT max( translation_group_id ) FROM {icl_string_group}")) + 1;
+      $translation_group_id = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT max( translation_group_id ) FROM {icl_string_group}")) + 1;
       if ($cached_strings = variable_get('icl_strings_queued_for_translation', 0)) {
         foreach ($cached_strings as $string) {
-          db_query("INSERT INTO {icl_string_group} (translation_group_id, string_type, string_id) VALUES (%d, '%s', %d)", $translation_group_id, $string['string_type'], $string['string_id']);
+          _icl_wrapper_db_query("INSERT INTO {icl_string_group} (translation_group_id, string_type, string_id) VALUES (%d, '%s', %d)", $translation_group_id, $string['string_type'], $string['string_id']);
         }
       }
       
@@ -481,7 +481,7 @@ function icl_content_translate_strings($strings, $origin, $langcodes, $translato
   foreach ($strings as $k => $group) {
     
     // get all the strings in a group
-    $query = db_query("SELECT string_id, string_type FROM {icl_string_group} WHERE translation_group_id = %d", $group);
+    $query = _icl_wrapper_db_query("SELECT string_id, string_type FROM {icl_string_group} WHERE translation_group_id = %d", $group);
     
     $string_items = array();
     while ( $result = db_fetch_array ( $query ) ) {
@@ -492,7 +492,7 @@ function icl_content_translate_strings($strings, $origin, $langcodes, $translato
     foreach ($langcodes as $k => $target) {
       
       // see if this group is already in progress.
-      $rid = _icl_wrapper_db_result(db_query("SELECT s.rid FROM
+      $rid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT s.rid FROM
                           {icl_string_status} s
                           JOIN
                           {icl_core_status} c
@@ -522,7 +522,7 @@ function icl_content_translate_strings($strings, $origin, $langcodes, $translato
       foreach ($strings_to_send as $st) {
         $st_id = $st['string_id'];
         if ($st['string_type'] == 'locale') {
-          $string = db_fetch_object(db_query("SELECT location, source FROM {locales_source} WHERE lid= %d", $st_id));
+          $string = db_fetch_object(_icl_wrapper_db_query("SELECT location, source FROM {locales_source} WHERE lid= %d", $st_id));
         }
         if ($string) {
           $fields[] = array(
@@ -556,7 +556,7 @@ function icl_content_translate_strings($strings, $origin, $langcodes, $translato
       
       foreach ($rids_sent as $rid) {
         if ($rid != 0) {
-          db_query ( "INSERT INTO {icl_string_status} VALUES(%d, %d, %d, '%s')", $rid, $group, time (), $md5 );
+          _icl_wrapper_db_query ( "INSERT INTO {icl_string_status} VALUES(%d, %d, %d, '%s')", $rid, $group, time (), $md5 );
         }
       }      
     }
@@ -588,7 +588,7 @@ function icl_content_get_strings_for_dashboard($icl_content_dashboard_filter) {
   
   $content = array();
 
-  $res = db_query("SELECT DISTINCT translation_group_id FROM {icl_string_group}");
+  $res = _icl_wrapper_db_query("SELECT DISTINCT translation_group_id FROM {icl_string_group}");
 
   $result = array();
   $translation_group_id = array();
@@ -605,7 +605,7 @@ function icl_content_get_strings_for_dashboard($icl_content_dashboard_filter) {
     foreach ($languages as $lang => $name) {
 
       $status_id[$lang] = array();
-        $status_res = db_query("SELECT c.rid, c.status, s.translation_group_id
+        $status_res = _icl_wrapper_db_query("SELECT c.rid, c.status, s.translation_group_id
                                 FROM
                                   {icl_string_status} s
                                 JOIN
@@ -692,7 +692,7 @@ function _icl_content_get_words_for_string($string_group) {
       $string_items = $cached_strings;
     }
   } else {
-    $query = db_query("SELECT string_id, string_type FROM {icl_string_group} WHERE translation_group_id = %d", $string_group);
+    $query = _icl_wrapper_db_query("SELECT string_id, string_type FROM {icl_string_group} WHERE translation_group_id = %d", $string_group);
     
     $string_items = array();
     while ( $result = db_fetch_array ( $query ) ) {
@@ -705,7 +705,7 @@ function _icl_content_get_words_for_string($string_group) {
     $st_id = $st['string_id'];
     $string = null;
     if ($st['string_type'] == 'locale') {
-      $string = db_fetch_object(db_query("SELECT location, source FROM {locales_source} WHERE lid=%d", $st_id));
+      $string = db_fetch_object(_icl_wrapper_db_query("SELECT location, source FROM {locales_source} WHERE lid=%d", $st_id));
     }
     if ($string) {
       $fields[] = array(

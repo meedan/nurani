@@ -491,8 +491,16 @@ function _icl_translate_editor_compare_data($data, $data2) {
  * Get node format.
  */
 function _icl_translate_get_wysiwyg_support($nid) {
-  $table_name = _icl_wrapper_table_name('node_revisions');
-  $format = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT format FROM {" . $table_name . "} WHERE nid=%d", $nid));
+  if (defined('ICL_D7')) {
+    $node = node_load($nid);
+    $format = 0;
+    if (isset($node->body[$node->language][0]['format'])) {
+      $format = $node->body[$node->language][0]['format'];
+    }
+  } else {
+    $table_name = _icl_wrapper_table_name('node_revisions');
+    $format = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT format FROM {" . $table_name . "} WHERE nid=%d", $nid));
+  }
   return $format;
 }
 

@@ -1201,7 +1201,7 @@ function _icl_content_fix_image_paths(&$node) {
       $node->body = _icl_content_fix_image_paths_in_body($node->body, $source_lang, $node->language, $source_path);
 
       if (isset($node->teaser) && $node->teaser != "") {
-        $node->teaser = node_teaser($node->body);
+        $node->teaser = icl_wrapper_node_teaser($node->body);
       }
 
     }
@@ -1252,7 +1252,7 @@ function _icl_content_fix_relative_link_paths(&$node) {
       $node->body = _icl_content_fix_relative_link_paths_in_body($node->body, $source_lang, $node->language, $source_path);
 
       if (isset($node->teaser) && $node->teaser != "") {
-        $node->teaser = node_teaser($node->body);
+        $node->teaser = icl_wrapper_node_teaser($node->body);
       }
 
     }
@@ -1375,13 +1375,16 @@ function _icl_content_fix_links_in_text($text, $source_lang, $language, &$all_li
   
   $all_links_fixed = TRUE;
   
+  $languages = language_list();
+  
   foreach ($referenced_nodes as $ref_node) {
     $translations = icl_content_translation_node_get_translations($ref_node["node"]);
     if ($translations != null) {
       if (array_key_exists($language, $translations)) {
         $translated_nid = $translations[$language]->nid;
+        $link = url('node/' . $translated_nid, array('language' => $languages[$language]));
         $search = "href=" . $ref_node["match"][1] . $ref_node["match"][2] . $ref_node["match"][1];
-        $replace = "href=\"/" . $language . "/node/" . $translated_nid . "\"";
+        $replace = "href=\"" . $link . "\"";
         $new_link = str_replace($search, $replace, $ref_node["match"][0]);
         
         $text = str_replace($ref_node["match"][0], $new_link, $text);
@@ -1433,7 +1436,7 @@ function _icl_content_fix_links(&$node) {
       $node->body = _icl_content_fix_links_in_text($node->body, $source_lang, $node->language, $all_links_fixed);
 
       if (isset($node->teaser) && $node->teaser != "") {
-        $node->teaser = node_teaser($node->body);
+        $node->teaser = icl_wrapper_node_teaser($node->body);
       }
 
       if (module_exists('content')) {
@@ -2392,7 +2395,7 @@ function icl_content_icanlocalize($op, $content, $request_id = 0) {
             }
           }
           
-          $node->teaser = node_teaser($node->body);
+          $node->teaser = icl_wrapper_node_teaser($node->body);
           $node->icanlocalize_creating_translation = TRUE;
           if ( !isset($translations[$code]) ) {
             if (variable_get('icl_content_publish_options', ICL_CONTENT_PUBLISH_TRANSLATIONS) != ICL_CONTENT_PUBLISH_TRANSLATIONS) {

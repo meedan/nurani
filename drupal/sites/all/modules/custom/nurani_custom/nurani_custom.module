@@ -23,12 +23,66 @@ function nurani_custom_menu_alter(&$items) {
  * Implementation of hook_theme().
  */
 function nurani_custom_theme() {
-  return array(
+  $theme_functions = array(
     'translation_status' => array(
       'arguments' => array('node' => NULL),
       'template' => 'translation-status',
     ),
   );
+
+  if (module_exists('nodereference') && module_exists('nd_cck')) {
+    $build_modes = ds_get_build_modes('nd');
+    foreach ($build_modes as $key => $build_mode) {
+      $theme_functions['nurani_custom_formatter_node_'. $key . '_full'] = array(
+        'arguments' => array('element'),
+        'function' => 'theme_nurani_custom_node_formatter',
+      );
+    }
+  }
+
+  return $theme_functions;
+}
+
+/**
+ * Theme function for custom CCK node formatter.
+ */
+/**
+ * Node reference theme formatter to support Node Displays.
+ * Based on theme_nodereference_formatter_full_teaser.
+ */
+function theme_nurani_custom_node_formatter($element) {
+  static $recursion_queue = array();
+
+  $output = '';
+  $build_mode = str_replace(array('node_', '_full'), '', $element['#formatter']);
+
+  if (!empty($element['#item']['nid']) && is_numeric($element['#item']['nid'])) {
+    $node = $element['#node'];
+    $field = content_fields($element['#field_name'], $element['#type_name']);
+    // If no 'referencing node' is set, we are starting a new 'reference thread'
+    if (!isset($node->referencing_node)) {
+      $recursion_queue = array();
+    }
+    $recursion_queue[] = $node->nid;
+    if (in_array($element['#item']['nid'], $recursion_queue)) {
+      // Prevent infinite recursion caused by reference cycles:
+      // if the node has already been rendered earlier in this 'thread',
+      // we fall back to 'default' (node title) formatter.
+      return theme('nodereference_formatter_default', $element);
+    }
+    if ($referenced_node = node_load($element['#item']['nid'])) {
+      if ($referenced_node->status <> 0 || node_access('view', $referenced_node)) {
+        $referenced_node->referencing_node = $node;
+        $referenced_node->referencing_field = $field;
+        $referenced_node->build_mode = $build_mode;
+        _nodereference_titles($element['#item']['nid'], $referenced_node->title);
+        $page = TRUE;
+        $teaser = FALSE;
+        $output = node_view($referenced_node, $teaser, $page, FALSE);
+      }
+    }
+  }
+  return $output;
 }
 
 /**
@@ -252,25 +306,28 @@ function _nurani_translation($node) {
 /**
  * Helper function to check if a node is pending translation.
  */
-function _nurani_custom_translation_pending($node, $true_only_if_not_in_queue_or_not_assigned_to_current_user = FALSE) {
+function _nurani_custom_translation_pending($node, $only_if_assigned_to_user = FALSE) {
   $statuses = _icl_content_statuses($node->tnid, 'node');
   foreach ($statuses as $status) {
     if ($status >= ICL_STATUS_READY) {
       return FALSE;
     }
-    if ($true_only_if_not_in_queue_or_not_assigned_to_current_user) {
-      $uid = db_result(db_query("
+  }
+
+  // We can ask to skip those that are not assigned to current user.
+  if ($only_if_assigned_to_user) {
+    $uid = db_result(db_query("
 SELECT job.uid 
 FROM {icl_translate_job} job
 INNER JOIN {icl_content_status} content ON content.rid = job.rid
 WHERE content.nid = %d
-      ", $node->tnid));
-      global $user;
-      if ($uid != $user->uid) {
-        return FALSE;
-      }
+    ", $node->tnid));
+    global $user;
+    if (!empty($uid) && $uid != $user->uid) {
+      return FALSE;
     }
   }
+
   // Return the language name.
   $original = node_load($node->tnid);
   $languages = i18n_language_list(); // get all enabled languages
@@ -331,7 +388,7 @@ function nurani_custom_action_links($user = NULL) {
   if (user_access(ICL_TRANSLATE_DO_JOBS, $user)) {
     $links[] = array(
       'title' => t('Translation jobs'),
-      'href' => 'translator',
+      'href' => 'translator/pending',
     );
   }
 
@@ -397,4 +454,25 @@ function nurani_custom_t_alter(&$string, &$args, $langcode) {
     $string = 'Submit @name';
   }
 }
+
+/**
+ * Implementation of hook_field_formatter_info().
+ */
+function nurani_custom_field_formatter_info() {
+  $formatters = array();
+
+  if (module_exists('nodereference') && module_exists('nd_cck')) {
+    $build_modes = ds_get_build_modes('nd');
+    foreach ($build_modes as $key => $build_mode) {
+      $formatters['node_'. $key . '_full'] = array(
+        'label' => t('Build mode: @build_mode (with full body)', array('@build_mode' => $build_mode['title'])),
+        'field types' => array('nodereference'),
+        'multiple values' => CONTENT_HANDLE_CORE,
+      );
+    }
+  }
+
+  return $formatters;
+}
+
 

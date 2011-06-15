@@ -245,8 +245,8 @@ function nd_search_apachesolr_modify_query(&$query, &$params, $caller) {
  * @return stdClass $node Node version from the document.
  */
 function _solr_document_to_node($doc) {
-  $tm_node = $doc['node']->getField('tm_node');
-  $to_serialize = isset($tm_node['value'][0]) ? $tm_node['value'][0] : (isset($tm_node['value']) ? $tm_node['value'] : NULL);
+  $tm_node = $doc['node']->tm_node;
+  $to_serialize = isset($tm_node[0]) ? $tm_node[0] : (isset($tm_node['value']) ? $tm_node['value'] : NULL);
   $node = @unserialize($to_serialize);
 
   // Rebuild body and teaser. Fallback if something went wrong.
@@ -255,7 +255,7 @@ function _solr_document_to_node($doc) {
     $node->teaser = html_entity_decode($node->teaser);
   }
   else {
-    $nid = $doc['node']->getField('nid');
+    $nid = $doc['node']->nid;
     $node = node_load($nid['value']);
   }
 

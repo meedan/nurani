@@ -64,7 +64,9 @@ function icl_content_get_nodes_for_dashboard($icl_content_dashboard_filter) {
   $status_nid = array();
   
   if (sizeof($nids) > 0) {
-    $nids = implode(',', $nids);
+    if (!defined('ICL_D7')) {
+      $nids = implode(',', $nids);
+    }
     foreach ($languages as $lang => $name) {
       $translation_nid[$lang] = array();
       
@@ -409,8 +411,7 @@ function _icl_content_extract_node($node_in, $targets = NULL) {
       // Make sure that the created translation points to the translated parent
       // and not the original language parent.
       $nid = $node->comment_target_nid;
-      $parent = node_load($nid);
-      $translated_nid = translation_node_get_translations($parent->tnid);
+      $translated_nid = translation_node_get_translations($node->comment_target_nid);
 
       foreach ($translated_nid as $tnid) {
 	$target = $targets[0];
