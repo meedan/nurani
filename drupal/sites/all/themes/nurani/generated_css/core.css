@@ -1462,16 +1462,18 @@ body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   color: #000;
   margin: 0;
   padding: 10px;
+  height: 38px;
+  overflow: hidden;
 }
-/* line 101, ../scss/discussion.scss */
+/* line 103, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary h1 a {
   font-weight: normal;
 }
-/* line 103, ../scss/discussion.scss */
+/* line 105, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-middle {
   border: 1px solid #ddd;
 }
-/* line 107, ../scss/discussion.scss */
+/* line 109, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-body,
 body.node-type-discussion div.views-row div.buildmode-text_summary .nurani-glossary-processed {
   width: 178px;
@@ -1480,13 +1482,13 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nurani-gloss
   height: 160px;
   overflow: hidden;
 }
-/* line 114, ../scss/discussion.scss */
+/* line 116, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links {
   background: #f1e9e4;
   padding: 10px 0;
   height: 20px;
 }
-/* line 118, ../scss/discussion.scss */
+/* line 120, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links li a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1525,17 +1527,17 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-l
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 125, ../scss/discussion.scss */
+/* line 127, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .text-expand {
   height: auto;
 }
-/* line 128, ../scss/discussion.scss */
+/* line 130, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-description {
   height: 158px;
   overflow: hidden;
   color: #303030;
 }
-/* line 134, ../scss/discussion.scss */
+/* line 136, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-footer a {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -1575,7 +1577,7 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-fo
   background-image: -moz-linear-gradient(top, #888888 0%, #d5d5d5 100%);
   background-image: linear-gradient(top, #888888 0%, #d5d5d5 100%);
 }
-/* line 146, ../scss/discussion.scss */
+/* line 148, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-label {
   border-bottom: 1px solid #cccccc;
   margin: 20px 0 10px;
@@ -1585,39 +1587,39 @@ body.node-type-discussion #boxes-box-discussion_info .field-label {
   font-weight: normal;
   text-transform: uppercase;
 }
-/* line 155, ../scss/discussion.scss */
+/* line 157, ../scss/discussion.scss */
 body.node-type-discussion #boxes-box-discussion_info .field-item {
   margin: 0 0 8px;
 }
-/* line 160, ../scss/discussion.scss */
+/* line 162, ../scss/discussion.scss */
 body.node-type-discussion #container {
   text-align: center;
 }
-/* line 163, ../scss/discussion.scss */
+/* line 165, ../scss/discussion.scss */
 body.node-type-discussion #container #main {
   position: static;
   margin-top: 0;
 }
-/* line 167, ../scss/discussion.scss */
+/* line 169, ../scss/discussion.scss */
 body.node-type-discussion #container #content-inner {
   background: transparent;
   padding-top: 2px;
 }
-/* line 171, ../scss/discussion.scss */
+/* line 173, ../scss/discussion.scss */
 body.node-type-discussion #container .inner {
   padding: 20px 10px 20px 20px;
 }
-/* line 174, ../scss/discussion.scss */
+/* line 176, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area {
   background: url("../images/borders.png") no-repeat 20px top;
   position: relative;
   padding: 30px 0 0;
 }
-/* line 179, ../scss/discussion.scss */
+/* line 181, ../scss/discussion.scss */
 body.node-type-discussion #container ul.tabs {
   margin: 0 0 30px;
 }
-/* line 183, ../scss/discussion.scss */
+/* line 185, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area div.field-label {
   position: absolute;
   top: -6px;
@@ -1627,39 +1629,39 @@ body.node-type-discussion #container #content-area div.field-label {
   font-size: 0.9em;
   left: 141px;
 }
-/* line 192, ../scss/discussion.scss */
+/* line 194, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion {
   border: 1px solid #cccccc;
   padding: 10px 0 0 10px;
   margin: 0 0 0 20px;
 }
-/* line 196, ../scss/discussion.scss */
+/* line 198, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-author {
   float: left;
 }
-/* line 199, ../scss/discussion.scss */
+/* line 201, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-post-date {
   float: right;
   color: #cccccc;
   padding: 0 10px 0;
 }
-/* line 204, ../scss/discussion.scss */
+/* line 206, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-body {
   padding: 20px 10px 0 0;
   clear: both;
 }
-/* line 208, ../scss/discussion.scss */
+/* line 210, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-body p {
   text-align: justify;
   margin: 0 0 1em;
 }
-/* line 213, ../scss/discussion.scss */
+/* line 215, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion ul.links {
   position: relative;
   width: 100%;
   display: inline-block;
 }
-/* line 218, ../scss/discussion.scss */
+/* line 220, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion li.nurani_translation a {
   background-image: -moz-linear-gradient(center top, white 0%, #eeeeee 100%);
   background-color: #eee;
@@ -1671,7 +1673,7 @@ body.node-type-discussion #container #content-area .node-type-discussion li.nura
   padding: 4px 10px;
   position: absolute;
 }
-/* line 230, ../scss/discussion.scss */
+/* line 232, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .field-translation-status {
   text-align: left;
   width: 245px;
@@ -1681,7 +1683,7 @@ body.node-type-discussion #container #content-area .field-translation-status {
   line-height: 1.3em;
   margin: 0 -1px -1px 0;
 }
-/* line 240, ../scss/discussion.scss */
+/* line 242, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .translation-status,
 body.node-type-discussion #container #content-area .translation-status-original {
   border: 1px solid #cccccc;
@@ -1690,25 +1692,25 @@ body.node-type-discussion #container #content-area .translation-status-original 
   background: white;
   border-radius: 5px 0 0 0;
 }
-/* line 247, ../scss/discussion.scss */
+/* line 249, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area #comments .buildmode-full.translation-status-placeholder {
   background: #f5f5f5;
 }
-/* line 250, ../scss/discussion.scss */
+/* line 252, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .buildmode-full.translation-status-placeholder .node-type-discussion {
   background: #f5f5f5;
 }
-/* line 254, ../scss/discussion.scss */
+/* line 256, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second {
   text-align: left;
   margin-right: 2.5em;
   width: 19.3em;
 }
-/* line 259, ../scss/discussion.scss */
+/* line 261, ../scss/discussion.scss */
 body.node-type-discussion #container #sidebar-second #sidebar-second-inner {
   padding: 0 0 0 7px;
 }
-/* line 263, ../scss/discussion.scss */
+/* line 265, ../scss/discussion.scss */
 body.node-type-discussion #container h3.block-title {
   color: #7c0000;
   border-bottom: 1px solid #7c0000;
@@ -1717,53 +1719,53 @@ body.node-type-discussion #container h3.block-title {
   font-weight: bold;
   margin-top: 0;
 }
-/* line 271, ../scss/discussion.scss */
+/* line 273, ../scss/discussion.scss */
 body.node-type-discussion #container #comments {
   text-align: left;
   padding: 40px 0 0;
   position: relative;
   margin: 0 0 0 20px;
 }
-/* line 277, ../scss/discussion.scss */
+/* line 279, ../scss/discussion.scss */
 body.node-type-discussion #container #comments h2#comments-title {
   background: white url("../images/borders-comment.png") no-repeat left 7px;
   font-size: 0.9em;
   padding: 0 0 0 217px;
   text-transform: uppercase;
 }
-/* line 283, ../scss/discussion.scss */
+/* line 285, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .buildmode-full {
   border: 1px solid #cccccc;
   margin: 0 0 20px;
   padding: 10px 0 0 10px;
   position: relative;
 }
-/* line 289, ../scss/discussion.scss */
+/* line 291, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node {
   padding: 0;
 }
-/* line 291, ../scss/discussion.scss */
+/* line 293, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-author {
   float: left;
   margin: 0;
 }
-/* line 295, ../scss/discussion.scss */
+/* line 297, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-post-date {
   color: #cccccc;
   float: right;
   padding: 0 10px 0 0;
   font-size: 0.9em;
 }
-/* line 301, ../scss/discussion.scss */
+/* line 303, ../scss/discussion.scss */
 body.node-type-discussion #container #comments .node .field-body {
   text-align: justify;
   margin: 20px 10px 0 0;
 }
-/* line 306, ../scss/discussion.scss */
+/* line 308, ../scss/discussion.scss */
 body.node-type-discussion #container #comments textarea {
   box-shadow: 0 3px 0 #eeeeee;
 }
-/* line 310, ../scss/discussion.scss */
+/* line 312, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-response ul.links {
   border: 1px solid #ccc;
   padding: 4px 5px;
@@ -1774,18 +1776,18 @@ body.node-type-discussion #container .node-type-response ul.links {
   position: absolute;
   bottom: 7px;
 }
-/* line 319, ../scss/discussion.scss */
+/* line 321, ../scss/discussion.scss */
 body.node-type-discussion #container .node-type-response ul.links li {
   padding: 0 5px;
 }
-/* line 323, ../scss/discussion.scss */
+/* line 325, ../scss/discussion.scss */
 body.node-type-discussion #container .box {
   background: url("../images/borders.png") no-repeat center top;
   padding: 10px 0 0;
   margin: 50px 0 0;
   position: relative;
 }
-/* line 329, ../scss/discussion.scss */
+/* line 331, ../scss/discussion.scss */
 body.node-type-discussion #container .box h2 {
   background: #FFFFFF;
   font-size: 0.9em;
@@ -1796,7 +1798,7 @@ body.node-type-discussion #container .box h2 {
   top: -6px;
 }
 
-/* line 341, ../scss/discussion.scss */
+/* line 343, ../scss/discussion.scss */
 body.section-node-edit div#container {
   text-align: left;
 }
