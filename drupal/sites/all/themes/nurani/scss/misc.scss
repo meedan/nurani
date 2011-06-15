@@ -477,3 +477,86 @@ table .field-item, table .view-texts a , table td a{
 .indented .indented {
 	margin: 0;
 }
+/*Edit form*/
+body.section-node-add #container div#content-area,
+body.section-node-edit #container div#content-area {
+	#edit-submit {
+		clear: left;
+		float: left;
+		margin: 0 10px 10px 0;
+	}
+	#edit-preview {
+		float: left;
+	}
+	background: transparent;
+	padding: 0 135px 0 130px;
+	#field-texts-items,
+	.body-field-wrapper,
+	.container-inline-date,
+	.form-item,
+	#edit-language-wrapper,
+	#edit-title-wrapper {
+		background: $verylightgray;
+		padding: 10px;
+		margin: 0 0 10px;
+	}
+	#edit-field-texts-0--remove-wrapper,
+	#edit-field-texts-0-nid-nid-wrapper {
+		padding: 0;
+	}
+	#edit-field-texts-0-nid-nid {
+		background-position: 100% 7px;
+	}
+	#edit-field-texts-0-nid-nid:focus {
+		background-position: 100% -13px;
+	}
+	.form-item label {
+		font-weight: normal;
+		color: $darkgray;	
+	}
+	#edit-title,
+	#edit-field-texts-0-nid-nid {
+		padding: 4px;
+		border: 1px solid #ccc;
+	}
+	#edit-field-texts-0-nid-nid {
+		width: 98%;
+	}
+	thead th {
+		color: $darkgray;		
+		border-bottom: 0;
+		font-weight: normal;
+	}
+	tr.odd, tr.even, tbody {
+		border-bottom: 0;
+		border-top: 0;
+	}
+	tr.even td, tr.odd td {
+		background: $verylightgray;
+		padding: 0 0 5px 0;
+	}
+	.content-add-more {
+		margin: 0 0 0 20px
+	}
+	.resizable-textarea {
+		width: 99%;
+	}
+	.grippie {
+		display: none;
+	}
+	#edit-body {
+		box-shadow: 0 3px 0 $lightgray;
+    padding: 5px;
+    width: 612px;
+		margin: 0 0 20px;
+		border: 1px solid #ccc;
+	}
+	input.form-autocomplete {
+		height: 18px;
+		width: 100%;
+	}
+	td.content-multiple-drag {
+		width: 17px;
+	}
+	
+}
