@@ -582,7 +582,7 @@ body.section-node-add #container div#content-area #edit-submit,
 body.section-node-edit #container div#content-area #edit-submit {
   clear: left;
   float: left;
-  margin: 0 10px 10x 0;
+  margin: 0 10px 10px 0;
 }
 /* line 488, ../scss/misc.scss */
 body.section-node-add #container div#content-area #edit-preview,

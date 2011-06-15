@@ -114,6 +114,7 @@ body.node-type-discussion {
 			.field-text-links {
 				background: $paper;
 				padding: 10px 0;
+				height: 20px;
 				li a {
 				 	@include soft_button;
         	font-size: 13px;
