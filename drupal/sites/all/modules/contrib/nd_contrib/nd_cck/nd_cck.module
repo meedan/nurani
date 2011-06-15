@@ -215,6 +215,8 @@ function nd_cck_ds_settings_import($module, $type, $settings) {
     return;
   }
 
+  module_load_include('inc', 'content', 'includes/content.crud');
+
   $info = _content_type_info();
   $fields = $info['content types'][$type]['fields'];
 
@@ -272,7 +274,7 @@ function theme_nd_cck_node_formatter($element) {
         _nodereference_titles($element['#item']['nid'], $referenced_node->title);
         $page = FALSE;
         $teaser = TRUE;
-        if (TRUE/*$build_mode == 'full'*/) {
+        if ($build_mode == 'full') {
           $page = TRUE;
           $teaser = FALSE;
         }

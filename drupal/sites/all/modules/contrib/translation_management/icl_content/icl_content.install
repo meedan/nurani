@@ -641,11 +641,5 @@ function icl_content_update_6030() {
   return $ret;
 }
 
-function icl_content_update_6031() {
-  $ret = array();
-  db_add_index($ret, 'icl_content_status', 'nid', array('nid'));
-  db_add_index($ret, 'icl_content_status', 'rid', array('rid'));
-  db_add_index($ret, 'icl_node', 'nid', array('nid'));
-  return $ret;
-}
+
 

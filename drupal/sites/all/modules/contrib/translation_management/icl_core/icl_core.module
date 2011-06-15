@@ -736,7 +736,9 @@ function icl_core_set_local_status($request_id, $status, $target = array()) {
   if ($result === FALSE) {
     return FALSE;
   } else {
-    return db_affected_rows () > 0;
+    $sql = str_replace('UPDATE', 'SELECT COUNT(rid) FROM', $sql);
+    $sql = str_replace('SET status = %d', '', $sql);
+    return _icl_wrapper_db_result(_icl_wrapper_db_query($sql, $request_id)) > 0;
   }
 }
 
@@ -1641,7 +1643,7 @@ function icl_core_get_url_changed_message(&$form_item, $platform_info) {
   $message .= t("If this change is permanent, we need to update the site’s address in ICanLocalize. All translation will be sent to the new address.");
   $message .= '<br />';
 
-  $form_item ['#value'] = $message;
+  $form_item = _icl_wrapper_form_create_markup($form_item);
   
   $form_item ['icl_update_url'] = array(
         '#type' => 'submit',

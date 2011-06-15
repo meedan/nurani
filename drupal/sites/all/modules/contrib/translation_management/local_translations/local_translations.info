@@ -5,9 +5,9 @@ dependencies[] = icl_content
 dependencies[] = icl_translate
 core = 6.x
 package = Translation Services
-; Information added by drupal.org packaging script on 2011-05-18
-version = "6.x-1.23"
+; Information added by drupal.org packaging script on 2011-06-09
+version = "6.x-1.25"
 core = "6.x"
 project = "translation_management"
-datestamp = "1305712017"
+datestamp = "1307588520"
 

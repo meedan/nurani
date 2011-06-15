@@ -335,7 +335,7 @@ function icl_content_links_submit($form, &$form_state) {
     
         if ($node_changed) {
           if (isset($node->teaser) && $node->teaser != "") {
-            $node->teaser = node_teaser($node->body);
+            $node->teaser = icl_wrapper_node_teaser($node->body);
           }
           
           node_save($node);

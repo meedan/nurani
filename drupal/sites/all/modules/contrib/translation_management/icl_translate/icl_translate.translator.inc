@@ -2,7 +2,11 @@
 // icl_translate.translator.inc
 
 function icl_translate_translator_jobs_form_submit($form_id, $form_values) {    
-  _icl_wrapper_drupal_set_session('icl_translator_jobs_filter', $form_id['filterby']['#post']);    
+  if (defined('ICL_D7')) {
+    _icl_wrapper_drupal_set_session('icl_translator_jobs_filter', $form_values['input']);
+  } else {
+    _icl_wrapper_drupal_set_session('icl_translator_jobs_filter', $form_id['filterby']['#post']);
+  }
 }
 /**
  * Handles user jobs listing urls.
@@ -162,9 +166,12 @@ function _icl_translators_dropdown($rid, $uid, $from_lang, $to_lang){
  *      
  */
 function icl_translate_translator_jobs_form($context, $args) {
-  $account = isset($args['account']) ? $args['account'] : false;
-  $jobs = isset($args['jobs']) ? $args['jobs'] : false;
-  $post = isset($args['post']) ? $args['post'] : false;
+  if (defined ('ICL_D7')) {
+    $form_args = $args['build_info']['args'][0];
+  }
+  $account = isset($form_args['account']) ? $form_args['account'] : false;
+  $jobs = isset($form_args['jobs']) ? $form_args['jobs'] : false;
+  $post = isset($form_args['post']) ? $form_args['post'] : false;
   
   if (isset($_GET['finished']) && isset($_GET['type'])) {
     module_load_include('inc', 'icl_translate', 'icl_translate.editor_form');
@@ -324,7 +331,11 @@ function _icl_translator_get_jobs_stats($args=array()){
         $exclude_rids = array();
       
         // get nodes
-        $q = _icl_wrapper_db_query("SELECT n.nid, cs.rid, n.title FROM {node} n JOIN {icl_content_status} cs ON cs.nid = n.nid WHERE cs.rid IN (%s)", join(',', $rids));
+        $query_rids = $rids;
+        if (!defined('ICL_D7')) {
+          $query_rids = implode(',', $query_rids);
+        }
+        $q = _icl_wrapper_db_query("SELECT n.nid, cs.rid, n.title FROM {node} n JOIN {icl_content_status} cs ON cs.nid = n.nid WHERE cs.rid IN (%s)", $query_rids);
         while ($r = db_fetch_array($q)) {
             $exclude_rids[] =  $r['rid'];
             $table_name = _icl_wrapper_table_name('node_revisions');
@@ -513,6 +524,11 @@ function _icl_translate_translator_form($action, $uid = 0) {
         '#name' => 'services',
         '#options' => $services_radios
     );
+    if (defined('ICL_D7')) {
+      // D7 doesn't render the local translator selector.
+      // Fix with a theme
+      $form['services']['#theme'] = 'icl_translate_translator_form_services';
+    }
     if (isset($_GET['translation_service'])) {
       $form['services']['#default_value'] = $_GET['translation_service'];
     }
@@ -540,6 +556,38 @@ function _icl_translate_translator_form($action, $uid = 0) {
 
   return $form;
 }
+
+
+function theme_icl_translate_translator_form_services($form) {
+
+  if (defined('ICL_D7')) {
+    $form = $form['form'];
+  }
+  
+  // D7 doesn't render the local translator selector.
+  // Render with some default values and then put back in the values we want.
+  
+  $options = array();
+  
+  foreach ($form['#options'] as $key => $value) {
+    $options[$key] = $value;
+    $form[$key]['#title'] = '####' . $key . '####';
+  }
+  
+  
+  $form['#theme'] = '';
+
+  $output = drupal_render($form);
+  
+  // put back in the values we want.
+  
+  foreach ($options as $key => $value) {
+    $output = str_replace('####' . $key . '####', $options[$key], $output);
+  }
+  
+  return $output;  
+}
+
 
 function _icl_translate_local_translator_form($action, $uid = 0) {
   

@@ -43,7 +43,7 @@ function nurani_general_views_default_views() {
       'empty_zero' => 0,
       'link_to_node' => 0,
       'label_type' => 'none',
-      'format' => 'node_text_summary',
+      'format' => 'node_text_summary_full',
       'multiple' => array(
         'group' => 0,
         'multiple_number' => '',
@@ -231,15 +231,17 @@ function nurani_general_views_default_views() {
       'field' => 'body',
       'relationship' => 'none',
     ),
-    'phpcode' => array(
+    'php' => array(
       'label' => 'Responses',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',
         'make_link' => 0,
         'path' => '',
+        'absolute' => 0,
         'link_class' => '',
         'alt' => '',
+        'rel' => '',
         'prefix' => '',
         'suffix' => '',
         'target' => '',
@@ -254,27 +256,34 @@ function nurani_general_views_default_views() {
       'empty' => '',
       'hide_empty' => 0,
       'empty_zero' => 0,
-      'value' => '<?php
-return db_result(db_query(\'SELECT COUNT(cid) FROM {node_comments} WHERE nid = %d\', $data->nid));
-?>',
+      'use_php_setup' => 0,
+      'php_setup' => '',
+      'php_value' => 'return db_result(db_query(\'SELECT COUNT(cid) FROM {node_comments} WHERE nid = %d\', $data->nid));',
+      'php_output' => '<?php print $value; ?>',
+      'use_php_click_sortable' => '0',
+      'php_click_sortable' => '',
+      'use_php_query' => 0,
+      'php_query' => '',
       'exclude' => 0,
-      'id' => 'phpcode',
-      'table' => 'customfield',
-      'field' => 'phpcode',
+      'id' => 'php',
+      'table' => 'views',
+      'field' => 'php',
       'override' => array(
         'button' => 'Override',
       ),
       'relationship' => 'none',
     ),
-    'phpcode_1' => array(
+    'php_1' => array(
       'label' => 'Texts',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',
         'make_link' => 0,
         'path' => '',
+        'absolute' => 0,
         'link_class' => '',
         'alt' => '',
+        'rel' => '',
         'prefix' => '',
         'suffix' => '',
         'target' => '',
@@ -289,18 +298,23 @@ return db_result(db_query(\'SELECT COUNT(cid) FROM {node_comments} WHERE nid = %
       'empty' => '',
       'hide_empty' => 0,
       'empty_zero' => 0,
-      'value' => '<?php
-$node = node_load($data->nid);
+      'use_php_setup' => 0,
+      'php_setup' => '',
+      'php_value' => '$node = node_load($data->nid);
 $count = 0;
 foreach ($node->field_texts as $text) {
   if (!empty($text[\'nid\'])) $count++;
 }
-return $count;
-?>',
+return $count;',
+      'php_output' => '<?php print $value; ?>',
+      'use_php_click_sortable' => '0',
+      'php_click_sortable' => '',
+      'use_php_query' => 0,
+      'php_query' => '',
       'exclude' => 0,
-      'id' => 'phpcode_1',
-      'table' => 'customfield',
-      'field' => 'phpcode',
+      'id' => 'php_1',
+      'table' => 'views',
+      'field' => 'php',
       'override' => array(
         'button' => 'Override',
       ),
@@ -552,15 +566,17 @@ return $count;
       'field' => 'title',
       'relationship' => 'none',
     ),
-    'phpcode' => array(
+    'php' => array(
       'label' => 'Translations',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',
         'make_link' => 0,
         'path' => '',
+        'absolute' => 0,
         'link_class' => '',
         'alt' => '',
+        'rel' => '',
         'prefix' => '',
         'suffix' => '',
         'target' => '',
@@ -575,22 +591,29 @@ return $count;
       'empty' => '',
       'hide_empty' => 0,
       'empty_zero' => 0,
-      'value' => '<?php
+      'use_php_setup' => 0,
+      'php_setup' => '',
+      'php_value' => 'return 0;',
+      'php_output' => '<?php
 $original = node_load($data->nid);
 $translations = array();
 foreach ($original->field_translation_term as $i => $term_data) {
   if (!empty($term_data[\'nid\'])) {
     $term = node_load($term_data[\'nid\']);
     $context = taxonomy_get_term($original->field_translation_context[$i][\'value\']);
-    $translations[] = t(\'!term (!context)\', array(\'!term\' => $term->title, \'!context\' => $context->name));
+    $translations[] = t(\'!term (!context)\', array(\'!term\' => $term->title, \'!context\' => t($context->name)));
   }
 }
-return theme_item_list($translations);
+print theme_item_list($translations);
 ?>',
+      'use_php_click_sortable' => '0',
+      'php_click_sortable' => '',
+      'use_php_query' => 0,
+      'php_query' => '',
       'exclude' => 0,
-      'id' => 'phpcode',
-      'table' => 'customfield',
-      'field' => 'phpcode',
+      'id' => 'php',
+      'table' => 'views',
+      'field' => 'php',
       'override' => array(
         'button' => 'Override',
       ),
@@ -1895,6 +1918,371 @@ return implode(\'+\', $uids);',
     'description' => '',
     'weight' => '3',
     'name' => 'primary-links',
+  ));
+  $handler->override_option('tab_options', array(
+    'type' => 'none',
+    'title' => '',
+    'description' => '',
+    'weight' => 0,
+    'name' => 'navigation',
+  ));
+
+  $views[$view->name] = $view;
+
+  // Exported view: untranslated_content
+  $view = new view;
+  $view->name = 'untranslated_content';
+  $view->description = 'List of content that is awaiting translation.';
+  $view->tag = 'nurani';
+  $view->view_php = '';
+  $view->base_table = 'node';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+  $handler = $view->new_display('default', 'Defaults', 'default');
+  $handler->override_option('fields', array(
+    'title' => array(
+      'label' => 'Title',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'link_to_node' => 1,
+      'exclude' => 0,
+      'id' => 'title',
+      'table' => 'node',
+      'field' => 'title',
+      'relationship' => 'none',
+    ),
+    'php' => array(
+      'label' => 'Words',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'absolute' => 0,
+        'link_class' => '',
+        'alt' => '',
+        'rel' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'use_php_setup' => 0,
+      'php_setup' => '',
+      'php_value' => '$node = node_load($data->nid);
+$data = icl_content_calculate_node_md5_and_words($node);
+return $data[\'words\'];',
+      'php_output' => '<?php print $value ?>',
+      'use_php_click_sortable' => '1',
+      'php_click_sortable' => '',
+      'use_php_query' => 0,
+      'php_query' => '',
+      'exclude' => 0,
+      'id' => 'php',
+      'table' => 'views',
+      'field' => 'php',
+      'relationship' => 'none',
+      'override' => array(
+        'button' => 'Override',
+      ),
+    ),
+    'php_2' => array(
+      'label' => 'Language',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'absolute' => 0,
+        'link_class' => '',
+        'alt' => '',
+        'rel' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'use_php_setup' => 0,
+      'php_setup' => '',
+      'php_value' => '$node = node_load($data->nid);
+$languages = i18n_language_list();
+$value = $languages[$node->language];
+$value .= \' » \';
+unset($languages[$node->language]);
+$value .= current($languages);
+return $value;',
+      'php_output' => '<?php print $value; ?>',
+      'use_php_click_sortable' => '0',
+      'php_click_sortable' => '',
+      'use_php_query' => 0,
+      'php_query' => '',
+      'exclude' => 0,
+      'id' => 'php_2',
+      'table' => 'views',
+      'field' => 'php',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+    'php_1' => array(
+      'label' => 'Translate',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'absolute' => 0,
+        'link_class' => '',
+        'alt' => '',
+        'rel' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'use_php_setup' => 0,
+      'php_setup' => '',
+      'php_value' => 'return 0;',
+      'php_output' => '<?php print l(t(\'translate\'), \'translation/\' . $data->nid, array(\'query\' => array(\'destination\' => $_GET[\'q\']))); ?>',
+      'use_php_click_sortable' => '0',
+      'php_click_sortable' => '',
+      'use_php_query' => 0,
+      'php_query' => '',
+      'exclude' => 0,
+      'id' => 'php_1',
+      'table' => 'views',
+      'field' => 'php',
+      'relationship' => 'none',
+      'override' => array(
+        'button' => 'Override',
+      ),
+    ),
+    'created' => array(
+      'label' => 'Post Date',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'absolute' => 0,
+        'link_class' => '',
+        'alt' => '',
+        'rel' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'date_format' => 'time ago',
+      'custom_date_format' => '',
+      'exclude' => 0,
+      'id' => 'created',
+      'table' => 'node',
+      'field' => 'created',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('sorts', array(
+    'created' => array(
+      'order' => 'ASC',
+      'granularity' => 'second',
+      'id' => 'created',
+      'table' => 'node',
+      'field' => 'created',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('filters', array(
+    'language' => array(
+      'operator' => 'in',
+      'value' => array(
+        'ar' => 'ar',
+        'en' => 'en',
+      ),
+      'group' => '0',
+      'exposed' => TRUE,
+      'expose' => array(
+        'use_operator' => 0,
+        'operator' => 'language_op',
+        'identifier' => 'language',
+        'label' => 'Original Language',
+        'optional' => 1,
+        'single' => 1,
+        'remember' => 0,
+        'reduce' => 1,
+      ),
+      'id' => 'language',
+      'table' => 'node',
+      'field' => 'language',
+      'relationship' => 'none',
+      'override' => array(
+        'button' => 'Override',
+      ),
+    ),
+    'type' => array(
+      'operator' => 'not in',
+      'value' => array(
+        'page' => 'page',
+        'term' => 'term',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'type',
+      'table' => 'node',
+      'field' => 'type',
+      'relationship' => 'none',
+      'override' => array(
+        'button' => 'Override',
+      ),
+    ),
+    'php' => array(
+      'operator' => '=',
+      'value' => '',
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'use_php_setup' => 0,
+      'php_setup' => '',
+      'php_filter' => '$node = node_load($data->nid);
+$pending = _nurani_custom_translation_pending($node, TRUE);
+return $pending === FALSE || $node->nid != $node->tnid;',
+      'sql_filter' => '',
+      'id' => 'php',
+      'table' => 'views',
+      'field' => 'php',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('access', array(
+    'type' => 'none',
+  ));
+  $handler->override_option('cache', array(
+    'type' => 'none',
+  ));
+  $handler->override_option('title', 'Pending Translation Jobs');
+  $handler->override_option('header', '<?php print l(t(\'View completed translation jobs\'), \'translator\'); ?>');
+  $handler->override_option('header_format', '3');
+  $handler->override_option('header_empty', 1);
+  $handler->override_option('items_per_page', 0);
+  $handler->override_option('use_pager', '0');
+  $handler->override_option('style_plugin', 'table');
+  $handler->override_option('style_options', array(
+    'grouping' => '',
+    'override' => 1,
+    'sticky' => 0,
+    'order' => 'asc',
+    'summary' => '',
+    'columns' => array(
+      'title' => 'title',
+      'language' => 'language',
+      'php' => 'php',
+      'php_1' => 'php_1',
+      'created' => 'created',
+    ),
+    'info' => array(
+      'title' => array(
+        'sortable' => 0,
+        'separator' => '',
+      ),
+      'language' => array(
+        'sortable' => 0,
+        'separator' => '',
+      ),
+      'php' => array(
+        'sortable' => 1,
+        'separator' => '',
+      ),
+      'php_1' => array(
+        'separator' => '',
+      ),
+      'created' => array(
+        'sortable' => 1,
+        'separator' => '',
+      ),
+    ),
+    'default' => 'created',
+  ));
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->override_option('path', 'translator/pending');
+  $handler->override_option('menu', array(
+    'type' => 'tab',
+    'title' => 'Pending Translation Jobs',
+    'description' => '',
+    'weight' => '0',
+    'name' => 'navigation',
   ));
   $handler->override_option('tab_options', array(
     'type' => 'none',
