@@ -58,6 +58,8 @@ function nurani_general_menu_default_menu_links() {
       'attributes' => array(
         'title' => 'About Nurani.org',
       ),
+      'alter' => TRUE,
+      'langcode' => 'en',
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -76,6 +78,8 @@ function nurani_general_menu_default_menu_links() {
       'attributes' => array(
         'title' => 'Guidance',
       ),
+      'alter' => TRUE,
+      'langcode' => 'en',
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -94,6 +98,8 @@ function nurani_general_menu_default_menu_links() {
       'attributes' => array(
         'title' => 'Privacy',
       ),
+      'alter' => TRUE,
+      'langcode' => 'en',
     ),
     'module' => 'menu',
     'hidden' => '0',
@@ -112,6 +118,8 @@ function nurani_general_menu_default_menu_links() {
       'attributes' => array(
         'title' => 'Terms',
       ),
+      'alter' => TRUE,
+      'langcode' => 'en',
     ),
     'module' => 'menu',
     'hidden' => '0',

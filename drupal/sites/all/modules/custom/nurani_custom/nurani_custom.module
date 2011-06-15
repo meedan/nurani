@@ -15,8 +15,14 @@ function nurani_custom_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
  * Implementation of hook_menu_alter().
  */
 function nurani_custom_menu_alter(&$items) {
-  // Prohibit access to "Translate" tab because Translation Management module takes care of this.
-  $items['node/%node/translate']['access callback'] = FALSE;
+  // Control access to "Translate" tab.
+  $items['node/%node/translate']['access callback'] = '_nurani_custom_translate_access';
+  $items['node/%node/translate']['access arguments'] = array(1);
+}
+
+function _nurani_custom_translate_access($node) {
+  // Allow access to "Translate" tab for static pages only.
+  return $node->type == 'page';
 }
 
 /**
@@ -30,6 +36,7 @@ function nurani_custom_theme() {
     ),
   );
 
+  // Create additional node formatters for node references using Node Displays CCK.
   if (module_exists('nodereference') && module_exists('nd_cck')) {
     $build_modes = ds_get_build_modes('nd');
     foreach ($build_modes as $key => $build_mode) {
@@ -45,10 +52,6 @@ function nurani_custom_theme() {
 
 /**
  * Theme function for custom CCK node formatter.
- */
-/**
- * Node reference theme formatter to support Node Displays.
- * Based on theme_nodereference_formatter_full_teaser.
  */
 function theme_nurani_custom_node_formatter($element) {
   static $recursion_queue = array();
@@ -196,19 +199,6 @@ AND translation.language = '%s'
 }
 
 /**
- * Implementation of hook_translation_dashboard_filter_nodes().
- */
-function nurani_custom_translation_dashboard_filter_nodes($translation, $content) {
-  // Hide static pages from translation dashboard.
-  foreach ($content as $key => $item) {
-    if ($item['type'] == 'page') {
-      unset($content[$key]);
-    }
-  }
-  return $content;
-}
-
-/**
  * Implementation of hook_link_alter().
  */
 function nurani_custom_link_alter(&$links, $node, $comment = NULL) {
@@ -217,6 +207,11 @@ function nurani_custom_link_alter(&$links, $node, $comment = NULL) {
     if (in_array($key, array('comment_add', 'node_translation_ar', 'node_translation_en'))) {
       unset($links[$key]);
     }
+  }
+
+  // Hide translation link from static pages.
+  if ($node->type == 'page') {
+    unset($links['nurani_translation']);
   }
 
   // Hide login/register link from everywhere.

@@ -374,7 +374,7 @@ function nurani_general_content_default_fields() {
       'response' => 0,
       'term' => 0,
     ),
-    'advanced_view' => 'text_references',
+    'advanced_view' => 'text_autocomplete',
     'advanced_view_args' => '',
     'widget' => array(
       'autocomplete_match' => 'contains',

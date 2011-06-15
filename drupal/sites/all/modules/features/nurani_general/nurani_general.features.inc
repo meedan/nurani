@@ -66,7 +66,7 @@ function nurani_general_node_info() {
       'title_label' => t('Title'),
       'has_body' => '1',
       'body_label' => t('Annotation'),
-      'min_word_count' => '0',
+      'min_word_count' => '1',
       'help' => '',
     ),
     'discussion' => array(
@@ -110,7 +110,7 @@ function nurani_general_node_info() {
       'title_label' => t('Title'),
       'has_body' => '1',
       'body_label' => t('Response'),
-      'min_word_count' => '0',
+      'min_word_count' => '1',
       'help' => '',
     ),
     'term' => array(

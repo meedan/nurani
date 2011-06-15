@@ -39,7 +39,7 @@ function nurani_profile_modules() {
     'content',
 
     // i18n
-    'i18nblocks', 'i18ncck', 'i18ncontent', 'i18n', 'l10n_client', 'i18nstrings', 'i18ntaxonomy', 'i18nsync',
+    'i18nblocks', 'i18ncck', 'i18ncontent', 'i18n', 'l10n_client', 'i18nstrings', 'i18ntaxonomy', 'i18nsync', 'i18nmenu',
     'icl_content', 'icl_core', 'icl_translate', 'local_translations',
 
     // jQuery
@@ -142,6 +142,7 @@ function nurani_profile_tasks(&$task, $url) {
     $operations[] = array('nurani_config_icl', array());
     $operations[] = array('nurani_config_nodes', array());
     $operations[] = array('nurani_config_noderelationships', array());
+    $operations[] = array('nurani_config_i18n', array());
   
     // Build the batch process
     $batch = array(
@@ -313,6 +314,28 @@ function nurani_config_noderelationships() {
     'settings' => 'a:2:{s:25:\"search_and_reference_view\";s:26:\"text_references:page_table\";s:20:\"create_and_reference\";s:11:\"field_texts\";}',
   );
   drupal_write_record('noderelationships_settings', $noderelationships_setting);
+}
+
+/**
+ *
+ */
+function nurani_config_i18n() {
+  // TODO: Fix this
+  // Update all secondary menu items.
+  module_load_include('inc', 'install_profile_api', 'core/menu');
+  $items = install_menu_get_items(NULL, NULL, NULL, 'secondary-links');
+  foreach ($items as $item) {
+    _i18nmenu_update_item($item);
+  }
+
+  // TODO: Fix this.
+  // Update block information 
+  $i18n_blocks = array(
+    array('ibid'=>1,'module'=>'boxes','delta'=>'welcome_box','type'=>0,'language'=>'')
+  );
+  foreach ($i18n_blocks as $i18n_block) {
+    drupal_write_record('i18n_blocks', $i18n_block);
+  }
 }
 
 /**
