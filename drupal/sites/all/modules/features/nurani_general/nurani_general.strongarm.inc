@@ -1100,6 +1100,17 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'i18nstrings_allowed_formats';
+  $strongarm->value = array(
+    0 => 1,
+    1 => 2,
+    2 => 3,
+  );
+
+  $export['i18nstrings_allowed_formats'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'i18nsync_nodeapi_annotation';
   $strongarm->value = array();
 

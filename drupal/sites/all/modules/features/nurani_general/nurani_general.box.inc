@@ -75,12 +75,8 @@ return $vars[\'object\'];
   $box->title = 'Welcome to Nurani';
   $box->description = 'Welcome to Nurani';
   $box->options = array(
-    'body' => '<div class="toggle">
-</div>      
-<img class="d_ford" src="<?php print base_path() . path_to_theme() . \'/images/d_ford.jpg\'; ?>" />
-<?php 
-print t("I am delighted to welcome you to Nurani - a platform for dialogue between Muslims and Christians in two languages - Arabic and English.  One of the greatest blessings we have been given is our scriptures, so it is not surprising that one of the main ways we are able to bless each other is by sharing them. I have not found anything else that serves so well to sustain ongoing, faith-centred engagement among the Abrahamic traditions. I hope you find the experience of sharing and studying your scriptures with people of other faiths a rich and rewarding experience. <br /><br />With warmest regards, <br />David Ford, Regius Professor of Divinity at the University of Cambridge");
-?>',
+    'body' => '<img class="d_ford" src="<?php print base_path() . path_to_theme() . \'/images/d_ford.jpg\'; ?>" />
+I am delighted to welcome you to Nurani - a platform for dialogue between Muslims and Christians in two languages - Arabic and English.  One of the greatest blessings we have been given is our scriptures, so it is not surprising that one of the main ways we are able to bless each other is by sharing them. I have not found anything else that serves so well to sustain ongoing, faith-centred engagement among the Abrahamic traditions. I hope you find the experience of sharing and studying your scriptures with people of other faiths a rich and rewarding experience. <br /><br />With warmest regards, <br />David Ford, Regius Professor of Divinity at the University of Cambridge',
     'format' => '3',
   );
 

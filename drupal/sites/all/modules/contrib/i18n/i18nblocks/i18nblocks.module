@@ -137,7 +137,7 @@ function i18nblocks_form_alter(&$form, $form_state, $form_id) {
     );
     // Language options will depend on block type.
     $options = array('' => t('All languages'));
-    if ($module == 'block') {
+    if ($module == 'block' || $module == 'boxes') {
       $options[I18N_BLOCK_LOCALIZE] = t('All languages (Translatable)');
     }
     $options += locale_language_list('name');
