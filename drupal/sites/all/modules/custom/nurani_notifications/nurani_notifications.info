@@ -1,4 +1,7 @@
 name = Nurani Notifications
 description = Nurani notifications custom logic.
+dependencies[] = notifications
+dependencies[] = notifications_content
+dependencies[] = agreement
 package = Nurani
 core = 6.x

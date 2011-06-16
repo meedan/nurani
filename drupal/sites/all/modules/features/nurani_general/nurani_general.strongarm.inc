@@ -702,7 +702,16 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'content_profile_profile';
-  $strongarm->value = array();
+  $strongarm->value = array(
+    'weight' => '0',
+    'user_display' => 'full',
+    'edit_link' => 0,
+    'edit_tab' => 'sub',
+    'add_link' => 1,
+    'registration_use' => 1,
+    'admin_user_create_use' => 1,
+    'registration_hide' => array(),
+  );
 
   $export['content_profile_profile'] = $strongarm;
   $strongarm = new stdClass;
