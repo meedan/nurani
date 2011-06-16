@@ -179,6 +179,7 @@ function _nurani_custom_autotranslate($node) {
     unset($new_node->path);
     $new_node->language = $langcode;
     $new_node->tnid = $node->nid;
+    $new_node->notifications_content_disable = TRUE;
 
     // If it's a comment, link to correct parent.
     if (!empty($node->comment_target_nid)) {
@@ -195,6 +196,7 @@ AND translation.language = '%s'
   
   // Update original node's tnid.
   $node->tnid = $node->nid;
+  $node->notifications_content_disable = TRUE;
   node_save($node);
 }
 

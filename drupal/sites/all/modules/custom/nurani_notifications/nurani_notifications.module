@@ -40,7 +40,7 @@ function nurani_notifications_authenticate($user) {
   
   $agreed = db_result(db_query("SELECT agreed FROM {agreement} WHERE uid=%d", $user->uid));
   
-  return ($agreed == 1);
+  return ($agreed == 1 || $user->uid == 1);
 }
 
 /**
