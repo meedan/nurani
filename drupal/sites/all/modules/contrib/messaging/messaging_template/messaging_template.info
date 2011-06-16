@@ -1,0 +1,13 @@
+; $Id: messaging_template.info,v 1.1.4.2 2010/03/26 17:39:37 jareyero Exp $
+name = Text templates
+description = Configurable text templates for modules using messaging.
+package = "Messaging"
+dependencies[] = messaging
+dependencies[] = token
+core = 6.x
+; Information added by drupal.org packaging script on 2011-02-16
+version = "6.x-4.0-beta8"
+core = "6.x"
+project = "messaging"
+datestamp = "1297900046"
+

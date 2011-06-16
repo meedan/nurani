@@ -1,5 +1,5 @@
 <?php
-// $Id: messaging_twitter.module,v 1.1.2.5 2009/04/02 10:23:06 jareyero Exp $
+// $Id: messaging_twitter.module,v 1.1.2.5.6.3 2010/05/18 14:22:13 jareyero Exp $
 /**
  * @file
  * Messaging Twitter sending method
@@ -19,11 +19,11 @@ function messaging_twitter_messaging($op = 'info') {
         'title' => t('Twitter Direct Message'),
         'name' => t('Twitter Direct Message'),
         'group' => 'twitter',
+        'address_type' => 'twitter', // Which kind of address this method uses
         'type' => MESSAGING_TYPE_SEND,
         'glue' => ' ',
         'description' => t("Send as a Twitter direct message."),
         'send callback' => 'messaging_twitter_send_dm',
-        'destination callback' => 'messaging_twitter_user_destination',
         'system accounts' => TRUE, // Supports multiple sending accounts
         'account type' => 'twitter', // The type of system account to use
       );
@@ -31,36 +31,46 @@ function messaging_twitter_messaging($op = 'info') {
         'title' => t('Twitter @ Message'),
         'name' => t('Twitter @ Message'),
         'group' => 'twitter',
+        'address_type' => 'twitter',
         'type' => MESSAGING_TYPE_SEND,
         'glue' => ' ',
         'description' => t("Send as a Twitter @ message."),
         'send callback' => 'messaging_twitter_send_at',
-        'destination callback' => 'messaging_twitter_user_destination',
         'system accounts' => TRUE, // Supports multiple sending accounts
         'account type' => 'twitter', // The type of system account to use
       );
-      return $info;  
+      return $info;
+    case 'address types':
+      $info['twitter'] = array(
+        'name' => t('Twitter account'), // Name of the address for this method
+        'user2address callback' => 'messaging_twitter_user_destination', // Mapping user account to address  
+      );
+      return $info;
   }
 }
 
 /**
  * Map user account to twitter screen name
+ * 
+ * @param $account
+ *   User account object or uid
  */
 function messaging_twitter_user_destination($account) {
   static $cache = array();
-   
-  if (!array_key_exists($account->uid, $cache)) {
+  $uid = messaging_user_uid($account);
+  if (!array_key_exists($uid, $cache)) {
     _messaging_twitter_include();  
-    $twitter_accounts = twitter_get_user_accounts($account->uid);
+    $twitter_accounts = twitter_get_user_accounts($uid);
     if (is_array($twitter_accounts) && !empty($twitter_accounts)) {
       reset($twitter_accounts);
       $first = current($twitter_accounts);
-      $cache[$account->uid] = $first['screen_name'];
+      // It used to be an array, for 6.x-3.x it is an object
+      $cache[$uid] = is_object($first) ? $first->screen_name : $first['screen_name'];
     } else {
-      $cache[$account->uid] = NULL;
+      $cache[$uid] = NULL;
     }
   }   
-  return $cache[$account->uid];
+  return $cache[$uid];
 }
 
 /**
@@ -74,9 +84,11 @@ function messaging_twitter_send_dm($destination, $message, $params = array()) {
   $site_password = variable_get('messaging_twitter_password', '');
   $headers = array('Authorization' => 'Basic '. base64_encode($site_username .':'. $site_password),
                    'Content-type' => 'application/x-www-form-urlencoded');
-  $data = 'text=' . urlencode($message->body) . '&user=' . $destination;
+  $data = 'text=' . urlencode($message->get_text()) . '&user=' . $destination;
 
   $result = drupal_http_request($url, $headers, 'POST', $data);
+
+  return $result && $result->code == 200;
 }
 
 /**
@@ -89,12 +101,14 @@ function messaging_twitter_send_at($destination, $message, $params = array()) {
   $site_username = variable_get('messaging_twitter_username', '');
   $site_password = variable_get('messaging_twitter_password', '');
   
-  $body = '@' . $destination . ' ' . $message->body;
+  $body = '@' . $destination . ' ' . $message->get_text();
   $headers = array('Authorization' => 'Basic '. base64_encode($site_username .':'. $site_password),
                    'Content-type' => 'application/x-www-form-urlencoded');
   $data = 'status=' . urlencode($body);
 
   $result = drupal_http_request($url, $headers, 'POST', $data);
+
+  return $result && $result->code == 200;
 }
 
 /**
@@ -122,7 +136,8 @@ function messaging_twitter_admin() {
   $output = '';
   $username = variable_get('messaging_twitter_username', '');
   $password = variable_get('messaging_twitter_password', '');
-  if ($username && $password) {
+  if ($username && $password && function_exists('twitter_fetch_account_info')) {
+    // This will work only for Twitter 6.x-2.x version
     $account = twitter_fetch_account_info($username, $password);
     $output .= theme('image', $account['profile_image_url'], '', '', array(), FALSE);
     $output .= $account['name'];
@@ -161,9 +176,11 @@ function messaging_twitter_admin_form() {
  * Validate admin settings
  */
 function messaging_twitter_admin_form_validate($form, &$form_state) {
-  _messaging_twitter_include();
-  if (!twitter_authenticate($form_state['values']['messaging_twitter_username'], $form_state['values']['messaging_twitter_password'])) {
-    form_set_error('name', t('Twitter authentication failed. Please check your username and password.'));
+  if (function_exists('twitter_authenticate')) {
+    _messaging_twitter_include();
+    if (!twitter_authenticate($form_state['values']['messaging_twitter_username'], $form_state['values']['messaging_twitter_password'])) {
+      form_set_error('name', t('Twitter authentication failed. Please check your username and password.'));
+    }
   }
 }
 

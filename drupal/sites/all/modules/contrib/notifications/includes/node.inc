@@ -1,5 +1,5 @@
 <?php
-// $Id: notifications.node.inc,v 1.1.2.2.2.2 2009/09/22 11:49:07 jareyero Exp $
+// $Id: node.inc,v 1.1.2.2 2010/05/20 11:33:28 jareyero Exp $
 /**
  * @file
  * Notifications node API for use by plug-in modules providing node related features
@@ -56,13 +56,20 @@ function notifications_node_title2nid($name, $field = NULL, $types = array()) {
 /**
  * Generates 'title [nid:$nid]' for the autocomplete field
  */
-function notifications_node_nid2autocomplete($nid) {
+function notifications_node_nid2autocomplete($nid, $subscription = NULL) {
   if ($node = node_load($nid)) {
     return check_plain($node->title) . ' [nid:' . $nid .']';
   }
   else {
     return t('Not found');
   }
+}
+
+/**
+ * Check user access to node
+ */
+function notifications_node_user_access($node, $account) {
+  return node_access('view', $node, $account);
 }
 
 /**
@@ -79,7 +86,7 @@ function notifications_node_autocomplete_title($string = '') {
 }
 
 /**
- * Menu callback; Retrieve a pipe delimited string of autocomplete suggestions for existing users
+ * Menu callback; Retrieve a pipe delimited string of autocomplete suggestions for existing nodes
  * 
  * @param $node_types
  *   Comma separated node types to query
