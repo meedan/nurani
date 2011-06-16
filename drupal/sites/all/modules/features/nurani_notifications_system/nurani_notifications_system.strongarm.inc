@@ -20,11 +20,16 @@ function nurani_notifications_system_strongarm() {
     'thread' => 'thread',
     'nodetype' => 'nodetype',
     'author' => 'author',
-    'taxonomy' => 0,
-    'typeauthor' => 0,
   );
 
   $export['notifications_content_type'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'notifications_content_type_profile';
+  $strongarm->value = array();
+
+  $export['notifications_content_type_profile'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -114,6 +119,13 @@ function nurani_notifications_system_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'notifications_node_ui_profile';
+  $strongarm->value = array();
+
+  $export['notifications_node_ui_profile'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'notifications_send_immediate';
   $strongarm->value = 1;
 
@@ -164,6 +176,37 @@ function nurani_notifications_system_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'notifications_ui_account_options';
+  $strongarm->value = array(
+    'links' => 0,
+    'block' => 0,
+  );
+
+  $export['notifications_ui_account_options'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'notifications_ui_node_options';
+  $strongarm->value = array(
+    'form' => 0,
+    'comment' => 0,
+    'links' => 0,
+    'teaserlinks' => 0,
+    'subform' => 0,
+    'block' => 0,
+  );
+
+  $export['notifications_ui_node_options'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'notifications_ui_per_type';
+  $strongarm->value = '0';
+
+  $export['notifications_ui_per_type'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'notifications_ui_subscribe_links';
   $strongarm->value = '0';
 
@@ -171,9 +214,31 @@ function nurani_notifications_system_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'notifications_ui_types';
+  $strongarm->value = array(
+    'thread' => 0,
+    'nodetype' => 0,
+    'author' => 0,
+    'typeauthor' => 0,
+  );
+
+  $export['notifications_ui_types'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'notifications_ui_unsubscribe_links';
   $strongarm->value = '0';
 
   $export['notifications_ui_unsubscribe_links'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'notifications_ui_user_options';
+  $strongarm->value = array(
+    'page' => 0,
+    'create' => 0,
+  );
+
+  $export['notifications_ui_user_options'] = $strongarm;
   return $export;
 }
