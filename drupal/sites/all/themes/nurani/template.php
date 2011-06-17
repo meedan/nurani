@@ -453,7 +453,7 @@ drupal_add_js (
 	'$(document).ready(function(){	
 		$(".text_more a").click(function() {
       $link = $(this);
-      $link.parents(".node-type-text").find(".nurani-glossary-processed").each(function() {
+      $link.parents(".node-type-text").find(".field-body").each(function() {
         $text = $(this);
         if ($text.hasClass("text-expand")) {
           $text.removeClass("text-expand");
