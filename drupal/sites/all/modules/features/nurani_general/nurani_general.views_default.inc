@@ -1374,6 +1374,7 @@ print theme_item_list($translations);
   ));
   $handler->override_option('title', 'Meet other Nurani users');
   $handler->override_option('items_per_page', 9);
+  $handler->override_option('distinct', 1);
   $handler->override_option('style_plugin', 'grid');
   $handler->override_option('style_options', array(
     'grouping' => '',

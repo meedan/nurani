@@ -700,14 +700,16 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->value = array(
     'title' => '-5',
     'body_field' => '-3',
-    'revision_information' => '3',
-    'author' => '4',
-    'options' => '5',
-    'comment_settings' => '7',
-    'language' => '2',
-    'translation' => '8',
-    'menu' => '9',
-    'path' => '6',
+    'revision_information' => '4',
+    'author' => '5',
+    'options' => '6',
+    'comment_settings' => '8',
+    'language' => '3',
+    'translation' => '9',
+    'menu' => '10',
+    'path' => '7',
+    'private' => '-1',
+    'notifications' => '11',
   );
 
   $export['content_extra_weights_discussion'] = $strongarm;
@@ -1213,6 +1215,7 @@ The Service Providers may use session cookies when you visit our website while y
     11 => 'field_moderators',
     12 => 'field_translators',
     13 => 'field_scholars',
+    14 => 'private',
   );
 
   $export['i18nsync_nodeapi_discussion'] = $strongarm;
@@ -3073,6 +3076,67 @@ return theme(\'links\', $links);
   );
 
   $export['node_options_text'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nodeaccess_userreference';
+  $strongarm->value = array(
+    'discussion' => array(
+      'field_moderators' => array(
+        'referenced' => array(
+          'view' => 'view',
+          'update' => 'update',
+          'delete' => 0,
+        ),
+        'author' => array(
+          'view' => 'view',
+          'update' => 'update',
+          'delete' => 'delete',
+        ),
+        'all' => array(
+          'view' => 0,
+        ),
+        'unused' => '1',
+        'priority' => '0',
+      ),
+      'field_scholars' => array(
+        'referenced' => array(
+          'view' => 'view',
+          'update' => 0,
+          'delete' => 0,
+        ),
+        'author' => array(
+          'view' => 'view',
+          'update' => 'update',
+          'delete' => 'delete',
+        ),
+        'all' => array(
+          'view' => 0,
+        ),
+        'unused' => '1',
+        'priority' => '0',
+      ),
+      'field_translators' => array(
+        'referenced' => array(
+          'view' => 'view',
+          'update' => 0,
+          'delete' => 0,
+        ),
+        'author' => array(
+          'view' => 'view',
+          'update' => 'update',
+          'delete' => 'delete',
+        ),
+        'all' => array(
+          'view' => 0,
+        ),
+        'unused' => '1',
+        'priority' => '0',
+      ),
+    ),
+  );
+
+  $export['nodeaccess_userreference'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;

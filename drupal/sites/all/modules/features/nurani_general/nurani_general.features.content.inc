@@ -199,7 +199,7 @@ function nurani_general_content_default_fields() {
       ),
       'default_value_php' => NULL,
       'label' => 'Invited Moderators',
-      'weight' => '-1',
+      'weight' => 0,
       'description' => '',
       'type' => 'userreference_buttons',
       'module' => 'userreference',
@@ -292,7 +292,7 @@ function nurani_general_content_default_fields() {
       ),
       'default_value_php' => NULL,
       'label' => 'Invited Participants',
-      'weight' => '1',
+      'weight' => '2',
       'description' => '',
       'type' => 'userreference_buttons',
       'module' => 'userreference',
@@ -498,7 +498,7 @@ function nurani_general_content_default_fields() {
       ),
       'default_value_php' => NULL,
       'label' => 'Invited Translators',
-      'weight' => 0,
+      'weight' => '1',
       'description' => '',
       'type' => 'userreference_buttons',
       'module' => 'userreference',
@@ -1036,7 +1036,7 @@ expert|Expert',
         ),
       ),
       'default_value_php' => NULL,
-      'label' => 'Position',
+      'label' => 'Occupation',
       'weight' => '-2',
       'description' => '',
       'type' => 'text_textfield',
@@ -1638,8 +1638,8 @@ adjective|Adjective',
   t('Invited Moderators');
   t('Invited Participants');
   t('Invited Translators');
+  t('Occupation');
   t('Part of Speech');
-  t('Position');
   t('Publications');
   t('Research');
   t('Societies');

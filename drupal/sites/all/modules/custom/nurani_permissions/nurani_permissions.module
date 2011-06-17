@@ -5,7 +5,7 @@
  */
 function nurani_permissions_form_alter(&$form, $form_state, $form_id) {
   // Lock discussion comments from non-participants.
-  if ($form_id == 'comment_node_form' && !empty($form['#node']->comment_target_nid)) {
+  if ($form_id == 'response_node_form' && !empty($form['#node']->comment_target_nid)) {
     $discussion = node_load($form['#node']->comment_target_nid);
     if (!_nurani_permissions_discussion_access($discussion)) {
       $form['#access'] = FALSE;
@@ -14,6 +14,21 @@ function nurani_permissions_form_alter(&$form, $form_state, $form_id) {
       global $discussion_comment_form_disabled;
       $discussion_comment_form_disabled = TRUE;
     }
+  }
+
+  // Allow making a discussion private.
+ if ($form_id == 'discussion_node_form') {
+    $form['private'] = array(
+      '#type' => 'radios', 
+      '#title' => t('Privacy'),
+      '#options' => array(
+        DRUPAL_ANONYMOUS_RID => t('Open to the public'),
+        DRUPAL_AUTHENTICATED_RID => t('Restricted to all Nurani members'),
+        0 => t('Private to discussion participants'),
+      ),
+      '#description' => t('Select the privacy level of this discussion.'), 
+      '#default_value' => isset($form['#node']->private) ? $form['#node']->private : FALSE,
+    );
   }
 
   // Prevent moderators from applying administrator role.
@@ -25,6 +40,94 @@ function nurani_permissions_form_alter(&$form, $form_state, $form_id) {
     unset($form['options']['operation']['#options']['Add a role to the selected users']["add_role-$rid"]);
     unset($form['options']['operation']['#options']['Remove a role from the selected users']["remove_role-$rid"]);
   }
+}
+
+/**
+ * Implementation of hook_content_extra_fields().
+ */
+function nurani_permissions_content_extra_fields($type) {
+  $extra = array();
+  if ($type == 'discussion') {
+    $extra['private'] = array(
+      'label' => t('Privacy setting'),
+      'description' => t('Nurani Permissions module.'),
+      'weight' => 10,
+    );
+  }
+  return $extra;
+}
+
+/**
+ * Implementation of hook_i18nsync_fields_alter().
+ */
+function nurani_permissions_i18nsync_fields_alter(&$fields, $type) {
+  if ($type == 'discussion') {
+    $fields['nurani'] = array(
+      '#title' => t('Nurani'),
+      '#options' => array(
+        'private' => t('Privacy setting'),
+      )
+    );
+  }
+}
+
+/**
+ * Implementation of hook_nodeapi(). 
+ */
+function nurani_permissions_nodeapi(&$node, $op, $arg = 0) {
+  if ($node->type == 'discussion') {
+    switch ($op) {
+      case 'load':
+        $node->private = variable_get('nurani_private_' . $node->nid, DRUPAL_ANONYMOUS_RID);
+        break;
+      case 'insert':
+        variable_set('nurani_private_' . $node->nid, $node->private);
+        break;
+      case 'update':
+        variable_set('nurani_private_' . $node->nid, $node->private);
+        break;
+      case 'delete':
+        variable_del('nurani_private_' . $node->nid);
+        break;
+    }
+  }
+}
+
+/**
+ * Implementation of hook_node_access_records(). 
+ */
+function nurani_permissions_node_access_records($node) {
+  if ($node->type == 'discussion' && $node->private > 0) {
+    $grants = array();
+    $grants[] = array(
+      'realm' => 'nurani_discussion', 
+      'gid' => DRUPAL_AUTHENTICATED_RID, 
+      'grant_view' => TRUE, 
+      'grant_update' => FALSE, 
+      'grant_delete' => FALSE, 
+      'priority' => 0,
+    );
+    if ($node->private == DRUPAL_ANONYMOUS_RID) {
+      $grants[] = array(
+        'realm' => 'nurani_discussion', 
+        'gid' => DRUPAL_ANONYMOUS_RID, 
+        'grant_view' => TRUE, 
+        'grant_update' => FALSE, 
+        'grant_delete' => FALSE, 
+        'priority' => 0,
+      );
+    }
+    return $grants;
+  }
+}
+
+/**
+ * Implementation of hook_node_grants(). 
+ */
+function nurani_permissions_node_grants($account, $op) {
+  $grants = array();
+  $grants['nurani_discussion'] = array_keys($account->roles);
+  return $grants;
 }
 
 /**
