@@ -53,7 +53,30 @@ function nurani_glossary_theme() {
       ),
       'template' => 'glossary-references',
     ),
+    'glossary_translations' => array(
+      'arguments' => array(
+        'node' => NULL,
+      ),
+      'function' => 'theme_nurani_glossary_translations',
+    ),
   );
+}
+
+function theme_nurani_glossary_translations($node) {
+  $translations = array();
+  foreach ($node->field_translation_term as $i => $term_data) {
+    if (!empty($term_data['nid'])) {
+      $term = node_load($term_data['nid']);
+      if (empty($node->field_translation_context[$i]['value'])) {
+        $translations[] = t('!term', array('!term' => $term->title));
+      }
+      else {
+        $context = taxonomy_get_term($node->field_translation_context[$i]['value']);
+        $translations[] = t('!term (!context)', array('!term' => $term->title, '!context' => tt("taxonomy:term:$context->tid:name", $context->name)));
+      }
+    }
+  }
+  print theme_item_list($translations);
 }
 
 /**

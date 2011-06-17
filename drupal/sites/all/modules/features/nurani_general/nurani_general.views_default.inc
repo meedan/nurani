@@ -573,10 +573,8 @@ return $count;',
         'text' => '',
         'make_link' => 0,
         'path' => '',
-        'absolute' => 0,
         'link_class' => '',
         'alt' => '',
-        'rel' => '',
         'prefix' => '',
         'suffix' => '',
         'target' => '',
@@ -594,18 +592,7 @@ return $count;',
       'use_php_setup' => 0,
       'php_setup' => '',
       'php_value' => 'return 0;',
-      'php_output' => '<?php
-$original = node_load($data->nid);
-$translations = array();
-foreach ($original->field_translation_term as $i => $term_data) {
-  if (!empty($term_data[\'nid\'])) {
-    $term = node_load($term_data[\'nid\']);
-    $context = taxonomy_get_term($original->field_translation_context[$i][\'value\']);
-    $translations[] = t(\'!term (!context)\', array(\'!term\' => $term->title, \'!context\' => t($context->name)));
-  }
-}
-print theme_item_list($translations);
-?>',
+      'php_output' => '<?php print theme(\'glossary_translations\', node_load($data->nid)) ?>',
       'use_php_click_sortable' => '0',
       'php_click_sortable' => '',
       'use_php_query' => 0,
