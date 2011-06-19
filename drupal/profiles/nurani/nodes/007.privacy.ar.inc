@@ -87,8 +87,6 @@ array(
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
-    'uuid' => '5c239d2c-7ce4-11e0-9ecb-001ec21e5234',
-    'revision_uuid' => '5c23da8a-7ce4-11e0-9ecb-001ec21e5234',
     'menu' => array(
       'link_title' => 'Privacy',
       'mlid' => 0,

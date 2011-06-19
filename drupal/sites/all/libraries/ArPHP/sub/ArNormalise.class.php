@@ -222,7 +222,7 @@ class ArNormalise
       */
     public function __construct() 
     {
-        include_once(dirname(__FILE__) . '/charset/ArUnicode.constants.php');
+        include(dirname(__FILE__) . '/charset/ArUnicode.constants.php');
 
         $this->unshape_map    = $ligature_map;
         $this->unshape_keys   = array_keys($this->unshape_map);

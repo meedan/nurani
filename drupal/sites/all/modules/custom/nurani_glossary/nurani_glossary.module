@@ -28,7 +28,7 @@ function nurani_glossary_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   }
 
   // When indexing, normalize Arabic text.
-  if ($op == 'view' && !empty($node->build_mode) && $node->build_mode == NODE_BUILD_SEARCH_INDEX && $node->language == 'ar') {
+  if ($op == 'view' && !empty($node->build_mode) && $node->build_mode == NODE_BUILD_SEARCH_INDEX && $node->language == 'ar' && !empty($node->content['body'])) {
     require_once('sites/all/libraries/ArPHP/Arabic.php');
     $ar = new Arabic('ArNormalise');
     $node->content['body'] = $ar->normalise($node->content['body']);

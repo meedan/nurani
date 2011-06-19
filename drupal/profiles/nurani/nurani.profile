@@ -111,6 +111,7 @@ function nurani_profile_tasks(&$task, $url) {
   if ($task == 'configure-nurani') {
     $features = array(
       'nurani_general',
+      'nurani_notifications_system',
     );
     variable_set('nurani_selected_features', $features);
 
@@ -143,6 +144,8 @@ function nurani_profile_tasks(&$task, $url) {
     $operations[] = array('nurani_config_nodes', array());
     $operations[] = array('nurani_config_noderelationships', array());
     $operations[] = array('nurani_config_i18n', array());
+    $operations[] = array('nurani_import_users', array());
+    $operations[] = array('nurani_import_nodes', array());
   
     // Build the batch process
     $batch = array(
@@ -291,10 +294,20 @@ function nurani_config_icl() {
   db_query("DELETE FROM {role} WHERE name IN ('ICanLocalize translator', 'ICanLocalize manager')");
 }
 
+function nurani_load_autoload() {
+  foreach (module_implements('autoload_info') as $module) {
+    $function = $module . '_autoload_info';
+    foreach ($function() as $info) {
+      include_once(drupal_get_path('module', $module) . '/' . $info['file']);
+    }
+  }
+}
+
 /**
  * Import static nodes
  */
 function nurani_config_nodes() {
+  nurani_load_autoload();
   $path = drupal_get_path('profile', 'nurani') . '/nodes/*.inc';
   foreach (glob($path) as $file) {
     $node_code = file_get_contents($file);
@@ -317,7 +330,7 @@ function nurani_config_noderelationships() {
 }
 
 /**
- *
+ * Configure internationalization features
  */
 function nurani_config_i18n() {
   // TODO: Fix this
@@ -335,6 +348,139 @@ function nurani_config_i18n() {
   );
   foreach ($i18n_blocks as $i18n_block) {
     drupal_write_record('i18n_blocks', $i18n_block);
+  }
+}
+
+/**
+ * Import migrated users
+ */
+function nurani_import_users() {
+  global $db_url;
+  if (empty($db_url['legacy'])) {
+    return;
+  }
+
+  // Read legacy users.
+  db_set_active('legacy');
+  $users = array();
+  $result = db_query("
+SELECT 
+  u.*, 
+  arabic.field_user_arabic_value,
+  city.field_user_city_value,
+  country.field_user_country_value,
+  education.field_user_education_value,
+  english.field_user_english_value,
+  experience.field_user_experience_value,
+  fname.field_user_fname_value,
+  lname.field_user_lname_value,
+  position.field_user_position_value,
+  publications.field_user_publications_value,
+  research.field_user_research_value,
+  societies.field_user_societies_value,
+  title.field_user_title_value,
+  agreement.agreed_date,
+  file.filename
+FROM {users} u
+LEFT JOIN {field_data_field_user_arabic} arabic on u.uid = arabic.entity_id
+LEFT JOIN {field_data_field_user_city} city on u.uid = city.entity_id
+LEFT JOIN {field_data_field_user_country} country on u.uid = country.entity_id
+LEFT JOIN {field_data_field_user_education} education on u.uid = education.entity_id
+LEFT JOIN {field_data_field_user_english} english on u.uid = english.entity_id
+LEFT JOIN {field_data_field_user_experience} experience on u.uid = experience.entity_id
+LEFT JOIN {field_data_field_user_fname} fname on u.uid = fname.entity_id
+LEFT JOIN {field_data_field_user_lname} lname on u.uid = lname.entity_id
+LEFT JOIN {field_data_field_user_position} position on u.uid = position.entity_id
+LEFT JOIN {field_data_field_user_publications} publications on u.uid = publications.entity_id
+LEFT JOIN {field_data_field_user_research} research on u.uid = research.entity_id
+LEFT JOIN {field_data_field_user_societies} societies on u.uid = societies.entity_id
+LEFT JOIN {field_data_field_user_title} title on u.uid = title.entity_id
+LEFT JOIN {agreement} agreement on u.uid = agreement.uid
+LEFT JOIN {file_managed} file on u.uid = file.uid
+WHERE
+  u.uid > 1
+  ");
+  while ($user = db_fetch_object($result)) {
+    $users[] = $user;
+  }
+
+  // Recreate users.
+  set_time_limit(0);
+  db_set_active();
+  nurani_load_autoload();
+  module_load_include('inc', 'node', 'node.pages');
+  features_rebuild();
+  foreach ($users as $legacy) {
+    $user = array(
+      'name' => $legacy->name,
+      'pass' => 'test',
+      'mail' => $legacy->mail,
+      'created' => $legacy->created,
+      'access' => $legacy->access,
+      'login' => $legacy->login,
+      'status' => $legacy->status,
+      'timezone_name' => $legacy->timezone,
+      'timezone' => date_offset_get(date_make_date('now', $legacy->timezone)),
+      'language' => $legacy->language,
+      'init' => $legacy->init,
+      'picture' => empty($legacy->filename) ? '' : file_create_path('sites/default/files/pictures/' . $legacy->filename),
+    );
+    $user = user_save(NULL, $user);
+    if ($user) {
+      if (!empty($legacy->agreed_date)) {
+        // Save agreement.
+        $agreement = array(
+          'uid' => $user->uid,
+          'agreed' => 1,
+          'agreed_date' => $legacy->agreed_date,
+        );
+        drupal_write_record('agreement', $agreement);
+        $form_values = array('values' => array(
+          'agree' => 1,
+          'uid' => $user->uid,
+        ));
+        nurani_notifications_subscribe(NULL, $form_values);
+      }
+
+      // Save profile.
+      $profile = new StdClass;
+      $profile->type = 'profile';
+      node_object_prepare($profile);
+      $profile->uid = $user->uid;
+      $profile->name = $user->name;
+      $profile->title = $user->name;
+      $profile->created = $legacy->created;
+      $profile->changed = $legacy->created;
+      $profile->field_city[0]['value'] = $legacy->field_user_city_value;
+      $profile->field_country[0]['value'] = $legacy->field_user_country_value;
+      $profile->field_education[0]['value'] = $legacy->field_user_education_value;
+      $profile->field_experience[0]['value'] = $legacy->field_user_experience_value;
+      $profile->field_fluency_ar[0]['value'] = $legacy->field_user_arabic_value;
+      $profile->field_fluency_en[0]['value'] = $legacy->field_user_english_value;
+      $fullname = array();
+      foreach (array($legacy->field_user_fname_value, $legacy->field_user_lname_value) as $name) {
+        if (!empty($name)) {
+          $fullname[] = $name;
+        }
+      }
+      $profile->field_fullname[0]['value'] = implode(' ', $fullname);
+      $profile->field_position[0]['value'] = $legacy->field_user_position_value;
+      $profile->field_publications[0]['value'] = $legacy->field_user_publications_value;
+      $profile->field_research[0]['value'] = $legacy->field_user_research_value;
+      $profile->field_societies[0]['value'] = $legacy->field_user_societies_value;
+      $profile->field_title[0]['value'] = $legacy->field_user_title_value;
+      node_save(node_submit($profile));
+    }
+  }
+}
+
+/**
+ * Import migrated nodes
+ */
+function nurani_import_nodes() {
+  global $db_url;
+  if (empty($db_url['legacy'])) {
+    return;
   }
 }
 

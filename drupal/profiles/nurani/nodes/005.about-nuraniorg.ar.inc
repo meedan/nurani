@@ -94,8 +94,6 @@ array(
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
-    'uuid' => '5c238dfa-7ce4-11e0-9ecb-001ec21e5234',
-    'revision_uuid' => '5c23cc52-7ce4-11e0-9ecb-001ec21e5234',
     'menu' => array(
       'link_title' => 'About Nurani.org',
       'mlid' => 0,
