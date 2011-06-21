@@ -1,0 +1,15 @@
+diff --git a/plugins/context_error_context_conditions.inc b/plugins/context_error_context_conditions.inc
+index f859e4c..22afe80 100644
+--- a/plugins/context_error_context_conditions.inc
++++ b/plugins/context_error_context_conditions.inc
+@@ -27,6 +27,10 @@ class context_error_context_condition_error extends context_condition {
+           if (in_array(variable_get("site_$error", ''), $current_path)) {
+             $this->condition_met($context);
+           }
++          global $logintoboggan_denied;
++          if ($error == '403' && !empty($logintoboggan_denied)) {
++            $this->condition_met($context);
++          }
+         }
+       }
+     }

@@ -8,6 +8,50 @@ function nurani_general_context_default_contexts() {
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'access_denied';
+  $context->description = 'Login page on access denied';
+  $context->tag = 'nurani';
+  $context->conditions = array(
+    'error' => array(
+      'values' => array(
+        403 => 403,
+      ),
+    ),
+    'user' => array(
+      'values' => array(
+        'anonymous user' => 'anonymous user',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'boxes-login_title' => array(
+          'module' => 'boxes',
+          'delta' => 'login_title',
+          'region' => 'content_top',
+          'weight' => 0,
+        ),
+        'boxes-login_footer' => array(
+          'module' => 'boxes',
+          'delta' => 'login_footer',
+          'region' => 'content_bottom',
+          'weight' => 0,
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Login page on access denied');
+  t('nurani');
+
+  $export['access_denied'] = $context;
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'discussion';
   $context->description = 'Discussion page';
   $context->tag = 'nurani';

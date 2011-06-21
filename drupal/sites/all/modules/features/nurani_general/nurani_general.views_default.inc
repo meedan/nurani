@@ -1159,11 +1159,11 @@ return $count;',
     ),
   ));
   $handler->override_option('sorts', array(
-    'nid' => array(
+    'thread' => array(
       'order' => 'ASC',
-      'id' => 'nid',
-      'table' => 'node',
-      'field' => 'nid',
+      'id' => 'thread',
+      'table' => 'node_comments',
+      'field' => 'thread',
       'override' => array(
         'button' => 'Override',
       ),

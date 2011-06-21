@@ -87,6 +87,10 @@ class views_php_handler_filter extends views_handler_filter {
       $function($this->view, $this, $this->php_static_variable);
       ob_end_clean();
     }
+  
+    if (!empty($this->options['php_filter'])) {
+      $this->view->use_php_pager = TRUE;
+    }
   }
 
   /**
@@ -110,20 +114,10 @@ class views_php_handler_filter extends views_handler_filter {
 
         if ($function($this->view, $this, $this->php_static_variable, $normalized_row, $row)) {
           unset($this->view->result[$i]);
+          $this->view->total_rows--;
         }
       }
       ob_end_clean();
-    }
-    $this->post_executed = TRUE;
-  }
-
-  /**
-   *
-   * @see views_php_views_pre_render()
-   */
-  function php_pre_render() {
-    if (empty($this->post_executed)) {
-      $this->php_post_execute();
     }
   }
 }

@@ -6,7 +6,7 @@ array(
     'uid' => '1',
     'status' => '1',
     'created' => '1305843625',
-    'changed' => '1305843625',
+    'changed' => '1308634405',
     'comment' => '0',
     'promote' => '0',
     'moderate' => '0',
@@ -15,126 +15,153 @@ array(
     'translate' => '0',
     'vid' => '8',
     'revision_uid' => '1',
-    'title' => 'Terms',
-    'body' => 'Overview
-                Welcome to nurani.org, a product of Meedan, Inc. and the Cambridge Inter-faith Programme, a programme of the Faculty of Divinity at the University of Cambridge. Thank you for agreeing to take part in this important inter-faith initiative.  With it we aim to develop sustainable and accessible inter-faith dialogue between Muslim and Christian scholarly communities online.
+    'title' => 'الشروط',
+    'body' => 'نبذة عامة
+
+مرحبا بكم في نوراني، وهو ثمرة تعاون وعمل مؤسسة "ميدان" وبرنامج جامعة كامبريدج لحوار الأديان، وهذا الأخير هو برنامج من كلية اللاهوت بالجامعة. نشكركم على قبولكم المشاركة في هذه المبادرة المهمة للحوار بين الأديان، ونحن نهدف من خلالها أن نطور حوارًا مستديمًا ومتاحًا بين المجتمعات العِلمية المسلمة والمسيحية على الإنترنت. 
+
+ومن خلال قيامك بالتسجيل في هذا الموقع فإنك بذلك تدخل في اتفاق مع "ميدان" وبرنامج كامبريدج لحوار الأديان. 
+
                 
-                In signing up to this Website, you are entering into an agreement with Meedan and the Cambridge Inter-faith Programme.
+أُطُر عامَّة
+
+يمنح نوراني المستخدمين الفرصة لـ:
+- القراءة المتبادلة للنصوص المقدسة وترجمتها.
+- كتابة التعليقات وترجمتها وتبادلها.
+- إنشاء ملفات شخصية.
+- إنشاء مصطلحات المعجم وترجمتها وتبادلها.
+هذا يشار إليه إجمالاً بـ"الخدمات"، وهذه الخدمات تحددها "شروط الاستخدام"، وتتضمن أية خدمات تؤدي إلى دخول نوراني على عنوانه http://nurani.org أو http://www.nurani.org.
+
                 
+تصف شروط الاستخدام التالية ما يُقدَّم من "ميدان" وبرنامج كامبريدج لحوار الأديان (مقدما الخدمة) إليكم -أي المستخدمين- كما تصف التزاماتكم تجاه مقدمي الخدمة، وهذا وفق اتفاق بينكم -المستخدمين– وبيننا – مقدمي الخدمة ("الاتفاق").
+
+من أجل استخدام خدماتنا، يجب عليكم قبول "شروط الاستخدام"، وقبول "سياسة الخصوصية" لهذا الموقع، بالإضافة إلى هذا، فإنك باستخدامك موقعنا أو خدماتنا تقبل ضمنًا شروط الاستخدام، ونحن نحتفظ بالحق في تعديل شروطالاستخدام في أي وقت، ودون إعلام مسبق، وذلك التعديل يكون عن طريق إجراء تغييرات في هذه الصفحة، وعلى الرغم من أننا نسعى إلى إخطاركم بتغييرات شروط الاستخدام هذه، فأنتم مسئولون عن مراجعتها بانتظام، واستخدامكم المستمر للموقع بعد تلك التغييرات يعد اعترافًا وقبولاً لشروط الاستخدام المُعدَّلة.
+
+حسابك الشخصي على نوارني
+ 
+يجب أن يكون عمرك على الأقل 16 (ستة عشر) عامًا حتى تستطيع تسجيل حساب جديد. ويعد استخدامك الموقع -سواء أكنت مسجلاً أم غير مسجل- ملغيًّا إذا لم تتحقق هذه الشروط أو أي من الشروط الأخرى المفروضة بالقوانين المحلية النافذة.
+
                 
-                General
+باستخدامك للموقع فإنك تقبل الشروط التالية: 
+•	تقديم معلومات دقيقة ومحدثة وكاملة عنك إذا طُلب منك ذلك، في أي نماذج التسجيل على الموقع ("بيانات التسجيل").
+•	المحافظة على أمن وسرية كلمة السر الخاصة بك وبتحديد هويتك.
+•	المحافظة على بيانات التسجيل، أو أية معلومات أخرى تقدمها لمقدمي الخدمة، والتحديث الفوري لها، وذلك للإبقاء عليها دقيقةً ومحدثةً وكاملةً.
+•	أن تكون مسؤولاً بالكامل عن استخدامات حسابك الشخصي كلها، وكذلك الإجراءات التي تتم باستخدام حسابك.
+•	حسابك غير قابل للتحويل لشخص آخر.
+•	إعلام مقدمي الخدمة في الحال إذا شككت في أي استخدام غير مصرح به لحسابك.
+              
+                  
                 
-                Nurani.org provides Users with the ability to: share and translate scriptures; create, translate, and share comments; create personal profiles; and create, translate and share glossary entries. Collectively these are referred to as "the Services." The Services so defined in the Terms of Use include any services performed by accessing nurani.org located at http://nurani.org or http://www.nurani.org.
+لن يكون مقدمو الخدمة مسئولين عن أية خسائر ناجمة عن الاستخدام غير المصرَّح به باسم عضويتك، أو كلمة السر أو/و حسابك الشخصي، وأنت تقبل بعدم إضرار وبتعويض كل من مقدمي الخدمة أو شركائهم أو المؤسسات الأم التي يخضعون لها، أو المؤسسات التي تخضع لهم، أو وكلائهم، أو الجهات التي تنتسب إليهم أو الجهات المُرخِّصة لهم. وفي حال حدوث هذا الأمر –باستخدامٍ غير لائق، أو غيرِ مُصرَّح به، أو غير قانوني بواسطة حسابك الشخصي– يحتفظ مقدمو الخدمة بالحق في إغلاق حسابك الشخصي، أو منعك من الدخول إلى حسابك، أو حذف أي محتوى مُرسَل من حسابك بشكل مسبب أو غير مسبب، وسواء أكان مع إنذار سابق أم بدونه، وبدون تحملنا أية مسؤولية قانونية تجاهك. 
                 
-                The following Terms of Use describe the offerings provided by Meedan and Cambridge Inter-faith Programme (the “Service Providers”) to you, the User, and describe your obligations to the Service Providers, and is an agreement between you, the User, and us, the Service Providers (the "Agreement").
+
+سلوك المستخدم
+
+لقد صُمِّمَ نوارني لإيجاد حوار بين الأديان متعدد اللغات ومبني على التشارك في بناء المعرفة، ونحن نطلب منكم مساعدتنا في تحقيق هذا الهدف عند مشاركتكم في هذا الموقع واستخدامه وفقًا لهذه الرؤية. ونحن ندرك بشكل خاصٍّ أن الحساسيات السياسية والاجتماعية والثقافية لمستخدمينا تتطلب منَّا منهجًا فاعلاً يضمن تمتُّع كافة المستخدمين بالحوار على نوارني في جو من الاحترام والتضمين. 
+
                 
-                In order to use our Services you must accept the Terms of Use and Privacy Policy of this Website. Moreover, by using our Website or Services you are implicitly agreeing to be bound by Terms of Use. We reserve the right to modify the Terms of Use at any time, without prior notice, by making changes to this page. Although we will endeavor to inform you of changes to these Terms of Use, you are responsible for regularly reviewing them. Your continued use of the site after such changes serves is an acknowledgment and acceptance of the amended Terms of Use.
-                Your nurani.org Account
-                You must be at least 16 (sixteen) years of age or older to register for an account. Use of the Website as either a registered or unregistered User is void where prohibited.
-                
-                In consideration of your use of the Website, you agree to:
-                
-                    * Provide accurate, current and complete information about you as may be prompted by any registration forms on the site ("Registration Data").
-                    * Maintain the security and confidentiality of your password and identification.
-                    * Maintain and promptly update the Registration Data, and any other information you provide to the Service Providers, to keep it accurate, current and complete.
-                    * Be fully responsible for all use of your account and for any actions that take place using your account.
-                    * Accept that your account is not transferrable.
-                    * Notify the Service Providers immediately if you suspect unauthorized use of your account.
-                
-                
-                
-                
-                The Service Providers will not be responsible for any losses arising out of the unauthorized use of your member name, password and/or account, and you agree to indemnify and hold harmless the Service Providers , their partners, parents, subsidiaries, agents, affiliates and/or licensors, as applicable, for any improper, unauthorized or illegal uses of your account.
-                The Service Providers reserve the right to terminate your Account or restrict access to your Account, or to delete any content posted through your Account, with or without notice, for any or for no reason, and without any liability to you.
-                User Conduct
-                Nurani.org is designed to enable cross-language inter-faith dialogue and knowledge sharing. We request that you help us pursue this goal when taking part on the Website and use the Website accordingly. We are particularly aware that the varying political, social, and cultural sensitivities of our Users demand we take an active approach to ensuring everyone can enjoy nurani.org as a respectful, inclusive online environment.
-                
-                By using the Website and agreeing to the Terms of Use, you agree that you will not:
-                
-                    * Post content or initiate communications which are unlawful, libelous, abusive, urging violence, promoting intolerance, discriminatory, or otherwise objectionable.
-                    * Use the Website for any illegal purpose.
-                    * Upload, post, transmit or otherwise make available any content or initiate any communication that infringes upon patents, trademarks, copyrights, trade secrets, other proprietary rights, or that contains any content or information that you do not have the right to disclose or make available.
-                    * Upload, post, transmit or otherwise make available any unsolicited or unauthorized advertising, promotional materials, "junk mail", "spam", "chain letters", "pyramid schemes", or any other form of solicitation.
-                    * Upload, post, transmit or otherwise make available any material that contains software viruses or any other computer code, files, or programs designed to interrupt, destroy or limit the functionality of any computer software or hardware or telecommunications equipment.
-                    * Attempt to pursue communications with someone who has indicated to you either explicitly or implicitly that they do not want to communicate with you.
-                    * Post, transmit, promote, or distribute content that is illegal.
-                    * Harass, threaten, embarrass, or do anything else to another User that is unwanted. We expect you to be respectful to other Users and never challenge another User on the basis of their race, heritage, religion, gender, sexual orientation, age, beliefs, etc.
-                    * Game the structure of nurani.org in such a way to intentionally confuse, limit, inconvenience or otherwise negatively affect other Users
-                
-                
-                
-                
-                Some of these breaches of conduct may constitute violations of civil or criminal codes and, as such, could subject you to civil or criminal prosecution. The Service Providers reserve the right to monitor, moderate, retain and remove content on this Website.
-                
-                Moderation
-                
-                You the User accept that your activities on nurani.org will be moderated by scholarly representatives of the Service Providers and their Partners.  This Website is a space for collaborative study of scriptures and faith traditions.  You the User shall therefore respect the right of other Users to have differing opinions and world views from yours.  You agree to
-                User Disputes
-                You are solely responsible for your interactions with other Users. We reserve the right to monitor disputes between you and other Users.
-                International Use
-                Recognizing the international nature of nurani.org specifically and the Internet generally, you agree to comply with all applicable local rules including but not limited to rules regarding online conduct and acceptable content. The Service Providers will not be liable for keeping you, the User, apprised of changes in these laws. Nor will the Service Providers be liable for any illegal activities you engage in while using the system.
-                Translation
-                By using the Website and agreeing to the Terms of Use, you agree to allow the Service Providers, their partners, and other Users of the Website to translate your words and all other content created on the Website.  You also accept that the Service Providers, their partners, and other Users of the Website may serve translated content that is contextually inaccurate, partially inaccurate, or wholly inaccurate. You agree to indemnify and hold harmless the Service Providers, their partners, parents, subsidiaries, Users, agents, affiliates and/or licensors, as applicable, for any claims, losses, damages, liability, or consequences related to any translation output on nurani.org.
+بموافقتك على شروط الاستخدام واستخدامك للموقع فإنك أيضًا توافق على:
+•	عدم نشر أو إرسال أية مراسلات ذات محتوى غير قانوني، أو تشهيريٍّ، أو مُسيء، أو مُحرِّض على العنف، أو على التعصب، أو يتصف بالتمييز، أو يكون غير مقبول.
+•	عدم استخدام الموقع لأي غرض غير قانوني.
+•	عدم تحميل أو نشر أو نقل أو إتاحة أي محتوى بطريقة غير مشروعة، أو الشروع في مراسلات تخرق براءات الاختراع، أو العلامات التجارية، أو حقوق التأليف، أو الأسرار التجارية، أو أية حقوق ملكية أخرى، أو نشر معلومات ليس لك الحق في إشاعتها أو إتاحتها.
+•	عدم تحميل أو نشر أو نقل أو إتاحة أية مواد إعلانية أو ترويجية غير مصرح بها، أو البريد المرسل عشوائياً (junk mail)، أو الرسائل الإلكترونية "المزعجة" (spam)، أو سلاسل الرسائل الإلكترونية، أو "المخططات الهرمية"، أو أي شكل من أشكال الدعاية. 
+•	عدم تحميل أو نشر أو نقل أو إتاحة أية مواد تحتوي على فيروسات برمجية، أو أية رموز أو ملفات أو برامج كمبيوتر مُصمَّمة لاعتراض أو تدمير أو تغيير الوظائف التشغيلية لأية برامج كمبيوتر أو معدات أو أجهزة اتصالات بأي شكل.
+•	عدم محاولة أو متابعة الاتصال بأي فرد قد أخبرك صراحةً أو ضِمنيًّا أنه لا يريد التواصل معك.
+•	عدم تحميل أو تعزيز أو  نشر أي محتوى غير قانوني.
+•	عدم مضايقة أو تهديد أو التعرض لأي مستخدم آخر. نحن نتوقع منك أن تحترم المستخدمين الآخرين، وألا تهاجم أي مستخدم آخر بناءً على عِرْقِه، أو تُراثه، أو دينه، أو جنسه، أو ميوله الجنسية، أو عمره، أو معتقداته،... إلخ.
+•	عدم التلاعب بهيكل نوراني بشكل يَعمد إلى الخلط أو التقييد أو إزعاج المستخدمين الآخرين بشكل سلبي بأي أسلوب.
                 
                 
-                Content rights and licenses
+                قد تُشكِّل بعض هذه الانتهاكات السلوكية خَرْقًا للقوانين المدنية والجنائية، مما يترتب عليه تعرضك للمحاكمة المدنية أو الجنائية. ويحتفظ مقدمو الخدمة بالحقِّ في رصد أي محتوى مخالف، أو تقييده، أو الاحتفاظ به، أو إزالته على هذا الموقع.
                 
-                All content on nurani.org, except where otherwise noted, is licensed under a Creative Commons Attribution Non-Commercial Share-Alike 3.0 Unported License. Others can download, redistribute, translate, remix, tweak, and build upon your contributions non-commercially, as long as they credit you and license their new creations under identical terms. All new work based on yours will carry the same license, so any derivatives will also be non-commercial in nature. This license covers all linguistic data generated on the Website.
+إدارة الحوار
+
+يوافق مستخدم الموقع على أن إدارة نوراني ستتم من خلال ممثلين أكاديميين ينوبوا عن مقدمي الخدمة وشركائهم. وهذا الموقع هو مساحة للدراسة التشاركية للنصوص المقدسة والتراث الديني، وعليه فأنت -أي المستخدم- تحترم حقَّ المستخدمين الآخرين في أن يكون لهم رؤى للعالم وآراء تختلف عنك.
+
+نزاعات المستخدمين
+
+أنت وحدك المسئول عن تعاملاتك مع المستخدمين الآخرين، ونحن نحتفظ بالحق في مراقبة النزاعات بينك وبين المستخدمين الآخرين.
+
+الاستخدام الدولي
+
+بأخذ الطبيعة العالمية لنوراني خاصةً والإنترنت عامةً في عين الاعتبار، فأنت توافق على الامتثال لكل القواعد المحلية، وهذا يتضمن –ولكنه لا يقتصر على- القواعد المتعلقة بالسلوك على شبكة الإنترنت، وما يعتبر محتوىً مقبولاً. لن يكون مقدمو الخدمة مسؤولين قانونيًّا عن إعلامك –أي المستخدم– بأية تغييرات تطرأ على هذه القوانين، كما أن مقدمي الخدمة لن يكونوا مسؤولين قانونيًّا عن أية أنشطة غير مشروعة تتورط فيها أثناء استخدام الموقع.
+
+الترجمة
+
+باستخدامك الموقع وقبولك شروط الاستخدام فإنك توافق على السماح لمقدمي الخدمة وشركائهم والمستخدمين الآخرين بترجمة كلماتك وكل المحتويات الأخرى التي تضعها على الموقع. كما إنك تسمح أيضًا لمقدمي الخدمة وشركائهم والمستخدمين الآخرين للموقع بالتعامل مع المحتوى المترجم الذي قد يكون غير ملائم للسياق، أو غير دقيق جزئيًّا، أو غير دقيق كليةً. وأنت توافق كذلك على إبراء مقدمي الخدمة أو شركائهم أو المؤسسات الأم التي يخضعون لها، أو المؤسسات التي تخضع لهم، أو المستخدمين، أو الوكلاء، أو الجهات التي تنتسب لهم، أو الجهات المرخصة لهم، وعدم الإضرار بهم، بحسب ما يطرأ من أمور، من أية مطالبات، أو خسائر، أو أضرار، أو مسئولية، أو نتائج تنجم عن أية ترجمة تُخرَج على نوراني.
+
                 
-                The Service Providers do not claim ownership of Content you submit or make available for inclusion on nurani.org. However, with respect to Content you submit or make available for inclusion on publicly accessible areas of these Services, you grant the Service Providers a non-exclusive, royalty-free, perpetual, and worldwide license to use your content in connection with the operation of the Services, including, without limitation, the license rights to copy, distribute, transmit, publicly display, publicly perform, reproduce, edit, translate, machine translate, reformat, and/or to incorporate it into a collective work.
+حقوق المحتوى والترخيص
+
+جميع المحتويات على نوراني -إلا إذا ذُكر غير ذلك- مرخصة وفق رخصة المشاع الإبداعي لنسب مصنف غير تجاري الإصدار 3.0 للترخيص بالمثل (Creative Commons Attribution Non-Commercial Share-Alike 3.0 Unported License)
+يستطيع المشاركون الآخرون تحميل مشاركاتك، أو إعادة توزيعها، أو ترجمتها، أو إعادة تشكيلها وتعديلها، أو البناء عليها، بشكل غير تجاري، طالما نسبوا العمل لك، ورخَّصُوا أعمالهم الجديدة وفق نفس إتفاقية الترخيص. وكل الأعمال الجديدة المبنية على عملك ستحمل الترخيص نفسه، وعليه فإن أية مشتقات ستكون هي الأخرى غير تجارية بطبيعتها.
+هذه الرخصة تشمل جميع البيانات اللغوية التي استحدثت على هذا الموقع.
+
                 
-                User Representations and Warranties
+لا يدَّعِي مقدمو الخدمة ملكية المحتوى الذي تقدمه أو تضيفه إلى نوراني، ومع ذلك ففيما يتعلق بالمحتوى الذي تقدمه أو تتيحه ويُضمُّ إلى المساحات المتاحة عَلنيًّا لهذه الخدمة فأنت تمنح مقدمي الخدمة رخصةً غير حصرية، وغير محفوظة الملكية، ودائمة وعالمية لاستخدام محتواك ضمن عمليات الخدمات، بما يتضمن –ولكن لا يقتصر على- حقوق الترخيص للنسخ والتوزيع والنقل والعرض العام والأداء العام، وإعادة الإنتاج والتحرير والترجمة الآلية وإعادة الصياغة و/أو دمجها في عمل تشاركي.
                 
-                By posting any content, you represent and warrant that you have all right, title, and interest to such posted content, including but not limited to any consent, authorization, release, clearance or license from any third party (such as, but not limited to, any release related to rights of privacy or publicity) necessary for you to provide, post, upload, input or submit the content, and that posting such content does not violate or constitute the infringement of any patent, copyright, trademark, trade secret, right of privacy, right of publicity, moral rights, or other intellectual property right recognized by any applicable jurisdiction of any person or entity, or otherwise constitute the breach of any agreement with any other person or entity. You further represent and warrant that you are who you say you are, that you have not submitted fictitious, false or inaccurate information about yourself, and that all information contained in the posted content is true and your own work or work you are authorized to submit, and that the posted content does not contain any threatening, harassing, libelous, false, defamatory, offensive, obscene, or pornographic, material, or other material that would violate any other applicable law or regulation. You agree that you will not knowingly and with intent to defraud provide material and misleading information. You represent and warrant that the content you supply does not violate the Terms.
+تمثيل وضمانات المستخدم
+
+عندما تنشر -أي المستخدم- أي محتوى فأنت تصرح وتقر بأن لك كل الحق والملكية والمصلحة في المحتوى المنشور، بما يتضمن –ولكن لا يقتصر على– أية موافقة، أو إجازة، أو إعفاء، أو مخالصة، أو رخصة من أي طرف ثالث. (ومن ضمن هذه الأمور -على سبيل المثال لا الحصر- الإعفاء من أية حقوق بالخصوصية، أو الدعاية العلنية) ويكون واجبًا عليك لكي تُقدِّم هذا المحتوى، أو تنشره، أو تُحمِّله، أو تدخله، أو تقدمه، أن تراعي ألا ينتهك هذا المحتوى أية براءة اختراع، أو حقوق طبع، أو علامات تجارية، أو أسرار تجارية، أو حقوق دعاية، أو حقوق معنوية، أو أية حقوق ملكية فكرية أخرى معترف بها من أية سلطة قانونية لأي شخص، أو كيان، أو خلاف ذلك، ممَّا يشكل انتهاكًا لأي اتفاق مع أي شخص أو كيان آخر. كما أنك تصرح وتقر بأنك تُمثِّل شخصيتك الحقيقة، وأنك لم تقدم معلومات وهمية، أو زائفة، أو غير دقيقة عن نفسك، وأنَّ كل المعلومات الواردة في المحتوى المنشور صحيحة، وأنها عملك الخاص، أو عمل مُرخَّص لك تقديمه، وأن المحتوى المنشور لا يحتوي على أية مواد تهديدية، أو تشهيرية، أو مزعجة، أو سبٍّ علني، أو زيف، أو قذف علني، أو هجوم، أو بذاءة، أو إباحية، أو أية مواد أخرى تنتهك أي قانون أو لوائح مطبقة. وأنت بذلك توافق على عدم تقديم أية مادة أو معلومات مضللة، سواء أكان عن دراية أم بنيَّة الاحتيال. وأنت تصرح وتقر بأن المحتوى الذي تقدمه لا ينتهك "الشروط المذكورة".
+
                 
-                Copyright Complaints
+شكاوى حقوق الملكية الفكرية
+
+إذا كنت صاحباً لحقوق الملكية الفكرية، وتعتقد أن المواد التي تملك حقوق ملكيتها قد استُخدِمت بطريقة تُشكِّل انتهاكًا لهذه الحقوق، يُرجى منك الاطلاع على إشعار سياسة قانون الألفية الرقمية لحقوق الملكية الفكرية (The Digital Millennium Copyright Act(DMCA 
+
+الضمانات والتعويضات وإخلاء المسئولية
+
+استخدامك لنوراني هو على مسئوليتك الخاصة، ونحن لا نتحمَّل أية مسئولية قانونية عن أي محتوى، أو مادة، أو مراسلة قد كتبتها بنفسك، أو من خلال طرف ثالث، أو تلقيتها من مصدر خارج موقعنا (حتى وإن قمت بالاتصال بهذا الموقع عبر مقدمي الخدمة). وكذلك نُخلي مسئوليتنا تجاه أية أضرار مباشرة، أو غير مباشرة، أو تبعية، أو تأديبية، أو عرضية، أو مسؤوليات قانونية، بما في ذلك أتعاب المحامين على سبيل المثال، التي تنجم عن الطريقة التي تستخدم بها التكنولوجيا المقدمة من مقدمي الخدمة، بما يتضمن دعاوى القذف والتشهير والتعدِّي، ولكن لا يقتصر عليها، بالإضافة إلى سرقة الأعمال الأدبية. كما نخلي مسئوليتنا تجاه أية أضرار مباشرة، أو غير مباشرة، أو تبعية، أو تأديبية، أو عرضية، أو مسؤوليات قانونية، أو تكاليف بما في ذلك أتعاب المحامين، الناجمة عن انقطاع الخدمة، أو انقطاع خدمة الإنترنت، أو تغيرها، حتى لو كانت هذه الاضطرابات ناجمة عن ظروف تحت سيطرتنا، بالإضافة إلى أية أضرار أخرى مباشرة، أو غير مباشرة، أو تبعية، أو تأديبية من أي نوع، بما في ذلك أتعاب المحامين، والناجمة عن مشاركتك. ونخلي مسئوليتنا من الخصوصية بالمتعلقة باستخدامك لـ Meedan.net و/أو أنشطة الإنترنت الأخرى باستثناء وجود حالة خرق جسيمة نتجت عن إهمال، سواء أكان بشكل مُتعمَّد أم نتيجة الإهمال تعتبر خرقاً لسياسة الخصوصية لمقدمي الخدمة. 
+
+ كل شيء على موقع نوراني مُقدَّم لك "كما هو"، دون أية مسؤولية قانونية من أي شكل، سواء أكانت صريحة أم ضمنية، بما يتضمن –ولكن لا يقتصر على– أي ترويج تجاري أو الملائمة لغرض معين.
+
+إذا كنتَ تفعل شيئًا يؤدي إلى فصلك من الخدمة، أو طردك من الموقع، وفقًا لشروط سياسة الخصوصية والاتفاقيات الأخرى، فأنت تتحمل المسؤولية الكاملة عن أي شيء يستتبع طردك، بما في ذلك التعويض، وإعفاء مُقدِّمي الخدمة من أي أضرار لكل المطالبات الناجمة عن سلوكك و/أو استخدامك لنوراني و/أو الخدمات المقدمة.
+
                 
-                If you are a copyright owner and you believe that your copyrighted materials have been used in a way that constitutes copyright infringement, please see our DMCA Notice Policy.
-                WARRANTIES, DISCLAIMERS AND INDEMNIFICATION?
-                YOUR USE OF THE nurani.org IS AT YOUR OWN RISK. WE ASSUME NO RESPONSIBILITY AND/OR LIABILITY FOR: THE CONTENT OF ANY MATERIAL OR COMMUNICATION CREATED BY YOU, ANY THIRD PARTY OR RECEIVED BY YOU FROM A SOURCE OUTSIDE THE OUR SITE (EVEN IF YOU HAVE LINKED TO THAT SITE FROM THE SERVICE PROVIDERS); ANY DIRECT, INDIRECT, CONSEQUENTIAL, PUNITIVE OR INCIDENTAL DAMAGES, LIABILITY AND/OR COSTS, INCLUDING ATTORNEYS FEES, CAUSED BY THE WAY YOU USE MATERIALS OR TECHNOLOGY PROVIDED BY THE SERVICE PROVIDERS, INCLUDING BUT NOT LIMITED TO CLAIMS OF SLANDER, LIBEL, INFRINGEMENT, AND/OR PLAGIARISM; ANY DIRECT, INDIRECT, CONSEQUENTIAL, PUNITIVE OR INCIDENTAL DAMAGES, LIABILITY AND/OR COSTS, INCLUDING ATTORNEYS FEES, ARISING FROM SERVICE INTERRUPTIONS, INTERNET SERVICE INTERRUPTIONS OR CHANGES, EVEN IF THESE DISRUPTIONS ARISE FROM CIRCUMSTANCES UNDER OUR CONTROL; ANY OTHER DIRECT, INDIRECT, CONSEQUENTIAL, PUNITIVE DAMAGES OF ANY KIND, INCLUDING ATTORNEYS FEES, ARISING FROM YOUR PARTICIPATION; PRIVACY IN CONNECTION WITH YOUR USE OF meedan.net AND/OR OTHER INTERNET ACTIVITIES (EXCEPT IN THE CASE OF ANY WILLFUL OR GROSSLY NEGLIGENT BREACH OF THE PRIVACY POLICY BY THE SERVICE PROVIDERS).
-                EVERYTHING ON nurani.org IS PROVIDED TO YOU "AS IS", WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
-                If you do something that, according to the terms of the Privacy Policy and Other Agreements, warrants your termination from the service or expulsion from the Website, you accept full responsibility for anything that happens following your expulsion, including indemnifying and holding the Service Providers harmless from any and all claims by others arising from your conduct and/or use of nurani.org, and/or the materials and services provided.
+توفُّر الخدمة
+
+يتنصل مقدمو الخدمة من أية تبعة أو مسئولية تتعلق بإتاحة الخدمة، أو ملاءمتها الزمنية، أو تأمينها، أو الاعتماد عليها، أو أية برمجيات مقدمة خلال الخدمات. ويحتفظ مقدمو الخدمة بالحق في تعديل الخدمات، أو تعليقها، أو توقيفها، أو إتاحتها، دون أي إشعار، أو أية مسؤولية تجاهك في أي وقت.
+
                 
-                Service uptime
+التنازل عن الشروط
+
+فَشْلُ مقدمي الخدمة في ممارسة أيِّ حقٍّ أو بند من هذه الشروط أو تفعيله لا يعتبر تنازلاً عن هذا الحق أو البند، في هذه الحال، أو في أية حال أخرى.
+
                 
-                The Service Providers disclaim all responsibility and liability for the availability, timeliness, security or reliability of the Services or any software provided through the Services. The Service Providers reserve the right to modify, suspend, or discontinue the Services or access to the Services without any notice at any time and without any liability to you.
-                
-                No Waiver of Terms
-                
-                Failure of the Service Providers to exercise or enforce any right or provision of these Terms of Use shall not be deemed a waiver of such right or provision in that or any other instance.
-                
-                Governing Law
-                
-                These Terms are governed by the laws of the United Kingdom, without regard to the rules of conflict of law that may cause the laws of another jurisdiction to apply. You agree to the sole and exclusive jurisdiction and venue of the courts of the United Kingdom in the event of any dispute of any kind arising from or relating to the Site, or your use or review of it. The Terms constitute the entire agreement between the parties with respect to the subject matter hereof and supersedes and replaces all prior or contemporaneous understandings or agreements, written or oral, regarding such subject matter. If for any reason a court of competent jurisdiction finds any provision or portion of these Terms to be unenforceable, the remainder of the Terms will continue in full force and effect.
-                Contact
-                If you are interested in discussing this agreement or have any thoughts on your mind, please contact us at termsofservice@meedan.net
-                
-                These Terms are licensed under CC http://www.citmedialaw.org/) 
+القانون المستخدم للفصل في النزاعات
+
+هذه الشروط تخضع لقوانين المملكة المتحدة، دون اعتبار لقواعد تعارض القانون التي قد تنجم عن تطبيق قوانين أية سلطة قانونية أخرى. وأنت تقر وتقبل بالسلطة القانونية لمحاكم المملكة المتحدة، وأماكن انعقادها، باعتبارها السُّلطة القانونية الوحيدة والحصرية في حالة حدوث أي نزاع من أي نوع ناجم عن الموقع، أو يتعلق به، أو استخدامك له أو تصفحك له. وتشكل هذه الشروط مجمل الاتفاق بين جميع الأطراف حول الأمور ذات الصلة، وتحلُّ محلَّ كل التفاهمات والاتفاقيات السابقة أو الحالية وتنسَخُها، سواء أكانت مكتوبة أم شفهية، فيما يتعلق بالأمور ذات الصلة. وإذا ما حدث -لأي سبب- أن وجدت محكمة مختصة أي بندٍ أو جزءٍ من هذه الشروط غير قابل للتطبيق، فإن باقي الشروط ستستمر في التطبيق والتأثير بشكل كامل.
+
+المراسلات
+
+إذا كنتَ مُهتمًّا بمناقشة هذه الاتفاقات، أو كان لديك أية تساؤلات قد تتبادر إلى ذهنك نرجو الاتصال بنا على termsofuse@meedan.net
+
+هذه الشروط مرخصة بموجب: http://www.citmedialaw.org
+
                 ',
-    'teaser' => 'Overview
-                Welcome to nurani.org, a product of Meedan, Inc. and the Cambridge Inter-faith Programme, a programme of the Faculty of Divinity at the University of Cambridge. Thank you for agreeing to take part in this important inter-faith initiative.  With it we aim to develop sustainable and accessible inter-faith dialogue between Muslim and Christian scholarly communities online.
-                
-                In signing up to this Website, you are entering into an agreement with Meedan and the Cambridge Inter-faith Programme.
-                
-                
-                General
-                
-',
+    'teaser' => 'نبذة عامة
+
+مرحبا بكم في نوراني، وهو ثمرة تعاون وعمل مؤسسة "ميدان" وبرنامج جامعة كامبريدج لحوار الأديان، وهذا الأخير هو برنامج من كلية اللاهوت بالجامعة. نشكركم على قبولكم المشاركة في هذه المبادرة المهمة للحوار بين الأديان، ونحن نهدف من خلالها أن نطور حوارًا مستديمًا ومتاحًا بين المجتمعات العِلمية المسلمة والمسيحية على الإنترنت. 
+
+ومن خلال قيامك بالتسجيل في هذا الموقع فإنك بذلك تدخل في اتفاق مع "ميدان" وبرنامج كامبريدج لحوار الأديان.',
     'log' => '',
-    'revision_timestamp' => '1305843625',
+    'revision_timestamp' => '1308634405',
     'format' => '1',
     'name' => 'admin',
     'picture' => '',
-    'data' => 'a:0:{}',
-    'path' => 'content/terms',
+    'data' => 'a:8:{s:8:"icl_send";s:1:"1";s:17:"messaging_default";s:4:"mail";s:27:"notifications_send_interval";s:1:"0";s:18:"notifications_auto";i:1;s:20:"l10n_client_disabled";i:0;s:14:"picture_delete";s:0:"";s:14:"picture_upload";s:0:"";s:13:"form_build_id";s:37:"form-338da8131c90beea12f22f31920c6668";}',
+    'path' => 'content/الشروط',
     'has_body' => '1',
     'comment_type' => '',
+    'old_status' => '1',
     'last_comment_timestamp' => '1305843625',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
+    'uuid' => FALSE,
+    'revision_uuid' => FALSE,
     'menu' => array(
-      'link_title' => 'Terms',
+      'link_title' => 'الشروط',
       'mlid' => 0,
       'plid' => '0',
       'menu_name' => 'secondary-links',

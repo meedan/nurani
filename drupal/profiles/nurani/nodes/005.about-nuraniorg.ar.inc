@@ -6,7 +6,7 @@ array(
     'uid' => '1',
     'status' => '1',
     'created' => '1305843625',
-    'changed' => '1305843625',
+    'changed' => '1308634245',
     'comment' => '0',
     'promote' => '0',
     'moderate' => '0',
@@ -15,87 +15,88 @@ array(
     'translate' => '0',
     'vid' => '5',
     'revision_uid' => '1',
-    'title' => 'About Nurani.org',
-    'body' => '<a href="http://nurani.org">Nurani.org</a> is a platform for dialogue between Muslims and Christians in two languages - Arabic and English.
+    'title' => 'حول نوراني',
+    'body' => '<a href="http://nurani.org">"نوراني" هي منصة للحوار بين المسلمين والمسيحيين باللغتين العربية والإنجليزية. 
                 
-                The product of a collaboration between the Cambridge Inter-faith Programme at the University of Cambridge, the nonprofit technology company Meedan, the Coexist Foundation, and a consortium of universities and research centres, it allows scholars from the two faith traditions to share and study their scriptures together.
+                               وهي نتاج للتعاون بين برنامج كامبريدج لحوار الأديان بجامعة كامبريدج، ومؤسسة "ميدان" للتكنولوجيا، وهي مؤسسة غير هادفة للربح، ومؤسسة التعايش، ونخبة من الجامعات ومراكز الأبحاث، فالمنصة بذلك تسمح للعلماء المنتمين لهاتين الديانتين بإمكانية دراسة كتبهم ونصوصهم الدينية المقدسة سويًّا.
                 
-                <a href="http://nurani.org">Nurani.org</a> specifically aims to:
+                <a href="http://nurani.org">يهدف نوراني</a> بشكل محدد إلى:
                 
-                <ul> <li>* enable rich and fruitful discussion of scriptural texts between Muslims and Christians;</li>
-                       <li>* facilitate deeper understanding of the lived traditions and beliefs of Islam and Christianity;<li>
-                       <li>* build trust and friendship between Christian and Muslim participants; and</li>
-                       <li>* develop new research methods for collaboratively studying texts across languages.</li> </ul>
+                <ul> <li>* إفساح المجال لمناقشة خصبة ومثمرة حول النصوص الدينية بين المسلمين والمسيحيين;</li>
+                       <li>* تيسير فهم أسس وممارسات الإسلام والمسيحية بصورة أكثر عمقًا.;<li>
+                       <li>* بناء أواصر الصداقة والثقة بين المشاركين المسلمين والمسيحيين.;</li>
+                       <li>* تطوير مناهج بحثية جديدة لدراسات مشتركة للنصوص الدينية عبر اللغات المختلفة.</li> </ul>
                  
                 <br></br>
-                Participating in <a href="http://nurani.org">Nurani.org</a> is initially by invitation only, as we are seeking to create a context in which high-quality, well moderated and safe inter-faith discussion can take place between scholars and civic groups.  In the longer term we envisage creating opportunities for dialogues involving the wider public.  To request further information or an invitation to the platform, email info[at]meedan.net or tweet to <a href="http://twitter.com/meedan">@Meedan</a> on Twitter.
+                ستكون المشاركة في  <a href="http://nurani.org">Nurani.org</a> "نوراني" في البداية مقتصرة على المدعوين فقط؛ حيث إننا نحاول أن ننشئ سياقًا يسمح بإيجاد حوار بين الأديان يكون على مستوى عالٍ، وآمن، ويُدار باقتدار، بين العلماء والمجموعات المدنية المختلفة. ونسعى لخلق فرص أخرى لحوارات مشابهة بين فئات أوسع من الجمهور على المدى البعيد. لطلب مزيد من المعلومات أو دعوة للمشاركة في الحوار، برجاء إرسال رسالة إليكترونية إلى: info[at]meedan.net أو رسالة عبر تويتر إلى <a href="http://twitter.com/meedan">@Meedan</a>.
                 
-                <strong>Seeking deeper understanding</strong>
+                <strong>نحو فهم أعمق</strong>
                 
-                The aim of discussion on <a href="http://nurani.org">Nurani.org</a> is not to secure agreement, but to secure deeper understanding.
+                الهدف من الحوار على موقع<a href="http://nurani.org"> "نوراني" ليس بالضرورة السعي لإيجاد "الاتفاق"، ولكن السعي لإيجاد "فهم أعمق".
                 
-                Participants from two faiths, Christianity and Islam, meet here to discuss short texts from our respective scriptures – the Bible and the Qur’an. We do this in three ways:
+                يتقابل المشاركون من كلا الديانتين -المسيحية والإسلام- عبر هذه المنصة لمناقشة نصوص محددة من كتابيهما المقدسين: الإنجيل والقرآن. ولهذا الأمر ثلاثة أوجه:
                 
-                1.     We seek a deeper understanding of the ‘plain sense’ of the texts in front of us.  Do these texts appear to make sense on an initial reading, to a group of readers some of whom are unfamiliar with them?  Do any of us find anything surprising, confusing, intriguing, difficult or upsetting about them?
+1 – نحن نسعى إلى فهم النصوص التي بين أيدينا بـ "الحس المجرد"، فنتساءل: هل تبدو هذه النصوص منطقية من خلال قراءة أولية يقوم بها مجموعة من الأفراد قد لا يكون لدى بعضهم معرفة مسبقة بهذه النصوص؟ هل يجد أيٌّ منا في هذه النصوص أمرًا مدهشًا أو محيرًا أو غريبًا أو صعبًا أو مقلقاً؟
                 
-                2.     We seek a deeper understanding of the each other’s traditions.  So a Christian seeks to understand how the Muslims in the group read this Qur’anic text, and a Muslim participant seeks to understand how the Christians read the Biblical text.  We don’t try to speak authoritatively for the whole religious or scholarly tradition of our faith, but simply for ourselves as participants in one of the traditions.  How does each of us, with the formation in our faith that we have had, read this text?  Do the others in the group find anything surprising, confusing, intriguing, difficult or upsetting about our ways of reading it?
+2 – نحن نسعى إلى فهم عميق لكلٍّ من الديانتين، ولذلك فإن المسيحي يحاول معرفة كيفية فهم المسلمين للنصوص القرآنية، ويحاول المشارك المسلم معرفة كيف يقرأ المسيحيون النصوص الإنجيلية. نحن لا نحاول أن نتحدث بشكل سلطوي بلسان التراث الديني أو العلمي برمته، ولكن نتحدث ببساطة عن أنفسنا بوصفنا مؤمنين بهذا الدين أو ذاك. كيف يقرأ كلٌّ منا النص بناءً على خلفيته الدينية الموروثة؟ هل يجد الآخرون شيئًا مدهشًا أو محيرًا أو صعبًا أو غريبًا أو مقلقًا حول الطرق التي نقرأ بها النص؟
                 
-                3.     We seek a deeper understanding of our own traditions.  When, for instance, a Christian reads a Biblical text in the company of Muslims who ask questions about the text and his or her reading of it, and who suggest other ways in which it seems to them that the text could be read, he or she is driven to look at the text and her reading of it again, with fresh eyes.  And when a Muslim reads a Qur’anic text in the company of Christians who ask questions and suggest other ways of reading, he or she too is driven to look at that text with fresh eyes.  Reading in such diverse company drives understanding deeper.
+3 – نحن نسعى إلى الوصول إلى فهم أعمق لتراثنا الديني، فعندما يقرأ المسيحي -على سبيل المثال- نصًّا من الإنجيل برفقة مسلم فهو يطرح الأسئلة حول هذا النص وحول طريقة قراءة القارئ أو القارئة له، مما يفتح أبعاد جديدة للنظر إلى النص، وقراءته مرة أخرى بنظرة جديدة. وعندما يقرأ المسلم نصًّا قرآنيًّا برفقة مسيحيين ممن يسألون كذلك، ويقترحون أساليب أخرى للقراءة، فهذا القارئ -أو القارئة- سيسعى لقراءة هذا النص بنظرة جديدة، فالقراءة بهذا الشكل تدفعنا نحو فهم أعمق.
                 
-                These are not three separate steps, nor do they involve three separate kinds of discussion.  Rather, these kinds of deeper understanding emerge quite naturally, as the participants discuss the texts in front of them.
+                هذه ليست ثلاث خطوات منفصلة، ولا تستدعي ثلاثة أنماط مختلفة للنقاش. ولكن هذه الأنماط الثلاثة للفهم المتعمِّق تتجلى بشكل طبيعي للمشاركين أثناء مناقشتهم للنصوص التي بين أيديهم.
                 
                 
-                <strong>Translation</strong>
+                <strong>الترجمة</strong>
                 
-                <a href="http://nurani.org">Nurani.org</a> is designed to be entirely bi-lingual.  Every piece of text will be translated between two languages - Arabic and English - as it is published.  This is made possible by a team of professional translators with religious knowledge working with the translation tools built into the platform.  Currently though we are testing monolingual discussions.
+                <a href="http://nurani.org">نوراني هو موقع ثنائي اللغة بالكامل، فكل جزء من النصوص والحوارات سيترجم إلى اللغتين العربية والإنجليزية قبل نشره. وقد تولَّى الترجمة فريق من المترجمين المحترفين ذوي المعرفة بالشئون الدينية، وذلك باستخدام أدوات الترجمة الموجودة ضِمنَ المنصة الإلكترونية.
                 
-                <strong><a href="http://nurani.org/overview">Discussions</a></strong>
+                <strong><a href="http://nurani.org/overview">المناقشات</a></strong>
                 
-                On <a href="http://nurani.org">Nurani.org</a>, we bring Christian and Muslim scholars together in small groups to discuss extracts from our sacred or authoritative texts together. A moderator will begin the discussion by inviting you to read selected scriptural extracts and an initial comment that he or she has written. You can then discuss what you have read with the other scholars in the discussion. Learn more about how we moderate discussions on the <a href="http://nurani.org/content/guidance">Guidance page</a>.
+                نحن في <a href="http://nurani.org"> نوراني نجمع علماء مسيحيين ومسلمين معًا في مجموعات صغيرة لمناقشة مقتطفات من النصوص الدينية المقدسة أو المعتمدة. سيبدأ مدير المناقشة الإعداد للحوار بدعوتكم لقراءة مقتطفات من نص مختار، مع تعليق أولي كتبه مدير -أو مديرة- الحوار، وبعد ذلك تستطيعون مناقشة ما قرأتموه مع أولئك العلماء. اقرأ المزيد هنا عن كيفية إدارتنا للحوارات: <a href="http://nurani.org/content/guidance">Guidance page</a>.
                 
-                <strong><a href="http://nurani.org/texts">Texts</a></strong>
+                <strong><a href="http://nurani.org/texts">النصوص المقدسة </a></strong>
                 
-                <a href="http://nurani.org/texts">Nurani.org</a> is a place for dialogue about the scriptures that lie at the heart of our religious traditions. These texts have been endlessly fruitful in shaping the thought and practice of each of our traditions, and in our experience they make for the most fruitful meeting point for inter-faith discussion. In most cases, for the Biblical passages we will use the New Revised Standard Version in English at http://bible.oremus.org/ and Biblica http://www.biblica.com/bibles/arabic/ in Arabic. For the Qur’anic passages we will use http://tanzil.net/ in Arabic and the Arthur J. Arberry translation in English.
+                يمثِّل <a href="http://nurani.org/texts">نوراني مكانًا للحوار حول النصوص المقدسة التي تقع في صميم تراثنا الديني، فهذه النصوص ما زالت تثري فكرنا وممارستنا للدين، وفي تجربتنا هذه فإنها تشكل أهم نقطة التقاء للحوار بين الأديان. في أغلب الحالات، سوف نعتمد على النسخة المعدلة القياسية الجديدة في اختيار مقاطع من الإنجيل باللغة الإنجليزية من خلال الموقع التالي:  http://bible.oremus.org/  وموقع بيبليكا للمقاطع الإنجيلية باللغة العربية: http://www.biblica.com/bibles/arabic/. كما يمكن الاعتماد على الموقع التالي: http://tanzil.net/ لقراءة القرآن باللغة العربية، وسنعتمد على ترجمة أرثر ج. أربرى لاختيار مقاطع من القرآن باللغة الإنجليزية. 
+
                 
-                <strong><a href="http://nurani.org/glossary">Glossary</a></strong>
+                <strong><a href="http://nurani.org/glossary">معجم المصطلحات</a></strong>
                 
-                The <a href="http://nurani.org/glossary">Nurani.org Glossary</a> allows you to log important words and phrases that appear in your scriptures so that discussants from other faiths can better understand the important concepts in your tradition. Each entry in the glossary is called a <em>Term</em> and allows you to add one or multiple translations (English or Arabic), contextual tags, and explanatory annotations.  Each term will also show you where it has appeared on <a href="http://nurani.org">Nurani.org</a>, providing a dynamic concordance of references and linkages between the textual traditions of the two faiths.
+يسمح معجم <a href="http://nurani.org/glossary">نوراني لكم بإدراج الكلمات والعبارات المهمة التي تظهر في كتبكم المقدسة؛ حتى يستطيع المناقشون من الأديان الأخرى فَهم الأفكار المهمَّة في تراثكم الديني بشكل أفضل، وكل مُدخَل في المعجم يسمى <em>مصطلح</em>، وهو يسمح لكم بإضافة ترجمة واحدة أو عدة ترجمات (بالعربية أو الإنجليزية)، وعلامات التمييز السياقية، وكذلك الهوامش التفسيرية، كما أن كل مصطلح سيُظهر مواضع استخدامه في<a href="http://nurani.org"> نوراني، مما سيوفر توافقًا تفاعليًّا بين المراجع والروابط في نصوص الديانتين.                  
+
                 
-                <strong>Licenses</strong>
+                <strong>الرُخَص</strong>
                 
-                The entire set of resources and tools developed in this project, including the published discussions, the translations, the glossary and the platform itself, is available for re-use under open source license.  The discussion and glossary content is available for re-use under the <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial 3.0 License</a>.  The platform is available for re-use under the GNU General Public License version 2 (GPLv2).
+المجموعة الكاملة من الموارد والأدوات التي طُوِّرت في هذا المشروع، بما في ذلك النقاشات والترجمات والمعجم والمنصة الإلكترونية ذاتها، كل هذا متاح لإعادة الاستخدام وفق رخصة المصدر المفتوح. أما محتوى الناقشات والمعجم فهو متاح لإعادة الاستخدام وفق رخصة المشاع الإبداعي <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons نوع المصنف، غير تجاري – الإصدار 3.0. والمنصة متاحة لإعادة الاستخدام وفق رخصة البرمجيات الحرة (غنو) الإصدار الثاني (GPLv2).
                 
-                <strong>Partners</strong>
                 
-                The Inter-faith Platform Project is a collaboration between a number of the world’s leading institutions for faith research, led by the <a href="http://www.interfaith.cam.ac.uk/">Cambridge Inter-faith Programme</a> (CIP), a program of the Faculty of Divinity at the University of Cambridge, UK, and <a href="http://blog.meedan.net">Meedan</a>, a social technology nonprofit based in San Francisco.
+                <strong>شركاؤنا</strong>
                 
-                CIP is a flagship project of the University of Cambridge 800th Anniversary Campaign, offering a distinctive scholarly approach to furthering understanding across the Abrahamic traditions with a strong emphasis on collaboration and translation. It is taking the lead in building the network of partner institutions using this platform, initiating and moderating dialogues, and creating scholarly resources. Learn more here.
+مشروع منصة حوار الأديان هو نتاج تعاون بين عدد من المؤسسات الرائدة عالميًّا في مجال البحوث الدينية، وذلك بقيادة <a href="http://www.interfaith.cam.ac.uk/"> برنامج جامعة كامبريدج لحوار الأديان، وهو برنامج لكلية اللاهوت في جامعة كامبريدج بالمملكة المتحدة، و<a href="http://blog.meedan.net">"ميدان"، وهي مؤسسة اجتماعية تقنية، غير هادفة للربح، مقرها سان فرانسيسكو.                
+
+يمثِّل برنامج كامبريدج لحوار الأديان المشروع الريادي للاحتفال بذكرى 800 عام على إنشاء جامعة كامبريدج، ويقدم نهجًا علميًّا متميزًا لتعميق الفهم بين الديانات الإبراهيمية، مع التركيز على المشاركة والترجمة، وهو يأخذ زمام المبادرة في بناء شبكة من المؤسسات الشريكة باستخدام هذه المنصة، وإيجاد وإدارة الحوارات، وبناء الموارد العلمية. تعرف على المزيد هنا.
                 
-                This platform was built by Meedan, a leading charitable provider of advanced technologies for dialogue and cross-language encounter, with expertise in cross-language interaction design and system design for Arabic-English translation on the web. Learn more here.
                 
-                Thank you for visiting this website today. Find out how you can contribute by emailing info[at]meedan.net or tweeting <a href="http://twitter.com/meedan">@Meedan</a> on Twitter.',
-    'teaser' => '<a href="http://nurani.org">Nurani.org</a> is a platform for dialogue between Muslims and Christians in two languages - Arabic and English.
+أُنشئت هذه المنصة من قِبَل "ميدان" وهي مؤسسة لا تهدف للربح تعمل على تطوير تقنيات متقدمة للحوار والالتقاء عبر اللغات المختلفة، وذلك بناءً على خبرتها في النظم التفاعلية العابرة للـُّغات، وتصميم نظم الترجمة العربية–الإنجليزية على شبكة الإنترنت. تعرف على المزيد هنا.
                 
-                The product of a collaboration between the Cambridge Inter-faith Programme at the University of Cambridge, the nonprofit technology company Meedan, the Coexist Foundation, and a consortium of universities and research centres, it allows scholars from the two faith traditions to share and study their scriptures together.
-                
-                <a href="http://nurani.org">Nurani.org</a> specifically aims to:
-                
-',
+نشكركم لزيارة هذا الموقع اليوم! لمعرفة كيفية المشاركة برجاء إرسال رسالة إليكترونية إلى: info[at]meedan.net أو رسالة عبر تويتر إلى: <a href="http://twitter.com/meedan">@Meedan</a>  ',
+    'teaser' => '<a href="http://nurani.org">"نوراني" هي منصة للحوار بين المسلمين والمسيحيين باللغتين العربية والإنجليزية.',
     'log' => '',
-    'revision_timestamp' => '1305843625',
+    'revision_timestamp' => '1308634245',
     'format' => '2',
     'name' => 'admin',
     'picture' => '',
-    'data' => 'a:0:{}',
-    'path' => 'content/about-nuraniorg',
+    'data' => 'a:8:{s:8:"icl_send";s:1:"1";s:17:"messaging_default";s:4:"mail";s:27:"notifications_send_interval";s:1:"0";s:18:"notifications_auto";i:1;s:20:"l10n_client_disabled";i:0;s:14:"picture_delete";s:0:"";s:14:"picture_upload";s:0:"";s:13:"form_build_id";s:37:"form-338da8131c90beea12f22f31920c6668";}',
+    'path' => 'content/حول-نوراني',
     'has_body' => '1',
     'comment_type' => '',
+    'old_status' => '1',
     'last_comment_timestamp' => '1305843625',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
+    'uuid' => FALSE,
+    'revision_uuid' => FALSE,
     'menu' => array(
-      'link_title' => 'About Nurani.org',
+      'link_title' => 'حول نوراني',
       'mlid' => 0,
       'plid' => '0',
       'menu_name' => 'secondary-links',

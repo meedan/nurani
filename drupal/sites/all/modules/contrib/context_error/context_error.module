@@ -1,0 +1,44 @@
+<?php
+/**
+ * @file
+ * Implement triggers for 404 and 403 pages.
+ */
+
+/**
+ * Implements hook_context_plugins().
+ */
+function context_error_context_plugins() {
+  $plugins = array();
+  $plugins['context_error_context_condition_error'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'context_error') . '/plugins',
+      'file' => 'context_error_context_conditions.inc',
+      'class' => 'context_error_context_condition_error',
+      'parent' => 'context_condition',
+    ),
+  );
+  return $plugins;
+}
+
+/**
+ * Implements hook_context_registry().
+ */
+function context_error_context_registry() {
+  return array(
+    'conditions' => array(
+      'error' => array(
+        'title' => t('404/403 error page'),
+        'plugin' => 'context_error_context_condition_error',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements of hook_context_page_condition().
+ */
+function context_error_context_page_condition() {
+  if ($plugin = context_get_plugin('condition', 'error')) {
+    $plugin->execute();
+  }
+}

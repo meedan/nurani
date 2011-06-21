@@ -6,7 +6,7 @@ array(
     'uid' => '1',
     'status' => '1',
     'created' => '1305843625',
-    'changed' => '1305843625',
+    'changed' => '1308634317',
     'comment' => '0',
     'promote' => '0',
     'moderate' => '0',
@@ -15,80 +15,82 @@ array(
     'translate' => '0',
     'vid' => '6',
     'revision_uid' => '1',
-    'title' => 'Guidance',
-    'body' => '<strong>Ground rules for discussion</strong>
+    'title' => 'قواعد النقاش',
+    'body' => '<strong>القواعد الرئيسة للنقاش</strong>
                 
-                There are some ground rules to keep in mind, which can help the process work.
+هناك بعض القواعد الأساسية التي يجب أن توضع في الاعتبار، والتي ستساعد على إنجاح الحوار عبر هذه المنصة:
+القاعدة الأولى والأهم هي الالتزام بالنص: لقد توصلنا من خلال تجربتنا إلى أن هذه المناقشات تكون مثمرة بشكل أفضل إذا انصب تركيزها على النص الديني، وعلى الطرق التي يمكن بها قراءته، بدلاً من أن تتحوَّل إلى نقاش عام حول الإسلام والمسيحية.
+
                 
-                The first and most important ground rule is stick to the texts.  It is our experience that these discussions are much more fruitful if the discussion remains focused on the scriptural texts and on the ways in which they can be read – rather than spiralling off to become a general discussion of Islam and Christianity.
+القاعدة الأساسية الثانية هي إفساح المجال لقراءة الآخرين: حتى إذا كان لديك أفكار وثيقة وواضحة وراسخة حول كيفية قراءة نص ما (لعله من الواضح لك فقط ما الذي يعنيه هذا النص، أو أنك تعرف نصوصًا مقدسة أخرى تساعد في تفسير هذا النص، أو أنك تعرف شروحًا معتمدة على النص من تراثك الديني) فلا تفرض هذه القراءة على المجموعة، حيث أن هذا النقاش سيتم بشكل أفضل إذا استطاع المشاركون الآخرون أن يسمعوا عن الطريقة التي تعتقد أنه يجب قراءة النص من خلالها حين يتعرفوا على النص، بالإضافة إلى السبل الأخرى الممكنة لقيامهم بالقراءة الذاتية. هذا قد يعني أحيانًا أنه عليك التأني بعض الوقت كي تدع المناقشة -التي تعتقد أنها خاطئة- تستمر، وذلك قبل أن تجدَّ لكي تشرح بلطفٍ كيف ولماذا تقرأ أنت النص بهذا الأسلوب. 
                 
-                The second ground rule is give space to others’ readings.  Even if you have very firm, clear and well-grounded ideas about how a particular text should be read (perhaps it is just obvious to you what this text means, or you know other scriptural texts that help interpret this one, or you know authoritative commentaries on the text from your tradition) don’t simply impose that reading on the group.  The discussion will work best if the other participants are able to hear about the way you believe the text should be read whilst exploring the text, and other possible ways of reading it, for themselves.  That may sometimes mean that you have to sit back for a while, and let a discussion continue that you believe to be mistaken – before finding a way gently to explain to people how and why you read the text the way you do.
-                
-                The third ground rule is be playful.  This is not an instruction to be frivolous or trivial, or to show disrespect to the group or to the texts.  It is simply that we have found that discussions work best when the participants feel able to make suggestions about how to read the text, even if they are newcomers to it, and don’t yet know whether their suggestions really make sense.  And discussions work best when the participants feel able to ask questions, even if they suspect that the answers might be obvious to other members of the group.
-                
-                
-                <strong>Asking questions</strong>
-                
-                There’s no fixed recipe for a scriptural discussion on Nurani, but a discussion might start off with simple questions for clarification ­– What does this word mean?  Is this text part of a longer narrative?  Who is speaking in this verse?
-                
-                The discussion might then begin to move on to questions about how this text is read – how Biblical texts are read by the Christians present, and Qur’anic texts by the Muslims.  So, would you normally read this text as a promise?  How were you taught that this command should be put into practice?  What sort of things have you heard preachers say about this text?  Does this text really get used at marriage ceremonies?
-                
-                As the participants get into the rhythm of their discussion, the questions might begin to change.  Couldn’t you read it this way?  What if you take this not as a promise but as a threat?  Would it mean something different if you assumed it was addressed to someone who was already a believer?
+القاعدة الأساسية الثالثة هي أن تكون مرحًا: ولا يعني هذا أن تكون تافهًا، أو ضعيف الشخصية، أو أن تُظهر عدم الاحترام للمجموعة أو للنصوص المقدسة، ولكننا وجدنا أن المناقشات تُدار بأفضل صورها عندما يستطيع المشاركون اقتراح أساليب أخرى لقراءة النص، حتى وإن كانوا يقرؤونه للمرة الأولى، وهم لا يعرفون إن كانت اقتراحاتهم تعني شيئا أم لا. وتجري المناقشات كذلك بشكل أفضل إذا شعر المشاركون بقدرتهم على طرح الأسئلة، حتى إذا شكُّوا في أن المجموعة الموجودة تعرف بالفعل إجابات هذه الأسئلة.
                 
                 
-                <strong>The role of the moderators</strong>
+                <strong>طرح الأسئلة </strong>
                 
-                The moderators are there to help keep the discussion going. 
+لا توجد "وصفة" ثابتة للمناقشات حول النصوص المقدسة على نوراني، ولكن المناقشة قد تبدأ بسؤال توضيحي بسيط، مثل: ماذا تعني هذه الكلمة؟ هل هي جزء من نصٍّ أكبر؟ من المتحدث في هذه الآية؟ بعدها تنتقل المناقشة إلى كيفية قراءة النص؛ فكيف يقرأ المسيحيون نصوص الإنجيل في الوقت الحاضر؟ وكيف يقرأ المسلمون آيات القرآن؟ وعندما تقرأ هذا النص هل تعتبره عادةً بشارة لك؟ كيف تعلمت أنه يجب عليك تطبيق هذا الفعل؟ ما الأفكار التي سمعتها من الخطباء حول هذا النص؟ هل يُستخدم هذا النص بالفعل في احتفالات الزواج؟
                 
-                They initiate the discussion with a first response to the scriptures, proposing some questions and themes that the group might like to discuss.
-                
-                They are there to encourage the members of the group to join in, if there’s a lull in the talking.
-                
-                They are there to decide, in consultation with the group, when it is time to move on from one text to another.
-                
-                They are there to nudge the discussion gently back to the text, if it looks like it is circling away somewhere else.
-                
-                They are there, if necessary, to send a quiet email to someone who is dominating the discussion too much.
+وعندما تسيطر على المساهمين روح النقاش ربما تتغير الأسئلة، على سبيل المثال: ألم يكن بإمكانك قراءة النص بهذا الشكل؟ ماذا لو اعتبرته وعيدًا وليس وعدًا؟ هل يعني النصُّ أمرًا مختلفًا إذا افترضنا أنه موجَّهٌ إلى فرد مؤمن أساسًا؟
                 
                 
-                <strong>How moderators are selected</strong>
+                <strong>وظيفة مديري الحوار</strong>
                 
-                Moderators are carefully selected by CIP staff. Moderators are likely experienced scholars with solid reputations and good experience of convening inter-faith dialogue. CIP will train and support moderators to be able to initiate and engage dialogues on nurani.org for the best results. If you think you would make a good moderator, please contact us here.
+وظيفة مديري الحوار
+يضطلع مديرو الحوار بدور المساعدة في الحفاظ على استمرار المناقشة، وتتحدد وظيفتهم فيما يلي:
+
+- بدء المناقشة بأول تعليق على النصوص المقدسة، مقترحين بعض الأسئلة والمحاور التي قد ترغب المجموعة في مناقشتها.
+
+- تشجيع بعض أعضاء المجموعة على المشاركة، إذا كان هناك جمود في المحاورة .
+
+- تحديد وقت الانتقال من نص إلى آخر، وذلك بعد التشاور مع المجموعة.
+
+- إعادة المناقشة إلى النص مرة أخرى إذا أحسوا أنها قد ابتعدت عن لب الموضوع.
+
+- إرسال رسالة إلكترونية -إذا لزم الأمر- إلى أحد الأشخاص الذين يسيطرون على المناقشة بشكل أكثر من اللازم.
+
                 
-                <strong>The role of translators</strong>
                 
-                Nurani.org allows scholars from two faiths, Christianity and Islam, to meet and discuss short texts from their respective scriptures – the Bible and the Qur’an.  Each discussion comprises a collection of scriptural passages, a long-form response from the moderator, and a series of short-form responses from scholars.
+                <strong>كيفية اختيار مديري الحوار</strong>
                 
-                When you are invited to translate a discussion, you will receive an email allowing you to review it. Each discussion should include at least one translator who is comfortable translating into Arabic and one translator who is comfortable translating into English, so you only need to focus on the original content that you can translate.
+يختار موظفو برنامج كامبريدج لحوار الأديان مديري الحوار بعناية كبيرة، ومديرو الحوار يكونون عادةً علماء من أصحاب السمعة المرموقة والخبرة في عقد حوارات الأديان. ويدرب برنامج كامبريدج لحوار الأديان مديري الحوار ويدعمهم حتى يستطيعوا إنشاء الحوارات، وإطلاقها على نوراني من أجل أفضل النتائج. إذا كنت تعتقد أنك من الممكن أن تكون مديرَ حوارٍ جيد اتصل بنا هنا.
                 
-                You do not need to translate the scriptures.  In most cases, for the Biblical passages we will use the New Revised Standard Version in English at http://bible.oremus.org/ and Biblica http://www.biblica.com/bibles/arabic/ in Arabic. For the Qur’anic passages we will use http://tanzil.net/ in Arabic and the Arthur J. Arberry translation in English.  But everything else will need to be translated by you and the other translators with access to the discussion. Every time a new response is added by a scholar, or if the original discussion content is changed in any way, you will receive an email notification.
+                <strong>دور المترجمين</strong>
                 
-                You will also receive an email every time a new term is added to the glossary.  A glossary term is a word or phrase that falls within one part of speech. Glossary term pages allow you to add one or more translations of that term, each with its own ‘context’ tag. A context tag allows you to alert other translators that they should use this term in a particular context.  You can also add explanations of the term and its translations, as can scholars.  The glossary page also functions as a concordance, listing citations of the term across the platform.
+يتيح موقع نوراني للعلماء من الديانتين، الإسلام والمسيحية، فرصة للالتقاء ومناقشة نصوص قصيرة من كتابيهما المقدسين (الإنجيل والقرآن). تضم كل مناقشة مجموعة من النصوص المقدسة، وردًّا مطولاً من مدير الحوار، وسلسلة من الردود القصيرة من العلماء.   
                 
-                Speed of translation is important, but more important still is accuracy. If you are not comfortable translating something, please check with someone else. Remember, all translations on Nurani.org can be edited, so do not feel undermined if your translations are updated by moderators; Nurani.org is designed for collaboration, so making improvements to translations is to be encouraged. 
-                ',
-    'teaser' => '<strong>Ground rules for discussion</strong>
+عندما تتلقى الدعوة لترجمة المناقشات، سوف تتلقى رسالة إليكترونية تسمح لك بالاطلاع على المناقشات. وينبغي أن تعمل على كل مناقشة اثنين من المترجمين؛ يقوم أحدهما بالترجمة إلى اللغة العربية، والآخر بالترجمة إلى اللغة الإنجليزية، بحسب ما يناسبهم، وذلك حتى نتيح لهما الفرصة للتركيز على المحتوى الأصلى المراد ترجمته. 
                 
-                There are some ground rules to keep in mind, which can help the process work.
+لن يحتاج المترجم إلى القيام بترجمة النصوص المقدسة، ففي أغلب الحالات، سوف نعتمد على النسخة المعدلة القياسية الجديدة لمقاطع الإنجيل باللغة الإنجليزية، وهي متاحة على الموقع التالي: http://bible.oremus.org/ وموقع بيبليكا للمقاطع الإنجيلية باللغة العربية: http://www.biblica.com/bibles/arabic/ كما يمكن الاعتماد على الموقع التالي: http://tanzil.net/ لقراءة القرآن باللغة العربية، وسنعتمد على ترجمة أرثر ج. أربرى لاختيار مقاطع من القرآن باللغة الإنجليزية. وفيما عدا ذلك، فيجب على المترجمين المسموح لهم بالاطلاع على المناقشة القيام بترجمة كافة فعالياتها. وسوف يتم إخطار المترجم عبر البريد الإليكتروني بأية ردود جديدة من العلماء أو إذا تم تغيير المحتوى الأصلي للمناقشة بأي شكل من الأشكال. 
                 
-                The first and most important ground rule is stick to the texts.  It is our experience that these discussions are much more fruitful if the discussion remains focused on the scriptural texts and on the ways in which they can be read – rather than spiralling off to become a general discussion of Islam and Christianity.
+سوف يتلقى المترجمون رسالة إليكترونية في كل مرة يتم فيها إضافة مصطلح جديد إلى معجم المصطلحات. ومصطلحات المعجم هي عبارة عن كلمة أو عبارة يتم إدراجها في المعجم حين تَرِد في المناقشات. تتيح صفحة معجم المصطلحات لكم إمكانية إضافة ترجمة أو أكثر لنفس المصطلح، وكل منها يتم تخصيصها بحسب السياق الذي وردت فيه. يتيح تخصيص السياق (Context tag) لكم تنبيه المترجمين الآخرين إلى ضرورة قيامهم باستخدام هذا المصطلح في السياق الخاص به. ويمكنكم أيضًا إضافة تفسيرات لهذا المصطلح أو إلى ترجمته، وكذلك يمكن للعلماء المشاركة في هذه المهمة. تعمل صفحة المعجم أيضًا بشكل توافقي لكي تتيح قائمة المراجع الخاصة بالمصطلح في كافة الأعمال المنشورة على منصة الحوار.  
                 
-',
+تكتسب السرعة في الترجمة أهميةً، ولكن الدقة هي بالتأكيد أكثر أهمية. إذا لم تكن مستريحًا للقيام بترجمة شيء ما، يُرجى إبلاغ مترجم آخر للقيام بها. وتَذكَّر أن كل الترجمات الموجودة على نوراني يمكن تعديلها، لذا فلا يجب أن يشعر أي مترجم بأن عمله يتم تقويضه إذا قام المشرفون بتعديل ترجمته أو الإضافة عليها، فموقع نوراني مصمم لكي يخلق تعاونًا بين المشاركين، مما يشجِّع الجميع على إدخال التحسينات على ترجمة المناقشات.  ',
+    'teaser' => '<strong>القواعد الرئيسة للنقاش</strong>
+                
+هناك بعض القواعد الأساسية التي يجب أن توضع في الاعتبار، والتي ستساعد على إنجاح الحوار عبر هذه المنصة:
+القاعدة الأولى والأهم هي الالتزام بالنص: لقد توصلنا من خلال تجربتنا إلى أن هذه المناقشات تكون مثمرة بشكل أفضل إذا انصب تركيزها على النص الديني، وعلى الطرق التي يمكن بها قراءته، بدلاً من أن تتحوَّل إلى نقاش عام حول الإسلام والمسيحية.
+
+                
+القاعدة الأساسية الثانية هي إفساح المجال لقراءة الآخرين: حتى إذا كان لديك أفكار وثيقة وواضحة وراسخة حول كيفية قراءة نص ما (لعله من الواضح لك فقط ما الذي يعنيه هذا النص، أو أنك تعرف نصو',
     'log' => '',
-    'revision_timestamp' => '1305843625',
+    'revision_timestamp' => '1308634317',
     'format' => '2',
     'name' => 'admin',
     'picture' => '',
-    'data' => 'a:0:{}',
-    'path' => 'content/guidance',
+    'data' => 'a:8:{s:8:"icl_send";s:1:"1";s:17:"messaging_default";s:4:"mail";s:27:"notifications_send_interval";s:1:"0";s:18:"notifications_auto";i:1;s:20:"l10n_client_disabled";i:0;s:14:"picture_delete";s:0:"";s:14:"picture_upload";s:0:"";s:13:"form_build_id";s:37:"form-338da8131c90beea12f22f31920c6668";}',
+    'path' => 'content/قواعد-النقاش',
     'has_body' => '1',
     'comment_type' => '',
+    'old_status' => '1',
     'last_comment_timestamp' => '1305843625',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
+    'uuid' => FALSE,
+    'revision_uuid' => FALSE,
     'menu' => array(
-      'link_title' => 'Guidance',
+      'link_title' => 'قواعد النقاش',
       'mlid' => 0,
       'plid' => '0',
       'menu_name' => 'secondary-links',

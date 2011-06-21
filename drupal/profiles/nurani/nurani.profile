@@ -209,15 +209,19 @@ function nurani_install_languages() {
   // Import .po files.
   $path = drupal_get_path('profile', 'nurani') . '/po';
   $files = drupal_system_listing('.po$', $path, 'name', 0);
+  $type_map = array(
+    'zzz_nurani_blocks.ar.po' => 'blocks',
+    'zzz_nurani_menu.ar.po' => 'menu',
+    'zzz_nurani_content_types.ar.po' => 'nodetype',
+    'zzz_nurani_taxonomy.ar.po' => 'taxonomy',
+  );
   foreach ($files as $file) {
     $po_file = array(
       'filename' => $file->basename,
       'filepath' => $file->filename,
       );
-    _locale_import_po((object)$po_file, $langcode, LOCALE_IMPORT_OVERWRITE, 'default');
+    _locale_import_po((object)$po_file, $langcode, LOCALE_IMPORT_OVERWRITE, empty($type_map[$file->basename]) ? 'default' : $type_map[$file->basename]);
   }
-
-  drupal_flush_all_caches();
 }
 
 /**
@@ -429,6 +433,7 @@ SELECT * FROM {users_roles}
   nurani_load_autoload();
   module_load_include('inc', 'node', 'node.pages');
   features_rebuild();
+  $_SESSION['nurani']['user'][1] = 1; // map admin to admin
   foreach ($users as $legacy) {
     $user = array(
       'name' => $legacy->name,
@@ -454,6 +459,11 @@ SELECT * FROM {users_roles}
     else {
       $_SESSION['nurani']['user'][$legacy->uid] = $account->uid;
 
+      // Fix the access time because user_save() messes it up.
+      if (empty($legacy->access)) {
+        db_query("UPDATE {users} SET access = 0 WHERE uid = %d", $account->uid);
+      }
+
       if (!empty($legacy->agreed_date)) {
         // Save agreement.
         $agreement = array(
@@ -476,7 +486,7 @@ SELECT * FROM {users_roles}
       $profile->uid = $account->uid;
       $profile->name = $account->name;
       $profile->title = $account->name;
-      $profile->created = $legacy->created;
+      $profile->date = '@' . $legacy->created;
       $profile->changed = $legacy->created;
       $profile->field_city[0]['value'] = $legacy->field_user_city_value;
       $profile->field_country[0]['value'] = $legacy->field_user_country_value;
@@ -523,19 +533,16 @@ function nurani_import_texts() {
   $result = db_query("
 SELECT 
   n.*, 
-  revision.*,
   body.body_value,
   description.field_text_description_value,
   source.field_text_source_value
 FROM {node} n
-INNER JOIN {node_revision} revision 
-  ON n.vid = revision.vid
 LEFT JOIN {field_data_body} body 
-  ON body.entity_id = n.nid AND body.revision_id = revision.vid AND body.entity_type = 'node' AND body.language = n.language
+  ON body.entity_id = n.nid AND body.revision_id = n.vid AND body.entity_type = 'node' AND body.language = n.language
 LEFT JOIN {field_data_field_text_description} description 
-  ON description.entity_id = n.nid AND description.revision_id = revision.vid AND description.entity_type = 'node' AND description.language = n.language
+  ON description.entity_id = n.nid AND description.revision_id = n.vid AND description.entity_type = 'node' AND description.language = n.language
 LEFT JOIN {field_data_field_text_source} source 
-  ON source.entity_id = n.nid AND source.revision_id = revision.vid AND source.entity_type = 'node' AND source.language = n.language
+  ON source.entity_id = n.nid AND source.revision_id = n.vid AND source.entity_type = 'node' AND source.language = n.language
 WHERE n.type = 'text'
 ORDER BY n.nid
   ");
@@ -547,26 +554,23 @@ ORDER BY n.nid
   $result = db_query("
 SELECT 
   n.*, 
-  revision.*,
-  body.language AS other_language,
   body.body_value,
   description.field_text_description_value,
-  source.field_text_source_value
+  source.field_text_source_value,
+  translation.uid AS translation_uid,
+  translation.created AS translation_created,
+  translation.changed AS translation_changed,
+  translation.language AS translation_language
 FROM {node} n
-INNER JOIN {node_revision} revision 
-  ON n.vid = revision.vid
+INNER JOIN {translation} translation
+  ON translation.entity_type = 'node' AND translation.entity_id = n.nid AND translation.language != n.language
 LEFT JOIN {field_data_body} body 
-  ON body.entity_id = n.nid AND body.revision_id = revision.vid AND body.entity_type = 'node' AND body.language != n.language
+  ON body.entity_id = n.nid AND body.revision_id = n.vid AND body.entity_type = 'node' AND body.language = translation.language
 LEFT JOIN {field_data_field_text_description} description 
-  ON description.entity_id = n.nid AND description.revision_id = revision.vid AND description.entity_type = 'node' AND description.language != n.language
+  ON description.entity_id = n.nid AND description.revision_id = n.vid AND description.entity_type = 'node' AND description.language = translation.language
 LEFT JOIN {field_data_field_text_source} source 
-  ON source.entity_id = n.nid AND source.revision_id = revision.vid AND source.entity_type = 'node' AND source.language != n.language
+  ON source.entity_id = n.nid AND source.revision_id = n.vid AND source.entity_type = 'node' AND source.language = translation.language
 WHERE n.type = 'text'
-AND (
-  body.body_value IS NOT NULL OR
-  description.field_text_description_value IS NOT NULL OR
-  source.field_text_source_value IS NOT NULL
-)
 ORDER BY n.nid
   ");
   while ($text = db_fetch_object($result)) {
@@ -585,7 +589,7 @@ ORDER BY n.nid
     $text->comment = $legacy->comment;
     $text->uid = $_SESSION['nurani']['user'][$legacy->uid];
     $text->name = user_load($text->uid)->name;
-    $text->created = $legacy->created;
+    $text->date = '@' . $legacy->created;
     $text->changed = $legacy->changed;
     $text->language = $legacy->language;
     $text->title = $legacy->title;
@@ -607,10 +611,13 @@ ORDER BY n.nid
       $_SESSION['nurani']['text'][$legacy->nid] = $text->nid;
 
       if (!empty($translations[$legacy->nid])) {
+        // Update translated node.
         $legacy_translation = $translations[$legacy->nid];
         $tnids = translation_node_get_translations($text->nid);
-        $translation = node_load($tnids[$legacy_translation->other_language]->nid);
-        $translation->body = empty($legacy_translation->body_value) ? $text->body : $legacy_translation->body_value;
+        $translation = node_load($tnids[$legacy_translation->translation_language]->nid);
+        $translation->created = $legacy_translation->translation_created; 
+        $translation->changed = $legacy_translation->translation_changed; 
+        $translation->body = empty($legacy_translation->body_value) ? $text->body : $legacy_translation->body_value; 
         $description = array();
         foreach (array($legacy_translation->field_text_source_value, $legacy_translation->field_text_description_value) as $field) {
           if (!empty($field)) {
@@ -621,6 +628,27 @@ ORDER BY n.nid
         $translation->skip_updateindex = TRUE;
         $translation->notifications_content_disable = TRUE;
         node_save($translation);
+
+        // Insert translation job.
+        $translators = array( 
+          $legacy_translation->translation_language => array(
+            'id' => $_SESSION['nurani']['user'][$legacy_translation->translation_uid],
+            'translation_service' => 'local',
+          )
+        );
+        icl_content_translate_posts(array($text->nid), array($legacy_translation->translation_language), $translators);
+        $rid = db_result(db_query("SELECT rid FROM {icl_content_status} WHERE nid=%d", $text->nid));
+        db_query("UPDATE {icl_translate_job} SET translated=1 WHERE rid=%d", $rid);
+        db_query("UPDATE {icl_core_status} SET status=6 WHERE rid=%d", $rid);
+        foreach (_icl_content_extract_node($translation) as $translation_field) {
+          if ($translation_field['translate']) {
+            db_query("UPDATE {icl_translate} SET field_data_translated='%s' WHERE rid=%d AND field_type='%s'",
+              serialize(is_array($translation_field['text']) ? $translation_field['text'][0] : $translation_field['text']),
+              $rid,
+              $translation_field['type']
+            );
+          }
+        }
       }
     }
   }
@@ -640,11 +668,8 @@ function nurani_import_terms() {
   $result = db_query("
 SELECT 
   n.*, 
-  revision.*,
   pos.field_pos_value
 FROM {node} n
-INNER JOIN {node_revision} revision 
-  ON n.vid = revision.vid
 LEFT JOIN {field_data_field_pos} pos 
   ON n.nid = pos.entity_id AND pos.entity_type = 'node'
 WHERE n.type = 'glossary_term'
@@ -704,7 +729,7 @@ WHERE
     $term->comment = $legacy->comment;
     $term->uid = $_SESSION['nurani']['user'][$legacy->uid];
     $term->name = user_load($term->uid)->name;
-    $term->created = $legacy->created;
+    $term->date = '@' . $legacy->created;
     $term->changed = $legacy->changed;
     $term->language = $legacy->language;
     $term->title = $legacy->title;
@@ -748,13 +773,10 @@ function nurani_import_discussions() {
   $result = db_query("
 SELECT 
   n.*, 
-  revision.*,
   body.body_value
 FROM {node} n
-INNER JOIN {node_revision} revision 
-  ON n.vid = revision.vid
 LEFT JOIN {field_data_body} body 
-  ON body.entity_id = n.nid AND body.revision_id = revision.vid AND body.entity_type = 'node' AND body.language = n.language
+  ON body.entity_id = n.nid AND body.revision_id = n.vid AND body.entity_type = 'node' AND body.language = n.language
 WHERE n.type = 'discussion'
 ORDER BY n.nid
   ");
@@ -788,14 +810,16 @@ WHERE
   $result = db_query("
 SELECT 
   n.*, 
-  revision.*,
-  body.language AS other_language,
-  body.body_value
+  body.body_value,
+  translation.uid AS translation_uid,
+  translation.created AS translation_created,
+  translation.changed AS translation_changed,
+  translation.language AS translation_language
 FROM {node} n
-INNER JOIN {node_revision} revision 
-  ON n.vid = revision.vid
+INNER JOIN {translation} translation
+  ON translation.entity_type = 'node' AND translation.entity_id = n.nid AND translation.language != n.language
 INNER JOIN {field_data_body} body 
-  ON body.entity_id = n.nid AND body.revision_id = revision.vid AND body.entity_type = 'node' AND body.language != n.language
+  ON body.entity_id = n.nid AND body.revision_id = n.vid AND body.entity_type = 'node' AND body.language = translation.language
 WHERE n.type = 'discussion'
 ORDER BY n.nid
   ");
@@ -815,11 +839,12 @@ ORDER BY n.nid
     $discussion->comment = $legacy->comment;
     $discussion->uid = $_SESSION['nurani']['user'][$legacy->uid];
     $discussion->name = user_load($discussion->uid)->name;
-    $discussion->created = $legacy->created;
+    $discussion->date = '@' . $legacy->created;
     $discussion->changed = $legacy->changed;
     $discussion->language = $legacy->language;
     $discussion->title = $legacy->title;
     $discussion->body = $legacy->body_value;
+    $discussion->private = DRUPAL_AUTHENTICATED_RID;
     if (!empty($additionals['texts'][$legacy->nid])) foreach ($additionals['texts'][$legacy->nid] as $text) {
       $discussion->field_texts[]['nid'] = $_SESSION['nurani']['text'][$text->field_discussion_text_nid];
     }
@@ -850,11 +875,34 @@ ORDER BY n.nid
       if (!empty($translations[$legacy->nid])) {
         $legacy_translation = $translations[$legacy->nid];
         $tnids = translation_node_get_translations($discussion->nid);
-        $translation = node_load($tnids[$legacy_translation->other_language]->nid);
+        $translation = node_load($tnids[$legacy_translation->translation_language]->nid);
+        $translation->created = $legacy_translation->translation_created; 
+        $translation->changed = $legacy_translation->translation_changed; 
         $translation->body = empty($legacy_translation->body_value) ? $discussion->body : $legacy_translation->body_value;
         $translation->skip_updateindex = TRUE;
         $translation->notifications_content_disable = TRUE;
         node_save($translation);
+
+        // Insert translation job.
+        $translators = array( 
+          $legacy_translation->translation_language => array(
+            'id' => $_SESSION['nurani']['user'][$legacy_translation->translation_uid],
+            'translation_service' => 'local',
+          )
+        );
+        icl_content_translate_posts(array($discussion->nid), array($legacy_translation->translation_language), $translators);
+        $rid = db_result(db_query("SELECT rid FROM {icl_content_status} WHERE nid=%d", $discussion->nid));
+        db_query("UPDATE {icl_translate_job} SET translated=1 WHERE rid=%d", $rid);
+        db_query("UPDATE {icl_core_status} SET status=6 WHERE rid=%d", $rid);
+        foreach (_icl_content_extract_node($translation) as $translation_field) {
+          if ($translation_field['translate']) {
+            db_query("UPDATE {icl_translate} SET field_data_translated='%s' WHERE rid=%d AND field_type='%s'",
+              serialize(is_array($translation_field['text']) ? $translation_field['text'][0] : $translation_field['text']),
+              $rid,
+              $translation_field['type']
+            );
+          }
+        }
       }
     }
   }
@@ -894,19 +942,24 @@ ORDER BY
   $translations = array();
   if ($type == 'discussion') {
     $result = db_query("
-  SELECT 
-    comment.*,
-    body.comment_body_value AS body_value,
-    body.language AS other_language
-  FROM {comment} comment
-  INNER JOIN {node} node 
-    ON comment.nid = node.nid
-  INNER JOIN {field_data_comment_body} body 
-    ON body.entity_id = comment.cid AND body.entity_type = 'comment' AND body.language != comment.language
-  WHERE
-    node.type = '%s' 
-  ORDER BY 
-    comment.cid
+SELECT 
+  comment.*,
+  body.comment_body_value AS body_value,
+  translation.uid AS translation_uid,
+  translation.created AS translation_created,
+  translation.changed AS translation_changed,
+  translation.language AS translation_language
+FROM {comment} comment
+INNER JOIN {translation} translation
+  ON translation.entity_type = 'comment' AND translation.entity_id = comment.cid AND translation.language != comment.language
+INNER JOIN {node} node 
+  ON comment.nid = node.nid
+INNER JOIN {field_data_comment_body} body 
+  ON body.entity_id = comment.cid AND body.entity_type = 'comment' AND body.language = translation.language
+WHERE
+  node.type = '%s' 
+ORDER BY 
+  comment.cid
     ", $type);
     while ($translation = db_fetch_object($result)) {
       $translations[$translation->cid] = $translation;
@@ -935,7 +988,7 @@ ORDER BY
     $comment->status = $legacy->status;
     $comment->uid = $_SESSION['nurani']['user'][$legacy->uid];
     $comment->name = $legacy->name;
-    $comment->created = $legacy->created;
+    $comment->date = '@' . $legacy->created;
     $comment->changed = $legacy->changed;
     $comment->language = $legacy->language;
     $comment->title = t('Re: !title', array('!title' => $legacy->parent_title));
@@ -956,11 +1009,34 @@ ORDER BY
       if (!empty($translations[$legacy->cid])) {
         $legacy_translation = $translations[$legacy->cid];
         $tnids = translation_node_get_translations($comment->nid);
-        $translation = node_load($tnids[$legacy_translation->other_language]->nid);
+        $translation = node_load($tnids[$legacy_translation->translation_language]->nid);
+        $translation->created = $legacy_translation->translation_created;
+        $translation->changed = $legacy_translation->translation_changed;
         $translation->body = empty($legacy_translation->body_value) ? $comment->body : $legacy_translation->body_value;
         $translation->skip_updateindex = TRUE;
         $translation->notifications_content_disable = TRUE;
         node_save($translation);
+
+        // Insert translation job.
+        $translators = array( 
+          $legacy_translation->translation_language => array(
+            'id' => $_SESSION['nurani']['user'][$legacy_translation->translation_uid],
+            'translation_service' => 'local',
+          )
+        );
+        icl_content_translate_posts(array($comment->nid), array($legacy_translation->translation_language), $translators);
+        $rid = db_result(db_query("SELECT rid FROM {icl_content_status} WHERE nid=%d", $comment->nid));
+        db_query("UPDATE {icl_translate_job} SET translated=1 WHERE rid=%d", $rid);
+        db_query("UPDATE {icl_core_status} SET status=6 WHERE rid=%d", $rid);
+        foreach (_icl_content_extract_node($translation) as $translation_field) {
+          if ($translation_field['translate']) {
+            db_query("UPDATE {icl_translate} SET field_data_translated='%s' WHERE rid=%d AND field_type='%s'",
+              serialize(is_array($translation_field['text']) ? $translation_field['text'][0] : $translation_field['text']),
+              $rid,
+              $translation_field['type']
+            );
+          }
+        }
       }
     }
   }
@@ -987,7 +1063,7 @@ function nurani_cleanup() {
  
   // Some features will need reverting
   $revert = array(
-    'nurani_general' => array('menu_links'),
+    'nurani_general' => array('menu_links', 'variable'),
   );
   
   // Make sure we only try to revert features we've enabled

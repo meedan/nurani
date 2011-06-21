@@ -6,7 +6,7 @@ array(
     'uid' => '1',
     'status' => '1',
     'created' => '1305843625',
-    'changed' => '1305843625',
+    'changed' => '1308634355',
     'comment' => '0',
     'promote' => '0',
     'moderate' => '0',
@@ -15,48 +15,50 @@ array(
     'translate' => '0',
     'vid' => '7',
     'revision_uid' => '1',
-    'title' => 'Privacy',
-    'body' => 'Nurani.org is designed to allow you to take part in dialogues about your beliefs and opinions, so it is very important that you read and agree to the following terms which relate to how we store personal data that you submit to the platform. The terms form part of the contract that you agree to on registering with this website, but are also here to reassure you that the Cambridge Inter-faith Programme and Meedan, Inc. (the Service Providers) have a strict data policy in place to protect your personal data.
+    'title' => 'الخصوصية',
+    'body' => 'لقد صُمِّم نوراني ليتيح لكم المشاركة في حوارات حول معتقداتكم وآرائكم، ولذلك فمن المهم جدًّا أن تقرءوا الشروط التالية وتوافقوا عليها، وهي الشروط التي تتعلق بكيفية حفظنا للمعلومات الشخصية التي تسلمونها للمنصة. وهذه الشروط تُشكِّل جزءًا من اتفاقكم على التسجيل في هذا الموقع، ولكننا نؤكد لكم في هذا المقام أن لدى برنامج كامبريدج لحوار الأديان ومؤسسة ميدان (مقدما الخدمة) سياسةً صارمةً معمولاً بها -فيما يخص البيانات- للمحافظة على بياناتك الشخصية.
                 
-                We (The Service Providers) reserve the right to modify the information contained herein at anytime. If we do make changes to our privacy policy that affect your personal data, we will notify You (the Registered User) using the email that you have given us. This site and all information and materials on it are provided to you "as is" without warranty of any kind. Ÿour use of this site, or your provision to us of any personal information constitutes your agreement to these terms; do not use the site or provide information if you do not agree with all of the terms.
+نحن (مقدما الخدمة) نحتفظ بالحق في تعديل المعلومات الموجودة هنا في أي وقت، وإذا ما قمنا بعمل تغيير في سياسات الخصوصية بشكل يؤثِّر على بياناتك الخاصة فسنُخْطِرُك (أي المستخدم المسجل) عبر البريد الإلكتروني الذي سجلته عندنا. هذا الموقع وكل المعلومات التي عليه مقدمة "كما هي" دون أي ضمان من أي نوع. ويعد استخدامك لهذا الموقع أو تزويدك بأية معلومات شخصية بمثابة موافقة على هذه الشروط الموضحة، فإن لم توافق على هذه الشروط فلا نوصي باستخدامك لهذا الموقع أو تزويده بأية معلومات.
                 
-                Information You Provide
+                المعلومات المطلوب تقديمها
                 
-                1. Registration
+                1 - التسجيل
                 
-                When you register for an account you will be asked to give your name, email address and password.  You can update this information at any time. Only you will be able to see your password. Your email address will be viewable by system administrators representing The Service Providers and moderators granted permission to manage dialogues on Nurani.org by CIP. We will use your email address to communicate important notifications about this privacy policy, requests for disclosure by Third Parties, or other notifications that relate to your use of Nurani.org.   Moderators may use your email address to help manage dialogues on Nurani.org and to warn you if your behaviour is deemed inappropriate.  You can also opt to receive notifications of new content that will be delivered automatically to your email address.
+عندما تبدأ في التسجيل لحساب جديد فسيُطلَب منك أن تُقدِّمَ اسمَك وعنوانَ بريدك الإلكتروني وكلمة السِّرِّ، وتستطيع أن تُحدِّث هذه المعلومات في أي وقت كما تريد. وسيكون بإمكانك أنت فقط أن ترى كلمة السر. سيكون عنوان بريدك الإلكتروني متاحًا فقط لمديري النظم الذين يمثلون مُقدِّمي الخدمة ومديري الحوار المسموح لهم بإدارة الحوارات على نوراني مِن قِبَل مركز كامبريدج لحوار الأديان. وسوف نستخدم بريدك الإلكتروني في إبلاغك بأية معلومات مُهمِّة حول سياسة الخصوصية، أو طلبات الحوار من طرف ثالث، وأية إخطارات أخرى متعلقة باستخدام نوراني. وقد يستخدم مديرو الحوار عنوانك البريدي لتسهيل إدارتهم للحوارات على نوراني، أو لتحذيرك إذا كان سلوكك غير لائق. ويمكنك أيضًا أن تختار إمكانية إرسال إخطارات بالمحتويات الجديدة إلى بريدك الإلكتروني تلقائيًّا.
                 
-                2. Profile Information
+                2- معلومات الملف الشخصي
                 
-                When you register for an account you will have the option to build a profile. This profile may include, but is not limited to, information such as your personal names, location, education, professional experience and affiliations. You will be able to edit and remove this information at any time, and to control whether it is viewable publicly or only by other users of Nurani.org. We encourage you to supply this information to help other users learn more about you. We think this will help you to have more productive dialogues with other users.
+عندما تبدأ في التسجيل لفتح حساب سيكون لديك خيار لعمل ملف شخصي، وقد يشمل هذا الملف الشخصي على سبيل المثال معلومات شخصية، مثل: الاسم، ومحل الإقامة، والتعليم، والخبرة الوظيفية، والانتماءات الأخرى. وبإمكانِكَ تعديل هذه المعلومات أو حذفها في أي وقت، وكذلك التحكم في إمكانية عرضها عَلنًا أو لمستخدمي نوراني فقط. ونحن نحثُّكم على تقديم هذه المعلومات لتمكين الآخرين من معرفة المزيد عنكم، ونعتقد أن هذا سيساعدكم في الوصول إلى حوارات مثمرة مع المستخدمين الآخرين.
                 
-                3. Posting
+                3- النشر الإلكتروني
                 
-                On Nurani.org you can post three kinds of content: texts, glossary terms, and discussion comments.  We intend for all texts and glossary terms added to Nurani.org to be publicly viewable.  Discussions, however, depend on the privacy settings of the group to which you were invited by a moderator. A discussion on Nurani may have one of three settings: private to the members of the group, viewable by all groups on Nurani, or public on the web. Identification of all contributed content may include, but is not limited to, display of your account name. All content may be retained for restorative, archival, or research purposes by The Service Providers. Editing or deleting content may alter the displayed state of the content, but will not permanently delete the content from the website.
+بإمكانكم نشر المحتويات على نوراني من خلال ثلاثة أوجه: النصوص ومصطلحات المعجم والتعليقات على المناقشات. ونحن نعتزم جعل جميع النصوص ومصلطحات المعجم المضافة إلى نوراني متاحة للعرض العلني، غير أن المناقشات ستعتمد على إعدادات الخصوصية للمجموعة التي تم دعوتك إليها من قبل مدير الحوار. ويكون للمناقشات على نوراني أحد الإعدادات الثلاثة: أن تكون خاصة بأعضاء المجموعة، أو متاحة للعرض لجميع المجموعات على نوراني، أو متاحة للعامة على الإنترنت. وتحديد المحتوى المُقدِّم قد يشتمل على عرض اسمك في الملف الشخصي، دون أن يكون مقتصرًا عليه. ويمكن لمُقدِّمي الخدمة الاحتفاظ بكل المحتوى لأغراض الاسترجاع والأرشفة والبحث. قد يغير حذف المحتوى أو تحريره من وضع المحتوى المعروض، ولكن لن يحذفه تمامًا من الموقع.
                 
-                4. Normal Browsing
+                4- التصفح الاعتيادي
                 
-                The Service Providers collect certain information about your browsing habits, including your IP address, URL request, browser type, and date and time of your request. This information is gathered on an aggregate basis only. For example, we track which pages are most popular among visitors as a whole.  We do not track information on which pages an individual user visits. We do not collect any other information without your knowledge and permission.
+يقوم مقدما الخدمة بتجميع معلومات محددة عن أشكال تصفحك بما في ذلك: عنوان بروتوكول الإنترنت، وطلبات عناوين المواقع الإلكترونية، ونوع المتصفح، وتاريخ طلبك ووقته. تُجمَّع هذه المعلومات على الموقع بصورة إجمالية، فلا نتتبع الصفحات التي يزورها حساب لشخص بعينه. كما لا نقوم بتجميع أية معلومات أخرى دون إعلامك وموافقتك.
                 
-                We analyze traffic to Nurani.org  in various ways, including using a service called Google Analytics. (Google Analytics is subject to the privacy policy of Google, Inc., which you can find at the following url: http://www.google.co.uk/intl/en/privacy/privacy-policy.html) Unless you affirmatively provide additional information, we do not collect or store personally identifiable information such as mailing address, phone number, or social security number.
-                Storage
+ونحن نقوم بتحليل مجرى الحركة على نوراني بطرق مختلفة، بما في ذلك الخدمة المُسمَّاة: تحليلات جوجل (Google Analytics). وتخضع تحليلات جوجل لسياسة الخصوصية لشركة جوجل والتي يمكن العثور عليها في العنوان التالي: (http://www.google.co.uk/intl/en/privacy/privacy-policy.html).باستثناء حالة قيامك بإضافة معلومات أخرى وإتاحتها بشكل إيجابي، فنحن لا نجمع معلومات الهوية الشخصية ولا نحتفظ بها، مثل: العنوان البريدي أو رقم الهاتف أو رقم الضمان الاجتماعي.
+
+                التخزين
                 
-                By agreeing to these terms you consent that personal data collected on Nurani.org may be transferred to, and stored at, a destination outside the European Economic Area (“EEA”). It may also be processed by staff operating outside the EEA who work for the Cambridge Inter-faith Programme (CIP) or for Meedan, Inc. By submitting your personal data, you agree to this transfer, storing or processing.
+موافقتك على هذه الشروط تعني قبولك أنَّ معلوماتك الشخصية على نوراني قد تُنقَل وتخزن في جهة خارج المنطقة الاقتصادية الأوروبية. كما أن هذه المعلومات قد يتعامل معها موظفون خارج المنطقة الاقتصادية الأوروبية، ممن يعملون في برنامج كامبريدج لحوار الأديان، أو في مؤسسة ميدان. وبتقديمك لبياناتك الشخصية فإنك بذلك تقبل بعملية النقل هذه أو التخزين أو معالجة المعلومات.
                 
-                Security
+                الأمن
                 
-                The Service Providers will take all reasonable steps to ensure that your data is treated securely and in accordance with the European Commission’s contractual requirements for the transfer of personal data to processors outside the EU. In order to prevent against accidental or unlawful destruction or accidental loss, alteration, or unauthorised disclosure or access, The Service Providers have put in place strict technical and managerial procedures to safeguard and secure the information processed by Nurani.org.  If you wish to review these measures click here.
+سيتخذ مقدما الخدمة جميع الخطوات المعقولة لضمان التعامل مع بياناتك بشكل آمن، ووفق متطلبات التعاقد للجنة الأوروبية لنقل البيانات الشخصية إلى معالجي معلومات خارج الاتحاد الأوروبي. ومن أجل منع أي تدمير عرضي أو غير قانوني للمعلومات، أو الضياع غير المقصود، أو التعديل، أو التصريح أو الإتاحة غير المسموح بهما، فإنَّ مُقدِّمي الخدمة قد وضعوا إجراءات فنية وإدارية صارمة لحماية المعلومات التي تُعالََج على نوراني وتأمينها. إذا كنت ترغب في الاطلاع على هذه الإجراءات اضغط هنا.
                 
                 
-                Disclosure of Information
+                إفشاء المعلومات
                 
-                Available log records, account information, and all data stored on our servers may be accessed by system administrators representing The Service Providers.
-                
-                In the event that we are required by law (including a court order) to disclose the information you submit, we will provide you with notice that a request for your information has been made so that you may object to the disclosure. We will send this notice by email to the address you have given us.
-                
-                The Service Providers will take all reasonable measures to notify you in advance of any planned transfer of your personal data to a Third Party or Subprocessor so that you can opt to remove your data from this transfer if you wish. In the unlikely event of unauthorised access to your data, The Service Providers undertake to inform you promptly.
-                
-                If you have any questions regarding the personal data The Service Providers hold about you, you can contact Meedan’s Data Protection Manager at the following address:
+قد يمكن إتاحة التقييدات الموجودة والمتاحة في سجلنا، ومعلومات الحساب الشخصي، وكل البيانات المحفوظة على أجهزة (السيرفر) لمديري نظم يمثلون مُقدِّمي الخدمة. 
+
+في حال ما إذا طُلِب مِنَّا بحكم القانون (بما في ذلك أمر المحكمة) أن نكشف عن معلومات قَدَّمْتها فسوف نُبلغك عن تقديم طلب حول معلوماتك، مما يمكنك من الاعتراض على هذا الإفشاء، وسوف نرسل هذا البلاغ عن طريق البريد الإلكتروني إلى بريدك الذي قدمته لنا. 
+
+سيتخذ مقدما الخدمة كافة الإجراءات الممكنة لإعلامك مسبقًا بأية عملية نقل لبياناتك الشخصية نعتزم القيام بها إلى طرف ثالث، أو معالج معلومات من الباطن، حتى يمكنك اختيار إزالة البيانات من عملية نقل المعلومات إذا كنتَ ترغب في هذا، وفي حال الوصول إلى بياناتك بأسلوب غير مُرخَّص -وهذا أمر مُستَبعد- فإن مُقدِّمي الخدمة سيحاولون إخبارك فورًا.
+
+إذا كان لديك أية أسئلة بخصوص بياناتك الشخصية التي يعرفها مقدما الخدمة، تستطيع الاتصال بمدير حماية البيانات في مؤسسة ميدان على العنوان التالي:
+
                 
                 privacy@meedan.net
                 
@@ -65,30 +67,33 @@ array(
                 San Francisco
                 California 94310
                 USA
-                Cookies
-                The Service Providers may use session cookies when you visit our website while your browser is open, or while you are logged into Nurani.org. To facilitate registration and login functions, The Service Providers may use cookies to recognise when you return to the website. If you do not logout of your account, these cookies keep track of your username and password so that you do not have to resubmit the information to log into your account. If others will be using your computer, you should log out of your account so that your login information is cleared.
                 
-                
-                These Terms are licensed under CC http://www.citmedialaw.org/) 
+                قطع المعلومات الصغيرة (Cookies)
+
+قد يستخدم مقدما الخدمة قطع المعلومات الصغيرة (كوكيز) لدورات التصفح عند زيارتكم لموقعنا، عندما يكون متصفحكم مفتوحًا، أو عند تسجيل دخولكم على نوراني؛ وذلك لتسهيل عملية التسجيل والدخول على الموقع. وقد يستخدم مقدما الخدمة قطع المعلومات الصغيرة للتعرف على عودتكم إلى الموقع. وإذا لم تخرج من حسابك الشخصي فإن هذه القطع تتبع اسم المستخدم وكلمة المرور حتى لا تحتاج إلى إعادة تقديم معلومات الدخول إلى حسابك الشخصي مرة أخرى. وإذا كان هناك أفراد آخرون سيستخدمون حاسبك الخاص فإنه يجب عليك الخروج من حسابك الشخصي حتى يتم مسح معلومات دخولك.
+
+هذه الشروط مرخصة وفق  رخصة المشاع الإبداعي (Creative Commons). بعض الحقوق محفوظة، مع نسب الحقوق والشكر لإعلام المواطنين والمشروع القانوني بمركز بركمان (http://www.citmedialaw.org/)
+
                 ',
-    'teaser' => 'Nurani.org is designed to allow you to take part in dialogues about your beliefs and opinions, so it is very important that you read and agree to the following terms which relate to how we store personal data that you submit to the platform. The terms form part of the contract that you agree to on registering with this website, but are also here to reassure you that the Cambridge Inter-faith Programme and Meedan, Inc. (the Service Providers) have a strict data policy in place to protect your personal data.
-                
-',
+    'teaser' => 'لقد صُمِّم نوراني ليتيح لكم المشاركة في حوارات حول معتقداتكم وآرائكم، ولذلك فمن المهم جدًّا أن تقرءوا الشروط التالية وتوافقوا عليها، وهي الشروط التي تتعلق بكيفية حفظنا للمعلومات الشخصية التي تسلمونها للمنصة.',
     'log' => '',
-    'revision_timestamp' => '1305843625',
+    'revision_timestamp' => '1308634355',
     'format' => '1',
     'name' => 'admin',
     'picture' => '',
-    'data' => 'a:0:{}',
-    'path' => 'content/privacy',
+    'data' => 'a:8:{s:8:"icl_send";s:1:"1";s:17:"messaging_default";s:4:"mail";s:27:"notifications_send_interval";s:1:"0";s:18:"notifications_auto";i:1;s:20:"l10n_client_disabled";i:0;s:14:"picture_delete";s:0:"";s:14:"picture_upload";s:0:"";s:13:"form_build_id";s:37:"form-338da8131c90beea12f22f31920c6668";}',
+    'path' => 'content/الخصوصية',
     'has_body' => '1',
     'comment_type' => '',
+    'old_status' => '1',
     'last_comment_timestamp' => '1305843625',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
+    'uuid' => FALSE,
+    'revision_uuid' => FALSE,
     'menu' => array(
-      'link_title' => 'Privacy',
+      'link_title' => 'الخصوصية',
       'mlid' => 0,
       'plid' => '0',
       'menu_name' => 'secondary-links',

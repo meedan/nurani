@@ -27,8 +27,6 @@ class views_php_handler_field extends views_handler_field {
     $options['php_output'] = array('default' => '');
     $options['use_php_click_sortable'] = array('default' => self::CLICK_SORT_DISABLED);
     $options['php_click_sortable'] = array('default' => FALSE);
-    $options['use_php_query'] = array('default' => FALSE);
-    $options['php_query'] = array('default' => '');
     return $options;
   }
 
@@ -38,11 +36,6 @@ class views_php_handler_field extends views_handler_field {
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
-    $form += views_php_form_element($this,
-      array('use_php_query', t('Use query code'), t('If checked, you can provide PHP code to be run during setup of the SQL query. This may be useful to manually edit the query as it is being built.')),
-      array('php_query', t('Query code'), t('Code to run during setup of the SQL query.'), FALSE),
-      array('$view', '$handler')
-    );
     $form += views_php_form_element($this,
       array('use_php_setup', t('Use setup code'), t('If checked, you can provide PHP code to be run once right before execution of the view. This may be useful to define functions to be re-used in the value and/or output code.')),
       array('php_setup', t('Setup code'), t('Code to run right before execution of the view.'), FALSE),
@@ -80,7 +73,7 @@ class views_php_handler_field extends views_handler_field {
     );
     $form += views_php_form_element($this,
       FALSE,
-      array('php_output', t('Output code'), t('Code to construct the output of this field.'), TRUE),
+      array('php_output', t('Output code'), t('Code to output the value of this field. Use <code>print</code> or <code>echo</code> to produce the output. Leave blank for default output.'), TRUE),
       array('$view', '$handler', '$static', '$row', '$data', '$value' => t('Value of this field.'))
     );
   }
@@ -93,16 +86,6 @@ class views_php_handler_field extends views_handler_field {
   function query() {
     // Provide an field alias but don't actually alter the query.
     $this->field_alias = 'views_php_' . $this->position;
-    // Inform views_php_views_pre_execute() to seize control over the query.
-    $this->view->views_php = TRUE;
-
-    // Run the query code.
-    if (!empty($this->options['use_php_query'])) {
-      $function = create_function('$view, $handler', $this->options['php_query'] . ';');
-      ob_start();
-      $function($this->view, $this);
-      ob_end_clean();
-    }
   }
 
   /**
@@ -137,7 +120,7 @@ class views_php_handler_field extends views_handler_field {
 
     // Prepare for sorting if needed.
     if (!empty($this->options['use_php_click_sortable']) && !empty($this->php_click_sort_order)) {
-      $this->pager = new views_php_pager_helper($this->view);
+      $this->view->use_php_pager = TRUE;
     }
   }
 
@@ -185,15 +168,7 @@ class views_php_handler_field extends views_handler_field {
       if (isset($this->php_click_sort_function)) {
         usort($this->view->result, array($this, 'php_click_sort'));
       }
-
-      // Only keep relevant slice if using pager.
-      if (isset($this->pager)) {
-        $this->pager->slice();
-      }
     }
-
-    // Mark that we've been here.
-    $this->post_executed = TRUE;
   }
 
   /**
@@ -234,11 +209,6 @@ class views_php_handler_field extends views_handler_field {
    * Implements views_handler_field#pre_render().
    */
   function pre_render(&$values) {
-    // Post execute now for earlier Views 2 versions.
-    if (empty($this->post_executed)) {
-      $this->php_post_execute();
-    }
-
     if (!empty($this->options['php_output'])) {
       $this->php_output_lambda_function = create_function('$view, $handler, &$static, $row, $data, $value', ' ?>' . $this->options['php_output'] . '<?php ');
     }
@@ -270,3 +240,4 @@ class views_php_handler_field extends views_handler_field {
     return $value;
   }
 }
+

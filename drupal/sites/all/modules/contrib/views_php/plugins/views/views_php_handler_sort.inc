@@ -82,7 +82,7 @@ class views_php_handler_sort extends views_handler_sort {
 
     // Prepare for sorting if needed.
     if (!empty($this->options['php_sort'])) {
-      $this->pager = new views_php_pager_helper($this->view);
+      $this->view->use_php_pager = TRUE;
     }
   }
 
@@ -96,21 +96,6 @@ class views_php_handler_sort extends views_handler_sort {
       ob_start();
       usort($this->view->result, array($this, 'php_sort'));
       ob_end_clean();
-
-      // Only keep relevant slice if using pager.
-      if (isset($this->pager)) {
-        $this->pager->slice();
-      }
-    }
-
-    // Mark that we've been here.
-    $this->post_executed = TRUE;
-  }
-
-  function php_pre_render() {
-    // Post execute now for earlier Views 2 versions.
-    if (empty($this->post_executed)) {
-      $this->php_post_execute();
     }
   }
 
@@ -134,3 +119,4 @@ class views_php_handler_sort extends views_handler_sort {
     return $factor * $result;
   }
 }
+
