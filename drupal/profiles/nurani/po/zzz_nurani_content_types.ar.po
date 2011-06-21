@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2011-06-03 05:05+0100\n"
-"PO-Revision-Date: 2011-06-03 05:05+0100\n"
+"POT-Creation-Date: 2011-06-21 04:43+0100\n"
+"PO-Revision-Date: 2011-06-21 04:43+0100\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -13,57 +13,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=((n==1)?(0):((n==0)?(1):((n==2)?(2):((((n%100)>=3)&&((n%100)<=10))?(3):((((n%100)>=11)&&((n%100)<=99))?(4):5)))));\n"
 
-#: type:annotation:body
-msgid "Body"
-msgstr ""
-
-#: type:annotation:title
-msgid "Title"
-msgstr ""
-
-#: type:comment:body
-msgid "Body"
-msgstr ""
-
 #: type:comment:description
 msgid "A comment for use with the nodecomment module."
 msgstr ""
 
-#: type:comment:title
-msgid "Subject"
-msgstr ""
-
-#: type:discussion:body
-msgid "Body"
-msgstr ""
-
-#: type:discussion:title
-msgid "Title"
-msgstr ""
-
-#: type:page:body
-msgid "Body"
-msgstr ""
-
-#: type:page:title
-msgid "Title"
-msgstr ""
-
-#: type:term:name
-msgid "Term"
-msgstr ""
-
-#: type:term:title
-msgid "Term"
-msgstr ""
-
-#: type:text:body
-msgid "Body"
-msgstr ""
-
-#: type:text:name
-msgid "Text"
-msgstr ""
+#: type:annotation:body
+msgid "Annotation"
+msgstr "حاشية"
 
 #: type:annotation:description
 msgid "A comment on a glossary term."
@@ -73,9 +29,25 @@ msgstr "تعليق على مصطلح معجمي"
 msgid "Annotation"
 msgstr "ملاحظات"
 
+#: type:annotation:title
+msgid "Title"
+msgstr "عنوان"
+
+#: type:comment:body
+msgid "Body"
+msgstr "جسم"
+
 #: type:comment:name
 msgid "Comment"
 msgstr "تعليق"
+
+#: type:comment:title
+msgid "Subject"
+msgstr "موضوع"
+
+#: type:discussion:body
+msgid "Your Thoughts"
+msgstr "أفكارك"
 
 #: type:discussion:description
 msgid "A scholarly discussion."
@@ -83,7 +55,15 @@ msgstr "مناقشة علمية"
 
 #: type:discussion:name
 msgid "Discussion"
-msgstr "مناقشة"
+msgstr "نقاش"
+
+#: type:discussion:title
+msgid "Title"
+msgstr "عنوان"
+
+#: type:page:body
+msgid "Body"
+msgstr "هيئة"
 
 #: type:page:description
 msgid "A static page."
@@ -92,6 +72,10 @@ msgstr "صفحة مثبتة"
 #: type:page:name
 msgid "Page"
 msgstr "صفحة"
+
+#: type:page:title
+msgid "Title"
+msgstr "عنوان"
 
 #: type:profile:description
 msgid "A user profile built as content."
@@ -105,15 +89,47 @@ msgstr "معلومات شخصية"
 msgid "Username"
 msgstr "اسم المستخدم"
 
+#: type:response:body
+msgid "Response"
+msgstr "رد"
+
+#: type:response:description
+msgid "A comment in a scholarly discussion."
+msgstr "تعليق في مناقشة علمية"
+
+#: type:response:name
+msgid "Response"
+msgstr "رد"
+
+#: type:response:title
+msgid "Title"
+msgstr "عنوان"
+
 #: type:term:description
 msgid "A glossary term."
-msgstr " مصطلح معجمي "
+msgstr "مصطلح معجمي"
+
+#: type:term:name
+msgid "Term"
+msgstr "مصطلح"
+
+#: type:term:title
+msgid "Term"
+msgstr "مصطلح"
+
+#: type:text:body
+msgid "Text Passage"
+msgstr "مقطع نصي"
 
 #: type:text:description
 msgid "A scholarly text."
 msgstr "نص علمي"
 
+#: type:text:name
+msgid "Text"
+msgstr "نص"
+
 #: type:text:title
-msgid "Source"
+msgid "Title"
 msgstr "مصدر"
 

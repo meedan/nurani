@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2011-06-03 05:04+0100\n"
-"PO-Revision-Date: 2011-06-03 05:04+0100\n"
+"POT-Creation-Date: 2011-06-21 04:44+0100\n"
+"PO-Revision-Date: 2011-06-21 04:44+0100\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -92,5 +92,5 @@ msgstr ""
 
 #: vocabulary:1:name
 msgid "Term Contexts"
-msgstr "سياق المصطلحات"
+msgstr "سياق المصطلح"
 

@@ -168,6 +168,7 @@ WHERE cs.nid = %d
 function _nurani_custom_autotranslate($node) {
   if (!translation_supported_type($node->type)) return;
   if (!empty($node->translation_source) || !empty($node->tnid)) return;
+  if (!empty($node->skip_autotranslate)) return;
 
   $languages = i18n_language_list(); // get all enabled languages
   unset($languages[$node->language]); //unset the languages of source node

@@ -145,7 +145,11 @@ function nurani_profile_tasks(&$task, $url) {
     $operations[] = array('nurani_config_noderelationships', array());
     $operations[] = array('nurani_config_i18n', array());
     $operations[] = array('nurani_import_users', array());
-    $operations[] = array('nurani_import_nodes', array());
+    $operations[] = array('nurani_import_texts', array());
+    $operations[] = array('nurani_import_discussions', array());
+    $operations[] = array('nurani_import_comments', array('discussion'));
+    $operations[] = array('nurani_import_terms', array());
+    $operations[] = array('nurani_import_comments', array('glossary_term'));
   
     // Build the batch process
     $batch = array(
@@ -360,6 +364,8 @@ function nurani_import_users() {
     return;
   }
 
+  set_time_limit(0);
+
   // Read legacy users.
   db_set_active('legacy');
   $users = array();
@@ -404,8 +410,21 @@ WHERE
     $users[] = $user;
   }
 
+  $roles = array();
+  $result = db_query("
+SELECT * FROM {users_roles}
+  ");
+  while ($role = db_fetch_object($result)) {
+    $roles[$role->uid][] = $role;
+  }
+  $role_map = array(
+    3 => array('rid' => 3, 'name' => 'administrator'),
+    4 => array('rid' => 6, 'name' => 'moderator'),
+    5 => array('rid' => 7, 'name' => 'scholar'),
+    6 => array('rid' => 8, 'name' => 'translator'),
+  );
+
   // Recreate users.
-  set_time_limit(0);
   db_set_active();
   nurani_load_autoload();
   module_load_include('inc', 'node', 'node.pages');
@@ -425,19 +444,27 @@ WHERE
       'init' => $legacy->init,
       'picture' => empty($legacy->filename) ? '' : file_create_path('sites/default/files/pictures/' . $legacy->filename),
     );
-    $user = user_save(NULL, $user);
-    if ($user) {
+    if (!empty($roles[$legacy->uid])) foreach ($roles[$legacy->uid] as $role) {
+      $user['roles'][$role_map[$role->rid]['rid']] = $role_map[$role->rid]['name'];
+    }
+    $account = user_save(NULL, $user);
+    if (empty($account)) {
+      watchdog('nurani', 'Could not create user: !user', array('!user' => print_r($user, TRUE)), WATCHDOG_ERROR);
+    }
+    else {
+      $_SESSION['nurani']['user'][$legacy->uid] = $account->uid;
+
       if (!empty($legacy->agreed_date)) {
         // Save agreement.
         $agreement = array(
-          'uid' => $user->uid,
+          'uid' => $account->uid,
           'agreed' => 1,
           'agreed_date' => $legacy->agreed_date,
         );
         drupal_write_record('agreement', $agreement);
         $form_values = array('values' => array(
           'agree' => 1,
-          'uid' => $user->uid,
+          'uid' => $account->uid,
         ));
         nurani_notifications_subscribe(NULL, $form_values);
       }
@@ -446,9 +473,9 @@ WHERE
       $profile = new StdClass;
       $profile->type = 'profile';
       node_object_prepare($profile);
-      $profile->uid = $user->uid;
-      $profile->name = $user->name;
-      $profile->title = $user->name;
+      $profile->uid = $account->uid;
+      $profile->name = $account->name;
+      $profile->title = $account->name;
       $profile->created = $legacy->created;
       $profile->changed = $legacy->created;
       $profile->field_city[0]['value'] = $legacy->field_user_city_value;
@@ -469,18 +496,473 @@ WHERE
       $profile->field_research[0]['value'] = $legacy->field_user_research_value;
       $profile->field_societies[0]['value'] = $legacy->field_user_societies_value;
       $profile->field_title[0]['value'] = $legacy->field_user_title_value;
+      $profile->skip_updateindex = TRUE;
+      $profile->notifications_content_disable = TRUE;
       node_save(node_submit($profile));
+      if (empty($profile->nid)) {
+        watchdog('nurani', 'Could not create profile: !profile', array('!profile' => print_r($profile, TRUE)), WATCHDOG_ERROR);
+      }
     }
   }
 }
 
 /**
- * Import migrated nodes
+ * Import migrated texts
  */
-function nurani_import_nodes() {
+function nurani_import_texts() {
   global $db_url;
   if (empty($db_url['legacy'])) {
     return;
+  }
+
+  set_time_limit(0);
+
+  // Read legacy texts.
+  db_set_active('legacy');
+  $texts = array();
+  $result = db_query("
+SELECT 
+  n.*, 
+  revision.*,
+  body.body_value,
+  description.field_text_description_value,
+  source.field_text_source_value
+FROM {node} n
+INNER JOIN {node_revision} revision 
+  ON n.vid = revision.vid
+LEFT JOIN {field_data_body} body 
+  ON body.entity_id = n.nid AND body.revision_id = revision.vid AND body.entity_type = 'node' AND body.language = n.language
+LEFT JOIN {field_data_field_text_description} description 
+  ON description.entity_id = n.nid AND description.revision_id = revision.vid AND description.entity_type = 'node' AND description.language = n.language
+LEFT JOIN {field_data_field_text_source} source 
+  ON source.entity_id = n.nid AND source.revision_id = revision.vid AND source.entity_type = 'node' AND source.language = n.language
+WHERE n.type = 'text'
+ORDER BY n.nid
+  ");
+  while ($text = db_fetch_object($result)) {
+    $texts[] = $text;
+  }
+
+  $translations = array();
+  $result = db_query("
+SELECT 
+  n.*, 
+  revision.*,
+  body.language AS other_language,
+  body.body_value,
+  description.field_text_description_value,
+  source.field_text_source_value
+FROM {node} n
+INNER JOIN {node_revision} revision 
+  ON n.vid = revision.vid
+LEFT JOIN {field_data_body} body 
+  ON body.entity_id = n.nid AND body.revision_id = revision.vid AND body.entity_type = 'node' AND body.language != n.language
+LEFT JOIN {field_data_field_text_description} description 
+  ON description.entity_id = n.nid AND description.revision_id = revision.vid AND description.entity_type = 'node' AND description.language != n.language
+LEFT JOIN {field_data_field_text_source} source 
+  ON source.entity_id = n.nid AND source.revision_id = revision.vid AND source.entity_type = 'node' AND source.language != n.language
+WHERE n.type = 'text'
+AND (
+  body.body_value IS NOT NULL OR
+  description.field_text_description_value IS NOT NULL OR
+  source.field_text_source_value IS NOT NULL
+)
+ORDER BY n.nid
+  ");
+  while ($text = db_fetch_object($result)) {
+    $translations[$text->nid] = $text;
+  }
+
+  // Recreate texts.
+  db_set_active();
+  nurani_load_autoload();
+  module_load_include('inc', 'node', 'node.pages');
+  foreach ($texts as $legacy) {
+    $text = new StdClass;
+    $text->type = 'text';
+    node_object_prepare($text);
+    $text->status = $legacy->status;
+    $text->comment = $legacy->comment;
+    $text->uid = $_SESSION['nurani']['user'][$legacy->uid];
+    $text->name = user_load($text->uid)->name;
+    $text->created = $legacy->created;
+    $text->changed = $legacy->changed;
+    $text->language = $legacy->language;
+    $text->title = $legacy->title;
+    $text->body = $legacy->body_value;
+    $description = array();
+    foreach (array($legacy->field_text_source_value, $legacy->field_text_description_value) as $field) {
+      if (!empty($field)) {
+        $description[] = $field;
+      }
+    }
+    $text->field_description[0]['value'] = implode(' ', $description);
+    $text->skip_updateindex = TRUE;
+    $text->notifications_content_disable = TRUE;
+    node_save(node_submit($text));
+    if (empty($text->nid)) {
+      watchdog('nurani', 'Could not create text: !text', array('!text' => print_r($text, TRUE)), WATCHDOG_ERROR);
+    }
+    else {
+      $_SESSION['nurani']['text'][$legacy->nid] = $text->nid;
+
+      if (!empty($translations[$legacy->nid])) {
+        $legacy_translation = $translations[$legacy->nid];
+        $tnids = translation_node_get_translations($text->nid);
+        $translation = node_load($tnids[$legacy_translation->other_language]->nid);
+        $translation->body = empty($legacy_translation->body_value) ? $text->body : $legacy_translation->body_value;
+        $description = array();
+        foreach (array($legacy_translation->field_text_source_value, $legacy_translation->field_text_description_value) as $field) {
+          if (!empty($field)) {
+            $description[] = $field;
+          }
+        }
+        $translation->field_description[0]['value'] = empty($description) ? $text->field_description[0]['value'] : implode(' ', $description);
+        $translation->skip_updateindex = TRUE;
+        $translation->notifications_content_disable = TRUE;
+        node_save($translation);
+      }
+    }
+  }
+}
+
+function nurani_import_terms() {
+  global $db_url;
+  if (empty($db_url['legacy'])) {
+    return;
+  }
+
+  set_time_limit(0);
+
+  // Read legacy users.
+  db_set_active('legacy');
+  $terms = array();
+  $result = db_query("
+SELECT 
+  n.*, 
+  revision.*,
+  pos.field_pos_value
+FROM {node} n
+INNER JOIN {node_revision} revision 
+  ON n.vid = revision.vid
+LEFT JOIN {field_data_field_pos} pos 
+  ON n.nid = pos.entity_id AND pos.entity_type = 'node'
+WHERE n.type = 'glossary_term'
+ORDER BY n.nid
+  ");
+  while ($term = db_fetch_object($result)) {
+    $terms[] = $term;
+  }
+
+  $translations = array();
+  $result = db_query("
+SELECT 
+  entity_id AS nid,
+  field_ibis_translations_nid AS rid,
+  field_ibis_translations_tid AS tid
+FROM {field_data_field_ibis_translations}
+WHERE 
+  entity_type = 'node' AND
+  bundle = 'glossary_term'
+  ");
+  while ($translation = db_fetch_object($result)) {
+    $translations[$translation->nid][] = $translation;
+  }
+
+  $pos_map = array(
+    'noun' => 'noun',
+    'verb' => 'verb',
+    'adj' => 'adjective',
+  );
+
+  $taxonomy_map = array(
+    1 => 4,
+    2 => 3,
+    3 => 2,
+    4 => 5,
+    5 => 6,
+    6 => 8,
+    7 => 9,
+    8 => 13,
+    9 => 1,
+    10 => 7,
+    11 => 14,
+    12 => 10,
+    13 => 11,
+    14 => 12,
+  );
+
+  // Recreate terms.
+  db_set_active();
+  nurani_load_autoload();
+  module_load_include('inc', 'node', 'node.pages');
+  foreach ($terms as $legacy) {
+    $term = new StdClass;
+    $term->type = 'term';
+    node_object_prepare($term);
+    $term->status = $legacy->status;
+    $term->comment = $legacy->comment;
+    $term->uid = $_SESSION['nurani']['user'][$legacy->uid];
+    $term->name = user_load($term->uid)->name;
+    $term->created = $legacy->created;
+    $term->changed = $legacy->changed;
+    $term->language = $legacy->language;
+    $term->title = $legacy->title;
+    $term->field_part_of_speech[0]['value'] = $pos_map[$legacy->field_pos_value];
+    $term->skip_updateindex = TRUE;
+    $term->notifications_content_disable = TRUE;
+    node_save(node_submit($term));
+    if (empty($term->nid)) {
+      watchdog('nurani', 'Could not create term: !term', array('!term' => print_r($term, TRUE)), WATCHDOG_ERROR);
+    }
+    else {
+      $_SESSION['nurani']['term'][$legacy->nid] = $term->nid;
+    }
+  }
+
+  foreach ($_SESSION['nurani']['term'] as $legacy_nid => $term_nid) {
+    if (!empty($translations[$legacy_nid])) {
+      $term = node_load($term_nid);
+      foreach ($translations[$legacy_nid] as $translation) {
+        $term->field_translation_term[]['nid'] = $_SESSION['nurani']['term'][$translation->rid];
+        $term->field_translation_context[]['value'] = $taxonomy_map[$translation->tid];
+      }
+      $term->skip_updateindex = TRUE;
+      $term->notifications_content_disable = TRUE;
+      node_save($term);
+    }
+  }
+}
+
+function nurani_import_discussions() {
+  global $db_url;
+  if (empty($db_url['legacy'])) {
+    return;
+  }
+
+  set_time_limit(0);
+
+  // Read legacy discussions.
+  db_set_active('legacy');
+  $discussions = array();
+  $result = db_query("
+SELECT 
+  n.*, 
+  revision.*,
+  body.body_value
+FROM {node} n
+INNER JOIN {node_revision} revision 
+  ON n.vid = revision.vid
+LEFT JOIN {field_data_body} body 
+  ON body.entity_id = n.nid AND body.revision_id = revision.vid AND body.entity_type = 'node' AND body.language = n.language
+WHERE n.type = 'discussion'
+ORDER BY n.nid
+  ");
+  while ($discussion = db_fetch_object($result)) {
+    $discussions[] = $discussion;
+  }
+
+  $additionals = array();
+  foreach (array(
+    'texts' => array('table' => 'field_data_field_discussion_text', 'field' => 'field_discussion_text_nid'),
+    'moderators' => array('table' => 'field_data_field_moderators', 'field' => 'field_moderators_uid'),
+    'translators' => array('table' => 'field_data_field_translators', 'field' => 'field_translators_uid'),
+    'scholars' => array('table' => 'field_data_field_scholars', 'field' => 'field_scholars_uid'),
+  ) as $key => $additional) {
+    $result = db_query("
+SELECT
+  entity_id AS nid,
+  delta,
+  {$additional['field']}
+FROM {{$additional['table']}}
+WHERE
+  entity_type = 'node' AND
+  bundle = 'discussion'
+    ");
+    while ($row = db_fetch_object($result)) {
+      $additionals[$key][$row->nid][] = $row;
+    }
+  }
+
+  $translations = array();
+  $result = db_query("
+SELECT 
+  n.*, 
+  revision.*,
+  body.language AS other_language,
+  body.body_value
+FROM {node} n
+INNER JOIN {node_revision} revision 
+  ON n.vid = revision.vid
+INNER JOIN {field_data_body} body 
+  ON body.entity_id = n.nid AND body.revision_id = revision.vid AND body.entity_type = 'node' AND body.language != n.language
+WHERE n.type = 'discussion'
+ORDER BY n.nid
+  ");
+  while ($discussion = db_fetch_object($result)) {
+    $translations[$discussion->nid] = $discussion;
+  }
+
+  // Recreate discussions.
+  db_set_active();
+  nurani_load_autoload();
+  module_load_include('inc', 'node', 'node.pages');
+  foreach ($discussions as $legacy) {
+    $discussion = new StdClass;
+    $discussion->type = 'discussion';
+    node_object_prepare($discussion);
+    $discussion->status = $legacy->status;
+    $discussion->comment = $legacy->comment;
+    $discussion->uid = $_SESSION['nurani']['user'][$legacy->uid];
+    $discussion->name = user_load($discussion->uid)->name;
+    $discussion->created = $legacy->created;
+    $discussion->changed = $legacy->changed;
+    $discussion->language = $legacy->language;
+    $discussion->title = $legacy->title;
+    $discussion->body = $legacy->body_value;
+    if (!empty($additionals['texts'][$legacy->nid])) foreach ($additionals['texts'][$legacy->nid] as $text) {
+      $discussion->field_texts[]['nid'] = $_SESSION['nurani']['text'][$text->field_discussion_text_nid];
+    }
+    if (!empty($additionals['moderators'][$legacy->nid])) foreach ($additionals['moderators'][$legacy->nid] as $moderator) {
+      if ($moderator->field_moderators_uid != $legacy->uid) {
+        $discussion->field_moderators[]['uid'] = $_SESSION['nurani']['user'][$moderator->field_moderators_uid];
+      }
+    }
+    if (!empty($additionals['translators'][$legacy->nid])) foreach ($additionals['translators'][$legacy->nid] as $translator) {
+      if ($translator->field_translators_uid != $legacy->uid) {
+        $discussion->field_translators[]['uid'] = $_SESSION['nurani']['user'][$translator->field_translators_uid];
+      }
+    }
+    if (!empty($additionals['scholars'][$legacy->nid])) foreach ($additionals['scholars'][$legacy->nid] as $scholar) {
+      if ($scholar->field_scholars_uid != $legacy->uid) {
+        $discussion->field_scholars[]['uid'] = $_SESSION['nurani']['user'][$scholar->field_scholars_uid];
+      }
+    }
+    $discussion->skip_updateindex = TRUE;
+    $discussion->notifications_content_disable = TRUE;
+    node_save(node_submit($discussion));
+    if (empty($discussion->nid)) {
+      watchdog('nurani', 'Could not create discussion: !discussion', array('!discussion' => print_r($discussion, TRUE)), WATCHDOG_ERROR);
+    }
+    else {
+      $_SESSION['nurani']['discussion'][$legacy->nid] = $discussion->nid;
+
+      if (!empty($translations[$legacy->nid])) {
+        $legacy_translation = $translations[$legacy->nid];
+        $tnids = translation_node_get_translations($discussion->nid);
+        $translation = node_load($tnids[$legacy_translation->other_language]->nid);
+        $translation->body = empty($legacy_translation->body_value) ? $discussion->body : $legacy_translation->body_value;
+        $translation->skip_updateindex = TRUE;
+        $translation->notifications_content_disable = TRUE;
+        node_save($translation);
+      }
+    }
+  }
+}
+
+function nurani_import_comments($type) {
+  global $db_url;
+  if (empty($db_url['legacy'])) {
+    return;
+  }
+
+  set_time_limit(0);
+
+  // Read legacy comments.
+  db_set_active('legacy');
+  $comments = array();
+  $language_clause = ($type == 'discussion') ? "AND body.language = comment.language" : '';
+  $result = db_query("
+SELECT 
+  comment.*,
+  node.title AS parent_title,
+  body.comment_body_value AS body_value
+FROM {comment} comment
+INNER JOIN {node} node 
+  ON comment.nid = node.nid
+LEFT JOIN {field_data_comment_body} body 
+  ON body.entity_id = comment.cid AND body.entity_type = 'comment' {$language_clause}
+WHERE
+  node.type = '%s' 
+ORDER BY 
+  comment.cid
+  ", $type);
+  while ($comment = db_fetch_object($result)) {
+    $comments[] = $comment;
+  }
+
+  $translations = array();
+  if ($type == 'discussion') {
+    $result = db_query("
+  SELECT 
+    comment.*,
+    body.comment_body_value AS body_value,
+    body.language AS other_language
+  FROM {comment} comment
+  INNER JOIN {node} node 
+    ON comment.nid = node.nid
+  INNER JOIN {field_data_comment_body} body 
+    ON body.entity_id = comment.cid AND body.entity_type = 'comment' AND body.language != comment.language
+  WHERE
+    node.type = '%s' 
+  ORDER BY 
+    comment.cid
+    ", $type);
+    while ($translation = db_fetch_object($result)) {
+      $translations[$translation->cid] = $translation;
+    }
+  }
+
+  $comment_map = array(
+    'discussion' => array(
+      'comment' => 'response',
+      'type' => 'discussion',
+    ),
+    'glossary_term' => array(
+      'comment' => 'annotation',
+      'type' => 'term',
+    ),
+  );
+
+  // Recreate comments.
+  db_set_active();
+  nurani_load_autoload();
+  module_load_include('inc', 'node', 'node.pages');
+  foreach ($comments as $legacy) {
+    $comment = new StdClass();
+    $comment->type = $comment_map[$type]['comment'];
+    node_object_prepare($comment);
+    $comment->status = $legacy->status;
+    $comment->uid = $_SESSION['nurani']['user'][$legacy->uid];
+    $comment->name = $legacy->name;
+    $comment->created = $legacy->created;
+    $comment->changed = $legacy->changed;
+    $comment->language = $legacy->language;
+    $comment->title = t('Re: !title', array('!title' => $legacy->parent_title));
+    $comment->body = $legacy->body_value;
+    $comment->comment_target_nid = $_SESSION['nurani'][$comment_map[$type]['type']][$legacy->nid];
+    $comment->comment_target_cid = $_SESSION['nurani']['comment'][$legacy->pid];
+    $comment->thread = $legacy->thread;
+    $comment->hostname = $legacy->hostname;
+    $comment->skip_updateindex = TRUE;
+    $comment->notifications_content_disable = TRUE;
+    node_save(node_submit($comment));
+    if (empty($comment->nid)) {
+      watchdog('nurani', 'Could not create comment: !comment', array('!comment' => print_r($comment, TRUE)), WATCHDOG_ERROR);
+    }
+    else {
+      $_SESSION['nurani']['comment'][$legacy->cid] = $comment->nid;
+
+      if (!empty($translations[$legacy->cid])) {
+        $legacy_translation = $translations[$legacy->cid];
+        $tnids = translation_node_get_translations($comment->nid);
+        $translation = node_load($tnids[$legacy_translation->other_language]->nid);
+        $translation->body = empty($legacy_translation->body_value) ? $comment->body : $legacy_translation->body_value;
+        $translation->skip_updateindex = TRUE;
+        $translation->notifications_content_disable = TRUE;
+        node_save($translation);
+      }
+    }
   }
 }
 
@@ -488,6 +970,9 @@ function nurani_import_nodes() {
  * Various actions needed to clean up after the installation
  */
 function nurani_cleanup() {
+  // Clear migration data.
+  unset($_SESSION['nurani']);
+
   // Rebuild node access database - required after OG installation
   node_access_rebuild();
   
@@ -498,16 +983,8 @@ function nurani_cleanup() {
   drupal_get_messages('status', TRUE);
 
   // Clear out caches
-  $core = array('cache', 'cache_block', 'cache_filter', 'cache_page');
-  $cache_tables = array_merge(module_invoke_all('flush_caches'), $core);
-  foreach ($cache_tables as $table) {
-    cache_clear_all('*', $table, TRUE);
-  }
-  
-  // Clear out JS and CSS caches
-  drupal_clear_css_cache();
-  drupal_clear_js_cache();
-  
+  drupal_flush_all_caches();
+ 
   // Some features will need reverting
   $revert = array(
     'nurani_general' => array('menu_links'),

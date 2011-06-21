@@ -22,7 +22,7 @@ function nurani_glossary_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   }
 
   // When creating a new term, refresh the index immediately.
-  if (in_array($op, array('insert', 'update'))) {
+  if (in_array($op, array('insert', 'update')) && empty($node->skip_updateindex)) {
     node_update_index();
     search_update_totals();
   }
@@ -222,6 +222,11 @@ function nurani_glossary_filter($op, $delta = 0, $format = -1, $text = '', $cach
 }
 
 function nurani_glossary_filter_process($text) {
+  // Short-circuit of we're installing.
+  if (!empty($_SESSION['nurani'])) {
+    return $text;
+  }
+
   global $language;
   $search = array();
   $replace = array();
