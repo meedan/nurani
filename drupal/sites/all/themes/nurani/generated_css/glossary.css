@@ -1,9 +1,10 @@
+@charset "UTF-8";
 /* theme core colors*/
 /*basics*/
 /*section names */
 /*bright colors*/
 /*dark colors*/
-/* line 2, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_tables.scss */
+/* line 2, ../scss/_tables.scss */
 body.page-glossary .views-table {
   font-size: 12px;
   border-collapse: collapse;
@@ -11,37 +12,37 @@ body.page-glossary .views-table {
   width: 920px;
   margin: 0;
 }
-/* line 9, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_tables.scss */
+/* line 9, ../scss/_tables.scss */
 body.page-glossary .views-table thead {
   padding: 15px 0;
   height: 30px;
   font-size: 1.4em;
 }
-/* line 15, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_tables.scss */
+/* line 15, ../scss/_tables.scss */
 body.page-glossary .views-table th, body.page-glossary .views-table th a {
   font-weight: normal;
   padding: 5px 8px;
   text-decoration: none;
 }
-/* line 21, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_tables.scss */
+/* line 21, ../scss/_tables.scss */
 body.page-glossary .views-table td {
   color: #333;
   padding: 9px 8px 0px 8px;
 }
-/* line 26, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_tables.scss */
+/* line 26, ../scss/_tables.scss */
 body.page-glossary .views-table td.views-field-title {
   background: #eee;
   width: 130px;
 }
-/* line 30, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_tables.scss */
+/* line 30, ../scss/_tables.scss */
 body.page-glossary .views-table td.views-field-field-part-of-speech-value {
   width: 120px;
 }
-/* line 33, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_tables.scss */
+/* line 33, ../scss/_tables.scss */
 body.page-glossary .views-table tbody tr:hover td {
   background-color: white;
 }
-/* line 35, /home/kratib/www/meedan-nurani/drupal/sites/all/themes/nurani/scss/_tables.scss */
+/* line 35, ../scss/_tables.scss */
 body.page-glossary .view-glossary-terms .views-table {
   width: 510px;
 }

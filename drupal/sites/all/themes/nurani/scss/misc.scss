@@ -500,9 +500,23 @@ body.section-node-edit #container div#content-area {
 		padding: 10px;
 		margin: 0 0 10px;
 	}
-	#edit-field-texts-0--remove-wrapper,
-	#edit-field-texts-0-nid-nid-wrapper {
-		padding: 0;
+	#field-texts-items {
+		.form-item {
+			padding: 0;
+		}
+		#autocomplete {
+			background: $white;
+			border: 1px solid $gray;
+			li {
+				padding: 10px;
+			}
+		}
+	}
+	.content-multiple-remove-cell .form-item {
+		margin: 0;
+	}
+	.content-multiple-remove-cell .form-item a {
+		margin-top: -9px;
 	}
 	#edit-field-texts-0-nid-nid {
 		background-position: 100% 7px;
@@ -514,12 +528,12 @@ body.section-node-edit #container div#content-area {
 		font-weight: normal;
 		color: $darkgray;	
 	}
-	#edit-title,
-	#edit-field-texts-0-nid-nid {
+	.form-text,
+	#edit-title {
 		padding: 4px;
 		border: 1px solid #ccc;
 	}
-	#edit-field-texts-0-nid-nid {
+	.form-text {
 		width: 98%;
 	}
 	thead th {
@@ -550,9 +564,7 @@ body.section-node-edit #container div#content-area {
     width: 612px;
 		margin: 0 0 20px;
 		border: 1px solid #ccc;
-	}
-	input.form-autocomplete {
-		height: 18px;
+		eight: 18px;
 		width: 100%;
 	}
 	td.content-multiple-drag {

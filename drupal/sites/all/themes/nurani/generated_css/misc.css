@@ -607,49 +607,68 @@ body.section-node-edit #container div#content-area #edit-title-wrapper {
   margin: 0 0 10px;
 }
 /* line 504, ../scss/misc.scss */
-body.section-node-add #container div#content-area #edit-field-texts-0--remove-wrapper,
-body.section-node-add #container div#content-area #edit-field-texts-0-nid-nid-wrapper,
-body.section-node-edit #container div#content-area #edit-field-texts-0--remove-wrapper,
-body.section-node-edit #container div#content-area #edit-field-texts-0-nid-nid-wrapper {
+body.section-node-add #container div#content-area #field-texts-items .form-item,
+body.section-node-edit #container div#content-area #field-texts-items .form-item {
   padding: 0;
 }
 /* line 507, ../scss/misc.scss */
+body.section-node-add #container div#content-area #field-texts-items #autocomplete,
+body.section-node-edit #container div#content-area #field-texts-items #autocomplete {
+  background: white;
+  border: 1px solid #cccccc;
+}
+/* line 510, ../scss/misc.scss */
+body.section-node-add #container div#content-area #field-texts-items #autocomplete li,
+body.section-node-edit #container div#content-area #field-texts-items #autocomplete li {
+  padding: 10px;
+}
+/* line 515, ../scss/misc.scss */
+body.section-node-add #container div#content-area .content-multiple-remove-cell .form-item,
+body.section-node-edit #container div#content-area .content-multiple-remove-cell .form-item {
+  margin: 0;
+}
+/* line 518, ../scss/misc.scss */
+body.section-node-add #container div#content-area .content-multiple-remove-cell .form-item a,
+body.section-node-edit #container div#content-area .content-multiple-remove-cell .form-item a {
+  margin-top: -9px;
+}
+/* line 521, ../scss/misc.scss */
 body.section-node-add #container div#content-area #edit-field-texts-0-nid-nid,
 body.section-node-edit #container div#content-area #edit-field-texts-0-nid-nid {
   background-position: 100% 7px;
 }
-/* line 510, ../scss/misc.scss */
+/* line 524, ../scss/misc.scss */
 body.section-node-add #container div#content-area #edit-field-texts-0-nid-nid:focus,
 body.section-node-edit #container div#content-area #edit-field-texts-0-nid-nid:focus {
   background-position: 100% -13px;
 }
-/* line 513, ../scss/misc.scss */
+/* line 527, ../scss/misc.scss */
 body.section-node-add #container div#content-area .form-item label,
 body.section-node-edit #container div#content-area .form-item label {
   font-weight: normal;
   color: #aaaaaa;
 }
-/* line 518, ../scss/misc.scss */
+/* line 532, ../scss/misc.scss */
+body.section-node-add #container div#content-area .form-text,
 body.section-node-add #container div#content-area #edit-title,
-body.section-node-add #container div#content-area #edit-field-texts-0-nid-nid,
-body.section-node-edit #container div#content-area #edit-title,
-body.section-node-edit #container div#content-area #edit-field-texts-0-nid-nid {
+body.section-node-edit #container div#content-area .form-text,
+body.section-node-edit #container div#content-area #edit-title {
   padding: 4px;
   border: 1px solid #ccc;
 }
-/* line 522, ../scss/misc.scss */
-body.section-node-add #container div#content-area #edit-field-texts-0-nid-nid,
-body.section-node-edit #container div#content-area #edit-field-texts-0-nid-nid {
+/* line 536, ../scss/misc.scss */
+body.section-node-add #container div#content-area .form-text,
+body.section-node-edit #container div#content-area .form-text {
   width: 98%;
 }
-/* line 525, ../scss/misc.scss */
+/* line 539, ../scss/misc.scss */
 body.section-node-add #container div#content-area thead th,
 body.section-node-edit #container div#content-area thead th {
   color: #aaaaaa;
   border-bottom: 0;
   font-weight: normal;
 }
-/* line 530, ../scss/misc.scss */
+/* line 544, ../scss/misc.scss */
 body.section-node-add #container div#content-area tr.odd, body.section-node-add #container div#content-area tr.even, body.section-node-add #container div#content-area tbody,
 body.section-node-edit #container div#content-area tr.odd,
 body.section-node-edit #container div#content-area tr.even,
@@ -657,29 +676,29 @@ body.section-node-edit #container div#content-area tbody {
   border-bottom: 0;
   border-top: 0;
 }
-/* line 534, ../scss/misc.scss */
+/* line 548, ../scss/misc.scss */
 body.section-node-add #container div#content-area tr.even td, body.section-node-add #container div#content-area tr.odd td,
 body.section-node-edit #container div#content-area tr.even td,
 body.section-node-edit #container div#content-area tr.odd td {
   background: #f5f5f5;
   padding: 0 0 5px 0;
 }
-/* line 538, ../scss/misc.scss */
+/* line 552, ../scss/misc.scss */
 body.section-node-add #container div#content-area .content-add-more,
 body.section-node-edit #container div#content-area .content-add-more {
   margin: 0 0 0 20px;
 }
-/* line 541, ../scss/misc.scss */
+/* line 555, ../scss/misc.scss */
 body.section-node-add #container div#content-area .resizable-textarea,
 body.section-node-edit #container div#content-area .resizable-textarea {
   width: 99%;
 }
-/* line 544, ../scss/misc.scss */
+/* line 558, ../scss/misc.scss */
 body.section-node-add #container div#content-area .grippie,
 body.section-node-edit #container div#content-area .grippie {
   display: none;
 }
-/* line 547, ../scss/misc.scss */
+/* line 561, ../scss/misc.scss */
 body.section-node-add #container div#content-area #edit-body,
 body.section-node-edit #container div#content-area #edit-body {
   box-shadow: 0 3px 0 #eeeeee;
@@ -687,14 +706,10 @@ body.section-node-edit #container div#content-area #edit-body {
   width: 612px;
   margin: 0 0 20px;
   border: 1px solid #ccc;
-}
-/* line 554, ../scss/misc.scss */
-body.section-node-add #container div#content-area input.form-autocomplete,
-body.section-node-edit #container div#content-area input.form-autocomplete {
-  height: 18px;
+  eight: 18px;
   width: 100%;
 }
-/* line 558, ../scss/misc.scss */
+/* line 570, ../scss/misc.scss */
 body.section-node-add #container div#content-area td.content-multiple-drag,
 body.section-node-edit #container div#content-area td.content-multiple-drag {
   width: 17px;
