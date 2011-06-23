@@ -41,16 +41,19 @@
     }
     li {
       display: inline;
-      margin-right: 10px;
+			padding: 0 0 0 15px;
       a {
         color: darken($body-bkg, 50%)!important; 
         display: inline;
         border-right: 1px dotted darken($body-bkg, 50%);
         text-transform: uppercase;
-        padding-right: 10px;
+        padding-right: 15px;
         @include display;
         font-weight: normal;
       }
     }
+		li.last a {
+			border: 0;
+		}
   }
 }

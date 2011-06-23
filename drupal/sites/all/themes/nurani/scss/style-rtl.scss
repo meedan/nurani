@@ -313,3 +313,9 @@ body.i18n-ar.node-type-discussion {
 		}
 	}
 }
+#outer-footer ul#secondary li.last a {	
+	border-right: 1px dotted #8D6349;
+}
+#outer-footer ul#secondary li.first a {	
+	border-right: 0;
+}

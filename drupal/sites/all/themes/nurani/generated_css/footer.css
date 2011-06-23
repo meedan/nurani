@@ -312,7 +312,7 @@ h1.title {
 /* line 42, ../scss/footer.scss */
 #outer-footer ul#secondary li {
   display: inline;
-  margin-right: 10px;
+  padding: 0 0 0 15px;
 }
 /* line 45, ../scss/footer.scss */
 #outer-footer ul#secondary li a {
@@ -320,7 +320,11 @@ h1.title {
   display: inline;
   border-right: 1px dotted #8d6349;
   text-transform: uppercase;
-  padding-right: 10px;
+  padding-right: 15px;
   font-family: Georgia, Times, Times New Roman, serif;
   font-weight: normal;
+}
+/* line 55, ../scss/footer.scss */
+#outer-footer ul#secondary li.last a {
+  border: 0;
 }
