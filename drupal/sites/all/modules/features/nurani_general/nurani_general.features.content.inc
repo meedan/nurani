@@ -1353,7 +1353,11 @@ prof|Prof.',
     'allowed_values' => 'noun|Noun
 verb|Verb
 adjective|Adjective',
-    'allowed_values_php' => '',
+    'allowed_values_php' => 'return array(
+\'noun\' => t(\'Noun\'),
+\'verb\' => t(\'Verb\'),
+\'adjective\' => t(\'Adjective\'),
+);',
     'widget' => array(
       'default_value' => array(
         '0' => array(

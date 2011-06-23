@@ -169,6 +169,13 @@ function nurani_general_ds_default_settings() {
               'css-class' => '',
               'labelformat' => 'hidden',
             ),
+            'field_exp_comments' => array(
+              'region' => 'disabled',
+              'weight' => '-89',
+              'format' => 'default',
+              'css-class' => '',
+              'labelformat' => 'hidden',
+            ),
             'field_moderators' => array(
               'region' => 'disabled',
               'weight' => '-92',
@@ -193,13 +200,6 @@ function nurani_general_ds_default_settings() {
               'label_value' => 'Scholars',
               'labelformat' => 'above',
             ),
-            'field_exp_comments' => array(
-              'region' => 'disabled',
-              'weight' => '-89',
-              'format' => 'default',
-              'css-class' => '',
-              'labelformat' => 'hidden',
-            ),
             'title' => array(
               'region' => 'disabled',
               'weight' => '-90',
@@ -210,7 +210,7 @@ function nurani_general_ds_default_settings() {
             'author' => array(
               'region' => 'middle',
               'weight' => '-100',
-              'format' => 'ds_author_link',
+              'format' => 'ds_author_nolink',
               'css-class' => '',
               'label_value' => 'Author',
               'labelformat' => 'hidden',

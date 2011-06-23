@@ -1814,6 +1814,13 @@ The Service Providers may use session cookies when you visit our website while y
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
+        'field_exp_comments' => array(
+          'region' => 'disabled',
+          'weight' => '-89',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
         'field_moderators' => array(
           'region' => 'disabled',
           'weight' => '-92',
@@ -1838,13 +1845,6 @@ The Service Providers may use session cookies when you visit our website while y
           'label_value' => 'Scholars',
           'labelformat' => 'above',
         ),
-        'field_exp_comments' => array(
-          'region' => 'disabled',
-          'weight' => '-89',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
         'title' => array(
           'region' => 'disabled',
           'weight' => '-90',
@@ -1855,7 +1855,7 @@ The Service Providers may use session cookies when you visit our website while y
         'author' => array(
           'region' => 'middle',
           'weight' => '-100',
-          'format' => 'ds_author_link',
+          'format' => 'ds_author_nolink',
           'css-class' => '',
           'label_value' => 'Author',
           'labelformat' => 'hidden',
