@@ -439,6 +439,15 @@ return $count;',
       'relationship' => 'none',
     ),
   ));
+  $handler->override_option('sorts', array(
+    'name' => array(
+      'order' => 'ASC',
+      'id' => 'name',
+      'table' => 'users',
+      'field' => 'name',
+      'relationship' => 'none',
+    ),
+  ));
   $handler->override_option('arguments', array(
     'rid' => array(
       'default_action' => 'not found',
@@ -2383,6 +2392,28 @@ return $pending === FALSE || $node->nid != $node->tnid;',
       'id' => 'type_1',
       'table' => 'node',
       'field' => 'type',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+    'login' => array(
+      'operator' => '>',
+      'value' => array(
+        'type' => 'date',
+        'value' => '1971-11-26',
+        'min' => '',
+        'max' => '',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'login',
+      'table' => 'users',
+      'field' => 'login',
       'override' => array(
         'button' => 'Override',
       ),
