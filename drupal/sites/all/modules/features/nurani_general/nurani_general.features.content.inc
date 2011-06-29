@@ -818,7 +818,13 @@ function nurani_general_content_default_fields() {
 moderate|Moderate
 fluent|Fluent
 expert|Expert',
-    'allowed_values_php' => '',
+    'allowed_values_php' => 'return array(
+\'beginner\' => t(\'Beginner\'),
+\'moderate\' => t(\'Moderate\'),
+\'fluent\' => t(\'Fluent\'),
+\'expert\' => t(\'Expert\'),
+);
+',
     'widget' => array(
       'rows' => 5,
       'size' => '60',
@@ -886,7 +892,13 @@ expert|Expert',
 moderate|Moderate
 fluent|Fluent
 expert|Expert',
-    'allowed_values_php' => '',
+    'allowed_values_php' => 'return array(
+\'beginner\' => t(\'Beginner\'),
+\'moderate\' => t(\'Moderate\'),
+\'fluent\' => t(\'Fluent\'),
+\'expert\' => t(\'Expert\'),
+);
+',
     'widget' => array(
       'rows' => 5,
       'size' => '60',
@@ -1281,7 +1293,14 @@ mr|Mr.
 mrs|Mrs.
 ms|Ms.
 prof|Prof.',
-    'allowed_values_php' => '',
+    'allowed_values_php' => 'return array(
+\'dr\' => t(\'Dr.\'),
+\'mr\' => t(\'Mr.\'),
+\'mrs\' => t(\'Mrs.\'),
+\'ms\' => t(\'Ms.\'),
+\'prof\' => t(\'Prof.\'),
+);
+',
     'widget' => array(
       'default_value' => array(
         '0' => array(
