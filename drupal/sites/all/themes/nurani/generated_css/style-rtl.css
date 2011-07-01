@@ -425,18 +425,16 @@ body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inn
   padding-right: 7px;
   padding-left: 20px;
 }
-
-/* line 316, ../scss/style-rtl.scss */
-#outer-footer ul#secondary li.last a {
+/* line 315, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #outer-footer ul#secondary li.last a {
   border-right: 1px dotted #8D6349;
 }
-
-/* line 319, ../scss/style-rtl.scss */
-#outer-footer ul#secondary li.first a {
+/* line 318, ../scss/style-rtl.scss */
+body.i18n-ar.node-type-discussion #outer-footer ul#secondary li.first a {
   border-right: 0;
 }
 
 /* line 322, ../scss/style-rtl.scss */
-body.section-node-edit div#container {
+body.i18n-ar.section-node-edit div#container {
   text-align: right;
 }
