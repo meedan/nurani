@@ -435,3 +435,8 @@ body.i18n-ar.node-type-discussion #container #sidebar-second #sidebar-second-inn
 #outer-footer ul#secondary li.first a {
   border-right: 0;
 }
+
+/* line 322, ../scss/style-rtl.scss */
+body.section-node-edit div#container {
+  text-align: right;
+}
