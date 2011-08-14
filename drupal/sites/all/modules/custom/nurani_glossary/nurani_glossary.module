@@ -230,12 +230,13 @@ function nurani_glossary_filter_process($text) {
   global $language;
   $search = array();
   $replace = array();
-  $result = db_query("SELECT title, nid FROM {node} WHERE type = 'term' AND language = '%s'", $language->language);
+  $result = db_query("SELECT title, nid FROM {node} WHERE type = 'term' AND language='%s'", $language->language);
   while ($term = db_fetch_object($result)) {
-    $search[] = "/(\W)({$term->title})(\W)/i";
-    $replace[] = '$1<span class="glossary-term"><a href="' . url('node/' . $term->nid) . '">$2</a></span>$3';
+    $search[] = $term->title;
+    $replace[] = '<span class="glossary-term"><a href="' . url('node/' . $term->nid) . '">' . $term->title . '</a></span>';
   }
-  return preg_replace($search, $replace, $text);
+  $filtered = str_ireplace($search, $replace, $text);
+  return empty($filtered) ? $text : $filtered;
 }
 
 function nurani_glossary_noderefcreate_alter(&$node, $element) {
