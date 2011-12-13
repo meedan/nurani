@@ -767,16 +767,7 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'content_profile_profile';
-  $strongarm->value = array(
-    'weight' => '0',
-    'user_display' => 'full',
-    'edit_link' => 0,
-    'edit_tab' => 'sub',
-    'add_link' => 1,
-    'registration_use' => 1,
-    'admin_user_create_use' => 1,
-    'registration_hide' => array(),
-  );
+  $strongarm->value = array();
 
   $export['content_profile_profile'] = $strongarm;
   $strongarm = new stdClass;
@@ -865,8 +856,12 @@ The Service Providers may use session cookies when you visit our website while y
         'weight' => 14,
         'title' => 'Search Result',
       ),
-      'token' => array(
+      5 => array(
         'weight' => 17,
+        'title' => 'Print',
+      ),
+      'token' => array(
+        'weight' => 18,
         'title' => 'Token',
       ),
       'text_summary' => array(
@@ -965,7 +960,7 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'i18n_lock_node_text';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
 
   $export['i18n_lock_node_text'] = $strongarm;
   $strongarm = new stdClass;
@@ -1028,7 +1023,7 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'i18n_newnode_current_text';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
 
   $export['i18n_newnode_current_text'] = $strongarm;
   $strongarm = new stdClass;
@@ -2161,7 +2156,7 @@ The Service Providers may use session cookies when you visit our website while y
       'fields' => array(
         'field_description' => array(
           'region' => 'disabled',
-          'weight' => '-95',
+          'weight' => '-96',
           'format' => 'default',
           'css-class' => '',
           'labelformat' => 'hidden',
@@ -2175,28 +2170,28 @@ The Service Providers may use session cookies when you visit our website while y
         ),
         'author' => array(
           'region' => 'disabled',
-          'weight' => '-94',
+          'weight' => '-95',
           'format' => 'ds_author_nolink',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'links' => array(
           'region' => 'disabled',
-          'weight' => '-92',
+          'weight' => '-93',
           'format' => '',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'read_more' => array(
           'region' => 'disabled',
-          'weight' => '-96',
+          'weight' => '-97',
           'format' => 'ds_eval_code',
           'css-class' => '',
           'labelformat' => 'hidden',
         ),
         'post_date' => array(
           'region' => 'disabled',
-          'weight' => '-97',
+          'weight' => '-98',
           'format' => 'nd_post_date_long',
           'css-class' => '',
           'labelformat' => 'hidden',
@@ -2210,7 +2205,7 @@ The Service Providers may use session cookies when you visit our website while y
         ),
         'translation_status' => array(
           'region' => 'disabled',
-          'weight' => '-93',
+          'weight' => '-94',
           'format' => 'ds_eval_code',
           'css-class' => '',
           'labelformat' => 'hidden',

@@ -81,12 +81,7 @@ body.i18n-ar #comment-form label[for="edit-subject"] {
   margin-right: 0;
 }
 /* line 68, ../scss/style-rtl.scss */
-body.i18n-ar #sidebar-second,
-body.i18n-ar .sidebar-second #main,
-body.i18n-ar .text,
-body.i18n-ar .author-photo,
-body.i18n-ar .view-texts-in-discussion .views-row,
-body.i18n-ar .view-overview .views-field-title {
+body.i18n-ar #sidebar-second, body.i18n-ar .sidebar-second #main, body.i18n-ar .text, body.i18n-ar .author-photo, body.i18n-ar .view-texts-in-discussion .views-row, body.i18n-ar .view-overview .views-field-title {
   float: right;
 }
 /* line 72, ../scss/style-rtl.scss */
@@ -192,9 +187,7 @@ body.i18n-ar #block-locale-0 li.en {
   display: block;
 }
 /* line 113, ../scss/style-rtl.scss */
-body.i18n-ar ul.menu li.last,
-body.i18n-ar ul.menu li.first,
-body.i18n-ar ul.menu li {
+body.i18n-ar ul.menu li.last, body.i18n-ar ul.menu li.first, body.i18n-ar ul.menu li {
   float: right;
 }
 /* line 118, ../scss/style-rtl.scss */
@@ -230,8 +223,7 @@ body.i18n-ar .view-discussions .views-field-php {
   margin-right: 0;
 }
 /* line 149, ../scss/style-rtl.scss */
-body.i18n-ar #block-views-new_texts-block_1 h3,
-body.i18n-ar #block-views-new_glossary_terms-block_1 h3 {
+body.i18n-ar #block-views-new_texts-block_1 h3, body.i18n-ar #block-views-new_glossary_terms-block_1 h3 {
   background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
   padding: 10px 20px 10px 0;
 }
@@ -245,13 +237,11 @@ body.i18n-ar #block-views-nuranis-block_1 h3.collapsed {
   background: url("../images/arrow-collapse-rtl.png") no-repeat right center;
 }
 /* line 161, ../scss/style-rtl.scss */
-body.i18n-ar #block-views-new_texts-block_1 h3.expand,
-body.i18n-ar #block-views-new_glossary_terms-block_1 h3.expand {
+body.i18n-ar #block-views-new_texts-block_1 h3.expand, body.i18n-ar #block-views-new_glossary_terms-block_1 h3.expand {
   background: url("../images/arrow-expand.png") no-repeat right center;
 }
 /* line 165, ../scss/style-rtl.scss */
-body.i18n-ar #block-views-new_texts-block_1 .views-row,
-body.i18n-ar #block-views-new_glossary_terms-block_1 .views-row {
+body.i18n-ar #block-views-new_texts-block_1 .views-row, body.i18n-ar #block-views-new_glossary_terms-block_1 .views-row {
   background: url("../images/point-rtl.png") no-repeat right 6px;
   margin: 0 20px 0 0;
   padding: 0 15px 10px 0;
@@ -359,8 +349,7 @@ body.i18n-ar.node-type-discussion #container #content-area .node-type-discussion
   right: 0px;
 }
 /* line 257, ../scss/style-rtl.scss */
-body.i18n-ar.node-type-discussion #container #content-area .translation-status,
-body.i18n-ar.node-type-discussion #container #content-area .translation-status-original {
+body.i18n-ar.node-type-discussion #container #content-area .translation-status, body.i18n-ar.node-type-discussion #container #content-area .translation-status-original {
   border-radius: 0 5px 0 0;
 }
 /* line 260, ../scss/style-rtl.scss */

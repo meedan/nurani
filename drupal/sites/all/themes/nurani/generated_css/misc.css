@@ -590,12 +590,7 @@ body.section-node-edit #container div#content-area #edit-preview {
   float: left;
 }
 /* line 498, ../scss/misc.scss */
-body.section-node-add #container div#content-area #field-texts-items,
-body.section-node-add #container div#content-area .body-field-wrapper,
-body.section-node-add #container div#content-area .container-inline-date,
-body.section-node-add #container div#content-area .form-item,
-body.section-node-add #container div#content-area #edit-language-wrapper,
-body.section-node-add #container div#content-area #edit-title-wrapper,
+body.section-node-add #container div#content-area #field-texts-items, body.section-node-add #container div#content-area .body-field-wrapper, body.section-node-add #container div#content-area .container-inline-date, body.section-node-add #container div#content-area .form-item, body.section-node-add #container div#content-area #edit-language-wrapper, body.section-node-add #container div#content-area #edit-title-wrapper,
 body.section-node-edit #container div#content-area #field-texts-items,
 body.section-node-edit #container div#content-area .body-field-wrapper,
 body.section-node-edit #container div#content-area .container-inline-date,
@@ -649,8 +644,7 @@ body.section-node-edit #container div#content-area .form-item label {
   color: #aaaaaa;
 }
 /* line 532, ../scss/misc.scss */
-body.section-node-add #container div#content-area .form-text,
-body.section-node-add #container div#content-area #edit-title,
+body.section-node-add #container div#content-area .form-text, body.section-node-add #container div#content-area #edit-title,
 body.section-node-edit #container div#content-area .form-text,
 body.section-node-edit #container div#content-area #edit-title {
   padding: 4px;

@@ -76,6 +76,7 @@ function nurani_general_user_default_permissions() {
     'roles' => array(
       '0' => 'administrator',
       '1' => 'moderator',
+      '2' => 'translator',
     ),
   );
 

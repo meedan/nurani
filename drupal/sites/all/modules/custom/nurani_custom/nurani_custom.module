@@ -245,6 +245,7 @@ function nurani_custom_link($type, $object, $teaser = FALSE) {
       );
     }
   }
+ 
 
   if ($type == 'node' && translation_supported_type($object->type)) {
     if (($language = _nurani_custom_translation_pending($object, TRUE)) && user_access(ICL_TRANSLATE_DO_JOBS)) {
