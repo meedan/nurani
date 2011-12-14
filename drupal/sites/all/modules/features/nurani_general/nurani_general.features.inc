@@ -203,6 +203,7 @@ function nurani_general_rules_defaults() {
         ),
         '#actions' => array(
           '0' => array(
+            '#weight' => 0,
             '#info' => array(
               'module' => 'Node',
               'arguments' => array(
@@ -220,7 +221,7 @@ function nurani_general_rules_defaults() {
             '#settings' => array(
               'subject_ar' => '',
               'message_ar' => '',
-              'subject_en' => '[author-name] has invited you to participate in ',
+              'subject_en' => '[author-name] has invited you to participate in a new discussion',
               'message_en' => 'Hello [user]
 
 [author-name] has just started a new discussion about [title] on Nurani.
@@ -238,7 +239,6 @@ The Nurani team',
               ),
             ),
             '#type' => 'action',
-            '#weight' => 0,
           ),
         ),
         '#version' => 6003,
