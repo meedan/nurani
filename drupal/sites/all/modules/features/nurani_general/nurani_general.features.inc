@@ -401,11 +401,13 @@ The Nurani team',
               'subject_ar' => '',
               'message_ar' => '',
               'subject_en' => '[author-name] has just responded on [current-page-title] on Nurani',
-              'message_en' => 'Dear [user]
+              'message_en' => 'Dear [user],
+
 [author-name] has just posted a new response to Nurani on [current-page-title]. 
 
 Saying:
-[node-teaser]
+
+[node-body]
 
 you can be the first to reply here:[node-url]
 
