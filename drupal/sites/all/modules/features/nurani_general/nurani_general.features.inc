@@ -158,7 +158,13 @@ function nurani_general_rules_defaults() {
         '#status' => 'default',
         '#conditions' => array(
           '0' => array(
-            '#weight' => 0,
+            '#type' => 'condition',
+            '#settings' => array(
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'rules_condition_content_is_published',
             '#info' => array(
               'label' => 'Created content is published',
               'arguments' => array(
@@ -169,25 +175,10 @@ function nurani_general_rules_defaults() {
               ),
               'module' => 'Node',
             ),
-            '#name' => 'rules_condition_content_is_published',
-            '#settings' => array(
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#type' => 'condition',
+            '#weight' => 0,
           ),
           '1' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              'type' => array(
-                'discussion' => 'discussion',
-              ),
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'rules_condition_content_is_type',
+            '#weight' => 0,
             '#info' => array(
               'label' => 'Created content is Discussion',
               'arguments' => array(
@@ -198,29 +189,35 @@ function nurani_general_rules_defaults() {
               ),
               'module' => 'Node',
             ),
-            '#weight' => 0,
+            '#name' => 'rules_condition_content_is_type',
+            '#settings' => array(
+              'type' => array(
+                'discussion' => 'discussion',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
           ),
         ),
         '#actions' => array(
           '0' => array(
             '#weight' => 0,
-            '#info' => array(
-              'module' => 'Node',
-              'arguments' => array(
-                'node' => array(
-                  'label' => 'Content',
-                  'type' => 'node',
-                ),
-              ),
-              'label' => 'Notify subscribed users',
-              'base' => 'rules_core_action_execute',
-              'action_name' => 'yallah_notifications_action',
-              'configurable' => TRUE,
-            ),
-            '#name' => 'rules_core_yallah_notifications_action',
+            '#type' => 'action',
             '#settings' => array(
-              'subject_ar' => '',
-              'message_ar' => '',
+              'subject_ar' => '[author-name] has invited you to participate in a new discussion',
+              'message_ar' => '
+مرحبا [user]
+مناقشة جديدة حول [eltit] قد بدأت للتو على موقع نورانى
+يمكنك أن تكون أول من يبدي رأيه هنا : [node-url]
+نحن نتطلع إلى قراءة تعليقاتك وأفكارك.
+بالاضافة الى هذا فاننا بصدداختبار موقع نورانى ونبذل قصارى جهدنا لتحسينه قدر الإمكان، لذلك فإننا نرجوأن ترسل لنا ملاحظاتك واقتراحاتك الى البريد الاكتروني:  
+sronline@interfaith.cam.ac.uk
+
+شكرا ،
+فريق نورانى
+',
               'subject_en' => '[author-name] has invited you to participate in a new discussion',
               'message_en' => 'Hello [user]
 
@@ -238,7 +235,20 @@ The Nurani team',
                 'node' => 'node',
               ),
             ),
-            '#type' => 'action',
+            '#name' => 'rules_core_yallah_notifications_action',
+            '#info' => array(
+              'module' => 'Node',
+              'arguments' => array(
+                'node' => array(
+                  'label' => 'Content',
+                  'type' => 'node',
+                ),
+              ),
+              'label' => 'Notify subscribed users',
+              'base' => 'rules_core_action_execute',
+              'action_name' => 'yallah_notifications_action',
+              'configurable' => TRUE,
+            ),
           ),
         ),
         '#version' => 6003,
@@ -337,7 +347,16 @@ The Nurani team',
         '#status' => 'default',
         '#conditions' => array(
           '0' => array(
-            '#weight' => 0,
+            '#type' => 'condition',
+            '#settings' => array(
+              'type' => array(
+                'response' => 'response',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'rules_condition_content_is_type',
             '#info' => array(
               'label' => 'Created content is Response',
               'arguments' => array(
@@ -348,25 +367,10 @@ The Nurani team',
               ),
               'module' => 'Node',
             ),
-            '#name' => 'rules_condition_content_is_type',
-            '#settings' => array(
-              'type' => array(
-                'response' => 'response',
-              ),
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#type' => 'condition',
+            '#weight' => 0,
           ),
           '1' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'rules_condition_content_is_published',
+            '#weight' => 0,
             '#info' => array(
               'label' => 'Created content is published',
               'arguments' => array(
@@ -377,29 +381,37 @@ The Nurani team',
               ),
               'module' => 'Node',
             ),
-            '#weight' => 0,
+            '#name' => 'rules_condition_content_is_published',
+            '#settings' => array(
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
           ),
         ),
         '#actions' => array(
           '0' => array(
             '#weight' => 0,
-            '#info' => array(
-              'module' => 'Node',
-              'arguments' => array(
-                'node' => array(
-                  'label' => 'Content',
-                  'type' => 'node',
-                ),
-              ),
-              'label' => 'Notify subscribed users',
-              'base' => 'rules_core_action_execute',
-              'action_name' => 'yallah_notifications_action',
-              'configurable' => TRUE,
-            ),
-            '#name' => 'rules_core_yallah_notifications_action',
+            '#type' => 'action',
             '#settings' => array(
-              'subject_ar' => '',
-              'message_ar' => '',
+              'subject_ar' => '[author-name] has just responded on [current-page-title] on Nurani',
+              'message_ar' => 'مرحبا [user]
+
+ [current-page-title]  تعليقا جديدا[author-name] لقد نشر   
+
+قائلا: 
+
+[node-body]
+
+ [node-url]يرد عليه   أول من يمكنك أن تكون
+نحن نتطلع إلى قراءة تعليقاتك وأفكارك
+بالاضافة الى هذا فاننا بصدداختبار موقع نورانى ونبذل قصارى جهدنا لتحسينه قدر الإمكان، لذلك فإننا نرجوأن ترسل لنا ملاحظاتك واقتراحاتك الى البريد الاكتروني:  
+sronline@interfaith.cam.ac.uk
+
+ شكرا ،
+فريق نورانى
+',
               'subject_en' => '[author-name] has just responded on [current-page-title] on Nurani',
               'message_en' => 'Dear [user],
 
@@ -421,7 +433,20 @@ The Nurani Team.
                 'node' => 'node',
               ),
             ),
-            '#type' => 'action',
+            '#name' => 'rules_core_yallah_notifications_action',
+            '#info' => array(
+              'module' => 'Node',
+              'arguments' => array(
+                'node' => array(
+                  'label' => 'Content',
+                  'type' => 'node',
+                ),
+              ),
+              'label' => 'Notify subscribed users',
+              'base' => 'rules_core_action_execute',
+              'action_name' => 'yallah_notifications_action',
+              'configurable' => TRUE,
+            ),
           ),
         ),
         '#version' => 6003,
