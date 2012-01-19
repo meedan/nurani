@@ -41,7 +41,7 @@ ul.links.inline {
 ul.links li {
   display: inline;
   list-style-type: none;
-  padding: 0 0.5em;
+  padding: 0 -0.5em;
 }
 .block ul {
   margin: 0;
