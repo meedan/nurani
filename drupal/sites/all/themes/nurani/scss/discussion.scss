@@ -86,14 +86,14 @@ body.node-type-discussion {
       float: left;
       position: relative;
       line-height: 1.3em;
-			font-size: 0.8em;
+			font-size: 1em;
       h1 {
-  	    width: $text_width - 40px;
+  	    width: $text_width - 33px;
      	 	background: $paper;
         font-size: 1.5em;
 				text-transform: inherit;
         line-height: 1.2em;
-        letter-spacing: -0.3px;
+        letter-spacing: -1.3px;
 				text-align: left;
         color: #000;
 				margin: 0;
@@ -107,7 +107,7 @@ body.node-type-discussion {
 			}
 			.field-body,
 			.nurani-glossary-processed {
-      	width: $text_width - 40px;
+      	width: $text_width - 33px;
     	  padding: 10px 10px 35px;
 				background: $paper;
 				height: 160px;
@@ -115,12 +115,12 @@ body.node-type-discussion {
 			}
 			.field-text-links {
 				background: $paper;
-				padding: 10px 0;
-				height: 20px;
+				padding: 12px 0;
+				height: 30px;
 				li a {
 				 	@include soft_button;
         	font-size: 13px;
-					margin: 0 5px;	
+					margin: 0 2px;	
 					display: inline-block;
 				}
 			}
@@ -194,7 +194,7 @@ body.node-type-discussion {
 			.node-type-discussion {
 			  border: 1px solid $gray;
 				padding: 10px 0 0 10px;
-				margin: 0 0 0 20px;
+				margin: 0;
 				.field-author {
 					float: left;
 				}	

@@ -95,7 +95,7 @@ body.i18n-ar ul#primary li.first {
   padding: 0;
   margin: 0;
 }
-/* line 76, ../scss/_buttons.scss */
+/* line 76, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a {
   font-size: 20px;
   background: url("../images/d_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -107,7 +107,7 @@ body.i18n-ar ul#primary li.first a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 93, ../scss/_buttons.scss */
+/* line 93, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.i18n-ar ul#primary li.first a.active {
   background: url("../images/d_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -118,7 +118,7 @@ body.i18n-ar ul#primary li {
   padding: 0;
   margin: 0;
 }
-/* line 76, ../scss/_buttons.scss */
+/* line 76, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.i18n-ar ul#primary li a {
   font-size: 20px;
   background: url("../images/g_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -130,7 +130,7 @@ body.i18n-ar ul#primary li a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 93, ../scss/_buttons.scss */
+/* line 93, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.i18n-ar ul#primary li a.active {
   background: url("../images/g_active.png") no-repeat scroll 10px 20px transparent;
 }
@@ -141,7 +141,7 @@ body.i18n-ar ul#primary li.last {
   padding: 0;
   margin: 0;
 }
-/* line 76, ../scss/_buttons.scss */
+/* line 76, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a {
   font-size: 20px;
   background: url("../images/t_inactive.png") no-repeat scroll 10px 20px transparent;
@@ -153,7 +153,7 @@ body.i18n-ar ul#primary li.last a {
   padding-right: 50px;
   padding-left: 10px;
 }
-/* line 93, ../scss/_buttons.scss */
+/* line 93, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.i18n-ar ul#primary li.last a.active {
   background: url("../images/t_active.png") no-repeat scroll 10px 20px transparent;
 }

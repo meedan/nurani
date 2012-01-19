@@ -31,7 +31,7 @@ body.page-user.not-logged-in label, body.page-user.not-logged-in input {
 }
 /* line 37, ../scss/login.scss */
 body.page-user.not-logged-in input.form-submit {
-  width: 70px;
+  width: 167px;
   margin: 0 0 20px;
   display: block;
 }

@@ -107,7 +107,7 @@
   border: 1px solid darken($base_color, 20%);
   color: darken($base_color, 80%);
   text-decoration: none;
-  padding: 5px;
+  padding: 7px;
   @include border-radius(4px, 4px);
 
 &:active {

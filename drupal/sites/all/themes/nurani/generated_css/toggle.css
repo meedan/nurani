@@ -78,7 +78,7 @@ body.ar #block-locale-language ul li.en {
   -khtml-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-/* line 21, ../scss/_buttons.scss */
+/* line 21, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
@@ -87,7 +87,7 @@ body.ar #block-locale-language ul li.en:hover {
   background-image: -ms-linear-gradient(top, #ffffff, #d5d5d5);
   background-image: linear-gradient(top, #ffffff, #d5d5d5);
 }
-/* line 25, ../scss/_buttons.scss */
+/* line 25, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.ar #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
@@ -145,7 +145,7 @@ body.ar #block-locale-language ul li.ar {
   box-shadow: inset 1px 1px 3px 3px #bfbfbf;
   border-left: 1px solid #999999;
 }
-/* line 21, ../scss/_buttons.scss */
+/* line 21, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
@@ -154,7 +154,7 @@ body.ar #block-locale-language ul li.ar:hover {
   background-image: -ms-linear-gradient(top, #ffffff, #d5d5d5);
   background-image: linear-gradient(top, #ffffff, #d5d5d5);
 }
-/* line 25, ../scss/_buttons.scss */
+/* line 25, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.ar #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
@@ -212,7 +212,7 @@ body.en #block-locale-language ul li.en {
   box-shadow: inset 1px 1px 3px 3px #bfbfbf;
   border-left: 1px solid #999999;
 }
-/* line 21, ../scss/_buttons.scss */
+/* line 21, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.en #block-locale-language ul li.en:hover {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
@@ -221,7 +221,7 @@ body.en #block-locale-language ul li.en:hover {
   background-image: -ms-linear-gradient(top, #ffffff, #d5d5d5);
   background-image: linear-gradient(top, #ffffff, #d5d5d5);
 }
-/* line 25, ../scss/_buttons.scss */
+/* line 25, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.en #block-locale-language ul li.en:active {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);
@@ -274,7 +274,7 @@ body.en #block-locale-language ul li.ar {
   border-bottom-left-radius: 0;
   float: right;
 }
-/* line 21, ../scss/_buttons.scss */
+/* line 21, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:hover {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(top, #ffffff, #d5d5d5);
@@ -283,7 +283,7 @@ body.en #block-locale-language ul li.ar:hover {
   background-image: -ms-linear-gradient(top, #ffffff, #d5d5d5);
   background-image: linear-gradient(top, #ffffff, #d5d5d5);
 }
-/* line 25, ../scss/_buttons.scss */
+/* line 25, C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_buttons.scss */
 body.en #block-locale-language ul li.ar:active {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888888), color-stop(100%, #d5d5d5));
   background-image: -webkit-linear-gradient(top, #888888, #d5d5d5);

@@ -1163,7 +1163,7 @@ body.page-user.not-logged-in label, body.page-user.not-logged-in input {
 }
 /* line 37, ../scss/login.scss */
 body.page-user.not-logged-in input.form-submit {
-  width: 70px;
+  width: 167px;
   margin: 0 0 20px;
   display: block;
 }
@@ -1463,16 +1463,16 @@ body.node-type-discussion div.views-row div.buildmode-text_summary {
   float: left;
   position: relative;
   line-height: 1.3em;
-  font-size: 0.8em;
+  font-size: 1em;
 }
 /* line 90, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
-  width: 178px;
+  width: 185px;
   background: #f1e9e4;
   font-size: 1.5em;
   text-transform: inherit;
   line-height: 1.2em;
-  letter-spacing: -0.3px;
+  letter-spacing: -1.3px;
   text-align: left;
   color: #000;
   margin: 0;
@@ -1491,7 +1491,7 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nd-region-mi
 /* line 109, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-body,
 body.node-type-discussion div.views-row div.buildmode-text_summary .nurani-glossary-processed {
-  width: 178px;
+  width: 185px;
   padding: 10px 10px 35px;
   background: #f1e9e4;
   height: 160px;
@@ -1500,8 +1500,8 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .nurani-gloss
 /* line 116, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links {
   background: #f1e9e4;
-  padding: 10px 0;
-  height: 20px;
+  padding: 12px 0;
+  height: 30px;
 }
 /* line 120, ../scss/discussion.scss */
 body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-links li a {
@@ -1530,7 +1530,7 @@ body.node-type-discussion div.views-row div.buildmode-text_summary .field-text-l
   text-decoration: none;
   margin-top: -5px;
   font-size: 13px;
-  margin: 0 5px;
+  margin: 0 2px;
   display: inline-block;
 }
 /* line 21, ../scss/_buttons.scss */
@@ -1666,7 +1666,7 @@ body.node-type-discussion #container #content-area div.field-label {
 body.node-type-discussion #container #content-area .node-type-discussion {
   border: 1px solid #cccccc;
   padding: 10px 0 0 10px;
-  margin: 0 0 0 20px;
+  margin: 0;
 }
 /* line 198, ../scss/discussion.scss */
 body.node-type-discussion #container #content-area .node-type-discussion .field-author {
@@ -3638,17 +3638,18 @@ span.username {
 a {
   font-weight: bold;
   text-decoration: none;
-  display: block;
+  display: inline;
+  padding: 4px 5px;
 }
 
 /*  = Hidden Stuff!
   ------------------------------------------------------ */
-/* line 126, ../scss/core.scss */
+/* line 127, ../scss/core.scss */
 #site-name, div#skip-link, body div li.node-readmore {
   display: none;
 }
 
-/* line 134, ../scss/core.scss */
+/* line 135, ../scss/core.scss */
 #edit-comment-body-und-0-format,
 p.comment-permalink,
 div.links,
@@ -3657,18 +3658,18 @@ div#edit-author--2 {
   display: none;
 }
 
-/* line 136, ../scss/core.scss */
+/* line 137, ../scss/core.scss */
 #edit-comment-body-und-0-format, p.comment-permalink, div.links, a#logo, div#edit-author--2 {
   display: none;
 }
 
 /*  = Forms
   ------------------------------------------------------ */
-/* line 144, ../scss/core.scss */
+/* line 145, ../scss/core.scss */
 form #edit-title {
   font-size: 14px;
 }
-/* line 147, ../scss/core.scss */
+/* line 148, ../scss/core.scss */
 form input.form-submit {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -3690,7 +3691,7 @@ form input.form-submit {
   border: 1px solid #bab1a8;
   color: #1b1815;
   text-decoration: none;
-  padding: 5px;
+  padding: 7px;
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   -o-border-radius: 4px / 4px;
@@ -3710,26 +3711,26 @@ form input.form-submit:active {
 
 /*  =Discussion
   ------------------------------------------------------ */
-/* line 156, ../scss/core.scss */
+/* line 157, ../scss/core.scss */
 body.discussion #content {
   clear: left;
 }
-/* line 158, ../scss/core.scss */
+/* line 159, ../scss/core.scss */
 body.discussion #content div.field {
   text-align: center;
 }
-/* line 161, ../scss/core.scss */
+/* line 162, ../scss/core.scss */
 body.discussion #content p {
   padding: 10px;
   float: left;
 }
-/* line 165, ../scss/core.scss */
+/* line 166, ../scss/core.scss */
 body.discussion #content img {
   float: left;
   display: inline;
   margin: 10px;
 }
-/* line 171, ../scss/core.scss */
+/* line 172, ../scss/core.scss */
 body.discussion #content #comments {
   float: left;
   clear: both;
@@ -3737,27 +3738,27 @@ body.discussion #content #comments {
   width: 600px;
   margin: 0 auto;
 }
-/* line 177, ../scss/core.scss */
+/* line 178, ../scss/core.scss */
 body.discussion #content #comments .filter-wrapper {
   display: none;
 }
-/* line 181, ../scss/core.scss */
+/* line 182, ../scss/core.scss */
 body.discussion #content #comments div.form-actions input {
   margin: 10px;
 }
 
 /*  =Comments
   ------------------------------------------------------ */
-/* line 191, ../scss/core.scss */
+/* line 192, ../scss/core.scss */
 #comments .comment-inner {
   margin: 20px 0;
 }
-/* line 193, ../scss/core.scss */
+/* line 194, ../scss/core.scss */
 #comments .comment-inner span.submitted {
   text-align: left;
 }
 
-/* line 199, ../scss/core.scss */
+/* line 200, ../scss/core.scss */
 .comment-inner .attribution {
   float: left;
   padding-top: 20px;
@@ -3765,17 +3766,17 @@ body.discussion #content #comments div.form-actions input {
   border-top: 1px solid #D3D7D9;
   border-top: 1px solid #D3D7D9;
 }
-/* line 203, ../scss/core.scss */
+/* line 204, ../scss/core.scss */
 .comment-inner .attribution p.comment-time {
   font-size: 13px;
 }
-/* line 211, ../scss/core.scss */
+/* line 212, ../scss/core.scss */
 .comment-inner .content {
   border: 1px solid #D3D7D9;
   margin-left: 140px;
   padding: 10px 25px;
 }
-/* line 215, ../scss/core.scss */
+/* line 216, ../scss/core.scss */
 .comment-inner .content .comment-arrow {
   height: 40px;
   margin-left: -45px;
@@ -3786,56 +3787,56 @@ body.discussion #content #comments div.form-actions input {
 
 /*  =Glossary
   ------------------------------------------------------ */
-/* line 228, ../scss/core.scss */
+/* line 229, ../scss/core.scss */
 .node-type-glossary-term h1 {
   margin-bottom: 0;
 }
 
-/* line 234, ../scss/core.scss */
+/* line 235, ../scss/core.scss */
 div.node-glossary-term .node-inner {
   margin-top: 30px;
 }
-/* line 236, ../scss/core.scss */
+/* line 237, ../scss/core.scss */
 div.node-glossary-term .node-inner .field {
   margin: 20px 0;
 }
-/* line 239, ../scss/core.scss */
+/* line 240, ../scss/core.scss */
 div.node-glossary-term .node-inner a {
   font-weight: normal;
 }
 
-/* line 245, ../scss/core.scss */
+/* line 246, ../scss/core.scss */
 ul#ibis-glossary-term-discussions {
   margin: 0;
   padding-left: 0;
 }
-/* line 248, ../scss/core.scss */
+/* line 249, ../scss/core.scss */
 ul#ibis-glossary-term-discussions li {
   list-style: none;
   margin: 0 0 20px 0;
 }
 
-/* line 254, ../scss/core.scss */
+/* line 255, ../scss/core.scss */
 div#walkthrough {
   display: none;
 }
 
 /*  =Overview
   ------------------------------------------------------ */
-/* line 259, ../scss/core.scss */
+/* line 260, ../scss/core.scss */
 .page-user-overview .block {
   margin-bottom: 50px;
 }
-/* line 261, ../scss/core.scss */
+/* line 262, ../scss/core.scss */
 .page-user-overview .block h2 {
   padding: 10px;
   margin-bottom: 0;
 }
-/* line 265, ../scss/core.scss */
+/* line 266, ../scss/core.scss */
 .page-user-overview .block .content {
   padding: 10px;
 }
-/* line 270, ../scss/core.scss */
+/* line 271, ../scss/core.scss */
 .page-user-overview #highlight
 .block {
   border: none;
@@ -3843,11 +3844,11 @@ div#walkthrough {
 
 /*  =Sidebar Second
   ------------------------------------------------------ */
-/* line 278, ../scss/core.scss */
+/* line 279, ../scss/core.scss */
 #sidebar-second #sidebar-second-inner {
   padding: 10px 20px 20px;
 }
-/* line 282, ../scss/core.scss */
+/* line 283, ../scss/core.scss */
 #sidebar-second #block-ibis_glossary-ibis_glossary_terms #ibis-glossary-highlight-button {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -3869,7 +3870,7 @@ div#walkthrough {
   border: 1px solid #bab1a8;
   color: #1b1815;
   text-decoration: none;
-  padding: 5px;
+  padding: 7px;
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   -o-border-radius: 4px / 4px;
@@ -3887,12 +3888,12 @@ div#walkthrough {
   background-image: -ms-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
   background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
 }
-/* line 288, ../scss/core.scss */
+/* line 289, ../scss/core.scss */
 #sidebar-second h2.block-title {
   font-size: 24px;
   display: none;
 }
-/* line 294, ../scss/core.scss */
+/* line 295, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -3914,7 +3915,7 @@ div#walkthrough {
   border: 1px solid #bab1a8;
   color: #1b1815;
   text-decoration: none;
-  padding: 5px;
+  padding: 7px;
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   -o-border-radius: 4px / 4px;
@@ -3934,11 +3935,11 @@ div#walkthrough {
   background-image: -ms-linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
   background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
 }
-/* line 301, ../scss/core.scss */
+/* line 302, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-controls {
   margin: 10px 0;
 }
-/* line 307, ../scss/core.scss */
+/* line 308, ../scss/core.scss */
 #sidebar-second #boxes-box-add_discussion .boxes-box-content a {
   -moz-border-radius: "30px"/2;
   -webkit-border-radius: "30px"/2;
@@ -3960,7 +3961,7 @@ div#walkthrough {
   border: 1px solid #bab1a8;
   color: #1b1815;
   text-decoration: none;
-  padding: 5px;
+  padding: 7px;
   -webkit-border-radius: 4px 4px;
   -moz-border-radius: 4px / 4px;
   -o-border-radius: 4px / 4px;
@@ -3982,19 +3983,19 @@ div#walkthrough {
   background-image: linear-gradient(top, #a3988c, #c5beb6 4%, #d7d2cd);
 }
 
-/* line 318, ../scss/core.scss */
+/* line 319, ../scss/core.scss */
 .sidebar-right #content-inner {
   overflow: hidden;
   *zoom: 1;
   background: #f8f8f8;
 }
 
-/* line 324, ../scss/core.scss */
+/* line 325, ../scss/core.scss */
 #main {
   margin-top: 10px;
 }
 
-/* line 328, ../scss/core.scss */
+/* line 329, ../scss/core.scss */
 div#block-search-form {
   width: 80%;
   margin: 20px;
@@ -4003,56 +4004,56 @@ div#block-search-form {
   border-top: 3px solid #c3c3c3;
 }
 
-/* line 339, ../scss/core.scss */
+/* line 340, ../scss/core.scss */
 .page-user-login #content-header ul.tabs {
   display: none;
 }
-/* line 343, ../scss/core.scss */
+/* line 344, ../scss/core.scss */
 .page-user-login .new-password {
   float: left;
 }
 
-/* line 348, ../scss/core.scss */
+/* line 349, ../scss/core.scss */
 ul.primary li a {
   background: white;
   border: none;
 }
-/* line 351, ../scss/core.scss */
+/* line 352, ../scss/core.scss */
 ul.primary li a.active {
   border: none;
 }
 
-/* line 356, ../scss/core.scss */
+/* line 357, ../scss/core.scss */
 body, #header, #footer {
   background: #f1e9e4;
 }
 
-/* line 360, ../scss/core.scss */
+/* line 361, ../scss/core.scss */
 #sidebar-first {
   background: white;
 }
 
-/* line 363, ../scss/core.scss */
+/* line 364, ../scss/core.scss */
 #sidebar-second {
   background: white;
 }
 
-/* line 366, ../scss/core.scss */
+/* line 367, ../scss/core.scss */
 div.node {
   border-color: #f1e9e4;
 }
 
-/* line 369, ../scss/core.scss */
+/* line 370, ../scss/core.scss */
 span.submitted {
   color: #7c0000;
 }
 
-/* line 372, ../scss/core.scss */
+/* line 373, ../scss/core.scss */
 span.username {
   color: #7c0000;
 }
 
-/* line 375, ../scss/core.scss */
+/* line 376, ../scss/core.scss */
 a {
   color: black;
 }
@@ -4073,71 +4074,71 @@ a:active {
   color: black;
 }
 
-/* line 379, ../scss/core.scss */
+/* line 380, ../scss/core.scss */
 div#walkthrough {
   background-color: maroon;
 }
-/* line 382, ../scss/core.scss */
+/* line 383, ../scss/core.scss */
 div#walkthrough ul.links li {
   background: #b30000;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
   opacity: 50%;
 }
-/* line 385, ../scss/core.scss */
+/* line 386, ../scss/core.scss */
 div#walkthrough ul.links li a:link {
   color: black;
 }
-/* line 387, ../scss/core.scss */
+/* line 388, ../scss/core.scss */
 div#walkthrough ul.links li a:hover {
   color: #f1e9e4;
 }
 
-/* line 391, ../scss/core.scss */
+/* line 392, ../scss/core.scss */
 div.profile div.field-label {
   background-color: white;
   color: #7c0000;
 }
 
-/* line 396, ../scss/core.scss */
+/* line 397, ../scss/core.scss */
 body.discussion #content img {
   border: 4px double #f1e9e4;
 }
 
-/* line 399, ../scss/core.scss */
+/* line 400, ../scss/core.scss */
 div.field-type-user-reference {
   border: 1px solid #f1e9e4;
 }
 
-/* line 402, ../scss/core.scss */
+/* line 403, ../scss/core.scss */
 div.field-type-user-reference .field-label, div.field-name-field-texts .field-label {
   color: #7c0000;
 }
 
-/* line 409, ../scss/core.scss */
+/* line 410, ../scss/core.scss */
 .page-user-overview .block {
   border: 1px solid #f1e9e4;
 }
-/* line 411, ../scss/core.scss */
+/* line 412, ../scss/core.scss */
 .page-user-overview .block h2 {
   background: white;
   border-bottom: 1px solid #f1e9e4;
 }
 
-/* line 416, ../scss/core.scss */
+/* line 417, ../scss/core.scss */
 #sidebar-second h2.block-title {
   border-bottom: 4px double #990000;
 }
-/* line 420, ../scss/core.scss */
+/* line 421, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a {
   color: #7c0000;
 }
 
-/* line 423, ../scss/core.scss */
+/* line 424, ../scss/core.scss */
 div#block-search-form {
   border-bottom: 1px solid #f1e9e4;
 }
 
-/* line 426, ../scss/core.scss */
+/* line 427, ../scss/core.scss */
 a#admin_toggle {
   color: #7c0000;
   background: white;
@@ -4146,12 +4147,12 @@ a#admin_toggle {
 /* ========================= */
 /* = demo temporary styles = */
 /* ========================= */
-/* line 434, ../scss/core.scss */
+/* line 435, ../scss/core.scss */
 span.form-required {
   color: #7c0000;
 }
 
-/* line 436, ../scss/core.scss */
+/* line 437, ../scss/core.scss */
 .page-node-6 {
   text-align: right;
 }
