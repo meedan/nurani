@@ -1,11 +1,11 @@
 /*
 Syntax error: Undefined mixin 'en-sans'.
-        on line 236 of C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss, in `en-sans'
-        from line 236 of C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss
+        on line 239 of C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss, in `en-sans'
+        from line 239 of C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss
 
 Backtrace:
-C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss:236:in `en-sans'
-C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss:236
+C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss:239:in `en-sans'
+C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss:239
 C:/Ruby192/lib/ruby/gems/1.9.1/gems/sass-3.1.7/lib/sass/tree/visitors/perform.rb:169:in `visit_mixin'
 C:/Ruby192/lib/ruby/gems/1.9.1/gems/sass-3.1.7/lib/sass/tree/visitors/base.rb:37:in `visit'
 C:/Ruby192/lib/ruby/gems/1.9.1/gems/sass-3.1.7/lib/sass/tree/visitors/perform.rb:18:in `visit'
@@ -106,4 +106,4 @@ C:/Ruby192/bin/compass:19:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'en-sans'.\A         on line 236 of C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss, in `en-sans'\A         from line 236 of C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss"; }
+  content: "Syntax error: Undefined mixin 'en-sans'.\A         on line 239 of C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss, in `en-sans'\A         from line 239 of C:/xampp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/discussion.scss"; }

@@ -64,6 +64,7 @@ body.node-type-discussion {
 
 			.content {
 				text-align: left;
+				
 			}
   }
 	.view-discussion-texts {
@@ -78,22 +79,24 @@ body.node-type-discussion {
   /* views-row is not a row, actually, just a div ... */
  
     div.views-row {
-    margin: 30px 14px 10px;
+    margin: 30px 30px 0px;
     float: left;
     width: 195px;
+    padding: 0 15px;
     div.buildmode-text_summary {
       color: #868080;
       float: left;
       position: relative;
       line-height: 1.3em;
 			font-size: 1em;
+			
       h1 {
-  	    width: $text_width - 33px;
+  	    width: $text_width - 13px;
      	 	background: $paper;
         font-size: 1.5em;
 				text-transform: inherit;
         line-height: 1.2em;
-        letter-spacing: -1.3px;
+        letter-spacing: -2.3px;
 				text-align: left;
         color: #000;
 				margin: 0;
@@ -107,7 +110,7 @@ body.node-type-discussion {
 			}
 			.field-body,
 			.nurani-glossary-processed {
-      	width: $text_width - 33px;
+      	width: $text_width - 13px;
     	  padding: 10px 10px 35px;
 				background: $paper;
 				height: 160px;
