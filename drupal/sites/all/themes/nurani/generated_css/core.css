@@ -1470,10 +1470,10 @@ body.node-type-discussion div.views-row div.buildmode-text_summary {
 body.node-type-discussion div.views-row div.buildmode-text_summary h1 {
   width: 205px;
   background: #f1e9e4;
-  font-size: 1.6em;
+  font-size: 1.3em;
   text-transform: inherit;
   line-height: 1.2em;
-  letter-spacing: -3px;
+  letter-spacing: -1.3px;
   text-align: left;
   color: #000;
   margin: 0;
