@@ -186,3 +186,19 @@ function yallah_notifications_form_agreement_submit($form, &$form_state) {
   }
 }
 
+function yallah_notifications_token_list($type = 'all') {
+  $tokens = array();
+  if ($type == 'node' || $type == 'all') {
+    $tokens['node']['node-body-trimmed'] = t("The node body trimmed to 200 chars.");
+  }
+  return $tokens;
+}
+
+function yallah_notifications_token_values($type, $object = NULL, $options = array()) {
+  $values = array();
+  if ($type == 'node' && !empty($object)) {
+    $values['node-body-trimmed'] = substr($node->body, 200);
+  }
+  return $values;
+}
+
