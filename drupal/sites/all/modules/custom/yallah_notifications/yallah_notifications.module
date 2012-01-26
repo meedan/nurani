@@ -133,7 +133,7 @@ function yallah_notifications_action($node, $context) {
     if (empty($discussion)) {
       $discussion = $node;
     }
-    foreach (array('field_moderators', 'field_participants') as $field) {
+    foreach (array('field_moderators', 'field_participants', 'field_translators') as $field) {
       foreach ($discussion->$field as $delta => $item) {
         $uids[] = $item['uid'];
       }
