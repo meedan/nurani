@@ -145,57 +145,6 @@ function nurani_general_node_info() {
 function nurani_general_rules_defaults() {
   return array(
     'rules' => array(
-      'rules_discussion_reminder' => array(
-        '#type' => 'rule',
-        '#set' => 'event_cron',
-        '#label' => 'Discussion reminder',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'Nurani_notification',
-          'nurani_general' => 'nurani_general',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(),
-        '#actions' => array(
-          '0' => array(
-            '#type' => 'action',
-            '#settings' => array(
-              '#argument map' => array(
-                'object' => 'user',
-              ),
-              'view_vid' => '4',
-              'operation_key' => 'yallah_notifications_action',
-              'operation_arguments' => '',
-              'view_exposed_input' => '',
-              'view_arguments' => '',
-              'respect_limit' => 0,
-              'subject_ar' => '',
-              'message_ar' => '',
-              'subject_en' => 'Discussion reminder for [title]',
-              'message_en' => 'The discussion [title] will close on [field_exp_comments-view]. Hurry up and add your comments!
-
-[url]',
-            ),
-            '#name' => 'views_bulk_operations_rules_action_user',
-            '#info' => array(
-              'label' => 'Use user object to execute a VBO programmatically',
-              'arguments' => array(
-                'object' => array(
-                  'type' => 'user',
-                  'label' => 'Object',
-                  'description' => 'The chosen object will be loaded as the <code>$object</code> variable, available below.',
-                ),
-              ),
-              'module' => 'Views Bulk Operations',
-              'eval input' => array(),
-              'base' => 'views_bulk_operations_rules_action',
-            ),
-            '#weight' => 0,
-          ),
-        ),
-        '#version' => 6003,
-      ),
       'rules_a_new_discussion_is_posted' => array(
         '#type' => 'rule',
         '#set' => 'event_node_insert',
@@ -498,6 +447,57 @@ The Nurani Team.
               'action_name' => 'yallah_notifications_action',
               'configurable' => TRUE,
             ),
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'rules_discussion_reminder' => array(
+        '#type' => 'rule',
+        '#set' => 'event_cron',
+        '#label' => 'Discussion reminder',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'Nurani_notification',
+          'nurani_general' => 'nurani_general',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(),
+        '#actions' => array(
+          '0' => array(
+            '#type' => 'action',
+            '#settings' => array(
+              '#argument map' => array(
+                'object' => 'user',
+              ),
+              'view_vid' => '4',
+              'operation_key' => 'yallah_notifications_action',
+              'operation_arguments' => '',
+              'view_exposed_input' => '',
+              'view_arguments' => '',
+              'respect_limit' => 0,
+              'subject_ar' => '',
+              'message_ar' => '',
+              'subject_en' => 'Discussion reminder for [title]',
+              'message_en' => 'The discussion [title] will close on [field_exp_comments-view]. Hurry up and add your comments!
+
+[url]',
+            ),
+            '#name' => 'views_bulk_operations_rules_action_user',
+            '#info' => array(
+              'label' => 'Use user object to execute a VBO programmatically',
+              'arguments' => array(
+                'object' => array(
+                  'type' => 'user',
+                  'label' => 'Object',
+                  'description' => 'The chosen object will be loaded as the <code>$object</code> variable, available below.',
+                ),
+              ),
+              'module' => 'Views Bulk Operations',
+              'eval input' => array(),
+              'base' => 'views_bulk_operations_rules_action',
+            ),
+            '#weight' => 0,
           ),
         ),
         '#version' => 6003,

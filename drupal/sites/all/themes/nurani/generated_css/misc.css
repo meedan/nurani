@@ -641,7 +641,7 @@ body.section-node-edit #container div#content-area #edit-field-texts-0-nid-nid:f
 body.section-node-add #container div#content-area .form-item label,
 body.section-node-edit #container div#content-area .form-item label {
   font-weight: normal;
-  color: #aaaaaa;
+  color: #000;
 }
 /* line 532, ../scss/misc.scss */
 body.section-node-add #container div#content-area .form-text, body.section-node-add #container div#content-area #edit-title,

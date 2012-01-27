@@ -342,7 +342,7 @@ h1.title {
 
 /* line 8, ../scss/layout.scss */
 div#top-strip {
-  height: 27px;
+  height: 37px;
   background: #998d86;
   padding: 4px 20px 0;
 }
@@ -3221,7 +3221,7 @@ body.section-node-edit #container div#content-area #edit-field-texts-0-nid-nid:f
 body.section-node-add #container div#content-area .form-item label,
 body.section-node-edit #container div#content-area .form-item label {
   font-weight: normal;
-  color: #aaaaaa;
+  color: #000;
 }
 /* line 532, ../scss/misc.scss */
 body.section-node-add #container div#content-area .form-text,
@@ -3491,16 +3491,16 @@ ul.menu li.active-trail {
 }
 /* line 92, ../scss/navigation.scss */
 #boxes-box-action_links ul a {
-  font-size: 0.56em;
+  font-size: 0.80em;
   line-height: 2.3em;
-  color: white;
-  background: #666666;
+  color: #4D1312;
+  background: #F1E9E4;
   padding: 0 10px;
   display: block;
   float: left;
   margin: 0 1px;
   border-radius: 10px;
-  font-weight: normal;
+  font-weight: bold;
   font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
 }
 

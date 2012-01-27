@@ -90,16 +90,16 @@ ul.menu {
 			padding: 0;	
 		}	
 		a {
-			font-size: 0.56em;
+			font-size: 0.80em;
 			line-height: 2.3em;
-			color: $white;
-      background: $dark-gray;
+			color: #4D1312;
+      background: #F1E9E4;
       padding: 0 10px; 
 			display: block;
 			float: left;
 			margin: 0 1px;
       border-radius: 10px;
-			font-weight: normal;
+			font-weight: bold;
   		@include en-sans;
 		}	
 	}
