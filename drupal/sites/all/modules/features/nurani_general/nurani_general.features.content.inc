@@ -83,6 +83,17 @@ function nurani_general_content_default_fields() {
     'multiple' => '0',
     'module' => 'date',
     'active' => '1',
+    'granularity' => array(
+      'year' => 'year',
+      'month' => 'month',
+      'day' => 'day',
+    ),
+    'timezone_db' => '',
+    'tz_handling' => 'none',
+    'todate' => '',
+    'repeat' => 0,
+    'repeat_collapsed' => '',
+    'default_format' => 'medium',
     'widget' => array(
       'default_value' => 'blank',
       'default_value_code' => '',

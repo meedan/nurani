@@ -145,57 +145,6 @@ function nurani_general_node_info() {
 function nurani_general_rules_defaults() {
   return array(
     'rules' => array(
-      'rules_discussion_reminder' => array(
-        '#type' => 'rule',
-        '#set' => 'event_cron',
-        '#label' => 'Discussion reminder',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'Nurani_notification',
-          'nurani_general' => 'nurani_general',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(),
-        '#actions' => array(
-          '0' => array(
-            '#type' => 'action',
-            '#settings' => array(
-              '#argument map' => array(
-                'object' => 'user',
-              ),
-              'view_vid' => '4',
-              'operation_key' => 'yallah_notifications_action',
-              'operation_arguments' => '',
-              'view_exposed_input' => '',
-              'view_arguments' => '',
-              'respect_limit' => 0,
-              'subject_ar' => '',
-              'message_ar' => '',
-              'subject_en' => 'Discussion reminder for [title]',
-              'message_en' => 'The discussion [title] will close on [field_exp_comments-view]. Hurry up and add your comments!
-
-[url]',
-            ),
-            '#name' => 'views_bulk_operations_rules_action_user',
-            '#info' => array(
-              'label' => 'Use user object to execute a VBO programmatically',
-              'arguments' => array(
-                'object' => array(
-                  'type' => 'user',
-                  'label' => 'Object',
-                  'description' => 'The chosen object will be loaded as the <code>$object</code> variable, available below.',
-                ),
-              ),
-              'module' => 'Views Bulk Operations',
-              'eval input' => array(),
-              'base' => 'views_bulk_operations_rules_action',
-            ),
-            '#weight' => 0,
-          ),
-        ),
-        '#version' => 6003,
-      ),
       'rules_a_new_discussion_is_posted' => array(
         '#type' => 'rule',
         '#set' => 'event_node_insert',
@@ -209,13 +158,7 @@ function nurani_general_rules_defaults() {
         '#status' => 'default',
         '#conditions' => array(
           '0' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'rules_condition_content_is_published',
+            '#weight' => 0,
             '#info' => array(
               'label' => 'Created content is published',
               'arguments' => array(
@@ -226,10 +169,25 @@ function nurani_general_rules_defaults() {
               ),
               'module' => 'Node',
             ),
-            '#weight' => 0,
+            '#name' => 'rules_condition_content_is_published',
+            '#settings' => array(
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
           ),
           '1' => array(
-            '#weight' => 0,
+            '#type' => 'condition',
+            '#settings' => array(
+              'type' => array(
+                'discussion' => 'discussion',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'rules_condition_content_is_type',
             '#info' => array(
               'label' => 'Created content is Discussion',
               'arguments' => array(
@@ -240,26 +198,30 @@ function nurani_general_rules_defaults() {
               ),
               'module' => 'Node',
             ),
-            '#name' => 'rules_condition_content_is_type',
-            '#settings' => array(
-              'type' => array(
-                'discussion' => 'discussion',
-              ),
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#type' => 'condition',
+            '#weight' => 0,
           ),
         ),
         '#actions' => array(
           '0' => array(
             '#weight' => 0,
-            '#type' => 'action',
+            '#info' => array(
+              'module' => 'Node',
+              'arguments' => array(
+                'node' => array(
+                  'label' => 'Content',
+                  'type' => 'node',
+                ),
+              ),
+              'label' => 'Notify subscribed users',
+              'base' => 'rules_core_action_execute',
+              'action_name' => 'yallah_notifications_action',
+              'configurable' => TRUE,
+            ),
+            '#name' => 'rules_core_yallah_notifications_action',
             '#settings' => array(
+              'notification_type' => 'discussion',
               'subject_ar' => '[author-name] has invited you to participate in a new discussion',
-              'message_ar' => '
-مرحبا [user]
+              'message_ar' => 'مرحبا [user]
 مناقشة جديدة حول [eltit] قد بدأت للتو على موقع نورانى
 يمكنك أن تكون أول من يبدي رأيه هنا : [node-url]
 نحن نتطلع إلى قراءة تعليقاتك وأفكارك.
@@ -286,20 +248,7 @@ The Nurani team',
                 'node' => 'node',
               ),
             ),
-            '#name' => 'rules_core_yallah_notifications_action',
-            '#info' => array(
-              'module' => 'Node',
-              'arguments' => array(
-                'node' => array(
-                  'label' => 'Content',
-                  'type' => 'node',
-                ),
-              ),
-              'label' => 'Notify subscribed users',
-              'base' => 'rules_core_action_execute',
-              'action_name' => 'yallah_notifications_action',
-              'configurable' => TRUE,
-            ),
+            '#type' => 'action',
           ),
         ),
         '#version' => 6003,
@@ -318,7 +267,15 @@ The Nurani team',
         '#conditions' => array(),
         '#actions' => array(
           '0' => array(
-            '#weight' => 0,
+            '#type' => 'action',
+            '#settings' => array(
+              'type' => 'profile',
+              '#argument map' => array(
+                'user' => 'user',
+                'profile_node' => 'user_profile',
+              ),
+            ),
+            '#name' => 'content_profile_action_load',
             '#info' => array(
               'label' => 'Load User profile',
               'label callback' => FALSE,
@@ -336,19 +293,26 @@ The Nurani team',
               ),
               'module' => 'Content Profile',
             ),
-            '#name' => 'content_profile_action_load',
-            '#settings' => array(
-              'type' => 'profile',
-              '#argument map' => array(
-                'user' => 'user',
-                'profile_node' => 'user_profile',
-              ),
-            ),
-            '#type' => 'action',
+            '#weight' => 0,
           ),
           '1' => array(
-            '#type' => 'action',
+            '#weight' => 0,
+            '#info' => array(
+              'module' => 'Node',
+              'arguments' => array(
+                'node' => array(
+                  'label' => 'Content',
+                  'type' => 'node',
+                ),
+              ),
+              'label' => 'Notify subscribed users',
+              'base' => 'rules_core_action_execute',
+              'action_name' => 'yallah_notifications_action',
+              'configurable' => TRUE,
+            ),
+            '#name' => 'rules_core_yallah_notifications_action',
             '#settings' => array(
+              'notification_type' => 'profile',
               'subject_ar' => '',
               'message_ar' => '',
               'subject_en' => '[author-name] has joined Nurani',
@@ -366,21 +330,59 @@ The Nurani team',
                 'node' => 'user_profile',
               ),
             ),
-            '#name' => 'rules_core_yallah_notifications_action',
+            '#type' => 'action',
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'rules_discussion_reminder' => array(
+        '#type' => 'rule',
+        '#set' => 'event_cron',
+        '#label' => 'Discussion reminder',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'Nurani_notification',
+          'nurani_general' => 'nurani_general',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(),
+        '#actions' => array(
+          '0' => array(
+            '#weight' => 0,
+            '#type' => 'action',
+            '#settings' => array(
+              '#argument map' => array(
+                'object' => 'user',
+              ),
+              'view_vid' => 'active_discussions',
+              'operation_key' => 'yallah_notifications_action',
+              'operation_arguments' => '',
+              'view_exposed_input' => '',
+              'view_arguments' => '',
+              'respect_limit' => 0,
+              'subject_ar' => '',
+              'message_ar' => '',
+              'subject_en' => 'Discussion reminder for [title]',
+              'message_en' => 'This is a reminder for discussion "[title]". This discussion will expire on [field_exp_comments-date].
+
+You can add your comments at [node-path].',
+              'notification_type' => 'reminder',
+            ),
+            '#name' => 'views_bulk_operations_rules_action_user',
             '#info' => array(
-              'module' => 'Node',
+              'label' => 'Use user object to execute a VBO programmatically',
               'arguments' => array(
-                'node' => array(
-                  'label' => 'Content',
-                  'type' => 'node',
+                'object' => array(
+                  'type' => 'user',
+                  'label' => 'Object',
+                  'description' => 'The chosen object will be loaded as the <code>$object</code> variable, available below.',
                 ),
               ),
-              'label' => 'Notify subscribed users',
-              'base' => 'rules_core_action_execute',
-              'action_name' => 'yallah_notifications_action',
-              'configurable' => TRUE,
+              'module' => 'Views Bulk Operations',
+              'eval input' => array(),
+              'base' => 'views_bulk_operations_rules_action',
             ),
-            '#weight' => 0,
           ),
         ),
         '#version' => 6003,
@@ -398,16 +400,7 @@ The Nurani team',
         '#status' => 'default',
         '#conditions' => array(
           '0' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              'type' => array(
-                'response' => 'response',
-              ),
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'rules_condition_content_is_type',
+            '#weight' => 0,
             '#info' => array(
               'label' => 'Created content is Response',
               'arguments' => array(
@@ -418,10 +411,25 @@ The Nurani team',
               ),
               'module' => 'Node',
             ),
-            '#weight' => 0,
+            '#name' => 'rules_condition_content_is_type',
+            '#settings' => array(
+              'type' => array(
+                'response' => 'response',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
           ),
           '1' => array(
-            '#weight' => 0,
+            '#type' => 'condition',
+            '#settings' => array(
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'rules_condition_content_is_published',
             '#info' => array(
               'label' => 'Created content is published',
               'arguments' => array(
@@ -432,20 +440,28 @@ The Nurani team',
               ),
               'module' => 'Node',
             ),
-            '#name' => 'rules_condition_content_is_published',
-            '#settings' => array(
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#type' => 'condition',
+            '#weight' => 0,
           ),
         ),
         '#actions' => array(
           '0' => array(
             '#weight' => 0,
-            '#type' => 'action',
+            '#info' => array(
+              'module' => 'Node',
+              'arguments' => array(
+                'node' => array(
+                  'label' => 'Content',
+                  'type' => 'node',
+                ),
+              ),
+              'label' => 'Notify subscribed users',
+              'base' => 'rules_core_action_execute',
+              'action_name' => 'yallah_notifications_action',
+              'configurable' => TRUE,
+            ),
+            '#name' => 'rules_core_yallah_notifications_action',
             '#settings' => array(
+              'notification_type' => 'response',
               'subject_ar' => '[author-name] has just responded on [current-page-title] on Nurani',
               'message_ar' => 'مرحبا [user]
 
@@ -484,20 +500,7 @@ The Nurani Team.
                 'node' => 'node',
               ),
             ),
-            '#name' => 'rules_core_yallah_notifications_action',
-            '#info' => array(
-              'module' => 'Node',
-              'arguments' => array(
-                'node' => array(
-                  'label' => 'Content',
-                  'type' => 'node',
-                ),
-              ),
-              'label' => 'Notify subscribed users',
-              'base' => 'rules_core_action_execute',
-              'action_name' => 'yallah_notifications_action',
-              'configurable' => TRUE,
-            ),
+            '#type' => 'action',
           ),
         ),
         '#version' => 6003,

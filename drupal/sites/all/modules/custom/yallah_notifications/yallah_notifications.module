@@ -30,20 +30,28 @@ function yallah_notifications_access($account) {
 }
 
 /**
- * Custom user notifications tab.
+ * Custom notification types.
  */
-function yallah_notifications_user_page($form_state, $account) {
-  $options = array(
+function yallah_notifications_yallah_notification_types() {
+  $types = array(
     'discussion' => t('New discussion'),
     'response' => t('New comment'),
     'profile' => t('New user'),
-    'event' => t('New event'),
+    'reminder' => t('Discussion reminder'),
   );
+  return $types;
+}
+
+/**
+ * Custom user notifications tab.
+ */
+function yallah_notifications_user_page($form_state, $account) {
+  $options = module_invoke_all('yallah_notification_types');
   $form['subscriptions'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Please select the events for which you wish to be notified by email'),
     '#options' => $options,
-    '#default_value' => variable_get('yallah_notifications_' . $account->uid, array('discussion', 'response', 'profile', 'event')),
+    '#default_value' => variable_get('yallah_notifications_' . $account->uid, array_keys($options)),
   );  
   $form['account_uid'] = array(
     '#type' => 'value',
@@ -74,6 +82,13 @@ function yallah_notifications_action_info() {
 function yallah_notifications_action_form($context) {
   module_load_include('inc', 'token', 'token.pages');
   drupal_add_js('misc/collapse.js');
+  $options = module_invoke_all('yallah_notification_types');
+  $form['notification_type'] = array(
+    '#type' => 'radios',
+    '#title' => t('Notification type'),
+    '#options' => $options,
+    '#default_value' => @$context['notification_type'],
+  );
   foreach (language_list() as $langcode => $language) {
     $form['subject_' . $langcode] = array(
       '#type' => 'textfield',
@@ -97,6 +112,7 @@ function yallah_notifications_action_form($context) {
 
 function yallah_notifications_action_submit($form, $form_state) {
   $params = array();
+  $params['notification_type'] = $form_state['values']['notification_type'];
   foreach (language_list() as $langcode => $language) {
     $params['subject_' . $langcode] = $form_state['values']['subject_' . $langcode];
     $params['message_' . $langcode] = $form_state['values']['message_' . $langcode];
@@ -150,8 +166,9 @@ function yallah_notifications_action($node, $context) {
     if ($node->type != 'profile' && $user->language != $node->language) continue;
 
     // Ignore users who have opted out from this notification.
-    $subscriptions = variable_get('yallah_notifications_' . $uid, array('discussion', 'response', 'profile', 'event'));
-    if (!in_array($node->type, array_filter($subscriptions))) continue;
+    $options = module_invoke_all('yallah_notification_types');
+    $subscriptions = variable_get('yallah_notifications_' . $uid, array_keys($options));
+    if (!in_array($context['notification_type'], array_filter($subscriptions))) continue;
 
     // Send the email in the user's chosen language.
     $language = $languages[$user->language];
