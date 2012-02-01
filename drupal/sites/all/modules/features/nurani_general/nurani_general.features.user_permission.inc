@@ -94,7 +94,6 @@ function nurani_general_user_default_permissions() {
     'name' => 'create annotation content',
     'roles' => array(
       '0' => 'administrator',
-      '1' => 'authenticated user',
     ),
   );
 
@@ -138,7 +137,6 @@ function nurani_general_user_default_permissions() {
     'name' => 'create term content',
     'roles' => array(
       '0' => 'administrator',
-      '1' => 'authenticated user',
     ),
   );
 
@@ -147,7 +145,6 @@ function nurani_general_user_default_permissions() {
     'name' => 'create text content',
     'roles' => array(
       '0' => 'administrator',
-      '1' => 'authenticated user',
     ),
   );
 
@@ -156,7 +153,6 @@ function nurani_general_user_default_permissions() {
     'name' => 'edit own annotation content',
     'roles' => array(
       '0' => 'administrator',
-      '1' => 'authenticated user',
     ),
   );
 
@@ -200,7 +196,6 @@ function nurani_general_user_default_permissions() {
     'name' => 'edit own term content',
     'roles' => array(
       '0' => 'administrator',
-      '1' => 'authenticated user',
     ),
   );
 
