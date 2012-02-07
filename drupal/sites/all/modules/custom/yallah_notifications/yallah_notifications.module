@@ -211,7 +211,7 @@ function yallah_notifications_token_list($type = 'all') {
   return $tokens;
 }
 
-function yallah_notifications_token_values($type, $object = NULL, $options = array()) {
+function yallah_notifications_token_values($type, $object = NULL, $options = array()) { 
   $values = array();
   if ($type == 'node' && !empty($object)) {
     $values['node-body-trimmed'] = substr($node->body, 200);
