@@ -213,8 +213,6 @@ function yallah_notifications_token_list($type = 'all') {
 }
 
 function yallah_notifications_token_values($type, $object = NULL, $options = array()) { 
-dsm($type);
-dsm($object);
 
   $values = array();
   if ($type == 'node' && !empty($object)) {
