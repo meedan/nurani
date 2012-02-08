@@ -183,7 +183,6 @@ function yallah_notifications_action($node, $context) {
         'From' => 'The Nurani Team <cip@divinity.cam.ac.uk>',
       ),
     );
-    watchdog('nurani', 'sending email to %mail', array('%mail' => $user->mail)); 
     drupal_mail_send($content);
   }
 
