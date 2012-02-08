@@ -149,9 +149,16 @@ function yallah_notifications_action($node, $context) {
     if (empty($discussion)) {
       $discussion = $node;
     }
-    foreach (array('field_moderators', 'field_participants', 'field_translators') as $field) {
-      foreach ($discussion->$field as $delta => $item) {
-        $uids[] = $item['uid'];
+
+    // Get user reference fields in the content type.
+    if (module_exists('content')) {
+      $content = content_types($discussion->type);
+      foreach ($content['fields'] as $field) {
+        if ($field['type'] == 'userreference') {
+          if (!empty($discussion->{$field['field_name']})) foreach ($discussion->{$field['field_name']} as $item) {
+            $uids[] = $item['uid'];
+          }
+        }
       }
     }
   }
