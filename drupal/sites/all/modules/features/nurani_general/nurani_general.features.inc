@@ -391,7 +391,16 @@ You can add your comments at [node-path].',
         '#status' => 'default',
         '#conditions' => array(
           '0' => array(
-            '#weight' => 0,
+            '#type' => 'condition',
+            '#settings' => array(
+              'type' => array(
+                'response' => 'response',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'rules_condition_content_is_type',
             '#info' => array(
               'label' => 'Created content is Response',
               'arguments' => array(
@@ -402,25 +411,10 @@ You can add your comments at [node-path].',
               ),
               'module' => 'Node',
             ),
-            '#name' => 'rules_condition_content_is_type',
-            '#settings' => array(
-              'type' => array(
-                'response' => 'response',
-              ),
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#type' => 'condition',
+            '#weight' => 0,
           ),
           '1' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'rules_condition_content_is_published',
+            '#weight' => 0,
             '#info' => array(
               'label' => 'Created content is published',
               'arguments' => array(
@@ -431,26 +425,19 @@ You can add your comments at [node-path].',
               ),
               'module' => 'Node',
             ),
-            '#weight' => 0,
+            '#name' => 'rules_condition_content_is_published',
+            '#settings' => array(
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
           ),
         ),
         '#actions' => array(
           '0' => array(
             '#weight' => 0,
-            '#info' => array(
-              'module' => 'Node',
-              'arguments' => array(
-                'node' => array(
-                  'label' => 'Content',
-                  'type' => 'node',
-                ),
-              ),
-              'label' => 'Notify subscribed users',
-              'base' => 'rules_core_action_execute',
-              'action_name' => 'yallah_notifications_action',
-              'configurable' => TRUE,
-            ),
-            '#name' => 'rules_core_yallah_notifications_action',
+            '#type' => 'action',
             '#settings' => array(
               'notification_type' => 'response',
               'subject_ar' => '[author-name] has just responded on [current-page-title] on Scriptural Reasoning online',
@@ -458,7 +445,7 @@ You can add your comments at [node-path].',
               'subject_en' => '[author-name] has just responded on [current-page-title] on Scriptural Reasoning online',
               'message_en' => 'Dear [user],
 
-[author-name] has just posted a new response to Nurani on [current-page-title]. 
+[author-name] has just posted a new response to Scriptural Reasoning online on [current-page-title]. 
 
 you can be the first to reply here:[current-page-title]
 
@@ -472,7 +459,20 @@ The Scriptural Reasoning online Team.
                 'node' => 'node',
               ),
             ),
-            '#type' => 'action',
+            '#name' => 'rules_core_yallah_notifications_action',
+            '#info' => array(
+              'module' => 'Node',
+              'arguments' => array(
+                'node' => array(
+                  'label' => 'Content',
+                  'type' => 'node',
+                ),
+              ),
+              'label' => 'Notify subscribed users',
+              'base' => 'rules_core_action_execute',
+              'action_name' => 'yallah_notifications_action',
+              'configurable' => TRUE,
+            ),
           ),
         ),
         '#version' => 6003,

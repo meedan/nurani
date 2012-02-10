@@ -187,7 +187,7 @@ function yallah_notifications_action($node, $context) {
       'subject' => token_replace_multiple($subject, array('node' => $node, 'user' => $user)),
       'body' => token_replace_multiple($message, array('node' => $node, 'user' => $user)),
       'headers' => array(
-        'From' => 'The Nurani Team <cip@divinity.cam.ac.uk>',
+        'From' => 'Scriptural Reasoning online <sronline@interfaith.cam.ac.uk>',
       ),
     );
     drupal_mail_send($content);
