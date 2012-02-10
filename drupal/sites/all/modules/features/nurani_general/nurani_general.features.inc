@@ -348,16 +348,7 @@ The Nurani team',
         '#status' => 'default',
         '#conditions' => array(
           '0' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              'type' => array(
-                'response' => 'response',
-              ),
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'rules_condition_content_is_type',
+            '#weight' => 0,
             '#info' => array(
               'label' => 'Created content is Response',
               'arguments' => array(
@@ -368,10 +359,25 @@ The Nurani team',
               ),
               'module' => 'Node',
             ),
-            '#weight' => 0,
+            '#name' => 'rules_condition_content_is_type',
+            '#settings' => array(
+              'type' => array(
+                'response' => 'response',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
           ),
           '1' => array(
-            '#weight' => 0,
+            '#type' => 'condition',
+            '#settings' => array(
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'rules_condition_content_is_published',
             '#info' => array(
               'label' => 'Created content is published',
               'arguments' => array(
@@ -382,19 +388,26 @@ The Nurani team',
               ),
               'module' => 'Node',
             ),
-            '#name' => 'rules_condition_content_is_published',
-            '#settings' => array(
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#type' => 'condition',
+            '#weight' => 0,
           ),
         ),
         '#actions' => array(
           '0' => array(
             '#weight' => 0,
-            '#type' => 'action',
+            '#info' => array(
+              'module' => 'Node',
+              'arguments' => array(
+                'node' => array(
+                  'label' => 'Content',
+                  'type' => 'node',
+                ),
+              ),
+              'label' => 'Notify subscribed users',
+              'base' => 'rules_core_action_execute',
+              'action_name' => 'yallah_notifications_action',
+              'configurable' => TRUE,
+            ),
+            '#name' => 'rules_core_yallah_notifications_action',
             '#settings' => array(
               'notification_type' => 'response',
               'subject_ar' => '[author-name] has just responded on [current-page-title] on Nurani',
@@ -406,7 +419,7 @@ The Nurani team',
 
 [node-body-trimmed]
 
- [node-url]يرد عليه   أول من يمكنك أن تكون
+ [current-page-title]يرد عليه   أول من يمكنك أن تكون
 نحن نتطلع إلى قراءة تعليقاتك وأفكارك
 بالاضافة الى هذا فاننا بصدداختبار موقع نورانى ونبذل قصارى جهدنا لتحسينه قدر الإمكان، لذلك فإننا نرجوأن ترسل لنا ملاحظاتك واقتراحاتك الى البريد الاكتروني:  
 sronline@interfaith.cam.ac.uk
@@ -423,7 +436,7 @@ Saying:
 
 [node-body-trimmed]
 
-you can be the first to reply here:[node-url]
+you can be the first to reply here:[current-page-title]
 
 we look forward to hearing what you have to say.
 
@@ -435,20 +448,7 @@ The Nurani Team.
                 'node' => 'node',
               ),
             ),
-            '#name' => 'rules_core_yallah_notifications_action',
-            '#info' => array(
-              'module' => 'Node',
-              'arguments' => array(
-                'node' => array(
-                  'label' => 'Content',
-                  'type' => 'node',
-                ),
-              ),
-              'label' => 'Notify subscribed users',
-              'base' => 'rules_core_action_execute',
-              'action_name' => 'yallah_notifications_action',
-              'configurable' => TRUE,
-            ),
+            '#type' => 'action',
           ),
         ),
         '#version' => 6003,
