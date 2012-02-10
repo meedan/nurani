@@ -2684,13 +2684,14 @@ return theme(\'links\', $links);
   $strongarm->api_version = 1;
   $strongarm->name = 'node_export_omitted';
   $strongarm->value = array(
-    'annotation' => 0,
-    'comment' => 0,
-    'discussion' => 0,
+    'annotation' => 'annotation',
+    'comment' => 'comment',
+    'discussion' => 'discussion',
+    'profile' => 'profile',
+    'response' => 'response',
+    'term' => 'term',
+    'text' => 'text',
     'page' => 0,
-    'profile' => 0,
-    'term' => 0,
-    'text' => 0,
   );
 
   $export['node_export_omitted'] = $strongarm;
