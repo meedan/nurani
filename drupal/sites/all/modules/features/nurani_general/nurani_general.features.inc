@@ -221,29 +221,20 @@ function nurani_general_rules_defaults() {
             '#settings' => array(
               'notification_type' => 'discussion',
               'subject_ar' => '[author-name] has invited you to participate in a new discussion',
-              'message_ar' => 'مرحبا [user]
-مناقشة جديدة حول [eltit] قد بدأت للتو على موقع نورانى
-يمكنك أن تكون أول من يبدي رأيه هنا : [node-url]
-نحن نتطلع إلى قراءة تعليقاتك وأفكارك.
-بالاضافة الى هذا فاننا بصدداختبار موقع نورانى ونبذل قصارى جهدنا لتحسينه قدر الإمكان، لذلك فإننا نرجوأن ترسل لنا ملاحظاتك واقتراحاتك الى البريد الاكتروني:  
-sronline@interfaith.cam.ac.uk
-
-شكرا ،
-فريق نورانى
-',
+              'message_ar' => '',
               'subject_en' => '[author-name] has invited you to participate in a new discussion',
               'message_en' => 'Hello [user]
 
-[author-name] has just started a new discussion about [title] on Nurani.
+[author-name] has just started a new discussion about [title] on Scriptural Reasoning online.
 
 You can be the first to comment here: [node-url]
 
 we are looking forward to reading your comments!
 
-We are testing the site and trying our best to improve it as much as possible, so we would appreciate it if you leave us feedback at zab23@cam.ac.uk
+We are testing the site and trying our best to improve it as much as possible, so we would appreciate it if you leave us feedback at sronline@interfaith.cam.ac.uk
 
 Thanks,
-The Nurani team',
+The Scriptural Reasoning online team.',
               '#argument map' => array(
                 'node' => 'node',
               ),
@@ -267,15 +258,7 @@ The Nurani team',
         '#conditions' => array(),
         '#actions' => array(
           '0' => array(
-            '#type' => 'action',
-            '#settings' => array(
-              'type' => 'profile',
-              '#argument map' => array(
-                'user' => 'user',
-                'profile_node' => 'user_profile',
-              ),
-            ),
-            '#name' => 'content_profile_action_load',
+            '#weight' => 0,
             '#info' => array(
               'label' => 'Load User profile',
               'label callback' => FALSE,
@@ -293,10 +276,39 @@ The Nurani team',
               ),
               'module' => 'Content Profile',
             ),
-            '#weight' => 0,
+            '#name' => 'content_profile_action_load',
+            '#settings' => array(
+              'type' => 'profile',
+              '#argument map' => array(
+                'user' => 'user',
+                'profile_node' => 'user_profile',
+              ),
+            ),
+            '#type' => 'action',
           ),
           '1' => array(
             '#weight' => 0,
+            '#type' => 'action',
+            '#settings' => array(
+              'notification_type' => 'profile',
+              'subject_ar' => '',
+              'message_ar' => '',
+              'subject_en' => '[author-name] has joined Scriptural Reasoning online',
+              'message_en' => 'Hello [user]
+
+[author-name] has just joined Scriptural Reasoning online. 
+
+You can be the first to view [author-name]\'s profile here: [author-url]
+
+We hope you\'ll get to know each other!
+
+Thanks,
+The Scriptural Reasoning online team.',
+              '#argument map' => array(
+                'node' => 'user_profile',
+              ),
+            ),
+            '#name' => 'rules_core_yallah_notifications_action',
             '#info' => array(
               'module' => 'Node',
               'arguments' => array(
@@ -310,25 +322,56 @@ The Nurani team',
               'action_name' => 'yallah_notifications_action',
               'configurable' => TRUE,
             ),
-            '#name' => 'rules_core_yallah_notifications_action',
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'rules_discussion_reminder' => array(
+        '#type' => 'rule',
+        '#set' => 'event_cron',
+        '#label' => 'Discussion reminder',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'Nurani_notification',
+          'nurani_general' => 'nurani_general',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(),
+        '#actions' => array(
+          '0' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'Use user object to execute a VBO programmatically',
+              'arguments' => array(
+                'object' => array(
+                  'type' => 'user',
+                  'label' => 'Object',
+                  'description' => 'The chosen object will be loaded as the <code>$object</code> variable, available below.',
+                ),
+              ),
+              'module' => 'Views Bulk Operations',
+              'eval input' => array(),
+              'base' => 'views_bulk_operations_rules_action',
+            ),
+            '#name' => 'views_bulk_operations_rules_action_user',
             '#settings' => array(
-              'notification_type' => 'profile',
+              '#argument map' => array(
+                'object' => 'user',
+              ),
+              'view_vid' => 'active_discussions',
+              'operation_key' => 'yallah_notifications_action',
+              'operation_arguments' => '',
+              'view_exposed_input' => '',
+              'view_arguments' => '',
+              'respect_limit' => 0,
               'subject_ar' => '',
               'message_ar' => '',
-              'subject_en' => '[author-name] has joined Nurani',
-              'message_en' => 'Hello [user]
+              'subject_en' => 'Discussion reminder for [title]',
+              'message_en' => 'This is a reminder for discussion "[title]". This discussion will expire on [field_exp_comments-date].
 
-[author-name] has just joined Nurani. 
-
-You can be the first to view [author-name]\'s profile here: [author-url]
-
-We hope you\'ll get to know each other!
-
-Thanks,
-The Nurani team',
-              '#argument map' => array(
-                'node' => 'user_profile',
-              ),
+You can add your comments at [node-path].',
+              'notification_type' => 'reminder',
             ),
             '#type' => 'action',
           ),
@@ -410,38 +453,19 @@ The Nurani team',
             '#name' => 'rules_core_yallah_notifications_action',
             '#settings' => array(
               'notification_type' => 'response',
-              'subject_ar' => '[author-name] has just responded on [current-page-title] on Nurani',
-              'message_ar' => 'مرحبا [user]
-
- [current-page-title]  تعليقا جديدا[author-name] لقد نشر   
-
-قائلا: 
-
-[node-body-trimmed]
-
- [current-page-title]يرد عليه   أول من يمكنك أن تكون
-نحن نتطلع إلى قراءة تعليقاتك وأفكارك
-بالاضافة الى هذا فاننا بصدداختبار موقع نورانى ونبذل قصارى جهدنا لتحسينه قدر الإمكان، لذلك فإننا نرجوأن ترسل لنا ملاحظاتك واقتراحاتك الى البريد الاكتروني:  
-sronline@interfaith.cam.ac.uk
-
- شكرا ،
-فريق نورانى
-',
-              'subject_en' => '[author-name] has just responded on [current-page-title] on Nurani',
+              'subject_ar' => '[author-name] has just responded on [current-page-title] on Scriptural Reasoning online',
+              'message_ar' => '',
+              'subject_en' => '[author-name] has just responded on [current-page-title] on Scriptural Reasoning online',
               'message_en' => 'Dear [user],
 
 [author-name] has just posted a new response to Nurani on [current-page-title]. 
-
-Saying:
-
-[node-body-trimmed]
 
 you can be the first to reply here:[current-page-title]
 
 we look forward to hearing what you have to say.
 
 Thanks,
-The Nurani Team.
+The Scriptural Reasoning online Team.
 
 ',
               '#argument map' => array(
@@ -449,58 +473,6 @@ The Nurani Team.
               ),
             ),
             '#type' => 'action',
-          ),
-        ),
-        '#version' => 6003,
-      ),
-      'rules_discussion_reminder' => array(
-        '#type' => 'rule',
-        '#set' => 'event_cron',
-        '#label' => 'Discussion reminder',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'Nurani_notification',
-          'nurani_general' => 'nurani_general',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(),
-        '#actions' => array(
-          '0' => array(
-            '#weight' => 0,
-            '#type' => 'action',
-            '#settings' => array(
-              '#argument map' => array(
-                'object' => 'user',
-              ),
-              'view_vid' => 'active_discussions',
-              'operation_key' => 'yallah_notifications_action',
-              'operation_arguments' => '',
-              'view_exposed_input' => '',
-              'view_arguments' => '',
-              'respect_limit' => 0,
-              'subject_ar' => '',
-              'message_ar' => '',
-              'subject_en' => 'Discussion reminder for [title]',
-              'message_en' => 'This is a reminder for discussion "[title]". This discussion will expire on [field_exp_comments-date].
-
-You can add your comments at [node-path].',
-              'notification_type' => 'reminder',
-            ),
-            '#name' => 'views_bulk_operations_rules_action_user',
-            '#info' => array(
-              'label' => 'Use user object to execute a VBO programmatically',
-              'arguments' => array(
-                'object' => array(
-                  'type' => 'user',
-                  'label' => 'Object',
-                  'description' => 'The chosen object will be loaded as the <code>$object</code> variable, available below.',
-                ),
-              ),
-              'module' => 'Views Bulk Operations',
-              'eval input' => array(),
-              'base' => 'views_bulk_operations_rules_action',
-            ),
           ),
         ),
         '#version' => 6003,
