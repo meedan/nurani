@@ -341,20 +341,7 @@ The Scriptural Reasoning online team.',
         '#actions' => array(
           '0' => array(
             '#weight' => 0,
-            '#info' => array(
-              'label' => 'Use user object to execute a VBO programmatically',
-              'arguments' => array(
-                'object' => array(
-                  'type' => 'user',
-                  'label' => 'Object',
-                  'description' => 'The chosen object will be loaded as the <code>$object</code> variable, available below.',
-                ),
-              ),
-              'module' => 'Views Bulk Operations',
-              'eval input' => array(),
-              'base' => 'views_bulk_operations_rules_action',
-            ),
-            '#name' => 'views_bulk_operations_rules_action_user',
+            '#type' => 'action',
             '#settings' => array(
               '#argument map' => array(
                 'object' => 'user',
@@ -368,12 +355,31 @@ The Scriptural Reasoning online team.',
               'subject_ar' => '',
               'message_ar' => '',
               'subject_en' => 'Discussion reminder for [title]',
-              'message_en' => 'This is a reminder for discussion "[title]". This discussion will expire on [field_exp_comments-date].
+              'message_en' => 'Dear [user],
 
-You can add your comments at [node-path].',
+This is a reminder for discussion "[title]". This discussion will expire on [field_exp_comments-date].
+
+You can add your comments at  [node-path].
+
+Thanks,
+The Scriptural Reasoning online Team.
+',
               'notification_type' => 'reminder',
             ),
-            '#type' => 'action',
+            '#name' => 'views_bulk_operations_rules_action_user',
+            '#info' => array(
+              'label' => 'Use user object to execute a VBO programmatically',
+              'arguments' => array(
+                'object' => array(
+                  'type' => 'user',
+                  'label' => 'Object',
+                  'description' => 'The chosen object will be loaded as the <code>$object</code> variable, available below.',
+                ),
+              ),
+              'module' => 'Views Bulk Operations',
+              'eval input' => array(),
+              'base' => 'views_bulk_operations_rules_action',
+            ),
           ),
         ),
         '#version' => 6003,
@@ -391,16 +397,7 @@ You can add your comments at [node-path].',
         '#status' => 'default',
         '#conditions' => array(
           '0' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              'type' => array(
-                'response' => 'response',
-              ),
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'rules_condition_content_is_type',
+            '#weight' => 0,
             '#info' => array(
               'label' => 'Created content is Response',
               'arguments' => array(
@@ -411,10 +408,25 @@ You can add your comments at [node-path].',
               ),
               'module' => 'Node',
             ),
-            '#weight' => 0,
+            '#name' => 'rules_condition_content_is_type',
+            '#settings' => array(
+              'type' => array(
+                'response' => 'response',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
           ),
           '1' => array(
-            '#weight' => 0,
+            '#type' => 'condition',
+            '#settings' => array(
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'rules_condition_content_is_published',
             '#info' => array(
               'label' => 'Created content is published',
               'arguments' => array(
@@ -425,19 +437,26 @@ You can add your comments at [node-path].',
               ),
               'module' => 'Node',
             ),
-            '#name' => 'rules_condition_content_is_published',
-            '#settings' => array(
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#type' => 'condition',
+            '#weight' => 0,
           ),
         ),
         '#actions' => array(
           '0' => array(
             '#weight' => 0,
-            '#type' => 'action',
+            '#info' => array(
+              'module' => 'Node',
+              'arguments' => array(
+                'node' => array(
+                  'label' => 'Content',
+                  'type' => 'node',
+                ),
+              ),
+              'label' => 'Notify subscribed users',
+              'base' => 'rules_core_action_execute',
+              'action_name' => 'yallah_notifications_action',
+              'configurable' => TRUE,
+            ),
+            '#name' => 'rules_core_yallah_notifications_action',
             '#settings' => array(
               'notification_type' => 'response',
               'subject_ar' => '[author-name] has just responded on [current-page-title] on Scriptural Reasoning online',
@@ -459,20 +478,7 @@ The Scriptural Reasoning online Team.
                 'node' => 'node',
               ),
             ),
-            '#name' => 'rules_core_yallah_notifications_action',
-            '#info' => array(
-              'module' => 'Node',
-              'arguments' => array(
-                'node' => array(
-                  'label' => 'Content',
-                  'type' => 'node',
-                ),
-              ),
-              'label' => 'Notify subscribed users',
-              'base' => 'rules_core_action_execute',
-              'action_name' => 'yallah_notifications_action',
-              'configurable' => TRUE,
-            ),
+            '#type' => 'action',
           ),
         ),
         '#version' => 6003,
