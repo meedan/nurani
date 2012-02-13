@@ -447,7 +447,7 @@ You can add your comments at [node-path].',
 
 [author-name] has just posted a new response to Scriptural Reasoning online on [current-page-title]. 
 
-you can be the first to reply here:[current-page-title]
+you can be the first to reply here: [node-url]
 
 we look forward to hearing what you have to say.
 
