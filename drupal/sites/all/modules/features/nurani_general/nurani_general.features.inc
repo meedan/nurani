@@ -341,7 +341,20 @@ The Scriptural Reasoning online team.',
         '#actions' => array(
           '0' => array(
             '#weight' => 0,
-            '#type' => 'action',
+            '#info' => array(
+              'label' => 'Use user object to execute a VBO programmatically',
+              'arguments' => array(
+                'object' => array(
+                  'type' => 'user',
+                  'label' => 'Object',
+                  'description' => 'The chosen object will be loaded as the <code>$object</code> variable, available below.',
+                ),
+              ),
+              'module' => 'Views Bulk Operations',
+              'eval input' => array(),
+              'base' => 'views_bulk_operations_rules_action',
+            ),
+            '#name' => 'views_bulk_operations_rules_action_user',
             '#settings' => array(
               '#argument map' => array(
                 'object' => 'user',
@@ -359,27 +372,14 @@ The Scriptural Reasoning online team.',
 
 This is a reminder for discussion "[title]". This discussion will expire on [field_exp_comments-date].
 
-You can add your comments at  [node-path].
+You can add your comments at  [node-url].
 
 Thanks,
 The Scriptural Reasoning online Team.
 ',
               'notification_type' => 'reminder',
             ),
-            '#name' => 'views_bulk_operations_rules_action_user',
-            '#info' => array(
-              'label' => 'Use user object to execute a VBO programmatically',
-              'arguments' => array(
-                'object' => array(
-                  'type' => 'user',
-                  'label' => 'Object',
-                  'description' => 'The chosen object will be loaded as the <code>$object</code> variable, available below.',
-                ),
-              ),
-              'module' => 'Views Bulk Operations',
-              'eval input' => array(),
-              'base' => 'views_bulk_operations_rules_action',
-            ),
+            '#type' => 'action',
           ),
         ),
         '#version' => 6003,
