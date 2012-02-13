@@ -47,8 +47,9 @@ return $vars[\'object\'];
   $box->description = 'Login form footer';
   $box->options = array(
     'body' => '<p><a href="<?php print url(\'user/password\'); ?>">Request new password »</a></p>
+<p><a href="<?php print url(\'content/getting-started\'); ?>">Getting started »</a></p>
+<p><a href="<?php print url(\'content/how-do-scriptural-reasoning\'); ?>">How to do SR »</a></p>
 <p><a href="<?php print url(\'content/about-nuraniorg\'); ?>">Learn more</a> about Nurani.org.</p>
-<p><a href="<?php print url(\'content/guidance\'); ?>">Find out</a> about the ground rules for discussion.</p>
 <p><a href="<?php print url(\'content/terms\'); ?>">Read</a> the terms of service.</p>',
     'format' => '3',
   );

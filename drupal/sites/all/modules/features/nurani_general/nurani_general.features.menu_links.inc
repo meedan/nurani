@@ -66,7 +66,7 @@ function nurani_general_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '0',
+    'weight' => '-48',
   );
   // Exported menu link: secondary-links:node/2
   $menu_links['secondary-links:node/2'] = array(
@@ -76,7 +76,8 @@ function nurani_general_menu_default_menu_links() {
     'link_title' => 'Getting started',
     'options' => array(
       'attributes' => array(
-        'title' => 'Guidance',
+        'title' => 'Guidance
+',
       ),
       'alter' => TRUE,
       'langcode' => 'en',
@@ -86,7 +87,7 @@ function nurani_general_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '1',
+    'weight' => '-50',
   );
   // Exported menu link: secondary-links:node/3
   $menu_links['secondary-links:node/3'] = array(
@@ -106,7 +107,7 @@ function nurani_general_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '3',
+    'weight' => '-46',
   );
   // Exported menu link: secondary-links:node/31
   $menu_links['secondary-links:node/31'] = array(
@@ -126,7 +127,7 @@ function nurani_general_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '0',
+    'weight' => '-49',
   );
   // Exported menu link: secondary-links:node/4
   $menu_links['secondary-links:node/4'] = array(
@@ -146,7 +147,7 @@ function nurani_general_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '3',
+    'weight' => '-47',
   );
   // Translatables
   // Included for use with string extractors like potx.
