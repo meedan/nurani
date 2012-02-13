@@ -2,7 +2,7 @@
 @import "_colors";
 
 .node-inner {
- padding-top: 100px; 
+ padding-top: 20px; 
 }
 
 div#top-strip {
@@ -120,7 +120,7 @@ div#main div.links:active {
  * width of them by just usinbg the INNER div of each column */
   /* line 141, ../scss/layout.scss */
 .inner {
-  padding: 20px;
+  padding: 100px;
 }
 
 body.page-mockup .inner {

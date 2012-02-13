@@ -183,8 +183,8 @@ abbr {
   color: #cc0000; }
 
 @mixin messages($color:$midnight_blue, $background:$frenchpass_blue, $border:$cornflower_blue ) {
-  padding: 9px;
-  margin: 1em 0;
+  padding: 6px;
+  margin: 2em 0;
   color: $color;
   background: $background;
   border: 1px solid $border;

@@ -211,8 +211,8 @@ abbr {
 
 /* line 193, ../scss/type.scss */
 div.messages {
-  padding: 9px;
-  margin: 1em 0;
+  padding: 6px;
+  margin: 2em 0;
   color: #003366;
   background: #bbddff;
   border: 1px solid #aaccee;
@@ -221,8 +221,8 @@ div.messages {
 
 /* line 194, ../scss/type.scss */
 div.warning {
-  padding: 9px;
-  margin: 1em 0;
+  padding: 6px;
+  margin: 2em 0;
   color: #884400;
   background: #ffee66;
   border: 1px solid #eedd55;
@@ -231,8 +231,8 @@ div.warning {
 
 /* line 195, ../scss/type.scss */
 div.error {
-  padding: 9px;
-  margin: 1em 0;
+  padding: 6px;
+  margin: 2em 0;
   color: white;
   background: #ee6633;
   border: 1px solid #dd5522;
@@ -241,8 +241,8 @@ div.error {
 
 /* line 196, ../scss/type.scss */
 div.status {
-  padding: 9px;
-  margin: 1em 0;
+  padding: 6px;
+  margin: 2em 0;
   color: #336600;
   background: #ccff88;
   border: 1px solid #bbee77;
