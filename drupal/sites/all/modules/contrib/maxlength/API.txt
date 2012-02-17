@@ -1,0 +1,59 @@
+# Custom Integration
+
+The maxlength counter can be added to forms in your own module or another.
+
+At its simplest, the API for a form textfield or textarea requires adding the
+following to your form element in a form builder or hook_form_alter():
+
+  <code>
+    module_load_include('inc', 'maxlength');
+    $form['pony']['#max_length_properties'] = array(
+      'limit' => $limit,
+      'use_js' => TRUE,
+      'text' => t('Your message, where the tokens "!limit", "!remaining" and "!count" are replaced with their values.'),
+    );
+  </code>
+
+If you want to allow user configuration of the maxlength of your form element, you need more steps.
+
+Build settings like this:
+
+   <code>
+      $form['pony']['maxlength_pony'] = array(
+      '#type' => 'textfield',
+      '#title' => t('!label max length', array('!label' => ucwords($label))),
+      '#field_suffix' => t('characters'),
+      '#return_value' => 1,
+      '#size' => 4,
+      '#default_value' => variable_get('maxlength_pony_'. $type, MAXLENGTH_DEFAULT_LENGTH),
+      '#description' => t('Maximum number of characters allowed for the !type field of this content type. Leave blank for an unlimited size.', array('!type' => $label)) .'<br/>'.
+      '<b>'. t('Please remember, it counts all characters, including HTML, so may not work as expected with rich text editors e.g. FCKeditor / tinyMCE.') .'</b>',
+    );
+    $form['pony']['maxlength_pony_js'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable remaining characters countdown for the !label', array('!label' => ucwords($label))),
+      '#default_value' => variable_get('maxlength_pony_js_'. $type, MAXLENGTH_DEFAULT_USE_JS),
+      '#description' => t('This will enable a Javascript based count down, as well as the client side validation for the !type field of this content type. If no limit set this is ignored.', array('!type' => $label)),
+    );
+    $form['pony']['maxlength_pony_text'] = array(
+      '#type' => 'textarea',
+      '#title' => t('!label count down message', array('!label' => ucwords($label))),
+      '#default_value' => variable_get('maxlength_pony_text_'. $type, MAXLENGTH_DEFAULT_TEXT),
+      '#description' => t('The text used in the Javascript message under the !type input, where "!limit", "!remaining" and "!count" are replaced by the appropriate numbers.', array('!type' => $label)),
+    );
+    </code>
+
+Store the maxlength_$field_$setting variables
+
+In your actual form function/hook_form_alter you can use:
+
+  <code>
+  module_load_include('inc', 'maxlength');
+  $values = maxlength_get_values('pony');
+  </code>
+  maxlength_get_values allows you to use the node-$type as second parameter.
+  Now the only thing left is to store the settings in the form.
+  <code>
+  $form['pony']['#max_length_properties'] = $values;
+  </code>
+
