@@ -6,6 +6,18 @@
 function nurani_general_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: access ckeditor
+  $permissions['access ckeditor'] = array(
+    'name' => 'access ckeditor',
+    'roles' => array(
+      '0' => 'administrator',
+      '1' => 'authenticated user',
+      '2' => 'moderator',
+      '3' => 'scholar',
+      '4' => 'translator',
+    ),
+  );
+
   // Exported permission: access comments
   $permissions['access comments'] = array(
     'name' => 'access comments',
@@ -32,6 +44,14 @@ function nurani_general_user_default_permissions() {
     'roles' => array(
       '0' => 'administrator',
       '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: administer ckeditor
+  $permissions['administer ckeditor'] = array(
+    'name' => 'administer ckeditor',
+    'roles' => array(
+      '0' => 'administrator',
     ),
   );
 
