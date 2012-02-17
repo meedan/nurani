@@ -1,4 +1,3 @@
-/* $Id: maxlength.js,v 1.1.6.6.2.14 2011/02/16 11:09:13 aronnovak Exp $ */
 
 Drupal.maxLength_limit = function (field) {
 
@@ -10,13 +9,10 @@ Drupal.maxLength_limit = function (field) {
     return;
   }
   var limit = Drupal.settings.maxlength[id];
-  var maxlength = $('#maxlength-' + id.substr(5));
-  maxlength.show_count = false;
+  var maxlength = $('#maxlength-' + id);
   maxlength.span_remaining_count = maxlength.find('span.maxlength-counter-remaining');
-  maxlength.find('span.maxlength-count', function() {
-    maxlength.show_count = true;
-    maxlength.span_count = maxlength.find('span.maxlength-count');
-  });
+  maxlength.span_count = maxlength.find('span.maxlength-count');
+  maxlength.show_count = maxlength.span_count.length;
 
   // calculate the remaining count of chars  
   var length = $(field).val().length;

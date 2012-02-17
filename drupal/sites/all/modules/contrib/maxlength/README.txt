@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.2.6.1 2008/09/28 20:27:10 acm Exp $
 
 This module allows administrators to set maximum lengths for the body
 fields of content types, as well as activating a Java Script count down 

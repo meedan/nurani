@@ -11,6 +11,16 @@ function nurani_general_user_default_roles() {
     'name' => 'administrator',
   );
 
+  // Exported role: anonymous user
+  $roles['anonymous user'] = array(
+    'name' => 'anonymous user',
+  );
+
+  // Exported role: authenticated user
+  $roles['authenticated user'] = array(
+    'name' => 'authenticated user',
+  );
+
   // Exported role: moderator
   $roles['moderator'] = array(
     'name' => 'moderator',

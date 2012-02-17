@@ -375,6 +375,8 @@ span.username {
 
 a {
   @include link-colors($darkest, lighten($darkest, 30%), $darkest, $darkest, $darkest); 
+  //color:#990000;
+  
 }
 
 div#walkthrough {

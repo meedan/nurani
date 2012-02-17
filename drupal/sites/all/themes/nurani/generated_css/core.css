@@ -4075,71 +4075,71 @@ a:active {
   color: black;
 }
 
-/* line 380, ../scss/core.scss */
+/* line 382, ../scss/core.scss */
 div#walkthrough {
   background-color: maroon;
 }
-/* line 383, ../scss/core.scss */
+/* line 385, ../scss/core.scss */
 div#walkthrough ul.links li {
   background: #b30000;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=5000%);
   opacity: 50%;
 }
-/* line 386, ../scss/core.scss */
+/* line 388, ../scss/core.scss */
 div#walkthrough ul.links li a:link {
   color: black;
 }
-/* line 388, ../scss/core.scss */
+/* line 390, ../scss/core.scss */
 div#walkthrough ul.links li a:hover {
   color: #f1e9e4;
 }
 
-/* line 392, ../scss/core.scss */
+/* line 394, ../scss/core.scss */
 div.profile div.field-label {
   background-color: white;
   color: #7c0000;
 }
 
-/* line 397, ../scss/core.scss */
+/* line 399, ../scss/core.scss */
 body.discussion #content img {
   border: 4px double #f1e9e4;
 }
 
-/* line 400, ../scss/core.scss */
+/* line 402, ../scss/core.scss */
 div.field-type-user-reference {
   border: 1px solid #f1e9e4;
 }
 
-/* line 403, ../scss/core.scss */
+/* line 405, ../scss/core.scss */
 div.field-type-user-reference .field-label, div.field-name-field-texts .field-label {
   color: #7c0000;
 }
 
-/* line 410, ../scss/core.scss */
+/* line 412, ../scss/core.scss */
 .page-user-overview .block {
   border: 1px solid #f1e9e4;
 }
-/* line 412, ../scss/core.scss */
+/* line 414, ../scss/core.scss */
 .page-user-overview .block h2 {
   background: white;
   border-bottom: 1px solid #f1e9e4;
 }
 
-/* line 417, ../scss/core.scss */
+/* line 419, ../scss/core.scss */
 #sidebar-second h2.block-title {
   border-bottom: 4px double #990000;
 }
-/* line 421, ../scss/core.scss */
+/* line 423, ../scss/core.scss */
 #sidebar-second #boxes-box-add_glossary_term .boxes-box-content a {
   color: #7c0000;
 }
 
-/* line 424, ../scss/core.scss */
+/* line 426, ../scss/core.scss */
 div#block-search-form {
   border-bottom: 1px solid #f1e9e4;
 }
 
-/* line 427, ../scss/core.scss */
+/* line 429, ../scss/core.scss */
 a#admin_toggle {
   color: #7c0000;
   background: white;
@@ -4148,12 +4148,12 @@ a#admin_toggle {
 /* ========================= */
 /* = demo temporary styles = */
 /* ========================= */
-/* line 435, ../scss/core.scss */
+/* line 437, ../scss/core.scss */
 span.form-required {
   color: #7c0000;
 }
 
-/* line 437, ../scss/core.scss */
+/* line 439, ../scss/core.scss */
 .page-node-6 {
   text-align: right;
 }
