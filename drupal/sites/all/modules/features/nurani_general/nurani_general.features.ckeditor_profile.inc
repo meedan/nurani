@@ -215,7 +215,11 @@ admin/settings/site-maintenance.*
         'ss' => '2',
         'min_rows' => '1',
         'excl_mode' => '0',
-        'excl' => '',
+        'excl' => '*.edit-export
+node_export@node/add/node_export.edit-code
+text@node/add/text.edit-field-description-0-value
+admin/build/block/configure/boxes/discussion_info.edit-body
+',
         'simple_incl' => '',
         'default' => 't',
         'show_toggle' => 'f',
@@ -283,7 +287,7 @@ admin/settings/site-maintenance.*
             'default' => 't',
           ),
         ),
-        'excl_regex' => '',
+        'excl_regex' => '#(?:^.*:.*@.*\\.edit\\-export$)|(?:^.*:node_export@node/add/node_export\\.edit\\-code$)|(?:^.*:text@node/add/text\\.edit\\-field\\-description\\-0\\-value$)|(?:^.*:.*@admin/build/block/configure/boxes/discussion_info\\.edit\\-body$)#',
         'simple_incl_regex' => '',
       ),
       'roles' => array(
