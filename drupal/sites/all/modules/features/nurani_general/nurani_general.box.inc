@@ -46,11 +46,12 @@ return $vars[\'object\'];
   $box->title = '';
   $box->description = 'Login form footer';
   $box->options = array(
-    'body' => '<p><a href="<?php print url(\'user/password\'); ?>">Request new password »</a></p>
-<p><a href="<?php print url(\'content/getting-started\'); ?>">Getting started »</a></p>
-<p><a href="<?php print url(\'content/how-do-scriptural-reasoning\'); ?>">How to do SR »</a></p>
-<p><a href="<?php print url(\'content/about-nuraniorg\'); ?>">Learn more</a> about Nurani.org.</p>
-<p><a href="<?php print url(\'content/terms\'); ?>">Read</a> the terms of service.</p>',
+    'body' => '<p><a href="<?php print url(\'user/password\'); ?>">Request new password &raquo;</a></p>
+<p><a href="<?php print url(\'content/getting-started\'); ?>">Getting started &raquo;</a></p>
+<p><a href="<?php print url(\'content/how-do-scriptural-reasoning\'); ?>">How to do SR &raquo;</a></p>
+<p>Learn more about<a href="<?php print url(\'content/about-nuraniorg\'); ?>">  Nurani.org.</a></p>
+<p>Read the <a href="<?php print url(\'content/terms\'); ?>">Terms of service</a> and <a href="<?php print url(\'content/privacy\'); ?>">Privacy policy</a></p>
+',
     'format' => '3',
   );
 
