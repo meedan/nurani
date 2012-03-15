@@ -14,7 +14,7 @@ function nurani_general_menu_default_menu_links() {
     'link_title' => 'Glossary',
     'options' => array(),
     'module' => 'system',
-    'hidden' => '0',
+    'hidden' => '1',
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
@@ -25,8 +25,12 @@ function nurani_general_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'overview',
     'router_path' => 'overview',
-    'link_title' => 'Overview',
-    'options' => array(),
+    'link_title' => 'Discussions',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
     'module' => 'system',
     'hidden' => '0',
     'external' => '0',
@@ -152,10 +156,10 @@ function nurani_general_menu_default_menu_links() {
   // Translatables
   // Included for use with string extractors like potx.
   t('About Nurani.org');
+  t('Discussions');
   t('Getting started');
   t('Glossary');
   t('How to do Scriptural Reasoning');
-  t('Overview');
   t('Privacy');
   t('Terms');
   t('Texts');

@@ -358,7 +358,7 @@ WHERE content.nid = %d
  */
 function nurani_custom_form_alter(&$form, &$form_state, $form_id) {
   // Redirect to translated content, not jobs page.
-  if ($form_id == 'icl_translate_editor') {
+    if ($form_id == 'icl_translate_editor') {
     $rid = $form['rid']['#default_value'];
     $job = db_fetch_object(db_query("
 SELECT content.nid, core.target 
@@ -392,6 +392,10 @@ WHERE core.rid = %d
       '#type' => 'value',
       '#value' => TRUE,
     );
+  }
+  // Notify Users Checbox checked as default
+  if($form_id == 'user_register') {
+    $form['account']['notify']['#default_value'] = TRUE;
   }
 }
 
@@ -439,17 +443,24 @@ function nurani_custom_action_links($user = NULL) {
     );
   }
 
-  if (user_access('create term content', $user)) {
+ /* if (user_access('create term content', $user)) {
     $links[] = array(
       'title' => t('Add a new glossary term'),
       'href' => 'node/add/term',
     );
-  }
+  }  */
 
   if (user_access('administer users', $user)) {
     $links[] = array(
       'title' => t('Manage users'),
       'href' => 'admin/user/user',
+    );
+  }
+  
+  if (user_access('create user', $user)) {
+    $links[] = array(
+      'title' => t('Create user'),
+      'href' => 'admin/user/user/create',
     );
   }
 

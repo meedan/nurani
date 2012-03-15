@@ -1611,9 +1611,6 @@ return $count;',
     'type' => 'none',
   ));
   $handler->override_option('title', 'New glossary terms');
-  $handler = $view->new_display('block', 'Block', 'block_1');
-  $handler->override_option('block_description', '');
-  $handler->override_option('block_caching', -1);
 
   $views[$view->name] = $view;
 
@@ -2200,10 +2197,32 @@ return implode(\'+\', $uids);',
   $handler->override_option('fields', array(
     'title' => array(
       'label' => 'Title',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'link_to_node' => 0,
+      'exclude' => 0,
       'id' => 'title',
       'table' => 'node',
       'field' => 'title',
-      'link_to_node' => 1,
       'relationship' => 'none',
     ),
     'field_description_value' => array(
@@ -2532,39 +2551,6 @@ return implode(\'+\', $uids);',
       'table' => 'node_revisions',
       'field' => 'body',
       'relationship' => 'none',
-    ),
-    'picture' => array(
-      'label' => 'Added by',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'link_class' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'target' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-        'strip_tags' => 0,
-      ),
-      'empty' => '',
-      'hide_empty' => 0,
-      'empty_zero' => 0,
-      'imagecache_preset' => 'thumbnail_view',
-      'exclude' => 0,
-      'id' => 'picture',
-      'table' => 'users',
-      'field' => 'picture',
-      'relationship' => 'none',
-      'override' => array(
-        'button' => 'Override',
-      ),
     ),
   ));
   $handler->override_option('sorts', array(

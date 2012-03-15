@@ -3495,13 +3495,21 @@ ul.menu li.active-trail {
   line-height: 2.3em;
   color: #4D1312;
   background: #F1E9E4;
-  padding: 0 10px;
+  padding: 0 6px;
   display: block;
   float: left;
-  margin: 0 1px;
+  margin: 2px 5px;
   border-radius: 10px;
   font-weight: bold;
   font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+}
+/* line 105, ../scss/navigation.scss */
+#boxes-box-action_links ul a:hover {
+  color: black;
+}
+/* line 108, ../scss/navigation.scss */
+#boxes-box-action_links ul a.active {
+  color: #998D86;
 }
 
 /* line 43, ../scss/core.scss */
@@ -3517,7 +3525,7 @@ ul.menu li.active-trail {
 /* line 44, ../scss/core.scss */
 #block-menu-primary-links ul.menu {
   margin: 0 auto;
-  width: 465px;
+  width: 384px;
   padding: 0;
 }
 /* line 18, ../scss/navigation.scss */

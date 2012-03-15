@@ -13,7 +13,7 @@
 
 @mixin primarynav($bright: $identity, $dark: darken($identity, 80%)) {
   margin: 0 auto;
-  width: 465px;
+  width: 384px;
 	padding: 0;
   a {
      @include link-colors($bright, $dark, $dark, $bright, $bright );
@@ -85,7 +85,7 @@ ul.menu {
 	ul {
 		margin: 0;
 		padding: 0;
-	
+	       			
 		li {
 			padding: 0;	
 		}	
@@ -94,13 +94,20 @@ ul.menu {
 			line-height: 2.3em;
 			color: #4D1312;
       background: #F1E9E4;
-      padding: 0 10px; 
+      padding: 0 6px; 
 			display: block;
 			float: left;
-			margin: 0 1px;
+			margin: 2px 5px;
       border-radius: 10px;
 			font-weight: bold;
   		@include en-sans;
 		}	
+		a:hover{
+    color: black;
+    }
+    a.active{
+    color: #998D86;
+    
+    }
 	}
 }

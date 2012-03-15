@@ -210,7 +210,6 @@ admin/settings/site-maintenance.*
         'filters' => array(
           'filter/3' => 0,
           'filter/0' => 1,
-          'nurani_glossary/0' => 0,
         ),
         'ss' => '2',
         'min_rows' => '1',
@@ -219,6 +218,13 @@ admin/settings/site-maintenance.*
 node_export@node/add/node_export.edit-code
 text@node/add/text.edit-field-description-0-value
 admin/build/block/configure/boxes/discussion_info.edit-body
+*.edit-field-education-0-value
+*.edit-field-societies-0-value
+*.edit-field-experience-0-value
+*.edit-field-research-0-value
+*.edit-field-publications-0-value
+
+
 ',
         'simple_incl' => '',
         'default' => 't',
@@ -287,7 +293,7 @@ admin/build/block/configure/boxes/discussion_info.edit-body
             'default' => 't',
           ),
         ),
-        'excl_regex' => '#(?:^.*:.*@.*\\.edit\\-export$)|(?:^.*:node_export@node/add/node_export\\.edit\\-code$)|(?:^.*:text@node/add/text\\.edit\\-field\\-description\\-0\\-value$)|(?:^.*:.*@admin/build/block/configure/boxes/discussion_info\\.edit\\-body$)#',
+        'excl_regex' => '#(?:^.*:.*@.*\\.edit\\-export$)|(?:^.*:node_export@node/add/node_export\\.edit\\-code$)|(?:^.*:text@node/add/text\\.edit\\-field\\-description\\-0\\-value$)|(?:^.*:.*@admin/build/block/configure/boxes/discussion_info\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-education\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-societies\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-experience\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-research\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-publications\\-0\\-value$)#',
         'simple_incl_regex' => '',
       ),
       'roles' => array(
