@@ -343,29 +343,29 @@ h1.title {
 /* line 8, ../scss/layout.scss */
 div#top-strip {
   height: 37px;
-  background: #998d86;
+  background: #D6CBC0;
   padding: 4px 20px 0;
 }
 
-/* line 13, ../scss/layout.scss */
+/* line 14, ../scss/layout.scss */
 div#header {
   text-align: center;
   margin: 0;
 }
 
-/* line 18, ../scss/layout.scss */
+/* line 19, ../scss/layout.scss */
 div#footer {
   margin-top: 30px;
   text-align: center;
 }
 
-/* line 23, ../scss/layout.scss */
+/* line 24, ../scss/layout.scss */
 div#main {
   position: relative;
   z-index: 2;
 }
 
-/* line 28, ../scss/layout.scss */
+/* line 29, ../scss/layout.scss */
 div#main div.links {
   line-height: "30px";
   -webkit-box-sizing: border-box;
@@ -375,19 +375,19 @@ div#main div.links {
   font-size: 12px;
 }
 
-/* line 40, ../scss/layout.scss */
+/* line 41, ../scss/layout.scss */
 .page {
   width: 960px;
   margin: 0 auto;
 }
 
-/* line 45, ../scss/layout.scss */
+/* line 46, ../scss/layout.scss */
 .sidebar-right #main {
   float: left;
   width: 593.28px;
 }
 
-/* line 50, ../scss/layout.scss */
+/* line 51, ../scss/layout.scss */
 #header-region {
   position: relative;
   height: 95px;
@@ -395,44 +395,44 @@ div#main div.links {
 
 /* Layout rules. (Disclaimer: do not change if you're not sure you know what you're doing.) */
 /* line 72, ../scss/layout.scss */
-/* line 57, ../scss/layout.scss */
+/* line 58, ../scss/layout.scss */
 #content {
   margin: 0 auto;
 }
 
 /* line 76, ../scss/layout.scss */
-/* line 62, ../scss/layout.scss */
+/* line 63, ../scss/layout.scss */
 .sidebar-first #content {
   float: right;
   width: 593.28px;
 }
 
-/* line 67, ../scss/layout.scss */
+/* line 68, ../scss/layout.scss */
 .sidebar-right #content {
   float: left;
   width: 593.28px;
 }
 
-/* line 72, ../scss/layout.scss */
+/* line 73, ../scss/layout.scss */
 .sidebar {
   float: left;
   width: 366.72px;
 }
 
-/* line 77, ../scss/layout.scss */
+/* line 78, ../scss/layout.scss */
 #sidebar-second {
   float: right;
   width: 366.72px;
 }
 
-/* line 82, ../scss/layout.scss */
+/* line 83, ../scss/layout.scss */
 #footer {
   float: none;
   clear: both;
 }
 
 /* Layout Helpers */
-/* line 88, ../scss/layout.scss */
+/* line 89, ../scss/layout.scss */
 #header, #footer, .mission, .breadcrumb, .node {
   clear: both;
 }
@@ -445,23 +445,23 @@ div#main div.links {
  * For example, if I want to increase the width of the left sidebar
  * to 300px, I would have to change each '190' to '300'. */
 /* line 119, ../scss/layout.scss */
-/* line 100, ../scss/layout.scss */
+/* line 101, ../scss/layout.scss */
 .two-sidebars .center, .sidebar-first .center {
   margin-left: 190px;
 }
 
-/* line 104, ../scss/layout.scss */
+/* line 105, ../scss/layout.scss */
 #sidebar-first {
   width: 190px;
   margin-right: -190px;
 }
 
-/* line 109, ../scss/layout.scss */
+/* line 110, ../scss/layout.scss */
 .two-sidebars .center, .sidebar-right .center {
   margin-right: 200px;
 }
 
-/* line 113, ../scss/layout.scss */
+/* line 114, ../scss/layout.scss */
 .sidebar-right .center {
   margin-right: 0;
 }
@@ -471,17 +471,17 @@ div#main div.links {
  * You can change the padding inside the columns without changing the
  * width of them by just usinbg the INNER div of each column */
 /* line 141, ../scss/layout.scss */
-/* line 122, ../scss/layout.scss */
+/* line 123, ../scss/layout.scss */
 .inner {
   padding: 20px;
 }
 
-/* line 126, ../scss/layout.scss */
+/* line 127, ../scss/layout.scss */
 body.page-mockup .inner {
   padding: 0;
 }
 
-/* line 130, ../scss/layout.scss */
+/* line 131, ../scss/layout.scss */
 #sidebar-second .inner {
   padding: 0;
 }
@@ -3494,7 +3494,6 @@ ul.menu li.active-trail {
   font-size: 0.80em;
   line-height: 2.3em;
   color: #4D1312;
-  background: #F1E9E4;
   padding: 0 6px;
   display: block;
   float: left;
@@ -3506,10 +3505,11 @@ ul.menu li.active-trail {
 /* line 105, ../scss/navigation.scss */
 #boxes-box-action_links ul a:hover {
   color: black;
+  background: #F1E9E4;
 }
-/* line 108, ../scss/navigation.scss */
+/* line 110, ../scss/navigation.scss */
 #boxes-box-action_links ul a.active {
-  color: #998D86;
+  background: #F1E9E4;
 }
 
 /* line 43, ../scss/core.scss */

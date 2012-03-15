@@ -93,7 +93,7 @@ ul.menu {
 			font-size: 0.80em;
 			line-height: 2.3em;
 			color: #4D1312;
-      background: #F1E9E4;
+      //background: #F1E9E4;
       padding: 0 6px; 
 			display: block;
 			float: left;
@@ -104,9 +104,12 @@ ul.menu {
 		}	
 		a:hover{
     color: black;
+    background: #F1E9E4;
+    
     }
     a.active{
-    color: #998D86;
+    //color: #998D86; 
+    background: #F1E9E4;
     
     }
 	}
