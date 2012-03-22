@@ -210,6 +210,7 @@ admin/settings/site-maintenance.*
         'filters' => array(
           'filter/3' => 0,
           'filter/0' => 1,
+          'wysiwyg_filter/0' => 0,
         ),
         'ss' => '2',
         'min_rows' => '1',
@@ -297,9 +298,8 @@ admin/build/block/configure/boxes/discussion_info.edit-body
         'simple_incl_regex' => '',
       ),
       'roles' => array(
-        'authenticated user' => 'authenticated user',
+        'administrator' => 'administrator',
         'moderator' => 'moderator',
-        'scholar' => 'scholar',
         'translator' => 'translator',
       ),
     ),

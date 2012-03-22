@@ -397,6 +397,12 @@ WHERE core.rid = %d
   if($form_id == 'user_register') {
     $form['account']['notify']['#default_value'] = TRUE;
   }
+  
+  // Thought field mandatory- Create a discussion
+  
+  if ($form_id == 'discussion_node_form') {
+    $form['body_field']['body']['#required']= 'TRUE';
+  }
 }
 
 /**
