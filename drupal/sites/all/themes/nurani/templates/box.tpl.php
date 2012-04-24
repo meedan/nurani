@@ -22,6 +22,6 @@ if (empty($discussion_comment_form_disabled)) :
   <h2><?php print $title ?></h2>
 <?php endif; ?>
 
-  <div class="content"><?php print $content ?></div>
+  <div class="content"><?php print $content?></div>
 </div>
 <?php endif ?>

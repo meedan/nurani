@@ -28,7 +28,11 @@ stylesheets[all][] = css/default.css
 stylesheets[all][] = css/layout.css
 stylesheets[all][] = css/style.css
 stylesheets[print][] = css/print.css
-stylesheets[all][] = generated_css/core.css
+stylesheets[all][] = generated_css/core.css 
+
+scripts[] = js/textcounter.js
+
+
 
 ; Compass Support
 ; http://drupal.org/project/compass

@@ -16,7 +16,7 @@
     <?php endif; ?>
 
     <div class="content">
-      <?php print $content ?>
+      <?php// print $content ?>
       <?php if ($signature): ?>
         <div class="user-signature clearfix">
           <?php print $signature; ?>
