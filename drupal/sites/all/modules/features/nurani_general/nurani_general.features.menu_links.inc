@@ -6,20 +6,6 @@
 function nurani_general_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: primary-links:glossary
-  $menu_links['primary-links:glossary'] = array(
-    'menu_name' => 'primary-links',
-    'link_path' => 'glossary',
-    'router_path' => 'glossary',
-    'link_title' => 'Glossary',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => '1',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '1',
-  );
   // Exported menu link: primary-links:overview
   $menu_links['primary-links:overview'] = array(
     'menu_name' => 'primary-links',
@@ -158,7 +144,6 @@ function nurani_general_menu_default_menu_links() {
   t('About Nurani.org');
   t('Discussions');
   t('Getting started');
-  t('Glossary');
   t('How to do Scriptural Reasoning');
   t('Privacy');
   t('Terms');

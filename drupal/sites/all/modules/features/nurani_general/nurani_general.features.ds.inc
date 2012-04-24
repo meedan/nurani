@@ -11,7 +11,7 @@ function nurani_general_ds_default_settings() {
           'fields' => array(
             'title' => array(
               'region' => 'disabled',
-              'weight' => '-94',
+              'weight' => '-95',
               'format' => 'nd_title_h1_nolink',
               'css-class' => '',
               'labelformat' => 'hidden',
@@ -32,7 +32,7 @@ function nurani_general_ds_default_settings() {
             ),
             'read_more' => array(
               'region' => 'disabled',
-              'weight' => '-95',
+              'weight' => '-96',
               'format' => 'ds_eval_code',
               'css-class' => '',
               'labelformat' => 'hidden',
@@ -267,7 +267,7 @@ function nurani_general_ds_default_settings() {
           'fields' => array(
             'title' => array(
               'region' => 'disabled',
-              'weight' => '-92',
+              'weight' => '-95',
               'format' => 'nd_title_h1_nolink',
               'css-class' => '',
               'labelformat' => 'hidden',
@@ -288,7 +288,7 @@ function nurani_general_ds_default_settings() {
             ),
             'read_more' => array(
               'region' => 'disabled',
-              'weight' => '-93',
+              'weight' => '-96',
               'format' => 'ds_eval_code',
               'css-class' => '',
               'labelformat' => 'hidden',
@@ -304,20 +304,6 @@ function nurani_general_ds_default_settings() {
               'region' => 'middle',
               'weight' => '-98',
               'format' => 'nd_bodyfield',
-              'css-class' => '',
-              'labelformat' => 'hidden',
-            ),
-            'view_text' => array(
-              'region' => 'disabled',
-              'weight' => '-95',
-              'format' => 'ds_eval_code',
-              'css-class' => '',
-              'labelformat' => 'hidden',
-            ),
-            'glossary_references' => array(
-              'region' => 'disabled',
-              'weight' => '-94',
-              'format' => 'ds_eval_code',
               'css-class' => '',
               'labelformat' => 'hidden',
             ),
@@ -498,7 +484,7 @@ function nurani_general_ds_default_settings() {
           'fields' => array(
             'field_description' => array(
               'region' => 'disabled',
-              'weight' => '-96',
+              'weight' => '-95',
               'format' => 'default',
               'css-class' => '',
               'labelformat' => 'hidden',
@@ -512,28 +498,28 @@ function nurani_general_ds_default_settings() {
             ),
             'author' => array(
               'region' => 'disabled',
-              'weight' => '-95',
+              'weight' => '-94',
               'format' => 'ds_author_nolink',
               'css-class' => '',
               'labelformat' => 'hidden',
             ),
             'links' => array(
               'region' => 'disabled',
-              'weight' => '-93',
+              'weight' => '-92',
               'format' => '',
               'css-class' => '',
               'labelformat' => 'hidden',
             ),
             'read_more' => array(
               'region' => 'disabled',
-              'weight' => '-97',
+              'weight' => '-96',
               'format' => 'ds_eval_code',
               'css-class' => '',
               'labelformat' => 'hidden',
             ),
             'post_date' => array(
               'region' => 'disabled',
-              'weight' => '-98',
+              'weight' => '-97',
               'format' => 'nd_post_date_long',
               'css-class' => '',
               'labelformat' => 'hidden',
@@ -547,7 +533,7 @@ function nurani_general_ds_default_settings() {
             ),
             'translation_status' => array(
               'region' => 'disabled',
-              'weight' => '-94',
+              'weight' => '-93',
               'format' => 'ds_eval_code',
               'css-class' => '',
               'labelformat' => 'hidden',

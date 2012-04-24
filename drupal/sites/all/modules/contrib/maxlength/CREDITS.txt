@@ -1,4 +1,0 @@
-
-1.x was written by Mariuss and inspired by functionality found in the ed_classified module.
-
-2.x has been written by a_c_m and dereine, from the 1.x codebase.
