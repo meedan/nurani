@@ -407,7 +407,13 @@ WHERE core.rid = %d
   if($form_id = 'discussion_node_form'){
     $form['body_field']['body']['#description']= t('250 Maximum word count');
   } 
-    
+    if ($form_id == 'discussion_node_form'){
+    $form['body_field']['counter'] = array(
+    '#type' => 'hidden',
+    '#prefix' => '<span id="counter">',
+    '#suffix' => '</span>',
+   );
+  }  
 }
 
 /**
