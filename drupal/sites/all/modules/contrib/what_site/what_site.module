@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Implements hook_init().
+ */
+function what_site_init() {
+  if ($path = what_site_path()) {
+    drupal_add_js($path . '/whatsite.js', 'theme');
+    drupal_add_js('$(function () { WhatSite.apply(); });', 'inline');
+  }
+}
+
+/**
+ * Attempts to locate the directory of the WhatSite library.
+ */
+function what_site_path() {
+  $search_paths = array(
+    // Using dirname(__FILE__) gets around the problem drupal_get_path failing
+    // during hook_install() and what_site_requirements().
+    dirname(__FILE__) . '/WhatSite',
+    'sites/all/libraries/WhatSite',
+  );
+
+  foreach ($search_paths as $path) {
+    if (is_file($path . '/whatsite.js')) {
+      return $path;
+    }
+  }
+
+  return FALSE;
+}
