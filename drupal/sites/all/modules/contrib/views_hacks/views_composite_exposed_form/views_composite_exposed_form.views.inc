@@ -15,6 +15,7 @@ function views_composite_exposed_form_views_plugins() {
         'uses options' => TRUE,
         'type' => 'normal',
         'parent' => 'basic',
+        'help topic' => '',
       ),
     ),
   );

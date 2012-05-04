@@ -3,9 +3,9 @@ description = "Administrative interface to display suite. Without this module, y
 core = "6.x"
 package = "Display suite"
 dependencies[] = ds
-; Information added by drupal.org packaging script on 2011-03-23
-version = "6.x-1.x-dev"
+; Information added by drupal.org packaging script on 2012-02-13
+version = "6.x-2.3"
 core = "6.x"
 project = "ds"
-datestamp = "1300838733"
+datestamp = "1329093939"
 

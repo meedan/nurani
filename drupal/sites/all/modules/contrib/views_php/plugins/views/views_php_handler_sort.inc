@@ -72,6 +72,11 @@ class views_php_handler_sort extends views_handler_sort {
    * @see views_php_views_pre_execute()
    */
   function php_pre_execute() {
+    // Don't do anything if displaying a summary.
+    if (!empty($this->view->build_info['summary'])) {
+      return;
+    }
+    
     // Ecexute static PHP code.
     if (!empty($this->options['php_setup'])) {
       $function = create_function('$view, $handler, &$static', $this->options['php_setup'] . ';');
@@ -91,6 +96,11 @@ class views_php_handler_sort extends views_handler_sort {
    * @see views_php_views_post_execute()
    */
   function php_post_execute() {
+    // Don't do anything if displaying a summary.
+    if (!empty($this->view->build_info['summary'])) {
+      return;
+    }
+    
     if (!empty($this->options['php_sort']) && $this->view->style_plugin->build_sort()) {
       $this->php_sort_function = create_function('$view, $handler, &$static, $row1, $row2', $this->options['php_sort'] . ';');
       ob_start();

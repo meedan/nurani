@@ -88,7 +88,7 @@ class views_plugin_ds_object_view extends views_plugin_row {
     );
     $form['changing_fieldset']['allpages'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Use this configuration on every page. Otherwhise the default build mode is used as soon you browse away from the first page of this view.'),
+      '#title' => t('Use this configuration on every page. Otherwise the default build mode is used as soon you browse away from the first page of this view.'),
       '#default_value' => (isset($this->options['changing_fieldset']['allpages'])) ? $this->options['changing_fieldset']['allpages'] : FALSE,
     );
     $limit = $this->view->display_handler->get_option('items_per_page');

@@ -11,8 +11,8 @@
 function nd_search_ds_info_alter(&$help, $module) {
   if ($module == 'nd') {
     $help[] = '<h3>Node displays Search</h3>
-        <p>Node displays has the possibility to override the search page so you can make use of the Display Suite. There are a few extra <a href="'. url('admin/build/ds/nd/nd_search') .'">settings</a> available, even more if you are using Apachesolr. With apachesolr, this module will also index all CCK fields so they are available for you in custom queries.</p>
-        <p>ND search also exposes 3 extra variables which you can use in search-results.tpl.php if you choose not to override the search page with Display suite. If you override the search page, you can select which string to output on the <a href="'. url('admin/build/ds/nd/nd_search') .'">settings</a> screen. These variables are:
+        <p>Node displays has the possibility to override the search page so you can make use of the Display Suite. There are a few extra <a href="'. url(DS_PATH_MODULES .'/nd/nd_search') .'">settings</a> available, even more if you are using Apachesolr. With apachesolr, this module will also index all CCK fields so they are available for you in custom queries.</p>
+        <p>ND search also exposes 3 extra variables which you can use in search-results.tpl.php if you choose not to override the search page with Display suite. If you override the search page, you can select which string to output on the <a href="'. url(DS_PATH_MODULES .'/nd/nd_search') .'">settings</a> screen. These variables are:
           <ul>
           <li>search_totals: Total results: @total</li>
           <li>search_totals_plus_keywords: Your search for "<strong>@search</strong>" gave back @total results.</li>
@@ -29,7 +29,7 @@ function nd_search_menu() {
   $items = array();
 
   if (module_exists('ds_ui')) {
-    $items['admin/build/ds/nd/nd_search'] = array(
+    $items[DS_PATH_MODULES .'/nd/nd_search'] = array(
       'title' => 'Search',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('nd_search_settings'),
@@ -163,9 +163,9 @@ function nd_search_form_alter(&$form, $form_state, $form_id) {
  * Implementation of hook_preprocess_search_results().
  *
  * Adds 3 new variables:
-   - $search_totals
-   - $search_totals_plus_keywords
-   - $search_totals_from_to_end
+ *  - $search_totals
+ *  - $search_totals_plus_keywords
+ *  - $search_totals_from_to_end
  */
 function nd_search_preprocess_search_results(&$variables) {
   _nd_search_preprocess($variables);
@@ -255,8 +255,7 @@ function _solr_document_to_node($doc) {
     $node->teaser = html_entity_decode($node->teaser);
   }
   else {
-    $nid = $doc['node']->nid;
-    $node = node_load($nid['value']);
+    $node = node_load($doc['node']->nid);
   }
 
   return $node;
@@ -420,6 +419,8 @@ if (variable_get('nd_search_override_search_page', FALSE)) {
       // All the rest is a node.
       else {
         $node = _solr_document_to_node($result);
+        $node->snippets = $result['snippets'];
+        $node->snippet = $result['snippet'];
         $node->build_mode = variable_get('nd_search_apachesolr_build_mode', NODE_BUILD_SEARCH_RESULT);
         $output .= node_view($node);
       }

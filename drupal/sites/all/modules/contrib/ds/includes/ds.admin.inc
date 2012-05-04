@@ -14,7 +14,7 @@ function ds_general_page() {
   $items = array();
 
   // Child pages.
-  $item = menu_get_item('admin/build/ds');
+  $item = menu_get_item(DS_PATH_BASE);
   if ($content = system_admin_menu_block($item)) {
     foreach ($content as $item) {
       $link = l($item['title'], $item['link_path']);

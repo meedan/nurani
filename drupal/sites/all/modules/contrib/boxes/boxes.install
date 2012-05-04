@@ -1,5 +1,4 @@
 <?php
-// $Id: boxes.install,v 1.2.2.5 2010/06/21 20:57:22 jmiccolis Exp $
 
 /**
  * Implemenation of hook_install().

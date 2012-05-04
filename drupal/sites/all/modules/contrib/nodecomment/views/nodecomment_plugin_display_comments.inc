@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment_plugin_display_comments.inc,v 1.1.2.2 2009/06/17 19:50:33 merlinofchaos Exp $
 
 class nodecomment_plugin_display_comments extends views_plugin_display {
   function options_summary(&$categories, &$options) {

@@ -5,7 +5,7 @@
  */
 function views_filters_selective_views_api() {
   return array(
-    'api' => 3.0,
+    'api' => 2.0,
   );
 }
  
@@ -87,6 +87,12 @@ function views_filters_selective_form_views_exposed_form_alter_do(&$form, $form_
     $view->set_items_per_page(0);
     $view->execute();
 
+    // Don't continue if we're displaying a summary.
+    if (!empty($view->build_info['summary'])) {
+      $guard = FALSE;
+      return;
+    }
+
     // Filter the results.
     $filter_settings = explode(':', $settings[$filter_id]['vfs_field']);
     $field_id = NULL;
@@ -101,7 +107,7 @@ function views_filters_selective_form_views_exposed_form_alter_do(&$form, $form_
         }
       }
     }
-    else if ($handler = _views_filters_selective_get_handler($filter)) {
+    else if ($handler = _views_filters_selective_get_handler(get_class($filter))) {
       $oids = array();
       foreach ($view->result as $result) {
         $oids[] = $result->{$view->base_field};
@@ -120,12 +126,17 @@ function views_filters_selective_form_views_exposed_form_alter_do(&$form, $form_
       $form[$filter_element]['#options'] = _views_filters_selective_reduce_options($form[$filter_element]['#options'], $options);
     }
     else {
-      sort($options);
-      $options = array_combine($options, $options);
+      if (!empty($options)) {
+        sort($options);
+        $options = array_combine(array_values($options), array_values($options));
+      }
+      $any_label = variable_get('views_exposed_filter_any_label', 'old_any') == 'old_any' ? '<Any>' : t('- Any -');
       if (isset($options['All'])) {
         unset($options['All']);
-        $any_label = variable_get('views_exposed_filter_any_label', 'old_any') == 'old_any' ? '<Any>' : t('- Any -');
-        $options = array_merge(array('All' => $any_label), $options);
+        $options = array('All' => $any_label) + (array)$options;
+      }
+      else if (!empty($settings[$filter_id]['vfs_optional'])) {
+        $options = array('' => $any_label) + (array)$options;
       }
       $form[$filter_element]['#type'] = 'select';
       $form[$filter_element]['#multiple'] = FALSE;
@@ -134,25 +145,29 @@ function views_filters_selective_form_views_exposed_form_alter_do(&$form, $form_
       $form[$filter_element]['#validated'] = TRUE; // avoid invalid selection error
       unset($form[$filter_element]['#size']);
     }
-    if ((empty($form[$filter_element]['#options']) || array_keys($form[$filter_element]['#options']) === array('All')) && !empty($settings[$filter_id]['vfs_hide_empty'])) {
+    if ((empty($form[$filter_element]['#options']) || 
+         array_keys($form[$filter_element]['#options']) === array('All') || 
+         array_keys($form[$filter_element]['#options']) === array('')
+        ) && !empty($settings[$filter_id]['vfs_hide_empty'])
+    ) {
       $form[$filter_element]['#access'] = FALSE;
       $form["{$filter_element}_op"]['#access'] = FALSE;
       unset($form['#info']["filter-$filter_element"]);
       $active--;
     }
   }
-  if (!$active) { // hide apply button if all exposed filters are hidden
-    $form['submit']['#access'] = FALSE;
+  if (!$active) { // hide whole form if all exposed filters are hidden
+    $form['#access'] = FALSE;
   }
   $guard = FALSE;
 }
 
-function _views_filters_selective_get_handler($filter) {
+function _views_filters_selective_get_handler($filter_class) {
   static $handlers = NULL;
   if (empty($handlers)) {
     $handlers = module_invoke_all('views_filters_selective_handler');
   }
-  foreach (_views_filters_selective_get_ancestors(get_class($filter)) as $class) {
+  foreach (_views_filters_selective_get_ancestors($filter_class) as $class) {
     if (isset($handlers[$class])) {
       return $handlers[$class];
     }
@@ -303,6 +318,18 @@ function views_filters_selective_form_views_ui_config_item_form_alter_do($filter
       $dom_id => array(1),
     ),
   );
+  $form['vfs_optional'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Force optional'),
+    '#default_value' => @$options['vfs_optional'],
+    '#description' => t(
+      'Force the exposed filter of a converted text field to include an "Any" value.'
+    ),
+    '#process' => array('views_process_dependency'),
+    '#dependency' => array(
+      $dom_id => array(1),
+    ),
+  );
   return $form;
 }
 
@@ -324,7 +351,7 @@ function _views_filters_selective_reduce_options($options, $keys) {
     // option is an optgroup, so check the optgroup children
     if (is_array($option)) {
       $result = _views_filters_selective_reduce_options($option, $keys);
-      if (!empty($return)) $return_options[$id] = $result;
+      if (!empty($result)) $return_options[$id] = $result;
     }
     // is an object, and could contain multiple items
     elseif (is_object($option)) {

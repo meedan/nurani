@@ -12,7 +12,7 @@ function node_export_drush_command() {
   $items = array();
 
   $items['node-export-export'] = array(
-    'callback' => 'node_export_drush_callback_export',
+    'callback' => 'drupal_node_export_callback_export',
     'description' => "Export nodes using Node export.",
     'arguments' => array(
       'nids' => "A list of space-separated node IDs to export.",
@@ -37,7 +37,7 @@ function node_export_drush_command() {
     ),
   );
   $items['node-export-import'] = array(
-    'callback' => 'node_export_drush_callback_import',
+    'callback' => 'drupal_node_export_callback_import',
     'description' => "Import nodes previously exported with Node export.",
     'options' => array(
       '--uid' => "User ID of user to save nodes as. If not given will use the user with an ID of 1. You may specify 0 for the Anonymous user.",
@@ -137,7 +137,7 @@ function node_export_drush_help($section) {
  *
  * export nodes.
  */
-function node_export_drush_callback_export() {
+function drupal_node_export_callback_export() {
 
   // Set up an array of nid_filters.
   $nid_filters = array();
@@ -265,7 +265,7 @@ function node_export_drush_callback_export() {
  *
  * Import nodes from data.
  */
-function node_export_drush_callback_import() {
+function drupal_node_export_callback_import() {
   // Switch to admin or the specified user so imported nodes are not anonymous.
   $uid = drush_get_option('uid');
   // Test on NULL so uid may be given as 0.

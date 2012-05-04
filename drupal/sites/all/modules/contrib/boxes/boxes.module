@@ -1,5 +1,4 @@
 <?php
-// $Id: boxes.module,v 1.10.2.19 2010/08/06 21:52:56 jmiccolis Exp $
 
 /**
  * Implementation of hook_menu().
@@ -70,7 +69,7 @@ function boxes_block($op = 'list', $delta = '', $edit = array()) {
       $plugins = ctools_get_plugins('boxes', 'plugins');
       foreach ($plugins as $key => $info) {
         if (isset($info['title'])) {
-          $blocks["boxes_add__$key"]['info'] = t('Add custom !title', array('!title' => strtolower($info['title'])));
+          $blocks["boxes_add__$key"]['info'] = t('Add custom @title', array('@title' => strtolower($info['title'])));
           $blocks["boxes_add__$key"]['cache'] = BLOCK_NO_CACHE;
         }
       }
@@ -115,7 +114,7 @@ function boxes_block($op = 'list', $delta = '', $edit = array()) {
         $block['editing'] = $form;
         $block['content'] = theme('boxes_box', $block);
         $plugin = ctools_get_plugins('boxes', 'plugins', $plugin_key);
-        $block['subject'] = t('Add custom !title', array('!title' => strtolower($plugin['title'])));
+        $block['subject'] = t('Add custom @title', array('@title' => strtolower($plugin['title'])));
         return $block;
       }
       elseif ($box = boxes_load($delta)) {
@@ -152,7 +151,13 @@ function boxes_block($op = 'list', $delta = '', $edit = array()) {
 function boxes_footer() {
   // Besure the page isn't a 404 or 403.
   $headers = drupal_set_header();
-  foreach (explode("\n", $headers) as $header) {
+
+  // Support for Pressflow patched drupal_set_header
+  if (!is_array($headers)) {
+    $headers = explode("\n", $headers);
+  }
+
+  foreach ($headers as $header) {
     if ($header == "HTTP/1.1 404 Not Found" || $header == "HTTP/1.1 403 Forbidden") {
       return;
     }
@@ -275,7 +280,7 @@ function boxes_box_form($form_state) {
     '#title' => t('Box description'),
     '#default_value' => $box->description,
     '#maxlength' => 64,
-    '#description' => t('A brief description of your box.'),
+    '#description' => t('A brief description of your box. Used for administrative purposes.'),
     '#required' => TRUE,
     '#weight' => -19,
   );
@@ -283,7 +288,7 @@ function boxes_box_form($form_state) {
     '#type' => 'textfield',
     '#title' => t('Box title'),
     '#maxlength' => 64,
-    '#description' => t('The title of the box as shown to the user.'),
+    '#description' => t('The rendered title of the box as shown to the user.'),
     '#default_value' => $box->title,
     '#weight' => -18,
   );
@@ -542,10 +547,11 @@ function boxes_features_pipe_block_alter(&$more, $data, $export) {
  */
 function boxes_add_js() {
   static $added = FALSE;
-  if ($added) {
+  if ($added || !boxes_access_admin()) {
     return;
   }
   $added = TRUE;
+  ctools_include('ajax');
   ctools_add_js('ajax-responder');
   drupal_add_js(drupal_get_path('module', 'boxes') . '/boxes.js');
   drupal_add_js('misc/jquery.form.js');

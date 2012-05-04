@@ -18,27 +18,38 @@ function node_export_features_features_api() {
  * Implementation of hook_features_export_options().
  */
 function node_export_features_features_export_options() {
+  static $loaded_nodes = 0;
+
   $options = array();
 
   $types = node_get_types('names');
 
-  $query = 'SELECT n.nid, n.title, n.type, u.uuid
-    FROM {node} n INNER JOIN {uuid_node} u
-    ON n.nid = u.nid ';
-
-  $ommited_types = array_filter(variable_get('node_export_omitted', array()));
-  if (!empty($ommited_types)) {
-    $exclude = "'" . implode("', '", $ommited_types) . "'";
-    $query .= ' WHERE n.type NOT IN (' . $exclude . ') ';
-  }
-
+  $query = 'SELECT n.nid, n.title, n.type FROM {node} n';
+  $query .= ' ORDER BY n.type, n.title ASC';
   $result = db_query($query);
 
-  $query .= ' ORDER BY n.type, n.title ASC';
-  while ($node = db_fetch_object($result)) {
-    $options[$node->uuid] = t('@type: @title', array(
-      '@type' => $types[$node->type],
-      '@title' => $node->title,
+  while ($row = db_fetch_object($result)) {
+
+    $uuid = uuid_get_uuid('node', 'nid', $row->nid);
+    // Create uuid if it doesn't exist.
+    if (empty($uuid)) {
+      if ($loaded_nodes > 20) {
+        drupal_set_message("Too many nodes are missing UUID, therefore some nodes will not be available for features export. Repeatedly triggering this message will help this problem.", 'warning');
+        break;
+      }
+      else {
+        $node = node_load($row->nid);
+        $uuid = uuid_set_uuid('node', 'nid', $node->nid);
+        $node->uuid = $uuid;
+        // Save for consistency.
+        node_save($node);
+        $loaded_nodes++;
+      }
+    }
+
+    $options[$uuid] = t('@type: @title', array(
+      '@type' => $types[$row->type],
+      '@title' => $row->title,
     ));
   }
 
@@ -55,10 +66,11 @@ function node_export_features_features_export($data, &$export, $module_name = ''
   $export['dependencies']['module'] = 'node_export_features';
 
   foreach ($data as $uuid) {
-    $node = node_get_by_uuid($uuid);
-
-    $export['features']['node_export_features'][$uuid] = $uuid;
-    $pipe['node'][$node->type] = $node->type;
+    $node = node_export_node_get_by_uuid($uuid);
+    if (is_object($node)) {
+      $export['features']['node_export_features'][$uuid] = $uuid;
+      $pipe['node'][$node->type] = $node->type;
+    }
   }
 
   return $pipe;
@@ -70,12 +82,23 @@ function node_export_features_features_export($data, &$export, $module_name = ''
  */
 function node_export_features_features_export_render($module, $data, $export = NULL) {
   foreach ($data as $uuid) {
-    $nodes[] = node_get_by_uuid($uuid);
+    $node = node_export_node_get_by_uuid($uuid);
+    if (is_object($node)) {
+      $nids[] = $node->nid;
+    }
   }
-  drupal_alter('node_export', $nodes, 'export');
-
-  $node_export_code = '  $nodes = ' . features_var_export($nodes, '  ') . ';';
-  $node_export_code .= PHP_EOL . '  return $nodes;';
+  $result = node_export($nids);
+  if ($result['success']) {
+    $node_export['code_string'] = $result['output'];
+    $node_export_code = '  $node_export = ' . features_var_export($node_export) . ';';
+  }
+  else {
+    foreach ($result['output'] as $error) {
+      $node_export_code  = '  // ' . $error . PHP_EOL;
+    }
+    $node_export_code .= '  $node_export = array();';
+  }
+  $node_export_code .= PHP_EOL . '  return $node_export;';
   return array('node_export_features_default' => $node_export_code);
 }
 
@@ -90,28 +113,19 @@ function node_export_features_features_revert($module = NULL) {
  * Implementation of hook_feature_rebuild().
  */
 function node_export_features_features_rebuild($module) {
-  $nodes = features_get_default('node_export_features', $module);
-  if (!empty($nodes)) {
-    module_load_include('inc', 'node', 'node.pages');
-
-    $format = 'features';
-
-    drupal_alter('node_export', $nodes, 'import', $format);
-
-    foreach ($nodes as $data) {
-      $original_node = (object)$data;
-      node_object_prepare($node);
-
-      $node = node_export_node_clone($original_node);
-
-      drupal_alter('node_export_node', $node, $original_node, 'import');
-
-      $node = node_submit($node);
-      node_save($node);
-      $new_nodes[] = $node;
+  $node_export = features_get_default('node_export_features', $module);
+  if (!empty($node_export)) {
+    $result = node_export_import($node_export['code_string']);
+    if (!$result['success']) {
+      foreach ($result['output'] as $error) {
+        drupal_set_message($error, 'error');
+      }
     }
-
-    drupal_alter('node_export', $new_nodes, 'after import', $format);
+    else {
+      foreach ($result['output'] as $status) {
+        drupal_set_message($status);
+      }
+    }
   }
 }
 

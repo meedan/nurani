@@ -34,13 +34,13 @@ class ds_cssoverrider {
           '#title' => $title .' class',
           '#type' => 'textfield',
           '#description' => t('Enter extra classes, seperated by comma.'),
-          '#default_value' => ds_default_value($display_settings, $build_mode, 'cssoverrider', 'class', $region, ''),
+          '#default_value' => ds_default_value($display_settings, 'cssoverrider', 'class', $region, ''),
         );
         $form['cssoverrider']['region-inline-'. $region] = array(
           '#title' => $title .' inline css',
           '#type' => 'textfield',
           '#description' => t('Enter inline css. Note, you only need to enter the css rules, the plugin will add style="" for you.'),
-          '#default_value' => ds_default_value($display_settings, $build_mode, 'cssoverrider', 'inline', $region, ''),
+          '#default_value' => ds_default_value($display_settings, 'cssoverrider', 'inline', $region, ''),
         );
       }
     }
@@ -68,12 +68,12 @@ class ds_cssoverrider {
   /**
    * process().
    */
-  public function execute(&$vars, &$display, $display_settings, $object_type, $module) {
+  public function execute($vars, &$display, $display_settings, $object_type, $module) {
 
     foreach ($display->themed_regions as $region_name => $region_data) {
 
-      $classes = ds_default_value($display_settings, $display->build_mode, 'cssoverrider', 'class', $region_name, '');
-      $inline = ds_default_value($display_settings, $display->build_mode, 'cssoverrider', 'inline', $region_name, '');
+      $classes = ds_default_value($display_settings, 'cssoverrider', 'class', $region_name, '');
+      $inline = ds_default_value($display_settings, 'cssoverrider', 'inline', $region_name, '');
 
       if (!empty($classes)) {
         $display->themed_regions[$region_name]['extra_class'] .= ' '. $classes;

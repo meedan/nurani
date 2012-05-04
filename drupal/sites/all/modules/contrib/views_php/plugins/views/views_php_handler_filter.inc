@@ -80,6 +80,11 @@ class views_php_handler_filter extends views_handler_filter {
    * @see views_php_views_pre_execute()
    */
   function php_pre_execute() {
+    // Don't do anything if displaying a summary.
+    if (!empty($this->view->build_info['summary'])) {
+      return;
+    }
+
     // Ecexute static PHP code.
     if (!empty($this->options['php_setup'])) {
       $function = create_function('$view, $handler, &$static', $this->options['php_setup'] . ';');
@@ -98,6 +103,11 @@ class views_php_handler_filter extends views_handler_filter {
    * @see views_php_views_post_execute()
    */
   function php_post_execute() {
+    // Don't do anything if displaying a summary.
+    if (!empty($this->view->build_info['summary'])) {
+      return;
+    }
+
     // Evaluate the PHP code.
     if (!empty($this->options['php_filter'])) {
       $function = create_function('$view, $handler, &$static, $row, $data', $this->options['php_filter'] . ';');

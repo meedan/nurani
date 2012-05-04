@@ -1,4 +1,3 @@
-;$Id: README.txt,v 1.2.2.1 2010/04/25 19:25:17 jmiccolis Exp $
 
 # Boxes
 

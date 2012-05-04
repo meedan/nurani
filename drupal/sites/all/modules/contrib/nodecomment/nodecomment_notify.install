@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment_notify.install,v 1.1.2.3 2009/06/15 23:42:58 merlinofchaos Exp $
 /**
  * @file
  * nodecomment_notify.install.

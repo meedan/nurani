@@ -12,6 +12,7 @@ To submit bug reports and feature suggestions, or to track changes:
 
 -- MAINTAINERS --
 
+xtfer - http://drupal.org/users/31698 (6.x only)
 swentel - http://drupal.org/user/107403
 stalski - http://drupal.org/user/322618
 zuuperman - http://drupal.org/user/361625

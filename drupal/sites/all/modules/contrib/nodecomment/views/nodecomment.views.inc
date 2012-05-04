@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment.views.inc,v 1.1.2.1.2.6 2009/06/15 21:58:03 merlinofchaos Exp $
 /**
  * @file
  * Provide views data and handlers for nodecomment.module

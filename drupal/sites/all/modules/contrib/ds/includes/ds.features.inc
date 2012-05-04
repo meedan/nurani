@@ -70,7 +70,7 @@ function ds_features_export($data, &$export, $module_name = '') {
  * Implementation of hook_features_pipe_component_alter() for ds component.
  * Add node type variables on behalf of nd.
  */
-function ds_features_pipe_ds_alter(&$pipe, $data, $export, $module_name) {
+function ds_features_pipe_ds_alter(&$pipe, $data, $export) {
   foreach ($data as $nd_type) {
     if (substr($nd_type, 0, 3) == 'nd-') {
       $pipe['variable'][] = 'nd_display_settings_'. str_replace('nd-', '', $nd_type);
@@ -112,7 +112,30 @@ function ds_features_revert($module = NULL) {
   if ($display_settings = module_invoke($module, 'ds_default_settings')) {
     foreach ($display_settings as $ds_module => $settings) {
       foreach ($settings as $object_type => $setting) {
-        variable_set($ds_module .'_display_settings_'. $object_type, $setting);
+        foreach ($setting as $build_mode => $conf) {
+
+          // Remove old settings.
+          db_query("DELETE FROM {ds_settings} WHERE build_mode = '%s' AND module = '%s' AND type = '%s'", $build_mode, $ds_module, $object_type);
+
+          // Catch situations where the feature name has crept into the table
+          db_query("DELETE FROM {ds_settings} WHERE build_mode = '%s' AND module = '%s' AND type = '%s'", $build_mode, $module, $object_type);
+
+          // Iterate over fields and ditch those which are hidden.
+          // This is for sites have upgraded but haven't re-exported their settings.
+          foreach ($conf['fields'] as $field_key => $field_value) {
+            if ($field_value['region'] == 'disabled') {
+              unset($conf['fields'][$field_key]);
+            }
+          }
+
+          // Save new settings.
+          $record = new stdClass();
+          $record->module = $ds_module;
+          $record->type = $object_type;
+          $record->build_mode = $build_mode;
+          $record->settings = serialize($conf);
+          drupal_write_record('ds_settings', $record);
+        }
       }
     }
   }

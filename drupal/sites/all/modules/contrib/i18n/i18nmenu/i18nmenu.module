@@ -373,7 +373,7 @@ function i18nmenu_item_delete_submit($form, &$form_state) {
  * Add language to menu settings of the node form, as well as setting defaults
  * to match the translated item's menu settings.
  */
-function i18nmenu_form_alter(&$form, &$form_state, $form_id) {
+function i18nmenu_form_alter(&$form, $form_state, $form_id) {
   if (isset($form['type']) && isset($form['#node']) && $form['type']['#value'] .'_node_form' == $form_id) {
     $node = $form['#node'];
 

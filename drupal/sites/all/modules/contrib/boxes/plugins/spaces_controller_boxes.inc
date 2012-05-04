@@ -1,5 +1,4 @@
 <?php
-// $Id: spaces_controller_boxes.inc,v 1.2.2.2 2010/08/05 15:13:24 jmiccolis Exp $
 
 /**
  * Spaces controller for boxes module.

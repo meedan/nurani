@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment.module,v 1.3.2.15.2.17.2.59 2010/07/19 14:23:03 crea Exp $
 
 /**
  * @file
@@ -88,13 +87,21 @@ function nodecomment_preprocess_node(&$vars) {
     // Add node-comment-$type after node-comment AND the specific node type.
     array_splice($vars['template_files'], 1, 0, 'node-comment-'. $node->type);
 
-    if (isset($node->view) && ($cache = $node->view->display_handler->get_cache_plugin()) && get_class($cache) != 'views_plugin_cache_none') {
-      // Caching is enabled, so use tokens instead of real values.
-      $vars['new'] = '';
-      $vars['first_new'] = "<!--post:first-new-$node->nid-->";
-      $vars['new_output'] = "<!--post:new-$node->nid-->";
-      $vars['new_class'] = "<!--post:new-class-$node->nid-->";
-      $vars['classes'] = (isset($vars['classes']) ? $vars['classes'] . ' ' : '') . $vars['new_class'];
+    if (isset($node->view)) {
+      if (views_api_version() == 3) {
+        $cache = $node->view->display_handler->get_plugin('cache');
+      }
+      else {
+        $cache = $node->view->display_handler->get_cache_plugin();
+      }    
+      if ($cache && get_class($cache) != 'views_plugin_cache_none') {
+        // Caching is enabled, so use tokens instead of real values.
+        $vars['new'] = '';
+        $vars['first_new'] = "<!--post:first-new-$node->nid-->";
+        $vars['new_output'] = "<!--post:new-$node->nid-->";
+        $vars['new_class'] = "<!--post:new-class-$node->nid-->";
+        $vars['classes'] = (isset($vars['classes']) ? $vars['classes'] . ' ' : '') . $vars['new_class'];
+      }
     }
     else {
       // First comment checking.
@@ -657,6 +664,16 @@ function nodecomment_nodeapi(&$node, $op, $arg = 0, $page = 0) {
 }
 
 /**
+ * Implementation of hook_user().
+ */
+function nodecomment_user($type, $edit, &$user, $category = NULL) {
+  if ($type == 'delete') {
+    // 'node_comment_statistics' table is updated by comment module.
+    db_query('UPDATE {node_comments} SET uid = 0 WHERE uid = %d', $user->uid);
+  }
+}
+
+/**
  * Set the breadcrumb trail to include another node.
  *
  * This is used when viewing or adding a comment so that the parent node's
@@ -697,7 +714,9 @@ function nodecomment_save($node) {
   db_query("UPDATE {node_comments} SET nid = %d, pid = %d, thread = '%s', name = '%s', uid = %d, mail = '%s', homepage = '%s' WHERE cid = %d", $node->comment_target_nid, $node->comment_target_cid, $node->thread, $node->name, $node->uid, $node->mail, $node->homepage, $node->nid);
   // If not updated, insert a new comment.
   if (db_affected_rows() == 0) {
-    db_query("INSERT INTO {node_comments} (cid, nid, pid, hostname, thread, name, uid, mail, homepage) VALUES (%d, %d, %d, '%s', '%s', '%s', %d, '%s', '%s')", $node->nid, $node->comment_target_nid, $node->comment_target_cid, ip_address(), $node->thread, $node->name, $node->uid, $node->mail, $node->homepage);
+    // Ignore insert errors as a workaround for db_affected_rows() inconsistent
+    // results caused by MySQL bugs.
+    @db_query("INSERT INTO {node_comments} (cid, nid, pid, hostname, thread, name, uid, mail, homepage) VALUES (%d, %d, %d, '%s', '%s', '%s', %d, '%s', '%s')", $node->nid, $node->comment_target_nid, $node->comment_target_cid, ip_address(), $node->thread, $node->name, $node->uid, $node->mail, $node->homepage);
   }
 
   _nodecomment_update_node_statistics($node->comment_target_nid);

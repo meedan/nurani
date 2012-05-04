@@ -38,17 +38,17 @@ Drupal.behaviors.vfas = function(context) {
       });
 
       // Re-focus form field after auto-submit.
-      var refocus = $('#edit-views-exposed-form-focused-field', self).val();
+      var refocus = $('#edit-vfas', self).val();
       if (refocus) {
         $('#'+refocus, self).focus().val($('#'+refocus, self).val());
       }
       // Store the ID of the currently focused field in our hidden field.
       $('input', self).focus(function() {
-        $('#edit-views-exposed-form-focused-field', self).val($(this).attr('id'));
+        $('#edit-vfas', self).val($(this).attr('id'));
       });
       // Clear value of our hidden field when user deselects the form.
       $('input', self).blur(function() {
-        $('#edit-views-exposed-form-focused-field', self).val();
+        $('#edit-vfas', self).val();
       });
     });
   });

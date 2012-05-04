@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment_handler_field_author.inc,v 1.1.2.1 2009/06/15 18:40:37 merlinofchaos Exp $
 /**
  * Field handler to allow linking to a user account or homepage
  */
