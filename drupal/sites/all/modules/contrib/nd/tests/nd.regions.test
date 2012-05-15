@@ -25,6 +25,15 @@ class NodeDisplaysRegions extends DrupalWebTestCase {
   }
 
   /**
+   * Debug helper function. Writes values away to a text file in the files directory.
+   */
+  function _debugHelper($value, $writetype = 'a+') {
+    $debug = fopen($this->originalFileDirectory .'/simpletestdebug.txt', 'a+');
+    fwrite($debug, print_r($value, TRUE) ."\n");
+    fclose($debug);
+  }
+
+  /**
    * Helper function to determine if a field is in a region. Returns true if not found.
    * @param string $search The field to search for in the regions.
    * @param array $regions A list of regions.
@@ -59,7 +68,7 @@ class NodeDisplaysRegions extends DrupalWebTestCase {
   function testRegionsWithNoCCKFields() {
     $admin_user = $this->drupalCreateUser(array('administer nodes', 'access display suite', 'administer nd', 'configure layout for nd', 'export and import settings', 'revert overridden settings', 'use PHP in custom fields'));
     $this->drupalLogin($admin_user);
-    $this->drupalGet('admin/build/ds/layout/page/full');
+    $this->drupalGet(DS_PATH_LAYOUT .'/page/full');
     $this->assertRaw('edit-body-full-region-wrapper', t('Region handling works with no CCK fields.'), t('Region handling'));
   }
 
@@ -81,13 +90,16 @@ class NodeDisplaysRegions extends DrupalWebTestCase {
       'links[full][region]' => 'footer',
       'post_date[full][region]' => 'disabled',
     );
-    $this->drupalPost('admin/build/ds/layout/page/full', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page/full', $edit, t('Save'));
     $page_object = $this->_nd_build_object($page_node);
     $this->assertTrue(in_array('title', array_keys($page_object->regions['header'])), t('Title is in header region'), t('Rendering tests'));
     $this->assertTrue(in_array('author', array_keys($page_object->regions['middle'])), t('Author is in middle region'), t('Rendering tests'));
     $this->assertTrue(in_array('body', array_keys($page_object->regions['middle'])), t('Body is in middle region'), t('Rendering tests'));
     $this->assertTrue(in_array('links', array_keys($page_object->regions['footer'])), t('Links is in footer region'), t('Rendering tests'));
     $this->assertTrue($this->_nd_field_not_found('post_date', $page_object->regions), t('Post date is disabled'), t('Rendering tests'));
+
+    // Just surf to a page to reset the static cache of ds_get_settings();
+    $this->drupalGet('node');
 
     // Let's do another one..
     $edit = array(
@@ -97,8 +109,14 @@ class NodeDisplaysRegions extends DrupalWebTestCase {
       'links[full][region]' => 'footer',
       'post_date[full][region]' => 'footer',
     );
-    $this->drupalPost('admin/build/ds/layout/page/full', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page/full', $edit, t('Save'));
+
+    // Reset the static cache.
+    $settings = ds_get_settings('nd', 'page', 'full', 'settings', TRUE);
+
+    // Now verify.
     $page_object = $this->_nd_build_object($page_node);
+
     $this->assertTrue(in_array('post_date', array_keys($page_object->regions['footer'])), t('Post date is in footer region'), t('Rendering tests'));
     $this->assertTrue(in_array('author', array_keys($page_object->regions['right'])), t('Author is in right region'), t('Rendering tests'));
     $this->assertTrue(in_array('body', array_keys($page_object->regions['middle'])), t('Body is in middle region'), t('Rendering tests'));

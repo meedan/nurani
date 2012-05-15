@@ -50,19 +50,48 @@ function nd_cck_ds_fields($type_name, $build_mode, $extra) {
       $groups = fieldgroup_groups($type_name);
       if (!empty($groups)) {
         foreach ($groups as $key => $group) {
-          $fields[$key] = array(
-            'title' => $group['label'],
-            'type' => DS_FIELD_TYPE_GROUP,
-            'status' => DS_FIELD_STATUS_STATIC,
-            'properties' => array(
-              'formatters' => array(
-                'ds_field' => 'A simple div',
-                'ds_group_fieldset_open' => 'Fieldset open',
-                'ds_group_fieldset_collapsible' => 'Fieldset collapsible',
-                'ds_group_fieldset_collapsed' => 'Fieldset collapsed',
+          if ($group['group_type'] == 'multigroup') {
+            $fields[$key] = array(
+              'title' => $group['label'],
+              'type' => DS_FIELD_TYPE_MULTIGROUP,
+              'status' => DS_FIELD_STATUS_STATIC,
+              'properties' => array(
+                'formatters' => array(
+                  'ds_field' => 'A simple div',
+                  'ds_group_fieldset_open' => 'Fieldset open',
+                  'ds_group_fieldset_collapsible' => 'Fieldset collapsible',
+                  'ds_group_fieldset_collapsed' => 'Fieldset collapsed',
+                ),
+                'subgroup_formatters' => array(
+                  'ds_multigroup_div' => 'A simple div',
+                  'ds_multigroup_fieldset_open' => 'Fieldset open',
+                  'ds_multigroup_fieldset_collapsible' => 'Fieldset collapsible',
+                  'ds_multigroup_fieldset_collapsed' => 'Fieldset collapsed',
+                  'ds_multigroup_table_simple' => 'Table - Single column',
+                  'ds_multigroup_table_multiple' => 'Table - Multiple columns',
+                  'ds_multigroup_horizontal_line' => 'Horizontal line',
+                  'ds_multigroup_list_ul' => 'List - unordered',
+                  'ds_multigroup_list_ol' => 'List - ordered',
+                  'ds_multigroup_comma_separated' => 'Inline - comma separated'
+                ),
               ),
-            ),
-          );
+            );
+          }
+          else {
+            $fields[$key] = array(
+              'title' => $group['label'],
+              'type' => DS_FIELD_TYPE_GROUP,
+              'status' => DS_FIELD_STATUS_STATIC,
+              'properties' => array(
+                'formatters' => array(
+                  'ds_field' => 'A simple div',
+                  'ds_group_fieldset_open' => 'Fieldset open',
+                  'ds_group_fieldset_collapsible' => 'Fieldset collapsible',
+                  'ds_group_fieldset_collapsed' => 'Fieldset collapsed',
+                ),
+              ),
+            );
+          }
 
           // Tabs support.
           if (module_exists('tabs')) {
@@ -74,6 +103,31 @@ function nd_cck_ds_fields($type_name, $build_mode, $extra) {
   }
 
   return array('nd' => $fields);
+}
+
+/**
+ * Implementation of hook_nodeapi()
+ *
+ * Groups are added to the node object fully nested. This makes it very difficult
+ * to retrieve for Display Suite. We pull them back out here.
+ */
+function nd_cck_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
+  switch ($op) {
+    case 'view':
+      // Prevent against invalid 'nodes' built by broken 3rd party code.
+      if (isset($node->type)) {
+        $existing = array();
+        if (isset($node->groups)) {
+          $existing = $node->groups;
+        }
+        if(module_exists('fieldgroup')) {
+          // Fieldgroup_groups is cached, thankfully
+          $new = fieldgroup_groups($node->type);
+          $node->groups = array_merge($existing, $new);
+        }
+      }
+      break;
+  }
 }
 
 /**
@@ -142,9 +196,8 @@ function nd_cck_preprocess_content_field(&$variables) {
 
   $field = content_fields($element['#field_name'], $element['#node']->type);
 
-  // Delegate the label format to cck.
-  $format = isset($field['display_settings'][$element['#context']]['label']['format']) ? $field['display_settings'][$element['#context']]['label']['format'] : $field['display_settings']['label']['format'];
-  $variables['label_display'] = $format;
+  $variables['label_display'] = nd_cck_get_label_format($field, $element);
+  $variables['label'] = nd_cck_get_label_value($field, $element);
 
   // Extra css class.
   $class = isset($field['display_settings'][$element['#context']]['css-class']) ? $field['display_settings'][$element['#context']]['css-class'] : '';
@@ -154,11 +207,62 @@ function nd_cck_preprocess_content_field(&$variables) {
     }
     $variables['field_name_css'] .= ' '. $class;
   }
+}
+
+/**
+ * Helper to set a label format correctly
+ *
+ * @param array $field
+ *  a field array as returned by content_fields()
+ * @param array $element
+ *  the CCK element, e.g. from $vars
+ */
+function nd_cck_get_label_format($field, $element) {
+  // Delegate the label format to cck.
+  if (!empty($field['display_settings'][$element['#context']]['label']['format'])) {
+    $format = $field['display_settings'][$element['#context']]['label']['format'];
+  }
+  else {
+    $format = $field['display_settings']['label']['format'];
+  }
+
+  return $format;
+}
+
+/**
+ * Helper to set a label value
+ *
+ * @param array $field
+ *  a field array as returned by content_fields()
+ * @param array $element
+ *  the CCK element, e.g. from $vars
+ */
+function nd_cck_get_label_value($field, $element) {
 
   // Override the label if a custom label is set.
-  $label = isset($field['display_settings'][$element['#context']]['label_value']) ? $field['display_settings'][$element['#context']]['label_value'] : (isset($field['display_settings']['label_value']) ? $field['display_settings']['label_value'] : NULL);
+  $label = NULL;
+  if (!empty($field['display_settings'][$element['#context']]['label_value'])) {
+   $label = $field['display_settings'][$element['#context']]['label_value'];
+  }
+  elseif (!empty($field['display_settings']['label_value'])) {
+    $label = $field['display_settings']['label_value'];
+  }
+  elseif (!empty($field['widget']['label'])) {
+    $label = $field['widget']['label'];
+  }
+
   if (!empty($label)) {
-    $variables['label'] = $label;
+    return $label;
+  }
+  return FALSE;
+}
+
+/**
+ * Implementation of hook_ds_render_alter()
+ */
+function nd_cck_ds_render_alter(&$data){
+  if ($data['module'] == 'nd'){
+    content_preprocess_node($data['vars']);
   }
 }
 
@@ -201,6 +305,12 @@ function nd_cck_theme() {
       );
     }
   }
+
+  // Support Multigroup for CCK 6.x-3.0
+  $theme_functions['nd_cck_multigroup'] =  array(
+    'arguments' => array ('element', 'group'),
+    'function' => 'theme_nd_cck_multigroup'
+  );
 
   return $theme_functions;
 }

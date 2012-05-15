@@ -1,4 +1,3 @@
-// $Id: boxes.js,v 1.2.2.4 2010/08/05 20:16:28 yhahn Exp $
 
 Drupal.behaviors.boxes = function(context) {
   Drupal.CTools.AJAX.commands.getBlock = function(data) {

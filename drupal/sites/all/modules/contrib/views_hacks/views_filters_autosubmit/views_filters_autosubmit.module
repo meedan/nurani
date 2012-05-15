@@ -21,7 +21,7 @@ function views_filters_autosubmit_form_views_exposed_form_alter(&$form, &$form_s
   }
 	
 	// Add hidden field to support field re-focus.
-	$form['views_exposed_form_focused_field']['#type'] = 'hidden';
+	$form['vfas']['#type'] = 'hidden';
 }
 
 /**

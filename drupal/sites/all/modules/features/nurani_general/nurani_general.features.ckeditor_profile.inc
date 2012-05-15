@@ -221,7 +221,6 @@ text@node/add/text.edit-field-description-0-value
 admin/build/block/configure/boxes/discussion_info.edit-body
 *.edit-field-education-0-value
 *.edit-field-societies-0-value
-nurani:discussion@*.edit-body
 *.edit-field-experience-0-value
 *.edit-field-research-0-value
 *.edit-field-publications-0-value
@@ -280,15 +279,22 @@ nurani:discussion@*.edit-body
         'theme_config_js' => 'f',
         'js_conf' => '',
         'loadPlugins' => array(
-          'wordcount' => array(
-            'name' => 'wordcount',
-            'desc' => 'Plugin file: wordcount',
-            'path' => '%base_path%%plugin_dir%wordcount/',
+          'counter' => array(
+            'name' => 'counter',
+            'desc' => 'Plugin to count symbols, symbols without blanks and words',
+            'path' => '%base_path%%plugin_dir%counter/',
             'buttons' => FALSE,
             'default' => 'f',
           ),
+          'tableresize' => array(
+            'name' => 'tableresize',
+            'desc' => 'Table Resize plugin',
+            'path' => '%base_path%%editor_path%plugins/tableresize/',
+            'buttons' => FALSE,
+            'default' => 't',
+          ),
         ),
-        'excl_regex' => '#(?:^.*:.*@.*\\.edit\\-export$)|(?:^.*:node_export@node/add/node_export\\.edit\\-code$)|(?:^.*:text@node/add/text\\.edit\\-field\\-description\\-0\\-value$)|(?:^.*:.*@admin/build/block/configure/boxes/discussion_info\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-education\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-societies\\-0\\-value$)|(?:^nurani:discussion@.*\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-experience\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-research\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-publications\\-0\\-value$)#',
+        'excl_regex' => '#(?:^.*:.*@.*\\.edit\\-export$)|(?:^.*:node_export@node/add/node_export\\.edit\\-code$)|(?:^.*:text@node/add/text\\.edit\\-field\\-description\\-0\\-value$)|(?:^.*:.*@admin/build/block/configure/boxes/discussion_info\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-education\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-societies\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-experience\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-research\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-publications\\-0\\-value$)#',
         'simple_incl_regex' => '',
       ),
       'roles' => array(

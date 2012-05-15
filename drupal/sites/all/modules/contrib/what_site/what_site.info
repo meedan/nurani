@@ -1,0 +1,5 @@
+name = What Site
+description = Helps site administrators differentiate between the dev, tests and live versions of a site.
+core = 6.x
+version = 6.x-1.0
+package = Development

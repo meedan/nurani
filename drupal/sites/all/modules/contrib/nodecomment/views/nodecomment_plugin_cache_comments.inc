@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment_plugin_cache_comments.inc,v 1.1.2.2 2009/06/17 19:50:33 merlinofchaos Exp $
 
 /**
  * Cache comment threads in Views.

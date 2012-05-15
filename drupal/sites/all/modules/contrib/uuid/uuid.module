@@ -136,6 +136,16 @@ function uuid_node_load($node) {
 }
 
 /**
+ * Implementation of hook_views_api().
+ */
+function uuid_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'uuid'),
+  );
+}
+
+/**
  * Returns the node associated with a UUID. Uses db_rewrite_sql() to ensure
  * node_access rules are preserved.
  *
@@ -218,7 +228,7 @@ function uuid_user($op, &$edit, &$user, $category = NULL) {
       }
       break;
     case 'delete':
-      db_query('DELETE FROM {uuid_users} WHERE uid = %d', $node->uid);
+      db_query('DELETE FROM {uuid_users} WHERE uid = %d', $user->uid);
       break;
   }
 }
@@ -244,31 +254,56 @@ function user_get_by_uuid($uuid) {
  * Implementation of hook_taxonomy().
  */
 function uuid_taxonomy($op, $type, $array = NULL) {
-  $types = array(
-    'term' => array(
-      'table' => 'uuid_term_data',
-      'field' => 'tid',
-    ),
-    'vocabulary' => array(
-      'table' => 'uuid_vocabulary',
-      'field' => 'vid',
-    ),
-  );
+  if (!isset($array['vid']) || !in_array($array['vid'], variable_get('uuid_automatic_for_taxonomy', array()))) {
+    // Nothing to do.
+    return;
+  }
 
-  if (array_key_exists($type, $types) && in_array($array['vid'], variable_get('uuid_automatic_for_taxonomy', array()))) {
-    $field = $types[$type]['field'];
-    switch ($op) {
-      case 'insert':
-        if (empty($array['uuid']) || !uuid_is_valid($array['uuid'])) {
-          $array['uuid'] = uuid_uuid();
+  switch ($type) {
+    case 'term':
+      $keyfield = 'tid';
+      $table = 'uuid_term_data';
+      $key = $array['tid'];
+      break;
+    case 'vocabulary':
+      $keyfield = 'vid';
+      $table = 'uuid_vocabulary';
+      $key = $array['vid'];
+      break;
+    default:
+      // Nothing to do.
+      return;
+      break;
+  }
+
+  switch ($op) {
+    case 'insert':
+      if (empty($array['uuid']) || !uuid_is_valid($array['uuid'])) {
+        $array['uuid'] = uuid_uuid();
+      }
+      db_query("INSERT INTO {$table} ($keyfield, uuid) VALUES (%d, '%s')",
+        $key, $array['uuid']);
+      break;
+    case 'update':
+      $existing_uuid = db_result(db_query("SELECT uuid FROM {$table} WHERE $keyfield = %d", $key));
+      if ($existing_uuid) {
+        // If there is an existing uuid, but no new one, remove the existing one.
+        if (!isset($array['uuid']) || empty($array['uuid'])) {
+          uuid_taxonomy('delete', $type, $array);
         }
-        db_query("INSERT INTO {" . $types[$type]['table'] . "} ($field, uuid) VALUES (%d, '%s')",
-          $array[$types[$type]['field']], $array['uuid']);
-        break;
-      case 'delete':
-        db_query("DELETE FROM {". $types[$type]['table'] ."} WHERE $field = %d", $array[$types[$type]['field']]);
-        break;
-    }
+        // If the new uuid is not the same, update it.
+        elseif ($array['uuid'] != $existing_uuid) {
+          db_query("UPDATE {$table} SET uuid = '%s' WHERE $keyfield = %d", $array['uuid'], $key);
+        }
+        // Otherwise, don't do anything. No update necessary.
+      }
+      else {
+        uuid_taxonomy('insert', $type, $array);
+      }
+      break;
+    case 'delete':
+      db_query("DELETE FROM {$table} WHERE $keyfield = %d", $keyfield, $key);
+      break;
   }
 }
 

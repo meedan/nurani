@@ -1,75 +1,68 @@
--------------------------------------------------------------------------------------
-6.x-1.5 2011-xx-xx
--------------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+6.x-2.3 2012-02-13
+------------------------------------------------------------------------------
+- #1427794: Fix an issue where view names longer than 25 characters would cause 
+  display settings not to save
+- #1414930 by xtfer: Fix an issue where preprocess and ignored fields inside fieldgroups
+  never received content, and were thus unrendered.
+- Improve usability of build mode settings
+
+------------------------------------------------------------------------------
+6.x-2.2 2012-02-08
+------------------------------------------------------------------------------
+- #1426264 by xtfer: Fix an issue where the same node rendered in different 
+  build modes would always use the first build mode.
+- #1421004 by xtfer: Empty field groups should not render
+- #1422448 by xtfer: Fix an issue where an empty body field would sometimes be 
+  populated with other field content
+- #1416986: Fix an issue where some MySQL versions may not create tables correctly.
+- Provide better information when no api implementers are installed.
+
+------------------------------------------------------------------------------
+6.x-2.1 2012-01-25
+------------------------------------------------------------------------------
+- #1415070 by xtfer: Fix incorrect menu callbacks
+
+------------------------------------------------------------------------------
+6.x-2.0 2012-01-24
+------------------------------------------------------------------------------
+- #1375990 by xtfer: Fix function field types called from code
+- #1412028 by iankp: Fix an issue where region styles were not output
+- Fix a PHP notice when ignored fields are not actually present on the object
+- Fix broken multigroup list formatter
+- New inline field formatter
+- New comma separated list formatter for multigroup subgroups
+- Make sure fields in multigroups get passed through DS for theming
+- Minor performance improvements
+- Show real field names in Layout UI
+- Fix an issue where incorrect values were passed to the multigroup list theme 
+  function
+- New function to get element children
+
+------------------------------------------------------------------------------
+6.x-2.0-rc1 2011-11-14
+------------------------------------------------------------------------------
+- #1176182 by zhangtaihao: OptGroups for field and region style
+- Fix broken preprocess and ignored fields
+- Render regions in the right order
+- Pass the correct values to plugins
+
+------------------------------------------------------------------------------
+6.x-2.0-alpha1 2011-11-14
+------------------------------------------------------------------------------
+Multigroup support
+Improved internal API
+Improved database storage
+Improved administration user experience
+
+- #1293420 by Feng-Shui: Custom build mode key name can exceed db field size.
+- #1168130 by swentel: backport some of the techniques of D7 storage.
+- #1169466 by grahamgilchrist: do not use block templates if content is empty.
 - #1003380 by vadym.kononenko: views field class should be added by default.
 - #1004096 by swentel: deleting a build mode breaks synced build modes.
 - #1016664 by jstoller: Add field count variable to groups.
 - #1059336 by jstoller: Add field variables containing groups and regions.
+- #1221036 by jstoller: fix notice due to function param change in features.
+- #1230038 by swentel: fix (public) xss exploit.
 - Hide the classes select box on views fields if there are no styles.
-
--------------------------------------------------------------------------------------
-6.x-1.4 2010-12-17
--------------------------------------------------------------------------------------
-- #922114 by Shawn DeArmond: Exporting ds features properly requires strongarm.
-- #931510 by joelstein: fix occasional features errors when reverting.
-- #848478 by swentel: add relationship to views.
-- #855888 by swentel: add support for foreign tables and modules in views fields.
-- #887530 by swentel: heigher delta for weights.
-- #886684 by swentel: check if module exists in ds fields plugin.
-- #872708 by swentel: extra info on the start screen.
-- #933876 by swentel: Fix tokens fieldset for rubik.
-- Added an new tool tab to export a stylesheet skeleton.
-- Add option in display plugin to change build modes per row via the UI.
-- Add option in display plugin to group on a sort field per row via the UI.
-- Fix notices in views fields.
-
--------------------------------------------------------------------------------------
-6.x-1.3 2010-07-18
--------------------------------------------------------------------------------------
-- #845416 by swentel: ds_static_variables should hold key values in an array.
-- #843214 by swentel: add counter class on region to indicate how many fields are in it.
-- #824796 by swentel: check for fieldgroup in display because sometimes parent does not exist anymore
-- #818036 by swentel and netsensei: rebuild theme registry when creating new build modes.
-- #794908 by swentel: styles with no friendly names trigger illegal choice detection.
-- #795784 by swentel and jyve: add extra field-group class to fieldgroup.
-- #783050 by swentel: multiple classes on fields.
-- #783196 by swentel: sync/copy little confusing.
-- #786740 by swentel: excluding build modes confused administration logic.
-- #783056 by swentel: add classes to regions via the UI.
-- Move ui to admin/build/ds.
-
--------------------------------------------------------------------------------------
-6.x-1.2 2010-05-07
--------------------------------------------------------------------------------------
-- #770368 by swentel and zuuperman: views fields ds plugin.
-- #722852 by jyve: theming optimisations.
-- #777290 by swentel: fix empty region plugin order of regions.
-- #771134 by swentel: Add support for preprocess fields via UI and selecting a key in variables.
-- #737008 by swentel: Support feature integration per object type.
-- #779040 by swentel: DS now has a UI module. 
-- #781882 by swentel: add example outputs from objects.
-- #783106 by swentel: styles do not necessarily need friendly names.
-
--------------------------------------------------------------------------------------
-6.x-1.1 2010-04-15
--------------------------------------------------------------------------------------
-- Fix weights of build modes
-- #710094 by swentel: fix small edit link bug in layout overview screen.
-- #722004 by swentel: better description of ds_views_row_adv_VIEWSNAME.
-- #710034 by swentel: region to block plugin.
-- #723916 by swentel: fields title leads to edit screen.
-- #724124 by swentel: Add css-class to field definition.
-- #710782 by swentel: Add option to copy settings from one build mode to other(s).
-- #727224 by swentel: New option for ds_api.
-- #742658 by swentel: Rename ds_show_links() to ds_show_field().
-- #722852 by swentel and jyve: Theming optimizations.
-- #582618 by swentel, stalski, zuuperman and jyve: Support for fieldgroups.
-- #763516 by swentel: validation of keys for fields, fieldgroups & buildmodes 
-                      can contain numbers.
-- #763024 by swentel: support for (cck) tabs.
-
--------------------------------------------------------------------------------------
-6.x-1.0 2010-02-04
--------------------------------------------------------------------------------------
-- Initial release.
-
+- Add missing human names for field type constants

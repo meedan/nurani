@@ -1,3 +1,8 @@
+NODE DISPLAYS
+
+IMPORTANT!
+Node Displays 2.7 and above are not compatible with Display Suite 1.x. Please
+update to 2.x.
 
 -- SUMMARY --
 
@@ -24,6 +29,7 @@ token - http://drupal.org/project/token
 swentel - http://drupal.org/user/107403
 stalski - http://drupal.org/user/322618
 zuuperman - http://drupal.org/user/361625
+xtfer - http://drupal.org/user/31698 (6.x only)
 
 -- INSPIRATORS --
 

@@ -12,7 +12,7 @@ function nd_location_menu() {
   $items = array();
 
   if (module_exists('ds_ui')) {
-    $items['admin/build/ds/nd/nd_location'] = array(
+    $items[DS_PATH_MODULES .'/nd/nd_location'] = array(
       'title' => 'Location',
       'page callback' => 'nd_location_settings',
       'access arguments' => array('administer nd'),
@@ -32,7 +32,7 @@ function nd_location_ds_info_alter(&$help, $module) {
   if ($module == 'nd') {
     $help[] = '<h3>Node displays location</h3>
         <p>ND location has support for location and gmap. It exposes all location fields as separate fields, depending on the collection settings. Note: it does not work with the CCK location, but with the location on the node type. You can also have one single location per node.</p>
-        <p>You can also add new location field via the <a href="'. url('admin/build/ds/nd/nd_location') .'">settings screen</a> and you get 2 other fields in your display settings, namely the individual google map and a "Open on Gmap" link which opens up the info window on the map.</p>
+        <p>You can also add new location field via the <a href="'. url(DS_PATH_MODULES .'/nd/nd_location') .'">settings screen</a> and you get 2 other fields in your display settings, namely the individual google map and a "Open on Gmap" link which opens up the info window on the map.</p>
         <p>If you are creating a view and want to use Display suite row plugin, you can not use location as base, you need to use the node table, otherwhise you will have duplicate results.</p>
         ';
   }
@@ -477,23 +477,25 @@ function theme_nd_location_directions($field) {
  * Combine all address fields.
  */
 function theme_nd_location_address($field) {
+  // Get the location field settings for this node type
+  $settings = variable_get('location_settings_node_'. $field['object']->type, array());
+
+  // Loop through and collect the address fields we want to output in the order specified in node location settings,
+  // and check that they are not set to be hidden in node location setting
+  // also ignore arrays (eg. locpick)
   $address = array();
-  if (!empty($field['object']->location)) {
-    if (!empty($field['object']->location['street'])) {
-      $address[] = check_plain($field['object']->location['street']);
-    }
-    $fullcity = array();
-    if (!empty($field['object']->location['postal_code'])) {
-      $fullcity[] = check_plain($field['object']->location['postal_code']);
-    }
-    if (!empty($field['object']->location['city'])) {
-      $fullcity[] = check_plain($field['object']->location['city']);
-    }
-    $address[] = implode($fullcity, ' ');
-    if (!empty($field['object']->location['province_name'])) {
-      $address[] = check_plain($field['object']->location['province_name']);
+  foreach ($settings['form']['fields'] as $fieldname => $fieldsettings) {
+    if (!$settings['display']['hide'][$fieldname] && !empty($field['object']->location[$fieldname]) && !is_array($field['object']->location[$fieldname])) {
+      // Replace country code with full country name.
+      if ($fieldname == 'country') {
+        module_load_include('inc', 'location', 'location');
+        $field['object']->location[$fieldname] = location_country_name($field['object']->location[$fieldname]);
+      }
+      // Add this field to our array of fields to output.
+      $address[] = check_plain($field['object']->location[$fieldname]);
     }
   }
+
   return implode($address, ', ');
 }
 

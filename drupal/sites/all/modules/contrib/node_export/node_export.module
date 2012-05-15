@@ -8,20 +8,6 @@
  */
 
 /**
- * Implementation of hook_help().
- */
-function node_export_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#node_export':
-      $output = '<p>'. t('The Node export module allows users to export an existing node and then import it into another Drupal installation.') .'</p>';
-      $output .= '<p>'. t('Users with the "export nodes" permission can utilize this functionality. A new tab will appear on node pages with the word "Export".') .'</p>';
-      $output .= '<p>'. t('It is also possible to do bulk exports, via Content admin (admin/content/node) or using "Views Bulk Operations".') .'</p>';
-      $output .= '<p>'. t('Importing nodes is done via the "Node export: import" page (admin/content/import) and can be done by those with the "use PHP to import nodes" permission.') .'</p>';
-      return $output;
-  }
-}
-
-/**
  * Implementation of hook_perm().
  */
 function node_export_perm() {
@@ -46,7 +32,7 @@ function node_export_menu() {
     foreach ($format_handlers as $format_handler => $format) {
       if (in_array($format_handler, $selected_formats)) {
         $items['node/%node/node_export/'. $format_handler] = array(
-          'access callback' => 'node_export_access_check',
+          'access callback' => 'node_export_access_export',
           'access arguments' => array(1),
           'page callback' => 'node_export_gui',
           'page arguments' => array(1, $format_handler),
@@ -60,7 +46,7 @@ function node_export_menu() {
   }
   else {
     $items['node/%node/node_export'] = array(
-      'access callback' => 'node_export_access_check',
+      'access callback' => 'node_export_access_export',
       'access arguments' => array(1),
       'page callback' => 'node_export_gui',
       'page arguments' => array(1),
@@ -82,7 +68,7 @@ function node_export_menu() {
     'title' => 'Node export: import',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('node_export_import_form'),
-    'access arguments' => array('use PHP to import nodes'),
+    'access callback' => 'node_export_access_import',
     'description' => 'Import content using <em>Node export</em>.',
     'file' => 'node_export.pages.inc',
   );
@@ -93,33 +79,72 @@ function node_export_menu() {
 /**
  * Check access to export a node.
  */
-function node_export_access_check($node) {
+function node_export_access_export($node) {
   global $user;
-  if (is_int($node)) {
+  if (is_numeric($node)) {
     $node = node_load($node);
   }
-  // Check basic permissions first.
-  $access = (user_access('export nodes') || ($user->uid && ($node->uid == $user->uid) && user_access('export own nodes')));
-  // Make sure the user can view the original node content.
-  $access = $access && node_access('view', $node);
-  // Check additional conditions
-  $access = $access && (node_export_is_permitted($node->type) && filter_access($node->format) && node_access('create', $node->type));
-  // Let other modules alter this - for exmple to only allow some users
+
+  if (function_exists('drush_main')) {
+    // Always allow drush to export nodes.
+    $access = TRUE;
+  }
+  else {
+    // Check basic role permissions first.
+    $access = (user_access('export nodes') || ($user->uid && ($node->uid == $user->uid) && user_access('export own nodes')));
+    // Make sure the user can view the original node content.
+    $access = $access && node_access('view', $node);
+  }
+
+  // Let other modules alter this - for example to only allow some users
   // to export specific nodes or types.
-  drupal_alter("node_export_access_check", $access, $node);
+  drupal_alter("node_export_access_export", $access, $node);
   return $access;
 }
 
 /**
+ * Check access to import a node.
+ */
+function node_export_access_import($node = NULL) {
+  global $user;
+
+  if (function_exists('drush_main')) {
+    // Always allow drush to import nodes.
+    $access = TRUE;
+  }
+  elseif (defined('MAINTENANCE_MODE') && MAINTENANCE_MODE == 'install') {
+    // During the install phase $user is the Anonymous user; however, in
+    // practice $user is performing tasks only granted to the admin user
+    // (eg: installing modules, changing site settings).  For this reason
+    // it seems sensible to allow this "Anonymous admin" user to import
+    // any nodes they wish.
+    $access = TRUE;
+  }
+  else {
+    // Check basic role permissions first.
+    $access = user_access('use PHP to import nodes');
+
+    if (!is_null($node) && $access) {
+      // Check node conditions.
+      $access = node_access('create', $node->type) && filter_access($node->format);
+    }
+  }
+
+  // Let other modules alter this - for example to only allow some users
+  // to import specific nodes or types.
+  drupal_alter("node_export_access_import", $access, $node);
+  return $access;
+}
+/**
  * Check access to export an array of nodes.
  */
-function node_export_access_check_nodes($nodes) {
+function node_export_access_export_nodes($nodes) {
   // Convert to array if it isn't already.
   if (is_object($nodes)) {
     $nodes = array($nodes);
   }
   foreach ($nodes as &$node) {
-    if (!node_export_access_check($node)) {
+    if (!node_export_access_export($node)) {
       return FALSE;
     }
   }
@@ -127,11 +152,19 @@ function node_export_access_check_nodes($nodes) {
 }
 
 /**
- * Check whether exporting this type is permitted.
+ * Check access to import an array of nodes.
  */
-function node_export_is_permitted($type) {
-  $omitted = variable_get('node_export_omitted', array());
-  return empty($omitted[$type]);
+function node_export_access_import_nodes($nodes) {
+  // Convert to array if it isn't already.
+  if (is_object($nodes)) {
+    $nodes = array($nodes);
+  }
+  foreach ($nodes as &$node) {
+    if (!node_export_access_import($node)) {
+      return FALSE;
+    }
+  }
+  return TRUE;
 }
 
 /**
@@ -171,8 +204,6 @@ function node_export_node_operations() {
   $operations = array();
   if (user_access('export nodes')) {
 
-    module_load_include('inc', 'node_export', 'node_export.pages');
-
     $selected_formats = variable_get('node_export_format', array('node_code'));
     if (count(array_filter($selected_formats)) > 1) {
       $format_handlers = node_export_format_handlers();
@@ -180,8 +211,8 @@ function node_export_node_operations() {
         if ($selected_formats[$format_handler]) {
           $operations['node_export_'. $format_handler] = array(
             'label' => t('Node export') ." (". $format['#title'] .")",
-            'callback' => 'node_export_gui',
-            'callback arguments' => array($format_handler),
+            'callback' => 'node_export_bulk_operation',
+            'callback arguments' => array($format_handler, NULL),
           );
         }
       }
@@ -190,14 +221,22 @@ function node_export_node_operations() {
       $operations = array(
         'node_export' => array(
           'label' => t('Node export'),
-          'callback' => 'node_export_gui',
-          'callback arguments' => array(NULL),
+          'callback' => 'node_export_bulk_operation',
+          'callback arguments' => array(NULL, NULL),
         ),
       );
     }
 
   }
   return $operations;
+}
+
+/**
+ * Callback for use with hook_node_operations().
+ */
+function node_export_bulk_operation($nodes = NULL, $format = NULL, $delivery = NULL) {
+  module_load_include('inc', 'node_export', 'node_export.pages');
+  return node_export_gui($nodes, $format, $delivery);
 }
 
 /**
@@ -218,7 +257,7 @@ function node_export($nids, $format = NULL, $msg_t = 't') {
   global $user;
 
   // Make $nids an array if it isn't.
-  if (is_int($nids)) {
+  if (is_numeric($nids)) {
     $nids = array($nids);
   }
   elseif (is_object($nids)) {
@@ -229,7 +268,7 @@ function node_export($nids, $format = NULL, $msg_t = 't') {
   foreach ($nids as $nid) {
     $original_node = node_load($nid);
 
-    if (!node_export_access_check($original_node)) {
+    if (!node_export_access_export($original_node)) {
       // Halt exporting.
       $error = $msg_t("You do not have permission to perform a Node export on one or more of these nodes.  No nodes exported.");
       return array(
@@ -238,43 +277,10 @@ function node_export($nids, $format = NULL, $msg_t = 't') {
       );
     }
 
-    $node = drupal_clone($original_node);
-
-    // Fix taxonomy array
-    if (isset($node->taxonomy) && count($node->taxonomy)) {
-      $vocabularies = taxonomy_get_vocabularies();
-      $new_taxonomy = array();
-      foreach ($node->taxonomy as $term) {
-        // Free-tagging vocabularies need a different format
-        if ($vocabularies[$term->vid]->tags) {
-          $new_taxonomy['tags'][$term->vid][] = $term->name;
-        }
-        else {
-          $new_taxonomy[$term->vid][$term->tid] = $term->tid;
-        }
-      }
-      if (isset($new_taxonomy['tags']) && count($new_taxonomy['tags'])) {
-        // Comma seperate the tags
-        foreach ($new_taxonomy['tags'] as $vid => $tags) {
-          $new_taxonomy['tags'][$vid] = implode(', ', $tags);
-        }
-      }
-      $node->taxonomy = $new_taxonomy;
-    }
-
-    // Fix menu array
-    $node->menu = node_export_get_menu($original_node);
-
-    $node = node_export_remove_recursion($node);
-
-    // Let other modules do special fixing up.
-    drupal_alter('node_export_node', $node, $original_node, 'export');
+    $node = node_export_prepare_node($original_node);
 
     $nodes[] = $node;
   }
-
-  // Let other modules do special fixing up.
-  drupal_alter('node_export', $nodes, 'export', $format);
 
   // Get the node code from the format handler
   $format_handlers = node_export_format_handlers();
@@ -282,21 +288,86 @@ function node_export($nids, $format = NULL, $msg_t = 't') {
   if (!isset($format_handlers[$format_handler])) {
     $format_handler = 'node_code';
   }
+
+  // Let other modules do special fixing up.
+  drupal_alter('node_export', $nodes, 'export', $format_handler);
+
+  // If any nodes are set to FALSE, then an error was triggered in another module.
+  // Currently modules doing this should also leave a watchdog warning.
+  if (in_array(FALSE, $nodes)) {
+    // Halt exporting.
+    $error = $msg_t('An error occurred when processing nodes, please check your logs.  No nodes exported.');
+    return array(
+      'success' => FALSE,
+      'output' => array($error),
+    );
+  }
+
   $code_string = module_invoke(
     $format_handlers[$format_handler]['#module'],
     'node_export',
     $nodes,
-    $format
+    $format_handler
   );
 
   // Let modules modify the node code.
-  drupal_alter('node_export_encode', $code_string, $nodes, $format);
+  drupal_alter('node_export_encode', $code_string, $nodes, $format_handler);
 
   return array(
     'success' => TRUE,
     'output' => $code_string,
+    'format' => $format_handler,
   );
 
+}
+
+/**
+ * Prepare a single node during export.
+ */
+function node_export_prepare_node(&$original_node) {
+  // Create UUID if it's not there.
+  // Currently this uses a module_exists() until UUID becomes a dependency.
+  if (module_exists('uuid')) {
+    if (!uuid_get_uuid('node', 'nid', $original_node->nid)) {
+      $original_node->uuid = uuid_set_uuid('node', 'nid', $original_node->nid);
+      // Save it so future node exports are consistent.
+      node_save($original_node);
+    }
+  }
+
+  $node = drupal_clone($original_node);
+
+  // Fix taxonomy array
+  if (isset($node->taxonomy) && count($node->taxonomy)) {
+    $vocabularies = taxonomy_get_vocabularies();
+    $new_taxonomy = array();
+    foreach ($node->taxonomy as $term) {
+      // Free-tagging vocabularies need a different format
+      if ($vocabularies[$term->vid]->tags) {
+        $new_taxonomy['tags'][$term->vid][] = $term->name;
+      }
+      else {
+        $new_taxonomy[$term->vid][$term->tid] = $term->tid;
+      }
+    }
+    if (isset($new_taxonomy['tags']) && count($new_taxonomy['tags'])) {
+      // Comma seperate the tags
+      foreach ($new_taxonomy['tags'] as $vid => $tags) {
+        $new_taxonomy['tags'][$vid] = implode(', ', $tags);
+      }
+    }
+    $node->taxonomy = $new_taxonomy;
+  }
+
+  // Fix menu array
+  $node->menu = node_export_get_menu($original_node);
+
+  $node = node_export_remove_recursion($node);
+
+  // Let other modules do special fixing up.
+  drupal_alter('node_export_node', $node, $original_node, 'export');
+
+  return $node;
 }
 
 /**
@@ -328,6 +399,17 @@ function node_export_import_types_check($nodes) {
  *   translated strings to be shown to the user as messages.
  */
 function node_export_import($code_string, $msg_t = 't') {
+  // Early check to avoid letting hooligans and the elderly pass data to the
+  // eval() function call.
+  if (!node_export_access_import()) {
+    $error = $msg_t(
+      'You do not have permission to import any nodes.'
+    );
+    return array(
+      'success' => FALSE,
+      'output' => array($error),
+    );
+  }
 
   // Allow modules to manipulate the $code_string.
   drupal_alter('node_export_decode', $code_string);
@@ -385,7 +467,7 @@ function node_export_import($code_string, $msg_t = 't') {
     );
   }
 
-  if (!node_export_access_check_nodes($nodes)) {
+  if (!node_export_access_import_nodes($nodes)) {
     // There was a problem with permissions.
     $error = $msg_t(
       'You do not have permission to perform a Node export: import on one or more of these nodes.  No nodes imported.'
@@ -543,9 +625,14 @@ function node_export_node_clone($original_node) {
     if (variable_get('node_export_reset_path_'. $node->type, TRUE)) {
       $node->path = NULL;
     }
-    elseif (module_exists('pathauto')) {
-      // Prevent pathauto from creating a new path alias.
-      $node->pathauto_perform_alias = FALSE;
+    else {
+      if (is_array($node->path) && isset($node->path['pid'])) {
+        unset($node->path['pid']);
+      }
+      if (module_exists('pathauto')) {
+        // Prevent pathauto from creating a new path alias.
+        $node->pathauto_perform_alias = FALSE;
+      }
     }
 
     if (variable_get('node_export_reset_book_mlid_'. $node->type, TRUE) && isset($node->book['mlid'])) {
@@ -668,4 +755,85 @@ function node_export_format_handlers() {
     $format_handlers = module_invoke_all('node_export_format_handlers');
   }
   return $format_handlers;
+}
+
+// Remove once http://drupal.org/node/858274 is resolved.
+if (!function_exists('uuid_set_uuid')) {
+  /**
+   * API function to set the UUID of an object based on its serial ID.
+   *
+   * @param $table
+   *   Base table of the object. Currently, one of node, revision_revisions,
+   *   users, vocabulary or term_data.
+   * @param $key
+   *   The name of the serial ID column.
+   * @param $serial_id
+   *   The serial ID of the object.
+   * @param $uuid
+   *   Optional UUID.  If omitted, a UUID will be generated.
+   * @return
+   *   The UUID on success, FALSE if the uuid provided is not valid.
+   */
+  function uuid_set_uuid($table, $key, $serial_id, $uuid = FALSE) {
+    if (empty($uuid)) {
+      $uuid = uuid_uuid();
+    }
+
+    if (!uuid_is_valid($uuid)) {
+      return FALSE;
+    }
+
+    $uuid_table = 'uuid_'. $table;
+    db_query("UPDATE {". $uuid_table ."} SET uuid = '%s' WHERE ". $key ." = %d", $uuid, $serial_id);
+    if (!db_affected_rows()) {
+      @db_query("INSERT INTO {". $uuid_table ."} (". $key .", uuid) VALUES (%d, '%s')", $serial_id, $uuid);
+    }
+
+    return $uuid;
+  }
+}
+
+// Remove once http://drupal.org/node/858274 is resolved.
+if (!function_exists('uuid_get_uuid')) {
+  /**
+   * API function to get the UUID of an object based on its serial ID.
+   *
+   * @param $table
+   *   Base table of the object. Currently, one of node, revision_revisions,
+   *   users, vocabulary or term_data.
+   * @param $key
+   *   The name of the serial ID column.
+   * @param $id
+   *   The serial ID of the object.
+   * @return
+   *   The UUID of the object, or FALSE if not found.
+   */
+  function uuid_get_uuid($table, $key, $id) {
+    $uuid_table = 'uuid_'. $table;
+    return db_result(db_query("SELECT uuid FROM {{$uuid_table}} WHERE $key = %d", $id));
+  }
+}
+
+/**
+ * Returns the node associated with a UUID. Has the same functionality as
+ *   node_get_by_uuid() in uuid.module but does NOT uses db_rewrite_sql.
+ *
+ * @return
+ *   Either the $node object, or FALSE on failure.
+ */
+function node_export_node_get_by_uuid($uuid) {
+  $nid = db_result(db_query(
+    "SELECT n.nid
+     FROM {node} AS n
+     INNER JOIN {uuid_node} AS un ON n.nid = un.nid
+     WHERE un.uuid = '%s'",
+    $uuid
+  ));
+
+  if ($nid) {
+    return node_load($nid);
+  }
+  else {
+    return FALSE;
+  }
 }

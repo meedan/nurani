@@ -67,8 +67,11 @@ function ds_import_data($data, $dsm = TRUE, $override = TRUE, $revert_module = '
       if ($dsm) {
         drupal_set_message(t('Saved display settings for @module and @type', array('@module' => $module, '@type' => $type)));
       }
-      $old_settings = variable_get($module .'_display_settings_'. $type, array());
+
       foreach ($settings as $build_mode => $setting) {
+
+        $old_settings = ds_get_settings($module, $type, $build_mode);
+
         // Override no matter what. This comes from the import settings screen.
         if ($override) {
           $settings[$build_mode]['status'] = DS_SETTINGS_UI;
@@ -77,28 +80,44 @@ function ds_import_data($data, $dsm = TRUE, $override = TRUE, $revert_module = '
         // a) check if we have old settings and keep them if they are overridden.
         // b) compare $revert_module, $revert_type and $revert_build_mode and revert if necessary.
         else {
-          if (isset($old_settings[$build_mode]['status']) && $old_settings[$build_mode]['status'] == DS_SETTINGS_OVERRIDDEN) {
+          if (isset($old_settings['status']) && $old_settings['status'] == DS_SETTINGS_OVERRIDDEN) {
             if ($module == $revert_module && $type == $revert_type && $build_mode == $revert_build_mode) {
               $settings[$build_mode]['status'] = DS_SETTINGS_DEFAULT;
             }
             else {
-              $settings[$build_mode] = $old_settings[$build_mode];
+              $settings[$build_mode] = $old_settings;
             }
           }
           else {
             $settings[$build_mode]['status'] = DS_SETTINGS_DEFAULT;
           }
         }
-      }
-      // Keep old settings which aren't in the imported ones.
-      if (!empty($old_settings)) {
-        foreach ($old_settings as $build_mode => $setting) {
-          if (!isset($settings[$build_mode])) {
-            $settings[$build_mode] = $old_settings[$build_mode];
+
+        // Remove old settings.
+        db_query("DELETE FROM {ds_settings} WHERE build_mode = '%s' AND module = '%s' AND type = '%s'", $build_mode, $module, $type);
+
+        // Get settings.
+        $store = $settings[$build_mode];
+
+        // Iterate over fields and ditch those which are hidden.
+        // This is for sites have upgraded but haven't re-exported their settings.
+        foreach ($store['fields'] as $field_key => $field_value) {
+          if ($field_value['region'] == 'disabled') {
+            unset($store['fields'][$field_key]);
           }
         }
+
+        // Save new settings.
+        $record = new stdClass();
+        $record->module = $module;
+        $record->type = $type;
+        $record->build_mode = $build_mode;
+        $record->settings = serialize($store);
+        drupal_write_record('ds_settings', $record);
       }
-      variable_set($module .'_display_settings_'. $type, $settings);
+
+      // Act on saving these settings.
+      module_invoke_all('ds_settings_import', $module, $type, $settings);
     }
   }
 }
@@ -131,7 +150,7 @@ function ds_export(&$form_state) {
               continue;
             }
           }
-          $options[$module .'-'. $type->type] = $type->name;
+          $options[$module .'-'. $type->type] = check_plain($type->name);
           if ($global_exclude == TRUE) {
             $ds_variables[] = $module .'_type_'. $tkey;
           }
@@ -256,7 +275,11 @@ function ds_export_build($values) {
     if ($otype === $value) {
       list($module, $type) = explode('-', $value);
       // Display settings.
-      $settings = variable_get($module .'_display_settings_'. $type, array());
+      $settings = array();
+      $records = db_query("SELECT * FROM {ds_settings} WHERE module = '%s' AND type = '%s'", $module, $type);
+      while ($row = db_fetch_object($records)) {
+        $settings[$row->build_mode] = unserialize($row->settings);
+      }
       if (!empty($settings)) {
         foreach ($settings as $build_mode => $setting) {
           $settings[$build_mode]['status'] = DS_SETTINGS_DEFAULT;
@@ -301,15 +324,15 @@ function ds_export_submit($form, &$form_state) {
  */
 function ds_revert_form($form_state, $module = '', $type = '', $build_mode = '') {
 
-  $display_settings = variable_get($module .'_display_settings_'. $type, array());
+  $display_settings = ds_get_settings($module, $type, $build_mode);
 
-  if (isset($display_settings[$build_mode]) &&
-    isset($display_settings[$build_mode]['status']) &&
-    $display_settings[$build_mode]['status'] == DS_SETTINGS_OVERRIDDEN
+  if (!empty($display_settings) &&
+    isset($display_settings['status']) &&
+    $display_settings['status'] == DS_SETTINGS_OVERRIDDEN
     ) {
 
     $question = t('Are you sure you want to revert the display settings for %module, %type and %build_mode. This will bring back the default settings and any changes you have done will be lost.', array('%module' => $module, '%type' => $type, '%build_mode' => $build_mode));
-    $path = 'admin/build/ds/layout';
+    $path = DS_PATH_LAYOUT;
     $form['#module'] = $module;
     $form['#object_type'] = $type;
     $form['#build_mode'] = $build_mode;
@@ -318,7 +341,7 @@ function ds_revert_form($form_state, $module = '', $type = '', $build_mode = '')
   }
   else {
     drupal_set_message(t('Variables not found.'));
-    drupal_goto('admin/build/ds');
+    drupal_goto(DS_PATH_BASE);
   }
 }
 
@@ -329,138 +352,6 @@ function ds_revert_form_submit($form, &$form_state) {
   drupal_set_message(t('Display settings for %module, %type and %build_mode have been reverted.', array('%module' => $form['#module'], '%type' => $form['#object_type'], '%build_mode' => $form['#build_mode'])));
   ds_import_default_data($form['#module'], $form['#object_type'], $form['#build_mode']);
   $form_state['redirect'] = $form['#path'];
-}
-
-/**
- * Export stylesheet.
- */
-function ds_export_stylesheet() {
-  $selectors = array();
-  $regions = ds_regions();
-  $all_build_modes = ds_get_build_modes();
-
-  // Build an array of selectors of all enabled objects and fields.
-  foreach (module_implements('ds_api') as $module) {
-
-    // Let's skip hds for now
-    if ($module == 'hds' || $module == 'vd') {
-      continue;
-    }
-
-    $api_info = ds_api_info($module);
-
-    // Title.
-    $selectors[] = "/* ". $api_info['title'] ." */\n";
-
-    // Regions
-    $selectors[] = "/* Regions */";
-    $selectors[] = str_replace('@replace', $module, ds_export_style_sheet_regions());
-
-    // Get all objects.
-    $build_modes = $all_build_modes[$module];
-    if (!empty($build_modes)) {
-      foreach ($api_info['types']() as $tkey => $type) {
-
-        $type_name = $type->type;
-        $type_url_str = str_replace('_', '-', $type_name);
-        $display_settings = variable_get($module .'_display_settings_'. $type_name, array());
-
-        // Global exclude.
-        if (variable_get($module .'_type_'. $type->type, FALSE)) {
-          continue;
-        }
-
-        $type_selectors = array();
-        $exclude_build_modes = variable_get($module .'_buildmodes_exclude', array());
-        foreach ($build_modes as $key => $value) {
-
-          // Check if build mode is excluded for this object type.
-          $excluded = (isset($exclude_build_modes[$type_name][$key]) && $exclude_build_modes[$type_name][$key] == TRUE) ? TRUE : FALSE;
-          if ($excluded) {
-            continue;
-          }
-
-          // Get any configured fields.
-          $field_settings = ds_default_value($display_settings, $key, 'fields');
-          if (empty($field_settings)) {
-            continue;
-          }
-          foreach ($field_settings as $field_key => $field) {
-            if ($field['region'] != 'disabled') {
-
-              $class = isset($field['properties']['css-class']) ? $field['properties']['css-class'] : 'field-'. strtr($field_key, '_', '-');
-              if (isset($field_settings[$field]['css-class']) && !empty($field_settings[$field]['css-class'])) {
-                $class .= ' '. $field_settings[$field]['css-class'];
-              }
-              if ($field['type'] == DS_FIELD_TYPE_GROUP) {
-                $class .= ' field-group';
-              }
-
-              // This actually a bit hardcoded, pity.
-              switch ($module) {
-                case 'nd':
-                  $prefix = '.buildmode-'. $key .' .node-type-'. $type_name;
-                  break;
-                case 'ud':
-                  $prefix = '.buildmode-'. $key .' .profile';
-                  break;
-                case 'cd':
-                  $prefix = '.buildmode-'. $key .' .comment';
-                  break;
-              }
-              $type_selectors[] = $prefix ." .". $class ." {\n}";
-            }
-          }
-        }
-
-        // Add selectors when not empty.
-        if (!empty($type_selectors)) {
-          $selectors[] = "/* Fields of ". $type_name ." */\n";
-          $selectors = array_merge($selectors, $type_selectors);
-          $selectors[] = "";
-        }
-      }
-    }
-  }
-
-  $skeleton = implode("\n", $selectors);
-
-  $form = array();
-  $form['info'] = array(
-    '#type' => 'markup',
-    '#value' => t('The textarea underneath generates a skeleton stylesheet for enabled objects and fields in your site. Views displays and Heartbeat displays are not supported yet.')
-  );
-  $form['skeleton'] = array(
-    '#type' => 'textarea',
-    '#rows' => 25,
-    '#default_value' => $skeleton,
-  );
-
-  return $form;
-}
-
-/**
- * Skeleton for default regions.
- */
-function ds_export_style_sheet_regions() {
-  return '
-.@replace-region-header {
-}
-.@replace-region-left {
-}
-.@replace-no-sidebars .@replace-region-middle {
-}
-.@replace-sidebar-left .@replace-region-middle {
-}
-.@replace-sidebar-right .@replace-region-middle {
-}
-.@replace-two-sidebars .@replace-region-middle {
-}
-.@replace-region-right {
-}
-.@replace-region-footer {
-}
-  ';
 }
 
 /**

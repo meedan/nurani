@@ -62,4 +62,5 @@ function jquery_update_update_6200() {
 function jquery_update_uninstall() {
   variable_del('jquery_update_replace');
   variable_del('jquery_update_compression_type');
+  variable_del('jquery_update_jquery_version');
 }

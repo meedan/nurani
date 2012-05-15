@@ -259,7 +259,7 @@ Drupal.nodeRelationshipsReferenceButtons.updateMultipleValues = function(selecte
  */
 Drupal.nodeRelationshipsReferenceButtons.getFieldOptions = function($element, settings) {
   var self = this;
-  var className = $element.attr('className');
+  var className = $element.attr('class');
   if (className) {
     var regExp = /^.*noderelationships\[(.*?)\].*$/;
     if (regExp.test(className)) {

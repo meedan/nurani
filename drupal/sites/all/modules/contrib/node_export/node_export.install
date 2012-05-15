@@ -13,7 +13,6 @@ function node_export_uninstall() {
   variable_del('node_export_code');
   variable_del('node_export_filename');
   variable_del('node_export_file_list');
-  variable_del('node_export_omitted');
   variable_del('node_export_nodes_without_confirm');
   $types = node_get_types('names');
   foreach ($types as $type => $name) {
@@ -28,6 +27,7 @@ function node_export_uninstall() {
   variable_del('node_export_method');
   variable_del('node_export_bulk_code');
   variable_del('node_export_bulk_filename');
+  variable_del('node_export_omitted');
 }
 
 /**

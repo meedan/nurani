@@ -1,33 +1,48 @@
 <?php
 
 /**
+ * @file
+ * The Node export relation module.
+ *
+ * Helps maintain relationships between nodes during node export operations.
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function node_export_relation_form_node_export_settings_alter(&$form, &$form_state) {
+  if (module_exists('node_reference')) {
+    module_load_include('inc', 'node_export_relation', 'node_export_relation.node_reference');
+    node_export_relation_settings_form_node_reference($form, $form_state);
+  }
+  /*
+  // None of the settings are supported yet.
+
+  if (module_exists('og')) {
+    module_load_include('inc', 'node_export_relation', 'node_export_relation.og');
+    node_export_relation_settings_form_og($form, $form_state);
+  }
+  */
+}
+
+/**
  * Implementation of hook_node_export_alter().
  *
  * Maintain node relationships.
  */
 function node_export_relation_node_export_alter(&$nodes, $op) {
-  // Currently this module only supports 'Node reference' relationships, so wrap
-  // all this functionality in a check for the 'nodereference' module.   Once
-  // this module handles more relationships this check should be moved down to
-  // each of the function calls that contain the string 'node_reference' in the
-  // function name.
   if (module_exists('nodereference')) {
+     module_load_include('inc', 'node_export_relation', 'node_export_relation.node_reference');
      if ($op == 'export') {
 
+       // Keyed nodes are important for preventing same node loaded again via references.
+       $keyed_nodes = array();
        foreach ($nodes as $node) {
-         $uuid = uuid_get_uuid('node', 'nid', $data['nid']);
-         // Create uuid if it doesnt exists
-         if (empty($uuid)) {
-           $uuid = uuid_set_uuid('node', 'nid', $data['nid']);
-           $node->uuid = $uuid;
-         }
-
          $keyed_nodes[$node->nid] = $node;
        }
 
-       // Keyed nodes are important for preventing same node loaded again via references.
-       foreach($keyed_nodes as $node) {
-         node_export_relation_node_reference_load($keyed_nodes, $node);
+       foreach (array_keys($keyed_nodes) as $nid) {
+         node_export_relation_node_reference_load($keyed_nodes, $nid);
        }
 
        $nodes = array_values($keyed_nodes);
@@ -45,102 +60,16 @@ function node_export_relation_node_export_alter(&$nodes, $op) {
        node_export_relation_node_reference_update($nodes);
      }
   }
-}
-
-/**
- * Recursively check for node references.
- */
-function node_export_relation_node_reference_update($nodes) {
-  foreach ($nodes as $node) {
-    $uuid[$node->uuid] = $node->nid;
-  }
-
-  foreach ($nodes as $new_node) {
-    $node_reference_fields = node_export_relation_node_reference_fields($new_node->type);
-    // If no node reference fields are available loop
-    if (empty($node_reference_fields)) {
-      continue;
+  if (module_exists('og')) {
+     module_load_include('inc', 'node_export_relation', 'node_export_relation.og');
+    if ($op == 'export') {
+      // Go through nodes and set UUIDs for their groups.
+      node_export_relation_og_set_group_uuids($nodes);
     }
-    foreach ($node_reference_fields as $node_reference_field) {
-      foreach ($node->{$node_reference_field} as $key => $node_reference) {
-        if (!empty($node_reference['nid'])) {
-          $node_uuid = node_export_relation_node_reference_map($node_reference['nid']);
-          $new_node->{$node_reference_field}[$key] = array('nid' => $uuid[$node_uuid]);
-        }
-      }
-    }
-    node_save($new_node);
-  }
-}
-
-/**
- * Recursively load node references.
- */
-function node_export_relation_node_reference_load(&$nodes, $node) {
-  // Get list of node reference fields for this node
-  $node_reference_fields = node_export_relation_node_reference_fields($node->type);
-
-  // If no node reference fields are available return
-  if (empty($node_reference_fields)) {
-    return;
-  }
-  foreach ($node_reference_fields as $node_reference_field) {
-    foreach ($new_node->{$node_reference_field} as $key => $node_reference) {
-      if (!empty($node_reference['nid'])) {
-        // Load the referenced nodes only if its not already loaded
-        // This will save if from infinite loop of back references
-        if (!isset($nodes[$node_reference['nid']])) {
-          $uuid = uuid_get_uuid('node', 'nid', $node_reference['nid']);
-          // Create UUID for node reference if not already created
-          if (empty($uuid)) {
-            $uuid = uuid_set_uuid('node', 'nid', $node_reference['nid']);
-          }
-          $new_node = node_load($node_reference['nid']);
-
-          $nodes[] = $new_node;
-          // Recursively load references of new nodes
-          node_export_relation_node_reference_load($nodes, $new_node);
-        }
-      }
+    elseif ($op == 'import') {
+      // Now go through the groupes and switch back the UUIDS to actual ids.
+      node_export_relation_og_set_group_nids($nodes);
     }
   }
-}
-
-/**
- * Statically cache old node ids for mapping.
- */
-function node_export_relation_node_reference_map($id, $uuid = NULL, $type = 'node') {
-  static $map;
-  if (isset($uuid)) {
-    $map[$type][$id] = $uuid;
-  }
-  else {
-    return $map[$type][$id];
-  }
-}
-
-/**
- * Get an array listing the names of all node reference fields.
- *
- * @return
- *   Array of all created node reference fields.
- */
-function node_export_relation_node_reference_fields($content_type_name) {
-  // cache result
-  static $nodereference_fields = array();
-
-  if (empty($nodereference_fields[$content_type_name])) {
-    $ct = content_types($content_type_name);
-    $fields = $ct['fields'];
-    if (!empty($fields)) {
-      foreach ($fields as $name => $field) {
-        if ($field['type'] == 'nodereference') {
-          $nodereference_fields[$content_type_name][$name] = $name;
-        }
-      }
-    }
-  }
-
-  return $nodereference_fields[$content_type_name];
 }
 

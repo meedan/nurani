@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment_handler_field_node_new_comments.inc,v 1.1.2.1 2009/06/15 21:58:03 merlinofchaos Exp $
 
 /**
  * Field handler to display the number of new comments

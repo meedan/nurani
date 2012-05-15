@@ -11,11 +11,10 @@
 function nd_ds_api() {
 
   $help = array(
-    '<h3>Node displays</h3>
-      <p>This module comes with a nd.tpl.php, available in the templates folder, which is optimized for use with Node Displays. You can copy the file to your themes folder to use your own version if you want. Copying the file to your theme folder will only work if node.tpl.php is in the theme folder.</p>
-      <p>You can create a file called <strong>nd-<em>node_type</em>.tpl.php</strong>, <strong>nd-<em>node_type</em>-<em>build_mode</em>.tpl.php</strong> or <strong>nd-<em>node_type</em>-<em>build_mode</em>-<em>nid</em>.tpl.php</strong> for even more fine-grained theming.</p>
-      <p>If you exclude the RSS build mode, the default node feed is generated, but might render strange content. Make sure you do not choose the "Titles only" as your feed content setting, otherwhise, this screen will not have any effect. Choosing either "Full text" or "Titles + teaser" does not matter, this screen will have effect on both settings, apart from the read more link and the format of the body (full/teaser). Remember that some fields like upload and terms are added automatically to the feed and that this build mode manipulates the $description variable, it does not add extra keys to the feed.</p>
-      <p>If you have a problem with the content not being rendered through DS, please read <a href="http://drupal.org/node/572614">http://drupal.org/node/572614</a>.')
+    '<p>This module comes with a nd.tpl.php, available in the templates folder, which is optimized for use with Node Displays. You can copy the file to your themes folder to use your own version if you want. Copying the file to your theme folder will only work if node.tpl.php is in the theme folder.</p>
+    <p>You can create a file called <strong>nd-<em>node_type</em>.tpl.php</strong>, <strong>nd-<em>node_type</em>-<em>build_mode</em>.tpl.php</strong> or <strong>nd-<em>node_type</em>-<em>build_mode</em>-<em>nid</em>.tpl.php</strong> for even more fine-grained theming.</p>
+    <p>If you exclude the RSS build mode, the default node feed is generated, but might render strange content. Make sure you do not choose the "Titles only" as your feed content setting, otherwhise, this screen will not have any effect. Choosing either "Full text" or "Titles + teaser" does not matter, this screen will have effect on both settings, apart from the read more link and the format of the body (full/teaser). Remember that some fields like upload and terms are added automatically to the feed and that this build mode manipulates the $description variable, it does not add extra keys to the feed.</p>
+    <p>If you have a problem with the content not being rendered through DS, please read <a href="http://drupal.org/node/572614">http://drupal.org/node/572614</a>.')
    ;
 
   return array(
@@ -44,7 +43,7 @@ function nd_init() {
 function nd_rules_event_info() {
   return array(
     'nd_node_is_build' => array(
-      'label' => t('DS has build the node display'),
+      'label' => t('DS has built the node display'),
       'module' => 'nd',
       'arguments' => array(
         'node' => array('type' => 'node', 'label' => t('Content')),
@@ -142,7 +141,6 @@ function nd_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
       }
       elseif ($node->build_mode == NODE_BUILD_PREVIEW) {
         $node->build_mode = ($teaser) ? 'teaser' : 'full';
-        $node->has_body = node_get_types('type', $node->type)->has_body;
         // Prepare taxonomy
         if (isset($node->taxonomy)) {
           foreach ($node->taxonomy as $tid => $term) {
@@ -156,12 +154,12 @@ function nd_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
         $build_mode = ($teaser) ? 'teaser' : 'full';
         $node->build_mode = $build_mode;
       }
-
-      // Sticky.
-      if ($node->build_mode == 'teaser' && $node->sticky == 1) {
-        $node->build_mode = 'sticky';
+      $node->has_body = node_get_types('type', $node->type)->has_body;
+      if ($node->has_body == 1 && strlen($node->body) == 0){
+        $node->has_empty_body = 1;
       }
 
+      drupal_alter('nd_build', $node);
       break;
 
     // Alter the node object for viewing.
@@ -176,6 +174,58 @@ function nd_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
 }
 
 /**
+ *  Implements hook_nd_build_alter
+ */
+function nd_nd_build_alter(&$node) {
+  /**
+   * Stickied Teasers
+   *
+   * Use of sticky as a stand-alone buildmode will be deprecated in 3.x,
+   * where it will be replaced with custom variant selection.
+   * For the time being, sticky can be ignored by setting 
+   * $conf['ds_ignore_sticky'] = TRUE
+   * in settings.php
+   */
+  if (variable_get('ds_ignore_sticky', FALSE) != TRUE) {
+    if ($node->build_mode == 'teaser' && $node->sticky == 1) {
+      $node->build_mode = 'sticky';
+    }
+  }
+
+  /**
+   * Switch buildmode based on query string
+   *
+   * Build modes can be changed by setting ?build_mode=name in the query
+   * string. Becuase this is potentially insecure, developers must enable
+   * this for specific build modes by setting which modes allow switching
+   * in a variable 'nd_parameter_switch_bm'.
+   */
+  $parameter_build_modes = variable_get('nd_parameter_switch_bm', array());
+  if (isset($_GET['build_mode'])) {
+    $switch = check_plain($_GET['build_mode']);
+    if (in_array($switch, $parameter_build_modes)) {
+      $node->build_mode = $switch;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page()
+ */
+function nd_preprocess_page(&$vars){
+  /**
+   * Unset the node title
+   *
+   * Display Suite can display the node title where required. The default is to
+   * use Drupal's default behaviour, however you may wish to hide the title and
+   * let Display Suite take over.
+   */
+  if (isset($vars['node']) && (variable_get('nd_ignore_title_'. $vars['node']->type, FALSE) == TRUE)) {
+    $vars['title'] = '';
+  }
+}
+
+/**
  * Helper function to alter node properties
  *
  * @param stdClass $node The complete node object.
@@ -183,7 +233,7 @@ function nd_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
 function _nd_nodeapi(&$node) {
 
   // Build fields and regions.
-  ds_build_fields_and_regions($node, 'nd');
+  nd_build_fields_and_regions($node);
 
   // Special support for RSS.
   if ($node->build_mode == NODE_BUILD_RSS && $node->render_by_ds == TRUE) {
@@ -209,6 +259,21 @@ function _nd_nodeapi(&$node) {
 
   if (function_exists('rules_invoke_event')) {
     rules_invoke_event('nd_node_is_build', array('node' => &$node));
+  }
+}
+
+/**
+ * Statically cached version of ds_build_fields and regions
+ */
+function nd_build_fields_and_regions(&$node) {
+  static $displays = array();
+
+  if (isset($displays[$node->nid][$node->build_mode])) {
+    $node = $displays[$node->nid][$node->build_mode];
+  }
+  else {
+    ds_build_fields_and_regions($node, 'nd');
+    $displays[$node->nid][$node->build_mode] = $node;
   }
 }
 
@@ -244,8 +309,14 @@ function _nd_preprocess_node(&$vars, $hook) {
   $vars['template_files'][] = 'nd-'. $node->type .'-'. $node->build_mode;
   $vars['template_files'][] = 'nd-'. $node->type .'-'. $node->build_mode .'-'. $node->nid;
 
-  $content = ds_render_content($node, 'nd', $vars);
-  $vars['content'] = $content;
+  // Dont completely break things for users of 1.x
+  if (function_exists('ds_render')) {
+    $vars['content'] = ds_render($node->nid, $node, 'nd', $vars);
+  }
+  else {
+    drupal_set_message('You are using incompatible versions of Display Suite and Node Displays. Please downgrade Node Displays to 2.6, or upgrade Display Suite to the 2.x branch.', 'warning');
+    $vars['content'] = ds_render_content($node, 'nd', $vars);
+  }
 }
 
 /**
@@ -375,6 +446,7 @@ function nd_ds_fields($type_name, $build_mode, $extra) {
       'title' => t('Title'),
       'type' => DS_FIELD_TYPE_THEME,
       'status' => DS_FIELD_STATUS_STATIC,
+      'allow_formatters' => TRUE,
       'properties' => array(
         'formatters' => array(
           'nd_title_h1_nolink' => t('H1 title'),
@@ -417,28 +489,26 @@ function nd_ds_fields($type_name, $build_mode, $extra) {
     ),
   );
 
+  // Updated and posted date formatters
+  if (module_exists('date_api')) {
+    $date_formats = date_get_format_types('', FALSE);
+  }
+  else {
+    $date_formats = array(
+      'small' => array('title' => 'Small', 'type' => 'small'),
+      'medium' => array('title' => 'Medium', 'type' => 'medium'),
+      'large' => array('title' => 'Large', 'type' => 'large'),
+    );
+  }
+  $date_formatters = array();
+  foreach ($date_formats as $formatter) {
+    $date_formatters['nd_post_date_'. $formatter['type']] = t($formatter['title']);
+  }
   // Regression. People upgrading from 6.x-2.2 to 6.x-2.3 will lose
   // the post date PHP code field, we can't do that by default. The
   // update_2 will make the nd_use_date_api variable false, and
   // developers can set this variable to 1 in the variable table.
-  if (variable_get('nd_use_date_api', TRUE)) {
-    // Post date formatters
-    if (module_exists('date_api')) {
-      $date_formats = date_get_format_types('', FALSE);
-    }
-    else {
-      $date_formats = array(
-        'small' => array('title' => 'Small', 'type' => 'small'),
-        'medium' => array('title' => 'Medium', 'type' => 'medium'),
-        'large' => array('title' => 'Large', 'type' => 'large'),
-      );
-    }
-
-    $date_formatters = array();
-    foreach ($date_formats as $formatter) {
-      $date_formatters['nd_post_date_'. $formatter['type']] = t($formatter['title']);
-    }
-
+  if (variable_get('nd_use_date_api', TRUE)) {  
     $fields['post_date'] = array(
       'title' => t('Post date'),
       'type' => DS_FIELD_TYPE_THEME,
@@ -461,6 +531,14 @@ function nd_ds_fields($type_name, $build_mode, $extra) {
       ),
     );
   }
+  $fields['updated_date'] = array(
+    'title' => t('Last updated date'),
+    'type' => DS_FIELD_TYPE_THEME,
+    'status' => DS_FIELD_STATUS_STATIC,
+    'properties' => array(
+      'formatters' => $date_formatters,
+    ),
+  );
 
   // Check for body.
   if (isset($extra['has_body']) && $extra['has_body'] == TRUE) {
@@ -468,6 +546,7 @@ function nd_ds_fields($type_name, $build_mode, $extra) {
       'title' => t('Body'),
       'type' => DS_FIELD_TYPE_THEME,
       'status' => DS_FIELD_STATUS_STATIC,
+      'allow_formatters' => TRUE,
       'properties' => array(
         'formatters' => array(
           'nd_bodyfield' => t('Default')

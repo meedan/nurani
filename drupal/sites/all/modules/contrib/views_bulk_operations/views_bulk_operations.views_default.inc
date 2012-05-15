@@ -9,7 +9,7 @@ function views_bulk_operations_views_default_views() {
   $view->base_table = 'node';
   $view->core = 0;
   $view->api_version = '2';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+  $view->disabled = TRUE;
   $handler = $view->new_display('default', 'Default', 'default');
   $handler->override_option('fields', array(
     'title' => array(
@@ -358,7 +358,7 @@ function views_bulk_operations_views_default_views() {
   $view->base_table = 'users';
   $view->core = 0;
   $view->api_version = '2';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+  $view->disabled = TRUE;
   $handler = $view->new_display('default', 'Default', 'default');
   $handler->override_option('fields', array(
     'name' => array(
@@ -722,4 +722,3 @@ function views_bulk_operations_views_default_views() {
 
   return $views;
 }
-
