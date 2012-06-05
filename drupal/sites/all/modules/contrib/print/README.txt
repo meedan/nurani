@@ -24,17 +24,17 @@ CONFIGURATION
 
 - There are several settings that can be configured in the following places:
 
-  Administer > Site building > Modules (admin/build/modules)
+  Administration > Modules (admin/modules)
     Enable or disable the module. (default: disabled)
 
-  Administer > User management > Permissions (admin/user/permissions)
+  Administration > People > Permissions (admin/people/permissions)
     Under print module:
     access print: Enable access to the PF page and display of the PF link in
     other pages. (default: disabled)
     administer print: Enable access to the module settings page. (default:
     disabled)
 
-  Administer > Content management > Content types (admin/content/types)
+  Administration > Structure > Content types (admin/structure/types)
     For each content type it is possible to enable or disable the PF link
     via the "Show printer-friendly version link" checkbox. (default:
     enabled)
@@ -42,7 +42,7 @@ CONFIGURATION
     comments via the "Show printer-friendly version link in individual
     comments" checkbox. (default: disabled)
 
-  Administer > Site configuration > Printer-friendly (admin/settings/print)
+  Administration > Configuration > User interface > Printer, email and PDF versions (admin/config/user-interface/print)
     This is where all the module-specific configuration options can be set.
 
 - To modify the template of printer friendly pages, simply edit the
@@ -50,14 +50,11 @@ print.tpl.php or the css/print.css files.
 
 - It is possible to set per-content-type and/or theme-specific templates
   which are searched for in the following order: 
-   1. print_[format].node-[type].tpl.php in the theme directory
-   2. print_[format].node-[type].tpl.php in the module directory 
-   3. print_[format].tpl.php in the theme directory
-   4. print_[format].tpl.php in the module directory 
-   5. print.node-[type].tpl.php in the theme directory
-   6. print.node-[type].tpl.php in the module directory 
-   7. print.tpl.php in the theme directory
-   8. print.tpl.php in the module directory (supplied by the module)
+   1. print--[format]--node--[type].tpl.php in the theme directory
+   2. print--[format].tpl.php in the theme directory
+   3. print--node--[type].tpl.php in the theme directory
+   4. print.tpl.php in the theme directory
+   5. print.tpl.php in the module directory (supplied by the module)
 
   format is either html, mail or pdf, and type is Drupal's node type (e.g.
   page, story, etc.)

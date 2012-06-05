@@ -1,5 +1,4 @@
 <?php
-// $Id: data_ui.test,v 1.10.2.6 2010/07/28 18:11:48 alexb Exp $
 /**
  * @file
  * Data UI tests.
@@ -87,6 +86,8 @@ class DataTestCaseUI extends DataTestCase {
     $this->drupalPost('admin/build/data/compare/data_table_kittens', array(), t('Create table'));
     $this->assertText('Created table data_table_kittens');
     $this->assertTrue(db_table_exists('data_table_kittens'), 'Table data_table_kittens exists in DB.');
+    // TODO upgrade: schema_invoke is deprecated; see commit
+    // 900fda77a8ed95a64afb6bf01448917bf6be77a6 in its repository.
     $schema = schema_invoke('inspect', db_prefix_tables('{data_table_kittens}'));
     $this->assertTrue(isset($schema['data_table_kittens']), 'Schema API inspector detects table.');
     $this->assertTrue(!empty($table), 'Table loaded');

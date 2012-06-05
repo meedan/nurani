@@ -1,4 +1,3 @@
-// $Id: dependent.js,v 1.4.2.2 2009/10/05 23:38:33 merlinofchaos Exp $
 /**
  * @file
  *
@@ -31,12 +30,10 @@
 
   Drupal.CTools.dependent.inArray = function(array, search_term) {
     var i = array.length;
-    if (i > 0) {
-     do {
+    while (i--) {
       if (array[i] == search_term) {
          return true;
       }
-     } while (i--);
     }
     return false;
   }
@@ -45,7 +42,7 @@
   Drupal.CTools.dependent.autoAttach = function() {
     // Clear active bindings and triggers.
     for (i in Drupal.CTools.dependent.activeTriggers) {
-      jQuery(Drupal.CTools.dependent.activeTriggers[i]).unbind('change');
+      $(Drupal.CTools.dependent.activeTriggers[i]).unbind('change');
     }
     Drupal.CTools.dependent.activeTriggers = [];
     Drupal.CTools.dependent.activeBindings = {};
@@ -57,6 +54,8 @@
 
     // Iterate through all relationships
     for (id in Drupal.settings.CTools.dependent) {
+      // Test to make sure the id even exists; this helps clean up multiple
+      // AJAX calls with multiple forms.
 
       // Drupal.CTools.dependent.activeBindings[id] is a boolean,
       // whether the binding is active or not.  Defaults to no.
@@ -85,18 +84,33 @@
 
         Drupal.CTools.dependent.activeTriggers.push(trigger_id);
 
+        if ($(trigger_id).attr('type') == 'checkbox') {
+          $(trigger_id).siblings('label').addClass('hidden-options');
+        }
 
         var getValue = function(item, trigger) {
+          if ($(trigger).size() == 0) {
+            return null;
+          }
+
           if (item.substring(0, 6) == 'radio:') {
-            var val = jQuery(trigger + ':checked').val();
+            var val = $(trigger + ':checked').val();
           }
           else {
-            switch (jQuery(trigger).attr('type')) {
+            switch ($(trigger).attr('type')) {
               case 'checkbox':
-                var val = jQuery(trigger).attr('checked') || 0;
+                var val = $(trigger).attr('checked') || 0;
+
+                if (val) {
+                  $(trigger).siblings('label').removeClass('hidden-options').addClass('expanded-options');
+                }
+                else {
+                  $(trigger).siblings('label').removeClass('expanded-options').addClass('hidden-options');
+                }
+
                 break;
               default:
-                var val = jQuery(trigger).val();
+                var val = $(trigger).val();
             }
           }
           return val;
@@ -107,9 +121,12 @@
           var changeTrigger = function() {
             var val = getValue(bind_id, trigger_id);
 
+            if (val == null) {
+              return;
+            }
+
             for (i in Drupal.CTools.dependent.bindings[bind_id]) {
               var id = Drupal.CTools.dependent.bindings[bind_id][i];
-
               // Fix numerous errors
               if (typeof id != 'string') {
                 continue;
@@ -121,7 +138,7 @@
                 Drupal.CTools.dependent.activeBindings[id] = {};
               }
 
-              if (Drupal.CTools.dependent.inArray(Drupal.settings.CTools.dependent[id].values[bind_id], val)) {
+              if (val != null && Drupal.CTools.dependent.inArray(Drupal.settings.CTools.dependent[id].values[bind_id], val)) {
                 Drupal.CTools.dependent.activeBindings[id][bind_id] = 'bind';
               }
               else {
@@ -133,15 +150,26 @@
                 len++;
               }
 
-              var object = jQuery('#' + id + '-wrapper');
+              var object = $('#' + id + '-wrapper');
               if (!object.size()) {
-                object = jQuery('#' + id).parent();
+                // Some elements can't use the parent() method or they can
+                // damage things. They are guaranteed to have wrappers but
+                // only if dependent.inc provided them. This check prevents
+                // problems when multiple AJAX calls cause settings to build
+                // up.
+                var $original = $('#' + id);
+                if ($original.is('fieldset') || $original.is('textarea')) {
+                  continue;
+                }
+
+                object = $('#' + id).parent();
               }
 
               if (Drupal.settings.CTools.dependent[id].type == 'disable') {
                 if (Drupal.settings.CTools.dependent[id].num <= len) {
                   // Show if the element if criteria is matched
                   object.attr('disabled', false);
+                  object.addClass('dependent-options');
                   object.children().attr('disabled', false);
                 }
                 else {
@@ -156,6 +184,7 @@
                 if (Drupal.settings.CTools.dependent[id].num <= len) {
                   // Show if the element if criteria is matched
                   object.show(0);
+                  object.addClass('dependent-options');
                 }
                 else {
                   // Otherwise hide. Use css rather than hide() because hide()
@@ -167,7 +196,7 @@
             }
           }
 
-          jQuery(trigger_id).change(function() {
+          $(trigger_id).change(function() {
             // Trigger the internal change function
             // the attr('id') is used because closures are more confusing
             changeTrigger(trigger_id, bind_id);
@@ -180,23 +209,25 @@
     }
   }
 
-  Drupal.behaviors.CToolsDependent = function (context) {
-    Drupal.CTools.dependent.autoAttach();
+  Drupal.behaviors.CToolsDependent = {
+    attach: function (context) {
+      Drupal.CTools.dependent.autoAttach();
 
-    // Really large sets of fields are too slow with the above method, so this
-    // is a sort of hacked one that's faster but much less flexible.
-    $("select.ctools-master-dependent:not(.ctools-processed)")
-      .addClass('ctools-processed')
-      .change(function() {
-        var val = $(this).val();
-        if (val == 'all') {
-          $('.ctools-dependent-all').show(0);
-        }
-        else {
-          $('.ctools-dependent-all').hide(0);
-          $('.ctools-dependent-' + val).show(0);
-        }
-      })
-      .trigger('change');
+      // Really large sets of fields are too slow with the above method, so this
+      // is a sort of hacked one that's faster but much less flexible.
+      $("select.ctools-master-dependent:not(.ctools-processed)")
+        .addClass('ctools-processed')
+        .change(function() {
+          var val = $(this).val();
+          if (val == 'all') {
+            $('.ctools-dependent-all').show(0);
+          }
+          else {
+            $('.ctools-dependent-all').hide(0);
+            $('.ctools-dependent-' + val).show(0);
+          }
+        })
+        .trigger('change');
+    }
   }
 })(jQuery);

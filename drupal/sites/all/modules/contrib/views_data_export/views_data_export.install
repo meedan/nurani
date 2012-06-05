@@ -50,8 +50,9 @@ function views_data_export_schema() {
         'description' => 'The current state of the batch.',
       ),
       'sandbox' => array(
-        'type' => 'text',
-        'not null' => TRUE,
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big',
         'serialize' => TRUE,
       ),
     ),
@@ -88,33 +89,19 @@ function views_data_export_schema() {
   return $schema;
 }
 
-
-/**
- * Implementation of hook_install()
- */
-function views_data_export_install() {
-  drupal_install_schema('views_data_export');
-}
-
-
 /**
  * Implementation of hook_uninstall()
  */
 function views_data_export_uninstall() {
-
-  //Clean up any tables we may have left around
+  // Clean up any tables we may have left around.
+  module_load_include('module', 'views_data_export');
   views_data_export_garbage_collect(0, -1);
-
-  //Remove our base table
-  drupal_uninstall_schema('views_data_export');
 }
 
 /**
  * Convert the data column in the object cache.
  */
-function views_data_export_update_6200() {
-  $ret = array();
-  
+function views_data_export_update_7100() {
   $new_field = array(
     'type' => 'text',
     'size' => 'big',
@@ -124,8 +111,35 @@ function views_data_export_update_6200() {
 
   // Drop and re-add this field because there is a bug in
   // db_change_field that causes this to fail when trying to cast the data.
-  db_drop_field($ret, 'views_data_export_object_cache', 'data');
-  db_add_field($ret, 'views_data_export_object_cache', 'data', $new_field);
+  db_drop_field('views_data_export_object_cache', 'data');
+  db_add_field('views_data_export_object_cache', 'data', $new_field);
+}
 
-  return $ret;
+/**
+ * Implements hook_requirements().
+ */
+function views_data_export_requirements($phase) {
+  $requirements = array();
+
+  // Ensure translations don't break at install time
+  $t = get_t();
+
+  switch ($phase) {
+    case 'runtime':
+      // Check the max allowed packet size.
+      $max_allowed_packet = db_query('SHOW VARIABLES WHERE variable_name = :name', array(':name' => 'max_allowed_packet'))->fetchField(1);
+      if (is_numeric($max_allowed_packet)) {
+        if ($max_allowed_packet < (16 * 1024 * 1024)) {
+          $requirements['views_data_export'] = array(
+            'title' => $t('MySQL - max allowed packet'),
+            'value' => format_size($max_allowed_packet),
+            'description' => $t("Your MySQL 'max_allowed_packet' setting may be too low for Views data export to function correctly, Drupal's requirements recommend setting it to at least 16M. See: !link", array('!link' => l('http://drupal.org/requirements', 'http://drupal.org/requirements'))),
+            'severity' => REQUIREMENT_WARNING,
+          );
+        }
+      }
+      break;
+  }
+
+  return $requirements;
 }

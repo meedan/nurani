@@ -18,6 +18,8 @@
  */
 function print_pdf_settings() {
   $pdf_tools = _print_pdf_tools();
+  $current_pdf_tool = variable_get('print_pdf_pdf_tool', PRINT_PDF_PDF_TOOL_DEFAULT);
+  $pdf_tool_default = (in_array($current_pdf_tool, $pdf_tools)) ? $current_pdf_tool : PRINT_PDF_PDF_TOOL_DEFAULT;
 
   if ($pdf_tools != -1) {
     $form['settings'] = array(
@@ -29,7 +31,7 @@ function print_pdf_settings() {
       '#type' => 'radios',
       '#title' => t('PDF generation tool'),
       '#options' => $pdf_tools,
-      '#default_value' => variable_get('print_pdf_pdf_tool', PRINT_PDF_PDF_TOOL_DEFAULT),
+      '#default_value' => $pdf_tool_default,
       '#description' => t('This option selects the PDF generation tool being used by this module to create the PDF version.'),
     );
 
@@ -37,7 +39,7 @@ function print_pdf_settings() {
       '#type' => 'checkboxes',
       '#title' => t('PDF version link'),
       '#default_value' => variable_get('print_pdf_link_pos', array(PRINT_PDF_LINK_POS_DEFAULT => PRINT_PDF_LINK_POS_DEFAULT)),
-      '#options' => array('link' => t('Links area'), 'corner' => t('Content corner')),
+      '#options' => array('link' => t('Links area'), 'corner' => t('Content corner'), 'block' => t('Block')),
       '#description' => t('Choose the location of the link(s) to the PDF version. The Links area is usually below the node content, whereas the Content corner is placed in the upper-right corner of the node content. Unselect all options to disable the link. Even if the link is disabled, you can still view the PDF version of a node by going to !path/nid where nid is the numeric id of the node.', array('!path' => PRINTPDF_PATH)),
     );
 
@@ -91,18 +93,19 @@ function print_pdf_settings() {
       '#default_value' => variable_get('print_pdf_node_link_pages', PRINT_PDF_NODE_LINK_PAGES_DEFAULT),
       '#rows' => 3,
       '#description' => t("Enter one page per line as Drupal paths. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array('%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>')),
-      '#wysiwyg' => FALSE,
     );
 
-    $access = user_access('use PHP for link visibility');
+    if (module_exists('php')) {
+      $access = user_access('use PHP for settings');
 
-    if ($form['settings']['adv_link']['print_pdf_node_link_visibility']['#default_value'] == 2 && !$access) {
-      $form['settings']['adv_link']['print_pdf_node_link_visibility'] = array('#type' => 'value', '#value' => 2);
-      $form['settings']['adv_link']['print_pdf_node_link_pages'] = array('#type' => 'value', '#value' => $form['settings']['adv_link']['print_pdf_node_link_pages']['#default_value']);
-    }
-    elseif ($access) {
-      $form['settings']['adv_link']['print_pdf_node_link_visibility']['#options'][] = t('Show if the following PHP code returns <code>TRUE</code> (PHP-mode, experts only).');
-      $form['settings']['adv_link']['print_pdf_node_link_pages']['#description'] .= ' '. t('If the PHP-mode is chosen, enter PHP code between %php. Note that executing incorrect PHP-code can break your Drupal site.', array('%php' => '<?php ?>'));
+      if ($form['settings']['adv_link']['print_pdf_node_link_visibility']['#default_value'] == 2 && !$access) {
+        $form['settings']['adv_link']['print_pdf_node_link_visibility'] = array('#type' => 'value', '#value' => 2);
+        $form['settings']['adv_link']['print_pdf_node_link_pages'] = array('#type' => 'value', '#value' => $form['settings']['adv_link']['print_pdf_node_link_pages']['#default_value']);
+      }
+      elseif ($access) {
+        $form['settings']['adv_link']['print_pdf_node_link_visibility']['#options'][] = t('Show if the following PHP code returns <code>TRUE</code> (PHP-mode, experts only).');
+        $form['settings']['adv_link']['print_pdf_node_link_pages']['#description'] .= ' ' . t('If the PHP-mode is chosen, enter PHP code between %php. Note that executing incorrect PHP-code can break your Drupal site.', array('%php' => '<?php ?>'));
+      }
     }
 
     $form['settings']['adv_link']['print_pdf_sys_link_visibility'] = array(
@@ -117,18 +120,19 @@ function print_pdf_settings() {
       '#type' => 'textarea',
       '#default_value' => variable_get('print_pdf_sys_link_pages', PRINT_PDF_SYS_LINK_PAGES_DEFAULT),
       '#rows' => 3,
-      '#description' => t('Setting this option will add a PDF version page link on pages created by Drupal or the enabled modules.') .'<br />'.
+      '#description' => t('Setting this option will add a PDF version page link on pages created by Drupal or the enabled modules.') . '<br />' .
                         t("Enter one page per line as Drupal paths. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array('%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>')),
-      '#wysiwyg' => FALSE,
     );
 
-    if ($form['settings']['adv_link']['print_pdf_sys_link_visibility']['#default_value'] == 2 && !$access) {
-      $form['settings']['adv_link']['print_pdf_sys_link_visibility'] = array('#type' => 'value', '#value' => 2);
-      $form['settings']['adv_link']['print_pdf_sys_link_pages'] = array('#type' => 'value', '#value' => $form['settings']['adv_link']['print_pdf_sys_link_pages']['#default_value']);
-    }
-    elseif ($access) {
-      $form['settings']['adv_link']['print_pdf_sys_link_visibility']['#options'][] = t('Show if the following PHP code returns <code>TRUE</code> (PHP-mode, experts only).');
-      $form['settings']['adv_link']['print_pdf_sys_link_pages']['#description'] .= ' '. t('If the PHP-mode is chosen, enter PHP code between %php. Note that executing incorrect PHP-code can break your Drupal site.', array('%php' => '<?php ?>'));
+    if (module_exists('php')) {
+      if ($form['settings']['adv_link']['print_pdf_sys_link_visibility']['#default_value'] == 2 && !$access) {
+        $form['settings']['adv_link']['print_pdf_sys_link_visibility'] = array('#type' => 'value', '#value' => 2);
+        $form['settings']['adv_link']['print_pdf_sys_link_pages'] = array('#type' => 'value', '#value' => $form['settings']['adv_link']['print_pdf_sys_link_pages']['#default_value']);
+      }
+      elseif ($access) {
+        $form['settings']['adv_link']['print_pdf_sys_link_visibility']['#options'][] = t('Show if the following PHP code returns <code>TRUE</code> (PHP-mode, experts only).');
+        $form['settings']['adv_link']['print_pdf_sys_link_pages']['#description'] .= ' ' . t('If the PHP-mode is chosen, enter PHP code between %php. Note that executing incorrect PHP-code can break your Drupal site.', array('%php' => '<?php ?>'));
+      }
     }
 
     $form['settings']['adv_link']['print_pdf_book_link'] = array(
@@ -193,7 +197,7 @@ function print_pdf_settings() {
       '#default_value' => variable_get('print_pdf_font_family', PRINT_PDF_FONT_FAMILY_DEFAULT),
       '#size' => 60,
       '#maxlength' => 250,
-      '#description' => t('(TCPDF only) Set the font family to be used. Examples: %examples.', array('%examples' => 'helvetica, times, courier, dejavusans, dejavuserif, freesans, freeserif, freemono')) .'<br />'.
+      '#description' => t('(TCPDF only) Set the font family to be used. Examples: %examples.', array('%examples' => 'helvetica, times, courier, dejavusans, dejavuserif, freesans, freeserif, freemono')) . '<br />' .
                         t("CAUTION: TCPDF embeds the complete font in the generated PDF. If you're not using Unicode, then helvetica or times are safe choices that will keep the PDF small. Unicode fonts can increase the size of the PDF to the 1MB region."),
     );
     $form['settings']['print_pdf_font_size'] = array(
@@ -225,13 +229,13 @@ function print_pdf_settings() {
       '#description' => t('(wkhtmltopdf only) Set any additional options to be passed to the wkhtmltopdf executable. Tokens may be used in these options (see list below).'),
     );
 
-    if (module_exists('token')) {
       $form['settings']['print_pdf_filename'] = array(
         '#type' => 'textfield',
         '#title' => t('PDF filename'),
         '#default_value' => variable_get('print_pdf_filename', PRINT_PDF_FILENAME_DEFAULT),
         '#description' => t("If left empty the generated filename defaults to the node's path. Tokens may be used to build the filename (see following list). The .pdf extension will be appended automatically."),
       );
+    if (module_exists('token')) {
       $form['settings']['print_pdf_filename_patterns'] = array(
         '#type' => 'fieldset',
         '#title' => t('Replacement patterns'),
@@ -239,8 +243,8 @@ function print_pdf_settings() {
         '#collapsed' => TRUE,
       );
       $form['settings']['print_pdf_filename_patterns']['descriptions'] = array(
-        '#type' => 'markup',
-        '#value' => theme('token_help', array('node', 'global')),
+        '#theme' => 'token_tree',
+        '#token_types' => array('node'),
       );
     }
 
@@ -256,7 +260,7 @@ function print_pdf_settings() {
   else {
     $form['settings'] = array(
       '#type' => 'markup',
-      '#value' => '<p>'. t("No PDF generation tool found! Please dowload a supported PHP PDF generation tool. Check this module's INSTALL.txt for more details.") .'</p>',
+      '#markup' => '<p>' . t("No PDF generation tool found! Please dowload a supported PHP PDF generation tool. Check this module's INSTALL.txt for more details.") . '</p>',
     );
   }
 
@@ -282,16 +286,13 @@ function _print_pdf_settings_validate($form, &$form_state) {
  *   array of filenames with the include-able PHP file of the located tools
  */
 function _print_pdf_tools() {
-  $tools = array_keys(file_scan_directory(drupal_get_path('module', 'print'), '^dompdf_config.inc.php$'));
-  $tools = array_merge($tools, array_keys(file_scan_directory(drupal_get_path('module', 'print'), '^tcpdf.php$')));
-  $tools = array_merge($tools, array_keys(file_scan_directory(drupal_get_path('module', 'print'), '^wkhtmltopdf')));
-  $tools = array_merge($tools, array_keys(file_scan_directory(PRINT_PDF_LIB_PATH, '^dompdf_config.inc.php$')));
-  $tools = array_merge($tools, array_keys(file_scan_directory(PRINT_PDF_LIB_PATH, '^tcpdf.php$')));
-  $tools = array_merge($tools, array_keys(file_scan_directory(PRINT_PDF_LIB_PATH, '^wkhtmltopdf')));
+  $pattern = '!^(?:dompdf_config.inc.php|tcpdf.php|wkhtmltopdf.*)$!';
+  $tools = array_keys(file_scan_directory(drupal_get_path('module', 'print'), $pattern));
+  $tools = array_merge($tools, array_keys(file_scan_directory(PRINT_PDF_LIB_PATH, $pattern)));
   if (module_exists('libraries')) {
-    $tools = array_merge($tools, array_keys(file_scan_directory(libraries_get_path('dompdf'), '^dompdf_config.inc.php$')));
-    $tools = array_merge($tools, array_keys(file_scan_directory(libraries_get_path('tcpdf'), '^tcpdf.php$')));
-    $tools = array_merge($tools, array_keys(file_scan_directory(libraries_get_path('wkhtmltopdf'), '^wkhtmltopdf')));
+    $tools = array_merge($tools, array_keys(file_scan_directory(libraries_get_path('dompdf'), '/^dompdf_config.inc.php$/')));
+    $tools = array_merge($tools, array_keys(file_scan_directory(libraries_get_path('tcpdf'), '/^tcpdf.php$/')));
+    $tools = array_merge($tools, array_keys(file_scan_directory(libraries_get_path('wkhtmltopdf'), '/^wkhtmltopdf/')));
   }
 
 
@@ -302,13 +303,7 @@ function _print_pdf_tools() {
     return -1;
   }
   else {
-    // Instead of array_combine(), use this to maintain PHP4 compatibility
-    $tools2 = array();
-    foreach ($tools as $key => $val) {
-      $tools2[$val] = $val;
-    }
-
-    return $tools2;
+    return array_combine($tools, $tools);
   }
 }
 
@@ -331,6 +326,20 @@ function print_pdf_strings_settings() {
     '#default_value' => variable_get('print_pdf_link_text', t('PDF version')),
     '#description' => t('Text used in the link to the PDF version.'),
   );
+  $form['print_pdf_text']['reset'] = array(
+    '#type' => 'submit',
+    '#value' => t('Reset to defaults'),
+    '#submit' => array('print_pdf_strings_settings_delete'),
+  );
 
   return system_settings_form($form);
+}
+
+/**
+ * Reset button callback for text strings settings form
+ *
+ * @ingroup forms
+ */
+function print_pdf_strings_settings_delete() {
+  variable_del('print_pdf_link_text');
 }

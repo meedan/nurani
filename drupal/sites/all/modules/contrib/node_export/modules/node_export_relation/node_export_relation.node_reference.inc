@@ -8,22 +8,21 @@
  */
 
 /**
- * Callback for node reference settings form.
+ * Implements hook_form_FORM_ID_alter().
  */
-function node_export_relation_settings_form_node_reference(&$form, &$form_state) {
+function node_export_relation_settings_form_node_reference(&$form, &$form_state, $form_id) {
   $form['node_reference'] = array(
     '#type' => 'fieldset',
     '#title' => t('Node references'),
   );
-  /*
-  // Not supported yet.
 
+  // Not supported yet.
   $form['node_reference']['node_export_node_reference_auto_inc'] = array(
     '#type' => 'checkbox',
     '#title' => t('Automatically include referenced nodes in exports'),
     '#default' => variable_get('node_export_node_reference_auto_inc', TRUE),
   );
-  */
+
   $form['node_reference']['node_export_node_reference_skip'] = array(
     '#type' => 'checkbox',
     '#title' => t('Skip referenced nodes that cannot be exported'),
@@ -43,8 +42,9 @@ function node_export_relation_node_reference_update($nodes) {
     $node_reference_fields = node_export_relation_node_reference_fields($node->type);
     if (!empty($node_reference_fields)) {
       foreach ($node_reference_fields as $node_reference_field) {
-        if (!empty($node->$node_reference_field)) {
-          foreach ($node->$node_reference_field as $key => $node_reference) {
+        $items = field_get_items('node', $node, $node_reference_field);
+        if (!empty($items)) {
+          foreach ($items as $key => &$node_reference) {
             if (!empty($node_reference['nid'])) {
               $node_uuid = node_export_relation_node_reference_map($node_reference['nid']);
               $node->{$node_reference_field}[$key] = array('nid' => $uuid[$node_uuid]);
@@ -64,19 +64,13 @@ function node_export_relation_node_reference_load(&$nodes, $nid) {
   // Alias for easy referencing.
   $node = &$nodes[$nid];
 
-  // Handle uuid for the node.
-  $uuid = uuid_get_uuid('node', 'nid', $node->nid);
-  // Create UUID if not already created.
-  if (empty($uuid)) {
-    $uuid = uuid_set_uuid('node', 'nid', $node->nid);
-  }
-
   // Get list of node reference fields for this node
   $node_reference_fields = node_export_relation_node_reference_fields($node->type);
   if (!empty($node_reference_fields)) {
     foreach ($node_reference_fields as $node_reference_field) {
-      if (!empty($node->$node_reference_field)) {
-        foreach ($node->$node_reference_field as $key => $node_reference) {
+      $items = field_get_items('node', $node, $node_reference_field);
+      if (!empty($items)) {
+        foreach ($items as &$node_reference) {
           if (!empty($node_reference['nid'])) {
             // Load the referenced nodes only if its not already loaded
             // This will save if from infinite loop of back references
@@ -127,13 +121,14 @@ function node_export_relation_node_reference_fields($content_type_name) {
   static $node_reference_fields = array();
 
   if (empty($node_reference_fields[$content_type_name])) {
-    $ct = content_types($content_type_name);
-    $fields = $ct['fields'];
+    $fields = field_info_instances('node', $content_type_name);
     if (!empty($fields)) {
-      foreach ($fields as $name => $field) {
-        if ($field['type'] == 'nodereference') {
-          $node_reference_fields[$content_type_name][$name] = $name;
+      foreach ($fields as $field) {
+
+        if (isset($field['widget']['module']) && $field['widget']['module'] == 'node_reference' && !empty($field['field_name'])) {
+          $node_reference_fields[$content_type_name][$field['field_name']] = $field['field_name'];
         }
+
       }
     }
   }
@@ -145,4 +140,3 @@ function node_export_relation_node_reference_fields($content_type_name) {
     return NULL;
   }
 }
-

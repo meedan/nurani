@@ -1,5 +1,4 @@
 <?php
-// $Id: context_reaction_menu.inc,v 1.1.2.6 2010/07/30 17:25:28 yhahn Exp $
 
 /**
  * Expose menu items as context reactions.
@@ -9,25 +8,30 @@ class context_reaction_menu extends context_reaction {
    * Provide a form element that allow the admin to chose a menu item.
    */
   function options_form($context) {
-    $menus = menu_parent_options(array_reverse(menu_get_menus()), NULL);
-    $root_menus = array();
-    foreach ($menus as $key => $name) {
-      $id = explode(':', $key);
-      if ($id[1] == '0') {
-        $root_menus[$id[0]] = check_plain($name);
-      }
-      else {
-        $link = menu_link_load($id[1]);
-        $identifier = $link['link_path'];
-        $root_menu = $root_menus[$id[0]];
-        while (isset($menus[$root_menu][$identifier])) {
-          $identifier .= "'";
+    if (module_exists('menu')) {
+      $menus = menu_parent_options(menu_get_menus(), array('mlid' => 0));
+      $root_menus = array();
+      foreach ($menus as $key => $name) {
+        $id = explode(':', $key);
+        if ($id[1] == '0') {
+          $root_menus[$id[0]] = check_plain($name);
         }
-        $menus[$root_menu][$identifier] = $name;
+        else {
+          $link = menu_link_load($id[1]);
+          $identifier = $link['link_path'];
+          $root_menu = $root_menus[$id[0]];
+          while (isset($menus[$root_menu][$identifier])) {
+            $identifier .= "'";
+          }
+          $menus[$root_menu][$identifier] = $name;
+        }
+        unset($menus[$key]);
       }
-      unset($menus[$key]);
+      array_unshift($menus, "-- " . t('None') . " --");
     }
-    array_unshift($menus, "-- ". t('None') ." --");
+    else {
+      $menus = array();
+    }
     return array(
       '#title' => $this->title,
       '#description' => $this->description,
@@ -49,14 +53,14 @@ class context_reaction_menu extends context_reaction {
    * If primary + secondary links are pointed at the same menu, provide
    * contextual trailing by default.
    */
-  function execute(&$vars) {
-    if (variable_get('menu_primary_links_source', 'primary-links') == variable_get('menu_secondary_links_source', 'secondary-links')) {
-      $vars['primary_links'] = theme_get_setting('toggle_primary_links') ? $this->menu_navigation_links(variable_get('menu_primary_links_source', 'primary-links')) : $vars['primary_links'];
-      $vars['secondary_links'] = theme_get_setting('toggle_secondary_links') ? $this->menu_navigation_links(variable_get('menu_secondary_links_source', 'secondary-links'), 1) : $vars['secondary_links'];
+  function execute(&$vars = NULL) {
+    if (variable_get('menu_main_links_source', 'main-menu') == variable_get('menu_secondary_links_source', 'user-menu')) {
+      $vars['main_menu'] = theme_get_setting('toggle_main_menu') ? $this->menu_navigation_links(variable_get('menu_main_links_source', 'main-menu')) : $vars['main_menu'];
+      $vars['secondary_menu'] = theme_get_setting('toggle_secondary_menu') ? $this->menu_navigation_links(variable_get('menu_secondary_links_source', 'secondary-links'), 1) : $vars['secondary_menu'];
     }
 
-    $vars['primary_links'] = $this->menu_set_active($vars['primary_links']);
-    $vars['secondary_links'] = $this->menu_set_active($vars['secondary_links']);
+    $vars['main_menu'] = $this->menu_set_active($vars['main_menu']);
+    $vars['secondary_menu'] = $this->menu_set_active($vars['secondary_menu']);
   }
 
   function get_active_paths() {
@@ -91,15 +95,10 @@ class context_reaction_menu extends context_reaction {
       // that includes active classes
       foreach ($links as $key => $link) {
         if (!empty($link['href']) && in_array($link['href'], $active_paths)) {
-          if (isset($link['attributes']['class'])) {
-            $link['attributes']['class'] .= ' active';
-          }
-          else {
-            $link['attributes']['class'] = 'active';
-          }
+          $link['attributes']['class'][] = 'active';
 
           if (strpos(' active', $key) === FALSE) {
-            $new_links[$key .' active'] = $link;
+            $new_links[$key . ' active'] = $link;
           }
         }
         else {

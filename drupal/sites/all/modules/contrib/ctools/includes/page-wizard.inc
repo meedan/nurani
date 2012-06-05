@@ -1,5 +1,4 @@
 <?php
-// $Id: page-wizard.inc,v 1.1.2.2 2010/08/30 22:32:41 merlinofchaos Exp $
 
 /**
  * Fetch metadata on a specific page_wizard plugin.
@@ -109,7 +108,7 @@ function page_manager_page_wizard($name, $step = NULL) {
     'next callback' => 'page_manager_page_wizard_next',
     'finish callback' => 'page_manager_page_wizard_finish',
 
-    'path' => "admin/build/pages/wizard/$name/%step",
+    'path' => "admin/structure/pages/wizard/$name/%step",
   );
 
   $form_info = array_merge_recursive($form_info, $plugin['form info']);
@@ -126,7 +125,7 @@ function page_manager_page_wizard($name, $step = NULL) {
   ctools_include('wizard');
   $form_state = array(
     'plugin' => $plugin,
-    'cache' => $cache,
+    'wizard cache' => $cache,
     'type' => 'edit',
     'rerender' => TRUE,
     'step' => $step,
@@ -152,7 +151,7 @@ function page_manager_page_wizard_finish(&$form_state) {
     $function($form_state);
   }
 
-  page_manager_clear_wizard_cache($form_state['cache']->plugin['name']);
+  page_manager_clear_wizard_cache($form_state['wizard cache']->plugin['name']);
 }
 
 /**
@@ -165,7 +164,7 @@ function page_manager_page_wizard_next(&$form_state) {
     $function($form_state);
   }
 
-  page_manager_set_wizard_cache($form_state['cache']);
+  page_manager_set_wizard_cache($form_state['wizard cache']);
 }
 
 /**
@@ -176,12 +175,16 @@ function page_manager_page_wizard_next(&$form_state) {
  */
 function page_manager_page_wizard_list($type = NULL) {
   $plugins = page_manager_get_page_wizards();
+  if (empty($plugins)) {
+    return '<p>' . t('There are no wizards available at this time.') . '</p>';
+  }
+
   uasort($plugins, 'ctools_plugin_sort');
 
   $output = '<dl class="page-manager-wizards">';
   foreach ($plugins as $id => $plugin) {
     if (!$type || (isset($plugin['type']) && $plugin['type'] == $type)) {
-      $output .= '<dt>' . l($plugin['title'], 'admin/build/pages/wizard/' . $id) . '</dt>';
+      $output .= '<dt>' . l($plugin['title'], 'admin/structure/pages/wizard/' . $id) . '</dt>';
       $output .= '<dd class="description">' . $plugin['description'] . '</dd>';
     }
   }

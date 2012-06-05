@@ -1,12 +1,11 @@
 <?php
-// $Id: data_taxonomy.install,v 1.1.2.3 2010/01/21 01:46:25 alexb Exp $
 /**
  * @file
  * Install hooks for Data Taxonomy module.
  */
 
 /**
- * Implementation of hook_schema().
+ * Implements hook_schema().
  */
 function data_taxonomy_schema() {
   $schema = array();
@@ -44,15 +43,17 @@ function data_taxonomy_schema() {
 }
 
 /**
- * Implementation of hook_install().
+ * Implements hook_install().
  */
 function data_taxonomy_install() {
-  drupal_install_schema('data_taxonomy');
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_install_schema('data_taxonomy')
 }
 
 /**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  */
 function data_taxonomy_uninstall() {
-  drupal_uninstall_schema('data_taxonomy');
+  // TODO The drupal_(un)install_schema functions are called automatically in D7.
+  // drupal_uninstall_schema('data_taxonomy')
 }

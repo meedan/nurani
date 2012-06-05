@@ -1,4 +1,3 @@
-// $Id: data_taxonomy.js,v 1.1.2.6 2010/03/29 19:15:27 diggersf Exp $
 Drupal.behaviors.data_taxonomy = function(context) {
   $('div.data-taxonomy-tagging-form:not(.data-taxonomy-processed)')
     .addClass('data-taxonomy-processed')

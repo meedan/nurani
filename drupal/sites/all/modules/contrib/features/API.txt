@@ -1,5 +1,5 @@
 
-Features 1.x API for Drupal 6.x
+Features 1.x API for Drupal 7.x
 -------------------------------
 This file contains documentation for two audiences: site builders interested in
 creating and managing features and module developers interested in integrating

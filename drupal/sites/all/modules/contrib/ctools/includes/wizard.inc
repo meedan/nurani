@@ -1,5 +1,4 @@
 <?php
-// $Id: wizard.inc,v 1.12.2.9 2010/09/10 18:25:13 merlinofchaos Exp $
 
 /**
  * @file
@@ -30,13 +29,10 @@
  *
  * Aside from the addition of the $form_info which contains an array of
  * information and configuration so the multi-step wizard can do its thing,
- * this function works a lot like ctools_build_form.
+ * this function works a lot like drupal_build_form.
  *
  * Remember that the form builders for this form will receive
  * &$form, &$form_state, NOT just &$form_state and no additional args.
- *
- * Do NOT use #required => TRUE with these forms as that validation
- * cannot be skipped for the CANCEL button.
  *
  * @param $form_info
  *   An array of form info. @todo document the array.
@@ -47,9 +43,13 @@
  *   whatever information the form(s) involved left for it.
  */
 function ctools_wizard_multistep_form($form_info, $step, &$form_state) {
+  // Make sure 'wizard' always exists for the form when dealing
+  // with form caching.
+  ctools_form_include($form_state, 'wizard');
+
   // allow order array to be optional
   if (empty($form_info['order'])) {
-    foreach($form_info['forms'] as $step_id => $params) {
+    foreach ($form_info['forms'] as $step_id => $params) {
       $form_info['order'][$step_id] = $params['title'];
     }
   }
@@ -60,6 +60,35 @@ function ctools_wizard_multistep_form($form_info, $step, &$form_state) {
   }
 
   ctools_wizard_defaults($form_info);
+
+  // If automated caching is enabled, ensure that everything is as it
+  // should be.
+  if (!empty($form_info['auto cache'])) {
+    // If the cache mechanism hasn't been set, default to the simple
+    // mechanism and use the wizard ID to ensure uniqueness so cache
+    // objects don't stomp on each other.
+    if (!isset($form_info['cache mechanism'])) {
+      $form_info['cache mechanism'] = 'simple::wizard::' . $form_info['id'];
+    }
+
+    // If not set, default the cache key to the wizard ID. This is often
+    // a unique ID of the object being edited or similar.
+    if (!isset($form_info['cache key'])) {
+      $form_info['cache key'] = $form_info['id'];
+    }
+
+    // If not set, default the cache location to storage. This is often
+    // somnething like 'conf'.
+    if (!isset($form_info['cache location'])) {
+      $form_info['cache location'] = 'storage';
+    }
+
+    // If absolutely nothing was set for the cache area to work on
+    if (!isset($form_state[$form_info['cache location']])) {
+      ctools_include('cache');
+      $form_state[$form_info['cache location']] = ctools_cache_get($form_info['cache mechanism'], $form_info['cache key']);
+    }
+  }
 
   $form_state['step'] = $step;
   $form_state['form_info'] = $form_info;
@@ -76,25 +105,24 @@ function ctools_wizard_multistep_form($form_info, $step, &$form_state) {
   if (!empty($info['include'])) {
     if (is_array($info['include'])) {
       foreach ($info['include'] as $file) {
-        require_once './' . $file;
+        ctools_form_include_file($form_state, $file);
       }
     }
     else {
-      require_once './' . $info['include'];
+      ctools_form_include_file($form_state, $info['include']);
     }
   }
 
-  // This tells ctools_build_form to apply our wrapper to the form. It
+  // This tells drupal_build_form to apply our wrapper to the form. It
   // will give it buttons and the like.
-  $form_state['wrapper callback'] = 'ctools_wizard_wrapper';
+  $form_state['wrapper_callback'] = 'ctools_wizard_wrapper';
   if (!isset($form_state['rerender'])) {
     $form_state['rerender'] = FALSE;
   }
 
   $form_state['no_redirect'] = TRUE;
 
-  ctools_include('form');
-  $output = ctools_build_form($info['form id'], $form_state);
+  $output = drupal_build_form($info['form id'], $form_state);
 
   if (empty($form_state['executed']) || !empty($form_state['rerender'])) {
     if (empty($form_state['title']) && !empty($info['title'])) {
@@ -128,6 +156,28 @@ function ctools_wizard_multistep_form($form_info, $step, &$form_state) {
         $function($form_state);
       }
 
+      // If auto-caching is on, we need to write the cache on next and
+      // clear the cache on finish.
+      if (!empty($form_info['auto cache'])) {
+        if ($type == 'next') {
+          ctools_include('cache');
+          ctools_cache_set($form_info['cache mechanism'], $form_info['cache key'], $form_state[$form_info['cache location']]);
+        }
+        elseif ($type == 'finish') {
+          ctools_include('cache');
+          ctools_cache_clear($form_info['cache mechanism'], $form_info['cache key']);
+        }
+      }
+
+      // Set a couple of niceties:
+      if ($type == 'finish') {
+        $form_state['complete'] = TRUE;
+      }
+
+      if ($type == 'cancel') {
+        $form_state['cancel'] = TRUE;
+      }
+
       // If the modal is in use, some special code for it:
       if (!empty($form_state['modal']) && empty($form_state['modal return'])) {
         if ($type != 'next') {
@@ -141,7 +191,12 @@ function ctools_wizard_multistep_form($form_info, $step, &$form_state) {
     if (empty($form_state['ajax'])) {
       // redirect, if one is set.
       if ($form_state['redirect']) {
-        return drupal_redirect_form(array(), $form_state['redirect']);
+        if (is_array($form_state['redirect'])) {
+          call_user_func_array('drupal_goto', $form_state['redirect']);
+        }
+        else {
+          drupal_goto($form_state['redirect']);
+        }
       }
     }
     else if (isset($form_state['ajax next'])) {
@@ -160,8 +215,8 @@ function ctools_wizard_multistep_form($form_info, $step, &$form_state) {
   }
 
   // Render ajax commands if we have any.
-  if (isset($form_state['ajax']) && !empty($form_state['commands'])) {
-    return ctools_ajax_render($form_state['commands']);
+  if (isset($form_state['ajax']) && isset($form_state['commands']) && empty($form_state['modal return'])) {
+    return ajax_render($form_state['commands']);
   }
 
   // Otherwise, return the output.
@@ -171,7 +226,7 @@ function ctools_wizard_multistep_form($form_info, $step, &$form_state) {
 /**
  * Provide a wrapper around another form for adding multi-step information.
  */
-function ctools_wizard_wrapper(&$form, &$form_state) {
+function ctools_wizard_wrapper($form, &$form_state) {
   $form_info = &$form_state['form_info'];
   $info = $form_info['forms'][$form_state['step']];
 
@@ -222,7 +277,7 @@ function ctools_wizard_wrapper(&$form, &$form_state) {
   if (!empty($form_info['show trail'])) {
     ctools_add_css('wizard');
     $form['ctools_trail'] = array(
-      '#value' => theme(array('ctools_wizard_trail__' . $form_info['id'], 'ctools_wizard_trail'), $trail),
+      '#markup' => theme(array('ctools_wizard_trail__' . $form_info['id'], 'ctools_wizard_trail'), array('trail' => $trail)),
       '#weight' => -1000,
     );
   }
@@ -230,14 +285,13 @@ function ctools_wizard_wrapper(&$form, &$form_state) {
   if (empty($form_info['no buttons'])) {
     // Ensure buttons stay on the bottom.
     $form['buttons'] = array(
-      '#prefix' => '<div class="clear-block">',
-      '#suffix' => '</div>',
+      '#type' => 'actions',
       '#weight' => 1000,
     );
 
     $button_attributes = array();
     if (!empty($form_state['ajax']) && empty($form_state['modal'])) {
-      $button_attributes = array('class' => 'ctools-use-ajax');
+      $button_attributes = array('class' => array('ctools-use-ajax'));
     }
 
     if (!empty($form_info['show back']) && isset($form_state['previous'])) {
@@ -247,7 +301,7 @@ function ctools_wizard_wrapper(&$form, &$form_state) {
         '#next' => $form_state['previous'],
         '#wizard type' => 'next',
         '#weight' => -2000,
-        '#skip validation' => TRUE,
+        '#limit_validation_errors' => array(),
         // hardcode the submit so that it doesn't try to save data.
         '#submit' => array('ctools_wizard_submit'),
         '#attributes' => $button_attributes,
@@ -302,7 +356,7 @@ function ctools_wizard_wrapper(&$form, &$form_state) {
         '#value' => $form_info['cancel text'],
         '#wizard type' => 'cancel',
         // hardcode the submit so that it doesn't try to save data.
-        '#skip validation' => TRUE,
+        '#limit_validation_errors' => array(),
         '#submit' => array('ctools_wizard_submit'),
         '#attributes' => $button_attributes,
       );
@@ -351,12 +405,13 @@ function ctools_wizard_wrapper(&$form, &$form_state) {
   }
 
   if (isset($info['wrapper']) && function_exists($info['wrapper'])) {
-    $info['wrapper']($form, $form_state);
+    $form = $info['wrapper']($form, $form_state);
   }
 
   if (isset($form_info['wrapper']) && function_exists($form_info['wrapper'])) {
-    $form_info['wrapper']($form, $form_state);
+    $form = $form_info['wrapper']($form, $form_state);
   }
+  return $form;
 }
 
 /**
@@ -432,7 +487,7 @@ function ctools_wizard_defaults(&$form_info) {
 
   $form_info = $form_info + $defaults;
   // set form callbacks if they aren't defined
-  foreach($form_info['forms'] as $step => $params) {
+  foreach ($form_info['forms'] as $step => $params) {
     if (!$params['form id']) {
        $form_callback = $hook . '_' . $step . '_form';
        $form_info['forms'][$step]['form id'] = $form_callback;
@@ -448,7 +503,7 @@ function ctools_wizard_defaults(&$form_info) {
     'finish callback' => '_finish',
   );
 
-  foreach($callbacks as $key => $callback) {
+  foreach ($callbacks as $key => $callback) {
     // never overwrite if explicity defined
     if (empty($form_info[$key])) {
       $wizard_callback = $hook . $callback;

@@ -1,59 +1,35 @@
 <?php
-
 /**
  * @file
- * Views Implementation for UUID.
+ * Views Implementation for UUID
  */
 
 /**
- * Implementation of hook_views_data().
+ * Implements hook_views_data_alter().
  */
-function uuid_views_data() {
-  $data = array();
-
-  module_load_include('install', 'uuid');
-  $tables = uuid_schema();
-
-  foreach ($tables as $table => $schema) {
-    $base_table = str_replace('uuid_', '', $table);
-
-    $field = array_shift(array_keys($schema['fields']));
-
-    $data[$table]['table'] = array(
-      'group' => 'UUID',
-      'join' => array(
-        $base_table => array(
-          'left_field' => $field,
-          'field' => $field,
+function uuid_views_data_alter(&$data) {
+  foreach (entity_get_info() as $info) {
+    if (isset($info['uuid']) && $info['uuid'] == TRUE && !empty($info['entity keys']['uuid'])) {
+      $table = $info['base table'];
+      $field = $info['entity keys']['uuid'];
+      $data[$table][$field] = array(
+        'title' => t('@type UUID', array('@type' => $info['label'])),
+        'help' => t('The universally unique ID of the @type.', array('@type' => $info['label'])),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
         ),
-      )
-    );
-
-    $data[$table]['uuid'] = array(
-      'title' => t('@table UUID', array('@table' => ucwords($base_table))),
-      'help' => t(
-        'Universally Unique Identifier for @table objects.',
-        array('@table' => ucwords($base_table))
-      ),
-      'field' => array(
-        'handler' => 'views_handler_field',
-        'click sortable' => TRUE,
-      ),
-      'filter' => array(
-        'handler' => 'views_handler_filter_string',
-        'allow empty' => TRUE,
-        'help' => 'Filter on a UUID',
-      ),
-      'argument' => array(
-        'handler' => 'views_handler_argument_string',
-        'help' => 'Argument on a UUID',
-      ),
-      'sort' => array(
-        'handler' => 'views_handler_sort',
-        'help' => 'Sort on UUID',
-      ),
-    );
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+          'allow empty' => TRUE,
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+      );
+    }
   }
-
-  return $data;
 }

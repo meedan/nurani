@@ -1,52 +1,59 @@
 <?php
-// $Id: context_reaction_block.theme.inc,v 1.1.2.13 2010/08/23 14:29:09 yhahn Exp $
 
 /**
  * Block form.
  */
-function theme_context_block_form($form) {
-  $rows = array(array(
-    array('data' => drupal_render($form['blocks']), 'class' => 'blocks'),
-    array('data' => drupal_render($form['selector']) . drupal_render($form['block']['help']), 'class' => 'selector'),
-  ));
-  $output = drupal_render($form);
-  $output .= theme('table', array(), $rows, array('id' => 'context-blockform'));
-  return $output;;
+function theme_context_block_form($vars) {
+  $row = array(
+    array('data' => drupal_render($vars['form']['blocks']), 'class' => array('blocks')),
+    array('data' => drupal_render($vars['form']['selector']) . drupal_render($vars['form']['block']['help']), 'class' => array('selector')),
+  );
+
+  $output = drupal_render_children($vars['form']);
+
+  $table = array(
+    'rows' => array($row),
+    'attributes' => array('id' => 'context-blockform'),
+  );
+  $output .= theme('table', $table);
+  return $output;
 }
 
 /**
  * Generates the AJAX enabled block administration portion of the context_ui admin form.
  */
-function theme_context_block_regions_form($form) {
+function theme_context_block_regions_form($vars) {
+  $form = $vars['form'];
+
   // Add draggable weights
   drupal_add_js('misc/tableheader.js');
-  drupal_add_js(drupal_get_path('module', 'context') .'/plugins/context_reaction_block.js');
-  drupal_add_css(drupal_get_path('module', 'context') .'/plugins/context_reaction_block.css');
+  drupal_add_js(drupal_get_path('module', 'context') . '/plugins/context_reaction_block.js');
+  drupal_add_css(drupal_get_path('module', 'context') . '/plugins/context_reaction_block.css');
 
   $output = '';
 
   foreach (element_children($form) as $region) {
     $attr = array(
       'id' => "context-blockform-region-{$region}",
-      'class' => "context-blockform-region",
+      'class' => array("context-blockform-region"),
     );
-    drupal_add_tabledrag($attr['id'], 'order', 'sibling', 'block-weight', NULL, NULL, FALSE);
+    drupal_add_tabledrag($attr['id'], 'order', 'sibling', 'tabledrag-hide', NULL, NULL, FALSE);
     $rows = array();
     foreach (element_children($form[$region]) as $id) {
-      $form[$region][$id]['weight']['#attributes'] = array('class' => 'block-weight');
+      $form[$region][$id]['weight']['#attributes'] = array('class' => array('tabledrag-hide'));
       $label = $form[$region][$id]['#value'];
-      $remove = l('X', $_GET['q'], array('fragment' => 'remove', 'attributes' => array('class' => 'remove')));
+      $remove = l(t('X'), $_GET['q'], array('fragment' => 'remove', 'attributes' => array('class' => array('remove'))));
       $rows[] = array(
-        'data' => array($label . drupal_render($form[$region][$id]['weight']), $remove),
-        'class' => 'draggable',
+        'data' => array($label, drupal_render($form[$region][$id]['weight']), $remove),
+        'class' => array('draggable'),
         'id' => $id,
       );
     }
     $output .= "<div class='label context-blockform-regionlabel-{$region}'>";
-    $output .= l('+ '. t('Add'), $_GET['q'], array('fragment' => $region, 'attributes' => array('class' => 'add-block')));
+    $output .= l(t('+') . ' ' . t('Add'), $_GET['q'], array('fragment' => $region, 'attributes' => array('class' => array('add-block'))));
     $output .= $form[$region]['#title'];
     $output .= "</div>";
-    $output .= theme('table', array(), $rows, $attr);
+    $output .= theme('table', array('rows' => $rows, 'attributes' => $attr));
   }
   return $output;
 }
@@ -65,8 +72,8 @@ function theme_context_block_script_placeholder($text = '') {
 function template_preprocess_context_block_browser(&$vars) {
   $categories = array(
     '#type' => 'select',
-    '#options' => array(0 => '<'. t('Choose a category') .'>'),
-    '#attributes' => array('class' => 'context-block-browser-categories'),
+    '#options' => array(0 => '<' . t('Choose a category') . '>'),
+    '#attributes' => array('class' => array('context-block-browser-categories')),
     '#value' => 0,
     '#size' => 1,
     '#id' => '',
@@ -78,11 +85,15 @@ function template_preprocess_context_block_browser(&$vars) {
   $blocks = array();
   // Group blocks by module.
   foreach ($vars['blocks'] as $block) {
-    if (!isset($categories[$block->module])) {
-      $info = context_get_info('module', $block->module);
-      $categories['#options'][$block->module] = !empty($info['name']) ? $info['name'] : $block->module;
+    $group = isset($block->context_group) ? $block->context_group : $block->module;
+    // Normalize the $group, borrowed from drupal_html_id
+    $group = strtr(drupal_strtolower($group), array(' ' => '-', '_' => '-', '[' => '-', ']' => ''));
+    if (!isset($categories[$group])) {
+      $info = system_get_info('module', $block->module);
+      $title = isset($block->context_group) ? $block->context_group : (!empty($info['name']) ? $info['name'] : $block->module);
+      $categories['#options'][$group] = $title;
     }
-    $blocks[$block->module][$block->bid] = $block; // Don't call theme('context_block_browser_item') to allow others to alter.
+    $blocks[$group][$block->bid] = $block; // Don't call theme('context_block_browser_item') to allow others to alter.
   }
   $vars['categories'] = $categories; // Don't call theme('select') here to allow further preprocesses to alter the element.
   $vars['blocks'] = $blocks;
@@ -94,29 +105,4 @@ function template_preprocess_context_block_browser(&$vars) {
 function template_preprocess_context_block_browser_item(&$vars) {
   $vars['bid'] = $vars['block']->bid;
   $vars['info'] = check_plain($vars['block']->info);
-}
-
-/**
- * Preprocessor for theme('context_block_editable_region').
- */
-function template_preprocess_context_block_editable_region(&$vars) {
-  if (!empty($vars['editable'])) {
-    // Show when empty?
-    $vars['show_always'] = variable_get('context_reaction_block_all_regions', FALSE);
-
-    // Provide the user-friendly name of the region
-    global $theme_key;
-    $regions = system_region_list($theme_key);
-    $vars['region_description'] = isset($regions[$vars['region']]) ? $regions[$vars['region']] : $vars['region'];
-  }
-}
-
-/**
- * Preprocessor for theme('context_block_editable_block').
- */
-function template_preprocess_context_block_editable_block(&$vars) {
-  $vars['empty'] = empty($vars['block']->content);
-  if (isset($vars['block']->context)) {
-    $vars['block']->content .= "<a id='context-block-{$vars['block']->module}-{$vars['block']->delta}' class='context-block editable edit-{$vars['block']->context}'></a>";
-  }
 }

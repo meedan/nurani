@@ -1,5 +1,4 @@
 <?php
-// $Id: page_manager.module,v 1.17.2.8 2010/07/23 21:47:20 merlinofchaos Exp $
 
 /**
  * @file
@@ -36,20 +35,49 @@ define('PAGE_MANAGER_CHANGED_STATUS', 0x08);
 // Drupal hooks
 
 /**
- * Implementation of hook_perm().
+ * Implements hook_permission().
  */
-function page_manager_perm() {
-  return array('use page manager', 'administer page manager');
+function page_manager_permission() {
+  return array(
+    'use page manager' => array(
+      'title' => t('Use Page Manager'),
+      'description' => t("Allows users to use most of Page Manager's features, though restricts some of the most powerful, potentially site-damaging features. Note that even the reduced featureset still allows for enormous control over your website."),
+      'restrict access' => TRUE,
+    ),
+    'administer page manager' => array(
+      'title' => t('Administer Page Manager'),
+      'description' => t('Allows complete control over Page Manager, i.e., complete control over your site. Grant with extreme caution.'),
+      'restrict access' => TRUE,
+    ),
+  );
+
 }
 
 /**
- * Implementation of hook_ctools_plugin_directory() to let the system know
+ * Implements hook_ctools_plugin_directory() to let the system know
  * where our task and task_handler plugins are.
  */
 function page_manager_ctools_plugin_directory($owner, $plugin_type) {
   if ($owner == 'page_manager') {
     return 'plugins/' . $plugin_type;
   }
+  if ($owner == 'ctools' && $plugin_type == 'cache') {
+    return 'plugins/' . $plugin_type;
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_type() to inform the plugin system that Page
+ * Manager owns task, task_handler, and page_wizard plugin types.
+ *
+ * All of these are empty because the defaults all work.
+ */
+function page_manager_ctools_plugin_type() {
+  return array(
+    'tasks' => array(),
+    'task_handlers' => array(),
+    'page_wizards' => array(),
+  );
 }
 
 /**
@@ -67,41 +95,42 @@ function page_manager_menu() {
   $base = array(
     'access arguments' => array('use page manager'),
     'file' => 'page_manager.admin.inc',
+    'theme callback' => 'ajax_base_page_theme',
   );
 
-  $items['admin/build/pages'] = array(
+  $items['admin/structure/pages'] = array(
     'title' => 'Pages',
     'description' => 'Add, edit and remove overridden system pages and user defined pages from the system.',
     'page callback' => 'page_manager_list_page',
   ) + $base;
 
-  $items['admin/build/pages/list'] = array(
+  $items['admin/structure/pages/list'] = array(
     'title' => 'List',
     'page callback' => 'page_manager_list_page',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
   ) + $base;
 
-  $items['admin/build/pages/edit/%page_manager_cache'] = array(
+  $items['admin/structure/pages/edit/%page_manager_cache'] = array(
     'title' => 'Edit',
     'page callback' => 'page_manager_edit_page',
     'page arguments' => array(4),
-    'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
   ) + $base;
 
-  $items['admin/build/pages/%ctools_js/operation/%page_manager_cache'] = array(
+  $items['admin/structure/pages/%ctools_js/operation/%page_manager_cache'] = array(
     'page callback' => 'page_manager_edit_page_operation',
     'page arguments' => array(3, 5),
-    'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
   ) + $base;
 
-  $items['admin/build/pages/%ctools_js/enable/%page_manager_cache'] = array(
+  $items['admin/structure/pages/%ctools_js/enable/%page_manager_cache'] = array(
     'page callback' => 'page_manager_enable_page',
     'page arguments' => array(FALSE, 3, 5),
     'type' => MENU_CALLBACK,
   ) + $base;
 
-  $items['admin/build/pages/%ctools_js/disable/%page_manager_cache'] = array(
+  $items['admin/structure/pages/%ctools_js/disable/%page_manager_cache'] = array(
     'page callback' => 'page_manager_enable_page',
     'page arguments' => array(TRUE, 3, 5),
     'type' => MENU_CALLBACK,
@@ -129,8 +158,37 @@ function page_manager_menu() {
   return $items;
 }
 
+function page_manager_admin_paths() {
+  /* @todo FIX ME this is a major resource suck. */
+  return;
+
+  $items = array();
+  ctools_include('page', 'page_manager', 'plugins/tasks');
+  $pages = page_manager_page_load_all();
+  foreach ($pages as $page) {
+    // Make sure the page we're on is set to be an administrative path and that
+    // it is not set to be a frontpage path.
+    if ((isset($page->conf['admin_paths']) && $page->conf['admin_paths']) && (!isset($page->make_frontpage) || !$page->make_frontpage)) {
+      $path_parts = explode('/', $page->path);
+      foreach ($path_parts as $key => $part) {
+        if (strpos($part, '%') !== FALSE || strpos($part, '!') !== FALSE) {
+          $path_parts[$key] = '*';
+        }
+      }
+      $path = implode('/', $path_parts);
+      if ($page->menu['type'] == 'default tab') {
+        array_pop($path_parts);
+        $parent_path = implode('/', $path_parts);
+        $items[$parent_path] = TRUE;
+      }
+      $items[$path] = TRUE;
+    }
+  }
+  return $items;
+}
+
 /**
- * Implementation of hook_menu_alter.
+ * Implements hook_menu_alter.
  *
  * Get a list of all tasks and delegate to them.
  */
@@ -160,7 +218,7 @@ function page_manager_menu_alter(&$items) {
 }
 
 /*
- * Implementation of hook_theme()
+ * Implements hook_theme()
  */
 function page_manager_theme() {
   // For some reason, some things can activate modules without satisfying
@@ -176,21 +234,18 @@ function page_manager_theme() {
   );
 
   $items = array(
-    'page_manager_list_pages_form' => array(
-      'arguments' => array('form' => NULL),
-    ) + $base,
     'page_manager_handler_rearrange' => array(
-      'arguments' => array('form' => NULL),
+      'render element' => 'form',
     ) + $base,
     'page_manager_edit_page' => array(
       'template' => 'page-manager-edit-page',
-      'arguments' => array('page' => NULL, 'save' => NULL, 'operations' => array(), 'content' => array()),
+      'variables' => array('page' => NULL, 'save' => NULL, 'operations' => array(), 'content' => array()),
     ) + $base,
     'page_manager_lock' => array(
-      'arguments' => array('page' => array()),
+      'variables' => array('page' => array()),
     ) + $base,
     'page_manager_changed' => array(
-      'arguments' => array('text' => NULL, 'description' => NULL),
+      'variables' => array('text' => NULL, 'description' => NULL),
     ) + $base,
   );
 
@@ -219,52 +274,57 @@ function page_manager_theme() {
  * Get the cached changes to a given task handler.
  */
 function page_manager_get_page_cache($task_name) {
-  ctools_include('object-cache');
-  $cache = ctools_object_cache_get('page_manager_page', $task_name);
-  if (!$cache) {
-    $cache = new stdClass();
-    $cache->task_name = $task_name;
-    list($cache->task_id, $cache->subtask_id) = page_manager_get_task_id($cache->task_name);
+  $caches = drupal_static(__FUNCTION__, array());
+  if (!isset($caches[$task_name])) {
+    ctools_include('object-cache');
+    $cache = ctools_object_cache_get('page_manager_page', $task_name);
+    if (!$cache) {
+      $cache = new stdClass();
+      $cache->task_name = $task_name;
+      list($cache->task_id, $cache->subtask_id) = page_manager_get_task_id($cache->task_name);
 
-    $cache->task = page_manager_get_task($cache->task_id);
-    if (empty($cache->task)) {
-      return FALSE;
-    }
-
-    if ($cache->subtask_id) {
-      $cache->subtask = page_manager_get_task_subtask($cache->task, $cache->subtask_id);
-      if (empty($cache->subtask)) {
+      $cache->task = page_manager_get_task($cache->task_id);
+      if (empty($cache->task)) {
         return FALSE;
+      }
+
+      if ($cache->subtask_id) {
+        $cache->subtask = page_manager_get_task_subtask($cache->task, $cache->subtask_id);
+        if (empty($cache->subtask)) {
+          return FALSE;
+        }
+      }
+      else {
+        $cache->subtask = $cache->task;
+        $cache->subtask['name'] = '';
+      }
+
+      $cache->handlers = page_manager_load_sorted_handlers($cache->task, $cache->subtask_id);
+      $cache->handler_info = array();
+      foreach ($cache->handlers as $id => $handler) {
+        $cache->handler_info[$id] = array(
+          'weight' => $handler->weight,
+          'changed' => FALSE,
+          'name' => $id,
+        );
       }
     }
     else {
-      $cache->subtask = $cache->task;
-      $cache->subtask['name'] = '';
+      // ensure the task is loaded.
+      page_manager_get_task($cache->task_id);
     }
 
-    $cache->handlers = page_manager_load_sorted_handlers($cache->task, $cache->subtask_id);
-    $cache->handler_info = array();
-    foreach ($cache->handlers as $id => $handler) {
-      $cache->handler_info[$id] = array(
-        'weight' => $handler->weight,
-        'changed' => FALSE,
-        'name' => $id,
-      );
+    if ($task_name != '::new') {
+      $cache->locked = ctools_object_cache_test('page_manager_page', $task_name);
     }
-  }
-  else {
-    // ensure the task is loaded.
-    page_manager_get_task($cache->task_id);
+    else {
+      $cache->locked = FALSE;
+    }
+
+    $caches[$task_name] = $cache;
   }
 
-  if ($task_name != '::new') {
-    $cache->locked = ctools_object_cache_test('page_manager_page', $task_name);
-  }
-  else {
-    $cache->locked = FALSE;
-  }
-
-  return $cache;
+  return $caches[$task_name];
 }
 
 /**
@@ -464,8 +524,8 @@ function page_manager_load_task_handlers($task, $subtask_id = NULL, $default_han
       $placeholders[] = "'%s'";
     }
 
-    $result = db_query("SELECT name, weight FROM {page_manager_weights} WHERE name IN (" . implode(', ', $placeholders) . ")", $names);
-    while ($weight = db_fetch_object($result)) {
+    $result = db_query('SELECT name, weight FROM {page_manager_weights} WHERE name IN (:names)', array(':names' => $names));
+    foreach ($result as $weight) {
       $handlers[$weight->name]->weight = $weight->weight;
     }
   }
@@ -589,7 +649,9 @@ function page_manager_save_task_handler(&$handler) {
   }
 
   drupal_write_record('page_manager_handlers', $handler, $update);
-  db_query("DELETE FROM {page_manager_weights} WHERE name = '%s'", $handler->name);
+  db_delete('page_manager_weights')
+    ->condition('name', $handler->name)
+    ->execute();
 
   // If this was previously a default handler, we may have to write task handlers.
   if (!$update) {
@@ -606,8 +668,12 @@ function page_manager_delete_task_handler($handler) {
   if ($function = ctools_plugin_load_function('page_manager', 'task_handlers', $handler->handler, 'delete')) {
     $function($handler);
   }
-  db_query("DELETE FROM {page_manager_handlers} WHERE name = '%s'", $handler->name);
-  db_query("DELETE FROM {page_manager_weights} WHERE name = '%s'", $handler->name);
+  db_delete('page_manager_handlers')
+    ->condition('name', $handler->name)
+    ->execute();
+  db_delete('page_manager_weights')
+    ->condition('name', $handler->name)
+    ->execute();
 }
 
 /**
@@ -617,7 +683,7 @@ function page_manager_delete_task_handler($handler) {
 function page_manager_export_task_handler($handler, $indent = '') {
   ctools_include('export');
   ctools_include('plugins');
-  $handler = drupal_clone($handler);
+  $handler = clone $handler;
 
   $append = '';
   if ($function = ctools_plugin_load_function('page_manager', 'task_handlers', $handler->handler, 'export')) {
@@ -675,8 +741,15 @@ function page_manager_new_task_handler($plugin) {
  * to the database just because they have their weight changed.
  */
 function page_manager_update_task_handler_weight($handler, $weight) {
-  db_query("DELETE FROM {page_manager_weights} WHERE name = '%s'", $handler->name);
-  db_query("INSERT INTO {page_manager_weights} (name, weight) VALUES ('%s', %d)", $handler->name, $weight);
+  db_delete('page_manager_weights')
+    ->condition('name', $handler->name)
+    ->execute();
+  db_insert('page_manager_weights')
+    ->fields(array(
+      'name' => $handler->name,
+      'weight' => $weight,
+    ))
+    ->execute();
 }
 
 
@@ -724,7 +797,13 @@ function page_manager_get_task_subtasks($task) {
   }
 
   if ($function = ctools_plugin_get_function($task, 'subtasks callback')) {
-    return $function($task);
+    $retval = $function($task);
+    if (is_array($retval)) {
+      return $retval;
+    }
+    else {
+      dsm($retval);
+    }
   }
 
   return array();
@@ -950,33 +1029,6 @@ function page_manager_task_handler_ctools_access_get($argument) {
   return array($handler->conf['access'], $contexts);
 }
 
-function page_manager_context_cache_get($task_name, $key) {
-  $page = page_manager_get_page_cache($task_name);
-  if ($page) {
-    if (!empty($page->context_cache[$key])) {
-      return $page->context_cache[$key];
-    }
-    else {
-      ctools_include('context-task-handler');
-      if ($key == 'temp') {
-        $handler = $page->new_handler;
-      }
-      else {
-        $handler = $page->handlers[$key];
-      }
-      return ctools_context_handler_get_task_object($page->task, $page->subtask, $handler);
-    }
-  }
-}
-
-function page_manager_context_cache_set($task_name, $key, $object) {
-  $page = page_manager_get_page_cache($task_name);
-  if ($page) {
-    $page->context_cache[$key] = $object;
-    page_manager_set_page_cache($page);
-  }
-}
-
 /**
  * Callback for access control ajax form on behalf of context task handler.
  *
@@ -1005,16 +1057,16 @@ function page_manager_edit_url($task_name, $trail = array()) {
   }
 
   if (empty($trail) || $trail == array('summary')) {
-    return "admin/build/pages/edit/$task_name";
+    return "admin/structure/pages/edit/$task_name";
   }
 
-  return 'admin/build/pages/nojs/operation/' . $task_name . '/' . implode('/', $trail);
+  return 'admin/structure/pages/nojs/operation/' . $task_name . '/' . implode('/', $trail);
 }
 
 /**
  * Watch menu links during the menu rebuild, and re-parent things if we need to.
  */
-function page_manager_menu_link_alter(&$item, $menu) {
+function page_manager_menu_link_alter(&$item) {
   return;
 /** -- disabled, concept code --
   static $mlids = array();
@@ -1029,7 +1081,7 @@ function page_manager_menu_link_alter(&$item, $menu) {
     }
     else {
       // Since we didn't already see an mlid, let's check the database for one.
-      $mlid = db_result(db_query("SELECT mlid FROM {menu_links} WHERE router_path = '%s'", $item['parent_path']));
+      $mlid = db_query('SELECT mlid FROM {menu_links} WHERE router_path = :path', array('path' => $item['parent_path']))->fetchField();
       if ($mlid) {
         $item['plid'] = $mlid;
       }
@@ -1053,7 +1105,15 @@ function page_manager_page_manager_handlers_list() {
   $handlers = ctools_export_load_object('page_manager_handlers');
   foreach ($handlers as $handler) {
     if (in_array($handler->task, $types)) {
-      $list[$handler->name] = check_plain("$handler->task: " . $handler->conf['title'] . " ($handler->name)");
+      $plugin = page_manager_get_task_handler($handler->handler);
+      $title = page_manager_get_handler_title($plugin, $handler, $tasks[$handler->task], $handler->subtask);
+
+      if ($title) {
+        $list[$handler->name] = check_plain("$handler->task: $title ($handler->name)");
+      }
+      else {
+        $list[$handler->name] = check_plain("$handler->task: ($handler->name)");
+      }
     }
   }
   return $list;
@@ -1068,7 +1128,7 @@ function page_manager_page_manager_pages_to_hook_code($names = array(), $name = 
   $objects = ctools_export_load_object('page_manager_pages', 'names', array_values($names));
   if ($objects) {
     $code = "/**\n";
-    $code .= " * Implementation of hook_{$export['default hook']}()\n";
+    $code .= " * Implements hook_{$export['default hook']}()\n";
     $code .= " */\n";
     $code .= "function " . $name . "_{$export['default hook']}() {\n";
     foreach ($objects as $object) {
@@ -1076,7 +1136,7 @@ function page_manager_page_manager_pages_to_hook_code($names = array(), $name = 
       $code .= $export['export callback']($object, TRUE, '  ');
       $code .= "  \${$export['identifier']}s['" . check_plain($object->$export['key']) . "'] = \${$export['identifier']};\n\n";
     }
-    $code .= " return \${$export['identifier']}s;\n";
+    $code .= "  return \${$export['identifier']}s;\n";
     $code .= "}\n";
     return $code;
   }
@@ -1118,7 +1178,7 @@ function page_manager_get_current_page($page = NULL) {
 function page_manager_panels_dashboard_blocks(&$vars) {
   $vars['links']['page_manager'] = array(
     'weight' => -100,
-    'title' => l(t('Panel page'), 'admin/build/pages/add'),
+    'title' => l(t('Panel page'), 'admin/structure/pages/add'),
     'description' => t('Panel pages can be used as landing pages. They have a URL path, accept arguments and can have menu entries.'),
   );
 
@@ -1147,10 +1207,75 @@ function page_manager_panels_dashboard_blocks(&$vars) {
   $vars['blocks']['page_manager'] = array(
     'weight' => -100,
     'title' => t('Manage pages'),
-    'link' => l(t('Go to list'), 'admin/build/pages'),
-    'content' => theme('table', array(), $rows, array('class' => 'panels-manage')),
+    'link' => l(t('Go to list'), 'admin/structure/pages'),
+    'content' => theme('table', array('header' => array(), 'rows' => $rows, 'attributes' => array('class' => 'panels-manage'))),
     'class' => 'dashboard-pages',
     'section' => 'right',
   );
 }
 
+/**
+ * Implement pseudo-hook to fetch addressable content.
+ *
+ * For Page Manager, the address will be an array. The first
+ * element will be the $task and the second element will be the
+ * $task_handler. The third elements will be the arguments
+ * provided.
+ */
+function page_manager_addressable_content($address, $type) {
+  if (count($address) < 3) {
+    return;
+  }
+
+  $task_name = array_shift($address);
+  $subtask_name = array_shift($address);
+  $handler_name = array_shift($address);
+  if ($address) {
+    $arguments = array_shift($address);
+  }
+
+  // Since $arguments is an array of arbitrary size, we need to implode it:
+  if (!empty($arguments)) {
+    // The only choices we have for separators since :: is already
+    // used involve ., - or _. Since - and _ are more common than .
+    // in URLs, let's try .. as an argument separator.
+    $arguments = explode('..', $arguments);
+  }
+  else {
+    // implode does not return an empty array on an empty
+    // string so do it specifically.
+    $arguments = array();
+  }
+
+  $task = page_manager_get_task($task_name);
+  if (!$task) {
+    return;
+  }
+
+  $handler = page_manager_load_task_handler($task, $subtask_name, $handler_name);
+  if (!$handler) {
+    return;
+  }
+
+  $handler_plugin = page_manager_get_task_handler($handler->handler);
+  if (!$handler_plugin) {
+    return;
+  }
+
+  // Load the contexts for the task.
+  ctools_include('context');
+  ctools_include('context-task-handler');
+  $contexts = ctools_context_handler_get_task_contexts($task, $subtask_name, $arguments);
+
+  // With contexts loaded, ensure the task is accessible. Tasks without a callback
+  // are automatically accessible.
+  $function = ctools_plugin_get_function($task, 'access callback');
+  if ($function && !$function($task, $subtask_name, $contexts)) {
+    return;
+  }
+
+  $function = ctools_plugin_get_function($handler_plugin, 'addressable callback');
+  if ($function) {
+    return $function($task, $subtask_name, $handler, $address, $contexts, $arguments, $type);
+  }
+}

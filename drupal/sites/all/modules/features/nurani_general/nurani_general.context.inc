@@ -5,7 +5,6 @@
  */
 function nurani_general_context_default_contexts() {
   $export = array();
-
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
@@ -48,8 +47,8 @@ function nurani_general_context_default_contexts() {
   // Included for use with string extractors like potx.
   t('Login page on access denied');
   t('nurani');
-  $export['access_denied'] = $context;
 
+  $export['access_denied'] = $context;
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
@@ -102,8 +101,8 @@ function nurani_general_context_default_contexts() {
   // Included for use with string extractors like potx.
   t('Discussion page');
   t('nurani');
-  $export['discussion'] = $context;
 
+  $export['discussion'] = $context;
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
@@ -154,8 +153,8 @@ function nurani_general_context_default_contexts() {
   // Included for use with string extractors like potx.
   t('General blocks for all pages');
   t('nurani');
-  $export['general'] = $context;
 
+  $export['general'] = $context;
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
@@ -176,8 +175,8 @@ function nurani_general_context_default_contexts() {
   // Included for use with string extractors like potx.
   t('List of glossary terms and their translations');
   t('nurani');
-  $export['glossary'] = $context;
 
+  $export['glossary'] = $context;
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
@@ -222,8 +221,8 @@ function nurani_general_context_default_contexts() {
   // Included for use with string extractors like potx.
   t('Login page');
   t('nurani');
-  $export['login'] = $context;
 
+  $export['login'] = $context;
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
@@ -279,8 +278,8 @@ function nurani_general_context_default_contexts() {
   // Included for use with string extractors like potx.
   t('Discussions overview');
   t('nurani');
-  $export['overview'] = $context;
 
+  $export['overview'] = $context;
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
@@ -301,7 +300,7 @@ function nurani_general_context_default_contexts() {
   // Included for use with string extractors like potx.
   t('Texts page');
   t('nurani');
-  $export['texts'] = $context;
 
+  $export['texts'] = $context;
   return $export;
 }

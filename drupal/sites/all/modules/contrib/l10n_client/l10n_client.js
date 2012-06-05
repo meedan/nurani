@@ -1,6 +1,8 @@
 
+(function ($) {
+
 // Store all l10n_client related data + methods in its own object
-jQuery.extend(Drupal, {
+$.extend(Drupal, {
   l10nClient: new (function() {
     // Set "selected" string to unselected, i.e. -1
     this.selected = -1;
@@ -16,20 +18,20 @@ jQuery.extend(Drupal, {
           if(userSelection.length > 0) {
             Drupal.l10nClient.filter(userSelection);
             Drupal.l10nClient.toggle(1);
-            $('#l10n-client .string-search').focus();      
+            $('#l10n-client .string-search').focus();
           } else {
             if($('#l10n-client').is('.hidden')) {
               Drupal.l10nClient.toggle(1);
               if(!$.browser.safari) {
                 $('#l10n-client .string-search').focus();
               }
-            } else { 
+            } else {
               Drupal.l10nClient.toggle(0);
             }
           }
         break;
         case 'clear':
-          this.filter(false);      
+          this.filter(false);
         break;
       }
     }
@@ -53,7 +55,7 @@ jQuery.extend(Drupal, {
             $('body').css('border-bottom', '0px');
           }
           $.cookie('Drupal_l10n_client', '0', {expires: 7, path: '/'});
-        break;        
+        break;
       }
     }
     // Get a string from the DOM tree
@@ -83,7 +85,8 @@ jQuery.extend(Drupal, {
 });
 
 // Attaches the localization editor behavior to all required fields.
-Drupal.behaviors.l10nClient = function (context) {
+Drupal.behaviors.l10nClient = {}
+Drupal.behaviors.l10nClient.attach = function (context) {
   // Killswitch - attach only once.
   if ($('#l10n-client').is('.l10n-client-processed')) {
     return;
@@ -100,7 +103,7 @@ Drupal.behaviors.l10nClient = function (context) {
       Drupal.l10nClient.toggle(0);
     break;
   }
-  
+
   // If the selection changes, copy string values to the source and target fields.
   // Add class to indicate selected string in list widget.
   $('#l10n-client-string-select li').click(function() {
@@ -111,6 +114,9 @@ Drupal.behaviors.l10nClient = function (context) {
     $('#l10n-client-string-editor .source-text').text(Drupal.l10nClient.getString(index, 'source'));
     $('#l10n-client-form .translation-target').val(Drupal.l10nClient.getString(index, 'target'));
     $('#l10n-client-form .source-textgroup').val(Drupal.l10nClient.getString(index, 'textgroup'));
+    $('#l10n-client-form .source-context').val(Drupal.l10nClient.getString(index, 'context'));
+    $('#l10n-client-string-editor .context').text(Drupal.l10nClient.getString(index, 'context'));
+
     Drupal.l10nClient.selected = index;
     $('#l10n-client-form .form-submit').removeAttr("disabled");
   });
@@ -119,7 +125,7 @@ Drupal.behaviors.l10nClient = function (context) {
   $('#l10n-client .labels .toggle').click(function() {
     if($('#l10n-client').is('.hidden')) {
       Drupal.l10nClient.toggle(1);
-    } else { 
+    } else {
       Drupal.l10nClient.toggle(0);
     }
   });
@@ -141,7 +147,7 @@ Drupal.behaviors.l10nClient = function (context) {
     $.hotkeys.add(Drupal.l10nClient.keys['toggle'], function(){Drupal.l10nClient.key('toggle')});
     $.hotkeys.add(Drupal.l10nClient.keys['clear'], {target:'#l10n-client .string-search', type:'keyup'}, function(){Drupal.l10nClient.key('clear')});
   }
-  
+
   // Custom listener for l10n_client livesearch
   $('#l10n-client .string-search').keyup(function(key) {
     Drupal.l10nClient.filter($('#l10n-client .string-search').val());
@@ -164,7 +170,8 @@ Drupal.behaviors.l10nClient = function (context) {
         source: $('#l10n-client-string-editor .source-text').text(),
         target: $('#l10n-client-form .translation-target').val(),
         textgroup: $('#l10n-client-form .source-textgroup').val(),
-        'form_token': $('#l10n-client-form #edit-l10n-client-form-form-token').val()
+        context: $('#l10n-client-string-editor .context').text(),
+        'form_token': $('#l10n-client-form input[name=form_token]').val()
       },
       success: function (data) {
         // Store string in local js
@@ -189,13 +196,12 @@ Drupal.behaviors.l10nClient = function (context) {
           // above 81.
           newTranslationDisplay = newTranslationStripped.substr(0, 78) + '...';
         }
-        
+
         // Mark string as translated.
         $('#l10n-client-string-select li').eq(Drupal.l10nClient.selected).removeClass('untranslated').removeClass('active').addClass('translated').text(newTranslationDisplay);
 
         // Empty input fields.
-        var messageValue = Drupal.parseJson(data);
-        $('#l10n-client-string-editor .source-text').html(messageValue.message);
+        $('#l10n-client-string-editor .source-text').html(data);
         $('#l10n-client-form .translation-target').val('');
 
       },
@@ -205,5 +211,7 @@ Drupal.behaviors.l10nClient = function (context) {
     });
     return false;
   });
-  
+
 };
+
+})(jQuery);

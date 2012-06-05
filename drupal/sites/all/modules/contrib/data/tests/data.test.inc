@@ -1,5 +1,4 @@
 <?php
-// $Id: data.test.inc,v 1.1 2009/07/25 15:37:54 alexb Exp $
 /**
  * @file
  * Contains class definition for Data module test cases.
@@ -9,7 +8,7 @@
  * Base class for Data module test cases.
  */
 class DataTestCase extends DrupalWebTestCase {
-  
+
   /**
    * Return a test schema.
    */
@@ -36,7 +35,7 @@ class DataTestCase extends DrupalWebTestCase {
       ),
       'indexes' => array(
         'id' => array('id'),
-       ),
+      ),
     );
   }
 

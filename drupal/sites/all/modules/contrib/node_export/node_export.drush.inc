@@ -6,7 +6,7 @@
  */
 
 /**
- * Implementation of hook_drush_command().
+ * Implements hook_drush_command().
  */
 function node_export_drush_command() {
   $items = array();
@@ -18,16 +18,16 @@ function node_export_drush_command() {
       'nids' => "A list of space-separated node IDs to export.",
     ),
     'options' => array(
-      '--file' => "The filename of the output file.  If supplied, the node code will be exported to that file, otherwise it will export to stdout.",
-      '--format' => "If supplied, node code will be output using a particular export format, if available. (e.g. serialize)",
-      '--status' => "Filter for 'status'; A boolean value (0 or 1) indicating whether the node is published (visible to non-administrators).",
-      '--promote' => "Filter for 'promote'; A boolean value (0 or 1) indicating whether the node should be displayed on the front page.",
-      '--sticky' => "Filter for 'sticky'; A boolean value (0 or 1) indicating whether the node should be displayed at the top of lists in which it appears.",
-      '--translate' => "Filter for 'translate'; A boolean value (0 or 1) indicating whether the node translation needs to be updated.",
-      '--language' => "Filter for 'language'; The language code (e.g. de or en-US) of this node.",
-      '--type' => "Filter for 'type'; The machine-readable name (e.g. story or page) of the type of this node.",
-      '--sql' => "Filter by SQL (EXPERIMENTAL); An SQL query string that returns nids (e.g. \"SELECT nid FROM nodes WHERE nid < 10\").",
-      '--code' => "Filter by PHP code (EXPERIMENTAL); PHP code that prints or returns, an array or CSV string of nids (e.g. \"custom_get_my_nids();\"). Don't include PHP tags.",
+      'file' => "The filename of the output file.  If supplied, the node code will be exported to that file, otherwise it will export to stdout.",
+      'format' => "If supplied, node code will be output using a particular export format, if available. (e.g. serialize)",
+      'status' => "Filter for 'status'; A boolean value (0 or 1) indicating whether the node is published (visible to non-administrators).",
+      'promote' => "Filter for 'promote'; A boolean value (0 or 1) indicating whether the node should be displayed on the front page.",
+      'sticky' => "Filter for 'sticky'; A boolean value (0 or 1) indicating whether the node should be displayed at the top of lists in which it appears.",
+      'translate' => "Filter for 'translate'; A boolean value (0 or 1) indicating whether the node translation needs to be updated.",
+      'language' => "Filter for 'language'; The language code (e.g. de or en-US) of this node.",
+      'type' => "Filter for 'type'; The machine-readable name (e.g. story or page) of the type of this node.",
+      'sql' => "Filter by SQL (EXPERIMENTAL); An SQL query string that returns nids (e.g. \"SELECT nid FROM nodes WHERE nid < 10\").",
+      'code' => "Filter by PHP code (EXPERIMENTAL); PHP code that prints or returns, an array or CSV string of nids (e.g. \"custom_get_my_nids();\"). Don't include PHP tags.",
     ),
     'examples' => array(
       'drush node-export-export 45 46 47 --file=filename' =>
@@ -37,11 +37,11 @@ function node_export_drush_command() {
     ),
   );
   $items['node-export-import'] = array(
-    'callback' => 'drupal_node_export_callback_import',
+    'callback' => 'drush_node_export_callback_import',
     'description' => "Import nodes previously exported with Node export.",
     'options' => array(
-      '--uid' => "User ID of user to save nodes as. If not given will use the user with an ID of 1. You may specify 0 for the Anonymous user.",
-      '--file' => "The filename of the input file.  If supplied, the node code will be imported from that file, otherwise it will import to stdin.",
+      'uid' => "User ID of user to save nodes as. If not given will use the user with an ID of 1. You may specify 0 for the Anonymous user.",
+      'file' => "The filename of the input file.  If supplied, the node code will be imported from that file, otherwise it will import to stdin.",
     ),
     'examples' => array(
       'drush node-export-import --file=filename' =>
@@ -76,7 +76,7 @@ function node_export_drush_command_add_alias(&$items, $command, $alias) {
 }
 
 /**
- * Implementation of hook_drush_help().
+ * Implements hook_drush_help().
  *
  * This function is called whenever a drush user calls
  * 'drush help <name-of-your-command>'
@@ -91,40 +91,40 @@ function node_export_drush_help($section) {
   // This is to prevent duplication of information from hook_drush_command().
   $commands = node_export_drush_command();
   foreach ($commands as $command => $command_info) {
-    if ($section == 'drush:'. $command) {
+    if ($section == 'drush:' . $command) {
       $out = $command_info['description'];
       if (isset($command_info['node_export alias for'])) {
         $output .= "\nThis command is an alias for ";
-        $output .= $command_info['node_export alias for'] .".";
+        $output .= $command_info['node_export alias for'] . ".";
       }
       if (isset($command_info['node_export command aliases'])) {
         if (count($command_info['node_export command aliases']) == 1) {
           $output .= "\nThis command can be called by it's alias; ";
-          $output .= $command_info['node_export command aliases'] .".";
+          $output .= $command_info['node_export command aliases'] . ".";
         }
         else {
           $last_alias = array_pop($command_info['node_export command aliases']);
           $output .= "\nThis command can be called by it's aliases; ";
           $output .= implode(", ", $command_info['node_export command aliases']);
-          $output .= ", or ". $last_alias .".";
+          $output .= ", or " . $last_alias . ".";
         }
       }
       $out .= "\n\nArguments:";
       if (isset($command_info['arguments'])) {
         foreach ($command_info['arguments'] as $k => $v) {
-          $out .= "\n  ". $k ." : ". $v;
+          $out .= "\n  " . $k . " : " . $v;
         }
       }
       $out .= "\n\nOptions:";
       if (isset($command_info['options'])) {
         foreach ($command_info['options'] as $k => $v) {
-          $out .= "\n  ". $k ." : ". $v;
+          $out .= "\n  " . $k . " : " . $v;
         }
       }
       $out .= "\n\nExamples:";
       if (isset($command_info['examples'])) {
         foreach ($command_info['examples'] as $k => $v) {
-          $out .= "\n  \'". $k ."\' : ". $v;
+          $out .= "\n  \'" . $k . "\' : " . $v;
         }
       }
       return dt($out);
@@ -150,32 +150,28 @@ function drupal_node_export_callback_export() {
 
   // Filter for values in the node table (except for nids).
   $filters = array(
-    'status' => "%d",
-    'promote' => "%d",
-    'sticky' => "%d",
-    'translate' => "%d",
-    'language' => "'%s'",
-    'type' => "'%s'",
+    'status',
+    'promote',
+    'sticky',
+    'translate',
+    'language',
+    'type',
   );
-  $wheres = array();
-  $args = array();
-  foreach ($filters as $filter => $filter_type) {
+
+  $query = db_select('node', 'n')->fields('n', array('nid'));
+  $execute = FALSE;
+  foreach ($filters as $filter) {
     $filter_option = drush_get_option($filter);
     if ($filter_option) {
-      $filter_option_values = explode(",", $filter_option);
-      $filter_option_placeholders = array();
-      foreach ($filter_option_values as $v) {
-        $filter_option_placeholders[] = $filter_type;
-      }
-      $wheres[] = $filter ." IN (". implode(", ", $filter_option_placeholders) .")";
-      $args = $args + $filter_option_values;
+      $query->condition($filter, explode(',', $filter_option), 'IN');
+      // Only execute if conditions are set.
+      $execute = TRUE;
     }
   }
-  if (!empty($wheres)) {
-    $query = "SELECT nid FROM {node} WHERE (". implode(") AND (", $wheres) .")";
-    $result = db_query($query, $args);
-    while ($row = db_fetch_array($result)) {
-      $nid_filters['filters'][] = $row['nid'];
+  if ($execute) {
+    $result = $query->execute();
+    foreach ($result as $row) {
+      $nid_filters['filters'][] = $row->nid;
     }
   }
 
@@ -183,8 +179,8 @@ function drupal_node_export_callback_export() {
   $sql = drush_get_option('sql');
   if ($sql) {
     $result = db_query($sql);
-    while ($row = db_fetch_array($result)) {
-      $nid_filters['sql'][] = $row['nid'];
+    foreach ($result as $row) {
+      $nid_filters['sql'][] = $row->nid;
     }
   }
 
@@ -192,7 +188,7 @@ function drupal_node_export_callback_export() {
   $code = drush_get_option('code');
   if ($code) {
     ob_start();
-    print eval("?><?php ". $code ." ?>");
+    print eval("?><?php " . $code . " ?>");
     $result = ob_get_contents();
     ob_end_clean();
     if (is_array($result)) {
@@ -207,7 +203,7 @@ function drupal_node_export_callback_export() {
   }
 
   if (count($nid_filters) > 1) {
-     // Compute the intersect of all $nid_filters if there are more than one.
+    // Compute the intersect of all $nid_filters if there are more than one.
     $nids = call_user_func_array('array_intersect', $nid_filters);
   }
   elseif (count($nid_filters) == 1) {
@@ -216,11 +212,10 @@ function drupal_node_export_callback_export() {
   }
   else {
     // Is there are no filters at all, do a query to get all nids.
-    $query = "SELECT nid FROM {node}";
-    $result = db_query($query);
+    $result = db_select('node', 'n')->fields('n', array('nid'))->execute();
     $nids = array();
-    while ($row = db_fetch_array($result)) {
-      $nids[] = $row['nid'];
+    foreach ($result as $row) {
+      $nids[] = $row->nid;
     }
   }
 
@@ -265,8 +260,8 @@ function drupal_node_export_callback_export() {
  *
  * Import nodes from data.
  */
-function drupal_node_export_callback_import() {
-  // Switch to admin or the specified user so imported nodes are not anonymous.
+function drush_node_export_callback_import() {
+  // Switch to site maintenance account or the specified user so imported nodes are not anonymous.
   $uid = drush_get_option('uid');
   // Test on NULL so uid may be given as 0.
   if (is_null($uid)) {

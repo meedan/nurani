@@ -239,7 +239,7 @@ class _DiffEngine {
    */
   function _line_hash($line) {
     if (strlen($line) > $this->MAX_XREF_LENGTH()) {
-      return md5( line);
+      return md5($line);
     }
     else {
       return $line;
@@ -1100,11 +1100,11 @@ class DrupalDiffFormatter extends DiffFormatter {
   function _block_header($xbeg, $xlen, $ybeg, $ylen) {
     return array(
       array(
-        'data' => theme('diff_header_line', $xbeg),
+        'data' => theme('diff_header_line', array('lineno' => $xbeg)),
         'colspan' => 2,
       ),
       array(
-        'data' => theme('diff_header_line', $ybeg),
+        'data' => theme('diff_header_line', array('lineno' => $ybeg)),
         'colspan' => 2,
       )
     );
@@ -1129,7 +1129,7 @@ class DrupalDiffFormatter extends DiffFormatter {
     return array(
       '+',
       array(
-        'data' => theme('diff_content_line', $line),
+        'data' => theme('diff_content_line', array('line' => $line)),
         'class' => 'diff-addedline',
       )
     );
@@ -1142,7 +1142,7 @@ class DrupalDiffFormatter extends DiffFormatter {
     return array(
       '-',
       array(
-        'data' => theme('diff_content_line', $line),
+        'data' => theme('diff_content_line', array('line' => $line)),
         'class' => 'diff-deletedline',
       )
     );
@@ -1155,7 +1155,7 @@ class DrupalDiffFormatter extends DiffFormatter {
     return array(
       '&nbsp;',
       array(
-        'data' => theme('diff_content_line', $line),
+        'data' => theme('diff_content_line', array('line' => $line)),
         'class' => 'diff-context',
       )
     );
@@ -1164,7 +1164,7 @@ class DrupalDiffFormatter extends DiffFormatter {
   function emptyLine() {
     return array(
       '&nbsp;',
-      theme('diff_empty_line', '&nbsp;'),
+      theme('diff_empty_line', array('line' => '&nbsp;')),
     );
   }
 
@@ -1243,7 +1243,7 @@ class DrupalDiffInline {
               $output .= $piece;
             }
             else {
-              $output .= theme('diff_inline_chunk', $piece, $chunk->type);
+              $output .= theme('diff_inline_chunk', array('text' => $piece, 'type' => $chunk->type));
             }
           }
           break;
@@ -1254,7 +1254,7 @@ class DrupalDiffInline {
               $output .= $piece;
             }
             else {
-              $output .= theme('diff_inline_chunk', $piece, $chunk->type);
+              $output .= theme('diff_inline_chunk', array('text' => $piece, 'type' => $chunk->type));
             }
           }
           break;

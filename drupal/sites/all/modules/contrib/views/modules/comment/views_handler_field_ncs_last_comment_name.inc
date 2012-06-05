@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Field handler to present the name of the last comment poster
+ * Field handler to present the name of the last comment poster.
+ *
+ * @ingroup views_field_handlers
  */
 class views_handler_field_ncs_last_comment_name extends views_handler_field {
   function query() {
@@ -34,12 +36,14 @@ class views_handler_field_ncs_last_comment_name extends views_handler_field {
   function render($values) {
     if (!empty($this->options['link_to_user'])) {
       $account = new stdClass();
-      $account->name = $values->{$this->field_alias};
+      $account->name = $this->get_value($values);
       $account->uid = $values->{$this->uid};
-      return theme('username', $account);
+      return theme('username', array(
+        'account' => $account
+      ));
     }
     else {
-      return check_plain($values->{$this->field_alias});
+      return $this->sanitize_value($this->get_value($values));
     }
   }
 }

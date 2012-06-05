@@ -1,12 +1,14 @@
 <?php
 
 /**
- * Field handler to display the number of new comments
+ * Field handler to display the number of new comments.
+ *
+ * @ingroup views_field_handlers
  */
 class views_handler_field_node_new_comments extends views_handler_field_numeric {
-  function init(&$view, $options) {
+  function init(&$view, &$options) {
     parent::init($view, $options);
-    
+
     // translate an older setting:
     if (!empty($options['no_empty'])) {
       $this->options['hide_empty'] = TRUE;
@@ -30,13 +32,14 @@ class views_handler_field_node_new_comments extends views_handler_field_numeric 
   }
 
   function options_form(&$form, &$form_state) {
-    parent::options_form($form, $form_state);
     $form['link_to_comment'] = array(
       '#title' => t('Link this field to new comments'),
-      '#description' => t('This will override any other link you have set.'),
+      '#description' => t("Enable to override this field's links."),
       '#type' => 'checkbox',
       '#default_value' => $this->options['link_to_comment'],
     );
+
+    parent::options_form($form, $form_state);
   }
 
   function query() {
@@ -64,25 +67,31 @@ class views_handler_field_node_new_comments extends views_handler_field_numeric 
     }
 
     if ($nids) {
-      $result = db_query("SELECT n.nid, COUNT(c.cid) as num_comments FROM {node} n INNER JOIN {comments} c ON n.nid = c.nid LEFT JOIN {history} h ON h.nid = n.nid AND h.uid = %d WHERE n.nid IN (" . implode(', ', $nids) . ") AND c.timestamp > GREATEST(COALESCE(h.timestamp, %d), %d) AND c.status = %d GROUP BY n.nid  ", $user->uid, NODE_NEW_LIMIT, NODE_NEW_LIMIT, COMMENT_PUBLISHED);
+      $result = db_query("SELECT n.nid, COUNT(c.cid) as num_comments FROM {node} n INNER JOIN {comment} c ON n.nid = c.nid
+        LEFT JOIN {history} h ON h.nid = n.nid AND h.uid = :h_uid WHERE n.nid IN (:nids)
+        AND c.changed > GREATEST(COALESCE(h.timestamp, :timestamp), :timestamp) AND c.status = :status GROUP BY n.nid  ", array(
+          ':status' => COMMENT_PUBLISHED,
+          ':h_uid' => $user->uid,
+          ':nids' => $nids,
+          ':timestamp' => NODE_NEW_LIMIT,
+        ));
 
-      while ($node = db_fetch_object($result)) {
+      foreach ($result as $node) {
         foreach ($ids[$node->nid] as $id) {
           $values[$id]->{$this->field_alias} = $node->num_comments;
         }
       }
-
     }
   }
 
   function render_link($data, $values) {
     if (!empty($this->options['link_to_comment']) && $data !== NULL && $data !== '') {
       $node = new stdClass();
-      $node->nid = $values->{$this->aliases['nid']};
-      $node->type = $values->{$this->aliases['type']};
+      $node->nid = $this->get_value($values, 'nid');
+      $node->type = $this->get_value($values, 'type');
       $this->options['alter']['make_link'] = TRUE;
       $this->options['alter']['path'] = 'node/' . $node->nid;
-      $this->options['alter']['query'] = comment_new_page_count($values->{$this->aliases['comment_count']}, $values->{$this->field_alias}, $node);
+      $this->options['alter']['query'] = comment_new_page_count($this->get_value($values, 'comment_count'), $this->get_value($values), $node);
       $this->options['alter']['fragment'] = 'new';
     }
 
@@ -90,7 +99,8 @@ class views_handler_field_node_new_comments extends views_handler_field_numeric 
   }
 
   function render($values) {
-    if (!empty($values->{$this->field_alias})) {
+    $value = $this->get_value($values);
+    if (!empty($value)) {
       return $this->render_link(parent::render($values), $values);
     }
     else {

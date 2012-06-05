@@ -1,5 +1,4 @@
 <?php
-// $Id: data_taxonomy_views_handler_field_form.inc,v 1.1.2.10 2010/09/08 20:00:42 alexb Exp $
 
 /**
  * Provide a form to associate data records with taxonomy terms.

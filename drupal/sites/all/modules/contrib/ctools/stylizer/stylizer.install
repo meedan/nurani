@@ -1,5 +1,4 @@
 <?php
-// $Id: stylizer.install,v 1.1.2.2 2010/07/14 01:57:42 merlinofchaos Exp $
 
 /**
  * Schema for stylizer.
@@ -19,6 +18,12 @@ function stylizer_schema_1() {
       'can disable' => TRUE,
       'identifier' => 'style',
       'primary key' => 'sid',
+      'api' => array(
+        'owner' => 'stylizer',
+        'api' => 'stylizer',
+        'minimum_version' => 1,
+        'current_version' => 1,
+      ),
     ),
     'fields' => array(
       'sid' => array(
@@ -62,24 +67,4 @@ function stylizer_schema_1() {
   );
 
   return $schema;
-}
-
-/**
- * Implementation of hook_install().
- */
-function stylizer_install() {
-  $ret = array();
-  if (db_table_exists('panels_style')) {
-    db_rename_table($ret, 'panels_style', 'stylizer');
-  }
-  else {
-    drupal_install_schema('stylizer');
-  }
-}
-
-/**
- * Implementation of hook_uninstall().
- */
-function stylizer_uninstall() {
-  drupal_uninstall_schema('stylizer');
 }

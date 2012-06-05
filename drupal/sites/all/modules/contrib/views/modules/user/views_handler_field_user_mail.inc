@@ -1,6 +1,8 @@
 <?php
 /**
- * Field handler to provide acess control for the email field
+ * Field handler to provide acess control for the email field.
+ *
+ * @ingroup views_field_handlers
  */
 class views_handler_field_user_mail extends views_handler_field_user {
   function option_definition() {
@@ -23,10 +25,14 @@ class views_handler_field_user_mail extends views_handler_field_user {
     );
   }
 
-  function render($values) {
+  function render_link($data, $values) {
+    parent::render_link($data, $values);
+
     if ($this->options['link_to_user'] == 'mailto') {
-      return l($values->{$this->field_alias}, "mailto:" . $values->{$this->field_alias});
+      $this->options['alter']['make_link'] = TRUE;
+      $this->options['alter']['path'] = "mailto:" . $data;
     }
-    return $this->render_link(check_plain($values->{$this->field_alias}), $values);
+
+    return $data;
   }
 }

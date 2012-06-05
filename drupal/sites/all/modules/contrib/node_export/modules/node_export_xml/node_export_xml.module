@@ -8,7 +8,7 @@
  */
 
 /**
- * Implementation of hook_node_export_format_handlers().
+ * Implements hook_node_export_format_handlers().
  *
  * @see hook_node_export_format_handlers()
  */
@@ -17,25 +17,31 @@ function node_export_xml_node_export_format_handlers() {
     'xml' => array(
       '#title' => t('XML'),
       '#module' => 'node_export_xml',
+      '#description' => t(
+        '<a href="!xml">XML 1.0</a> representation which is good for machine-readability and human-readability.', 
+        array(
+          '!xml' => 'http://en.wikipedia.org/wiki/XML', 
+        )
+      ),
     ),
   );
 }
 
 /**
- * Implementation of hook_node_export().
+ * Implements hook_node_export().
  *
  * @see hook_node_export()
  */
 function node_export_xml_node_export($nodes, $format) {
   $xml_code = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-  $xml_code .= "<node_export created=\"". date('r') ."\">\n";
+  $xml_code .= "<node_export created=\"" . date('r') . "\">\n";
   $xml_code .= node_export_xml_encode($nodes);
   $xml_code .= "</node_export>";
   return $xml_code;
 }
 
 /**
- * Implementation of hook_node_export_import().
+ * Implements hook_node_export_import().
  *
  * @see hook_node_export_import()
  */
@@ -49,7 +55,7 @@ function node_export_xml_node_export_import($code_string) {
 
     // Convert the nodes into objects.
     if (!isset($result['success'])) {
-      foreach ($result as $k => $v) {
+      foreach($result as $k => $v) {
         $result[$k] = (object)$v;
       }
     }
@@ -138,7 +144,7 @@ class NodeExportXmlDecoder {
         'name' => 'node_export',
         'attributes' => array(),
         'children' => array(),
-        'data' => ''
+        'data' => '',
       )
     );
     if (!xml_parse($parser, $code_string)) {
@@ -146,7 +152,7 @@ class NodeExportXmlDecoder {
       $line = xml_get_current_line_number($parser);
       $column = xml_get_current_column_number($parser);
       $error = xml_error_string(xml_get_error_code($parser));
-      $errors[] = "Line " . $line .", Column ". $column .": ". $error;
+      $errors[] = "Line " . $line . ", Column " . $column .": ". $error;
       $lines = explode("\n", $code_string, $line + 1);
       $errors[] = "<pre>". htmlspecialchars($lines[$line - 1]) ."</pre>";
       xml_parser_free($parser);

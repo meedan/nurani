@@ -1,10 +1,9 @@
 <?php
-// $Id: data_search.admin.inc,v 1.1.2.4 2009/10/19 20:06:11 alexb Exp $
 
 /**
  * Views handler configuration form.
  */
-function data_search_admin_form(&$form_state, $table) {
+function data_search_admin_form($form, &$form_state, $table) {
   drupal_set_title($table->get('title'));
 
   $schema = $table->get('table_schema');
@@ -60,7 +59,8 @@ function data_search_admin_form_submit(&$form, &$form_state) {
 /**
  * Theme data_search_admin_form.
  */
-function theme_data_search_admin_form($form) {
+function theme_data_search_admin_form($variables) {
+  $form = $variables['form'];
 
   // Format existing fields.
   $rows = array();
@@ -73,7 +73,7 @@ function theme_data_search_admin_form($form) {
   }
 
   $header = array(t('Name'), t('Search index'));
-  $output = theme('table', $header, $rows);
-  $output .= drupal_render($form);
+  $output = theme('table', array('header' => $header, 'rows' => $rows));
+  $output .= drupal_render_children($form);
   return $output;
 }

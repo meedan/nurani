@@ -3,6 +3,8 @@
 /**
  * Argument handler to accept a user id to check for nodes that
  * user posted or commented on.
+ *
+ * @ingroup views_argument_handlers
  */
 class views_handler_argument_comment_user_uid extends views_handler_argument {
   function title() {
@@ -10,7 +12,7 @@ class views_handler_argument_comment_user_uid extends views_handler_argument {
       $title = variable_get('anonymous', t('Anonymous'));
     }
     else {
-      $title = db_result(db_query("SELECT u.name FROM {users} u WHERE u.uid = %d", $this->argument));
+      $title = db_query('SELECT u.name FROM {users} u WHERE u.uid = :uid', array(':uid' => $this->argument))->fetchField();
     }
     if (empty($title)) {
       return t('No user');
@@ -33,8 +35,22 @@ class views_handler_argument_comment_user_uid extends views_handler_argument {
     }
   }
 
-  function query() {
+  function query($group_by = FALSE) {
     $this->ensure_my_table();
-    $this->query->add_where(0, "$this->table_alias.uid = %d OR ((SELECT COUNT(*) FROM {comments} c WHERE c.uid = %d AND c.nid = $this->table_alias.nid) > 0)", $this->argument, $this->argument);
+
+    $subselect = db_select('comment', 'c');
+    $subselect->addField('c', 'cid');
+    $subselect->condition('c.uid', $this->argument);
+    $subselect->where("c.nid = $this->table_alias.nid");
+
+    $condition = db_or()
+      ->condition("$this->table_alias.uid", $this->argument, '=')
+      ->exists($subselect);
+
+    $this->query->add_where(0, $condition);
+  }
+
+  function get_sort_name() {
+    return t('Numerical', array(), array('context' => 'Sort order'));
   }
 }

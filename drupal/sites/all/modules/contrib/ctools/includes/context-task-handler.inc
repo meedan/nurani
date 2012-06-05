@@ -1,5 +1,4 @@
 <?php
-// $Id: context-task-handler.inc,v 1.23.2.9 2010/09/10 18:25:13 merlinofchaos Exp $
 
 /**
  * @file
@@ -36,89 +35,40 @@
  *   Either the output or NULL if there was output, FALSE if no handler
  *   accepted the task. If $page is FALSE then the $info block is returned instead.
  */
-function ctools_context_handler_render($task, $subtask, $contexts, $args, $page = TRUE) {
+function ctools_context_handler_render($task, $subtask, $contexts, $args) {
   // Load the landlers, choosing only enabled handlers.
   $handlers = page_manager_load_sorted_handlers($task, $subtask ? $subtask['name'] : '', TRUE);
 
+  $id = ctools_context_handler_get_render_handler($task, $subtask, $handlers, $contexts, $args);
+  if ($id) {
+    return ctools_context_handler_render_handler($task, $subtask, $handlers[$id], $contexts, $args);
+  }
+
+  return FALSE;
+}
+
+/**
+ * Figure out which of the listed handlers should be used to render.
+ */
+function ctools_context_handler_get_render_handler($task, $subtask, $handlers, $contexts, $args) {
   // Try each handler.
-  foreach ($handlers as $handler) {
-    if ($function = page_manager_get_renderer($handler)) {
-      if ($info = $function($handler, $contexts, $args)) {
-        drupal_alter('ctools_render', $info, $page, $args, $contexts, $task, $subtask, $handler);
-        // If we don't own the page, let the caller deal with rendering.
-        if (!$page) {
-          return $info;
-        }
-
-        if ($subtask) {
-          $task_name = page_manager_make_task_name($task['name'], $subtask['name']);
-        }
-        else {
-          $task_name = $task['name'];
-        }
-
-        page_manager_get_current_page(array(
-          'name' => $task_name,
-          'task' => $task,
-          'subtask' => $subtask,
-          'contexts' => $contexts,
-          'arguments' => $args,
-          'handler' => $handler,
-        ));
-
-        if (!empty($info['response code']) && $info['response code'] != 200) {
-          switch ($info['response code']) {
-            case 403:
-              return MENU_ACCESS_DENIED;
-            case 404:
-              return MENU_NOT_FOUND;
-            case 301:
-            case 302:
-            case 303:
-            case 304:
-            case 305:
-            case 307:
-              $info += array(
-                'query' => '',
-                'fragment' => '',
-              );
-              return drupal_goto($info['destination'], $info['query'], $info['fragment'], $info['response code']);
-            // @todo -- should other response codes be supported here?
-          }
-        }
-
-        /*
-        // Only do this if something hasn't already changed the active menu,
-        // such as a book.
-        if (menu_get_active_menu_name() == 'navigation') {
-          $item = menu_get_item();
-          $mlink = db_fetch_object(db_query("SELECT * FROM {menu_links} WHERE link_path = '%s'", $item['href']));
-
-          if ($mlink && isset($mlink->menu_name)) {
-            menu_set_active_menu_name($mlink->menu_name);
-          }
-        }
-        */
-        foreach (ctools_context_handler_get_task_arguments($task, $subtask) as $id => $argument) {
-          $plugin = ctools_get_argument($argument['name']);
-          $cid = ctools_context_id($argument, 'argument');
-          if (!empty($contexts[$cid]) && ($function = ctools_plugin_get_function($plugin, 'breadcrumb'))) {
-            $function($argument['settings'], $contexts[$cid]);
-          }
-        }
-
-        if (isset($info['title'])) {
-          drupal_set_title($info['title']);
-        }
-
-        // Only directly output if $page was set to true.
-        if (!empty($info['no_blocks'])) {
-          print theme('page', $info['content'], FALSE);
-          return;
-        }
-        else {
-          return $info['content'];
-        }
+  foreach ($handlers as $id => $handler) {
+    $plugin = page_manager_get_task_handler($handler->handler);
+    // First, see if the handler has a tester.
+    $function = ctools_plugin_get_function($plugin, 'test');
+    if ($function) {
+      $test = $function($handler, $contexts, $args);
+      if ($test) {
+        return $id;
+      }
+    }
+    else {
+      // If not, if it's a 'context' type handler, use the default tester.
+      if ($plugin['handler type'] == 'context') {
+        $test = ctools_context_handler_default_test($handler, $contexts, $args);
+      }
+      if ($test) {
+        return $id;
       }
     }
   }
@@ -127,33 +77,183 @@ function ctools_context_handler_render($task, $subtask, $contexts, $args, $page 
 }
 
 /**
- * Called to execute actions that should happen before a handler is rendered.
+ * Default test function to see if a task handler should be rendered.
+ *
+ * This tests against the standard selection criteria that most task
+ * handlers should be implementing.
  */
-function ctools_context_handler_pre_render($handler, $contexts, $args) {
+function ctools_context_handler_default_test($handler, $base_contexts, $args) {
+  ctools_include('context');
+  // Add my contexts
+  $contexts = ctools_context_handler_get_handler_contexts($base_contexts, $handler);
+
+  // Test.
+  return ctools_context_handler_select($handler, $contexts);
+}
+
+/**
+ * Render a task handler.
+ */
+function ctools_context_handler_render_handler($task, $subtask, $handler, $contexts, $args, $page = TRUE) {
+  $function = page_manager_get_renderer($handler);
+  if (!$function) {
+    return NULL;
+  }
+
+  $info = $function($handler, $contexts, $args);
+  if (!$info) {
+    return NULL;
+  }
+
+  $context = array(
+    'args' => $args,
+    'contexts' => $contexts,
+    'task' => $task,
+    'subtask' => $subtask,
+    'handler' => $handler
+  );
+  drupal_alter('ctools_render', $info, $page, $context);
+
+  // If we don't own the page, let the caller deal with rendering.
+  if (!$page) {
+    return $info;
+  }
+
+  if ($subtask) {
+    $task_name = page_manager_make_task_name($task['name'], $subtask['name']);
+  }
+  else {
+    $task_name = $task['name'];
+  }
+
+  page_manager_get_current_page(array(
+    'name' => $task_name,
+    'task' => $task,
+    'subtask' => $subtask,
+    'contexts' => $contexts,
+    'arguments' => $args,
+    'handler' => $handler,
+  ));
+
+  if (!empty($info['response code']) && $info['response code'] != 200) {
+    switch ($info['response code']) {
+      case 403:
+        return MENU_ACCESS_DENIED;
+      case 404:
+        return MENU_NOT_FOUND;
+      case 301:
+      case 302:
+      case 303:
+      case 304:
+      case 305:
+      case 307:
+        $info += array(
+          'query' => array(),
+          'fragment' => '',
+        );
+        $options = array(
+          'query' => $info['query'],
+          'fragment' => $info['fragment'],
+        );
+        return drupal_goto($info['destination'], $options, $info['response code']);
+      // @todo -- should other response codes be supported here?
+    }
+  }
+
   $plugin = page_manager_get_task_handler($handler->handler);
 
-  if (user_access('administer page manager') && isset($handler->task)) {
-    // Provide a tab to edit this context:
-    ctools_include('menu');
-    $task = page_manager_get_task($handler->task);
-
-    $title = !empty($task['tab title']) ? $task['tab title'] : t('Edit @type', array('@type' => $plugin['title']));
-    $trail = array();
-    if (!empty($plugin['tab operation'])) {
-      if (is_array($plugin['tab operation'])) {
-        $trail = $plugin['tab operation'];
-      }
-      else if (function_exists($plugin['tab operation'])) {
-        $trail = $plugin['tab operation']($handler, $contexts, $args);
-      }
+  if (module_exists('contextual') && user_access('access contextual links') && isset($handler->task)) {
+    // Provide a contextual link to edit this, if we can:
+    $callback = isset($plugin['contextual link']) ? $plugin['contextual link'] : 'ctools_task_handler_default_contextual_link';
+    if ($callback && function_exists($callback)) {
+      $links = $callback($handler, $plugin, $contexts, $args);
     }
 
-    ctools_menu_add_tab(array(
-      'title' => $title,
-      'href' => page_manager_edit_url(page_manager_make_task_name($handler->task, $handler->subtask), $trail),
-    ));
+    if (!empty($links) && is_array($links)) {
+      $build = array(
+        '#theme_wrappers' => array('container'),
+        '#attributes' => array('class' => array('contextual-links-region')),
+      );
+
+      if (!is_array($info['content'])) {
+        $build['content']['#markup'] = $info['content'];
+      }
+      else {
+        $build['content'] = $info['content'];
+      }
+
+      $build['contextual_links'] = array(
+        '#prefix' => '<div class="contextual-links-wrapper">',
+        '#suffix' => '</div>',
+        '#theme' => 'links__contextual',
+        '#links' => $links,
+        '#attributes' => array('class' => array('contextual-links')),
+        '#attached' => array(
+          'library' => array(array('contextual', 'contextual-links')),
+        ),
+      );
+      $info['content'] = $build;
+    }
   }
+
+  foreach (ctools_context_handler_get_task_arguments($task, $subtask) as $id => $argument) {
+    $plugin = ctools_get_argument($argument['name']);
+    $cid = ctools_context_id($argument, 'argument');
+    if (!empty($contexts[$cid]) && ($function = ctools_plugin_get_function($plugin, 'breadcrumb'))) {
+      $function($argument['settings'], $contexts[$cid]);
+    }
+  }
+
+  if (isset($info['title'])) {
+    drupal_set_title($info['title'], PASS_THROUGH);
+  }
+
+  // Only directly output if $page was set to true.
+  if (!empty($info['no_blocks'])) {
+    ctools_set_no_blocks(FALSE);
+  }
+  return $info['content'];
 }
+
+/**
+ * Default function to provide contextual link for a task as defined by the handler.
+ *
+ * This provides a simple link to th main content operation and is suitable
+ * for most normal handlers. Setting 'contextual link' to a function overrides
+ * this and setting it to FALSE will prevent a contextual link from appearing.
+ */
+function ctools_task_handler_default_contextual_link($handler, $plugin, $contexts, $args) {
+  if (!user_access('administer page manager')) {
+    return;
+  }
+
+  $task = page_manager_get_task($handler->task);
+
+  $title = !empty($task['tab title']) ? $task['tab title'] : t('Edit @type', array('@type' => $plugin['title']));
+  $trail = array();
+  if (!empty($plugin['tab operation'])) {
+    if (is_array($plugin['tab operation'])) {
+      $trail = $plugin['tab operation'];
+    }
+    else if (function_exists($plugin['tab operation'])) {
+      $trail = $plugin['tab operation']($handler, $contexts, $args);
+    }
+  }
+  $path = page_manager_edit_url(page_manager_make_task_name($handler->task, $handler->subtask), $trail);
+
+  $links = array(array(
+    'href' => $path,
+    'title' => $title,
+    'query' => drupal_get_destination(),
+  ));
+
+  return $links;
+}
+
+/**
+ * Called to execute actions that should happen before a handler is rendered.
+ */
+function ctools_context_handler_pre_render($handler, $contexts, $args) { }
 
 /**
  * Compare arguments to contexts for selection purposes.
@@ -339,7 +439,7 @@ function ctools_context_handler_set_access_restrictions($task, $subtask, $handle
  * The configuration will be assumed to go simply in $handler->conf and
  * will be keyed by the argument ID.
  */
-function ctools_context_handler_edit_criteria(&$form, &$form_state) {
+function ctools_context_handler_edit_criteria($form, &$form_state) {
   if (!isset($form_state['handler']->conf['access'])) {
     $form_state['handler']->conf['access'] = array();
   }
@@ -357,11 +457,12 @@ function ctools_context_handler_edit_criteria(&$form, &$form_state) {
   $form_state['contexts'] = ctools_context_handler_get_all_contexts($form_state['task'], $form_state['subtask'], $form_state['handler']);
 
   $form['markup'] = array(
-    '#value' => '<div class="description">' .
-    t('If there is more than one variant on a page, when the page is visited each variant is given an opportunity to be displayed. Starting from the first variant and working to the last, each one tests to see if its selection rules will pass. The first variant that its criteria (as specified below) will be used.') .
+    '#markup' => '<div class="description">' .
+    t('If there is more than one variant on a page, when the page is visited each variant is given an opportunity to be displayed. Starting from the first variant and working to the last, each one tests to see if its selection rules will pass. The first variant that meets its criteria (as specified below) will be used.') .
     '</div>',
   );
-  $form = array_merge($form, ctools_access_admin_form($form_state));
+  $form = ctools_access_admin_form($form, $form_state);
+  return $form;
 }
 
 /**
@@ -374,7 +475,7 @@ function ctools_context_handler_edit_criteria_submit(&$form, &$form_state) {
 /**
  * Edit contexts that go with this panel.
  */
-function ctools_context_handler_edit_context(&$form, &$form_state) {
+function ctools_context_handler_edit_context($form, &$form_state) {
   ctools_include('context-admin');
   ctools_context_admin_includes();
 
@@ -390,7 +491,7 @@ function ctools_context_handler_edit_context(&$form, &$form_state) {
   }
 
   $form['right'] = array(
-    '#prefix' => '<div class="clear-block"><div class="right-container">',
+    '#prefix' => '<div class="clearfix"><div class="right-container">',
     '#suffix' => '</div>',
   );
 
@@ -399,24 +500,21 @@ function ctools_context_handler_edit_context(&$form, &$form_state) {
     '#suffix' => '</div></div>',
   );
 
-  $module = 'page_manager-' . $page->task_name;
+  $module = 'page_manager_context::' . $page->task_name;
   ctools_context_add_context_form($module, $form, $form_state, $form['right']['contexts_table'], $cache);
   ctools_context_add_relationship_form($module, $form, $form_state, $form['right']['relationships_table'], $cache);
 
-  // Set an additional description if CCK and Token are enabled, to notify of unlisted keywords
-  if (module_exists('content') && module_exists('token')) {
-    $description = t('Note that CCK fields may be used as keywords using patterns like <em>%node:field_name-formatted</em>.');
-  } elseif (!module_exists('token')) {
-    $description = t('More keywords will be available if you install the Token module, see http://drupal.org/project/token.');
-  }
-
+  $theme_vars = array();
+  $theme_vars['object'] = $cache;
+  $theme_vars['header'] = t('Summary of contexts');
   $form['left']['summary'] = array(
     '#prefix' => '<div class="page-manager-contexts">',
     '#suffix' => '</div>',
-    '#value' => theme('ctools_context_list', $cache, t('Summary of contexts'), $description),
+    '#markup' => theme('ctools_context_list', $theme_vars),
   );
 
   $form_state['context_object'] = &$cache;
+  return $form;
 }
 
 /**

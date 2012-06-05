@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Implementation of hook_features_api().
+ * Implements hook_features_api().
  */
 function user_features_api() {
   return array(
@@ -17,35 +17,17 @@ function user_features_api() {
       'default_hook' => 'user_default_permissions',
       'default_file' => FEATURES_DEFAULTS_INCLUDED,
     ),
-    // DEPRECATED
-    'user' => array(
-      'name' => t('Permissions'),
-      'feature_source' => FALSE,
-    )
   );
 }
 
 /**
- * Implementation of hook_features_export().
- * DEPRECATED: This implementation simply migrates deprecated `user` items
- * to the `user_permission` type.
- */
-function user_features_export($data, &$export, $module_name = '') {
-  $pipe = array();
-  foreach ($data as $perm) {
-    $pipe['user_permission'][] = $perm;
-  }
-  return $pipe;
-}
-
-/**
- * Implementation of hook_features_export().
+ * Implements hook_features_export().
  */
 function user_permission_features_export($data, &$export, $module_name = '') {
   $export['dependencies']['features'] = 'features';
 
   // Ensure the modules that provide the given permissions are included as dependencies.
-  $map = _user_features_permission_map();
+  $map = user_permission_get_modules();
   foreach ($data as $perm) {
     if (isset($map[$perm])) {
       $perm_module = $map[$perm];
@@ -58,26 +40,36 @@ function user_permission_features_export($data, &$export, $module_name = '') {
 }
 
 /**
- * Implementation of hook_features_export_options().
+ * Implements hook_features_export_options().
  */
 function user_permission_features_export_options() {
+  $modules = array();
+  $module_info = system_get_info('module');
+  foreach (module_implements('permission') as $module) {
+    $modules[$module_info[$module]['name']] = $module;
+  }
+  ksort($modules);
+
   $options = array();
-  foreach (module_list() as $module) {
-    $prefix = check_plain($module) .': ';
-    if ($permissions = module_invoke($module, 'perm')) {
-      foreach ($permissions as $permission) {
-        $options[$permission] = $prefix . check_plain($permission);
+  foreach ($modules as $display_name => $module) {
+    if ($permissions = module_invoke($module, 'permission')) {
+      foreach ($permissions as $perm => $perm_item) {
+        $options[$perm] = strip_tags("{$display_name}: {$perm_item['title']}");
       }
     }
   }
-  asort($options);
   return $options;
 }
 
 /**
- * Implementation of hook_features_export_render().
+ * Implements hook_features_export_render().
  */
-function user_permission_features_export_render($module, $data) {
+function user_permission_features_export_render($module, $data) {  
+  $perm_modules = &drupal_static(__FUNCTION__ . '_perm_modules');
+  if (!isset($perm_modules)) {
+    $perm_modules = user_permission_get_modules();
+  }
+  
   $code = array();
   $code[] = '  $permissions = array();';
   $code[] = '';
@@ -94,9 +86,12 @@ function user_permission_features_export_render($module, $data) {
     else {
       $permission['roles'] = array();
     }
+    if (isset($perm_modules[$perm_name])) {
+      $permission['module'] = $perm_modules[$perm_name];
+    }
     $perm_identifier = features_var_export($perm_name);
     $perm_export = features_var_export($permission, '  ');
-    $code[] = "  // Exported permission: {$perm_name}";
+    $code[] = "  // Exported permission: {$perm_name}.";
     $code[] = "  \$permissions[{$perm_identifier}] = {$perm_export};";
     $code[] = "";
   }
@@ -107,14 +102,14 @@ function user_permission_features_export_render($module, $data) {
 }
 
 /**
- * Implementation of hook_features_revert().
+ * Implements hook_features_revert().
  */
 function user_permission_features_revert($module) {
   user_permission_features_rebuild($module);
 }
 
 /**
- * Implementation of hook_features_rebuild().
+ * Implements hook_features_rebuild().
  * Iterate through default permissions and update the permissions map.
  *
  * @param $module
@@ -122,32 +117,35 @@ function user_permission_features_revert($module) {
  */
 function user_permission_features_rebuild($module) {
   if ($defaults = features_get_default('user_permission', $module)) {
-    $roles = _features_get_roles();
+    // Make sure the list of available node types is up to date, especially when
+    // installing multiple features at once, for example from an install profile
+    // or via drush.
+    node_types_rebuild();
+
+    $roles = _user_features_get_roles();
+    $permissions_by_role = _user_features_get_permissions(FALSE);
     foreach ($defaults as $permission) {
       $perm = $permission['name'];
-
-      // Add permissions for any roles that should have them.
-      foreach ($permission['roles'] as $role) {
-        if (isset($roles[$role]) && !in_array($perm, $roles[$role]['perm'])) {
-          $roles[$role]['perm'][] = $perm;
+      foreach ($roles as $role) {
+        if (in_array($role, $permission['roles'])) {
+          $permissions_by_role[$role][$perm] = TRUE;
         }
-      }
-
-      // Remove permissions for any roles that shouldn't have them.
-      foreach (array_keys($roles) as $role) {
-        if (in_array($perm, $roles[$role]['perm']) && !in_array($role, $permission['roles'])) {
-          $position = array_search($perm, $roles[$role]['perm']);
-          unset($roles[$role]['perm'][$position]);
+        else {
+          $permissions_by_role[$role][$perm] = FALSE;
         }
       }
     }
     // Write the updated permissions.
-    _user_features_save_roles($roles);
+    foreach ($roles as $rid => $role) {
+      if (isset($permissions_by_role[$role])) {
+        user_role_change_permissions($rid, $permissions_by_role[$role]);
+      }
+    }
   }
 }
 
 /**
- * Implementation of hook_features_export().
+ * Implements hook_features_export().
  */
 function user_role_features_export($data, &$export, $module_name = '') {
   $export['dependencies']['features'] = 'features';
@@ -158,7 +156,7 @@ function user_role_features_export($data, &$export, $module_name = '') {
       $export['dependencies'][$map[$role]] = $map[$role];
     }
     // Export.
-    else {
+    elseif(user_role_load_by_name($role)) {
       $export['features']['user_role'][$role] = $role;
     }
   }
@@ -166,29 +164,26 @@ function user_role_features_export($data, &$export, $module_name = '') {
 }
 
 /**
- * Implementation of hook_features_export_options().
+ * Implements hook_features_export_options().
  */
 function user_role_features_export_options() {
-  $options = drupal_map_assoc(array_keys(_features_get_roles()));
-  asort($options);
-  return $options;
+  return drupal_map_assoc(_user_features_get_roles(FALSE));
 }
 
 /**
- * Implementation of hook_features_export_render().
+ * Implements hook_features_export_render().
  */
 function user_role_features_export_render($module, $data) {
   $code = array();
   $code[] = '  $roles = array();';
   $code[] = '';
 
-  $roles = _features_get_roles();
-  foreach ($data as $role) {
-    if (isset($roles[$role])) {
-      $object = array('name' => $role);
-      $role_identifier = features_var_export($role);
-      $role_export = features_var_export($object , '  ');
-      $code[] = "  // Exported role: {$role}";
+  foreach ($data as $name) {
+    if ($role = user_role_load_by_name($name)) {
+      unset($role->rid);
+      $role_identifier = features_var_export($name);
+      $role_export = features_var_export($role , '  ');
+      $code[] = "  // Exported role: {$name}.";
       $code[] = "  \$roles[{$role_identifier}] = {$role_export};";
       $code[] = "";
     }
@@ -200,73 +195,75 @@ function user_role_features_export_render($module, $data) {
 }
 
 /**
- * Implementation of hook_features_revert().
+ * Implements hook_features_revert().
  */
 function user_role_features_revert($module) {
   user_role_features_rebuild($module);
 }
 
 /**
- * Implementation of hook_features_rebuild().
+ * Implements hook_features_rebuild().
  */
 function user_role_features_rebuild($module) {
   if ($defaults = features_get_default('user_role', $module)) {
-    $roles = _features_get_roles();
     foreach ($defaults as $role) {
-      if (!isset($roles[$role['name']])) {
-        drupal_write_record('role', $role);
+      $role = (object) $role;
+      if ($existing = user_role_load_by_name($role->name)) {
+        $role->rid = $existing->rid;
       }
+      user_role_save($role);
     }
   }
 }
 
 /**
- * Generate a perm to module mapping.
+ * Generate $rid => $role with role names untranslated.
  */
-function _user_features_permission_map($reset = FALSE) {
-  static $map;
-  if (!isset($map) || $reset) {
-    $map = array();
-    foreach (module_implements('perm') as $module) {
-      if ($permissions = module_invoke($module, 'perm')) {
-        foreach ($permissions as $permission) {
-          $map[$permission] = $module;
+function _user_features_get_roles($builtin = TRUE) {
+  $roles = array();
+  foreach (user_roles() as $rid => $name) {
+    switch ($rid) {
+      case DRUPAL_ANONYMOUS_RID:
+        if ($builtin) {
+          $roles[$rid] = 'anonymous user';
         }
-      }
+        break;
+      case DRUPAL_AUTHENTICATED_RID:
+        if ($builtin) {
+          $roles[$rid] = 'authenticated user';
+        }
+        break;
+      default:
+        $roles[$rid] = $name;
+        break;
     }
   }
-  return $map;
+  return $roles;
 }
 
 /**
  * Represent the current state of permissions as a perm to role name array map.
  */
-function _user_features_get_permissions() {
-  $result = db_query("SELECT p.perm, r.name FROM {role} r INNER JOIN {permission} p ON p.rid = r.rid ORDER BY r.rid ASC, p.perm ASC");
+function _user_features_get_permissions($by_role = TRUE) {
+  $map = user_permission_get_modules();
+  $roles = _user_features_get_roles();
   $permissions = array();
-  while ($row = db_fetch_object($result)) {
-    $role = $row->name;
-    $role_perms = explode(', ', $row->perm);
-    foreach ($role_perms as $perm) {
-      if (!isset($permissions[$perm])) {
-        $permissions[$perm] = array();
+  foreach (user_role_permissions($roles) as $rid => $role_permissions) {
+    if ($by_role) {
+      foreach (array_keys(array_filter($role_permissions)) as $permission) {
+        if (isset($map[$permission])) {
+          $permissions[$permission][] = $roles[$rid];
+        }
       }
-      if(!in_array($role, $permissions[$perm])) {
-        $permissions[$perm][] = $role;
+    }
+    else {
+      $permissions[$roles[$rid]] = array();
+      foreach ($role_permissions as $permission => $status) {
+        if (isset($map[$permission])) {
+          $permissions[$roles[$rid]][$permission] = $status;
+        }
       }
     }
   }
   return $permissions;
-}
-
-/**
- * Save/update an array of roles to the database.
- */
-function _user_features_save_roles($roles) {
-  // Write the updated permissions.
-  foreach ($roles as $role) {
-    db_query("DELETE FROM {permission} WHERE rid = %d", $role['rid']);
-    $role['perm'] = implode(', ', $role['perm']);
-    drupal_write_record('permission', $role);
-  }
 }

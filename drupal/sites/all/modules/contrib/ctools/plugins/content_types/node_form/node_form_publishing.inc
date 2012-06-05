@@ -1,5 +1,4 @@
 <?php
-// $Id: node_form_publishing.inc,v 1.1.2.2 2010/04/14 21:02:12 merlinofchaos Exp $
 
 /**
  * @file
@@ -28,10 +27,15 @@ function ctools_node_form_publishing_content_type_render($subtype, $conf, $panel
   $block->delta = 'publishing-options';
 
   if (isset($context->form)) {
-    if (!empty($context->form['form_id']) && $context->form['options']['#type'] == 'fieldset') {
-      // remove the fieldset
-      unset($context->form['options']['#type']);
-      $block->content = drupal_render($context->form['options']);
+    if (isset($context->form['options'])) {
+      $block->content['options'] = $context->form['options'];
+      unset($block->content['options']['#pre_render']);
+      unset($block->content['options']['#theme_wrappers']);
+      $block->content['options']['#type'] = '';
+
+      // Set access to false on the original rather than removing so that
+      // vertical tabs doesn't clone it. I think this is due to references.
+      $context->form['options']['#access'] = FALSE;
     }
   }
   else {
@@ -44,6 +48,7 @@ function ctools_node_form_publishing_content_type_admin_title($subtype, $conf, $
   return t('"@s" node form author information', array('@s' => $context->identifier));
 }
 
-function ctools_node_form_publishing_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_form_publishing_content_type_edit_form($form, &$form_state) {
   // provide a blank form so we have a place to have context setting.
+  return $form;
 }

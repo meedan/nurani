@@ -26,18 +26,19 @@ function print_controller_html() {
   $print = print_controller($path, $cid, PRINT_HTML_FORMAT);
   if ($print !== FALSE) {
     $node = $print['node'];
-
-    $html = theme('print_page', $print, PRINT_HTML_FORMAT, $node);
-    $html = drupal_final_markup($html);
+    $html = theme('print', array('print' => $print, 'type' => PRINT_HTML_FORMAT, 'node' => $node));
+    drupal_send_headers();
     print $html;
 
-    $nodepath = (isset($node->path) && is_string($node->path)) ? drupal_get_normal_path($node->path) : 'node/'. $path;
-    db_query("UPDATE {print_page_counter} SET totalcount = totalcount + 1, timestamp = %d WHERE path = '%s'", time(), $nodepath);
-    // If we affected 0 rows, this is the first time viewing the node.
-    if (!db_affected_rows()) {
-      // We must create a new row to store counters for the new node.
-      db_query("INSERT INTO {print_page_counter} (path, totalcount, timestamp) VALUES ('%s', 1, %d)", $nodepath, time());
-    }
+    $nodepath = (isset($node->path) && is_string($node->path)) ? drupal_get_normal_path($node->path) : 'node/' . $path;
+    db_merge('print_page_counter')
+      ->key(array('path' => $nodepath))
+      ->fields(array(
+          'totalcount' => 1,
+          'timestamp' => REQUEST_TIME,
+      ))
+      ->expression('totalcount', 'totalcount + 1')
+      ->execute();
   }
 }
 
@@ -68,7 +69,7 @@ function print_controller($path, $cid = NULL, $format = PRINT_HTML_FORMAT, $teas
     // If no path was provided, let's try to generate a page for the referer
     global $base_url;
 
-    $ref = referer_uri();
+    $ref = $_SERVER['HTTP_REFERER'];
     $path = preg_replace("!^$base_url/!", '', $ref);
     if (($path === $ref) || empty($path)) {
       $path = variable_get('site_frontpage', 'node');
@@ -80,7 +81,7 @@ function print_controller($path, $cid = NULL, $format = PRINT_HTML_FORMAT, $teas
     $path = $alias;
   }
   $parts = explode('/', $path);
-  if (($parts[0] == 'node') && (count($parts) > 1)) {
+  if (($parts[0] == 'node') && (count($parts) > 1) && ctype_digit($parts[1])) {
     array_shift($parts);
     $path = implode('/', $parts);
   }
@@ -153,9 +154,6 @@ function _print_var_generator($node, $message = NULL, $cid = NULL) {
 
   $path = empty($node->nid) ? $node->path : "node/$node->nid";
 
-  // Needed because of the theme_get_setting() calls below
-  init_theme();
-
   // print module settings
   $print_css = variable_get('print_css', PRINT_CSS_DEFAULT);
   $print_keep_theme_css = variable_get('print_keep_theme_css', PRINT_KEEP_THEME_CSS_DEFAULT);
@@ -174,38 +172,35 @@ function _print_var_generator($node, $message = NULL, $cid = NULL) {
   $print['title'] = check_plain($node->title);
   $print['head'] = drupal_get_html_head();
   if ($print_html_sendtoprinter) {
-    drupal_add_js('misc/drupal.js', 'core');
+    drupal_add_js('misc/drupal.js', array('weight' => JS_LIBRARY));
   }
   $print['scripts'] = drupal_get_js();
   $print['footer_scripts'] = drupal_get_js('footer');
   $print['robots_meta'] = _print_robots_meta_generator();
   $print['url'] = url($path, array('absolute' => TRUE));
-  $print['base_href'] = "<base href='". $print['url'] ."' />\n";
-  $print['favicon'] = theme_get_setting('toggle_favicon') ? "<link rel='shortcut icon' href='". theme_get_setting('favicon') ."' type='image/x-icon' />\n" : '';
+  $print['base_href'] = "<base href='" . $print['url'] . "' />\n";
+  $print['favicon'] = theme_get_setting('toggle_favicon') ? "<link rel='shortcut icon' href='" . theme_get_setting('favicon') . "' type='image/x-icon' />\n" : '';
 
   if (!empty($print_css)) {
     drupal_add_css(strtr($print_css, array('%t' => path_to_theme())));
   }
   else {
-    drupal_add_css(drupal_get_path('module', 'print') .'/css/print.css');
+    drupal_add_css(drupal_get_path('module', 'print') . '/css/print.css');
   }
   $drupal_css = drupal_add_css();
   if (!$print_keep_theme_css) {
-    foreach ($drupal_css as $key => $types) {
+    foreach ($drupal_css as $key => $css_file) {
+      if ($css_file['group'] == CSS_THEME) {
       // Unset the theme's CSS
-      $drupal_css[$key]['theme'] = array();
+        unset($drupal_css[$key]);
+      }
     }
   }
 
   // If we are sending a message via email, the CSS must be embedded
   if (!empty($message)) {
     $style = '';
-    $css_files = array();
-    foreach ($drupal_css as $types) {
-      foreach ($types as $values) {
-        $css_files = array_merge($css_files, array_keys($values));
-      }
-    }
+    $css_files = array_keys($drupal_css);
     foreach ($css_files as $filename) {
       $res = file_exists($filename) ? file_get_contents($filename, TRUE) : FALSE;
       if ($res != FALSE) {
@@ -219,7 +214,7 @@ function _print_var_generator($node, $message = NULL, $cid = NULL) {
   }
 
   $window_close = ($print_html_new_window && $print_html_windowclose) ? 'window.close();' : '';
-  $print['sendtoprinter'] = $print_html_sendtoprinter ? "<script type='text/javascript'>Drupal.behaviors.print = function(context) {window.print();$window_close}</script>" : '';
+  $print['sendtoprinter'] = $print_html_sendtoprinter ? '<script type="text/javascript">(function ($) { Drupal.behaviors.print = {attach: function(context) {$(window).load(function() {window.print();' . $window_close . '})}}})(jQuery);</script>' : '';
 
   switch ($print_logo_options) {
     case 0: // none
@@ -232,16 +227,16 @@ function _print_var_generator($node, $message = NULL, $cid = NULL) {
       $logo_url = strip_tags($print_logo_url);
       break;
   }
-  $logo_url = preg_replace('!^'. base_path() .'!', '/', $logo_url);
   $site_name = variable_get('site_name', 'Drupal');
-  $print['logo'] = $logo_url ? theme('image', $logo_url, $site_name, '', array('class' => 'print-logo', 'id' => 'logo'), FALSE) : '';
+  $print['logo'] = $logo_url ? theme('image', array('path' => $logo_url, 'alt' => $site_name, 'attributes' => array('class' => 'print-logo', 'id' => 'logo'))) : '';
 
   switch ($print_footer_options) {
     case 0: // none
       $footer = '';
       break;
     case 1: // theme's
-      $footer = variable_get('site_footer', FALSE) ."\n". theme('blocks', 'footer');
+      $footer_blocks = block_get_blocks_by_region('footer');
+      $footer = variable_get('site_footer', FALSE) . "\n" . drupal_render($footer_blocks);
       break;
     case 2: // user-specifed
       $footer = $print_footer_user;
@@ -253,7 +248,7 @@ function _print_var_generator($node, $message = NULL, $cid = NULL) {
   if ($published_site) {
     $print_text_published = filter_xss(variable_get('print_text_published', t('Published on %site_name')));
     $published = t($print_text_published, array('%site_name' => $published_site));
-    $print['site_name'] = $published .' ('. l($base_url, $base_url) .')';
+    $print['site_name'] = $published . ' (' . l($base_url, $base_url) . ')';
   }
   else {
     $print['site_name'] = '';
@@ -265,18 +260,18 @@ function _print_var_generator($node, $message = NULL, $cid = NULL) {
       $url = $print['url'];
     }
     else {
-      $url = $base_url .'/'. (((bool)variable_get('clean_url', '0')) ? '' : '?q=') . $path;
+      $url = $base_url . '/' . (((bool)variable_get('clean_url', '0')) ? '' : '?q=') . $path;
     }
     if (is_int($cid)) {
-      $url .= '#comment-$cid';
+      $url .= "#comment-$cid";
     }
-    $retrieved_date = format_date(time(), 'small');
+    $retrieved_date = format_date(REQUEST_TIME, 'short');
     $print_text_retrieved = filter_xss(variable_get('print_text_retrieved', t('retrieved on %date')));
     $retrieved = t($print_text_retrieved, array('%date' => $retrieved_date));
     $print['printdate'] = $print_sourceurl_date ? " ($retrieved)" : '';
 
     $source_url = filter_xss(variable_get('print_text_source_url', t('Source URL')));
-    $print['source_url'] = '<strong>'. $source_url . $print['printdate'] .':</strong> '. l($url, $url);
+    $print['source_url'] = '<strong>' . $source_url . $print['printdate'] . ':</strong> ' . l($url, $url);
   }
   else {
     $print['source_url'] = '';
@@ -302,7 +297,7 @@ function _print_var_generator($node, $message = NULL, $cid = NULL) {
     $pfp_links = '';
     if ($max) {
       for ($i = 0; $i < $max; $i++) {
-        $pfp_links .= '['. ($i + 1) .'] '. check_plain($urls[$i]) ."<br />\n";
+        $pfp_links .= '[' . ($i + 1) . '] ' . check_plain($urls[$i]) . "<br />\n";
       }
       $links = filter_xss(variable_get('print_text_links', t('Links')));
       $print['pfp_links'] = "<p><strong>$links:</strong><br />$pfp_links</p>";
@@ -345,9 +340,25 @@ function _print_rewrite_urls($matches) {
     if (preg_match('!^(?:href|src)\s*?=(.*)!i', $attribs[$i], $urls) > 0) {
       $url = trim($urls[1], " \t\n\r\0\x0B\"'");
 
-      if (strpos(html_entity_decode($url), '://') || preg_match('!^mailto:.*?@.*?\..*?$!iu', html_entity_decode($url))) {
+      if (empty($url)) {
+        // If URL is empty, use current_url
+        $path = explode('/', $_GET['q']);
+        unset($path[0]);
+        $path = implode('/', $path);
+        if (ctype_digit($path)) {
+          $path = "node/$path";
+        }
+        // Printer-friendly URLs is on, so we need to make it absolute
+        $newurl = url($path, array('fragment' => drupal_substr($url, 1), 'absolute' => TRUE));
+      }
+      elseif (strpos(html_entity_decode($url), '://') || preg_match('!^mailto:.*?@.*?\..*?$!iu', html_entity_decode($url))) {
         // URL is absolute, do nothing
         $newurl = $url;
+      }
+      elseif (strpos(html_entity_decode($url), '//') === 0) {
+        // URL is 'almost absolute', but it does not contain protocol; replace with base_path protocol
+        $newurl = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . ":" . $url;
+        $matches[1] = str_replace($url, $newurl, $matches[1]);
       }
       else {
         if ($url[0] == '#') {
@@ -370,14 +381,14 @@ function _print_rewrite_urls($matches) {
           // URL is relative, convert it into absolute URL
           if ($url[0] == '/') {
             // If it starts with '/' just append it to the server name
-            $newurl = $base_root .'/'. trim($url, '/');
+            $newurl = $base_root . '/' . trim($url, '/');
           }
           elseif (preg_match('!^(?:index.php)?\?q=!i', $url)) {
             // If it starts with ?q=, just prepend with the base URL
-            $newurl = $base_url .'/'. trim($url, '/');
+            $newurl = $base_url . '/' . trim($url, '/');
           }
           else {
-            $newurl = rawurldecode(url(trim($url, '/'), array('absolute' => TRUE)));
+            $newurl = url(trim($url, '/'), array('absolute' => TRUE));
           }
           $matches[1] = str_replace($url, $newurl, $matches[1]);
         }
@@ -385,11 +396,11 @@ function _print_rewrite_urls($matches) {
     }
   }
 
-  $ret = '<'. $matches[1] .'>';
+  $ret = '<' . $matches[1] . '>';
   if (count($matches) == 4) {
     $ret .= $matches[2] . $matches[3];
     if ((!empty($_print_urls)) && (isset($newurl))) {
-      $ret .= ' <span class="print-footnote">['. _print_friendly_urls(trim($newurl)) .']</span>';
+      $ret .= ' <span class="print-footnote">[' . _print_friendly_urls(trim($newurl)) . ']</span>';
     }
   }
 
@@ -407,7 +418,7 @@ function _print_rewrite_urls($matches) {
  */
 function _print_friendly_urls($url = 0) {
   static $urls = array();
-  if ($url) {
+  if ($url !== 0) {
     $url_idx = array_search($url, $urls);
     if ($url_idx !== FALSE) {
       return ($url_idx + 1);
@@ -451,13 +462,13 @@ function _print_url_list_enabled($node, $format = PRINT_HTML_FORMAT) {
   else {
     switch ($format) {
       case PRINT_HTML_FORMAT:
-        $node_urllist = isset($node->print_display_urllist) ? $node->print_display_urllist : variable_get('print_display_urllist_'. $node->type, PRINT_TYPE_URLLIST_DEFAULT);
+        $node_urllist = isset($node->print_display_urllist) ? $node->print_display_urllist : variable_get('print_display_urllist_' . $node->type, PRINT_TYPE_URLLIST_DEFAULT);
         break;
       case PRINT_MAIL_FORMAT:
-        $node_urllist = isset($node->print_mail_display_urllist) ? $node->print_mail_display_urllist : variable_get('print_mail_display_urllist_'. $node->type, PRINT_TYPE_URLLIST_DEFAULT);
+        $node_urllist = isset($node->print_mail_display_urllist) ? $node->print_mail_display_urllist : variable_get('print_mail_display_urllist_' . $node->type, PRINT_TYPE_URLLIST_DEFAULT);
         break;
       case PRINT_PDF_FORMAT:
-        $node_urllist = isset($node->print_pdf_display_urllist) ? $node->print_pdf_display_urllist : variable_get('print_pdf_display_urllist_'. $node->type, PRINT_TYPE_URLLIST_DEFAULT);
+        $node_urllist = isset($node->print_pdf_display_urllist) ? $node->print_pdf_display_urllist : variable_get('print_pdf_display_urllist_' . $node->type, PRINT_TYPE_URLLIST_DEFAULT);
         break;
       default:
         $node_urllist = PRINT_TYPE_URLLIST_DEFAULT;
@@ -487,6 +498,10 @@ function _print_url_list_enabled($node, $format = PRINT_HTML_FORMAT) {
 function _print_generate_node($nid, $cid = NULL, $format = PRINT_HTML_FORMAT, $teaser = FALSE, $message = NULL) {
   global $_print_urls;
 
+  if (!isset($langcode)) {
+    $langcode = $GLOBALS['language_content']->language;
+  }
+
   // We can take a node id
   $node = node_load($nid);
   if (!$node) {
@@ -499,13 +514,9 @@ function _print_generate_node($nid, $cid = NULL, $format = PRINT_HTML_FORMAT, $t
     drupal_access_denied();
     return FALSE;
   }
-  drupal_set_title(check_plain($node->title));
+  drupal_set_title($node->title);
 
-  // alert other modules that we are generating a printer-friendly page, so they can choose to show/hide info
-  $node->printing = TRUE;
-
-  // use the proper build_mode
-  $node->build_mode = NODE_BUILD_PRINT;
+  $view_mode = $teaser ? 'teaser' : 'print';
 
   // Turn off Pagination by the Paging module
   unset($node->pages);
@@ -519,59 +530,61 @@ function _print_generate_node($nid, $cid = NULL, $format = PRINT_HTML_FORMAT, $t
   if ($cid === NULL) {
     // Adapted (simplified) version of node_view
     // Render the node content
-    $node = node_build_content($node, $teaser, TRUE);
+    node_build_content($node, $view_mode);
+
+    // Disable the links area
+    unset($node->content['links']);
     // Disable fivestar widget output
     unset($node->content['fivestar_widget']);
     // Disable service links module output
     unset($node->content['service_links']);
 
-    $content = drupal_render($node->content);
-
-    // Disable the AdSense module ads
-    $content = preg_replace('!<div class=[\'"]adsense[\'"].*?</div>!sim', '', $content);
-
-    if ($teaser) {
-      $node->teaser = $content;
-      unset($node->body);
-    }
-    else {
-      $node->body = $content;
-      unset($node->teaser);
-    }
+    $build = $node->content;
+    unset($node->content);
   }
 
   $print_comments = variable_get('print_comments', PRINT_COMMENTS_DEFAULT);
 
-  if (function_exists('comment_render') && (($cid != NULL) || ($print_comments))) {
+  if (function_exists('comment_node_page_additions') && (($cid != NULL) || ($print_comments))) {
     // Print only the requested comment (or if $cid is NULL, all of them)
-    $comments = comment_render($node, $cid);
 
-    // Remove the comment forms
-    $comments = preg_replace('!<form.*?id="comment-.*?">.*?</form>!sim', '', $comments);
-    // Remove the 'Post new comment' title
-    $comments = preg_replace('!<h2.*?>'. t('Post new comment') .'</h2>!', '', $comments);
-    // Remove the comment title hyperlink
-    $comments = preg_replace('!(<h3.*?>.*?)<a.*?>(.*?)</a>(.*?</h3>)!i', '$1$2$3', $comments);
-    // Remove the comment author link
-    $pattern = '!(<(?:span|div) class="submitted">.*?)<a.*?>(.*?)</a>(.*?</(?:span|div)>)!sim';
-    if (preg_match($pattern, $comments)) {
-      $comments = preg_replace($pattern , '$1$2$3', $comments);
+    $comments = comment_node_page_additions($node);
+    if (!empty($comments)) {
+      unset($comments['comment_form']);
+      foreach ($comments['comments'] as $key => &$comment) {
+        if (is_numeric($key)) {
+          if (($cid != NULL) && ($key != $cid)) {
+            unset($comments['comments'][$key]);
+          }
+          else {
+            unset($comment['links']);
+          }
+        }
+      }
+
+      $build['comments'] = $comments;
     }
-    // Remove the comment links
-    $comments = preg_replace('!\s*<ul class="links">.*?</ul>!sim', '', $comments);
-    if ($cid != NULL) {
-      // Single comment requested, output only the comment
-      unset($node->body);
-    }
-    $node->body .= $comments;
   }
 
-  node_invoke_nodeapi($node, 'alter', $teaser, TRUE);
+  $build += array(
+    '#theme' => 'node',
+    '#node' => $node,
+    '#view_mode' => $view_mode,
+    '#language' => $langcode,
+    '#print_format' => $format,
+  );
 
-  $content = theme('print_node', $node, $teaser, TRUE, $format);
+  $type = 'node';
+  drupal_alter(array('node_view', 'entity_view'), $build, $type);
 
-  if ($teaser) {
-    $content = $node->teaser;
+  $content = render($build);
+
+  // Get rid of any links before the content
+  $parts = explode('<div class="content', $content, 2);
+  if (count($parts) == 2) {
+    $pattern = '!(.*?)<a [^>]*?>(.*?)</a>(.*?)!mis';
+    $parts[0] = preg_replace($pattern, '$1$2$3', $parts[0]);
+    $content = implode('<div class="content', $parts);
   }
 
   // Check URL list settings
@@ -607,7 +620,7 @@ function _print_generate_path($path, $format = PRINT_HTML_FORMAT, $teaser = FALS
   // Handle node tabs
   $parts = explode('/', $path);
   if (ctype_digit($parts[0]) && (count($parts) > 1)) {
-    $path = 'node/'. $path;
+    $path = 'node/' . $path;
   }
 
   $path = drupal_get_normal_path($path);
@@ -615,11 +628,9 @@ function _print_generate_path($path, $format = PRINT_HTML_FORMAT, $teaser = FALS
   menu_set_active_item($path);
   // Adapted from index.php.
   $node = new stdClass();
-  $node->body = menu_execute_active_handler($path);
-
-  // It may happen that a drupal_not_found is called in the above call
-  if (preg_match('/404 Not Found/', drupal_get_headers()) == 1) {
-    return FALSE;
+  $node->body = menu_execute_active_handler($path, FALSE);
+  if (is_array($node->body)) {
+    $node->body = drupal_render($node->body);
   }
 
   if (is_int($node->body)) {
@@ -637,6 +648,7 @@ function _print_generate_path($path, $format = PRINT_HTML_FORMAT, $teaser = FALS
 
   $node->title = drupal_get_title();
   $node->path = $path;
+  $node->changed = 0;
 
   // Delete any links area
   $node->body = preg_replace('!\s*<div class="links">.*?</div>!sim', '', $node->body);

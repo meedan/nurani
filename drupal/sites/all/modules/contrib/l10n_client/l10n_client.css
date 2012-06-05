@@ -54,13 +54,13 @@ how it wants to round. */
 
   /* 25 + 37 + 37 = 99 */
   #l10n-client .strings {
-    width:25%; float:left;} 
+    width:25%; float:left;}
 
   #l10n-client .source {
-    width:37%; float:left;} 
+    width:37%; float:left;}
 
   #l10n-client .translation {
-    width:37%; float:left;} 
+    width:37%; float:left;}
 
 /* Translatable string list */
 #l10n-client-string-select {
@@ -73,7 +73,7 @@ how it wants to round. */
     overflow:auto;
     list-style:none; list-style-image:none;
     margin:0em; padding:0em;}
-  
+
   #l10n-client .string-list li {
     font-size:.9em;
     line-height:1.5em;
@@ -91,7 +91,7 @@ how it wants to round. */
 
     #l10n-client .string-list li.translated:hover {
       background: #df8;}
-  
+
     #l10n-client .string-list li.translated:active {
       background: #9c3;}
 
@@ -100,10 +100,10 @@ how it wants to round. */
 
   /* Gray + Blue hover for untranslated */
   #l10n-client .string-list li.untranslated {}
-  
+
     #l10n-client .string-list li.untranslated:hover {
       background: #ace;}
-  
+
     #l10n-client .string-list li.untranslated:active {
       background: #8ac;}
 
@@ -120,20 +120,21 @@ how it wants to round. */
 
   #l10n-client #l10n-client-search-form .form-item,
   #l10n-client #l10n-client-search-form input.form-text,
+  #l10n-client #l10n-client-search-form #search-filter-go,
   #l10n-client #l10n-client-search-form #l10n-client-search-filter-clear {
     display:inline;
     vertical-align:middle;
   }
-  
+
     #l10n-client #l10n-client-search-form .form-item {
       margin:0em;
       padding:0em;
     }
-  
+
     #l10n-client #l10n-client-search-form input.form-text {
       width:80%;
     }
-  
+
     #l10n-client #l10n-client-search-form #l10n-client-search-filter-clear {
       width:10%;
       margin:0em;
@@ -148,13 +149,20 @@ how it wants to round. */
   #l10n-client-string-editor .source {
     overflow:hidden;
     width:50%; float:left;}
-  
+
     #l10n-client-string-editor .source .source-text {
       line-height:1.5em;
       background:#eee;
-      height:16em; margin:1em; padding:1em;
+      height:15em; margin:1em; padding:1em;
+      margin-bottom:0.5em;
       overflow:auto;}
-  
+    #l10n-client-string-editor .context {
+      line-height:1em;
+      height:1em;
+      font-size:0.8em;
+      margin:0.5em 1em 1em 1em;
+      padding: 0 1em 0 1em;
+    }
   #l10n-client-string-editor .translation {
     overflow:hidden;
     width:49%; float:right;}
@@ -166,7 +174,7 @@ how it wants to round. */
     height:13em;
     font-size:1em; line-height:1.25em;
     width:95%;}
-  
+
   #l10n-client-form .form-submit {
     margin-top: 0em;}
 

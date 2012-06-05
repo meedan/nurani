@@ -12,7 +12,7 @@
  */
 
 /**
- * Implementation of hook_views_data()
+ * Implements hook_views_data()
  */
 function statistics_views_data() {
   // Basic table information.
@@ -20,7 +20,7 @@ function statistics_views_data() {
   // ----------------------------------------------------------------
   // node_counter table
 
-  $data['node_counter']['table']['group']  = t('Node statistics');
+  $data['node_counter']['table']['group']  = t('Content statistics');
 
   $data['node_counter']['table']['join'] = array(
     // ...to the node table
@@ -101,6 +101,27 @@ function statistics_views_data() {
       'field' => 'uid',
       'left_field' => 'uid',
      ),
+  );
+
+  // accesslog.aid
+  $data['accesslog']['aid'] = array(
+    'title' => t('Aid'),
+    'help' => t('Unique access event ID.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+      'name field' => 'wid',
+      'numeric' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
   );
 
   // session id
@@ -243,23 +264,6 @@ function statistics_views_data() {
 
 
   return $data;
-}
-
-/**
- * Implementation of hook_views_handlers() to register all of the basic handlers
- * views uses.
- */
-function statistics_views_handlers() {
-  return array(
-    'info' => array(
-      'path' => drupal_get_path('module', 'views') . '/modules/statistics',
-    ),
-    'handlers' => array(
-      'views_handler_field_accesslog_path' => array(
-        'parent' => 'views_handler_field',
-      ),
-    ),
-  );
 }
 
 /**

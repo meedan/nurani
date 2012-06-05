@@ -1,7 +1,11 @@
 <?php
+/**
+ * @file
+ * features_test.features.user_permission.inc
+ */
 
 /**
- * Implementation of hook_user_default_permissions().
+ * Implements hook_user_default_permissions().
  */
 function features_test_user_default_permissions() {
   $permissions = array();
@@ -10,9 +14,10 @@ function features_test_user_default_permissions() {
   $permissions['create features_test content'] = array(
     'name' => 'create features_test content',
     'roles' => array(
-      '0' => 'anonymous user',
-      '1' => 'authenticated user',
+      0 => 'anonymous user',
+      1 => 'authenticated user',
     ),
+    'module' => 'node',
   );
 
   return $permissions;

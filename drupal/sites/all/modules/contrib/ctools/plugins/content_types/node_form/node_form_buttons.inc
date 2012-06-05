@@ -1,5 +1,4 @@
 <?php
-// $Id: node_form_buttons.inc,v 1.1.2.2 2010/07/05 19:34:34 merlinofchaos Exp $
 
 /**
  * Plugins are described by creating a $plugin array which will be used
@@ -22,10 +21,11 @@ function ctools_node_form_buttons_content_type_render($subtype, $conf, $panel_ar
   $block->delta = 'buttons';
 
   if (isset($context->form)) {
-    $block->content = drupal_render($context->form['buttons']);
-    $block->content .= drupal_render($context->form['form_token']);
-    $block->content .= drupal_render($context->form['form_build_id']);
-    $block->content .= drupal_render($context->form['form_id']);
+    $block->content = array();
+    foreach (array('actions', 'form_token', 'form_build_id', 'form_id') as $element) {
+      $block->content[$element] = isset($context->form[$element]) ? $context->form[$element] : NULL;
+      unset($context->form[$element]);
+    }
   }
   else {
     $block->content = t('Node form buttons.');
@@ -37,6 +37,7 @@ function ctools_node_form_buttons_content_type_admin_title($subtype, $conf, $con
   return t('"@s" node form submit buttons', array('@s' => $context->identifier));
 }
 
-function ctools_node_form_buttons_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_form_buttons_content_type_edit_form($form, &$form_state) {
   // provide a blank form so we have a place to have context setting.
+  return $form;
 }

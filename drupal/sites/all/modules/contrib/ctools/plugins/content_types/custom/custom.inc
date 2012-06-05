@@ -1,5 +1,4 @@
 <?php
-// $Id: custom.inc,v 1.9.2.15 2010/10/19 21:27:41 merlinofchaos Exp $
 
 /**
  * @file
@@ -17,7 +16,7 @@
 $plugin = array(
   'title' => t('Custom content'),
   'no title override' => TRUE,
-  'defaults' => array('admin_title' => '', 'title' => '', 'body' => '', 'format' => FILTER_FORMAT_DEFAULT, 'substitute' => TRUE),
+  'defaults' => array('admin_title' => '', 'title' => '', 'body' => '', 'format' => filter_default_format(), 'substitute' => TRUE),
   'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
   // Make sure the edit form is only used for some subtypes.
   'edit form' => '',
@@ -33,7 +32,7 @@ function ctools_custom_content_type_content_type($subtype_id) {
   if ($subtype_id == 'custom') {
     return _ctools_default_content_type_content_type();
   }
-  else {
+  elseif (module_exists('ctools_custom_content')) {
     ctools_include('export');
     $content = ctools_export_crud_load('ctools_custom_content', $subtype_id);
     if ($content) {
@@ -50,9 +49,12 @@ function ctools_custom_content_type_content_types() {
   $types = array();
   $types['custom'] = _ctools_default_content_type_content_type();
 
-  foreach (ctools_export_crud_load_all('ctools_custom_content') as $name => $content) {
-    $types[$name] = _ctools_custom_content_type_content_type($content);
+  if (module_exists('ctools_custom_content')) {
+    foreach (ctools_export_crud_load_all('ctools_custom_content') as $name => $content) {
+      $types[$name] = _ctools_custom_content_type_content_type($content);
+    }
   }
+
   return $types;
 }
 
@@ -113,7 +115,7 @@ function ctools_custom_content_type_get_conf($subtype, $conf) {
     // reusable. Since we're not allowed to change the subtype, we're
     // still stored as though we are local, but are pointing off to
     // non-local.
-    if (!empty($conf['name'])) {
+    if (!empty($conf['name']) && module_exists('ctools_custom_content')) {
       ctools_include('export');
       $content = ctools_export_crud_load('ctools_custom_content', $conf['name']);
       if ($content) {
@@ -129,7 +131,7 @@ function ctools_custom_content_type_get_conf($subtype, $conf) {
           'admin_title' => t('Missing/deleted content'),
           'title' => '',
           'body' => '',
-          'format' => FILTER_FORMAT_DEFAULT,
+          'format' => filter_default_format(),
           'substitute' => TRUE,
           'custom_type' => 'fixed',
           'content' => $content,
@@ -142,6 +144,12 @@ function ctools_custom_content_type_get_conf($subtype, $conf) {
       $settings = $conf;
       $settings['custom_type'] = 'local';
     }
+  }
+
+  // Correct for an error that came in because filter format changed.
+  if (is_array($settings['body'])) {
+    $settings['format'] = $settings['body']['format'];
+    $settings['body'] = $settings['body']['value'];
   }
 
   return $settings;
@@ -174,7 +182,18 @@ function ctools_custom_content_type_render($subtype, $conf, $args, $contexts) {
     $content = ctools_context_keyword_substitute($content, array(), $contexts);
   }
 
-  $block->content = check_markup($content, $settings['format'], FALSE);
+  $block->content = check_markup($content, $settings['format']);
+  if ($settings['custom_type'] == 'fixed' && user_access('administer custom content')) {
+    $block->admin_links = array(
+      array(
+        'title' => t('Configure content pane'),
+        'alt' => t("Configure this pane in administer >> structure >> custom content panes"),
+        'href' => 'admin/structure/ctools-content/list/' . $settings['content']->name . '/edit',
+        'query' => drupal_get_destination(),
+      ),
+    );
+  }
+
   return $block;
 }
 
@@ -221,10 +240,11 @@ function ctools_custom_content_type_admin_info($subtype, $conf) {
   // If a php filter is active, just print the source, but only if the current
   // user has access to the actual filter.
   if ($php_filter) {
-    if (!filter_access($settings['format'])) {
+    $filter = filter_format_load($settings['format']);
+    if (!filter_access($filter)) {
       return NULL;
     }
-    $block->content = '<pre>'. check_plain($settings['body']) .'</pre>';
+    $block->content = '<pre>' . check_plain($settings['body']) . '</pre>';
   }
   else {
     // We also need to filter through XSS admin because <script> tags can
@@ -237,12 +257,12 @@ function ctools_custom_content_type_admin_info($subtype, $conf) {
 /**
  * Returns an edit form for the custom type.
  */
-function ctools_custom_content_type_edit_form(&$form, &$form_state) {
+function ctools_custom_content_type_edit_form($form, &$form_state) {
   $settings = ctools_custom_content_type_get_conf($form_state['subtype'], $form_state['conf']);
   $form_state['settings'] = $settings;
 
   if ($settings['custom_type'] == 'fixed') {
-    return; // no form for this case.
+    return $form; // no form for this case.
   }
 
   $form['admin_title'] = array(
@@ -258,21 +278,22 @@ function ctools_custom_content_type_edit_form(&$form, &$form_state) {
     '#title' => t('Title'),
   );
 
-  $form['body_field']['body'] = array(
+  $form['body'] = array(
+    '#type' => 'text_format',
     '#title' => t('Body'),
-    '#type' => 'textarea',
     '#default_value' => $settings['body'],
+    '#format' => $settings['format'],
   );
-  $parents[] = 'format';
-  $form['body_field']['format'] = filter_form($settings['format'], 1, $parents);
 
   if (!empty($form_state['contexts'])) {
     // Set extended description if both CCK and Token modules are enabled, notifying of unlisted keywords
     if (module_exists('content') && module_exists('token')) {
       $description = t('If checked, context keywords will be substituted in this content. Note that CCK fields may be used as keywords using patterns like <em>%node:field_name-formatted</em>.');
-    } elseif (!module_exists('token')) {
+    }
+    elseif (!module_exists('token')) {
       $description = t('If checked, context keywords will be substituted in this content. More keywords will be available if you install the Token module, see http://drupal.org/project/token.');
-    } else {
+    }
+    else {
       $description = t('If checked, context keywords will be substituted in this content.');
     }
 
@@ -299,11 +320,11 @@ function ctools_custom_content_type_edit_form(&$form, &$form_state) {
       }
     }
     $header = array(t('Keyword'), t('Value'));
-    $form['contexts']['context'] = array('#value' => theme('table', $header, $rows));
+    $form['contexts']['context'] = array('#markup' => theme('table', array('header' => $header, 'rows' => $rows)));
   }
 
   if (!user_access('administer custom content') || !module_exists('ctools_custom_content')) {
-    return;
+    return $form;
   }
 
   // Make the other form items dependent upon it.
@@ -320,7 +341,6 @@ function ctools_custom_content_type_edit_form(&$form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Machine name'),
     '#description' => t('The machine readable name of this content. It must be unique, and it must contain only alphanumeric characters and underscores. Once created, you will not be able to change this value!'),
-    '#process' => array('ctools_dependent_process'),
     '#dependency' => array('edit-reusable' => array(1)),
   );
 
@@ -328,7 +348,6 @@ function ctools_custom_content_type_edit_form(&$form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Category'),
     '#description' => t('What category this content should appear in. If left blank the category will be "Miscellaneous".'),
-    '#process' => array('ctools_dependent_process'),
     '#dependency' => array('edit-reusable' => array(1)),
   );
 
@@ -336,9 +355,9 @@ function ctools_custom_content_type_edit_form(&$form, &$form_state) {
     '#type' => 'textarea',
     '#title' => t('Administrative description'),
     '#description' => t('A description of what this content is, does or is for, for administrative use.'),
-    '#process' => array('ctools_dependent_process'),
     '#dependency' => array('edit-reusable' => array(1)),
   );
+  return $form;
 }
 
 function _ctools_custom_content_type_edit_save(&$content, $form_state) {
@@ -370,6 +389,10 @@ function ctools_custom_content_type_edit_form_validate(&$form, &$form_state) {
       return;
     }
 
+    if (!module_exists('ctools_custom_content')) {
+      return;
+    }
+
     // Check for name collision
     if ($form_state['values']['name'] == 'custom' || (ctools_export_crud_load('ctools_custom_content', $form_state['values']['name']))) {
       form_error($form['name'], t('Content with this name already exists. Please choose another name or delete the existing item before creating a new one.'));
@@ -380,7 +403,11 @@ function ctools_custom_content_type_edit_form_validate(&$form, &$form_state) {
 /**
  * The submit form stores the data in $conf.
  */
-function ctools_custom_content_type_edit_form_submit(&$form, &$form_state) {
+function ctools_custom_content_type_edit_form_submit($form, &$form_state) {
+  // Because of changes in filter form, these two keys are out of position:
+  $form_state['values']['format'] = $form_state['values']['body']['format'];
+  $form_state['values']['body'] = $form_state['values']['body']['value'];
+
   if ($form_state['settings']['custom_type'] == 'fixed') {
     _ctools_custom_content_type_edit_save($form_state['settings']['content'], $form_state);
   }
@@ -394,10 +421,9 @@ function ctools_custom_content_type_edit_form_submit(&$form, &$form_state) {
   }
   else {
     // Otherwise, just save values into $conf normally.
+
     foreach (array_keys($form_state['plugin']['defaults']) as $key) {
-      if (isset($form_state['values'][$key])) {
-        $form_state['conf'][$key] = $form_state['values'][$key];
-      }
+      $form_state['conf'][$key] = isset($form_state['values'][$key]) ? $form_state['values'][$key] : $form_state['plugin']['defaults'][$key];
     }
   }
 }

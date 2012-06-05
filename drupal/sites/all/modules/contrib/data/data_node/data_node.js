@@ -1,4 +1,3 @@
-// $Id: data_node.js,v 1.1.2.2 2009/09/25 21:15:16 yhahn Exp $
 
 Drupal.behaviors.data_node = function(context) {
   // Link AHAH

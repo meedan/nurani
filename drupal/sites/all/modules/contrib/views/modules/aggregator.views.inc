@@ -14,7 +14,7 @@
  */
 
 /**
- * Implementation of hook_views_data()
+ * Implements hook_views_data()
  */
 function aggregator_views_data() {
   // ----------------------------------------------------------------------
@@ -308,7 +308,7 @@ function aggregator_views_data() {
   // feed last updated
   $data['aggregator_feed']['modified'] = array(
     'title' => t('Last modified'), // The item it appears as on the UI,
-    'help' => t('The date of the most recent new content onf the feed.'),
+    'help' => t('The date of the most recent new content on the feed.'),
      // Information for displaying a title as a field
     'field' => array(
       'handler' => 'views_handler_field_date',
@@ -390,48 +390,7 @@ function aggregator_views_data() {
 }
 
 /**
- * Implementation of hook_views_handlers() to register all of the basic handlers
- * views uses.
- */
-function aggregator_views_handlers() {
-  return array(
-    'info' => array(
-      'path' => drupal_get_path('module', 'views') . '/modules/aggregator',
-    ),
-    'handlers' => array(
-      // field handlers
-      'views_handler_field_aggregator_title_link' => array(
-        'parent' => 'views_handler_field',
-      ),
-      'views_handler_field_aggregator_category' => array(
-        'parent' => 'views_handler_field',
-      ),
-      'views_handler_field_aggregator_xss' => array(
-        'parent' => 'views_handler_field',
-      ),
-
-      // argument handlers
-      'views_handler_argument_aggregator_iid' => array(
-        'parent' => 'views_handler_argument_numeric',
-      ),
-      'views_handler_argument_aggregator_fid' => array(
-        'parent' => 'views_handler_argument_numeric',
-      ),
-      'views_handler_argument_aggregator_category_cid' => array(
-        'parent' => 'views_handler_argument_numeric',
-      ),
-
-      // filter handlers
-      'views_handler_filter_aggregator_category_cid' => array(
-        'parent' => 'views_handler_filter_in_operator',
-      ),
-    ),
-  );
-}
-
-
-/**
- * Implementation of hook_views_plugins
+ * Implements hook_views_plugins
  */
 function aggregator_views_plugins() {
   return array(
@@ -441,7 +400,7 @@ function aggregator_views_plugins() {
         'title' => t('Aggregator item'),
         'help' => t('Display the aggregator item using the data from the original source.'),
         'handler' => 'views_plugin_row_aggregator_rss',
-        'path' => drupal_get_path('module', 'views') . '/modules/aggregator', // not necessary for most modules
+        'path' => drupal_get_path('module', 'views') . '/modules/node', // not necessary for most modules
         'theme' => 'views_view_row_rss',
         'base' => array('aggregator_item'), // only works with 'node' as base.
         'uses options' => TRUE,

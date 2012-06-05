@@ -1,5 +1,4 @@
 <?php
-// $Id: content.theme.inc,v 1.3 2009/05/11 22:01:42 merlinofchaos Exp $
 
 /**
  * @file
@@ -7,7 +6,7 @@
  */
 
 /**
- * Implementation of hook_theme to load all content plugins and pass thru if
+ * Implements hook_theme to load all content plugins and pass thru if
  * necessary.
  */
 function ctools_content_theme(&$theme) {

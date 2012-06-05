@@ -1,11 +1,13 @@
 name = Poll
 description = Allows your site to capture votes on different topics in the form of multiple choice questions.
-package = Core - optional
+package = Core
 version = VERSION
-core = 6.x
+core = 7.x
+files[] = poll.test
+stylesheets[all][] = poll.css
 
 ; Information added by drupal.org packaging script on 2012-05-02
-version = "6.26"
+version = "7.14"
 project = "drupal"
-datestamp = "1335977158"
+datestamp = "1335997555"
 

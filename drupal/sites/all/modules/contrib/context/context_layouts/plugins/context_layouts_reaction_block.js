@@ -1,6 +1,8 @@
-// $Id: context_layouts_reaction_block.js,v 1.1.2.1 2009/12/14 22:36:12 yhahn Exp $
 
-Drupal.behaviors.contextLayoutsReactionBlock = function(context) {
+(function($) {
+
+Drupal.behaviors.contextLayoutsReactionBlock = {};
+Drupal.behaviors.contextLayoutsReactionBlock.attach = function(context) {
   // ContextBlockForm: Init.
   $('.context-blockform-layout:not(.contextLayoutsProcessed)').each(function() {
     $(this).addClass('contextLayoutsProcessed');
@@ -22,3 +24,5 @@ Drupal.behaviors.contextLayoutsReactionBlock = function(context) {
     $(this).change();
   });
 };
+
+})(jQuery);

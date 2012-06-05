@@ -1,123 +1,116 @@
 QUICK START GUIDE
 -----------------
-Click Site building > Views > Add
-View name = "test", View type = "Node"
-Click "Add display" to create a new page
-Click Style: Unformatted and select "Bulk Operations", then click "Update"
-In Page: Style options > Selected operations, select a few operations then click "Update default display"
-In Fields, press +, then select "Node: Title", then click "Add" then "Update default display"
-if you're using Views 6.x-3.x, you also need to add the "Node: Nid" field. You can set it as "Exclude from display", as VBO only needs it internally.
-In Page settings, click Path: None and type "test", then click "Update"
-Click "Save", then "View Page" (top-right corner)
-Enjoy your first VBO!
+1. Create a View.
+2. Add a "Bulk operations" field if available (see technical details below).
+3. Configure the field. There's a "Views Bulk Operations" fieldset where the
+actions visible to the user are selected.
+4. Go to the View page. VBO functionality should be present.
+
+Note that your old (D6, pre-alpha D7) views that used the VBO style plugin
+instead of the VBO field will need to be recreated.
 
 TECHNICAL DETAILS
 -----------------
-The module works by exposing a new Views 2 Style plugin called "Bulk Operations".
-The settings for this plugin allow to choose the operations that should appear on the view.
-Operations are gathered from two sources: 1) Action API 2) hook_node_operations and hook_user_operations.
-The module also allows to use Batch API or the Job queue module to process the selected nodes, in order to avoid timeouts.
+The module relies on the Views 3 "form" feature available in all Views releases after May 28th 2011.
+The selection field (checkbox / radio) is provided as a views field called "Bulk operations".
+The field can use a relationship, allowing you to have a node view with
+operations on node authors, for example.
+Note that currently a View can only have one VBO field.
+Even if the view has several VBO fields, only the first one found will be used.
 
-VBO can support all object types supported by Views. Natively, VBO comes with support for nodes, users and comments.
-Through the new VBO-defined hook_views_bulk_operations_object_info(), other modules can help VBO handle arbitrary object types.
-Refer to function views_bulk_operations_views_bulk_operations_object_info() for information.
+The "Bulk operations" views field is available in Views for all entity base tables,
+since VBO relies on entities directly and no longer has its own "object" abstraction.
 
-EXAMPLE VBO
+There is Drush integration available, allowing you to run an action against the
+resultset of any View that has the VBO field in its master display.
+
+Operations are gathered from two sources:
+1) Drupal core actions (hook_action_info() and advanced actions added through the Actions UI)
+2) Rules 2
+Note that VBO no longer supports hook_node_operations() and hook_user_operations()
+which were supported in previous releases.
+
+RULES 2 INTEGRATION
+-------------------
+The module can execute any created Rules component (rule, ruleset, action set)
+that accepts an entity (example types: "node", "entity") or a list entity type
+(example types: "list<node>", "list<entity>") as the first parameter.
+As a reminder, Rules components can be created at admin/config/workflow/rules/components.
+
+A Rules action is provided that loads a list of entities from a VBO View.
+That list can then be iterated on in Rules, and used in further actions.
+The purpose of this action is to replace the old "Execute VBO" action with a
+more elegant solution.
+There is also a Rules condition for checking the number of results returned
+by a VBO View.
+
+AGGREGATION
 -----------
-As an example, the module comes with a re-implementation of the Content admin page.
-To access it, just go to the URL admin/content/node2.
-You can modify the path to admin/content/node to override the default Content admin page.
+By default, VBO passes only one entity at a time to the operation.
+This allows the entity loading to be segmented into chunks, avoiding memory
+limits and timeouts. However, some operations need all selected entities to be
+passed at once, which requires aggregation to be turned on.
+For core actions that means setting "aggregate" => TRUE in your hook_action_info()
+implementation. For Rules components, that means requiring a list entity type
+such as list<node> as the first parameter.
 
-INCLUDED ACTIONS
---------------
-- Modify node taxonomy terms
-The module comes with a new action to manipulate nodes' taxonomy terms.
-Unlike Taxonomy Node Operations, which creates a new action for each single term,
-this module exposes a single configurable action that allows the user to choose which term(s) should be added to the selected nodes.
-The user can also choose to keep existing terms or to erase them.
+Loading can't be segmented when aggregation is on, so the usual methods of
+executing (Batch API, Drupal Queue) are bypassed and all entities are loaded
+at once, making it possible to hit the memory limit.
+That's why aggregation should only be enabled for actions that require a smaller
+amount of items to be selected.
+See the VBO action "Pass ids as arguments to a page" in
+actions/argument_selector.action.inc for an example implementation.
 
-- Delete node, user, comment
-Actions to delete these objects.
+CONTEXT
+-------
+By default (for performance reasons), VBO doesn't pass the selected views rows
+to actions.
 
-- Rulesets -> actions
-Detect rulesets created with the Rules module and expose them as actions that VBO can invoke.
+However, when a Drupal core action declares 'pass rows' => TRUE in its
+definition (hook_action_info()), VBO does pass the full rows through the $context array.
+So $context['rows'] has an array of selected rows in the form of $row_index => $views_row.
+If the action is using aggregation, $context['rows'] will include all selected
+rows. Otherwise, only the current row (that is being operated on) will be included.
 
-- Arbitrary PHP script
-Write PHP code that is applied to each node in VBO.
-This action requires the 'administer site configuration' permission - even if actions_permissions.module says otherwise.
+Using this feature has a memory cost and is not recommended for actions
+that process a big number of rows. Also, if all rows on all pages are selected,
+only the rows from the first page will be passed through. This is a known issue.
 
-- Modify node fields
-Bulk-modify CCK and other node fields.
+Right now there is no way for a Rules 2 component to receive context, but there
+are plans to change that.
 
-- Modify profile fields
-Bulk-modify user profile fields.
+EXECUTION METHODS
+-----------------
+When configuring the VBO field, the following setting can be seen:
+"Number of entities to load at once", set to 10 by default.
+When the number of selected items is less than that, the entities are laoded
+all at once, and appropriate operations are fired.
+When the number of selected items is more than that, Batch API is used to load
+the entities in smaller groups (the size of which is taken from that setting),
+and a progress bar is shown.
 
-- Modify user roles
-Assign and unassign roles to users.
+Alternatively, the user can choose to use the Drupal Queue, by enabling the
+"Enqueue the operation instead of executing it directly" checkbox for each
+desired action in the VBO field settings.
+The entities and their operation are then enqueued one by one, to be processed
+by the queue worker (which usually happens when cron is run).
+This is useful for postponing long running operations.
 
-- Managing blocks
-The Views Block module (part of Views Hacks) exposes block data to Views, allowing VBO to manage blocks just as nodes or users. Try it out!
+EXAMPLE VIEWS
+-------------
+VBO comes with two default views, reimplementing the Content and User listings.
+They are disabled by default. After enabling them at admin/structure/views
+they can be accessed at admin/content2 and admin/people2.
 
-FAQ
----
-- Even though the action gets called on my selected nodes, these nodes still retain their old values! What's going on?
-Actions in D6 use a flag called 'changes_node_property' to give a hint to Drupal whether this action modifies node contents
-or performs a read-only operation on the node. VBO uses that flag to determine whether node_save() should be called or not after executing the action.
-Actions that modify node contents but don't expose this flag in hook_action_info() will not be properly handled by VBO!
-Checkout node.module's node_action_info() implementation for an example.
+ACTIONS PERMISSIONS
+-------------------
+A module called actions_permissions is included in the package.
+This module generates a permission for each core action, and VBO honors those
+permissions before showing or executing the corresponding actions.
+This is useful if you want to provide your VBO to several groups of users with
+different privileges: the same view will accommodate those different groups,
+showing to each the actions that they are permitted to see.
 
-- How can I write an action that performs a function on all selected nodes AT ONCE?
-You need to write a node operation instead of an action. Whereas actions get called *once for every selected node*, node operations are called once only,
-and they are passed an array of selected nodes. Check out sirkitree's article for the same concept applied to user operations.
-Note: If you use Batch API to execute your actions, VBO will revert to calling the action once per node instead.
-This is because it doesn't make sense to batch one single action.
-
-- I need VBO to modify thousands of nodes at once! Help!
-VBO is designed to handle large numbers of nodes, without causing memory errors or timeouts.
-When you select thousands of nodes, you can choose to execute the operations using Batch API, which provides visual feedback on VBO's progress.
-To select Batch API, edit your view, open the "Bulk Operation" style settings and in the section "To execute operations:", select "Use Batch API".
-You can also choose to execute the operations during cron runs via the Job queue module if you have it enabled.
-
-- How can I use VBO to copy values from one field to another?
-You will need to write simple PHP code.
-
-Install Devel, and open the "Dev load" tab on a node of the type you want to manipulate.
-Write down the name of the source field, as well as the array key that contains the field value. E.g.
-'field_contact' => array(
-  0 => array('value' => 'Some value'),
-);
-Use the stock VBO at /admin/content/node2 and filter the nodes by the desired type. Then choose the action "Modify node fields" and press "Execute".
-On the "Set parameters for 'Modify node fields'" page, locate the destination field and check it ON.
-In the "Code" area of that field, write the script needed to copy the value from the source field.
-The help text below the code area shows you the expected format, and you can access the node being manipulated using the variable $node. E.g.
-return array(
-  0 => array('value' => $node->field_contact[0]['value']),
-);
-Press "Next" then "Confirm"
-
-- How can I make sure that unauthorized users are prevented from destroying nodes or any other parts of my Drupal installation?
-VBO gives a lot of power to admins, so it's important that security measures be enforced. There are currently 3 different ways to restrict access to VBO:
-
-1) Using the bundled actions_permissions module, the admin can set permissions on each individual action.
-   VBO honors those permissions by hiding the unauthorized actions *and* checking permissions again when it is about to execute an action.
-2) VBO also calls node_access on each node that is about to be acted upon. Nodes for which the user does not have appropriate permissions
-   are discarded from the execution list. The action flag changes_node_property is mapped to node_access('update').
-   There are other mappings as well described in the VBO development guide.
-3) The author of actions can specify additional permissions in hook_action_info under the attribute 'permissions' => array(perm1, perm2, ...).
-
-- What is the difference between these pairs of actions:
-  -- Make post sticky (node_make_sticky_action) vs Make sticky (node_mass_update:c4d...794)
-  -- Promote post to front page (node_promote_action) vs Promote to front page (node_mass_update:14de7d028b4bffdf2b4a266562ca18ac)
-  -- Publish (node_mass_update:9c5...047) vs Publish post (node_publish_action)
-  -- Unpublish (node_mass_update:0cc...080) vs Unpublish post (node_unpublish_action)
-These pairs are functionally equivalent. Technically, they differ in that the node_mass_update function is a core node operation used in
-the original content administration screen, whereas the node_xxx_action functions are core actions.
-As a site administrator, feel free to choose either for your VBO content administration screen.
-
-- How can I edit fields created for the Content Profile module?
-Create a Node view and filter by the content types that are attached to Content Profile. Then use the "Modify node fields" action to edit those fields.
-
-KNOWN ISSUES
-------------
-- "Access denied" when selecting all (or many) rows
-This occurs because too much data is sent to the database server. For MySQL, increase max_allowed_packet (e.g. to 32M). See also: https://drupal.org/node/845618.
+Rules components still don't support something like this, but there's an
+open feature request in the Rules issue queue: http://drupal.org/node/1217128

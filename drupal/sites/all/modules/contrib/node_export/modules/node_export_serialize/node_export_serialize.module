@@ -8,7 +8,7 @@
  */
 
 /**
- * Implementation of hook_node_export_format_handlers().
+ * Implements hook_node_export_format_handlers().
  *
  * @see hook_node_export_format_handlers()
  */
@@ -17,21 +17,28 @@ function node_export_serialize_node_export_format_handlers() {
     'serialize' => array(
       '#title' => t('Serialize'),
       '#module' => 'node_export_serialize',
+      '#description' => t(
+        'Very robust, though not human readable, representation through <a href="!wiki">Serialization</a> using the PHP <a href="!php">serialize</a> function.', 
+        array(
+          '!wiki' => 'http://tools.ietf.org/html/rfc4180', 
+          '!php' => 'http://en.wikipedia.org/wiki/Comma-separated_values'
+        )
+      ),
     ),
   );
 }
 
 /**
- * Implementation of hook_node_export().
+ * Implements hook_node_export().
  *
  * @see hook_node_export()
  */
 function node_export_serialize_node_export($nodes, $format) {
-  return "node_export_serialize::". htmlspecialchars(serialize($nodes));
+  return "node_export_serialize::" . htmlspecialchars(serialize($nodes));
 }
 
 /**
- * Implementation of hook_node_export_import().
+ * Implements hook_node_export_import().
  *
  * @see hook_node_export_import()
  */

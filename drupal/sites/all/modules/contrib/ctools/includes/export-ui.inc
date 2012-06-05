@@ -1,5 +1,4 @@
 <?php
-// $Id: export-ui.inc,v 1.1.2.9 2010/10/15 21:05:55 merlinofchaos Exp $
 
 /**
  * @file
@@ -7,14 +6,6 @@
  *
  * See Advanced Help for documentation.
  */
-/**
- * Implementation of hook_ctools_plugin_*.
- */
-function ctools_ctools_plugin_export_ui() {
-  return array(
-    'process' => 'ctools_export_ui_process',
-  );
-}
 
 /**
  * Process an export-ui plugin to provide it with defaults.
@@ -32,8 +23,6 @@ function ctools_export_ui_process(&$plugin, $info) {
     'strings' => array(),
     'list' => NULL,
     'access' => 'administer site configuration',
-    'use advanced help' => FALSE,
-    'advanced help' => array(),
   );
 
   // Provide CRUD access defaults based on the base 'access' setting:
@@ -68,10 +57,6 @@ function ctools_export_ui_process(&$plugin, $info) {
   // out. This is a HACK but it should work:
   $schema = ctools_export_get_schema($plugin['schema']);
 
-  if (!$schema && $_GET['q'] == 'admin/build/modules/list/confirm') {
-    $schema = ctools_export_get_schema($plugin['schema'], TRUE);
-  }
-
   if (empty($schema)) {
     // If we're updating the schema may not have been read yet, so don't report this error in that case.
     if (!defined('MAINTENANCE_MODE')) {
@@ -84,6 +69,7 @@ function ctools_export_ui_process(&$plugin, $info) {
     drupal_set_message(t('The plugin definition of @plugin uses %schema, but it has no export section.', array('%schema' => $plugin['schema'], '@plugin' => $plugin['name'])), 'error');
     return;
   }
+  $plugin['export'] += $schema['export'];
 
   $plugin['export'] += array(
     // Add the identifier key from the schema so we don't have to call
@@ -116,7 +102,7 @@ function ctools_export_ui_process(&$plugin, $info) {
 
   $plugin['menu'] += array(
     'menu item' => str_replace(' ', '-', $plugin['name']),
-    'menu prefix' => 'admin/build',
+    'menu prefix' => 'admin/structure',
     'menu title' => $plugin['title'],
     'menu description' => '',
   );
@@ -160,7 +146,7 @@ function ctools_export_ui_process(&$plugin, $info) {
       'page arguments' => array($plugin['name'], 'add'),
       'access callback' => 'ctools_export_ui_task_access',
       'access arguments' => array($plugin['name'], 'add'),
-      'type' => MENU_LOCAL_TASK,
+      'type' => MENU_LOCAL_ACTION,
     ),
     'edit callback' => array(
       'path' => 'list/%ctools_export_ui',
@@ -180,6 +166,7 @@ function ctools_export_ui_process(&$plugin, $info) {
       'access callback' => 'ctools_export_ui_task_access',
       'access arguments' => array($plugin['name'], 'edit', $prefix_count + 2),
       'type' => MENU_DEFAULT_LOCAL_TASK,
+      'weight' => -10,
     ),
   );
 
@@ -192,7 +179,7 @@ function ctools_export_ui_process(&$plugin, $info) {
         'page arguments' => array($plugin['name'], 'import'),
         'access callback' => 'ctools_export_ui_task_access',
         'access arguments' => array($plugin['name'], 'import'),
-        'type' => MENU_LOCAL_TASK,
+        'type' => MENU_LOCAL_ACTION,
       ),
     );
   }
@@ -312,7 +299,6 @@ function ctools_export_ui_process(&$plugin, $info) {
     'confirmation' => array(),
     'help' => array(),
     'message' => array(),
-    'advanced help' => array(),
   );
 
   // Strings used in drupal_set_title().
@@ -366,36 +352,8 @@ function ctools_export_ui_process(&$plugin, $info) {
   $plugin['strings']['message'] += array(
     'enable' => t('@plugin %title was enabled.', array('@plugin' => $plugin['title singular proper'])),
     'disable' => t('@plugin %title was disabled.', array('@plugin' => $plugin['title singular proper'])),
+    'no items' => t('There are no @titles to display.', array('@titles' => $plugin['title plural'])),
   );
-
-  // Strings used if advanced help module is enabled.
-
-
-  if (!empty($plugin['use advanced help'])) {
-    if (module_exists('advanced_help')) {
-      $plugin['advanced help'] += array(
-        'enabled' => TRUE,
-        'topic' => $plugin['module'],
-        'module' => $plugin['module'],
-      );
-     }
-     else {
-        $plugin['advanced help'] += array(
-          'enabled' => FALSE,
-        );
-     }
-
-     // Get the module name.
-     $info = drupal_parse_info_file(drupal_get_path('module', $plugin['module']) .'/'. $plugin['module'] .'.info');
-     $plugin['strings']['advanced help'] += array(
-       // The strings to show when the advanced help module is enabled or disabled.
-       'enabled' => t('Learn more about the @module module.', array('@module' => $info['name'])),
-       'disabled' => t('Learn more about the @module module by enabling the <a href="@path">Advanced help</a> module.', array('@module' => $info['name'], '@path' => 'http://drupal.org/project/advanced_help')),
-     );
-  }
-
-
-
 }
 
 /**
@@ -408,7 +366,7 @@ function ctools_export_ui_process(&$plugin, $info) {
  *   Either the lister class or FALSE if one could not be had.
  */
 function ctools_export_ui_get_handler($plugin) {
-  $cache = &ctools_static(__FUNCTION__, array());
+  $cache = &drupal_static(__FUNCTION__, array());
   if (empty($cache[$plugin['name']])) {
     // If a list class is not specified by the plugin, fall back to the
     // default ctools_export_ui plugin instead.
@@ -490,7 +448,7 @@ function ctools_get_export_uis() {
  */
 function ctools_export_ui_switcher_page($plugin_name, $op) {
   $args = func_get_args();
-  $js = !empty($_REQUEST['ctools_ajax']);
+  $js = !empty($_REQUEST['js']);
 
   // Load the $plugin information
   $plugin = ctools_get_export_ui($plugin_name);

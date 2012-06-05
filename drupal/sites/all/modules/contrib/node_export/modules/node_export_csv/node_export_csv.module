@@ -9,22 +9,25 @@
 
 /**
  * Implements hook_node_export_format_handlers().
- *
- * @see hook_node_export_format_handlers()
  */
 function node_export_csv_node_export_format_handlers() {
   return array(
     'csv' => array(
       '#title' => t('CSV'),
       '#module' => 'node_export_csv',
+      '#description' => t(
+        '<a href="!doc">RFC4180</a> compliant <a href="!csv">CSV</a> code.  Values are comma-seperated, and records are CRLF delimited.',
+        array(
+          '!doc' => 'http://tools.ietf.org/html/rfc4180',
+          '!csv' => 'http://en.wikipedia.org/wiki/Comma-separated_values'
+        )
+      ),
     ),
   );
 }
 
 /**
  * Implements hook_module_implements_alter().
- *
- * @see hook_module_implements_alter()
  */
 function node_export_csv_module_implements_alter(&$implementations, $hook) {
   if ($hook == 'node_export_import') {
@@ -39,8 +42,6 @@ function node_export_csv_module_implements_alter(&$implementations, $hook) {
 
 /**
  * Implements hook_node_export().
- *
- * @see hook_node_export()
  */
 function node_export_csv_node_export($nodes, $format) {
   return node_export_csv_encode($nodes);
@@ -154,6 +155,8 @@ function node_export_csv_encode_header_value($parents, $var, $k) {
 
 /**
  * Insert $new after $before in $array if not exists, and return the position.
+ *
+ * Deprecated?
  */
 function node_export_csv_encode_array_insert_after(&$array, $new, $before) {
   $position = array_search($new, $array);
@@ -173,6 +176,8 @@ function node_export_csv_encode_array_insert_after(&$array, $new, $before) {
 
 /**
  * Insert $new at $position in $array.
+ *
+ * Deprecated?
  */
 function node_export_csv_encode_array_insert_at(&$array, $new, $position) {
   $prefix = array_slice($array, 0, $position);

@@ -11,7 +11,7 @@
 function node_export_views_handlers() {
   return array(
     'info' => array(
-      'path' => drupal_get_path('module', 'node_export') .'/views',
+      'path' => drupal_get_path('module', 'node_export') . '/views',
     ),
     'handlers' => array(
       'views_handler_field_node_link_export' => array(

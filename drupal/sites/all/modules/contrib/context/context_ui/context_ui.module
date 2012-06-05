@@ -1,5 +1,4 @@
 <?php
-// $Id: context_ui.module,v 1.13.2.48.2.1.2.19 2010/08/23 16:40:56 yhahn Exp $
 
 /**
  * Implementation of hook_ctools_plugin_directory().
@@ -16,19 +15,19 @@ function context_ui_ctools_plugin_directory($module, $plugin) {
 function context_ui_theme() {
   $items = array();
   $items['context_ui_form'] = array(
-    'arguments' => array('form' => array()),
+    'render element' => 'form',
     'path' => drupal_get_path('module', 'context_ui') .'/theme',
     'template' => 'context-ui-form',
     'file' => 'theme.inc',
   );
   $items['context_ui_plugins'] = array(
-    'arguments' => array('form' => array()),
+    'render element' => 'form',
     'path' => drupal_get_path('module', 'context_ui') .'/theme',
     'template' => 'context-ui-plugins',
     'file' => 'theme.inc',
   );
   $items['context_ui_editor'] = array(
-    'arguments' => array('form' => array()),
+    'render element' => 'form',
     'path' => drupal_get_path('module', 'context_ui') .'/theme',
     'template' => 'context-ui-editor',
     'file' => 'theme.inc',
@@ -37,37 +36,36 @@ function context_ui_theme() {
 }
 
 /**
- * Implementation of hook_block().
+ * Implementation of hook_block_info().
  */
-function context_ui_block($op = 'list', $delta = 0, $edit = array()) {
-  switch ($op) {
-    case 'list':
-      $blocks = array();
-      if (module_exists('jquery_ui') && module_exists('admin')) {
-        $blocks['editor'] = array('info' => t('Context editor'), 'admin' => TRUE);
+function context_ui_block_info() {
+  $blocks = array();
+  $blocks['editor'] = array('info' => t('Context editor'), 'admin' => TRUE);
+  if (module_exists('devel')) {
+    $blocks['devel'] = array('info' => t('Context inspector'), 'admin' => TRUE);
+  }
+  return $blocks;
+}
+
+/**
+ * Implementation of hook_block_view().
+ */
+function context_ui_block_view($delta = '') {
+  switch ($delta) {
+    case 'editor':
+      if (user_access('administer site configuration') && strpos($_GET['q'], 'admin/structure/context') === FALSE && $contexts = context_active_contexts()) {
+        return array(
+          'subject' => t('Context editor'),
+          'content' => drupal_get_form('context_ui_editor', $contexts),
+        );
       }
-      if (module_exists('devel')) {
-        $blocks['devel'] = array('info' => t('Context inspector'), 'admin' => TRUE);
-      }
-      return $blocks;
-    case 'view':
-      switch ($delta) {
-        case 'editor':
-          if (user_access('administer site configuration') && strpos($_GET['q'], 'admin/build/context') === FALSE && $contexts = context_active_contexts()) {
-            return array(
-              'subject' => t('Context editor'),
-              'content' => drupal_get_form('context_ui_editor', $contexts),
-            );
-          }
-          break;
-        case 'devel':
-          if (module_exists('devel') && $all = context_get()) {
-            return array(
-              'subject' => t('Context inspector'),
-              'content' => kdevel_print_object($all),
-            );
-          }
-          break;
+      break;
+    case 'devel':
+      if (module_exists('devel') && $all = context_get()) {
+        return array(
+          'subject' => t('Context inspector'),
+          'content' => kdevel_print_object($all),
+        );
       }
       break;
   }
@@ -78,7 +76,7 @@ function context_ui_block($op = 'list', $delta = 0, $edit = array()) {
  */
 function context_ui_menu() {
   $items = array();
-  $items['admin/build/context/settings'] = array(
+  $items['admin/structure/context/settings'] = array(
     'title' => 'Settings',
     'access callback' => 'user_access',
     'access arguments' => array('administer site configuration'),
@@ -98,7 +96,7 @@ function context_ui_help($path, $arg) {
     case 'admin/help#context_ui':
       $output = file_get_contents(drupal_get_path('module', 'context_ui') .'/README.txt');
       return module_exists('markdown') ? filter_xss_admin(module_invoke('markdown', 'filter', 'process', 0, -1, $output)) : '<pre>'. check_plain($output) .'</pre>';
-    case 'admin/build/context':
+    case 'admin/structure/context':
       return '<p>'. t('Context allows you to manage contextual conditions and reactions for different portions of your site. You can think of each context as representing a "section" of your site. For each context, you can choose the conditions that trigger this context to be active and choose different aspects of Drupal that should react to this active context.') .'</p>';
   }
 }
@@ -106,11 +104,11 @@ function context_ui_help($path, $arg) {
 /**
  * Inline context editor form.
  */
-function context_ui_editor($form_state, $contexts) {
+function context_ui_editor($form, &$form_state, $contexts) {
   $form = array(
     '#attributes' => array('class' => 'context-editor'),
     '#theme' => array('context_ui_editor'),
-    'editables' => array('#type' => 'markup'),
+    'editables' => array(),
     'contexts' => array('#tree' => TRUE),
     'buttons' => array('#tree' => FALSE),
   );
@@ -120,11 +118,11 @@ function context_ui_editor($form_state, $contexts) {
   ksort($contexts);
 
   foreach ($contexts as $context) {
-    $edit = l(t('Edit'), $_GET['q'], array('fragment' => $context->name, 'attributes' => array('class' => 'edit')));
-    $done = l(t('Done'), $_GET['q'], array('fragment' => $context->name, 'attributes' => array('class' => 'done')));
+    $edit = l(t('Edit'), $_GET['q'], array('fragment' => $context->name, 'attributes' => array('class' => array('edit'))));
+    $done = l(t('Done'), $_GET['q'], array('fragment' => $context->name, 'attributes' => array('class' => array('done'))));
     $items[] = array(
       'data' => "<div class='label'>" . (empty($context->description) ? $context->name : check_plain($context->description)) ."</div><div class='links'>{$edit} {$done}</div>",
-      'class' => 'context-editable clear-block',
+      'class' => array('context-editable clearfix'),
       'id' => "context-editable-trigger-{$context->name}",
     );
     $form_context = array(
@@ -142,7 +140,6 @@ function context_ui_editor($form_state, $contexts) {
     }
     if (count(element_children($form_context['condition']))) {
       $form_context['condition']['#title'] = t('Conditions');
-      $form_context['condition']['#type'] = 'item';
       $form_context['condition']['#description'] = t('This context is active when any of the selected conditions are true.');
     }
 
@@ -159,7 +156,7 @@ function context_ui_editor($form_state, $contexts) {
   }
 
   // Display editable contexts in list.
-  $form['editables']['#value'] = theme('item_list', $items);
+  $form['editables']['#markup'] = theme('item_list', array('items' => $items));
 
   // Buttons.
   $form['buttons']['save'] = array(
@@ -238,7 +235,7 @@ function context_ui_editor_cancel(&$form, &$form_state) {
 /**
  * Settings form.
  */
-function context_ui_settings(&$form_state) {
+function context_ui_settings($form, &$form_state) {
   $form = array();
   foreach (context_conditions() as $condition => $info) {
     if ($plugin = context_get_plugin('condition', $condition)) {

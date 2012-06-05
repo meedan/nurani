@@ -1,5 +1,4 @@
 <?php
-// $Id: node_form_book.inc,v 1.1.2.2 2010/04/14 21:02:12 merlinofchaos Exp $
 
 if (module_exists('book')) {
   /**
@@ -20,18 +19,19 @@ function ctools_node_form_book_content_type_render($subtype, $conf, $panel_args,
   $block = new stdClass();
   $block->module = t('node_form');
 
-  $block->title = t('Book options');
-  $block->delta = 'book-options';
+  $block->title = t('Book outline');
+  $block->delta = 'book-outline';
 
   if (isset($context->form)) {
-    if (!empty($context->form['form_id'])) {
-      $block->content = '';
-      if ($context->form['parent']['#type'] != 'value') {
-        $block->content .= drupal_render($context->form['parent']);
-      }
-      if ($context->form['weight']['#type'] != 'value') {
-        $block->content .= drupal_render($context->form['weight']);
-      }
+    if (isset($context->form['book'])) {
+      $block->content['book'] = $context->form['book'];
+      unset($block->content['book']['#pre_render']);
+      unset($block->content['book']['#theme_wrappers']);
+      $block->content['book']['#type'] = '';
+
+      // Set access to false on the original rather than removing so that
+      // vertical tabs doesn't clone it. I think this is due to references.
+      $context->form['book']['#access'] = FALSE;
     }
   }
   else {
@@ -44,6 +44,7 @@ function ctools_node_form_book_content_type_admin_title($subtype, $conf, $contex
   return t('"@s" node form book options', array('@s' => $context->identifier));
 }
 
-function ctools_node_form_book_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_form_book_content_type_edit_form($form, &$form_state) {
   // provide a blank form so we have a place to have context setting.
+  return $form;
 }

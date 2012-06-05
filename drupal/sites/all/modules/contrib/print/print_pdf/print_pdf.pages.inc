@@ -39,33 +39,44 @@ function print_pdf_controller() {
     }
 
     $pdf_filename = variable_get('print_pdf_filename', PRINT_PDF_FILENAME_DEFAULT);
-    if (function_exists('token_replace') && !empty($pdf_filename) && !empty($node)) {
-      $pdf_filename = token_replace($pdf_filename, 'node', $node) .'.pdf';
+    if (!empty($pdf_filename) && !empty($node)) {
+      $pdf_filename = token_replace($pdf_filename, array('node' => $node));
     }
     else {
-      $pdf_filename = str_replace('/', '_', $path) .'.pdf';
+      $pdf_filename = token_replace($pdf_filename, array('site'));
+      if (empty($pdf_filename) || count(token_scan($pdf_filename))) {
+        // If there are still tokens, use a fallback solution
+        $pdf_filename = str_replace('/', '_', $path);
+      }
     }
   }
   else {
-    $pdf_filename = 'page.pdf';
+    $pdf_filename = 'page';
   }
+
   if (function_exists('transliteration_clean_filename')) {
     $pdf_filename = transliteration_clean_filename($pdf_filename, language_default('language'));
   }
 
-  $pdf = print_pdf_generate_path($path, $cid, $pdf_filename);
+  drupal_alter('print_pdf_filename', $pdf_filename, $path);
+
+  $pdf = print_pdf_generate_path($path, $cid, $pdf_filename . '.pdf');
   if ($pdf == NULL) {
     drupal_goto($path);
     exit;
   }
 
-  $nodepath = (isset($node->path) && is_string($node->path)) ? drupal_get_normal_path($node->path) : 'node/'. $path;
-  db_query("UPDATE {print_pdf_page_counter} SET totalcount = totalcount + 1, timestamp = %d WHERE path = '%s'", time(), $nodepath);
-  // If we affected 0 rows, this is the first time viewing the node.
-  if (!db_affected_rows()) {
-    // We must create a new row to store counters for the new node.
-    db_query("INSERT INTO {print_pdf_page_counter} (path, totalcount, timestamp) VALUES ('%s', 1, %d)", $nodepath, time());
-  }
+  $nodepath = (isset($node->path) && is_string($node->path)) ? drupal_get_normal_path($node->path) : 'node/' . $path;
+  db_merge('print_pdf_page_counter')
+    ->key(array('path' => $nodepath))
+    ->fields(array(
+        'totalcount' => 1,
+        'timestamp' => REQUEST_TIME,
+    ))
+    ->expression('totalcount', 'totalcount + 1')
+    ->execute();
+
+  drupal_exit();
 }
 
 function print_pdf_generate_path($path, $cid = NULL, $pdf_filename = NULL) {
@@ -86,14 +97,13 @@ function print_pdf_generate_path($path, $cid = NULL, $pdf_filename = NULL) {
   $print['sendtoprinter'] = '';
 
   $node = $print['node'];
-  $html = theme('print_page', $print, PRINT_PDF_FORMAT, $node);
-  $html = drupal_final_markup($html);
+  $html = theme('print', array('print' => $print, 'type' => PRINT_PDF_FORMAT, 'node' => $node));
 
   // Convert the a href elements, to make sure no relative links remain
   $pattern = '!<(a\s[^>]*?)>!is';
   $html = preg_replace_callback($pattern, '_print_rewrite_urls', $html);
   // And make anchor links relative again, to permit in-PDF navigation
-  $html = preg_replace("!${base_url}/". PRINTPDF_PATH .'/.*?#!', '#', $html);
+  $html = preg_replace("!${base_url}/" . PRINTPDF_PATH . '/.*?#!', '#', $html);
 
   return print_pdf_generate_html($print, $html, $pdf_filename);
 }
@@ -132,25 +142,15 @@ function _print_pdf_file_access_images($html) {
   global $base_url, $language;
   $print_pdf_images_via_file = variable_get('print_pdf_images_via_file', PRINT_PDF_IMAGES_VIA_FILE_DEFAULT);
 
-  switch (variable_get('language_negotiation', LANGUAGE_NEGOTIATION_NONE)) {
-    case LANGUAGE_NEGOTIATION_PATH_DEFAULT:
-    case LANGUAGE_NEGOTIATION_PATH:
-      $lang = $language->language;
-      break;
-    default:
-      $lang = '';
-      break;
-  }
+  $lang = (function_exists('language_negotiation_get_any') && language_negotiation_get_any('locale-url')) ? $language->language : '';
+
   // Always convert private to local paths
-  $file_downloads = variable_get('file_downloads', FILE_DOWNLOADS_PUBLIC);
-  if ($file_downloads == FILE_DOWNLOADS_PRIVATE) {
-    $pattern = "!(<img\s[^>]*?src\s*?=\s*?['\"]?)${base_url}/(?:(?:index.php)?\?q=)?(?:${lang}/)?system/files/([^>]*?>)!is";
-    $replacement = '$1file://'. realpath(file_directory_path()) .'/$2';
-    $html = preg_replace($pattern, $replacement, $html);
-  }
-  elseif ($print_pdf_images_via_file) {
+  $pattern = "!(<img\s[^>]*?src\s*?=\s*?['\"]?)${base_url}/(?:(?:index.php)?\?q=)?(?:${lang}/)?system/files/([^>]*?>)!is";
+  $replacement = '$1file://' . realpath(variable_get('file_private_path', '')) . '/$2';
+  $html = preg_replace($pattern, $replacement, $html);
+  if ($print_pdf_images_via_file) {
     $pattern = "!(<img\s[^>]*?src\s*?=\s*?['\"]?)${base_url}/(?:(?:index.php)?\?q=)?(?:${lang}/)?([^>]*?>)!is";
-    $replacement = '$1file://'. dirname($_SERVER['SCRIPT_FILENAME']) .'/$2';
+    $replacement = '$1file://' . dirname($_SERVER['SCRIPT_FILENAME']) . '/$2';
     $html = preg_replace($pattern, $replacement, $html);
   }
 
@@ -181,22 +181,24 @@ function _print_pdf_dompdf($print, $html, $filename = NULL) {
     define("DOMPDF_UNICODE_ENABLED", variable_get('print_pdf_dompdf_unicode', PRINT_PDF_DOMPDF_UNICODE_DEFAULT));
   }
 
-  require_once($print_pdf_pdf_tool);
-  if (function_exists('spl_autoload_register')) {
-    spl_autoload_register('DOMPDF_autoload');
-  }
+  require_once(DRUPAL_ROOT . '/' . $print_pdf_pdf_tool);
+  spl_autoload_register('DOMPDF_autoload');
 
   // Try to use local file access for image files
   $html = _print_pdf_file_access_images($html);
+
+  // Spaces in img URLs must be replaced with %20
+  $pattern = '!<(img\s[^>]*?)>!is';
+  $html = preg_replace_callback($pattern, '_print_replace_spaces', $html);
 
   // dompdf seems to have problems with something in system.css so let's not use it
   $html = preg_replace('!<link.*?modules/system/system.css.*?/>!', '', $html);
 
   $url_array  = parse_url($print['url']);
 
-  $protocol = $url_array['scheme'] .'://';
+  $protocol = $url_array['scheme'] . '://';
   $host = $url_array['host'];
-  $path = dirname($url_array['path']) .'/';
+  $path = dirname($url_array['path']) . '/';
 
   $dompdf = new DOMPDF();
   $dompdf->set_base_path($path);
@@ -205,7 +207,7 @@ function _print_pdf_dompdf($print, $html, $filename = NULL) {
   $dompdf->set_protocol($protocol);
 
 // dompdf can't handle footers cleanly, so disable the following
-//  $html = theme('print_pdf_dompdf_footer', $html);
+//  $html = theme('print_pdf_dompdf_footer', array('html' => $html));
 
   // If dompdf Unicode support is disabled, try to convert to ISO-8859-1 and then to HTML entities
   if (!variable_get('print_pdf_dompdf_unicode', PRINT_PDF_DOMPDF_UNICODE_DEFAULT)) {
@@ -269,10 +271,10 @@ function _print_pdf_tcpdf($print, $html, $filename = NULL) {
     define('K_TCPDF_EXTERNAL_CONFIG', TRUE);
     define('K_PATH_MAIN', dirname($_SERVER['SCRIPT_FILENAME']));
     define('K_PATH_URL', $base_url);
-    define('K_PATH_FONTS', $pdf_tool_path .'/fonts/');
-    define('K_PATH_CACHE', $pdf_tool_path .'/cache/');
+    define('K_PATH_FONTS', $pdf_tool_path . '/fonts/');
+    define('K_PATH_CACHE', $pdf_tool_path . '/cache/');
     define('K_PATH_IMAGES', '');
-    define('K_BLANK_IMAGE', $pdf_tool_path .'/images/_blank.png');
+    define('K_BLANK_IMAGE', $pdf_tool_path . '/images/_blank.png');
     define('K_CELL_HEIGHT_RATIO', 1.25);
     define('K_SMALL_RATIO', 2/3);
   }
@@ -287,13 +289,8 @@ function _print_pdf_tcpdf($print, $html, $filename = NULL) {
   $pattern = "!(<img\s[^>]*?src\s*?=\s*?['\"]?{$base_url}[^>]*?)(?:%3F|\?)[\w=&]+([^>]*?>)!is";
   $html = preg_replace($pattern, '$1$2', $html);
 
-  require_once($print_pdf_pdf_tool);
-  if (strpos(PDF_PRODUCER, 'PHP4') === FALSE) {
-    module_load_include('inc', 'print_pdf', 'print_pdf.class');
-  }
-  else {
-    module_load_include('inc', 'print_pdf', 'print_pdf.class_php4');
-  }
+  require_once(DRUPAL_ROOT . '/' . $print_pdf_pdf_tool);
+  module_load_include('inc', 'print_pdf', 'print_pdf.class');
 
   $font = Array(
     check_plain(variable_get('print_pdf_font_family', PRINT_PDF_FONT_FAMILY_DEFAULT)),
@@ -306,26 +303,26 @@ function _print_pdf_tcpdf($print, $html, $filename = NULL) {
   $pdf = new PrintTCPDF($orientation , 'mm', $print_pdf_paper_size, TRUE);
 
   // set document information
-  $pdf->SetAuthor(strip_tags($print['submitted']));
+  if (property_exists($print['node'], 'name')) {
+    $pdf->SetAuthor(strip_tags($print['node']->name));
+  }
   $pdf->SetCreator(variable_get('site_name', 'Drupal'));
   $pdf->SetTitle(html_entity_decode($print['title'], ENT_QUOTES, 'UTF-8'));
-  $keys = implode(' ', explode("\n", trim(strip_tags($print['taxonomy']))));
-  $pdf->SetKeywords($keys);
   $pdf->setPDFVersion('1.6');
-  $pdf->setFontSubsetting(variable_get('print_pdf_font_subsetting', FALSE));
+  $pdf->setFontSubsetting(variable_get('print_pdf_font_subsetting', PRINT_PDF_FONT_SUBSETTING_DEFAULT));
 
   if ($language->direction == LANGUAGE_RTL) {
     $pdf->setRTL(TRUE);
   }
 
-  $pdf = theme('print_pdf_tcpdf_header', $pdf, $html, $font);
-  $pdf = theme('print_pdf_tcpdf_footer', $pdf, $html, $font);
-  $pdf = theme('print_pdf_tcpdf_page', $pdf);
+  $pdf = theme('print_pdf_tcpdf_header', array('pdf' => $pdf, 'html' => $html, 'font' => $font));
+  $pdf = theme('print_pdf_tcpdf_footer', array('pdf' => $pdf, 'html' => $html, 'font' => $font));
+  $pdf = theme('print_pdf_tcpdf_page', array('pdf' => $pdf));
 
   // add a page
   $pdf->AddPage();
 
-  $pdf = theme('print_pdf_tcpdf_content', $pdf, $html, $font);
+  $pdf = theme('print_pdf_tcpdf_content', array('pdf' => $pdf, 'html' => $html, 'font' => $font));
 
   // reset pointer to the last page
   $pdf->lastPage();
@@ -364,18 +361,18 @@ function _print_pdf_wkhtmltopdf($print, $html, $filename = NULL) {
 
   $dpi = 96;
 
-  if (function_exists('token_replace') && !empty($print_pdf_wkhtmltopdf_options)) {
-    $print_pdf_wkhtmltopdf_options = token_replace($print_pdf_wkhtmltopdf_options, 'node', $print['node']);
+  if (!empty($print_pdf_wkhtmltopdf_options)) {
+    $print_pdf_wkhtmltopdf_options = token_replace($print_pdf_wkhtmltopdf_options, array('node' => $print['node']));
   }
 
   $version = _print_pdf_wkhtmltopdf_version();
 
   // 0.10.0 beta2 identifies itself as 0.9.9
   if (version_compare($version, '0.9.9', '>=')) {
-    $print_pdf_wkhtmltopdf_options = '--disable-local-file-access '. $print_pdf_wkhtmltopdf_options;
+    $print_pdf_wkhtmltopdf_options = '--disable-local-file-access ' . $print_pdf_wkhtmltopdf_options;
   }
   elseif (version_compare($version, '0.9.6', '>=')) {
-    $print_pdf_wkhtmltopdf_options = '--disallow-local-file-access '. $print_pdf_wkhtmltopdf_options;
+    $print_pdf_wkhtmltopdf_options = '--disallow-local-file-access ' . $print_pdf_wkhtmltopdf_options;
   }
   else {
     drupal_goto($print['url']);
@@ -383,7 +380,7 @@ function _print_pdf_wkhtmltopdf($print, $html, $filename = NULL) {
   }
 
   $descriptor = array(0 => array('pipe', 'r'), 1 => array('pipe', 'w'), 2 => array('pipe', 'w'));
-  $cmd = '"'. realpath($print_pdf_pdf_tool) ."\" --page-size $print_pdf_paper_size --orientation $print_pdf_page_orientation --dpi $dpi $print_pdf_wkhtmltopdf_options - -";
+  $cmd = '"' . realpath($print_pdf_pdf_tool) . "\" --page-size $print_pdf_paper_size --orientation $print_pdf_page_orientation --dpi $dpi $print_pdf_wkhtmltopdf_options - -";
 
   $process = proc_open($cmd, $descriptor, $pipes, NULL, NULL);
 
@@ -397,7 +394,7 @@ function _print_pdf_wkhtmltopdf($print, $html, $filename = NULL) {
     stream_set_blocking($pipes[2], 0);
     $error = stream_get_contents($pipes[2]);
     if (!empty($error)) {
-      watchdog('print_pdf', 'wkhtmltopdf: '. $error);
+      watchdog('print_pdf', 'wkhtmltopdf: ' . $error);
     }
     fclose($pipes[2]);
 
@@ -436,9 +433,9 @@ function _print_pdf_wkhtmltopdf($print, $html, $filename = NULL) {
  *   contents of the body of the HTML from the original node
  * @see theme_print_pdf_tcpdf_footer()
  */
-function theme_print_pdf_dompdf_footer($html) {
-  preg_match('!<div class="print-footer">(.*?)</div>!si', $html, $tpl_footer);
-  $html = str_replace($tpl_footer[0], '', $html);
+function theme_print_pdf_dompdf_footer($vars) {
+  preg_match('!<div class="print-footer">(.*?)</div>!si', $vars['html'], $tpl_footer);
+  $html = str_replace($tpl_footer[0], '', $vars['html']);
 
   $text = '<script type="text/php">
     if (isset($pdf)) {
@@ -457,7 +454,7 @@ function theme_print_pdf_dompdf_footer($html) {
       $pdf->line(15, $y, $w - 15, $y, $color, 1);
 
       $y += $text_height / 2;
-      $pdf->page_text(15, $y, \''. addslashes(strip_tags($tpl_footer[1])) .'\', $font, $size, $color);
+      $pdf->page_text(15, $y, \'' . addslashes(strip_tags($tpl_footer[1])) . '\', $font, $size, $color);
 
       $pdf->close_object();
       $pdf->add_object($footer, "all");
@@ -483,10 +480,11 @@ function theme_print_pdf_dompdf_footer($html) {
  *   array with the font definition (font name, styles and size)
  * @see theme_print_pdf_tcpdf_header()
  */
-function theme_print_pdf_tcpdf_header($pdf, $html, $font) {
-  preg_match('!<div class="print-logo">(.*?)</div>!si', $html, $tpl_logo);
-  preg_match('!<h1 class="print-title">(.*?)</h1>!si', $html, $tpl_title);
-  preg_match('!<div class="print-site_name">(.*?)</div>!si', $html, $tpl_site_name);
+function theme_print_pdf_tcpdf_header($vars) {
+  $pdf = $vars['pdf'];
+  preg_match('!<div class="print-logo">(.*?)</div>!si', $vars['html'], $tpl_logo);
+  preg_match('!<title>(.*?)</title>!si', $vars['html'], $tpl_title);
+  preg_match('!<div class="print-site_name">(.*?)</div>!si', $vars['html'], $tpl_site_name);
 
   $ratio = 0;
   $logo = '';
@@ -499,7 +497,7 @@ function theme_print_pdf_tcpdf_header($pdf, $html, $font) {
   }
 
   // set header font
-  $pdf->setHeaderFont($font);
+  $pdf->setHeaderFont($vars['font']);
   // set header margin
   $pdf->setHeaderMargin(5);
   // set header data
@@ -515,7 +513,8 @@ function theme_print_pdf_tcpdf_header($pdf, $html, $font) {
  *   current TCPDF object
  * @see theme_print_pdf_tcpdf_page()
  */
-function theme_print_pdf_tcpdf_page($pdf) {
+function theme_print_pdf_tcpdf_page($vars) {
+  $pdf = $vars['pdf'];
   // set margins
   $pdf->SetMargins(15, 20, 15);
   // set auto page breaks
@@ -539,11 +538,12 @@ function theme_print_pdf_tcpdf_page($pdf) {
  *   array with the font definition (font name, styles and size)
  * @see theme_print_pdf_tcpdf_content()
  */
-function theme_print_pdf_tcpdf_content($pdf, $html, $font) {
+function theme_print_pdf_tcpdf_content($vars) {
+  $pdf = $vars['pdf'];
   // set content font
-  $pdf->setFont($font[0], $font[1], $font[2]);
+  $pdf->setFont($vars['font'][0], $vars['font'][1], $vars['font'][2]);
 
-  preg_match('!<body.*?>(.*)</body>!sim', $html, $matches);
+  preg_match('!<body.*?>(.*)</body>!sim', $vars['html'], $matches);
   $pattern = '!(?:<div class="print-(?:logo|site_name|breadcrumb|footer)">.*?</div>|<hr class="print-hr" />)!si';
   $matches[1] = preg_replace($pattern, '', $matches[1]);
 
@@ -576,13 +576,14 @@ function theme_print_pdf_tcpdf_content($pdf, $html, $font) {
  *   array with the font definition (font name, styles and size)
  * @see theme_print_pdf_tcpdf_footer()
  */
-function theme_print_pdf_tcpdf_footer($pdf, $html, $font) {
-  preg_match('!<div class="print-footer">(.*?)</div>!si', $html, $tpl_footer);
+function theme_print_pdf_tcpdf_footer($vars) {
+  $pdf = $vars['pdf'];
+  preg_match('!<div class="print-footer">(.*?)</div>!si', $vars['html'], $tpl_footer);
   $footer = trim(preg_replace('!</?div[^>]*?>!i', '', $tpl_footer[1]));
 
   // set footer font
-  $font[2] *= 0.8;
-  $pdf->setFooterFont($font);
+  $vars['font'][2] *= 0.8;
+  $pdf->setFooterFont($vars['font']);
   // set footer margin
   $pdf->SetFooterMargin(10);
   // set footer data
@@ -598,7 +599,8 @@ function theme_print_pdf_tcpdf_footer($pdf, $html, $font) {
  *   current TCPDF object
  * @see theme_print_pdf_tcpdf_footer2()
  */
-function theme_print_pdf_tcpdf_footer2($pdf) {
+function theme_print_pdf_tcpdf_footer2($vars) {
+  $pdf = $vars['pdf'];
   // Position at 1.5 cm from bottom
   $pdf->writeHTMLCell(0, 15, 15, $pdf->getPageHeight()-15, $pdf->footer);
 

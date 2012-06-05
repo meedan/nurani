@@ -1,11 +1,10 @@
 <?php
-// $Id: context.install,v 1.1.2.1.2.6.2.9 2010/08/23 18:19:17 yhahn Exp $
 
 /**
  * Implementation of hook_install().
  */
 function context_install() {
-  drupal_install_schema('context');
+  // Nothing todo...
 }
 
 /**
@@ -115,7 +114,7 @@ function context_update_6001() {
         if (!isset($context->block)) {
           $context->block = array();
         }
-        $block->bid = $block->module ."_". $block->delta;
+        $block->bid = $block->module . "_" . $block->delta;
         $context->block[$block->bid] = $block;
       }
       // Clear out identifier
@@ -285,6 +284,34 @@ function context_update_6304() {
 }
 
 /**
+ * Update 7000: Handle adjustments to split of theme reaction to support D7 preprocess split between _page and _html
+ */
+
+function context_update_7000() {
+  $updated = array();
+  $contexts = context_load(NULL, TRUE);
+  foreach ($contexts as $c) {
+    // if the old data is in the old reaction and the new reaction hasn't been saved, migrate the old data to the new reaction
+    if (isset($c->reactions['theme']) &&
+        isset($c->reactions['theme']['class']) &&
+        !empty($c->reactions['theme']['class']) &&
+        !isset($c->reactions['theme_html'])
+    ) {
+      $c->reactions['theme_html']['class'] = $c->reactions['theme']['class'];
+      context_save($c);
+      $updated[] = $c->name;
+    }
+  }
+  if (empty($updated)) {
+    $ret = t('No contexts requiring migration detected');
+  }
+  else {
+    $ret = t('The following contexts had theme reaction data migrated: @names', array('@names' => join(', ', $updated)));
+  }
+  return $ret;
+}
+
+/**
  * Helper function to update context 2 objects to context 3.
  */
 function context_migrate_api_3(&$ret, $contexts) {
@@ -330,7 +357,7 @@ function context_migrate_api_3(&$ret, $contexts) {
           if ($old_key === 'block') {
             foreach ($context->block as $block) {
               $block = (array)$block;
-              $new['reactions']['block']['blocks'][$block['module'] .'-'. $block['delta']] = $block;
+              $new['reactions']['block']['blocks'][$block['module'] . '-' . $block['delta']] = $block;
             }
           }
           else {

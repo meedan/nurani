@@ -9,7 +9,8 @@
 
 define('PRINTPDF_PATH', 'printpdf');
 
-define('PRINT_PDF_FORMAT', 'pdf');
+// Defined in print.module
+// define('PRINT_PDF_FORMAT', 'pdf');
 
 define('PRINT_PDF_LIB_PATH', 'sites/all/libraries');
 
@@ -31,55 +32,60 @@ define('PRINT_PDF_IMAGES_VIA_FILE_DEFAULT', 0);
 define('PRINT_PDF_AUTOCONFIG_DEFAULT', 1);
 define('PRINT_PDF_FONT_FAMILY_DEFAULT', 'dejavusans');
 define('PRINT_PDF_FONT_SIZE_DEFAULT', 10);
-define('PRINT_PDF_FONT_SUBSETTING_DEFAULT', 0);
-define('PRINT_PDF_FILENAME_DEFAULT', '[site-name] - [title] - [mod-yyyy]-[mod-mm]-[mod-dd]');
+define('PRINT_PDF_FONT_SUBSETTING_DEFAULT', FALSE);
+define('PRINT_PDF_FILENAME_DEFAULT', '[site:name] - [node:title] - [node:changed:custom:Y-m-d]');
 define('PRINT_PDF_DOMPDF_UNICODE_DEFAULT', 0);
 define('PRINT_PDF_WKHTMLTOPDF_OPTIONS', "--footer-font-size 7 --footer-right '[page]'");
 
 /**
- * Implementation of hook_perm().
+ * Implements hook_permission().
  */
-function print_pdf_perm() {
-  return array('access PDF version');
+function print_pdf_permission() {
+  return array(
+    'access PDF version' => array(
+      'title' => t('Access the PDF version'),
+      'description' => t('View the PDF versions and the links to them in the original pages.'),
+    ),
+  );
 }
 
 /**
- * Implementation of hook_theme().
+ * Implements hook_theme().
  */
 function print_pdf_theme() {
   return array(
     'print_pdf_format_link' => array(
-      'arguments' => array(),
+      'variables' => array(),
     ),
     'print_pdf_dompdf_footer' => array(
-      'arguments' => array('html' => ''),
+      'variables' => array('html' => ''),
       'file' => 'print_pdf.pages.inc',
     ),
     'print_pdf_tcpdf_header' => array(
-      'arguments' => array('pdf' => NULL, 'html' => '', 'font' => array()),
+      'variables' => array('pdf' => NULL, 'html' => '', 'font' => array()),
       'file' => 'print_pdf.pages.inc',
     ),
     'print_pdf_tcpdf_page' => array(
-      'arguments' => array('pdf' => NULL),
+      'variables' => array('pdf' => NULL),
       'file' => 'print_pdf.pages.inc',
     ),
     'print_pdf_tcpdf_content' => array(
-      'arguments' => array('pdf' => NULL, 'html' => '', 'font' => array()),
+      'variables' => array('pdf' => NULL, 'html' => '', 'font' => array()),
       'file' => 'print_pdf.pages.inc',
     ),
     'print_pdf_tcpdf_footer' => array(
-      'arguments' => array('pdf' => NULL, 'html' => '', 'font' => array()),
+      'variables' => array('pdf' => NULL, 'html' => '', 'font' => array()),
       'file' => 'print_pdf.pages.inc',
     ),
     'print_pdf_tcpdf_footer2' => array(
-      'arguments' => array('pdf' => NULL),
+      'variables' => array('pdf' => NULL),
       'file' => 'print_pdf.pages.inc',
     ),
   );
 }
 
 /**
- * Implementation of hook_menu().
+ * Implements hook_menu().
  */
 function print_pdf_menu() {
   $items = array();
@@ -91,10 +97,10 @@ function print_pdf_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'print_pdf.pages.inc',
   );
-  $items[PRINTPDF_PATH .'/'. PRINTPDF_PATH] = array(
+  $items[PRINTPDF_PATH . '/' . PRINTPDF_PATH] = array(
     'access callback' => FALSE,
   );
-  $items['admin/settings/print/pdf'] = array(
+  $items['admin/config/user-interface/print/pdf'] = array(
     'title' => 'PDF',
     'description' => 'Configure the settings of the PDF generation functionality.',
     'page callback' => 'drupal_get_form',
@@ -104,12 +110,12 @@ function print_pdf_menu() {
     'type' => MENU_LOCAL_TASK,
     'file' => 'print_pdf.admin.inc',
   );
-  $items['admin/settings/print/pdf/options'] = array(
+  $items['admin/config/user-interface/print/pdf/options'] = array(
     'title' => 'Options',
     'weight' => 1,
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-  $items['admin/settings/print/pdf/strings'] = array(
+  $items['admin/config/user-interface/print/pdf/strings'] = array(
     'title' => 'Text strings',
     'description' => 'Override the user-facing strings used in the PDF version.',
     'page callback' => 'drupal_get_form',
@@ -124,40 +130,37 @@ function print_pdf_menu() {
 }
 
 /**
- * Implementation of hook_block().
+ * Implements hook_block_info().
  */
-function print_pdf_block($op = 'list', $delta = 0, $edit = array()) {
-  switch ($op) {
-    case 'list':
-      $block[0]['info'] = t('Most PDFd');
-      $block[0]['cache'] = BLOCK_CACHE_GLOBAL;
+function print_pdf_block_info() {
+      $block['print_pdf-top']['info'] = t('Most PDFd');
+      $block['print_pdf-top']['cache'] = DRUPAL_CACHE_GLOBAL;
       return $block;
-      break;
-    case 'configure':
-      return '';
-    case 'save':
-      return;
-    case 'view':
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function print_pdf_block_view($delta = 0) {
       switch ($delta) {
-      case 0:
+      case 'print_pdf-top':
         $block['subject'] = t('Most PDFd');
-        $result = db_query_range("SELECT path FROM {print_pdf_page_counter} LEFT JOIN {node} ON path = CONCAT('node/', node.nid) WHERE status <> 0 OR status IS NULL ORDER BY totalcount DESC", 0, 3);
-        if (db_affected_rows()) {
+        $result = db_query_range("SELECT path FROM {print_pdf_page_counter} LEFT JOIN {node} ON path = CONCAT('node/', node.nid) WHERE status <> 0 OR status IS NULL ORDER BY totalcount DESC", 0, 3)
+                    ->fetchAll();
+        if (count($result)) {
           $block['content'] = '<div class="item-list"><ul>';
-          while ($obj = db_fetch_object($result)) {
-            $block['content'] .= '<li>'. l(_print_get_title($obj->path), $obj->path) .'</li>';
+          foreach ($result as $obj) {
+            $block['content'] .= '<li>' . l(_print_get_title($obj->path), $obj->path) . '</li>';
           }
           $block['content'] .= '</ul></div>';
         }
         break;
       }
       return $block;
-      break;
-    }
 }
 
 /**
- * Implementation of hook_requirements().
+ * Implements hook_requirements().
  */
 function print_pdf_requirements($phase) {
   $requirements = array();
@@ -170,7 +173,7 @@ function print_pdf_requirements($phase) {
         $requirements['print_pdf_tool'] = array(
           'title' => $t('Printer, email and PDF versions - PDF generation library'),
           'value' => $t('No PDF tool selected'),
-          'description' => $t('Please configure it in the !url.', array('!url' => l($t('PDF settings page'), 'admin/settings/print/pdf'))),
+          'description' => $t('Please configure it in the !url.', array('!url' => l($t('PDF settings page'), 'admin/config/user-interface/print/pdf'))),
           'severity' => REQUIREMENT_ERROR,
         );
       }
@@ -185,7 +188,7 @@ function print_pdf_requirements($phase) {
         }
         elseif (basename($print_pdf_pdf_tool) == 'dompdf_config.inc.php') {
           if (variable_get('print_pdf_autoconfig', PRINT_PDF_AUTOCONFIG_DEFAULT)) {
-            $directory = dirname($print_pdf_pdf_tool) .'/lib/fonts';
+            $directory = dirname($print_pdf_pdf_tool) . '/lib/fonts';
             if (!is_dir($directory) || !is_writable($directory)) {
               $requirements['print_pdf_tool'] = array(
                 'title' => $t('DOMPDF font cache directory'),
@@ -216,9 +219,9 @@ function print_pdf_requirements($phase) {
 
           if (variable_get('print_pdf_autoconfig', PRINT_PDF_AUTOCONFIG_DEFAULT)) {
             foreach (array('cache', 'images') as $dir) {
-              $directory = dirname($print_pdf_pdf_tool) .'/'. $dir;
+              $directory = dirname($print_pdf_pdf_tool) . '/' . $dir;
               if (!is_dir($directory) || !is_writable($directory)) {
-                $requirements['print_pdf_tool_'. $dir] = array(
+                $requirements['print_pdf_tool_' . $dir] = array(
                   'title' => $t('TCPDF directory'),
                   'value' => $t('Non-writable permissions'),
                   'description' => $t('You must change the %fontdir permissions to be writable, as TCPDF requires write-access to that directory.', array('%fontdir' => $directory)),
@@ -262,63 +265,71 @@ function print_pdf_requirements($phase) {
 }
 
 /**
- * Implementation of hook_link().
+ * Implements hook_node_view().
  */
-function print_pdf_link($type, $node = NULL, $teaser = FALSE) {
+function print_pdf_node_view($node, $view_mode) {
   $print_pdf_link_pos = variable_get('print_pdf_link_pos', array(PRINT_PDF_LINK_POS_DEFAULT => PRINT_PDF_LINK_POS_DEFAULT));
   $print_pdf_link_use_alias = variable_get('print_pdf_link_use_alias', PRINT_PDF_LINK_USE_ALIAS_DEFAULT);
-  $allowed_type = print_pdf_link_allowed(array('type' => $type, 'node' => $node, 'teaser' => $teaser));
-  if (($allowed_type) && !empty($print_pdf_link_pos['link'])) {
-    drupal_add_css(drupal_get_path('module', 'print') .'/css/printlinks.css');
-    $links = array();
-    $format = theme('print_pdf_format_link');
 
-    // Show book link
-    if ($allowed_type === PRINT_ALLOW_BOOK_LINK) {
-      $links['book_pdf'] = array('href' => PRINTPDF_PATH .'/book/export/html/'. $node->nid,
-                                 'title' => $format['text'],
-                                 'attributes' => $format['attributes'],
-                                 'html' => $format['html'],
+  foreach (array('node', 'comment') as $type) {
+    $allowed_type = print_pdf_link_allowed(array('type' => $type, 'node' => $node, 'view_mode' => $view_mode));
+    if (($allowed_type) && !empty($print_pdf_link_pos['link'])) {
+      drupal_add_css(drupal_get_path('module', 'print') . '/css/printlinks.css');
+      $links = array();
+      $format = theme('print_pdf_format_link');
+
+      // Show book link
+      if ($allowed_type === PRINT_ALLOW_BOOK_LINK) {
+        $links['book_pdf'] = array(
+          'href' => PRINTPDF_PATH . '/book/export/html/' . $node->nid,
+          'title' => $format['text'],
+          'attributes' => $format['attributes'],
+          'html' => $format['html'],
+        );
+      }
+      elseif ($allowed_type === PRINT_ALLOW_NORMAL_LINK) {
+        $path = (($print_pdf_link_use_alias) && ($alias = drupal_lookup_path('alias', 'node/' . $node->nid))) ? $alias : $node->nid;
+
+        $links['print_pdf'] = array(
+          'href' => PRINTPDF_PATH . '/' . $path,
+          'title' => $format['text'],
+          'attributes' => $format['attributes'],
+          'html' => $format['html'],
+          'query' => print_query_string_encode($_GET, array('q')),
+        );
+      }
+
+      $link_content = array(
+        '#theme' => 'links',
+        '#links' => $links,
+        '#attributes' => array('class' => array('links', 'inline')),
       );
 
-      return $links;
-    }
-    elseif ($allowed_type === PRINT_ALLOW_NORMAL_LINK) {
-      $query_arr = $_GET;
-      if ($type == 'comment') {
-        $query_arr['comment'] = $node->cid;
+      if ($type == 'node') {
+        $node->content['links']['print_pdf'] = $link_content;
       }
-      $query = print_query_string_encode($query_arr, array('q'));
-      if (empty($query)) $query = NULL;
-
-      if (($print_pdf_link_use_alias) && ($alias = drupal_lookup_path('alias', 'node/'. $node->nid))) {
-        $path = $alias;
+      elseif (($type == 'comment') && isset($node->content['comments']['comments'])) {
+        foreach ($node->content['comments']['comments'] as $cid => $comment) {
+          if (is_numeric($cid)) {
+            $link_content['#links']['print_pdf']['query']['comment'] = $cid;
+            $node->content['comments']['comments'][$cid]['links']['print_pdf'] = $link_content;
+          }
+        }
       }
-      else {
-        $path = $node->nid;
-      }
-
-      $links['print_pdf'] = array('href' => PRINTPDF_PATH .'/'. $path,
-                                  'title' => $format['text'],
-                                  'attributes' => $format['attributes'],
-                                  'html' => $format['html'],
-                                  'query' => $query,
-      );
-
-      return $links;
     }
   }
-  else {
-    return;
+
+  // Insert content corner links
+  if ((!empty($print_pdf_link_pos['corner'])) && ($view_mode == 'full')) {
+    $node->content['print_links']['#markup'] .= print_pdf_insert_link(NULL, $node);
   }
 }
 
 /**
- * Implementation of hook_help().
+ * Implements hook_help().
  */
 function print_pdf_help($path, $arg) {
-  $print_pdf_link_pos = variable_get('print_pdf_link_pos', array(PRINT_PDF_LINK_POS_DEFAULT => PRINT_PDF_LINK_POS_DEFAULT));
-  if (($path !== 'node/%') && !(empty($print_pdf_link_pos['link']) && empty($print_pdf_link_pos['corner']))) {
+  if ($path !== 'node/%') {
     static $output = FALSE;
 
     if ($output === FALSE) {
@@ -333,52 +344,71 @@ function print_pdf_help($path, $arg) {
 }
 
 /**
- * Implementation of hook_nodeapi().
+ * Implements hook_node_load().
  */
-function print_pdf_nodeapi(&$node, $op = 'view', $teaser, $page) {
-  switch ($op) {
-    case 'view':
-      // Insert content corner links
-      $print_pdf_link_pos = variable_get('print_pdf_link_pos', array(PRINT_PDF_LINK_POS_DEFAULT => PRINT_PDF_LINK_POS_DEFAULT));
-      if (($teaser === FALSE) && !empty($print_pdf_link_pos['corner']) &&
-          isset($node->build_mode) && ($node->build_mode === NODE_BUILD_NORMAL)) {
-        $node->content['print_links']['#value'] .= print_pdf_insert_link(NULL, $node);
-      }
-      break;
-    case 'load':
-      $res = db_fetch_object(db_query("SELECT link, comments, url_list FROM {print_pdf_node_conf} WHERE nid = %d", $node->nid));
+function print_pdf_node_load($nodes, $types) {
+  $ids = array();
+  foreach ($nodes as $node) {
+    $ids[] = $node->nid;
+  }
 
-      $node->print_pdf_display = $res ? intval($res->link) : variable_get('print_pdf_display_'. $node->type, PRINT_TYPE_SHOW_LINK_DEFAULT);
-      $node->print_pdf_display_comment = $res ? intval($res->comments) : variable_get('print_pdf_display_comment_'. $node->type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
-      $node->print_pdf_display_urllist = $res ? intval($res->url_list) : variable_get('print_pdf_display_urllist_'. $node->type, PRINT_TYPE_URLLIST_DEFAULT);
-      break;
-    case 'insert':
-    case 'update':
-      if (user_access('administer print') || user_access('node-specific print configuration')) {
-        if (!isset($node->print_pdf_display)) $node->print_pdf_display = variable_get('print_pdf_display_'. $node->type, PRINT_TYPE_SHOW_LINK_DEFAULT);
-        if (!isset($node->print_pdf_display_comment)) $node->print_pdf_display_comment = variable_get('print_pdf_display_comment_'. $node->type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
-        if (!isset($node->print_pdf_display_urllist)) $node->print_pdf_display_urllist = variable_get('print_pdf_display_urllist_'. $node->type, PRINT_TYPE_URLLIST_DEFAULT);
+  $result = db_query('SELECT nid, link, comments, url_list FROM {print_pdf_node_conf} WHERE nid IN (:nids)', array(':nids' => $ids))->fetchAllAssoc('nid');
 
-        _print_pdf_node_conf_modify($node->nid, $node->print_pdf_display, $node->print_pdf_display_comment, $node->print_pdf_display_urllist);
-      }
-      break;
-    case 'delete':
-      db_query("DELETE FROM {print_pdf_node_conf} WHERE nid = %d", $node->nid);
-      db_query("DELETE FROM {print_pdf_page_counter} WHERE path = 'node/%d'", $node->nid);
-      break;
+  foreach ($nodes as $node) {
+    $node->print_pdf_display = isset($result[$node->nid]) ? intval($result[$node->nid]->link) : variable_get('print_pdf_display_' . $node->type, PRINT_TYPE_SHOW_LINK_DEFAULT);
+    $node->print_pdf_display_comment = isset($result[$node->nid]) ? intval($result[$node->nid]->comments) : variable_get('print_pdf_display_comment_' . $node->type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
+    $node->print_pdf_display_urllist = isset($result[$node->nid]) ? intval($result[$node->nid]->url_list) : variable_get('print_pdf_display_urllist_' . $node->type, PRINT_TYPE_URLLIST_DEFAULT);
   }
 }
 
 /**
- * Implementation of hook_form_alter().
+ * Implements hook_node_insert().
  */
-function print_pdf_form_alter(&$form, $form_state, $form_id) {
+function print_pdf_node_insert($node) {
+  if (user_access('administer print') || user_access('node-specific print configuration')) {
+    if (!isset($node->print_pdf_display)) $node->print_pdf_display = variable_get('print_pdf_display_' . $node->type, PRINT_TYPE_SHOW_LINK_DEFAULT);
+    if (!isset($node->print_pdf_display_comment)) $node->print_pdf_display_comment = variable_get('print_pdf_display_comment_' . $node->type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
+    if (!isset($node->print_pdf_display_urllist)) $node->print_pdf_display_urllist = variable_get('print_pdf_display_urllist_' . $node->type, PRINT_TYPE_URLLIST_DEFAULT);
+
+    _print_pdf_node_conf_modify($node->nid, $node->print_pdf_display, $node->print_pdf_display_comment, $node->print_pdf_display_urllist);
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function print_pdf_node_update($node) {
+  if (user_access('administer print') || user_access('node-specific print configuration')) {
+    if (!isset($node->print_pdf_display)) $node->print_pdf_display = variable_get('print_pdf_display_' . $node->type, PRINT_TYPE_SHOW_LINK_DEFAULT);
+    if (!isset($node->print_pdf_display_comment)) $node->print_pdf_display_comment = variable_get('print_pdf_display_comment_' . $node->type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
+    if (!isset($node->print_pdf_display_urllist)) $node->print_pdf_display_urllist = variable_get('print_pdf_display_urllist_' . $node->type, PRINT_TYPE_URLLIST_DEFAULT);
+
+    _print_pdf_node_conf_modify($node->nid, $node->print_pdf_display, $node->print_pdf_display_comment, $node->print_pdf_display_urllist);
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function print_pdf_node_delete($node) {
+  db_delete('print_pdf_node_conf')
+    ->condition('nid', $node->nid)
+    ->execute();
+  db_delete('print_pdf_page_counter')
+    ->condition('path', 'node/' . $node->nid)
+    ->execute();
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function print_pdf_form_alter(&$form, &$form_state, $form_id) {
   // Add the node-type settings option to activate the PDF version link
-  if ((user_access('administer print') || user_access('node-specific print configuration')) && (($form_id == 'node_type_form') ||
-      (isset($form['type']) && isset($form['#node']) && $form['type']['#value'] .'_node_form' == $form_id))) {
+  if ((user_access('administer print') || user_access('node-specific print configuration')) &&
+      (($form_id == 'node_type_form') || !empty($form['#node_edit_form']))) {
     $form['print']['pdf_label'] = array(
       '#type' => 'markup',
-      '#value' => '<p><strong>'. t('PDF version') .'</strong></p>',
+      '#markup' => '<p><strong>' . t('PDF version') . '</strong></p>',
     );
 
     $form['print']['print_pdf_display'] = array(
@@ -395,15 +425,15 @@ function print_pdf_form_alter(&$form, $form_state, $form_id) {
     );
 
     if ($form_id == 'node_type_form') {
-      $form['print']['print_pdf_display']['#default_value'] = variable_get('print_pdf_display_'. $form['#node_type']->type, PRINT_TYPE_SHOW_LINK_DEFAULT);
-      $form['print']['print_pdf_display_comment']['#default_value'] = variable_get('print_pdf_display_comment_'. $form['#node_type']->type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
-      $form['print']['print_pdf_display_urllist']['#default_value'] = variable_get('print_pdf_display_urllist_'. $form['#node_type']->type, PRINT_TYPE_URLLIST_DEFAULT);
+      $form['print']['print_pdf_display']['#default_value'] = variable_get('print_pdf_display_' . $form['#node_type']->type, PRINT_TYPE_SHOW_LINK_DEFAULT);
+      $form['print']['print_pdf_display_comment']['#default_value'] = variable_get('print_pdf_display_comment_' . $form['#node_type']->type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
+      $form['print']['print_pdf_display_urllist']['#default_value'] = variable_get('print_pdf_display_urllist_' . $form['#node_type']->type, PRINT_TYPE_URLLIST_DEFAULT);
     }
     else {
       $node = $form['#node'];
-      $form['print']['print_pdf_display']['#default_value'] = isset($node->print_pdf_display) ? $node->print_pdf_display : variable_get('print_pdf_display_'. $node->type, PRINT_TYPE_SHOW_LINK_DEFAULT);
-      $form['print']['print_pdf_display_comment']['#default_value'] = isset($node->print_pdf_display_comment) ? $node->print_pdf_display_comment : variable_get('print_pdf_display_comment_'. $node->type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
-      $form['print']['print_pdf_display_urllist']['#default_value'] = isset($node->print_pdf_display_urllist) ? $node->print_pdf_display_urllist : variable_get('print_pdf_display_urllist_'. $node->type, PRINT_TYPE_URLLIST_DEFAULT);
+      $form['print']['print_pdf_display']['#default_value'] = isset($node->print_pdf_display) ? $node->print_pdf_display : variable_get('print_pdf_display_' . $node->type, PRINT_TYPE_SHOW_LINK_DEFAULT);
+      $form['print']['print_pdf_display_comment']['#default_value'] = isset($node->print_pdf_display_comment) ? $node->print_pdf_display_comment : variable_get('print_pdf_display_comment_' . $node->type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
+      $form['print']['print_pdf_display_urllist']['#default_value'] = isset($node->print_pdf_display_urllist) ? $node->print_pdf_display_urllist : variable_get('print_pdf_display_urllist_' . $node->type, PRINT_TYPE_URLLIST_DEFAULT);
     }
   }
 }
@@ -423,10 +453,14 @@ function print_pdf_form_alter(&$form, $form_state, $form_id) {
  *   value of the url_list field (0 or 1)
  */
 function _print_pdf_node_conf_modify($nid, $link, $comments, $url_list) {
-    db_query("UPDATE {print_pdf_node_conf} SET link = %d, comments = %d, url_list = %d WHERE nid = %d", $link, $comments, $url_list, $nid);
-    if (!db_affected_rows()) {
-      @db_query("INSERT INTO {print_pdf_node_conf} (nid, link, comments, url_list) VALUES (%d, %d, %d, %d)", $nid, $link, $comments, $url_list);
-    }
+    db_merge('print_pdf_node_conf')
+      ->key(array('nid' => $nid))
+      ->fields(array(
+        'link' => $link,
+        'comments' => $comments,
+        'url_list' => $url_list,
+      ))
+      ->execute();
 }
 
 /**
@@ -442,7 +476,7 @@ function theme_print_pdf_format_link() {
   $print_pdf_show_link = variable_get('print_pdf_show_link', PRINT_PDF_SHOW_LINK_DEFAULT);
   $print_pdf_link_text = filter_xss(variable_get('print_pdf_link_text', t('PDF version')));
 
-  $img = drupal_get_path('module', 'print') .'/icons/pdf_icon.gif';
+  $img = drupal_get_path('module', 'print') . '/icons/pdf_icon.gif';
   $title = t('Display a PDF version of this page.');
   $class = strip_tags($print_pdf_link_class);
   $new_window = ($print_pdf_content_disposition == 1);
@@ -472,12 +506,12 @@ function theme_print_pdf_format_link() {
 function print_pdf_insert_link($path = NULL, $node = NULL) {
   if ($node !== NULL) {
     $nid = $node->nid;
-    $path = 'node/'. $nid;
+    $path = 'node/' . $nid;
     $allowed_type = print_pdf_link_allowed(array('node' => $node));
   }
   else {
     if ($path === NULL) {
-      $nid = preg_replace('!^node/!', '', $_GET['q']);
+      $nid = preg_replace('!^node/([\d]+)!', '$1', $_GET['q']);
       $path = $_GET['q'];
     }
     else {
@@ -489,7 +523,7 @@ function print_pdf_insert_link($path = NULL, $node = NULL) {
   if ($allowed_type) {
     if ($nid !== NULL) {
       if ($allowed_type === PRINT_ALLOW_BOOK_LINK) {
-        $path = 'book/export/html/'. $nid;
+        $path = 'book/export/html/' . $nid;
       }
       else {
         if (variable_get('print_pdf_link_use_alias', PRINT_PDF_LINK_USE_ALIAS_DEFAULT) && ($alias = drupal_lookup_path('alias', $path))) {
@@ -499,18 +533,15 @@ function print_pdf_insert_link($path = NULL, $node = NULL) {
           $path = $nid;
         }
       }
-      $path = PRINTPDF_PATH .'/'. $path;
+      $path = PRINTPDF_PATH . '/' . $path;
       $query = print_query_string_encode($_GET, array('q'));
-      if (empty($query)) {
-        $query = NULL;
-      }
     }
     else {
       $query = NULL;
     }
-    drupal_add_css(drupal_get_path('module', 'print') .'/css/printlinks.css');
+    drupal_add_css(drupal_get_path('module', 'print') . '/css/printlinks.css');
     $format = theme('print_pdf_format_link');
-    return '<span class="print_pdf">'. l($format['text'], $path, array('attributes' => $format['attributes'], 'query' => $query, 'absolute' => TRUE, 'html' => $format['html'])) .'</span>';
+    return '<span class="print_pdf">' . l($format['text'], $path, array('attributes' => $format['attributes'], 'query' => $query, 'absolute' => TRUE, 'html' => $format['html'])) . '</span>';
   }
   else {
     return FALSE;
@@ -529,9 +560,10 @@ function print_pdf_insert_link($path = NULL, $node = NULL) {
  *   PRINT_ALLOW_BOOK_LINK if a link is allowed in a book node
  */
 function print_pdf_link_allowed($args) {
+  $view_mode = isset($args['view_mode']) ? $args['view_mode'] : '';
   $print_pdf_pdf_tool = variable_get('print_pdf_pdf_tool', PRINT_PDF_PDF_TOOL_DEFAULT);
-  if ((!empty($args['teaser']) && !variable_get('print_pdf_link_teaser', PRINT_PDF_LINK_TEASER_DEFAULT))
-      || !user_access('access PDF version') || (empty($print_pdf_pdf_tool))) {
+  if ((($view_mode == 'teaser') && !variable_get('print_pdf_link_teaser', PRINT_PDF_LINK_TEASER_DEFAULT))
+      || !in_array($view_mode, array('full', 'teaser', '')) || !user_access('access PDF version') || (empty($print_pdf_pdf_tool))) {
     // If the teaser link is disabled or the user is not allowed
     return FALSE;
   }
@@ -552,7 +584,7 @@ function print_pdf_link_allowed($args) {
     $print_pdf_node_link_visibility = variable_get('print_pdf_node_link_visibility', PRINT_PDF_NODE_LINK_VISIBILITY_DEFAULT);
     $print_pdf_node_link_pages = variable_get('print_pdf_node_link_pages', PRINT_PDF_NODE_LINK_PAGES_DEFAULT);
 
-    if (!_print_page_match($print_pdf_node_link_visibility, "node/". $node->nid, $print_pdf_node_link_pages)) {
+    if (!_print_page_match($print_pdf_node_link_visibility, "node/" . $node->nid, $print_pdf_node_link_pages)) {
       // Page not in visibility list
       return FALSE;
     }
@@ -561,9 +593,9 @@ function print_pdf_link_allowed($args) {
       // Cache this statically to avoid duplicate queries for every comment.
       static $res = array();
       if (!isset($res[$node->nid])) {
-        $res[$node->nid] = db_fetch_object(db_query("SELECT comments FROM {print_pdf_node_conf} WHERE nid = %d", $node->nid));
+        $res[$node->nid] = db_query("SELECT comments FROM {print_pdf_node_conf} WHERE nid = :nid", array(':nid' => $node->nid))->fetchField();
       }
-      $print_display_comment = $res ? intval($res[$node->nid]->comments) : variable_get('print_pdf_display_comment_'. $node_type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
+      $print_display_comment = ($res && ($res[$node->nid] !== FALSE)) ? $res[$node->nid] : variable_get('print_pdf_display_comment_' . $node_type, PRINT_TYPE_COMMENT_LINK_DEFAULT);
       if ($print_display_comment) {
         return PRINT_ALLOW_NORMAL_LINK;
       }
@@ -611,7 +643,7 @@ function _print_pdf_tcpdf_version() {
     // prevent TCPDF default configs
     define('K_TCPDF_EXTERNAL_CONFIG', TRUE);
   }
-  require_once($print_pdf_pdf_tool);
+  require_once(DRUPAL_ROOT . '/' . $print_pdf_pdf_tool);
 
   // Hide warnings, as some TCPDF constants may still be undefined
   @$pdf = new TCPDF();
@@ -636,7 +668,7 @@ function _print_pdf_wkhtmltopdf_version() {
   $print_pdf_pdf_tool = variable_get('print_pdf_pdf_tool', PRINT_PDF_PDF_TOOL_DEFAULT);
   $descriptor = array(0 => array('pipe', 'r'), 1 => array('pipe', 'w'), 2 => array('pipe', 'w'));
 
-  $cmd = '"'. realpath($print_pdf_pdf_tool) .'" --version';
+  $cmd = '"' . realpath($print_pdf_pdf_tool) . '" --version';
   $process = proc_open($cmd, $descriptor, $pipes, NULL, NULL);
   if (is_resource($process)) {
     $content = stream_get_contents($pipes[1]);
@@ -648,4 +680,14 @@ function _print_pdf_wkhtmltopdf_version() {
   }
 
   return ($matches[1]);
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function print_pdf_views_api() {
+  return array(
+    'api' => 2.0,
+    'path' => drupal_get_path('module', 'print_pdf'),
+  );
 }

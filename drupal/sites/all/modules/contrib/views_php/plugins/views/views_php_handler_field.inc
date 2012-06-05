@@ -47,7 +47,7 @@ class views_php_handler_field extends views_handler_field {
       array('$view', '$handler', '$static', '$row', '$data')
     );
     $form += views_php_form_element($this,
-      array('use_php_click_sortable', t('Enable click sort'), t('If checked, you can use PHP code to enable click sort on the field. WARNING: Sorting will cause ALL results to be loaded in memory. May cause heavy load on your server, so use wisely.')),
+      array('use_php_click_sortable', t('Enable click sort'), t('If checked, you can use PHP code to enable click sort on the field.')),
       array('php_click_sortable', t('Click sort code'), t('The comparison code must return an integer less than, equal to, or greater than zero if the first row should respectively appear before, stay where it was compared to, or appear after the second row.'), FALSE),
       array(
         '$view', '$handler', '$static',
@@ -73,7 +73,7 @@ class views_php_handler_field extends views_handler_field {
     );
     $form += views_php_form_element($this,
       FALSE,
-      array('php_output', t('Output code'), t('Code to output the value of this field. Use <code>print</code> or <code>echo</code> to produce the output. Leave blank for default output.'), TRUE),
+      array('php_output', t('Output code'), t('Code to construct the output of this field.'), TRUE),
       array('$view', '$handler', '$static', '$row', '$data', '$value' => t('Value of this field.'))
     );
   }
@@ -86,6 +86,8 @@ class views_php_handler_field extends views_handler_field {
   function query() {
     // Provide an field alias but don't actually alter the query.
     $this->field_alias = 'views_php_' . $this->position;
+    // Inform views_php_views_pre_execute() to seize control over the query.
+    $this->view->views_php = TRUE;
   }
 
   /**
@@ -110,22 +112,12 @@ class views_php_handler_field extends views_handler_field {
    * @see self::php_post_execute()
    */
   function php_pre_execute() {
-    // Don't do anything if displaying a summary.
-    if (!empty($this->view->build_info['summary'])) {
-      return;
-    }
-
     // Ecexute static PHP code.
     if (!empty($this->options['php_setup'])) {
       $function = create_function('$view, $handler, &$static', $this->options['php_setup'] . ';');
       ob_start();
       $function($this->view, $this, $this->php_static_variable);
       ob_end_clean();
-    }
-
-    // Prepare for sorting if needed.
-    if (!empty($this->options['use_php_click_sortable']) && !empty($this->php_click_sort_order)) {
-      $this->view->use_php_pager = TRUE;
     }
   }
 
@@ -134,11 +126,6 @@ class views_php_handler_field extends views_handler_field {
    * @see views_php_views_post_execute()
    */
   function php_post_execute() {
-    // Don't do anything if displaying a summary.
-    if (!empty($this->view->build_info['summary'])) {
-      return;
-    }
-
     // Ecexute value PHP code.
     if (!empty($this->options['php_value'])) {
       $function = create_function('$view, $handler, &$static, $row, $data', $this->options['php_value'] . ';');
@@ -147,10 +134,6 @@ class views_php_handler_field extends views_handler_field {
         $normalized_row = new stdClass;
         foreach ($this->view->display_handler->get_handlers('field') as $field => $handler) {
           $normalized_row->$field = isset($row->{$handler->field_alias}) ? $row->{$handler->field_alias} : NULL;
-        }
-        // Add base field if found.
-        if (!empty($this->view->base_field) && isset($row->{$this->view->base_field})) {
-          $normalized_row->{$this->view->base_field} = $row->{$this->view->base_field};
         }
         $row->{$this->field_alias} = $function($this->view, $this, $this->php_static_variable, $normalized_row, $row);
       }
@@ -166,7 +149,7 @@ class views_php_handler_field extends views_handler_field {
       }
       else {
         $predefined = array(
-          self::CLICK_SORT_NUMERIC => array(get_class($this), 'php_click_sort_numeric'),
+          self::CLICK_SORT_NUMERIC => array($this, 'php_click_sort_numeric'),
           self::CLICK_SORT_ALPHA => 'strcasecmp',
           self::CLICK_SORT_ALPHA_CASE => 'strcmp',
           self::CLICK_SORT_NAT => 'strnatcasecmp',
@@ -193,17 +176,13 @@ class views_php_handler_field extends views_handler_field {
         foreach ($this->view->display_handler->get_handlers('field') as $field => $handler) {
           $$normalized_name->$field = isset($$name->{$handler->field_alias}) ? $$name->{$handler->field_alias} : NULL;
         }
-        // Add base_field if found.
-        if (!empty($this->view->base_field) && isset($$name->{$this->view->base_field})) {
-          $$normalized_name->{$this->view->base_field} = $$name->{$this->view->base_field};
-        }
       }
       ob_start();
       $result = (int)$function($this->view, $this, $this->php_static_variable, $normalized_row1, $normalized_row2);
       ob_end_clean();
     }
     else {
-      $result = call_user_func($function, $row1->{$this->field_alias}, $row2->{$this->field_alias});
+      $result = $function($row1->{$this->field_alias}, $row2->{$this->field_alias});
     }
     return $factor * $result;
   }
@@ -211,7 +190,7 @@ class views_php_handler_field extends views_handler_field {
   /**
    * Helper function; usort callback for numeric sort.
    */
-  static function php_click_sort_numeric($a, $b) {
+  function php_click_sort_numeric($a, $b) {
     return $a - $b;
   }
 
@@ -220,7 +199,7 @@ class views_php_handler_field extends views_handler_field {
    */
   function pre_render(&$values) {
     if (!empty($this->options['php_output'])) {
-      $this->php_output_lambda_function = create_function('$view, $handler, &$static, $row, $data, $value', ' ?>' . $this->options['php_output'] . '<?php ');
+      $this->php_output_lamda_function = create_function('$view, $handler, &$static, $row, $data, $value', ' ?>' . $this->options['php_output'] . '<?php ');
     }
   }
 
@@ -229,17 +208,13 @@ class views_php_handler_field extends views_handler_field {
    */
   function render($values) {
     // Ecexute output PHP code.
-    if (!empty($this->options['php_output']) && isset($this->php_output_lambda_function)) {
+    if (!empty($this->options['php_output']) && isset($this->php_output_lamda_function)) {
       $normalized_row = new stdClass;
       foreach ($this->view->display_handler->get_handlers('field') as $field => $handler) {
         $normalized_row->$field = isset($values->{$handler->field_alias}) ? $values->{$handler->field_alias} : NULL;
       }
-      // Add base field if found.
-      if (!empty($this->view->base_field) && isset($row->{$this->view->base_field})) {
-        $normalized_row->{$this->view->base_field} = $row->{$this->view->base_field};
-      }
 
-      $function = $this->php_output_lambda_function;
+      $function = $this->php_output_lamda_function;
       ob_start();
       $function($this->view, $this, $this->php_static_variable, $normalized_row, $values, isset($values->{$this->field_alias}) ? $values->{$this->field_alias} : NULL);
       $value = ob_get_clean();
@@ -250,4 +225,3 @@ class views_php_handler_field extends views_handler_field {
     return $value;
   }
 }
-

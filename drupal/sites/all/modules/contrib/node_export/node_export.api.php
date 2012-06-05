@@ -51,25 +51,37 @@ function hook_node_export_access_import_alter(&$access, $node) {
  */
 function hook_node_export_node_encode_line_alter(&$out, $tab, $key, $value, $iteration) {
   // Start with something like this, and work on it:
-  $out = $tab ."  '". $key ."' => ". node_export_node_encode($value, $iteration) .",\n";
+  $out = $tab . "  '" . $key . "' => " . node_export_node_encode($value, $iteration) . ",\n";
 }
 
 /**
- * Manipulate a node on import/export.
+ * Manipulate a node on export.
  *
  * @param &$node
  *   The node to alter.
  * @param $original_node
  *   The unaltered node.
- * @param $op
- *   'import', or 'export'.
  */
-function hook_node_export_node_alter(&$node, $original_node, $op) {
+function hook_node_export_node_alter(&$node, $original_node) {
   // no example code
 }
 
 /**
- * Manipulate node array before export or import.
+ * Manipulate a node on import.
+ *
+ * @param &$node
+ *   The node to alter.
+ * @param $original_node
+ *   The unaltered node.
+ * @param $save
+ *   Whether the node will be saved by node_export_import().
+ */
+function hook_node_export_node_import_alter(&$node, $original_node, $save) {
+  // no example code
+}
+
+/**
+ * Manipulate node array before export.
  *
  * The purpose of this is to allow a module to check nodes in the array for
  * two or more nodes that must retain a relationship, and to add/remove other
@@ -78,12 +90,48 @@ function hook_node_export_node_alter(&$node, $original_node, $op) {
  *
  * @param &$nodes
  *   The array of nodes to alter.
- * @param $op
- *   'import', 'after import', or 'export'.
  * @param $format
  *   The format of node code being used.
  */
-function hook_node_export_alter(&$nodes, $op, $format) {
+function hook_node_export_alter(&$nodes, $format) {
+  // no example code
+}
+
+/**
+ * Manipulate node array before import.
+ *
+ * The purpose of this is to allow a module to check nodes in the array for
+ * two or more nodes that must retain a relationship, and to add/remove other
+ * data to the array to assist with maintaining dependencies, relationships,
+ * references, and additional data required by the nodes.
+ *
+ * @param &$nodes
+ *   The array of nodes to alter.
+ * @param $format
+ *   The format of node code being used.
+ * @param $save
+ *   Whether the nodes will be saved by node_export_import().
+ */
+function hook_node_export_import_alter(&$nodes, $format, $save) {
+  // no example code
+}
+
+/**
+ * Manipulate node array after import.
+ *
+ * The purpose of this is to allow a module to check nodes in the array for
+ * two or more nodes that must retain a relationship, and to add/remove other
+ * data to the array to assist with maintaining dependencies, relationships,
+ * references, and additional data required by the nodes.
+ *
+ * @param &$nodes
+ *   The array of nodes to alter - IMPORTANT: keyed by node id.
+ * @param $format
+ *   The format of node code being used.
+ * @param $save
+ *   Whether the nodes were saved by node_export_import().
+ */
+function hook_node_export_after_import_alter(&$nodes, $format, $save) {
   // no example code
 }
 

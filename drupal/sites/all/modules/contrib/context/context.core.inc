@@ -1,5 +1,4 @@
 <?php
-// $Id: context.core.inc,v 1.1.2.3.2.20.2.29 2010/08/05 08:03:29 yhahn Exp $
 
 /**
  * Implementation of hook_help().
@@ -7,22 +6,8 @@
 function context_help($path, $arg) {
   switch ($path) {
     case 'admin/help#context':
-      $output = file_get_contents(drupal_get_path('module', 'context') .'/README.txt');
-      return module_exists('markdown') ? filter_xss_admin(module_invoke('markdown', 'filter', 'process', 0, -1, $output)) : '<pre>'. check_plain($output) .'</pre>';
-  }
-}
-
-/**
- * Implementation of hook_menu_alter().
- * If core block handling is disabled, remove menu items.
- */
-function context_menu_alter(&$items) {
-  if (variable_get('context_reaction_block_disable_core', FALSE)) {
-    foreach ($items as $path => $item) {
-      if (strpos($path, 'admin/build/block') === 0) {
-        unset($items[$path]);
-      }
-    }
+      $output = file_get_contents(drupal_get_path('module', 'context') . '/README.txt');
+      return module_exists('markdown') ? filter_xss_admin(module_invoke('markdown', 'filter', 'process', 0, -1, $output)) : '<pre>' . check_plain($output) . '</pre>';
   }
 }
 
@@ -31,47 +16,44 @@ function context_menu_alter(&$items) {
  */
 function context_theme() {
   $items = array();
+  if (!module_exists('block')) {
+    $items['block'] = array(
+      'render element' => 'elements',
+      'template' => 'block',
+      'path' => drupal_get_path('module', 'block'),
+      'file' => 'block.module',
+      'template' => 'block',
+    );
+  }
   $items['context_block_form'] = array(
-    'arguments' => array('form' => array()),
+    'render element' => 'form',
     'path' => drupal_get_path('module', 'context') . '/theme',
     'file' => 'context_reaction_block.theme.inc',
   );
   $items['context_block_regions_form'] = array(
-    'arguments' => array('form' => array()),
+    'render element' => 'form',
     'path' => drupal_get_path('module', 'context') . '/theme',
     'file' => 'context_reaction_block.theme.inc',
   );
   $items['context_block_editor'] = array(
-    'arguments' => array('form' => array()),
+    'render element' => 'form',
     'path' => drupal_get_path('module', 'context') . '/theme',
     'file' => 'context_reaction_block.theme.inc',
   );
   $items['context_block_browser'] = array(
-    'arguments' => array('blocks' => array(), 'context' => array()),
+    'variables' => array('blocks' => array(), 'context' => array()),
     'path' => drupal_get_path('module', 'context') . '/theme',
     'template' => 'context-block-browser',
     'file' => 'context_reaction_block.theme.inc',
   );
   $items['context_block_browser_item'] = array(
-    'arguments' => array('block' => array()),
+    'variables' => array('block' => array()),
     'path' => drupal_get_path('module', 'context') . '/theme',
     'template' => 'context-block-browser-item',
     'file' => 'context_reaction_block.theme.inc',
   );
-  $items['context_block_editable_block'] = array(
-    'arguments' => array('block' => array()),
-    'path' => drupal_get_path('module', 'context') . '/theme',
-    'template' => 'context-block-editable-block',
-    'file' => 'context_reaction_block.theme.inc',
-  );
-  $items['context_block_editable_region'] = array(
-    'arguments' => array('region' => '', 'blocks' => array(), 'editable' => FALSE),
-    'path' => drupal_get_path('module', 'context') . '/theme',
-    'template' => 'context-block-editable-region',
-    'file' => 'context_reaction_block.theme.inc',
-  );
   $items['context_block_script_placeholder'] = array(
-    'arguments' => array('text' => NULL),
+    'variables' => array('text' => NULL),
     'path' => drupal_get_path('module', 'context') . '/theme',
     'file' => 'context_reaction_block.theme.inc',
   );
@@ -93,32 +75,17 @@ function context_theme_registry_alter(&$theme_registry) {
   $position = array_search('template_preprocess_page', $theme_registry['page']['preprocess functions']);
   $position = $position ? $position + 1 : 2;
   array_splice($theme_registry['page']['preprocess functions'], $position, 0, 'context_preprocess_page');
-
-  // Add a page preprocess function to the very top of the theme_page()
-  // stack so that we can actually set contexts *before* the page theming
-  // is executed.
-  if (!in_array('context_page_alter', $theme_registry['page']['preprocess functions'])) {
-    array_unshift($theme_registry['page']['preprocess functions'], 'context_page_alter');
-  }
-  // Reroute theme_blocks() through context_blocks to determine block
-  // visibility by context. Only override theme_blocks() if a theme
-  // has not overridden it. It is the responsibility of any themes
-  // implementing theme_blocks() to take advantage of context block
-  // visibility on their own.
-  if (!isset($theme_registry['blocks']['type']) || !in_array($theme_registry['blocks']['type'], array('base_theme_engine', 'theme_engine')) && !isset($theme_registry['blocks']['file'])) {
-    unset($theme_registry['blocks']['preprocess functions']);
-    $theme_registry['blocks']['function'] = 'context_blocks';
-  }
 }
 
 /**
  * Implementation of hook_ctools_render_alter().
  * Used to detect the presence of a page manager node view or node form.
  */
-function context_ctools_render_alter($info, $page, $args, $contexts, $task, $subtask) {
+function context_ctools_render_alter($info, $page, $data) {
+  extract($data);
   if ($page && in_array($task['name'], array('node_view', 'node_edit'), TRUE)) {
     foreach ($contexts as $ctools_context) {
-      if ($ctools_context->type === 'node' && !empty($ctools_context->data)) {
+      if (in_array('node', $ctools_context->type) && !empty($ctools_context->data)) {
         context_node_condition($ctools_context->data, $task['name'] === 'node_view' ? 'view' : 'form');
         break;
       }
@@ -127,10 +94,22 @@ function context_ctools_render_alter($info, $page, $args, $contexts, $task, $sub
 }
 
 /**
- * Implementation of hook_nodeapi().
+ * Implementation of hook_entity_prepare_view().
  */
-function context_nodeapi(&$node, $op, $teaser, $page) {
-  if ($op == 'view' && $page) {
+function context_entity_prepare_view($prepare, $entity_type) {
+  if ($entity_type === 'taxonomy_term' && count($prepare) === 1) {
+    $term = reset($prepare);
+    if ($term === menu_get_object('taxonomy_term', 2) && $plugin = context_get_plugin('condition', 'taxonomy_term')) {
+      $plugin->execute($term, 'view');
+    }
+  }
+}
+
+/**
+ * Implementation of hook_node_view().
+ */
+function context_node_view($node, $view_mode) {
+  if ($view_mode === 'full') {
     $object = menu_get_object();
     if (isset($object->nid) && $object->nid === $node->nid) {
       context_node_condition($node, 'view');
@@ -143,17 +122,21 @@ function context_nodeapi(&$node, $op, $teaser, $page) {
  */
 function context_form_alter(&$form, $form_state, $form_id) {
   // Prevent this from firing on admin pages... damn form driven apis...
-  if ($form['#id'] === 'node-form' && arg(0) != 'admin') {
+  if (!empty($form['#node_edit_form']) && arg(0) != 'admin') {
     context_node_condition($form['#node'], 'form');
   }
-  else if ($form_id == 'system_modules') {
-    context_invalidate_cache();
+  // If the form is an admin for, flag it so that we can force a rebuild if needed.
+  if (path_is_admin($_GET['q'])) {
+    $form['#submit'][] = 'context_admin_form_submit';
   }
-  // Clear out block info cache when an admin area form is submitted.
-  if (arg(0) === 'admin' && !empty($form_state['post']) && (!isset($form_state['method']) || $form_state['method'] !== 'get')) {
-    if ($plugin = context_get_plugin('reaction', 'block')) {
-      $plugin->rebuild_needed(TRUE);
-    }
+}
+
+/**
+ * Clear out block info cache when an admin area form is submitted.
+ */
+function context_admin_form_submit(&$form, $form_state) {
+  if ($plugin = context_get_plugin('reaction', 'block')) {
+    $plugin->rebuild_needed(TRUE);
   }
 }
 
@@ -183,6 +166,31 @@ function context_node_condition(&$node, $op) {
 }
 
 /**
+ * Implementation of hook_form_alter() for system_modules_form.
+ */
+function context_form_system_modules_form_alter(&$form, $form_state) {
+  context_invalidate_cache();
+}
+
+/**
+ * Implementation of hook_form_alter() for user_profile_form.
+ */
+function context_form_user_profile_form_alter(&$form, $form_state) {
+  if ($plugin = context_get_plugin('condition', 'user_page')) {
+    $plugin->execute($form['#user'], 'form');
+  }
+}
+
+/**
+ * Implementation of hook_form_alter() for user_register_form.
+ */
+function context_form_user_register_form(&$form, $form_state) {
+  if ($plugin = context_get_plugin('condition', 'user_page')) {
+    $plugin->execute($form['#user'], 'register');
+  }
+}
+
+/**
  * Implementation of hook_form_alter() for comment_form.
  */
 function context_form_comment_form_alter(&$form, $form_state) {
@@ -195,35 +203,54 @@ function context_form_comment_form_alter(&$form, $form_state) {
 /**
  * Implementation of hook_views_pre_view().
  */
-function context_views_pre_view($view, $args) {
+function context_views_pre_view($view, $display) {
   if ($plugin = context_get_plugin('condition', 'views')) {
     $plugin->execute($view);
+  }
+  // Support Views overrides of specific entity paths.
+  if ($view->display_handler->has_path()) {
+    switch ($view->display_handler->get_option('path')) {
+      case 'taxonomy/term/%':
+        if (($term = taxonomy_term_load(arg(2))) && ($plugin = context_get_plugin('condition', 'taxonomy_term'))) {
+          $plugin->execute($term, 'view');
+        }
+        break;
+      case 'node/%':
+        if ($node = node_load(arg(1))) {
+          context_node_condition($node, 'view');
+        }
+        break;
+      case 'user/%':
+        if (($account = user_load(arg(1))) && ($plugin = context_get_plugin('condition', 'user_page'))) {
+          $plugin->execute($account, 'view');
+        }
+        break;
+    }
   }
 }
 
 /**
  * Implementation of hook_user().
  */
-function context_user($op, &$edit, &$account, $category = NULL) {
-  if (in_array($op, array('view', 'form', 'register'))) {
-    if ($plugin = context_get_plugin('condition', 'user_page')) {
-      $plugin->execute($account, $op);
-    }
+function context_user_view($account, $view_mode) {
+  if ($view_mode === 'full' && $plugin = context_get_plugin('condition', 'user_page')) {
+    $plugin->execute($account, 'view');
   }
 }
 
 /**
- * BLOCK HANDLING =====================================================
+ * Implements hook_page_build().
  */
-
-/**
- * This override of theme_blocks() is called because of an alter of the
- * theme registry. See context_theme_registry_alter().
- */
-function context_blocks($region) {
+function context_page_build(&$page) {
+  module_invoke_all('context_page_condition');
+  module_invoke_all('context_page_reaction');
   if ($plugin = context_get_plugin('reaction', 'block')) {
-    return $plugin->execute($region);
+    $plugin->execute($page);
   }
+
+  // See block_page_build. Clear static cache b/c in overlay form submissions
+  // hook_page_build can get called more than once per page load.
+  drupal_static_reset('context_reaction_block_list');
 }
 
 /**
@@ -252,10 +279,10 @@ function context_links($reset = FALSE) {
     if (!empty($active_types)) {
       // Iterate over active contexts
       foreach ($active_types as $type) {
-        $add_url = 'node/add/'. str_replace('_', '-', $type);
+        $add_url = 'node/add/' . str_replace('_', '-', $type);
         $item = menu_get_item($add_url);
         if ($item && $item['access'] && strpos($_GET['q'], $add_url) !== 0) {
-          $links[$type] = array('title' => t('Add @type', array('@type' => node_get_types('name', $type))), 'href' => $add_url);
+          $links[$type] = array('title' => t('Add @type', array('@type' => node_type_get_name($type))), 'href' => $add_url);
         }
       }
     }
@@ -263,17 +290,6 @@ function context_links($reset = FALSE) {
     uasort($links, 'element_sort');
   }
   return $links;
-}
-
-/**
- * A preprocess_page() function that is called *before* all other
- * preprocessors (including template_preprocess_page()). This allows
- * any final context conditions to be set and any initial reactions
- * to be triggered.
- */
-function context_page_alter(&$vars) {
-  module_invoke_all('context_page_condition');
-  module_invoke_all('context_page_reaction');
 }
 
 /**
@@ -307,7 +323,7 @@ function context_context_page_reaction() {
 }
 
 /**
- * Implementation of preprocess_page().
+ * Implementation of hook_page_alter().
  */
 function context_preprocess_page(&$vars) {
   if ($plugin = context_get_plugin('reaction', 'menu')) {
@@ -316,10 +332,21 @@ function context_preprocess_page(&$vars) {
   if ($plugin = context_get_plugin('reaction', 'theme')) {
     $plugin->execute($vars);
   }
+  /*
   if ($context_links = context_links()) {
     $vars['context_links'] = theme('links', $context_links);
   }
   else {
     $vars['context_links'] = '';
+  }
+  */
+}
+
+/**
+ * Implementation of hook_preprocess_html().
+ */
+function context_preprocess_html(&$vars) {
+  if ($plugin = context_get_plugin('reaction', 'theme_html')) {
+    $plugin->execute($vars);
   }
 }

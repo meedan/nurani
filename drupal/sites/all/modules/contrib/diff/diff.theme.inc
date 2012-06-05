@@ -9,7 +9,8 @@
  * Theme function to display the revisions formular with means to select
  * two revisions.
  */
-function theme_diff_node_revisions($form) {
+function theme_diff_node_revisions($vars) {
+  $form = $vars['form'];
   $output = '';
 
   // Overview table:
@@ -33,19 +34,19 @@ function theme_diff_node_revisions($form) {
       }
       else {
         // its the current revision (no commands to revert or delete)
-        $row[] = array('data' => drupal_render($form['info'][$key]), 'class' => 'revision-current');
-        $row[] = array('data' => drupal_render($form['diff']['old'][$key]), 'class' => 'revision-current');
-        $row[] = array('data' => drupal_render($form['diff']['new'][$key]), 'class' => 'revision-current');
-        $row[] = array('data' => theme('placeholder', t('current revision')), 'class' => 'revision-current', 'colspan' => '2');
+        $row[] = array('data' => drupal_render($form['info'][$key]), 'class' => array('revision-current'));
+        $row[] = array('data' => drupal_render($form['diff']['old'][$key]), 'class' => array('revision-current'));
+        $row[] = array('data' => drupal_render($form['diff']['new'][$key]), 'class' => array('revision-current'));
+        $row[] = array('data' => t('current revision'), 'class' => array('revision-current'), 'colspan' => '2');
         $rows[] = array(
           'data' => $row,
-          'class' => 'error',
+          'class' => array('error'),
         );
       }
     }
   }
-  $output .= theme('table', $header, $rows);
-  $output .= drupal_render($form);
+  $output .= theme('table', array('header' => $header, 'rows' => $rows));
+  $output .= drupal_render_children($form);
   return $output;
 }
 
@@ -149,7 +150,13 @@ function theme_diff_node_revisions($form) {
  * @return
  *   An HTML string representing the table.
  */
-function theme_diff_table($header, $rows, $attributes = array(), $caption = NULL, $cols = array()) {
+function theme_diff_table($vars) {
+  $header     = isset($vars['header']) ? $vars['header'] : array();
+  $rows       = isset($vars['rows']) ? $vars['rows'] : array();
+  $attributes = isset($vars['attributes']) ? $vars['attributes'] : array();
+  $caption    = isset($vars['caption']) ? $vars['caption'] : '';
+  $cols       = isset($vars['cols']) ? $vars['cols'] : array();
+
   $output = '<table'. drupal_attributes($attributes) .">\n";
 
   if (isset($caption)) {
@@ -252,49 +259,51 @@ function theme_diff_table($header, $rows, $attributes = array(), $caption = NULL
 /**
  * Theme function for a header line in the diff.
  */
-function theme_diff_header_line($lineno) {
-  return '<strong>'. t('Line %lineno', array('%lineno' => $lineno)) .'</strong>';
+function theme_diff_header_line($vars) {
+  return '<strong>'. t('Line %lineno', array('%lineno' => $vars['lineno'])) .'</strong>';
 }
 
 /**
  * Theme function for a content line in the diff.
  */
-function theme_diff_content_line($line) {
-  return '<div>'. $line .'</div>';
+function theme_diff_content_line($vars) {
+  return '<div>'. $vars['line'] .'</div>';
 }
 
 /**
  * Theme function for an empty line in the diff.
  */
-function theme_diff_empty_line($line) {
-  return $line;
+function theme_diff_empty_line($vars) {
+  return $vars['line'];
 }
 
 /**
  * Theme function for inline diff form.
  */
-function theme_diff_inline_form($form) {
+function theme_diff_inline_form($vars) {
   drupal_add_css(drupal_get_path('module', 'diff') .'/diff.css');
-  return drupal_render($form);
+  return drupal_render_children($vars['form']);
 }
 
 /**
  * Display inline diff metadata.
  */
-function theme_diff_inline_metadata($node) {
+function theme_diff_inline_metadata($vars) {
   drupal_add_css(drupal_get_path('module', 'diff') .'/diff.css');
+  $node = $vars['node'];
+
   $output = "<div class='diff-inline-metadata clear-block'>";
   $output .= "<div class='diff-inline-byline'>";
   $output .= t('Updated by !name on @date', array(
-    '!name' => theme('username', $node),
+    '!name' => theme('username', array('name' => $node)),
     '@date' => format_date($node->revision_timestamp, 'small'),
   ));
   $output .= "</div>";
   $output .= "<div class='diff-inline-legend clear-block'>";
   $output .= "<label>". t('Legend') ."</label>";
-  $output .= theme('diff_inline_chunk', t('Added'), 'add');
-  $output .= theme('diff_inline_chunk', t('Changed'), 'change');
-  $output .= theme('diff_inline_chunk', t('Deleted'), 'delete');
+  $output .= theme('diff_inline_chunk', array('text' => t('Added'), 'type' => 'add'));
+  $output .= theme('diff_inline_chunk', array('text' => t('Changed'), 'type' => 'change'));
+  $output .= theme('diff_inline_chunk', array('text' => t('Deleted'), 'type' => 'delete'));
   $output .= "</div>";
   $output .= "</div>";
   return $output;
@@ -303,15 +312,15 @@ function theme_diff_inline_metadata($node) {
 /**
  * Theme a span of changed text in an inline diff display.
  */
-function theme_diff_inline_chunk($text, $type = NULL) {
-  switch ($type) {
+function theme_diff_inline_chunk($vars) {
+  switch ($vars['type']) {
     case 'add':
-      return "<span class='diff-added'>{$text}</span>";
+      return "<span class='diff-added'>{$vars['text']}</span>";
     case 'change':
-      return "<span class='diff-changed'>{$text}</span>";
+      return "<span class='diff-changed'>{$vars['text']}</span>";
     case 'delete':
-      return "<span class='diff-deleted'>{$text}</span>";
+      return "<span class='diff-deleted'>{$vars['text']}</span>";
     default:
-      return $text;
+      return $vars['text'];
   }
 }

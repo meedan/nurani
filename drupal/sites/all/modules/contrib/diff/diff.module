@@ -52,7 +52,7 @@ function diff_menu() {
     'access arguments' => array(1),
     'file' => 'diff.pages.inc',
   );
-  $items['node/%node/revisions/view/%/%'] = array(
+  $items['node/%node/revisions/view'] = array(
     'title' => 'Diff',
     'page callback' => 'diff_diffs_show',
     'page arguments' => array(1, 4, 5),
@@ -67,17 +67,9 @@ function diff_menu() {
     'page callback' => 'diff_latest',
     'page arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
-    'access callback' => '_node_revision_access',
-    'access arguments' => array(1),
-    'tab_parent' => 'node/%/revisions/view',
-    'file' => 'diff.pages.inc',
-  );
-  $items['node/%node/revisions/diff-inline'] = array(
-    'page callback' => 'diff_inline_ahah',
-    'page arguments' => array(1),
-    'type' => MENU_CALLBACK,
     'access callback' => 'diff_node_revision_access',
     'access arguments' => array(1),
+    'tab_parent' => 'node/%/revisions/view',
     'file' => 'diff.pages.inc',
   );
   return $items;
@@ -96,6 +88,10 @@ function diff_menu_alter(&$callbacks) {
   $callbacks['node/%node/revisions/%/revert']['tab_parent'] = 'node/%/revisions/%/view';
   $callbacks['node/%node/revisions/%/delete']['tab_parent'] = 'node/%/revisions/%/view';
 
+  $callbacks['node/%node/revisions']['access callback'] =
+  $callbacks['node/%node/revisions/%/view']['access callback'] =
+  $callbacks['node/%node/revisions/%/revert']['access callback'] =
+  $callbacks['node/%node/revisions/%/delete']['access callback'] = 'diff_node_revision_access';
   return;
 }
 
@@ -108,13 +104,17 @@ function diff_node_revision_access($node, $op = 'view') {
 }
 
 /**
- * Implementation of hook_block().
+ * Implements hook_block_info().
  */
-function diff_block($op = 'list', $delta = 0, $edit = array()) {
-  if ($op === 'list') {
-    return array('inline' => array('info' => t('Inline diff')));
-  }
-  elseif ($op === 'view' && $delta === 'inline' && user_access('view revisions') && $node = menu_get_object()) {
+function diff_block_info() {
+  return array('inline' => array('info' => t('Inline diff')));
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function diff_block_view($delta) {
+  if ($delta === 'inline' && user_access('view revisions') && $node = menu_get_object()) {
     $block = array();
     $revisions = node_revision_list($node);
     if (count($revisions) > 1) {
@@ -128,26 +128,29 @@ function diff_block($op = 'list', $delta = 0, $edit = array()) {
 /**
  * Implementation of hook_nodeapi().
  */
-function diff_nodeapi(&$node, $op, $teaser, $page) {
-  if ($page && $op == 'view' && user_access('view revisions') && variable_get('show_diff_inline_'. $node->type, FALSE)) {
+function diff_node_view_alter(&$build) {
+  $node = $build['#node'];
+  if (user_access('view revisions') && variable_get('show_diff_inline_'. $node->type, FALSE)) {
     // Ugly but cheap way to check that we are viewing a node's revision page.
     if (arg(2) === 'revisions' && arg(3) === $node->vid) {
       module_load_include('inc', 'diff', 'diff.pages');
-      $node->content = array('#value' => diff_inline_show($node, $node->vid));
+      $old_vid = _diff_get_previous_vid(node_revision_list($node), $node->vid);
+      // $node->content = array('#value' => diff_inline_show($node, $old_vid));
+      $build = array('#markup' => diff_inline_show($node, $old_vid));
     }
-    $node->content['#prefix'] = isset($node->content['#prefix']) ? "<div id='diff-inline-{$node->nid}'>" . $node->content['#prefix'] : "<div id='diff-inline-{$node->nid}'>";
-    $node->content['#suffix'] = isset($node->content['#suffix']) ? $node->content['#suffix'] . "</div>" : "</div>";
+    $build['#prefix'] = isset($build['#prefix']) ? "<div id='diff-inline-{$node->nid}'>" . $build['#prefix'] : "<div id='diff-inline-{$node->nid}'>";
+    $build['#suffix'] = isset($build['#suffix']) ? $build['#suffix'] . "</div>" : "</div>";
   }
 }
 
 /**
- * Implementation of hook_form_alter().
+ * Implements hook_form_alter().
  */
 function diff_form_alter(&$form, $form_state, $form_id) {
-  if (isset($form['type']['#value']) && $form['type']['#value'] .'_node_form' == $form_id) {
+  if (!empty($form['#node_edit_form'])) {
     // Add a 'View changes' button on the node edit form.
     if (variable_get('show_preview_changes_'. $form['type']['#value'], TRUE) && $form['nid']['#value'] > 0) {
-      $form['buttons']['preview_changes'] = array(
+      $form['actions']['preview_changes'] = array(
         '#type' => 'submit',
         '#value' => t('View changes'),
         '#weight' => 12,
@@ -155,28 +158,35 @@ function diff_form_alter(&$form, $form_state, $form_id) {
       );
     }
   }
-  elseif ($form_id == 'node_type_form' && isset($form['identity']['type'])) {
+}
+
+/**
+ * Implements hook_form_alter() for node_type_form.
+ */
+function diff_form_node_type_form_alter(&$form, $form_state) {
+  if (isset($form['type'])) {
     // Node type edit form.
     // Add checkbox to activate 'View changes' button per node type.
-    $form['workflow']['diff'] = array(
+    $form['diff'] = array(
       '#title' => t('Diff'),
-      '#type' => 'item',
+      '#type' => 'fieldset',
+      '#group' => 'additional_settings',
       '#tree' => FALSE,
     );
-    $form['workflow']['diff']['show_preview_changes'] = array(
+    $form['diff']['show_preview_changes'] = array(
       '#type' => 'checkbox',
       '#title' => t('Show %preview_changes button on node edit form', array('%preview_changes' => t('View changes'))),
       '#weight' => 10,
       '#default_value' => variable_get('show_preview_changes_'. $form['#node_type']->type, TRUE),
     );
-    $form['workflow']['diff']['show_diff_inline'] = array(
+    $form['diff']['show_diff_inline'] = array(
       '#type' => 'checkbox',
       '#title' => t('Show diffs inline for this content type'),
       '#description' => t("You must enable the 'Inline diff' block to use this feature"),
       '#weight' => 10,
       '#default_value' => variable_get('show_diff_inline_'. $form['#node_type']->type, FALSE),
     );
-    $form['workflow']['diff']['enable_revisions_page'] = array(
+    $form['diff']['enable_revisions_page'] = array(
       '#type' => 'checkbox',
       '#title' => t('Enable the %revisions page for this content type', array('%revisions' => t('Revisions'))),
       '#weight' => 11,
@@ -190,16 +200,18 @@ function diff_form_alter(&$form, $form_state, $form_id) {
  */
 function diff_node_form_build_preview_changes($form, &$form_state) {
   module_load_include('inc', 'diff', 'diff.pages');
+  $old_node = clone node_load($form_state['values']['nid']);
   $node = node_form_submit_build_node($form, $form_state);
 
   // Create diff of old node and edited node
-  $rows = _diff_body_rows(node_load($form_state['values']['nid']), $node);
+  $rows = _diff_body_rows($old_node, $node);
   $cols = _diff_default_cols();
   $header = _diff_default_header();
-  $changes = theme('diff_table', $header, $rows, array('class' => 'diff'), NULL, $cols);
+  $changes = theme('diff_table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => 'diff'), 'cols' => $cols));
 
   // Prepend diff to edit form
-  $form_state['node_preview'] = isset($form_state['node_preview']) ? $changes . $form_state['node_preview'] : $changes;
+  $form_state['node_preview'] = $changes;
+  $form_state['rebuild'] = TRUE;
 }
 
 /**
@@ -208,7 +220,7 @@ function diff_node_form_build_preview_changes($form, &$form_state) {
 function diff_theme() {
   return array(
     'diff_node_revisions' => array(
-      'arguments' => array('form' => NULL),
+      'render element' => 'form',
       'file' => 'diff.theme.inc',
     ),
     'diff_table' => array(
@@ -228,7 +240,7 @@ function diff_theme() {
       'file' => 'diff.theme.inc',
     ),
     'diff_inline_form' => array(
-      'arguments' => array('form' => array()),
+      'render element' => 'form',
       'file' => 'diff.theme.inc',
     ),
     'diff_inline_metadata' => array(
@@ -286,7 +298,7 @@ function diff_get_inline($a, $b) {
 /**
  * Form builder: Inline diff controls.
  */
-function diff_inline_form($form_state, $node, $revisions) {
+function diff_inline_form($form, $form_state, $node, $revisions) {
   $form = array();
   $form['node'] = array(
     '#type' => 'value',
@@ -296,15 +308,15 @@ function diff_inline_form($form_state, $node, $revisions) {
     '#type' => 'select',
     '#options' => array(0 => '< '. t('No highlighting') . ' >'),
     '#default_value' => (arg(2) === 'revisions' && arg(3) === $node->vid) ? $node->vid : 0,
-    '#ahah' => array(
-      'path' => "node/{$node->nid}/revisions/diff-inline",
+    '#ajax' => array(
+      'callback' => 'diff_inline_ajax',
       'wrapper' => "diff-inline-{$node->nid}",
       'method' => 'replace',
     ),
   );
   foreach ($revisions as $revision) {
     $form['revision']['#options'][$revision->vid] = t('@revision by @name', array(
-      '@revision' => format_date($revision->timestamp, 'small'),
+      '@revision' => format_date($revision->timestamp, 'short'),
       '@name' => $revision->name,
     ));
   }
@@ -312,9 +324,19 @@ function diff_inline_form($form_state, $node, $revisions) {
     '#type' => 'submit',
     '#value' => t('View'),
     '#submit' => array('diff_inline_form_submit'),
-    '#attributes' => array('class' => 'diff-js-hidden'),
+    '#attributes' => array('class' => array('diff-js-hidden')),
   );
   return $form;
+}
+
+/**
+ * AHAH callback for rendering the inline diff of a node.
+ */
+function diff_inline_ajax($form, $form_state) {
+  module_load_include('inc', 'diff', 'diff.pages');
+  $node = $form['node']['#value'];
+  $vid = isset($form_state['values']['revision']) ? $form_state['values']['revision'] : 0;
+  return "<div id='diff-inline-{$node->nid}'>" . diff_inline_show($node, $vid) . "</div>";
 }
 
 /**

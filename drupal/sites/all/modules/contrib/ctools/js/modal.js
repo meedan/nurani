@@ -1,4 +1,3 @@
-// $Id: modal.js,v 1.17.2.20 2010/10/20 19:22:08 merlinofchaos Exp $
 /**
  * @file
  *
@@ -165,35 +164,10 @@
   };
 
   /**
-   * Generic replacement click handler to open the modal with the destination
-   * specified by the href of the link.
+   * Handler to prepare the modal for the response
    */
   Drupal.CTools.Modal.clickAjaxLink = function () {
-    // show the empty dialog right away.
     Drupal.CTools.Modal.show(Drupal.CTools.Modal.getSettings(this));
-    Drupal.CTools.AJAX.clickAJAXLink.apply(this);
-    if (!$(this).hasClass('ctools-ajaxing')) {
-      Drupal.CTools.Modal.dismiss();
-    }
-
-    return false;
-  };
-
-  /**
-   * Generic replacement click handler to open the modal with the destination
-   * specified by the href of the link.
-   */
-  Drupal.CTools.Modal.clickAjaxButton = function() {
-    if ($(this).hasClass('ctools-ajaxing')) {
-      return false;
-    }
-
-    Drupal.CTools.Modal.show(Drupal.CTools.Modal.getSettings(this));
-    Drupal.CTools.AJAX.clickAJAXButton.apply(this);
-    if (!$(this).hasClass('ctools-ajaxing')) {
-      Drupal.CTools.Modal.dismiss();
-    }
-
     return false;
   };
 
@@ -211,48 +185,91 @@
   /**
    * Bind links that will open modals to the appropriate function.
    */
-  Drupal.behaviors.ZZCToolsModal = function(context) {
-    // Bind links
-    // Note that doing so in this order means that the two classes can be
-    // used together safely.
-    $('a.ctools-use-modal-cache:not(.ctools-use-modal-processed)', context)
-      .addClass('ctools-use-modal-processed')
-      .click(Drupal.CTools.Modal.clickAjaxCacheLink)
-      .each(function () {
-        Drupal.CTools.AJAX.warmCache.apply(this);
-      });
+  Drupal.behaviors.ZZCToolsModal = {
+    attach: function(context) {
+      // Bind links
+      // Note that doing so in this order means that the two classes can be
+      // used together safely.
+      /*
+       * @todo remimplement the warm caching feature
+      $('a.ctools-use-modal-cache:not(.ctools-use-modal-processed)', context)
+        .addClass('ctools-use-modal-processed')
+        .click(Drupal.CTools.Modal.clickAjaxCacheLink)
+        .each(function () {
+          Drupal.CTools.AJAX.warmCache.apply(this);
+        });
+        */
 
-    $('a.ctools-use-modal:not(.ctools-use-modal-processed)', context)
-      .addClass('ctools-use-modal-processed')
-      .click(Drupal.CTools.Modal.clickAjaxLink);
+      $('area.ctools-use-modal:not(.ctools-use-modal-processed), a.ctools-use-modal:not(.ctools-use-modal-processed)', context)
+        .addClass('ctools-use-modal-processed')
+        .click(Drupal.CTools.Modal.clickAjaxLink)
+        .each(function () {
+          // Create a drupal ajax object
+          var element_settings = {};
+          if ($(this).attr('href')) {
+            element_settings.url = $(this).attr('href');
+            element_settings.event = 'click';
+            element_settings.progress = { type: 'throbber' };
+          }
+          var base = $(this).attr('href');
+          Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
 
-    // Bind buttons
-    $('input.ctools-use-modal:not(.ctools-use-modal-processed), button.ctools-use-modal:not(.ctools-use-modal-processed)', context)
-      .addClass('ctools-use-modal-processed')
-      .click(Drupal.CTools.Modal.clickAjaxButton);
+          // Attach the display behavior to the ajax object
+        }
+      );
 
-    // Bind submit links in the modal form.
-    $('#modal-content form:not(.ctools-use-modal-processed)', context)
-      .addClass('ctools-use-modal-processed')
-      .submit(Drupal.CTools.Modal.submitAjaxForm)
-      .bind('CToolsAJAXSubmit', Drupal.CTools.AJAX.ajaxSubmit);
+      // Bind buttons
+      $('input.ctools-use-modal:not(.ctools-use-modal-processed), button.ctools-use-modal:not(.ctools-use-modal-processed)', context)
+        .addClass('ctools-use-modal-processed')
+        .click(Drupal.CTools.Modal.clickAjaxLink)
+        .each(function() {
+          var button = this;
+          var element_settings = {};
 
-    // add click handlers so that we can tell which button was clicked,
-    // because the AJAX submit does not set the values properly.
+          // AJAX submits specified in this manner automatically submit to the
+          // normal form action.
+          element_settings.url = Drupal.CTools.Modal.findURL(this);
+          element_settings.event = 'click';
 
-    $('#modal-content input[type="submit"]:not(.ctools-use-modal-processed), #modal-content button:not(.ctools-use-modal-processed)', context)
-      .addClass('ctools-use-modal-processed')
-      .click(function() {
-        if (Drupal.autocompleteSubmit && !Drupal.autocompleteSubmit()) {
+          var base = $(this).attr('id');
+          Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
+
+          // Make sure changes to settings are reflected in the URL.
+          $('.' + $(button).attr('id') + '-url').change(function() {
+            Drupal.ajax[base].options.url = Drupal.CTools.Modal.findURL(button);
+          });
+        });
+
+      // Bind our custom event to the form submit
+      $('#modal-content form:not(.ctools-use-modal-processed)', context)
+        .addClass('ctools-use-modal-processed')
+        .each(function() {
+          var element_settings = {};
+
+          element_settings.url = $(this).attr('action');
+          element_settings.event = 'submit';
+          element_settings.progress = { 'type': 'throbber' }
+          var base = $(this).attr('id');
+
+          Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
+          Drupal.ajax[base].form = $(this);
+
+          $('input[type=submit], button', this).click(function() {
+            Drupal.ajax[base].element = this;
+            this.form.clk = this;
+          });
+
+        });
+
+      // Bind a click handler to allow elements with the 'ctools-close-modal'
+      // class to close the modal.
+      $('.ctools-close-modal', context).once('ctools-close-modal-processed', function () {
+        $(this).click(function() {
+          Drupal.CTools.Modal.dismiss();
           return false;
-        }
-
-        // Make sure it knows our button.
-        if (!$(this.form).hasClass('ctools-ajaxing')) {
-          this.form.clk = this;
-        }
+        });
       });
-
+    }
   };
 
   // The following are implementations of AJAX responder commands.
@@ -260,16 +277,19 @@
   /**
    * AJAX responder command to place HTML within the modal.
    */
-  Drupal.CTools.AJAX.commands.modal_display = function(command) {
-    $('#modal-title').html(command.title);
-    $('#modal-content').html(command.output);
+  Drupal.CTools.Modal.modal_display = function(ajax, response, status) {
+    if ($('#modalContent').length == 0) {
+      Drupal.CTools.Modal.show(Drupal.CTools.Modal.getSettings(ajax.element));
+    }
+    $('#modal-title').html(response.title);
+    $('#modal-content').html(response.output);
     Drupal.attachBehaviors();
   }
 
   /**
    * AJAX responder command to dismiss the modal.
    */
-  Drupal.CTools.AJAX.commands.modal_dismiss = function(command) {
+  Drupal.CTools.Modal.modal_dismiss = function(command) {
     Drupal.CTools.Modal.dismiss();
     $('link.ctools-temporary-css').remove();
   }
@@ -277,12 +297,35 @@
   /**
    * Display loading
    */
-  Drupal.CTools.AJAX.commands.modal_loading = function(command) {
-    Drupal.CTools.AJAX.commands.modal_display({
+  //Drupal.CTools.AJAX.commands.modal_loading = function(command) {
+  Drupal.CTools.Modal.modal_loading = function(command) {
+    Drupal.CTools.Modal.modal_display({
       output: Drupal.theme(Drupal.CTools.Modal.currentSettings.throbberTheme),
       title: Drupal.CTools.Modal.currentSettings.loadingText
     });
   }
+
+  /**
+   * Find a URL for an AJAX button.
+   *
+   * The URL for this gadget will be composed of the values of items by
+   * taking the ID of this item and adding -url and looking for that
+   * class. They need to be in the form in order since we will
+   * concat them all together using '/'.
+   */
+  Drupal.CTools.Modal.findURL = function(item) {
+    var url = '';
+    var url_class = '.' + $(item).attr('id') + '-url';
+    $(url_class).each(
+      function() {
+        if (url && $(this).val()) {
+          url += '/';
+        }
+        url += $(this).val();
+      });
+    return url;
+  };
+
 
   /**
    * modalContent
@@ -354,6 +397,14 @@
         event = window.event;
         target = event.srcElement;
       }
+
+      var parents = $(target).parents().get();
+      for (var i in $(target).parents().get()) {
+        var position = $(parents[i]).css('position');
+        if (position == 'absolute' || position == 'fixed') {
+          return true;
+        }
+      }
       if( $(target).filter('*:visible').parents('#modalContent').size()) {
         // allow the event only if target is a visible child node of #modalContent
         return true;
@@ -375,6 +426,16 @@
     modalContentClose = function(){close(); return false;};
     $('.close').bind('click', modalContentClose);
 
+    // Bind a keypress on escape for closing the modalContent
+    modalEventEscapeCloseHandler = function(event) {
+      if (event.keyCode == 27) {
+        close();
+        return false;
+      }
+    };
+
+    $(document).bind('keypress', modalEventEscapeCloseHandler);
+
     // Close the open modal content and backdrop
     function close() {
       // Unbind the events
@@ -382,6 +443,7 @@
       $('body').unbind( 'focus', modalEventHandler);
       $('body').unbind( 'keypress', modalEventHandler );
       $('.close').unbind('click', modalContentClose);
+      $('body').unbind('keypress', modalEventEscapeCloseHandler);
       $(document).trigger('CToolsDetachBehaviors', $('#modalContent'));
 
       // Set our animation parameters and use them
@@ -456,5 +518,10 @@
       }
     });
   };
+
+$(function() {
+  Drupal.ajax.prototype.commands.modal_display = Drupal.CTools.Modal.modal_display;
+  Drupal.ajax.prototype.commands.modal_dismiss = Drupal.CTools.Modal.modal_dismiss;
+});
 
 })(jQuery);

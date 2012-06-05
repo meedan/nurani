@@ -1,5 +1,4 @@
 <?php
-// $Id: page_title.inc,v 1.1.2.4 2010/07/05 21:14:07 merlinofchaos Exp $
 
 /**
  * @file
@@ -53,7 +52,7 @@ function ctools_page_title_content_type_render($subtype, $conf, $panel_args) {
   return $block;
 }
 
-function ctools_page_title_content_type_edit_form(&$form, &$form_state) {
+function ctools_page_title_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
 
   $form['markup'] = array(
@@ -83,12 +82,13 @@ function ctools_page_title_content_type_edit_form(&$form, &$form_state) {
     '#type' => 'textfield',
     '#default_value' => empty($conf['class']) ? '' : $conf['class'],
   );
+  return $form;
 }
 
 /**
  * The submit form stores the data in $conf.
  */
-function ctools_page_title_content_type_edit_form_submit(&$form, &$form_state) {
+function ctools_page_title_content_type_edit_form_submit($form, &$form_state) {
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     if (isset($form_state['values'][$key])) {
       $form_state['conf'][$key] = $form_state['values'][$key];

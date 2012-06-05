@@ -6,7 +6,7 @@
  */
 
 /**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  */
 function node_export_relation_uninstall() {
   // Node reference.

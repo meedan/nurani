@@ -1,5 +1,4 @@
 <?php
-// $Id: context_reaction_block.inc,v 1.1.2.35 2010/08/06 16:13:32 jmiccolis Exp $
 
 /**
  * Expose blocks as context reactions.
@@ -40,14 +39,15 @@ class context_reaction_block extends context_reaction {
       '#suffix' => '</div>',
     );
     foreach ($this->get_blocks() as $block) {
-      if (!isset($form['selector'][$block->module])) {
-        $form['selector'][$block->module] = array(
+      $group = isset($block->context_group) ? $block->context_group : $block->module;
+      if (!isset($form['selector'][$group])) {
+        $form['selector'][$group] = array(
           '#type' => 'checkboxes',
-          '#title' => $modules[$block->module],
+          '#title' => isset($block->context_group) ? $block->context_group : $modules[$block->module],
           '#options' => array(),
         );
       }
-      $form['selector'][$block->module]['#options'][$block->bid] = check_plain($block->info);
+      $form['selector'][$group]['#options'][$block->bid] = check_plain($block->info);
     }
     ksort($form['selector']);
 
@@ -58,7 +58,7 @@ class context_reaction_block extends context_reaction {
       '#tree' => TRUE,
       '#theme' => 'context_block_regions_form',
     );
-    foreach (system_region_list($theme_key) as $region => $label) {
+    foreach (system_region_list($theme_key, REGIONS_VISIBLE) as $region => $label) {
       $form['blocks'][$region] = array(
         '#type' => 'item',
         '#title' => $label,
@@ -71,7 +71,7 @@ class context_reaction_block extends context_reaction {
             '#weight' => $block->weight,
             '#type' => 'markup',
             '#tree' => TRUE,
-            'weight' => array('#type' => 'weight', '#delta' => $weight_delta, '#default_value' => 0),
+            'weight' => array('#type' => 'weight', '#delta' => $weight_delta, '#default_value' => $block->weight),
           );
         }
       }
@@ -94,14 +94,14 @@ class context_reaction_block extends context_reaction {
       $edited = array();
     }
 
-    foreach ($edited as $region => $bids) {
-      foreach ($bids as $position => $bid) {
-        if (isset($block_info[$bid])) {
-          $blocks[$bid] = array(
-            'module' => $block_info[$bid]->module,
-            'delta' => $block_info[$bid]->delta,
+    foreach ($edited as $region => $block_data) {
+      foreach ($block_data as $position => $data) {
+        if (isset($block_info[$data->bid])) {
+          $blocks[$data->bid] = array(
+            'module' => $block_info[$data->bid]->module,
+            'delta' => $block_info[$data->bid]->delta,
             'region' => $region,
-            'weight' => $position,
+            'weight' => $data->weight,
           );
         }
       }
@@ -114,34 +114,35 @@ class context_reaction_block extends context_reaction {
    */
   function editor_form($context) {
     $form = array();
-    if (module_exists('jquery_ui')) {
-      jquery_ui_add(array('ui.draggable', 'ui.droppable', 'ui.sortable'));
-      drupal_add_js(drupal_get_path('module', 'context_ui') .'/json2.js');
-      drupal_add_js(drupal_get_path('module', 'context') .'/plugins/context_reaction_block.js');
-      drupal_add_css(drupal_get_path('module', 'context') .'/plugins/context_reaction_block.css');
+    drupal_add_library('system', 'ui.droppable');
+    drupal_add_library('system', 'ui.sortable');
+    drupal_add_js(drupal_get_path('module', 'context_ui') . '/json2.js');
+    drupal_add_js(drupal_get_path('module', 'context') . '/plugins/context_reaction_block.js');
+    drupal_add_css(drupal_get_path('module', 'context') . '/plugins/context_reaction_block.css');
 
-      // We might be called multiple times so use a static to ensure this is set just once.
-      static $once;
-      if (!isset($once)) {
-        $settings = array(
-          'path' => url($_GET['q']),
-          'params' => (object) array_diff_key($_GET, array('q' => '')),
-          'scriptPlaceholder' => theme('context_block_script_placeholder', ''),
-        );
-        drupal_add_js(array('contextBlockEditor' => $settings), 'setting');
-        $once = TRUE;
-      }
-
-      $form['state'] = array(
-        '#type' => 'hidden',
-        '#attributes' => array('class' => 'context-block-editor-state'),
+    // We might be called multiple times so use a static to ensure this is set just once.
+    static $once;
+    if (!isset($once)) {
+      $settings = array(
+        'path' => url($_GET['q']),
+        'params' => (object) array_diff_key($_GET, array('q' => '')),
+        'scriptPlaceholder' => theme('context_block_script_placeholder', array('text' => '')),
       );
-      $form['browser'] = array(
-        '#type' => 'markup',
-        '#value' => theme('context_block_browser', $this->get_blocks(NULL, NULL, $this->rebuild_needed()), $context),
-      );
-      $this->rebuild_needed(FALSE);
+      drupal_add_js(array('contextBlockEditor' => $settings), 'setting');
+      $once = TRUE;
     }
+
+    $form['state'] = array(
+      '#type' => 'hidden',
+      '#attributes' => array('class' => array('context-block-editor-state')),
+    );
+    $form['browser'] = array(
+      '#markup' => theme('context_block_browser', array(
+        'blocks' => $this->get_blocks(NULL, NULL, $this->rebuild_needed()),
+        'context' => $context
+      )),
+    );
+    $this->rebuild_needed(FALSE);
     return $form;
   }
 
@@ -187,16 +188,6 @@ class context_reaction_block extends context_reaction {
    */
   function settings_form() {
     $form = array();
-    $form['context_reaction_block_disable_core'] = array(
-      '#title' => t('Core block system'),
-      '#type' => 'select',
-      '#options' => array(
-        FALSE => t('Enabled'),
-        TRUE => t('Disabled'),
-      ),
-      '#default_value' => variable_get('context_reaction_block_disable_core', FALSE),
-      '#description' => t('If enabled Context will include blocks enabled through the core block system when rendering regions. Disable to improve performance and hide the core block administration UI.')
-    );
     $form['context_reaction_block_all_regions'] = array(
       '#title' => t('Show all regions'),
       '#type' => 'checkbox',
@@ -209,43 +200,30 @@ class context_reaction_block extends context_reaction {
   /**
    * Execute.
    */
-  function execute($region) {
+  function execute(&$page) {
+    global $theme;
+
+    // The theme system might not yet be initialized. We need $theme.
+    drupal_theme_initialize();
+
     // If the context_block querystring param is set, switch to AJAX rendering.
     // Note that we check the output buffer for any content to ensure that we
     // are not in the middle of a PHP template render.
     if (isset($_GET['context_block']) && !ob_get_contents()) {
       return $this->render_ajax($_GET['context_block']);
     }
-    if ($this->is_enabled_region($region)) {
-      return theme('context_block_editable_region', $region, $this->block_list($region), $this->is_editable());
-    }
-    return '';
-  }
 
-  /**
-   * Determine whether inline editing requirements are met and that the current
-   * user may edit.
-   */
-  protected function is_editable($reset = FALSE) {
-    // Check requirements.
-    // Generally speaking, it does not make sense to allow anonymous users to
-    // edit a context inline. Though it may be possible to save (and restore)
-    // an edited context to an anonymous user's cookie or session, it's an
-    // edge case and probably not something we want to encourage anyway.
-    static $editable;
-    if (!isset($editable) || $reset) {
-      global $user;
-      if (module_exists('jquery_ui') && $user->uid) {
-        $editable = TRUE;
-        jquery_ui_add(array('ui.draggable', 'ui.droppable', 'ui.sortable'));
-        drupal_add_js(drupal_get_path('module', 'context') .'/plugins/context_reaction_block.js');
-        drupal_add_css(drupal_get_path('module', 'context') .'/plugins/context_reaction_block.css');
-      }
-      else {
-        $editable = FALSE;
+    // Populate all block regions
+    $all_regions = system_region_list($theme);
+
+    // Load all region content assigned via blocks.
+    foreach (array_keys($all_regions) as $region) {
+      if ($this->is_enabled_region($region)) {
+        if ($blocks = $this->block_get_blocks_by_region($region)) {
+          $page[$region] = isset($page[$region]) ? array_merge($page[$region], $blocks) : $blocks;
+        }
       }
     }
-    return $editable;
   }
 
   /**
@@ -259,23 +237,102 @@ class context_reaction_block extends context_reaction {
   }
 
   /**
-  * An alternative version of block_list() that provides any context enabled blocks.
-  */
-  function block_list($region) {
-    static $build_queue;
-    static $build_contexts;
-    static $context_blocks = array();
-    static $empty_blocks = array();
+   * Determine whether inline editing requirements are met and that the current
+   * user may edit.
+   */
+  protected function is_editable_region($region, $reset = FALSE) {
+    // Check requirements.
+    // Generally speaking, it does not make sense to allow anonymous users to
+    // edit a context inline. Though it may be possible to save (and restore)
+    // an edited context to an anonymous user's cookie or session, it's an
+    // edge case and probably not something we want to encourage anyway.
+    static $requirements;
+    if (!isset($requirements) || $reset) {
+      global $user;
+      if ($user->uid) {
+        $requirements = TRUE;
+        drupal_add_library('system', 'ui.droppable');
+        drupal_add_library('system', 'ui.sortable');
+        drupal_add_js(drupal_get_path('module', 'context') . '/plugins/context_reaction_block.js');
+        drupal_add_css(drupal_get_path('module', 'context') . '/plugins/context_reaction_block.css');
+      }
+      else {
+        $requirements = FALSE;
+      }
+    }
+    // Check that this region is not locked by the theme.
+    global $theme;
+    $info = system_get_info('theme', $theme);
+    if ($info && isset($info['regions_locked']) && in_array($region, $info['regions_locked'])) {
+      return FALSE;
+    }
+    // Check that this region is not hidden
+    $visible = system_region_list($theme, REGIONS_VISIBLE);
+    return $requirements && $this->is_enabled_region($region) && isset($visible[$region]);
+  }
 
-    // Static cache a region => block array of blocks that should be built *if*
-    // the given region is requested. Note that the blocks are not themselves
-    // built in this first run as not all regions may be requested even if
-    // active contexts include blocks in those regions.
+  /**
+   * Add markup for making a block editable.
+   */
+  protected function editable_block($block) {
+    if (!empty($block->content['#markup']) || element_children($block->content)) {
+      $block->content = array(
+        'content' => $block->content,
+        'context' => array('#markup' => "<a id='context-block-{$block->module}-{$block->delta}' class='context-block editable edit-{$block->context}'></a>"),
+      );
+      //Contextual links are in the wrong spot in the render array once we've nested them
+      if (isset($block->content['content']['#contextual_links'])) {
+        $block->content['#contextual_links'] = $block->content['content']['#contextual_links'];
+        unset($block->content['content']['#contextual_links']);
+      }
+    }
+    return $block;
+  }
+
+  /**
+   * Add markup for making a region editable.
+   */
+  protected function editable_region($region, $build) {
+    if ($this->is_editable_region($region) &&
+        (!empty($build) ||
+         variable_get('context_reaction_block_all_regions', FALSE) ||
+         context_isset('context_ui', 'context_ui_editor_present'))
+    ) {
+      global $theme;
+      $regions = system_region_list($theme);
+      $name = isset($regions[$region]) ? $regions[$region] : $region;
+      $build['context']['#markup'] = "<a class='context-block-region' id='context-block-region-{$region}'>{$name}</a>";
+    }
+    return $build;
+  }
+
+  /**
+  * Get a renderable array of a region containing all enabled blocks.
+  */
+  function block_get_blocks_by_region($region) {
+    module_load_include('module', 'block', 'block');
+
+    $build = array();
+    if ($list = $this->block_list($region)) {
+      $build = _block_get_renderable_array($list);
+    }
+    if ($this->is_editable_region($region)) {
+      $build = $this->editable_region($region, $build);
+    }
+    return $build;
+  }
+
+  /**
+   * An alternative version of block_list() that provides any context enabled blocks.
+   */
+  function block_list($region) {
+    module_load_include('module', 'block', 'block');
+
+    $context_blocks = &drupal_static('context_reaction_block_list');;
     $contexts = context_active_contexts();
-    if (!isset($build_queue) || $build_contexts != array_keys($contexts)) {
+    if (!isset($context_blocks)) {
       $info = $this->get_blocks();
-      $build_queue = array();
-      $build_contexts = array_keys($contexts);
+      $context_blocks = array();
       foreach ($contexts as $context) {
         $options = $this->fetch_from_context($context);
         if (!empty($options['blocks'])) {
@@ -283,98 +340,56 @@ class context_reaction_block extends context_reaction {
             $block = (object) $block;
             $block->context = $context->name;
             $block->bid = "{$block->module}-{$block->delta}";
-            $block->cache = isset($info[$block->bid]->cache) ? $info[$block->bid]->cache : BLOCK_NO_CACHE;
-            $build_queue[$block->region][] = $block;
+            $block->title = isset($info[$block->bid]->title) ? $info[$block->bid]->title : NULL;
+            $block->cache = isset($info[$block->bid]->cache) ? $info[$block->bid]->cache : DRUPAL_NO_CACHE;
+            $context_blocks[$block->region][$block->bid] = $block;
           }
         }
       }
-    }
+      
+      $this->is_editable_check($context_blocks);
+      foreach ($context_blocks as $r => $blocks) {
+        $context_blocks[$r] = _block_render_blocks($blocks);
 
-    // Context blocks.
-    if (!isset($context_blocks[$region])) {
-      $context_blocks[$region] = array();
-      $empty_blocks[$region] = array();
-      if (!empty($build_queue[$region])) {
-        foreach ($build_queue[$region] as $block) {
-          $block = $this->build_block($block);
-          if (!empty($block->content)) {
-            $context_blocks[$region][] = $block;
-          }
-          else {
-            $empty_blocks[$region][] = $block;
+        // Make blocks editable if allowed.
+        if ($this->is_editable_region($r)) {
+          foreach ($context_blocks[$r] as $key => $block) {
+            $context_blocks[$r][$key] = $this->editable_block($block);
           }
         }
+
+        // Sort blocks.
+        uasort($context_blocks[$r], array('context_reaction_block', 'block_sort'));
       }
     }
-
-    // Get core blocks only if enabled.
-    $blocks = !variable_get('context_reaction_block_disable_core', FALSE) ? block_list($region) : array();
-    $blocks = array_merge($blocks, $context_blocks[$region]);
-
-    // Only include empty blocks if all regions should be shown or there are
-    // non-empty blocks in the same region.
-    $all_regions = variable_get('context_reaction_block_all_regions', FALSE);
-    if ($this->is_editable() && ($all_regions || !empty($blocks))) {
-      $blocks = array_merge($blocks, $empty_blocks[$region]);
-    }
-
-    // Sort everything.
-    uasort($blocks, array('context_reaction_block', 'block_sort'));
-    return $blocks;
+    return isset($context_blocks[$region]) ? $context_blocks[$region] : array();
   }
 
   /**
-   * Build a block's content. Largely taken from block_list().
+   * Determine if there is an active context editor block, and set a flag.  We will set a flag so 
+   * that we can make sure that blocks with empty content have some default content.  This is
+   * needed so the save of the context inline editor does not remove the blocks with no content.
    */
-  protected function build_block($block, $reset = FALSE) {
-    // Block caching is not compatible with node_access modules. We also
-    // preserve the submission of forms in blocks, by fetching from cache
-    // only if the request method is 'GET'.
-    static $cacheable;
-    if (!isset($cacheable) || $reset) {
-      $cacheable = !count(module_implements('node_grants')) && $_SERVER['REQUEST_METHOD'] == 'GET';
-    }
-
-    if (!isset($block->content)) {
-      $block->content = '';
-      // Try fetching the block from cache.
-      if ($cacheable && ($cid = _block_get_cache_id($block))) {
-        if ($cache = cache_get($cid, 'cache_block')) {
+  function is_editable_check($context_blocks) {
+    foreach ($context_blocks as $r => $blocks) {
+      if (isset($blocks['context_ui-editor'])) {
+        $block = $blocks['context_ui-editor'];
+        // see if the editor is actually enabled, lifted from _block_render_blocks
+        if (!count(module_implements('node_grants')) && ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'HEAD') && ($cid = _block_get_cache_id($block)) && ($cache = cache_get($cid, 'cache_block'))) {
           $array = $cache->data;
         }
         else {
-          $array = module_invoke($block->module, 'block', 'view', $block->delta);
-          cache_set($cid, $array, 'cache_block', CACHE_TEMPORARY);
+          $array = module_invoke($block->module, 'block_view', $block->delta);
+          drupal_alter(array('block_view', "block_view_{$block->module}_{$block->delta}"), $array, $block);
         }
-      }
-      // Otherwise build block.
-      else {
-        $array = module_invoke($block->module, 'block', 'view', $block->delta);
-      }
-      if (isset($array) && is_array($array)) {
-        foreach ($array as $k => $v) {
-          $block->$k = $v;
+        if(!empty($array['content'])) {
+          context_set('context_ui', 'context_ui_editor_present', TRUE);
         }
+        break;
       }
     }
-    if (!empty($block->content)) {
-      // Only query for custom block title if block core compatibility is enabled.
-      if (!variable_get('context_reaction_block_disable_core', FALSE)) {
-        global $user, $theme_key;
-        $block->title = db_result(db_query("SELECT title FROM {blocks} WHERE module = '%s' AND delta = '%s' AND theme = '%s'", $block->module, $block->delta, $theme_key));
-      }
-      // Override default block title if a custom display title is present.
-      if (!empty($block->title)) {
-        // Check plain here to allow module generated titles to keep any markup.
-        $block->subject = $block->title == '<none>' ? '' : check_plain($block->title);
-      }
-      if (!isset($block->subject)) {
-        $block->subject = '';
-      }
-    }
-    return $block;
   }
-
+  
   /**
    * Generate the safe weight range for a block being added to a region such that
    * there are enough potential unique weights to support all blocks.
@@ -422,8 +437,8 @@ class context_reaction_block extends context_reaction {
       }
       if (empty($block_info)) {
         $block_info = array();
-        foreach (module_implements('block') as $module) {
-          $module_blocks = module_invoke($module, 'block', 'list');
+        foreach (module_implements('block_info') as $module) {
+          $module_blocks = module_invoke($module, 'block_info');
           if (!empty($module_blocks)) {
             foreach ($module_blocks as $delta => $block) {
               $block = (object) $block;
@@ -441,12 +456,18 @@ class context_reaction_block extends context_reaction {
       drupal_alter('context_block_info', $block_info);
 
       // Gather only region info from the database.
-      $theme_key = variable_get('theme_default', 'garland');
-      $result = db_query("SELECT module,weight,delta,region,status FROM {blocks} WHERE theme = '%s' ORDER BY weight ASC", $theme_key);
-      while ($row = db_fetch_object($result)) {
-        if ($row->status && isset($block_info["{$row->module}-{$row->delta}"])) {
-          $block_info["{$row->module}-{$row->delta}"]->weight = $row->weight;
-          $block_info["{$row->module}-{$row->delta}"]->region = $row->region;
+      if (module_exists('block')) {
+        $theme_key = variable_get('theme_default', 'garland');
+        $result = db_select('block')
+          ->fields('block', array('module', 'weight', 'delta', 'region', 'title'))
+          ->condition('theme', $theme_key)
+          ->execute();
+        foreach ($result as $row) {
+          if (isset($block_info["{$row->module}-{$row->delta}"])) {
+            $block_info["{$row->module}-{$row->delta}"]->weight = $row->weight;
+            $block_info["{$row->module}-{$row->delta}"]->region = $row->region;
+            $block_info["{$row->module}-{$row->delta}"]->title = $row->title;
+          }
         }
       }
     }
@@ -477,7 +498,7 @@ class context_reaction_block extends context_reaction {
             $context_block = $block_info["{$block['module']}-{$block['delta']}"];
             $context_block->weight = $block['weight'];
             $context_block->region = $block['region'];
-            $context_block->context = $context->name;
+            $context_block->context = !empty($context->name) ? $context->name : 'tempname';
             $blocks[$context_block->bid] = $context_block;
           }
         }
@@ -512,7 +533,7 @@ class context_reaction_block extends context_reaction {
    * Original author: walidator.info 2009.
    */
   static function _json_decode($json) {
-    $comment = false;
+    $comment = FALSE;
     $out = '$x = ';
     for ($i=0; $i < strlen($json); $i++) {
       if (!$comment) {
@@ -554,15 +575,13 @@ class context_reaction_block extends context_reaction {
    */
   function render_ajax($param) {
     // Besure the page isn't a 404 or 403.
-    $headers = drupal_set_header();
-    foreach (explode("\n", $headers) as $header) {
-      if ($header == "HTTP/1.1 404 Not Found" || $header == "HTTP/1.1 403 Forbidden") {
-        return;
-      }
+    $headers = drupal_get_http_header();
+    if (array_key_exists('status', $headers) && ($headers['status'] == "404 Not Found" || $headers['status'] == "403 Forbidden")) {
+      return;
     }
     // Set the header right away. This will inform any players in the stack
     // that we are in the middle of responding to an AJAX request.
-    drupal_set_header('Content-Type: text/javascript; charset=utf-8');
+    drupal_add_http_header('Content-Type', 'text/javascript; charset=utf-8');
 
     if (strpos($param, ',') !== FALSE) {
       list($bid, $context) = explode(',', $param);
@@ -571,40 +590,26 @@ class context_reaction_block extends context_reaction {
       // Ensure $bid is valid.
       $info = $this->get_blocks();
       if (isset($info[$bid])) {
+        module_load_include('module', 'block', 'block');
         $block = $info[$bid];
-        $block->context = $context;
+        $block->title = isset($block->title) ? $block->title : '';
+        $block->context = $context;        
         $block->region = '';
-        $block = $this->build_block($block);
-
-        if (empty($block->content)) {
-          $block->content = "<div class='context-block-empty'>". t('This block appears empty when displayed on this page.') ."</div>";
+        $rendered_blocks = _block_render_blocks(array($block)); // For E_STRICT warning
+        $block = array_shift($rendered_blocks);
+        if (empty($block->content['#markup'])) {
+          $block->content['#markup'] = "<div class='context-block-empty'>" . t('This block appears empty when displayed on this page.') . "</div>";
         }
-
-        $css = array();
-
-        // On behalf of panels we try to load some css, but we don't support
-        // panels inside panels currently.
-        if ($block->module == 'panels_mini') {
-          $panel = panels_mini_load($block->delta);
-          $layout = panels_get_layout($panel->display->layout);
-          if (!empty($layout['css'])) {
-            if (file_exists(path_to_theme() . '/' . $layout['css'])) {
-              $css[] = path_to_theme() . '/' . $layout['css'];
-            }
-            else {
-              $css[] = $layout['path'] . '/' . $layout['css'];
-            }
-          }
-        }
-        echo drupal_to_js(array(
+        $block = $this->editable_block($block);
+        $renderable_block = _block_get_renderable_array(array($block)); // For E_STRICT warning
+        echo drupal_json_encode(array(
           'status' => 1,
-          'block' => theme('context_block_editable_block', $block),
-          'css' => $css,
+          'block' => drupal_render($renderable_block),
         ));
-        exit;
+        drupal_exit();
       }
     }
-    echo drupal_to_js(array('status' => 0));
-    exit;
+    echo drupal_json_encode(array('status' => 0));
+    drupal_exit();
   }
 }

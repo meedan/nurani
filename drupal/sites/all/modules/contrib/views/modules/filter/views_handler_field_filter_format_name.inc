@@ -1,6 +1,8 @@
 <?php
 /**
  * Field handler to output the name of an input format.
+ *
+ * @ingroup views_field_handlers
  */
 class views_handler_field_filter_format_name extends views_handler_field {
   function construct() {
@@ -15,14 +17,14 @@ class views_handler_field_filter_format_name extends views_handler_field {
   }
 
   function render($values) {
-    $format_name = $values->{$this->aliases['name']};
+    $format_name = $this->get_value($values, 'name');
     if (!$format_name) {
       // Default or invalid input format.
       // filter_formats() will reliably return the default format even if the
       // current user is unprivileged.
-      $format = filter_formats(variable_get('filter_default_format', 1));
-      return check_plain($format->name);
+      $format = filter_formats(filter_default_format());
+      return $this->sanitize_value($format->name);
     }
-    return check_plain($format_name);
+    return $this->sanitize_value($format_name);
   }
 }

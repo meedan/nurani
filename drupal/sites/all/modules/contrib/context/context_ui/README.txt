@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.1.4.3 2010/02/09 20:20:19 yhahn Exp $
 
 Context UI
 ----------
@@ -9,7 +8,7 @@ are built and can be turned off on most production sites.
 
 Requirements
 ------------
-- Context, Context UI modules enabled (`admin/build/modules`)
+- Context, Context UI modules enabled (`admin/modules`)
 - [jQuery UI 1.x][1] and [Admin 2.x][2] to use the inline context editor.
   Optional.
 
@@ -17,8 +16,8 @@ Requirements
 Basic usage
 -----------
 As a site administrator you can manage your site's contexts at
-`admin/build/context`. The main page will show you a list of the contexts on the
-site and give you some options for managing each context.
+`admin/structure/context`. The main page will show you a list of the contexts
+on the site and give you some options for managing each context.
 
 When editing or adding a new context, you will be presented with a form to
 manage some basic information about the context and then alter its conditions
@@ -49,6 +48,13 @@ customize the conditions that trigger the activation of your context.
 Whenever a particular context is active, all of its reactions will be run.
 Like conditions, reactions can be added or removed and have settings that can
 be configured.
+
+- **Reaction Block Groupings**: You can influence what "group" a block appears
+  in when listing all blocks available to be added to a region.  This is done
+  by specifying $block->context_group via hook_block_info.  If no group is
+  specified it will default to the module name, but if a group is specified
+  it will be grouped under that group name.
+
 
 
 Using the inline editor

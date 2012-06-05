@@ -6,8 +6,8 @@
  */
 
 /**
- * Implementation of hook_drush_command().
- * 
+ * Implements hook_drush_command().
+ *
  * @See drush_parse_command() for a list of recognized keys.
  *
  * @return
@@ -25,9 +25,37 @@ function features_drush_command() {
     'description' => "Export a feature from your site into a module.",
     'arguments' => array(
       'feature' => 'Feature name to export.',
+      'components' => 'Patterns of components to include, see features-components for the format of patterns.'
+    ),
+    'options' => array(
+      'destination' => "Destination path (from Drupal root) of the exported feature. Defaults to 'sites/all/modules'",
     ),
     'drupal dependencies' => array('features'),
     'aliases' => array('fe'),
+  );
+  $items['features-add'] = array(
+    'description' => "Add a component to a feature module. (DEPRECATED: use features-export)",
+    'arguments' => array(
+      'feature' => 'Feature name to add to.',
+      'components' => 'List of components to add.',
+    ),
+    'drupal dependencies' => array('features'),
+    'aliases' => array('fa'),
+  );
+  $items['features-components'] = array(
+    'description' => 'List features components.',
+    'arguments' => array(
+      'patterns' => 'The features components type to list. Omit this argument to list all components.',
+    ),
+    'options' => array(
+      'exported' => array(
+        'description' => 'Show only components that have been exported.',
+      ),
+      'not-exported' => array(
+        'description' => 'Show only components that have not been exported.',
+      ),
+    ),
+    'aliases' => array('fc'),
   );
   $items['features-update'] = array(
     'description' => "Update a feature module on your site.",
@@ -51,7 +79,7 @@ function features_drush_command() {
       'feature' => 'A space delimited list of features.',
     ),
     'options' => array(
-      '--force' => "Force revert even if Features assumes components' state are default.",
+      'force' => "Force revert even if Features assumes components' state are default.",
     ),
     'drupal dependencies' => array('features'),
     'aliases' => array('fr'),
@@ -62,7 +90,7 @@ function features_drush_command() {
       'feature_exclude' => 'A space-delimited list of features to exclude from being reverted.',
     ),
     'options' => array(
-      '--force' => "Force revert even if Features assumes components' state are default.",
+      'force' => "Force revert even if Features assumes components' state are default.",
     ),
     'drupal dependencies' => array('features'),
     'aliases' => array('fr-all', 'fra'),
@@ -80,14 +108,25 @@ function features_drush_command() {
 }
 
 /**
- * Implementation of hook_drush_help().
+ * Implements hook_drush_help().
  */
 function features_drush_help($section) {
   switch ($section) {
     case 'drush:features':
       return dt("List all the available features for your site.");
     case 'drush:features-export':
-      return dt("Export a feature from your site into a module.");
+      return dt("Export a feature from your site into a module. The option '--destination=foo' may be used to specify the path (from Drupal root) where the feature should be created. The default destination is 'sites/all/modules'.");
+    case 'drush:features-components':
+      return dt("List feature components matching patterns. The listing may be limited to exported/not-exported components.
+
+A component pattern consists of a source, a colon and a component. Both source and component may be a full name (as in \"dependencies\"), a shorthand (for instance \"dep\") or a pattern (like \"%denci%\").
+
+Shorthands are unique shortenings of a name. They will only match if exactly one option contains the shorthand. So in a standard installation, \"dep\" will work for dependencies, but \"user\" wont, as it matches both user_permission and user_role.
+
+Patterns uses * or % for matching multiple sources/components. Unlike shorthands, patterns must match the whole name, so \"field:%article%\" should be used to select all fields containing \"article\" (which could both be those on the node type article, as well as those fields named article). * and % are equivalent, but the latter doesn't have to be escaped in UNIX shells.
+
+Lastly, a pattern without a colon is interpreted as having \":%\" appended, for easy listing of all components of a source.
+");
     case 'drush:features-update':
       return dt("Update a feature module on your site.");
     case 'drush:features-update-all':
@@ -100,6 +139,8 @@ function features_drush_help($section) {
       return dt("Revert a feature module on your site.");
     case 'drush:features-diff':
       return dt("Show a diff of a feature module.");
+    case 'drush:features-add':
+      return dt("Add a component to a feature module.");
   }
 }
 
@@ -133,41 +174,274 @@ function drush_features_list() {
 }
 
 /**
- * Create a feature module based on a list of components.
+ * List components, with pattern matching.
  */
-function drush_features_export() {
+function drush_features_components() {
   $args = func_get_args();
-
-  if (count($args) == 1) {
-    // Assume that the user intends to create a module with the same name as the
-    // "value" of the component.
-    list($source, $component) = explode(':', $args[0]);
-    $stub = array($source => array($component));
-    _drush_features_export($stub, $component);
-  }
-  elseif (count($args) > 1) {
-    // Assume that the user intends to create a new module based on a list of 
-    // components. First argument is assumed to be the name.
-    $name = array_shift($args);
-    $stub = array();
-    foreach ($args as $v) {
-      list($source, $component) = explode(':', $v);
-      $stub[$source][] = $component;
+  $components = _drush_features_component_list();
+  // If no args supplied, prompt with a list.
+  if (empty($args)) {
+    $types = array_keys($components);
+    array_unshift($types, 'all');
+    $choice = drush_choice($types, 'Enter a number to choose which component type to list.');
+    if ($choice === FALSE) {
+      return;
     }
-    _drush_features_export($stub, array(), $name);
+
+    $args = ($choice == 0) ? array('*') : array($types[$choice]);
   }
-  else {
-    $rows = array(array(dt('Available sources')));
-    foreach (features_get_components(TRUE) as $component => $info) {
-      if ($options = features_invoke($component, 'features_export_options')) {
-        foreach ($options as $key => $value) {
-          $rows[] = array($component .':'. $key);
+  $options = array(
+    'provided by' => TRUE,
+  );
+  if (drush_get_option(array('exported', 'e'), NULL)) {
+    $options['not exported'] = FALSE;
+  }
+  elseif (drush_get_option(array('not-exported', 'o'), NULL)) {
+    $options['exported'] = FALSE;
+  }
+
+  $filtered_components = _drush_features_component_filter($components, $args, $options);
+  if ($filtered_components){
+    _drush_features_component_print($filtered_components);
+  }
+}
+
+/**
+ * Returns a listing of all known components, indexed by source.
+ */
+function _drush_features_component_list() {
+  $components = array();
+  foreach (features_get_feature_components() as $source => $info) {
+    if ($options = features_invoke($source, 'features_export_options')) {
+      foreach ($options as $name => $title) {
+        $components[$source][$name] = $title;
+      }
+    }
+  }
+  return $components;
+}
+
+/**
+ * Filters components by patterns.
+ */
+function _drush_features_component_filter($all_components, $patterns = array(), $options = array()) {
+  $options += array(
+    'exported' => TRUE,
+    'not exported' => TRUE,
+    'provided by' => FALSE,
+  );
+  $pool = array();
+  // Maps exported components to feature modules.
+  $components_map = features_get_component_map();
+  // First filter on exported state.
+  foreach ($all_components as $source => $components) {
+    foreach ($components as $name => $title) {
+      $exported = sizeof($components_map[$source][$name]) > 0;
+      if ($exported) {
+        if ($options['exported']) {
+          $pool[$source][$name] = $title;
+        }
+      }
+      else {
+        if ($options['not exported']) {
+          $pool[$source][$name] = $title;
         }
       }
     }
-    drush_print_table($rows, TRUE);
+  }
+
+  $state_string = '';
+
+  if (!$options['exported']) {
+    $state_string = 'unexported';
+  }
+  elseif (!$options['not exported']) {
+    $state_string = 'exported';
+  }
+
+  $selected = array();
+  foreach ($patterns as $pattern) {
+    // Rewrite * to %. Let users use both as wildcard.
+    $pattern = strtr($pattern, array('*' => '%'));
+    $sources = array();
+    list($source_pattern, $component_pattern) = explode(':', $pattern);
+    // If source is empty, use a pattern.
+    if ($source_pattern == '') {
+      $source_pattern = '%';
+    }
+    if ($component_pattern == '') {
+      $component_pattern = '%';
+    }
+
+    $preg_source_pattern = strtr(preg_quote($source_pattern), array('%' => '.*'));
+    $preg_component_pattern = strtr(preg_quote($component_pattern), array('%' => '.*'));
+    /*
+     * If it isn't a pattern, but a simple string, we don't anchor the
+     * pattern, this allows for abbreviating. Else, we do, as this seems more
+     * natural for patterns.
+     */
+    if (strpos($source_pattern, '%') !== FALSE) {
+      $preg_source_pattern = '^' . $preg_source_pattern . '$';
+    }
+    if (strpos($component_pattern, '%') !== FALSE) {
+      $preg_component_pattern = '^' . $preg_component_pattern . '$';
+    }
+    $matches = array();
+
+    // Find the sources.
+    $all_sources = array_keys($pool);
+    $matches = preg_grep('/' . $preg_source_pattern . '/', $all_sources);
+    if (sizeof($matches) > 0) {
+      // If we have multiple matches and the source string wasn't a
+      // pattern, check if one of the matches is equal to the pattern, and
+      // use that, or error out.
+      if (sizeof($matches) > 1 and $preg_source_pattern[0] != '^') {
+        if (in_array($source_pattern, $matches)) {
+          $matches = array($source_pattern);
+        }
+        else {
+          return drush_set_error('', dt('Ambiguous source "!source", matches !matches', array('!source' => $source_pattern, '!matches' => join(', ', $matches))));
+        }
+      }
+      // Loose the indexes preg_grep preserved.
+      $sources = array_values($matches);
+    }
+    else {
+      return drush_set_error('', dt('No !state sources match "!source"', array('!state' => $state_string, '!source' => $source_pattern)));
+    }
+
+
+    // Now find the components.
+    foreach ($sources as $source) {
+      // Find the components.
+      $all_components = array_keys($pool[$source]);
+      // See if there's any matches.
+      $matches = preg_grep('/' . $preg_component_pattern . '/', $all_components);
+      if (sizeof($matches) > 0) {
+        // If we have multiple matches and the components string wasn't a
+        // pattern, check if one of the matches is equal to the pattern, and
+        // use that, or error out.
+        if (sizeof($matches) > 1 and $preg_component_pattern[0] != '^') {
+          if (in_array($component_pattern, $matches)) {
+            $matches = array($component_pattern);
+          }
+          else {
+            return drush_set_error('', dt('Ambiguous component "!component", matches !matches', array('!component' => $component_pattern, '!matches' => join(', ', $matches))));
+          }
+        }
+        if (!is_array($selected[$source])) {
+          $selected[$source] = array();
+        }
+        $selected[$source] += array_intersect_key($pool[$source], array_flip($matches));
+      }
+      else {
+        // No matches. If the source was a pattern, just carry on, else
+        // error out. Allows for patterns like :*field*
+        if ($preg_source_pattern[0] != '^') {
+          return drush_set_error('', dt('No !state !source components match "!component"', array('!state' => $state_string, '!component' => $component_pattern, '!source' => $source)));
+        }
+      }
+    }
+  }
+
+  // Lastly, provide feature module information on the selected components, if
+  // requested.
+  $provided_by = array();
+  if ($options['provided by'] && $options['exported'] ) {
+    foreach ($selected as $source => $components) {
+      foreach ($components as $name => $title) {
+        $exported = sizeof($components_map[$source][$name]) > 0;
+        if ($exported) {
+          $provided_by[$source . ':' . $name] = join(', ', $components_map[$source][$name]);
+        }
+      }
+    }
+  }
+
+  return array(
+    'components' => $selected,
+    'sources' => $provided_by,
+  );
+}
+
+/**
+ * Prints a list of filtered components.
+ */
+function _drush_features_component_print($filtered_components) {
+  $rows = array(array(dt('Available sources')));
+  foreach ($filtered_components['components'] as $source => $components) {
+    foreach ($components as $name => $value) {
+      $row = array($source .':'. $name);
+      if (isset($filtered_components['sources'][$source .':'. $name])) {
+        $row[] = dt('Provided by') . ': ' . $filtered_components['sources'][$source .':'. $name];
+      }
+      $rows[] = $row;
+    }
+  }
+
+  drush_print_table($rows, TRUE);
+}
+
+ /**
+ * Add a component to a features module, or create a new module with
+ * the selected components.
+ */
+function drush_features_export() {
+  if ($args = func_get_args()) {
+    $module = array_shift($args);
+    if (empty($args)) {
+      return drush_set_error('', 'No components supplied.');
+    }
+    $components = _drush_features_component_list();
+    $options = array(
+      'exported' => FALSE,
+    );
+
+    $filtered_components = _drush_features_component_filter($components, $args, $options);
+    $items = $filtered_components['components'];
+
+    if (empty($items)) {
+      return drush_set_error('', 'No components to add.');
+    }
+
+    $items = array_map('array_keys', $items);
+
+    if (($feature = feature_load($module, TRUE)) && module_exists($module)) {
+      module_load_include('inc', 'features', 'features.export');
+      _features_populate($items, $feature->info, $feature->name);
+      _drush_features_export($feature->info['features'], $feature->info['dependencies'], $feature->name, dirname($feature->filename));
+    }
+    elseif ($feature) {
+      _features_drush_set_error($module, 'FEATURES_FEATURE_NOT_ENABLED');
+    }
+    else {
+      // Same logic as in _drush_features_export. Should be refactored.
+      $destination = drush_get_option(array('destination'), 'sites/all/modules');
+      $directory = isset($directory) ? $directory : $destination . '/' . $module;
+      drush_print(dt('Will create a new module in !dir', array('!dir' => $directory)));
+      if (!drush_confirm(dt('Do you really want to continue?'))) {
+        drush_die('Aborting.');
+      }
+      _drush_features_export($items, array(), $module);
+    }
+  }
+  else {
+    return drush_set_error('', 'No feature name given.');
   }
 }
+
+/**
+ * Add a component to a features module
+ * the selected components.
+ *
+ * This is DEPRECATED, but keeping it around for a bit longer for user migration
+ */
+function drush_features_add() {
+  drush_print(dt('features_add is DEPRECATED.'));
+  drush_print(dt('Calling features_export instead.'));
+  drush_features_export();
+}
+
 
 /**
  * Update an existing feature module.
@@ -230,7 +504,8 @@ function drush_features_update_all() {
 function _drush_features_export($stub, $dependencies, $module_name = NULL, $directory = NULL) {
   $root = drush_get_option(array('r', 'root'), drush_locate_root());
   if ($root) {
-    $directory = isset($directory) ? $directory : 'sites/all/modules/' . $module_name;
+    $destination = drush_get_option(array('destination'), 'sites/all/modules');
+    $directory = isset($directory) ? $directory : $destination . '/' . $module_name;
     if (is_dir($directory)) {
       drush_print(dt('Module appears to already exist in !dir', array('!dir' => $directory)));
       if (!drush_confirm(dt('Do you really want to continue?'))) {
@@ -370,7 +645,7 @@ function drush_features_diff() {
     drush_log(dt('Feature is in its default state. No diff needed.'), 'ok');
     return;
   }
-  module_load_include('php', 'diff', 'DiffEngine');
+  module_load_include('inc', 'diff', 'diff.engine');
 
   if (!class_exists('DiffFormatter')) {
     if (drush_confirm(dt('It seems that the Diff module is not available. Would you like to download and enable it?'))) {
@@ -387,8 +662,8 @@ function drush_features_diff() {
     else {
       return drush_set_error(dt('Diff module is not enabled.'));
     }
-    // If we're still here, now we can include the DiffEngine again.
-    module_load_include('php', 'diff', 'DiffEngine');
+    // If we're still here, now we can include the diff.engine again.
+    module_load_include('inc', 'diff', 'diff.engine');
   }
 
   $formatter = new DiffFormatter();
@@ -396,18 +671,25 @@ function drush_features_diff() {
   $formatter->trailing_context_lines = 2;
   $formatter->show_header = FALSE;
 
+  if (drush_get_context('DRUSH_NOCOLOR')) {
+    $red = $green = "%s";
+  }
+  else {
+    $red = "\033[31;40m\033[1m%s\033[0m";
+    $green = "\033[0;32;40m\033[1m%s\033[0m";
+  }
+
+  // Print key for colors
+  drush_print(dt('Legend: '));
+  drush_print(sprintf($red,   dt('Code:       drush features-revert will remove the overrides.')));
+  drush_print(sprintf($green, dt('Overrides:  drush features-update will update the exported feature with the displayed overrides')));
+  drush_print();
+
   foreach ($overrides as $component => $items) {
     $diff = new Diff(explode("\n", $items['default']), explode("\n", $items['normal']));
     drush_print();
     drush_print(dt("Component: !component", array('!component' => $component)));
     $rows = explode("\n", $formatter->format($diff));
-    if (drush_get_context('DRUSH_NOCOLOR')) {
-      $red = $green = "%s";
-    }
-    else {
-      $red = "\033[31;40m\033[1m%s\033[0m";
-      $green = "\033[0;32;40m\033[1m%s\033[0m";
-    }
     foreach ($rows as $row) {
       if (strpos($row, '>') === 0) {
         drush_print(sprintf($green, $row));
@@ -438,6 +720,9 @@ function _features_drush_set_error($feature, $error = '') {
   switch ($error) {
     case 'FEATURES_FEATURE_NOT_ENABLED':
       $message = 'The feature !feature is not enabled.';
+      break;
+    case 'FEATURES_COMPONENT_NOT_FOUND':
+      $message = 'The given component !feature could not be found.';
       break;
     default:
       $error = 'FEATURES_FEATURE_NOT_FOUND';

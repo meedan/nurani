@@ -5,94 +5,71 @@
  * Install, update and uninstall functions for the uuid module.
  */
 
+define('UUID_UPGRADE_VAR', 'uuid_upgrade_in_progress');
+
 /**
- * Implementation of hook_enable().
+ * Include some helper functions for the Entity API.
  */
-function uuid_enable() {
-  module_load_include('inc', 'uuid', 'uuid.admin');
-  uuid_sync();
+module_load_include('inc', 'uuid', 'uuid.entity');
+
+/**
+ * Implements of hook_schema_alter().
+ */
+function uuid_schema_alter(&$schema = array()) {
+  $field = uuid_schema_field_definition();
+  foreach (uuid_get_core_entity_info() as $entity_type => $info) {
+    $schema[$info['base table']]['fields'][$info['entity keys']['uuid']] = $field;
+    if (!empty($info['revision table']) && !empty($info['entity keys']['revision uuid'])) {
+      $schema[$info['revision table']]['fields'][$info['entity keys']['revision uuid']] = $field;
+    }
+  }
 }
 
 /**
- * Implementation of hook_install().
+ * Implements hook_install().
  */
 function uuid_install() {
-  // Create tables.
-  drupal_install_schema('uuid');
+  $field = uuid_schema_field_definition();
+  foreach (uuid_get_core_entity_info() as $entity_type => $info) {
+    if (!db_field_exists($info['base table'], $info['entity keys']['uuid'])) {
+      db_add_field($info['base table'], $info['entity keys']['uuid'], $field);
+      db_add_index($info['base table'], $info['entity keys']['uuid'], array($info['entity keys']['uuid']));
+    }
+    if (!empty($info['revision table']) && !empty($info['entity keys']['revision uuid'])) {
+      if (!db_field_exists($info['revision table'], $info['entity keys']['revision uuid'])) {
+        db_add_field($info['revision table'], $info['entity keys']['revision uuid'], $field);
+        db_add_index($info['revision table'], $info['entity keys']['revision uuid'], array($info['entity keys']['revision uuid']));
+      }
+    }
+  }
+  uuid_sync_all();
 }
 
 /**
- * Implementation of hook_schema().
- */
-function uuid_schema() {
-  $schema = array(
-    'uuid_node' => uuid_table_schema('node', 'nid'),
-    'uuid_node_revisions' => uuid_table_schema('node_revisions', 'vid'),
-    'uuid_users' => uuid_table_schema('users', 'uid'),
-    'uuid_vocabulary' => uuid_table_schema('vocabulary', 'vid'),
-    'uuid_term_data' => uuid_table_schema('term_data', 'tid'),
-    'uuid_comments' => uuid_table_schema('comments', 'cid'),
-  );
-  // The uuid_node_revisions table requires an additional column (node id) to
-  // support revision deletion upon node delete. No index is needed on this
-  // column as it will only be used during a node delete.
-  $schema['uuid_node_revisions']['fields']['nid'] = array(
-    'type' => 'int',
-    'length' => 10,
-    'unsigned' => TRUE,
-    'not null' => TRUE,
-    'default' => 0,
-    'description' => 'The revision\'s node id. Needed for delete node operations.',
-  );
-
-  return $schema;
-}
-
-/**
- * Return schema for a uuid table.
- *
- * @param $key
- *   Name of key field, e.g. nid for nodes.
- *
- * @return
- *   Array with table structure definition (schema).
- */
-function uuid_table_schema($table, $key = 'key') {
-  return array(
-    'fields' => array(
-      $key => array(
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => 'The primary key of the record which this UUID was generated for.',
-      ),
-      'uuid' => array(
-        'type' => 'char',
-        'length' => 36,
-        'not null' => TRUE,
-        'default' => '',
-        'description' => 'The Universally Unique Identifier.',
-      ),
-    ),
-    'primary key' => array($key),
-    'unique keys' => array(
-      'uuid_'. $table .'_uuid_key' => array('uuid'),
-    ),
-  );
-}
-
-/**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  */
 function uuid_uninstall() {
-  variable_del('uuid_automatic_for_nodes');
-  variable_del('uuid_automatic_for_users');
-  variable_del('uuid_automatic_for_taxonomy');
-  variable_del('uuid_automatic_for_comments');
+  foreach (uuid_get_core_entity_info() as $entity_type => $info) {
+    if (db_field_exists($info['base table'], $info['entity keys']['uuid'])) {
+      db_drop_field($info['base table'], $info['entity keys']['uuid']);
+      db_drop_index($info['base table'], $info['entity keys']['uuid']);
+    }
+    if (!empty($info['revision table']) && !empty($info['entity keys']['revision uuid'])) {
+      if (db_field_exists($info['revision table'], $info['entity keys']['revision uuid'])) {
+        db_drop_field($info['revision table'], $info['entity keys']['revision uuid']);
+        db_drop_index($info['revision table'], $info['entity keys']['revision uuid']);
+      }
+    }
+  }
+}
 
-  // Remove tables.
-  drupal_uninstall_schema('uuid');
+/**
+ * Implements hook_modules_installed().
+ */
+function uuid_modules_installed($modules) {
+  // Run the installation hook. This makes sure that the schema for all
+  // supported core entity types is set correct.
+  uuid_install();
 }
 
 /**
@@ -169,7 +146,7 @@ function uuid_update_6005() {
     // default value of 0 in uuid_node_revisions.
     $result = db_query('SELECT nr.nid, nr.vid FROM {node_revisions} AS nr LEFT JOIN {uuid_node_revisions} AS unr ON unr.vid=nr.vid WHERE unr.nid=%d', 0);
     while ($item = db_fetch_object($result)) {
-      $ret[] = update_sql('UPDATE {uuid_node_revisions} SET nid='. (int) $item->nid .' WHERE vid='. (int) $item->vid);
+      $ret[] = update_sql('UPDATE {uuid_node_revisions} SET nid=' . (int) $item->nid . ' WHERE vid=' . (int) $item->vid);
     }
     // Add uuid_node_revision rows for rows that don't exist, but should.
     $result = db_query('SELECT nr.nid, nr.vid FROM {node_revisions} AS nr LEFT JOIN {uuid_node_revisions} AS unr ON unr.vid=nr.vid WHERE unr.nid IS NULL');
@@ -181,4 +158,28 @@ function uuid_update_6005() {
   }
 
   return $ret;
+}
+
+/**
+ * Remove old variables.
+ */
+function uuid_update_7100() {
+  $types = array(
+    'nodes',
+    'users',
+    'taxonomy',
+    'comments',
+  );
+  foreach ($types as $type) {
+    variable_del('uuid_automatic_for_' . $type);
+  }
+  return array();
+}
+
+/**
+ * Clear cache for installations that used alpha1. Modules that previously was
+ * enabled in uuid_update_7100() doesn't exist anymore.
+ */
+function uuid_update_7101() {
+  drupal_flush_all_caches();
 }

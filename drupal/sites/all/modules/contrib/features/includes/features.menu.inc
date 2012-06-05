@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Implementation of hook_features_api().
+ * Implements hook_features_api().
  */
 function menu_features_api() {
   return array(
@@ -28,7 +28,7 @@ function menu_features_api() {
 }
 
 /**
- * Implementation of hook_features_export().
+ * Implements hook_features_export().
  * DEPRECATED: This implementation simply migrates deprecated `menu` items
  * to the `menu_links` type.
  */
@@ -41,19 +41,19 @@ function menu_features_export($data, &$export, $module_name = '') {
 }
 
 /**
- * Implementation of hook_features_export_options().
+ * Implements hook_features_export_options().
  */
 function menu_custom_features_export_options() {
   $options = array();
-  $result = db_query("SELECT * FROM {menu_custom}");
-  while ($row = db_fetch_array($result)) {
-    $options[$row['menu_name']] = $row['title'];
+  $result = db_query("SELECT * FROM {menu_custom} ORDER BY title", array(), array('fetch' => PDO::FETCH_ASSOC));
+  foreach ($result as $menu) {
+    $options[$menu['menu_name']] = $menu['title'];
   }
   return $options;
 }
 
 /**
- * Implementation of hook_features_export().
+ * Implements hook_features_export().
  */
 function menu_custom_features_export($data, &$export, $module_name = '') {
   // Default hooks are provided by the feature module so we need to add
@@ -77,7 +77,7 @@ function menu_custom_features_export($data, &$export, $module_name = '') {
 }
 
 /**
- * Implementation of hook_features_export_render()
+ * Implements hook_features_export_render()
  */
 function menu_custom_features_export_render($module, $data) {
   $code = array();
@@ -86,8 +86,12 @@ function menu_custom_features_export_render($module, $data) {
 
   $translatables = array();
   foreach ($data as $menu_name) {
-    $result = db_query("SELECT menu_name, title, description FROM {menu_custom} WHERE menu_name = '%s'", $menu_name);
-    while ($row = db_fetch_array($result)) {
+    $row = db_select('menu_custom')
+      ->fields('menu_custom')
+      ->condition('menu_name', $menu_name)
+      ->execute()
+      ->fetchAssoc();
+    if ($row) {
       $export = features_var_export($row, '  ');
       $code[] = "  // Exported menu: {$menu_name}";
       $code[] = "  \$menus['{$menu_name}'] = {$export};";
@@ -106,89 +110,43 @@ function menu_custom_features_export_render($module, $data) {
 }
 
 /**
- * Implementation of hook_features_revert().
+ * Implements hook_features_export_revert().
  */
 function menu_custom_features_revert($module) {
   menu_custom_features_rebuild($module);
 }
 
 /**
- * Implementation of hook_features_rebuild().
+ * Implements hook_features_export_rebuild().
  */
 function menu_custom_features_rebuild($module) {
   if ($defaults = features_get_default('menu_custom', $module)) {
     foreach ($defaults as $menu) {
-      $existing = db_result(db_query("SELECT menu_name FROM {menu_custom} WHERE menu_name = '%s'", $menu['menu_name']));
-      drupal_write_record('menu_custom', $menu, $existing ? array('menu_name') : array());
+      menu_save($menu);
     }
   }
 }
 
 /**
- * Implementation of hook_features_export_options().
+ * Implements hook_features_export_options().
  */
 function menu_links_features_export_options() {
-  // We can't use the menu_tree_all_data function as it statically caches it's menu items
-  // so if something calls the function before now without $menu_admin set to true we 
-  // won't see all the links. Instead we reproduce the essential parts of the
-  // function here.
-
-  $menu_links = array();
-  foreach (array_reverse(menu_get_menus()) as $menu_name => $menu_title) {
-    $data = array();
-    $cid = 'links:' . $menu_name . ':all-cid:0';
-    $cache = cache_get($cid, 'cache_menu');
-    if ($cache && isset($cache->data)) {
-      // If the cache entry exists, it will just be the cid for the actual data.
-      // This avoids duplication of large amounts of data.
-      $cache = cache_get($cache->data, 'cache_menu');
-      if ($cache && isset($cache->data)) {
-        $data = $cache->data;
-      }
-    } else {
-      $data['tree'] = menu_tree_data(db_query("
-        SELECT m.load_functions, m.to_arg_functions, m.access_callback, m.access_arguments, m.page_callback, m.page_arguments, m.title, m.title_callback, m.title_arguments, m.type, m.description, ml.*
-        FROM {menu_links} ml LEFT JOIN {menu_router} m ON m.path = ml.router_path
-        WHERE ml.menu_name = '%s'
-        ORDER BY p1 ASC, p2 ASC, p3 ASC, p4 ASC, p5 ASC, p6 ASC, p7 ASC, p8 ASC, p9 ASC", $menu_name));
-
-      $data['node_links'] = array();
-      menu_tree_collect_node_links($data['tree'], $data['node_links']);
-      // May as well cache the data, if it is not already in the cache.
-      $tree_cid = _menu_tree_cid($menu_name, $data);
-      if (!cache_get($tree_cid, 'cache_menu')) {
-        cache_set($tree_cid, $data, 'cache_menu');
-      }
-      // Cache the cid of the (shared) data using the menu and item-specific cid.
-      cache_set($cid, $tree_cid, 'cache_menu');
+  global $menu_admin;
+  // Need to set this to TRUE in order to get menu links that the
+  // current user may not have access to (i.e. user/login)
+  $menu_admin = TRUE;
+  $menu_links = menu_parent_options(menu_get_menus(), array('mlid' => 0));
+  $options = array();
+  foreach ($menu_links as $key => $name) {
+    list($menu_name, $mlid) = explode(':', $key, 2);
+    if ($mlid != 0) {
+      $link = menu_link_load($mlid);
+      $identifier = menu_links_features_identifier($link);
+      $options[$identifier] = "{$menu_name}: {$name}";
     }
-    
-    $GLOBALS['menu_admin'] = TRUE;
-    menu_tree_check_access($data['tree'], $data['node_links']);
-    $GLOBALS['menu_admin'] = FALSE;
-    
-    _menu_links_features_export_options_recurse($data['tree'], $menu_name, '--', $menu_links);
   }
-  return $menu_links;
-}
-
-function _menu_links_features_export_options_recurse($tree, $menu_name, $indent, &$menu_links) {
-  // We don't want to use _menu_parents_recurse as that could potentially cut out some 
-  // options as not being suitable for parents which we still want to export. Also we can
-  // save on additional calls to the database.
-
-  foreach ($tree as $data) {
-    if ($data['link']['hidden'] >= 0) {
-      $title = $indent . ' ' . truncate_utf8($data['link']['title'], 30, TRUE, FALSE);
-      if ($data['link']['hidden']) {
-        $title .= ' (' . t('disabled') . ')';
-      }
-      $menu_links[menu_links_features_identifier($data['link'])] = "{$menu_name}: {$title}";
-      if ($data['below']) {
-        _menu_links_features_export_options_recurse($data['below'], $menu_name, $indent . '--', $menu_links);
-      }
-    }
-  } 
+  $menu_admin = FALSE;
+  return $options;
 }
 
 /**
@@ -199,7 +157,7 @@ function menu_links_features_identifier($link) {
 }
 
 /**
- * Implementation of hook_features_export().
+ * Implements hook_features_export().
  */
 function menu_links_features_export($data, &$export, $module_name = '') {
   // Default hooks are provided by the feature module so we need to add
@@ -231,7 +189,7 @@ function menu_links_features_export($data, &$export, $module_name = '') {
 }
 
 /**
- * Implementation of hook_features_export_render()
+ * Implements hook_features_export_render()
  */
 function menu_links_features_export_render($module, $data) {
   $code = array();
@@ -264,14 +222,14 @@ function menu_links_features_export_render($module, $data) {
 }
 
 /**
- * Implementation of hook_features_revert().
+ * Implements hook_features_export_revert().
  */
 function menu_links_features_revert($module) {
   menu_links_features_rebuild($module);
 }
 
 /**
- * Implementation of hook_features_rebuild().
+ * Implements hook_features_export_rebuild().
  */
 function menu_links_features_rebuild($module) {
   if ($menu_links = features_get_default('menu_links', $module)) {
@@ -296,7 +254,7 @@ function menu_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
         foreach ($unordered as $key => $link) {
           $identifier = menu_links_features_identifier($link);
           $parent = isset($link['parent_path']) ? "{$link['menu_name']}:{$link['parent_path']}" : '';
-          if (empty($parent) || (!empty($parent) && !isset($unordered[$parent]) && !isset($ordered[$parent]))) {
+          if (empty($parent)) {
             $ordered[$identifier] = 0;
             $all_links[$identifier] = $link;
             unset($unordered[$key]);
@@ -338,8 +296,13 @@ function menu_links_features_rebuild_ordered($menu_links, $reset = FALSE) {
  */
 function features_menu_link_load($identifier) {
   list($menu_name, $link_path) = explode(':', $identifier, 2);
-  $result = db_query("SELECT menu_name, mlid, plid, link_path, router_path, link_title, options, module, hidden, external, has_children, expanded, weight FROM {menu_links} WHERE menu_name = '%s' AND link_path = '%s'", $menu_name, $link_path);
-  while ($link = db_fetch_array($result)) {
+  $link = db_select('menu_links')
+    ->fields('menu_links', array('menu_name', 'mlid', 'plid', 'link_path', 'router_path', 'link_title', 'options', 'module', 'hidden', 'external', 'has_children', 'expanded', 'weight'))
+    ->condition('menu_name', $menu_name)
+    ->condition('link_path', $link_path)
+    ->execute()
+    ->fetchAssoc();
+  if ($link) {
     $link['options'] = unserialize($link['options']);
     return $link;
   }

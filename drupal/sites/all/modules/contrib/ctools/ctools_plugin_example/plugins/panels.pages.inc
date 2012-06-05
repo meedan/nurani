@@ -1,5 +1,4 @@
 <?php
-// $Id: panels.pages.inc,v 1.1.2.1 2009/10/13 20:55:29 merlinofchaos Exp $
 
 /**
  * @file
@@ -7,7 +6,7 @@
  */
 
 /**
- * Implementation of hook_default_panel_pages()
+ * Implements hook_default_panel_pages()
  */
 function ctools_plugin_example_default_panel_pages() {
   $page = new stdClass();

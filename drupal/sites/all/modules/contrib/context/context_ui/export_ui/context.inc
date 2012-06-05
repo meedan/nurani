@@ -1,10 +1,9 @@
 <?php
-// $Id: context.inc,v 1.1.2.1 2010/08/05 16:46:26 yhahn Exp $
 
 $plugin = array(
   'schema' => 'context',
   'menu' => array(
-    'menu prefix' => 'admin/build',
+    'menu prefix' => 'admin/structure',
     'menu item' => 'context',
     'menu title' => 'Context',
     'menu description' => 'Associate menus, views, blocks, etc. with different contexts to structure your site.',

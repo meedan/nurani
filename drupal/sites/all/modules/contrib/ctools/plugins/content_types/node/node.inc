@@ -1,5 +1,4 @@
 <?php
-// $Id: node.inc,v 1.6.2.6 2010/07/26 17:34:20 merlinofchaos Exp $
 
 /**
  * @file
@@ -51,7 +50,7 @@ function ctools_node_content_type_render($subtype, $conf, $panel_args) {
   // Support node translation
   if (module_exists('translation')) {
     if ($translations = module_invoke('translation', 'node_get_translations', $nid)) {
-  	  if ($translations[$GLOBALS['language']->language])  {
+      if (isset($translations[$GLOBALS['language']->language]))  {
         $nid = $translations[$GLOBALS['language']->language]->nid;
       }
     }
@@ -66,23 +65,18 @@ function ctools_node_content_type_render($subtype, $conf, $panel_args) {
     return;
   }
 
-  if (node_access('update', $node)) {
-    $block->admin_links['update'] = array(
-      'title' => t('Edit node'),
-      'alt' => t("Edit this node"),
-      'href' => "node/$node->nid/edit",
-      'query' => drupal_get_destination(),
-    );
-  }
+  // Don't store viewed node data on the node, this can mess up other
+  // views of the node.
+  $node = clone($node);
 
   $block->module = 'node';
   $block->delta = $node->nid;
 
+  // Set block->title to the plain node title, then additionally set block->title_link to
+  // the node url if required. The actual link is rendered in ctools_content_render().
+  $block->title = check_plain($node->title);
   if (!empty($conf['link_node_title'])) {
-    $block->title = l($node->title, 'node/' . $node->nid);
-  }
-  else {
-    $block->title = check_plain($node->title);
+    $block->title_link = 'node/' . $node->nid;
   }
 
   if (empty($conf['leave_node_title'])) {
@@ -90,7 +84,7 @@ function ctools_node_content_type_render($subtype, $conf, $panel_args) {
   }
 
   if (!empty($conf['identifier'])) {
-    $node->panel_identifier = $conf['identifier'];
+    $node->ctools_template_identifier = $conf['identifier'];
   }
 
   // Handle existing configurations with the deprecated 'teaser' option.
@@ -98,18 +92,20 @@ function ctools_node_content_type_render($subtype, $conf, $panel_args) {
     $conf['build_mode'] = $conf['teaser'] ? 'teaser' : 'full';
   }
 
-  if (!isset($node->build_mode)) {
-    $node->build_mode = ($conf['build_mode'] == 'teaser' || $conf['build_mode'] == 'full') ? NODE_BUILD_NORMAL : $conf['build_mode'];
+  $block->content = node_view($node, $conf['build_mode']);
+
+  // Hide links if they've been suppressed.
+  if (empty($conf['links'])) {
+    $block->content['links']['#access'] = FALSE;
   }
 
-  $block->content = node_view($node, $conf['build_mode'] == 'teaser', FALSE, $conf['links']);
   return $block;
 }
 
 /**
  * The form to add or edit a node as content.
  */
-function ctools_node_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
 
   $form['leave_node_title'] = array(
@@ -156,25 +152,13 @@ function ctools_node_content_type_edit_form(&$form, &$form_state) {
     '#type' => 'textfield',
     '#default_value' => !empty($conf['identifier']) ? $conf['identifier'] : '',
     '#title' => t('Template identifier'),
-    '#description' => t('This identifier will be added as a template suggestion to display this node: node-panel-IDENTIFIER.tpl.php. Please see the Drupal theming guide for information about template suggestions.'),
+    '#description' => t('This identifier will be added as a template suggestion to display this node: node--panel--IDENTIFIER.tpl.php. Please see the Drupal theming guide for information about template suggestions.'),
   );
 
-  // CCK holds the registry of available build modes, but can hardly
-  // push them as options for the build mode options, so we break the normal
-  // rule of not directly relying on non-core modules.
-  if ($modes = module_invoke('content', 'build_modes')) {
-    $build_mode_options = array();
-    foreach ($modes as $key => $value) {
-      if (isset($value['views style']) && $value['views style']) {
-        $build_mode_options[$key] = $value['title'];
-      }
-    }
-  }
-  else {
-    $build_mode_options = array(
-      'teaser' => t('Teaser'),
-      'full' => t('Full node')
-    );
+  $entity = entity_get_info('node');
+  $build_mode_options = array();
+  foreach ($entity['view modes'] as $mode => $option) {
+    $build_mode_options[$mode] = $option['label'];
   }
 
   // Handle existing configurations with the deprecated 'teaser' option.
@@ -190,7 +174,7 @@ function ctools_node_content_type_edit_form(&$form, &$form_state) {
     '#options' => $build_mode_options,
     '#default_value' => $conf['build_mode'],
   );
-
+  return $form;
 }
 
 /**
@@ -203,19 +187,19 @@ function  ctools_node_content_type_edit_form_validate(&$form, &$form_state) {
 
   $nid = $form_state['values']['nid'];
   $preg_matches = array();
-  $match = preg_match('/\[nid: (\d+)\]/', $nid, $preg_matches);
+  $match = preg_match('/\[id: (\d+)\]/', $nid, $preg_matches);
   if (!$match) {
-    $match = preg_match('/^nid: (\d+)/', $nid, $preg_matches);
+    $match = preg_match('/^id: (\d+)/', $nid, $preg_matches);
   }
 
   if ($match) {
     $nid = $preg_matches[1];
   }
   if (is_numeric($nid)) {
-    $node = db_fetch_object(db_query(db_rewrite_sql("SELECT n.nid, n.status FROM {node} n WHERE n.nid = %d"), $nid));
+    $node = db_query('SELECT nid, status FROM {node} WHERE nid = :nid', array(':nid' => $nid))->fetchObject();
   }
   else {
-    $node = db_fetch_object(db_query(db_rewrite_sql("SELECT n.nid, n.status FROM {node} n WHERE LOWER(n.title) = LOWER('%s')"), $nid));
+    $node = db_query('SELECT nid, status FROM {node} WHERE LOWER(title) = LOWER(:title)', array(':title' => $nid))->fetchObject();
   }
   if ($node) {
     $form_state['values']['nid'] = $node->nid;
@@ -231,7 +215,7 @@ function  ctools_node_content_type_edit_form_validate(&$form, &$form_state) {
 /**
  * Validate the node selection.
  */
-function ctools_node_content_type_edit_form_submit(&$form, &$form_state) {
+function ctools_node_content_type_edit_form_submit($form, &$form_state) {
   foreach (array('nid', 'links', 'leave_node_title', 'link_node_title', 'identifier', 'build_mode') as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   }
@@ -247,7 +231,7 @@ function ctools_node_content_type_admin_title($subtype, $conf) {
 
   $node = node_load($conf['nid']);
   if ($node) {
-    if (!empty($data->status) || user_access('administer nodes')) {
+    if (!empty($node->status) || user_access('administer nodes')) {
       return check_plain($node->title);
     }
     else {

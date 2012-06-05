@@ -11,9 +11,10 @@ function nurani_general_views_default_views() {
   $view->name = 'Member_list';
   $view->description = 'A compilation of all memebers';
   $view->tag = '';
+  $view->view_php = '';
   $view->base_table = 'users';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -155,9 +156,9 @@ function nurani_general_views_default_views() {
     'rid' => array(
       'operator' => 'or',
       'value' => array(
-        6 => '6',
-        7 => '7',
-        8 => '8',
+        '6' => '6',
+        '7' => '7',
+        '8' => '8',
       ),
       'group' => '0',
       'exposed' => FALSE,
@@ -271,9 +272,10 @@ function nurani_general_views_default_views() {
   $view->name = 'active_discussions';
   $view->description = 'List of active discussions';
   $view->tag = '';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -597,9 +599,10 @@ function nurani_general_views_default_views() {
   $view->name = 'discussion_texts';
   $view->description = 'Texts used in discussion';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -665,11 +668,11 @@ function nurani_general_views_default_views() {
       'field' => 'nid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        2 => 0,
-        5 => 0,
-        8 => 0,
-        6 => 0,
-        7 => 0,
+        '2' => 0,
+        '5' => 0,
+        '8' => 0,
+        '6' => 0,
+        '7' => 0,
       ),
       'relationship' => 'none',
       'default_options_div_prefix' => '',
@@ -714,9 +717,10 @@ function nurani_general_views_default_views() {
   $view->name = 'discussions';
   $view->description = 'Discussions overview';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -997,9 +1001,10 @@ return $count;',
   $view->name = 'eligible_participants';
   $view->description = 'List of Nuranis who are eligible participants to a discussion';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'users';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -1067,11 +1072,11 @@ return $count;',
       'field' => 'rid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        2 => 0,
-        3 => 0,
-        6 => 0,
-        7 => 0,
-        8 => 0,
+        '2' => 0,
+        '3' => 0,
+        '6' => 0,
+        '7' => 0,
+        '8' => 0,
       ),
       'relationship' => 'none',
       'default_options_div_prefix' => '',
@@ -1091,7 +1096,7 @@ return $count;',
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        1 => 0,
+        '1' => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -1135,9 +1140,10 @@ return $count;',
   $view->name = 'glossary_terms';
   $view->description = 'List of glossary terms and their translations';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -1286,11 +1292,11 @@ return $count;',
       'field' => 'title',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        2 => 0,
-        5 => 0,
-        8 => 0,
-        6 => 0,
-        7 => 0,
+        '2' => 0,
+        '5' => 0,
+        '8' => 0,
+        '6' => 0,
+        '7' => 0,
       ),
       'relationship' => 'none',
       'default_options_div_prefix' => '',
@@ -1309,7 +1315,7 @@ return $count;',
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        1 => 0,
+        '1' => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -1440,11 +1446,11 @@ return $count;',
       'field' => 'title',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        2 => 0,
-        5 => 0,
-        8 => 0,
-        6 => 0,
-        7 => 0,
+        '2' => 0,
+        '5' => 0,
+        '8' => 0,
+        '6' => 0,
+        '7' => 0,
       ),
       'override' => array(
         'button' => 'Use default',
@@ -1466,7 +1472,7 @@ return $count;',
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        1 => 0,
+        '1' => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -1513,9 +1519,10 @@ return $count;',
   $view->name = 'new_glossary_terms';
   $view->description = 'New Glossary Terms';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -1612,9 +1619,10 @@ return $count;',
   $view->name = 'new_texts';
   $view->description = 'New Texts';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -1714,9 +1722,10 @@ return $count;',
   $view->name = 'nurani_comments';
   $view->description = 'Node comments flat';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('relationships', array(
@@ -1846,9 +1855,10 @@ return $count;',
   $view->name = 'nuranis';
   $view->description = 'List of Nurani members';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'users';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -1909,9 +1919,9 @@ return $count;',
     'rid' => array(
       'operator' => 'or',
       'value' => array(
-        6 => '6',
-        7 => '7',
-        8 => '8',
+        '6' => '6',
+        '7' => '7',
+        '8' => '8',
       ),
       'group' => '0',
       'exposed' => FALSE,
@@ -1992,11 +2002,11 @@ return $count;',
       'field' => 'uid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        2 => 0,
-        5 => 0,
-        8 => 0,
-        6 => 0,
-        7 => 0,
+        '2' => 0,
+        '5' => 0,
+        '8' => 0,
+        '6' => 0,
+        '7' => 0,
       ),
       'override' => array(
         'button' => 'Use default',
@@ -2044,9 +2054,10 @@ return implode(\'+\', $uids);',
   $view->name = 'text_autocomplete';
   $view->description = 'List of Nurani texts available in current language';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -2177,9 +2188,10 @@ return implode(\'+\', $uids);',
   $view->name = 'text_references';
   $view->description = 'List of Nurani texts available in current language';
   $view->tag = 'noderelationships_noderef';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -2430,9 +2442,10 @@ return implode(\'+\', $uids);',
   $view->name = 'texts';
   $view->description = 'List of Nurani texts';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -2632,9 +2645,10 @@ return implode(\'+\', $uids);',
   $view->name = 'untranslated_content';
   $view->description = 'List of content that is awaiting translation.';
   $view->tag = 'nurani';
+  $view->view_php = '';
   $view->base_table = 'node';
-  $view->core = 0;
-  $view->api_version = '2';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(

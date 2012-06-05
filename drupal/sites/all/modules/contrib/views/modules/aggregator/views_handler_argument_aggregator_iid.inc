@@ -2,6 +2,8 @@
 
 /**
  * Argument handler to accept an aggregator item id.
+ *
+ * @ingroup views_argument_handlers
  */
 class views_handler_argument_aggregator_iid extends views_handler_argument_numeric {
   /**
@@ -11,8 +13,11 @@ class views_handler_argument_aggregator_iid extends views_handler_argument_numer
     $titles = array();
     $placeholders = implode(', ', array_fill(0, sizeof($this->value), '%d'));
 
-    $result = db_query("SELECT i.title FROM {aggregator_item} i WHERE i.iid IN ($placeholders)", $this->value);
-    while ($term = db_fetch_object($result)) {
+    $result = db_select('aggregator_item')
+      ->condition('iid', $this->value, 'IN')
+      ->fields(array('title'))
+      ->execute();
+    foreach ($result as $term) {
       $titles[] = check_plain($term->title);
     }
     return $titles;

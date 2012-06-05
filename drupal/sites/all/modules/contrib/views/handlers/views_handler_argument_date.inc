@@ -35,7 +35,7 @@ class views_handler_argument_date extends views_handler_argument_formula {
    */
   function get_default_argument($raw = FALSE) {
     if (!$raw && $this->options['default_argument_type'] == 'date') {
-      return date($this->arg_format, time());
+      return date($this->arg_format, REQUEST_TIME);
     }
     else if (!$raw && in_array($this->options['default_argument_type'], array('node_created', 'node_changed'))) {
       foreach (range(1, 3) as $i) {
@@ -44,7 +44,7 @@ class views_handler_argument_date extends views_handler_argument_formula {
           continue;
         }
       }
-  
+
       if (arg(0) == 'node' && is_numeric(arg(1))) {
         $node = node_load(arg(1));
       }
@@ -52,15 +52,43 @@ class views_handler_argument_date extends views_handler_argument_formula {
       if (empty($node)) {
         return parent::get_default_argument();
       }
-      else if ($this->options['default_argument_type'] == 'node_created') {
+      elseif ($this->options['default_argument_type'] == 'node_created') {
         return date($this->arg_format, $node->created);
       }
-      else if ($this->options['default_argument_type'] == 'node_changed') {
+      elseif ($this->options['default_argument_type'] == 'node_changed') {
         return date($this->arg_format, $node->changed);
       }
     }
 
     return parent::get_default_argument($raw);
+  }
 
+  /**
+   * The date handler provides some default argument types, which aren't argument default plugins,
+   * so addapt the export mechanism.
+   */
+  function export_plugin($indent, $prefix, $storage, $option, $definition, $parents) {
+
+    // Only use a special behaviour for the special argument types, else just
+    // use the default behaviour.
+    if ($option == 'default_argument_type') {
+      $type = 'argument default';
+      $option_name = 'default_argument_options';
+
+      $plugin = $this->get_plugin($type);
+      $name = $this->options[$option];
+      if (in_array($name, array('date', 'node_created', 'node_changed'))) {
+
+        // Write which plugin to use.
+        $output = $indent . $prefix . "['$option'] = '$name';\n";
+        return $output;
+      }
+    }
+    return parent::export_plugin($indent, $prefix, $storage, $option, $definition, $parents);
+  }
+
+
+  function get_sort_name() {
+    return t('Date', array(), array('context' => 'Sort order'));
   }
 }

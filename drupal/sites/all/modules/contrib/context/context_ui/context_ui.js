@@ -1,4 +1,4 @@
-// $Id: context_ui.js,v 1.3.2.5.2.2.2.3 2010/01/08 23:54:14 yhahn Exp $
+(function($) {
 
 /**
  * Context plugin form.
@@ -90,7 +90,7 @@ function DrupalContextPlugins(form) {
   this.setState();
 }
 
-Drupal.behaviors.context_ui = function(context) {
+Drupal.behaviors.context_ui = { attach: function(context) {
   // Initialize context plugin form.
   $('form div.context-plugins:not(.context-ui-processed)').each(function() {
     $(this).addClass('context-ui-processed');
@@ -144,4 +144,5 @@ Drupal.behaviors.context_ui = function(context) {
         });
       });
   }
-};
+}};
+})(jQuery);

@@ -51,6 +51,7 @@ class views_plugin_row extends views_plugin {
    * Provide a form for setting options.
    */
   function options_form(&$form, &$form_state) {
+    parent::options_form($form, $form_state);
     if (isset($this->base_table)) {
       $view = &$form_state['view'];
 
@@ -98,21 +99,23 @@ class views_plugin_row extends views_plugin {
   /**
    * Validate the options form.
    */
-  function options_validate($form, &$form_state) { }
+  function options_validate(&$form, &$form_state) { }
 
   /**
    * Perform any necessary changes to the form values prior to storage.
    * There is no need for this function to actually store the data.
    */
-  function options_submit($form, &$form_state) { }
+  function options_submit(&$form, &$form_state) { }
 
   function query() {
-    if (isset($this->base_table) && isset($this->options['relationship']) && isset($this->view->relationship[$this->options['relationship']])) {
-      $relationship = $this->view->relationship[$this->options['relationship']];
-      $this->field_alias = $this->view->query->add_field($relationship->alias, $this->base_field);
-    }
-    else {
-      $this->field_alias = $this->view->base_field;
+    if (isset($this->base_table)) {
+      if (isset($this->options['relationship']) && isset($this->view->relationship[$this->options['relationship']])) {
+        $relationship = $this->view->relationship[$this->options['relationship']];
+        $this->field_alias = $this->view->query->add_field($relationship->alias, $this->base_field);
+      }
+      else {
+        $this->field_alias = $this->view->query->add_field($this->base_table, $this->base_field);
+      }
     }
   }
 
@@ -129,11 +132,16 @@ class views_plugin_row extends views_plugin {
    * of some form, but not always.
    */
   function render($row) {
-    return theme($this->theme_functions(), $this->view, $this->options, $row, $this->field_alias);
+    return theme($this->theme_functions(),
+      array(
+        'view' => $this->view,
+        'options' => $this->options,
+        'row' => $row,
+        'field_alias' => isset($this->field_alias) ? $this->field_alias : '',
+      ));
   }
 }
 
 /**
  * @}
  */
-

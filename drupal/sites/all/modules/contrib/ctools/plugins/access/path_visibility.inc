@@ -1,5 +1,4 @@
 <?php
-// $Id: path_visibility.inc,v 1.1.2.1 2010/02/23 20:58:38 merlinofchaos Exp $
 
 /**
  * @file
@@ -19,7 +18,7 @@ $plugin = array(
 /**
  * Settings form
  */
-function ctools_path_visibility_ctools_access_settings(&$form, &$form_state, $conf) {
+function ctools_path_visibility_ctools_access_settings($form, &$form_state, $conf) {
   $form['settings']['note'] = array(
     '#value' => '<div class="description">' . t('Note: if no context is chosen, the current page path will be used.') . '</div>',
   );
@@ -39,6 +38,7 @@ function ctools_path_visibility_ctools_access_settings(&$form, &$form_state, $co
     '#default_value' => $conf['paths'],
     '#description' => t("Enter one page per line as Drupal paths. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array('%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>')),
   );
+  return $form;
 }
 
 /**
