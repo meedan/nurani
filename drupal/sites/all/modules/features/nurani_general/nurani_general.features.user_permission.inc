@@ -38,6 +38,18 @@ function nurani_general_user_default_permissions() {
     ),
   );
 
+  // Exported permission: access print
+  $permissions['access print'] = array(
+    'name' => 'access print',
+    'roles' => array(
+      '0' => 'Participant',
+      '1' => 'administrator',
+      '2' => 'moderator',
+      '3' => 'scholar',
+      '4' => 'translator',
+    ),
+  );
+
   // Exported permission: access user profiles
   $permissions['access user profiles'] = array(
     'name' => 'access user profiles',
