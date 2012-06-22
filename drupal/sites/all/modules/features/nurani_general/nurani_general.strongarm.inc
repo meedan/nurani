@@ -130,6 +130,772 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'ds_all_build_modes';
+  $strongarm->value = array(
+    'nd' => array(
+      'full' => array(
+        'weight' => -1,
+        'title' => 'Full node',
+      ),
+      'teaser' => array(
+        'weight' => 1,
+        'title' => 'Teaser',
+      ),
+      'sticky' => array(
+        'weight' => 2,
+        'title' => 'Sticky',
+      ),
+      4 => array(
+        'weight' => 3,
+        'title' => 'RSS',
+      ),
+      2 => array(
+        'weight' => 13,
+        'title' => 'Search Index',
+      ),
+      3 => array(
+        'weight' => 14,
+        'title' => 'Search Result',
+      ),
+      5 => array(
+        'weight' => 17,
+        'title' => 'Print',
+      ),
+      'token' => array(
+        'weight' => 18,
+        'title' => 'Token',
+      ),
+      'text_summary' => array(
+        'weight' => 10,
+        'title' => 'Text summary',
+        'build modes' => array(
+          'text_summary' => array(
+            'title' => 'Text summary',
+          ),
+        ),
+      ),
+      'discussion_participants' => array(
+        'weight' => 11,
+        'title' => 'Discussion participants',
+        'build modes' => array(
+          'discussion_participants' => array(
+            'title' => 'Discussion participants',
+          ),
+        ),
+      ),
+    ),
+  );
+  $export['ds_all_build_modes'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'theme_default';
+  $strongarm->value = 'nurani';
+  $export['theme_default'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'site_slogan';
+  $strongarm->value = '';
+  $export['site_slogan'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'site_mission';
+  $strongarm->value = '';
+  $export['site_mission'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'site_footer';
+  $strongarm->value = '';
+  $export['site_footer'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'icl_content_books_to_update';
+  $strongarm->value = array();
+  $export['icl_content_books_to_update'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'icl_menus_to_sync';
+  $strongarm->value = array();
+  $export['icl_menus_to_sync'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'site_frontpage';
+  $strongarm->value = 'overview';
+  $export['site_frontpage'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_pictures';
+  $strongarm->value = '1';
+  $export['user_pictures'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_path';
+  $strongarm->value = 'pictures';
+  $export['user_picture_path'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_default';
+  $strongarm->value = 'sites/all/themes/nurani/images/default.png';
+  $export['user_picture_default'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_dimensions';
+  $strongarm->value = '85x85';
+  $export['user_picture_dimensions'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_file_size';
+  $strongarm->value = '8000';
+  $export['user_picture_file_size'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_guidelines';
+  $strongarm->value = '';
+  $export['user_picture_guidelines'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_imagecache_profiles';
+  $strongarm->value = 'thumbnail';
+  $export['user_picture_imagecache_profiles'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_imagecache_comments';
+  $strongarm->value = 'thumbnail_view';
+  $export['user_picture_imagecache_comments'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_imagecache_profiles_default';
+  $strongarm->value = 'thumbnail';
+  $export['user_picture_imagecache_profiles_default'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_imagecache_profiles_min_width';
+  $strongarm->value = '';
+  $export['user_picture_imagecache_profiles_min_width'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_imagecache_profiles_min_height';
+  $strongarm->value = '';
+  $export['user_picture_imagecache_profiles_min_height'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nd_display_settings_comment';
+  $strongarm->value = array(
+    'full' => array(
+      'fields' => array(
+        'title' => array(
+          'region' => 'disabled',
+          'weight' => '-95',
+          'format' => 'nd_title_h1_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'author' => array(
+          'region' => 'header',
+          'weight' => '-100',
+          'format' => 'ds_author_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'links' => array(
+          'region' => 'footer',
+          'weight' => '-96',
+          'format' => '',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'read_more' => array(
+          'region' => 'disabled',
+          'weight' => '-96',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'post_date' => array(
+          'region' => 'header',
+          'weight' => '-99',
+          'format' => 'nd_post_date_long',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'body' => array(
+          'region' => 'middle',
+          'weight' => '-98',
+          'format' => 'nd_bodyfield',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'translation_status' => array(
+          'region' => 'middle',
+          'weight' => '-97',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+      ),
+      'status' => 3,
+      'region_styles' => array(
+        'header' => '',
+        'left' => '',
+        'middle' => '',
+        'right' => '',
+        'footer' => '',
+      ),
+    ),
+  );
+  $export['nd_display_settings_comment'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nd_display_settings_discussion';
+  $strongarm->value = array(
+    'discussion_participants' => array(
+      'fields' => array(
+        'field_texts' => array(
+          'region' => 'disabled',
+          'weight' => '-90',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'field_moderators' => array(
+          'region' => 'middle',
+          'weight' => '-99',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'above',
+        ),
+        'field_translators' => array(
+          'region' => 'middle',
+          'weight' => '-97',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'above',
+        ),
+        'field_scholars' => array(
+          'region' => 'middle',
+          'weight' => '-98',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'above',
+        ),
+        'field_exp_comments' => array(
+          'region' => 'middle',
+          'weight' => '-96',
+          'format' => 'countdown',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'title' => array(
+          'region' => 'disabled',
+          'weight' => '-91',
+          'format' => 'nd_title_h1_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'author' => array(
+          'region' => 'middle',
+          'weight' => '-100',
+          'format' => 'ds_author_link',
+          'css-class' => '',
+          'label_value' => 'Moderator',
+          'labelformat' => 'above',
+        ),
+        'links' => array(
+          'region' => 'disabled',
+          'weight' => '-95',
+          'format' => '',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'read_more' => array(
+          'region' => 'disabled',
+          'weight' => '-94',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'post_date' => array(
+          'region' => 'disabled',
+          'weight' => '-93',
+          'format' => 'nd_post_date_long',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'body' => array(
+          'region' => 'disabled',
+          'weight' => '-92',
+          'format' => 'nd_bodyfield',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+      ),
+      'status' => 2,
+      'region_styles' => array(
+        'header' => '',
+        'left' => '',
+        'middle' => '',
+        'right' => '',
+        'footer' => '',
+      ),
+    ),
+    'full' => array(
+      'fields' => array(
+        'field_texts' => array(
+          'region' => 'disabled',
+          'weight' => '-95',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'field_exp_comments' => array(
+          'region' => 'disabled',
+          'weight' => '-89',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'field_moderators' => array(
+          'region' => 'disabled',
+          'weight' => '-92',
+          'format' => 'default',
+          'css-class' => '',
+          'label_value' => 'Moderators',
+          'labelformat' => 'above',
+        ),
+        'field_translators' => array(
+          'region' => 'disabled',
+          'weight' => '-93',
+          'format' => 'default',
+          'css-class' => '',
+          'label_value' => 'Translators',
+          'labelformat' => 'above',
+        ),
+        'field_scholars' => array(
+          'region' => 'disabled',
+          'weight' => '-94',
+          'format' => 'default',
+          'css-class' => '',
+          'label_value' => 'Scholars',
+          'labelformat' => 'above',
+        ),
+        'title' => array(
+          'region' => 'disabled',
+          'weight' => '-90',
+          'format' => 'nd_title_h1_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'author' => array(
+          'region' => 'middle',
+          'weight' => '-100',
+          'format' => 'ds_author_nolink',
+          'css-class' => '',
+          'label_value' => 'Author',
+          'labelformat' => 'hidden',
+        ),
+        'links' => array(
+          'region' => 'middle',
+          'weight' => '-97',
+          'format' => '',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'read_more' => array(
+          'region' => 'disabled',
+          'weight' => '-91',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'post_date' => array(
+          'region' => 'middle',
+          'weight' => '-99',
+          'format' => 'nd_post_date_long',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'body' => array(
+          'region' => 'middle',
+          'weight' => '-98',
+          'format' => 'nd_bodyfield',
+          'css-class' => '',
+          'label_value' => 'Thoughts from the Moderator',
+          'labelformat' => 'above',
+        ),
+        'translation_status' => array(
+          'region' => 'middle',
+          'weight' => '-96',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+      ),
+      'status' => 3,
+      'region_styles' => array(
+        'header' => '',
+        'left' => '',
+        'middle' => '',
+        'right' => '',
+        'footer' => '',
+      ),
+    ),
+  );
+  $export['nd_display_settings_discussion'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nd_display_settings_response';
+  $strongarm->value = array(
+    'full' => array(
+      'fields' => array(
+        'title' => array(
+          'region' => 'disabled',
+          'weight' => '-95',
+          'format' => 'nd_title_h1_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'author' => array(
+          'region' => 'header',
+          'weight' => '-100',
+          'format' => 'ds_author_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'links' => array(
+          'region' => 'footer',
+          'weight' => '-96',
+          'format' => '',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'read_more' => array(
+          'region' => 'disabled',
+          'weight' => '-96',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'post_date' => array(
+          'region' => 'header',
+          'weight' => '-99',
+          'format' => 'nd_post_date_long',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'body' => array(
+          'region' => 'middle',
+          'weight' => '-98',
+          'format' => 'nd_bodyfield',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'translation_status' => array(
+          'region' => 'middle',
+          'weight' => '-97',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+      ),
+      'status' => 1,
+      'region_styles' => array(
+        'header' => '',
+        'left' => '',
+        'middle' => '',
+        'right' => '',
+        'footer' => '',
+      ),
+    ),
+  );
+  $export['nd_display_settings_response'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nd_display_settings_term';
+  $strongarm->value = array(
+    'full' => array(
+      'fields' => array(
+        'field_part_of_speech' => array(
+          'region' => 'middle',
+          'weight' => '-100',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'above',
+        ),
+        'field_translation_term' => array(
+          'region' => 'middle',
+          'weight' => '-100',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+          'parent' => 'group_translations',
+        ),
+        'field_translation_context' => array(
+          'region' => 'middle',
+          'weight' => '-99',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+          'parent' => 'group_translations',
+        ),
+        'group_translations' => array(
+          'region' => 'middle',
+          'weight' => '-97',
+          'format' => 'ds_field',
+          'css-class' => '',
+          'labelformat' => 'above',
+        ),
+        'title' => array(
+          'region' => 'disabled',
+          'weight' => '-91',
+          'format' => 'nd_title_h1_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'author' => array(
+          'region' => 'disabled',
+          'weight' => '-92',
+          'format' => 'ds_author_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'links' => array(
+          'region' => 'disabled',
+          'weight' => '-95',
+          'format' => '',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'read_more' => array(
+          'region' => 'disabled',
+          'weight' => '-94',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'post_date' => array(
+          'region' => 'disabled',
+          'weight' => '-93',
+          'format' => 'nd_post_date_long',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'glossary_references' => array(
+          'region' => 'middle',
+          'weight' => '-96',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+      ),
+      'status' => 2,
+      'region_styles' => array(
+        'header' => '',
+        'left' => '',
+        'middle' => '',
+        'right' => '',
+        'footer' => '',
+      ),
+    ),
+  );
+  $export['nd_display_settings_term'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nd_display_settings_text';
+  $strongarm->value = array(
+    'title_body' => array(
+      'fields' => array(
+        'field_description' => array(
+          'region' => 'middle',
+          'weight' => '-99',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'title' => array(
+          'region' => 'middle',
+          'weight' => '-100',
+          'format' => 'nd_title_h1_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'author' => array(
+          'region' => 'disabled',
+          'weight' => '-93',
+          'format' => 'ds_author_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'links' => array(
+          'region' => 'disabled',
+          'weight' => '-94',
+          'format' => '',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'read_more' => array(
+          'region' => 'disabled',
+          'weight' => '-97',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'post_date' => array(
+          'region' => 'disabled',
+          'weight' => '-95',
+          'format' => 'nd_post_date_long',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'body' => array(
+          'region' => 'disabled',
+          'weight' => '-96',
+          'format' => 'nd_bodyfield',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'view_text' => array(
+          'region' => 'footer',
+          'weight' => '-98',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+      ),
+      'status' => 2,
+      'region_styles' => array(
+        'header' => '',
+        'left' => '',
+        'middle' => '',
+        'right' => '',
+        'footer' => '',
+      ),
+    ),
+    'text_summary' => array(
+      'fields' => array(
+        'field_description' => array(
+          'region' => 'disabled',
+          'weight' => '-95',
+          'format' => 'default',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'title' => array(
+          'region' => 'middle',
+          'weight' => '-100',
+          'format' => 'nd_title_h1_link',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'author' => array(
+          'region' => 'disabled',
+          'weight' => '-94',
+          'format' => 'ds_author_nolink',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'links' => array(
+          'region' => 'disabled',
+          'weight' => '-92',
+          'format' => '',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'read_more' => array(
+          'region' => 'disabled',
+          'weight' => '-96',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'post_date' => array(
+          'region' => 'disabled',
+          'weight' => '-97',
+          'format' => 'nd_post_date_long',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'body' => array(
+          'region' => 'middle',
+          'weight' => '-99',
+          'format' => 'nd_bodyfield',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'translation_status' => array(
+          'region' => 'disabled',
+          'weight' => '-93',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+        'text_links' => array(
+          'region' => 'middle',
+          'weight' => '-98',
+          'format' => 'ds_eval_code',
+          'css-class' => '',
+          'labelformat' => 'hidden',
+        ),
+      ),
+      'status' => 3,
+      'region_styles' => array(
+        'header' => '',
+        'left' => '',
+        'middle' => '',
+        'right' => '',
+        'footer' => '',
+      ),
+    ),
+  );
+  $export['nd_display_settings_text'] = $strongarm;
+
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'ant_annotation';
   $strongarm->value = '0';
   $export['ant_annotation'] = $strongarm;
@@ -1255,586 +2021,6 @@ The Service Providers may use session cookies when you visit our website while y
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'nd_display_settings_comment';
-  $strongarm->value = array(
-    'full' => array(
-      'fields' => array(
-        'title' => array(
-          'region' => 'disabled',
-          'weight' => '-95',
-          'format' => 'nd_title_h1_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'author' => array(
-          'region' => 'header',
-          'weight' => '-100',
-          'format' => 'ds_author_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'links' => array(
-          'region' => 'footer',
-          'weight' => '-96',
-          'format' => '',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'read_more' => array(
-          'region' => 'disabled',
-          'weight' => '-96',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'post_date' => array(
-          'region' => 'header',
-          'weight' => '-99',
-          'format' => 'nd_post_date_long',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'body' => array(
-          'region' => 'middle',
-          'weight' => '-98',
-          'format' => 'nd_bodyfield',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'translation_status' => array(
-          'region' => 'middle',
-          'weight' => '-97',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-      ),
-      'status' => 3,
-      'region_styles' => array(
-        'header' => '',
-        'left' => '',
-        'middle' => '',
-        'right' => '',
-        'footer' => '',
-      ),
-    ),
-  );
-  $export['nd_display_settings_comment'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'nd_display_settings_discussion';
-  $strongarm->value = array(
-    'discussion_participants' => array(
-      'fields' => array(
-        'field_texts' => array(
-          'region' => 'disabled',
-          'weight' => '-90',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'field_moderators' => array(
-          'region' => 'middle',
-          'weight' => '-99',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'above',
-        ),
-        'field_translators' => array(
-          'region' => 'middle',
-          'weight' => '-97',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'above',
-        ),
-        'field_scholars' => array(
-          'region' => 'middle',
-          'weight' => '-98',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'above',
-        ),
-        'field_exp_comments' => array(
-          'region' => 'middle',
-          'weight' => '-96',
-          'format' => 'countdown',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'title' => array(
-          'region' => 'disabled',
-          'weight' => '-91',
-          'format' => 'nd_title_h1_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'author' => array(
-          'region' => 'middle',
-          'weight' => '-100',
-          'format' => 'ds_author_link',
-          'css-class' => '',
-          'label_value' => 'Moderator',
-          'labelformat' => 'above',
-        ),
-        'links' => array(
-          'region' => 'disabled',
-          'weight' => '-95',
-          'format' => '',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'read_more' => array(
-          'region' => 'disabled',
-          'weight' => '-94',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'post_date' => array(
-          'region' => 'disabled',
-          'weight' => '-93',
-          'format' => 'nd_post_date_long',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'body' => array(
-          'region' => 'disabled',
-          'weight' => '-92',
-          'format' => 'nd_bodyfield',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-      ),
-      'status' => 2,
-      'region_styles' => array(
-        'header' => '',
-        'left' => '',
-        'middle' => '',
-        'right' => '',
-        'footer' => '',
-      ),
-    ),
-    'full' => array(
-      'fields' => array(
-        'field_texts' => array(
-          'region' => 'disabled',
-          'weight' => '-95',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'field_exp_comments' => array(
-          'region' => 'disabled',
-          'weight' => '-89',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'field_moderators' => array(
-          'region' => 'disabled',
-          'weight' => '-92',
-          'format' => 'default',
-          'css-class' => '',
-          'label_value' => 'Moderators',
-          'labelformat' => 'above',
-        ),
-        'field_translators' => array(
-          'region' => 'disabled',
-          'weight' => '-93',
-          'format' => 'default',
-          'css-class' => '',
-          'label_value' => 'Translators',
-          'labelformat' => 'above',
-        ),
-        'field_scholars' => array(
-          'region' => 'disabled',
-          'weight' => '-94',
-          'format' => 'default',
-          'css-class' => '',
-          'label_value' => 'Scholars',
-          'labelformat' => 'above',
-        ),
-        'title' => array(
-          'region' => 'disabled',
-          'weight' => '-90',
-          'format' => 'nd_title_h1_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'author' => array(
-          'region' => 'middle',
-          'weight' => '-100',
-          'format' => 'ds_author_nolink',
-          'css-class' => '',
-          'label_value' => 'Author',
-          'labelformat' => 'hidden',
-        ),
-        'links' => array(
-          'region' => 'middle',
-          'weight' => '-97',
-          'format' => '',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'read_more' => array(
-          'region' => 'disabled',
-          'weight' => '-91',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'post_date' => array(
-          'region' => 'middle',
-          'weight' => '-99',
-          'format' => 'nd_post_date_long',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'body' => array(
-          'region' => 'middle',
-          'weight' => '-98',
-          'format' => 'nd_bodyfield',
-          'css-class' => '',
-          'label_value' => 'Thoughts from the Moderator',
-          'labelformat' => 'above',
-        ),
-        'translation_status' => array(
-          'region' => 'middle',
-          'weight' => '-96',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-      ),
-      'status' => 3,
-      'region_styles' => array(
-        'header' => '',
-        'left' => '',
-        'middle' => '',
-        'right' => '',
-        'footer' => '',
-      ),
-    ),
-  );
-  $export['nd_display_settings_discussion'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'nd_display_settings_response';
-  $strongarm->value = array(
-    'full' => array(
-      'fields' => array(
-        'title' => array(
-          'region' => 'disabled',
-          'weight' => '-95',
-          'format' => 'nd_title_h1_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'author' => array(
-          'region' => 'header',
-          'weight' => '-100',
-          'format' => 'ds_author_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'links' => array(
-          'region' => 'footer',
-          'weight' => '-96',
-          'format' => '',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'read_more' => array(
-          'region' => 'disabled',
-          'weight' => '-96',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'post_date' => array(
-          'region' => 'header',
-          'weight' => '-99',
-          'format' => 'nd_post_date_long',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'body' => array(
-          'region' => 'middle',
-          'weight' => '-98',
-          'format' => 'nd_bodyfield',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'translation_status' => array(
-          'region' => 'middle',
-          'weight' => '-97',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-      ),
-      'status' => 1,
-      'region_styles' => array(
-        'header' => '',
-        'left' => '',
-        'middle' => '',
-        'right' => '',
-        'footer' => '',
-      ),
-    ),
-  );
-  $export['nd_display_settings_response'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'nd_display_settings_term';
-  $strongarm->value = array(
-    'full' => array(
-      'fields' => array(
-        'field_part_of_speech' => array(
-          'region' => 'middle',
-          'weight' => '-100',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'above',
-        ),
-        'field_translation_term' => array(
-          'region' => 'middle',
-          'weight' => '-100',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-          'parent' => 'group_translations',
-        ),
-        'field_translation_context' => array(
-          'region' => 'middle',
-          'weight' => '-99',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-          'parent' => 'group_translations',
-        ),
-        'group_translations' => array(
-          'region' => 'middle',
-          'weight' => '-97',
-          'format' => 'ds_field',
-          'css-class' => '',
-          'labelformat' => 'above',
-        ),
-        'title' => array(
-          'region' => 'disabled',
-          'weight' => '-91',
-          'format' => 'nd_title_h1_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'author' => array(
-          'region' => 'disabled',
-          'weight' => '-92',
-          'format' => 'ds_author_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'links' => array(
-          'region' => 'disabled',
-          'weight' => '-95',
-          'format' => '',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'read_more' => array(
-          'region' => 'disabled',
-          'weight' => '-94',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'post_date' => array(
-          'region' => 'disabled',
-          'weight' => '-93',
-          'format' => 'nd_post_date_long',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'glossary_references' => array(
-          'region' => 'middle',
-          'weight' => '-96',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-      ),
-      'status' => 2,
-      'region_styles' => array(
-        'header' => '',
-        'left' => '',
-        'middle' => '',
-        'right' => '',
-        'footer' => '',
-      ),
-    ),
-  );
-  $export['nd_display_settings_term'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'nd_display_settings_text';
-  $strongarm->value = array(
-    'title_body' => array(
-      'fields' => array(
-        'field_description' => array(
-          'region' => 'middle',
-          'weight' => '-99',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'title' => array(
-          'region' => 'middle',
-          'weight' => '-100',
-          'format' => 'nd_title_h1_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'author' => array(
-          'region' => 'disabled',
-          'weight' => '-93',
-          'format' => 'ds_author_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'links' => array(
-          'region' => 'disabled',
-          'weight' => '-94',
-          'format' => '',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'read_more' => array(
-          'region' => 'disabled',
-          'weight' => '-97',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'post_date' => array(
-          'region' => 'disabled',
-          'weight' => '-95',
-          'format' => 'nd_post_date_long',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'body' => array(
-          'region' => 'disabled',
-          'weight' => '-96',
-          'format' => 'nd_bodyfield',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'view_text' => array(
-          'region' => 'footer',
-          'weight' => '-98',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-      ),
-      'status' => 2,
-      'region_styles' => array(
-        'header' => '',
-        'left' => '',
-        'middle' => '',
-        'right' => '',
-        'footer' => '',
-      ),
-    ),
-    'text_summary' => array(
-      'fields' => array(
-        'field_description' => array(
-          'region' => 'disabled',
-          'weight' => '-95',
-          'format' => 'default',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'title' => array(
-          'region' => 'middle',
-          'weight' => '-100',
-          'format' => 'nd_title_h1_link',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'author' => array(
-          'region' => 'disabled',
-          'weight' => '-94',
-          'format' => 'ds_author_nolink',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'links' => array(
-          'region' => 'disabled',
-          'weight' => '-92',
-          'format' => '',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'read_more' => array(
-          'region' => 'disabled',
-          'weight' => '-96',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'post_date' => array(
-          'region' => 'disabled',
-          'weight' => '-97',
-          'format' => 'nd_post_date_long',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'body' => array(
-          'region' => 'middle',
-          'weight' => '-99',
-          'format' => 'nd_bodyfield',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'translation_status' => array(
-          'region' => 'disabled',
-          'weight' => '-93',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-        'text_links' => array(
-          'region' => 'middle',
-          'weight' => '-98',
-          'format' => 'ds_eval_code',
-          'css-class' => '',
-          'labelformat' => 'hidden',
-        ),
-      ),
-      'status' => 3,
-      'region_styles' => array(
-        'header' => '',
-        'left' => '',
-        'middle' => '',
-        'right' => '',
-        'footer' => '',
-      ),
-    ),
-  );
-  $export['nd_display_settings_text'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'nd_fields';
   $strongarm->value = array(
     'glossary_references' => array(
@@ -2849,34 +3035,6 @@ return theme(\'links\', $links);
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'site_footer';
-  $strongarm->value = '';
-  $export['site_footer'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'site_frontpage';
-  $strongarm->value = 'overview';
-  $export['site_frontpage'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'site_mission';
-  $strongarm->value = '';
-  $export['site_mission'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'site_slogan';
-  $strongarm->value = '';
-  $export['site_slogan'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'theme_basic_settings';
   $strongarm->value = array(
     'basic_zen_tabs' => 1,
@@ -2913,95 +3071,11 @@ return theme(\'links\', $links);
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'theme_default';
-  $strongarm->value = 'nurani';
-  $export['theme_default'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'theme_settings';
   $strongarm->value = array(
     'toggle_node_info_page' => FALSE,
   );
   $export['theme_settings'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_default';
-  $strongarm->value = 'sites/all/themes/nurani/images/default.png';
-  $export['user_picture_default'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_dimensions';
-  $strongarm->value = '85x85';
-  $export['user_picture_dimensions'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_file_size';
-  $strongarm->value = '8000';
-  $export['user_picture_file_size'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_guidelines';
-  $strongarm->value = '';
-  $export['user_picture_guidelines'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_imagecache_comments';
-  $strongarm->value = 'thumbnail_view';
-  $export['user_picture_imagecache_comments'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_imagecache_profiles';
-  $strongarm->value = 'thumbnail';
-  $export['user_picture_imagecache_profiles'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_imagecache_profiles_default';
-  $strongarm->value = 'thumbnail';
-  $export['user_picture_imagecache_profiles_default'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_imagecache_profiles_min_height';
-  $strongarm->value = '';
-  $export['user_picture_imagecache_profiles_min_height'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_imagecache_profiles_min_width';
-  $strongarm->value = '';
-  $export['user_picture_imagecache_profiles_min_width'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_picture_path';
-  $strongarm->value = 'pictures';
-  $export['user_picture_path'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_pictures';
-  $strongarm->value = '1';
-  $export['user_pictures'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -3239,66 +3313,6 @@ return theme(\'links\', $links);
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ds_all_build_modes';
-  $strongarm->value = array(
-    'nd' => array(
-      'full' => array(
-        'weight' => -1,
-        'title' => 'Full node',
-      ),
-      'teaser' => array(
-        'weight' => 1,
-        'title' => 'Teaser',
-      ),
-      'sticky' => array(
-        'weight' => 2,
-        'title' => 'Sticky',
-      ),
-      4 => array(
-        'weight' => 3,
-        'title' => 'RSS',
-      ),
-      2 => array(
-        'weight' => 13,
-        'title' => 'Search Index',
-      ),
-      3 => array(
-        'weight' => 14,
-        'title' => 'Search Result',
-      ),
-      5 => array(
-        'weight' => 17,
-        'title' => 'Print',
-      ),
-      'token' => array(
-        'weight' => 18,
-        'title' => 'Token',
-      ),
-      'text_summary' => array(
-        'weight' => 10,
-        'title' => 'Text summary',
-        'build modes' => array(
-          'text_summary' => array(
-            'title' => 'Text summary',
-          ),
-        ),
-      ),
-      'discussion_participants' => array(
-        'weight' => 11,
-        'title' => 'Discussion participants',
-        'build modes' => array(
-          'discussion_participants' => array(
-            'title' => 'Discussion participants',
-          ),
-        ),
-      ),
-    ),
-  );
-  $export['ds_all_build_modes'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'icl_content_node_type_fields';
   $strongarm->value = array(
     'story' => array(
@@ -3341,20 +3355,6 @@ return theme(\'links\', $links);
     ),
   );
   $export['icl_content_node_type_fields'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'icl_content_books_to_update';
-  $strongarm->value = array();
-  $export['icl_content_books_to_update'] = $strongarm;
-
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'icl_menus_to_sync';
-  $strongarm->value = array();
-  $export['icl_menus_to_sync'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
