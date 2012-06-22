@@ -44,9 +44,11 @@ function nurani_general_user_default_permissions() {
     'roles' => array(
       '0' => 'Participant',
       '1' => 'administrator',
-      '2' => 'moderator',
-      '3' => 'scholar',
-      '4' => 'translator',
+      '2' => 'anonymous user',
+      '3' => 'authenticated user',
+      '4' => 'moderator',
+      '5' => 'scholar',
+      '6' => 'translator',
     ),
   );
 
