@@ -3,6 +3,9 @@
 *.sql.gz
 *.sql.bz2
 
+# Never add local settings files
+settings.local.php
+
 # Project files, and other junk
 *.kpf
 *.komodoproject
