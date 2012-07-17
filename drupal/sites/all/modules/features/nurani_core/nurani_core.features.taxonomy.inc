@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nurani_general.features.taxonomy.inc
+ * nurani_core.features.taxonomy.inc
  */
 
 /**
  * Implements hook_taxonomy_default_vocabularies().
  */
-function nurani_general_taxonomy_default_vocabularies() {
+function nurani_core_taxonomy_default_vocabularies() {
   return array(
     'theme' => array(
       'name' => 'Theme',

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nurani_general.features.field.inc
+ * nurani_core.features.field.inc
  */
 
 /**
  * Implements hook_field_default_fields().
  */
-function nurani_general_field_default_fields() {
+function nurani_core_field_default_fields() {
   $fields = array();
 
   // Exported field: 'node-discussion-body'

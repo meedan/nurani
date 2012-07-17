@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nurani_general.strongarm.inc
+ * nurani_core.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function nurani_general_strongarm() {
+function nurani_core_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();

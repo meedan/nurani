@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Nurani General feature.
- */
-
-include_once 'nurani_general.features.inc';

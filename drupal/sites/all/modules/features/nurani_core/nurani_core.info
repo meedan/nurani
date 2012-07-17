@@ -1,10 +1,10 @@
-name = Nurani General
+name = Nurani Core
 description = Objects and settings that comprise Nurani.
 core = 7.x
 package = Nurani
 php = 5.2.4
 version = 7.x-1.0
-project = nurani_general
+project = nurani_core
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = strongarm

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nurani_general.features.inc
+ * nurani_core.features.inc
  */
 
 /**
  * Implements hook_ctools_plugin_api().
  */
-function nurani_general_ctools_plugin_api() {
+function nurani_core_ctools_plugin_api() {
   list($module, $api) = func_get_args();
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
@@ -17,7 +17,7 @@ function nurani_general_ctools_plugin_api() {
 /**
  * Implements hook_node_info().
  */
-function nurani_general_node_info() {
+function nurani_core_node_info() {
   $items = array(
     'discussion' => array(
       'name' => t('Discussion'),
