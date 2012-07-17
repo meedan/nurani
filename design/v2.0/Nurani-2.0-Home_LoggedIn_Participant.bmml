@@ -198,5 +198,31 @@
         <text>Water%20%28Group%209%29</text>
       </controlProperties>
     </control>
+    <control controlID="91" controlTypeID="com.balsamiq.mockups::Canvas" x="207" y="266" w="340" h="414" measuredW="100" measuredH="70" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <color>16770457</color>
+      </controlProperties>
+    </control>
+    <control controlID="92" controlTypeID="com.balsamiq.mockups::Label" x="222" y="283" w="-1" h="-1" measuredW="144" measuredH="24" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Welcome%20to%20Nurani</text>
+      </controlProperties>
+    </control>
+    <control controlID="93" controlTypeID="com.balsamiq.mockups::Paragraph" x="374" y="317" w="156" h="150" measuredW="200" measuredH="80" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>I%20am%20delighted%20to%20welcome%20you%20to%20SCRIPTURAL%20REASONING%20online%20and%20to%20Nurani%20-%20a%20platform%20for%20dialogue%20between%20Muslims%2C%20Jews%20and%20Christians.%20The%20practice%20of%20Scriptural%20Reasoning%20enables%20participants%20to%20go%20deeper</text>
+      </controlProperties>
+    </control>
+    <control controlID="94" controlTypeID="com.balsamiq.mockups::Webcam" x="222" y="317" w="144" h="146" measuredW="177" measuredH="146" zOrder="26" locked="false" isInGroup="-1"/>
+    <control controlID="95" controlTypeID="com.balsamiq.mockups::Paragraph" x="222" y="469" w="308" h="198" measuredW="200" measuredH="80" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>into%20the%20faiths%20of%20others%20while%20also%20going%20deeper%20into%20their%20own%20faith%u2014for%20the%20sake%20of%20God%20and%20God%u2019s%20good%20purposes.%20I%20have%20not%20found%20anything%20else%20that%20serves%20so%20well%20to%20sustain%20on-going%2C%20faith-centred%20engagement%20among%20the%20Abrahamic%20traditions.%20I%20hope%20you%20find%20this%20opportunity%20of%20sharing%20and%20studying%20your%20scriptures%20with%20people%20of%20other%20faiths%20a%20rich%20and%20rewarding%20experience.%20%0A%20%0AWith%20warmest%20regards%2C%20%0ADavid%20Ford%2C%20Regius%20Professor%20of%20Divinity%20at%20the%20University%20of%20Cambridge</text>
+      </controlProperties>
+    </control>
   </controls>
 </mockup>
