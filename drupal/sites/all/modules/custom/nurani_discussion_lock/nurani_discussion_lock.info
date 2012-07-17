@@ -1,7 +1,0 @@
-; $Id$
-name = Nurani Discussion Lock
-description = Lock comments after specific time.
-dependencies[] = content
-dependencies[] = date
-package = Nurani
-core = 6.x
