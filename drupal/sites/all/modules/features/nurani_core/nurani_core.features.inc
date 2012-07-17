@@ -19,6 +19,14 @@ function nurani_core_ctools_plugin_api() {
  */
 function nurani_core_node_info() {
   $items = array(
+    'bundle' => array(
+      'name' => t('Bundle'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'discussion' => array(
       'name' => t('Discussion'),
       'base' => 'node_content',
@@ -29,14 +37,6 @@ function nurani_core_node_info() {
     ),
     'passage' => array(
       'name' => t('Passage'),
-      'base' => 'node_content',
-      'description' => '',
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-    'bundle' => array(
-      'name' => t('Bundle'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',

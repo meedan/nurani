@@ -13,6 +13,13 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'additional_settings__active_tab_bundle';
+  $strongarm->value = 'edit-workflow';
+  $export['additional_settings__active_tab_bundle'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_discussion';
   $strongarm->value = 'edit-workflow';
   $export['additional_settings__active_tab_discussion'] = $strongarm;
@@ -27,16 +34,16 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'additional_settings__active_tab_bundle';
-  $strongarm->value = 'edit-workflow';
-  $export['additional_settings__active_tab_bundle'] = $strongarm;
+  $strongarm->name = 'additional_settings__active_tab_text_bundle';
+  $strongarm->value = 'edit-menu';
+  $export['additional_settings__active_tab_text_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'additional_settings__active_tab_text_bundle';
-  $strongarm->value = 'edit-menu';
-  $export['additional_settings__active_tab_text_bundle'] = $strongarm;
+  $strongarm->name = 'comment_anonymous_bundle';
+  $strongarm->value = 0;
+  $export['comment_anonymous_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -55,9 +62,16 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_anonymous_bundle';
-  $strongarm->value = 0;
-  $export['comment_anonymous_bundle'] = $strongarm;
+  $strongarm->name = 'comment_bundle';
+  $strongarm->value = '1';
+  $export['comment_bundle'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_default_mode_bundle';
+  $strongarm->value = 1;
+  $export['comment_default_mode_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -76,9 +90,9 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_mode_bundle';
-  $strongarm->value = 1;
-  $export['comment_default_mode_bundle'] = $strongarm;
+  $strongarm->name = 'comment_default_per_page_bundle';
+  $strongarm->value = '50';
+  $export['comment_default_per_page_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -97,16 +111,16 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_per_page_bundle';
-  $strongarm->value = '50';
-  $export['comment_default_per_page_bundle'] = $strongarm;
+  $strongarm->name = 'comment_discussion';
+  $strongarm->value = '2';
+  $export['comment_discussion'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_discussion';
-  $strongarm->value = '2';
-  $export['comment_discussion'] = $strongarm;
+  $strongarm->name = 'comment_form_location_bundle';
+  $strongarm->value = 1;
+  $export['comment_form_location_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -125,13 +139,6 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_form_location_bundle';
-  $strongarm->value = 1;
-  $export['comment_form_location_bundle'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'comment_passage';
   $strongarm->value = '1';
   $export['comment_passage'] = $strongarm;
@@ -139,9 +146,9 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_bundle';
+  $strongarm->name = 'comment_preview_bundle';
   $strongarm->value = '1';
-  $export['comment_bundle'] = $strongarm;
+  $export['comment_preview_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -160,9 +167,9 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_preview_bundle';
-  $strongarm->value = '1';
-  $export['comment_preview_bundle'] = $strongarm;
+  $strongarm->name = 'comment_subject_field_bundle';
+  $strongarm->value = 1;
+  $export['comment_subject_field_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -181,9 +188,9 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_subject_field_bundle';
+  $strongarm->name = 'enable_revisions_page_bundle';
   $strongarm->value = 1;
-  $export['comment_subject_field_bundle'] = $strongarm;
+  $export['enable_revisions_page_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -202,16 +209,18 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_bundle';
+  $strongarm->name = 'enable_revisions_page_text_bundle';
   $strongarm->value = 1;
-  $export['enable_revisions_page_bundle'] = $strongarm;
+  $export['enable_revisions_page_text_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'enable_revisions_page_text_bundle';
-  $strongarm->value = 1;
-  $export['enable_revisions_page_text_bundle'] = $strongarm;
+  $strongarm->name = 'menu_options_bundle';
+  $strongarm->value = array(
+    0 => 'main-menu',
+  );
+  $export['menu_options_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -234,20 +243,18 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_options_bundle';
-  $strongarm->value = array(
-    0 => 'main-menu',
-  );
-  $export['menu_options_bundle'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_text_bundle';
   $strongarm->value = array(
     0 => 'main-menu',
   );
   $export['menu_options_text_bundle'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'menu_parent_bundle';
+  $strongarm->value = 'main-menu:0';
+  $export['menu_parent_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -266,16 +273,19 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_parent_bundle';
+  $strongarm->name = 'menu_parent_text_bundle';
   $strongarm->value = 'main-menu:0';
-  $export['menu_parent_bundle'] = $strongarm;
+  $export['menu_parent_text_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_parent_text_bundle';
-  $strongarm->value = 'main-menu:0';
-  $export['menu_parent_text_bundle'] = $strongarm;
+  $strongarm->name = 'node_options_bundle';
+  $strongarm->value = array(
+    0 => 'status',
+    1 => 'revision',
+  );
+  $export['node_options_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -300,22 +310,19 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_options_bundle';
-  $strongarm->value = array(
-    0 => 'status',
-    1 => 'revision',
-  );
-  $export['node_options_bundle'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'node_options_text_bundle';
   $strongarm->value = array(
     0 => 'status',
     1 => 'revision',
   );
   $export['node_options_text_bundle'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_preview_bundle';
+  $strongarm->value = '1';
+  $export['node_preview_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -334,9 +341,9 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_preview_bundle';
-  $strongarm->value = '1';
-  $export['node_preview_bundle'] = $strongarm;
+  $strongarm->name = 'node_submitted_bundle';
+  $strongarm->value = 1;
+  $export['node_submitted_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -355,16 +362,16 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_submitted_bundle';
+  $strongarm->name = 'node_submitted_text_bundle';
   $strongarm->value = 1;
-  $export['node_submitted_bundle'] = $strongarm;
+  $export['node_submitted_text_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_submitted_text_bundle';
-  $strongarm->value = 1;
-  $export['node_submitted_text_bundle'] = $strongarm;
+  $strongarm->name = 'save_continue_bundle';
+  $strongarm->value = 'Save and add fields';
+  $export['save_continue_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -383,16 +390,16 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'save_continue_bundle';
+  $strongarm->name = 'save_continue_text_bundle';
   $strongarm->value = 'Save and add fields';
-  $export['save_continue_bundle'] = $strongarm;
+  $export['save_continue_text_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'save_continue_text_bundle';
-  $strongarm->value = 'Save and add fields';
-  $export['save_continue_text_bundle'] = $strongarm;
+  $strongarm->name = 'show_diff_inline_bundle';
+  $strongarm->value = 0;
+  $export['show_diff_inline_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -411,16 +418,16 @@ function nurani_core_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_bundle';
+  $strongarm->name = 'show_diff_inline_text_bundle';
   $strongarm->value = 0;
-  $export['show_diff_inline_bundle'] = $strongarm;
+  $export['show_diff_inline_text_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'show_diff_inline_text_bundle';
-  $strongarm->value = 0;
-  $export['show_diff_inline_text_bundle'] = $strongarm;
+  $strongarm->name = 'show_preview_changes_bundle';
+  $strongarm->value = 1;
+  $export['show_preview_changes_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -435,13 +442,6 @@ function nurani_core_strongarm() {
   $strongarm->name = 'show_preview_changes_passage';
   $strongarm->value = 1;
   $export['show_preview_changes_passage'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'show_preview_changes_bundle';
-  $strongarm->value = 1;
-  $export['show_preview_changes_bundle'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
