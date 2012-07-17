@@ -107,10 +107,20 @@
         <text>Tell%20us%20about%20yourself</text>
       </controlProperties>
     </control>
-    <control controlID="160" controlTypeID="com.balsamiq.mockups::Button" x="511" y="657" w="-1" h="-1" measuredW="102" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="160" controlTypeID="com.balsamiq.mockups::Button" x="837" y="678" w="-1" h="-1" measuredW="102" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
         <color>11982760</color>
         <text>Send%20request</text>
+      </controlProperties>
+    </control>
+    <control controlID="161" controlTypeID="com.balsamiq.mockups::TextInput" x="511" y="678" w="201" h="-1" measuredW="79" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="162" controlTypeID="com.balsamiq.mockups::Label" x="511" y="657" w="-1" h="-1" measuredW="152" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Academic%20profile/CV%20URL</text>
       </controlProperties>
     </control>
   </controls>
