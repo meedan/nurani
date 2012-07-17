@@ -1,0 +1,117 @@
+<mockup version="1.0" skin="sketch" measuredW="1340" measuredH="754" mockupW="1200" mockupH="751">
+  <controls>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::ButtonBar" x="548" y="94" w="-1" h="-1" measuredW="385" measuredH="29" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>-1</selectedIndex>
+        <text>Home%2C%20About%20Nurani%2C%20News%20%26%20Events%2C%20Resources</text>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="__group__" x="190" y="138" w="1100" h="601" measuredW="1100" measuredH="601" zOrder="2" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="12" w="1100" h="589" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="67">
+          <controlProperties/>
+        </control>
+        <control controlID="1" controlTypeID="__group__" x="0" y="0" w="1100" h="104" measuredW="1100" measuredH="104" zOrder="1" locked="false" isInGroup="67">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="14" w="1100" h="77" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="1">
+              <controlProperties>
+                <borderStyle>none</borderStyle>
+                <color>10066329</color>
+              </controlProperties>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::RoundButton" x="493" y="0" w="115" h="104" measuredW="32" measuredH="32" zOrder="1" locked="false" isInGroup="1">
+              <controlProperties>
+                <borderColor>10066329</borderColor>
+                <color>10066329</color>
+                <shape>circle</shape>
+                <text/>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="68" controlTypeID="__group__" x="140" y="3" w="1200" h="751" measuredW="1200" measuredH="751" zOrder="0" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="0" y="0" w="1200" h="646" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="68">
+          <controlProperties>
+            <text>Nurani%0Ahttp%3A//nurani.org</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="55" w="1200" h="696" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="68">
+          <controlProperties>
+            <borderStyle>square</borderStyle>
+            <color>14540253</color>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="142" controlTypeID="com.balsamiq.mockups::Label" x="511" y="264" w="-1" h="-1" measuredW="440" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Request%20Invitation%20to%20Become%20a%20Nurani%20Participant</text>
+      </controlProperties>
+    </control>
+    <control controlID="143" controlTypeID="com.balsamiq.mockups::TextInput" x="511" y="328" w="123" h="-1" measuredW="79" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="144" controlTypeID="com.balsamiq.mockups::Label" x="511" y="307" w="-1" h="-1" measuredW="66" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>First%20name</text>
+      </controlProperties>
+    </control>
+    <control controlID="145" controlTypeID="com.balsamiq.mockups::TextInput" x="674" y="328" w="123" h="-1" measuredW="79" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="146" controlTypeID="com.balsamiq.mockups::Label" x="674" y="307" w="-1" h="-1" measuredW="66" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Last%20name</text>
+      </controlProperties>
+    </control>
+    <control controlID="150" controlTypeID="com.balsamiq.mockups::Label" x="837" y="307" w="-1" h="-1" measuredW="132" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Your%20primary%20language</text>
+      </controlProperties>
+    </control>
+    <control controlID="151" controlTypeID="com.balsamiq.mockups::ComboBox" x="842" y="330" w="90" h="-1" measuredW="70" measuredH="23" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>English</text>
+      </controlProperties>
+    </control>
+    <control controlID="153" controlTypeID="com.balsamiq.mockups::TextInput" x="511" y="416" w="201" h="-1" measuredW="79" measuredH="27" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="154" controlTypeID="com.balsamiq.mockups::Label" x="511" y="395" w="-1" h="-1" measuredW="114" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Upload%20your%20picture</text>
+      </controlProperties>
+    </control>
+    <control controlID="155" controlTypeID="com.balsamiq.mockups::Button" x="727" y="416" w="-1" h="-1" measuredW="67" measuredH="27" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Browse</text>
+      </controlProperties>
+    </control>
+    <control controlID="156" controlTypeID="com.balsamiq.mockups::TextArea" x="511" y="503" w="286" h="114" measuredW="200" measuredH="140" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="157" controlTypeID="com.balsamiq.mockups::Label" x="511" y="483" w="-1" h="-1" measuredW="127" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tell%20us%20about%20yourself</text>
+      </controlProperties>
+    </control>
+    <control controlID="160" controlTypeID="com.balsamiq.mockups::Button" x="511" y="657" w="-1" h="-1" measuredW="102" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>11982760</color>
+        <text>Send%20request</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
