@@ -40,10 +40,10 @@
         </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="142" controlTypeID="com.balsamiq.mockups::Label" x="511" y="264" w="-1" h="-1" measuredW="440" measuredH="28" zOrder="2" locked="false" isInGroup="-1">
+    <control controlID="142" controlTypeID="com.balsamiq.mockups::Label" x="511" y="264" w="-1" h="-1" measuredW="342" measuredH="28" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
         <size>20</size>
-        <text>Request%20Invitation%20to%20Become%20a%20Nurani%20Participant</text>
+        <text>Request%20invitation%20to%20the%20Nurani%20Library</text>
       </controlProperties>
     </control>
     <control controlID="143" controlTypeID="com.balsamiq.mockups::TextInput" x="511" y="328" w="123" h="-1" measuredW="79" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
