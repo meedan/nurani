@@ -555,7 +555,7 @@
         <color>11982760</color>
       </controlProperties>
     </control>
-    <control controlID="356" controlTypeID="com.balsamiq.mockups::Label" x="277" y="251" w="70" h="24" measuredW="76" measuredH="24" zOrder="89" locked="false" isInGroup="-1">
+    <control controlID="356" controlTypeID="com.balsamiq.mockups::Label" x="277" y="251" w="75" h="24" measuredW="76" measuredH="24" zOrder="89" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>true</bold>
         <size>16</size>
