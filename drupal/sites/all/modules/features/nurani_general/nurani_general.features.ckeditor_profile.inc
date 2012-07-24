@@ -210,7 +210,6 @@ admin/settings/site-maintenance.*
         'filters' => array(
           'filter/3' => 0,
           'filter/0' => 1,
-          'wysiwyg_filter/0' => 0,
         ),
         'ss' => '2',
         'min_rows' => '1',
@@ -218,6 +217,7 @@ admin/settings/site-maintenance.*
         'excl' => '*.edit-export
 node_export@node/add/node_export.edit-code
 text@node/add/text.edit-field-description-0-value
+text@node/add/text.edit-body
 admin/build/block/configure/boxes/discussion_info.edit-body
 *.edit-field-education-0-value
 *.edit-field-societies-0-value
@@ -279,6 +279,7 @@ nurani:discussion@*.edit-body
         'scayt_autoStartup' => 'f',
         'theme_config_js' => 'f',
         'js_conf' => '',
+        'counter' => '',
         'loadPlugins' => array(
           'wordcount' => array(
             'name' => 'wordcount',
@@ -288,7 +289,7 @@ nurani:discussion@*.edit-body
             'default' => 'f',
           ),
         ),
-        'excl_regex' => '#(?:^.*:.*@.*\\.edit\\-export$)|(?:^.*:node_export@node/add/node_export\\.edit\\-code$)|(?:^.*:text@node/add/text\\.edit\\-field\\-description\\-0\\-value$)|(?:^.*:.*@admin/build/block/configure/boxes/discussion_info\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-education\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-societies\\-0\\-value$)|(?:^nurani:discussion@.*\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-experience\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-research\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-publications\\-0\\-value$)#',
+        'excl_regex' => '#(?:^.*:.*@.*\\.edit\\-export$)|(?:^.*:node_export@node/add/node_export\\.edit\\-code$)|(?:^.*:text@node/add/text\\.edit\\-field\\-description\\-0\\-value$)|(?:^.*:text@node/add/text\\.edit\\-body$)|(?:^.*:.*@admin/build/block/configure/boxes/discussion_info\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-education\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-societies\\-0\\-value$)|(?:^nurani:discussion@.*\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-experience\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-research\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-publications\\-0\\-value$)#',
         'simple_incl_regex' => '',
       ),
       'roles' => array(

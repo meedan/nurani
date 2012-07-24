@@ -30,7 +30,7 @@ stylesheets[all][] = css/style.css
 stylesheets[print][] = css/print.css
 stylesheets[all][] = generated_css/core.css 
 
-scripts[] = js/textcounter.js
+
 
 
 
