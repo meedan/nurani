@@ -1,414 +1,398 @@
-<mockup version="1.0" skin="sketch" measuredW="1341" measuredH="1203" mockupW="1201" mockupH="1200">
+<mockup version="1.0" skin="sketch" measuredW="1816" measuredH="1203" mockupW="1676" mockupH="1200">
   <controls>
-    <control controlID="68" controlTypeID="__group__" x="140" y="3" w="1200" h="1200" measuredW="1200" measuredH="1200" zOrder="0" locked="true" isInGroup="-1">
+    <control controlID="68" controlTypeID="__group__" x="140" y="3" w="1676" h="1200" measuredW="1676" measuredH="1200" zOrder="0" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
-        <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="0" y="0" w="1200" h="1200" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="68">
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="0" y="0" w="1676" h="1200" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="68">
           <controlProperties>
             <text>Nurani%0Ahttp%3A//nurani.org</text>
           </controlProperties>
         </control>
-        <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="68" w="1200" h="197" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="68">
-          <controlProperties>
-            <borderStyle>square</borderStyle>
-            <color>14540253</color>
-          </controlProperties>
-        </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="97" controlTypeID="com.balsamiq.mockups::ButtonBar" x="604" y="94" w="-1" h="-1" measuredW="272" measuredH="29" zOrder="2" locked="true" isInGroup="-1">
+    <control controlID="97" controlTypeID="com.balsamiq.mockups::ButtonBar" x="908" y="87" w="-1" h="-1" measuredW="272" measuredH="29" zOrder="42" locked="false" isInGroup="-1">
       <controlProperties>
         <selectedIndex>1</selectedIndex>
         <text>Home%2C%20Nurani%20Library%2C%20Contact%20Us</text>
       </controlProperties>
     </control>
-    <control controlID="98" controlTypeID="com.balsamiq.mockups::Button" x="362" y="95" w="-1" h="-1" measuredW="63" measuredH="27" zOrder="3" locked="true" isInGroup="-1">
+    <control controlID="98" controlTypeID="com.balsamiq.mockups::Button" x="332" y="88" w="72" h="27" measuredW="63" measuredH="27" zOrder="43" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Logout</text>
       </controlProperties>
     </control>
-    <control controlID="99" controlTypeID="com.balsamiq.mockups::Label" x="190" y="98" w="-1" h="-1" measuredW="166" measuredH="21" zOrder="4" locked="true" isInGroup="-1">
+    <control controlID="99" controlTypeID="com.balsamiq.mockups::Label" x="160" y="91" w="-1" h="-1" measuredW="168" measuredH="21" zOrder="44" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Logged%20in%20as%20James%20Andres</text>
       </controlProperties>
     </control>
-    <control controlID="100" controlTypeID="com.balsamiq.mockups::Canvas" x="140" y="238" w="1200" h="60" measuredW="100" measuredH="70" zOrder="5" locked="true" isInGroup="-1">
+    <control controlID="100" controlTypeID="com.balsamiq.mockups::Canvas" x="140" y="71" w="1676" h="60" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="-1">
       <controlProperties>
         <borderStyle>square</borderStyle>
         <color>13421772</color>
       </controlProperties>
     </control>
-    <control controlID="101" controlTypeID="com.balsamiq.mockups::SearchBox" x="271" y="256" w="314" h="-1" measuredW="120" measuredH="25" zOrder="6" locked="true" isInGroup="-1">
-      <controlProperties>
-        <text>eg%3A%20Genesis%201%3A1</text>
-      </controlProperties>
-    </control>
-    <control controlID="102" controlTypeID="com.balsamiq.mockups::Label" x="153" y="257" w="-1" h="-1" measuredW="113" measuredH="22" zOrder="7" locked="true" isInGroup="-1">
-      <controlProperties>
-        <size>14</size>
-        <text>Search%20passages</text>
-      </controlProperties>
-    </control>
-    <control controlID="103" controlTypeID="com.balsamiq.mockups::Button" x="591" y="255" w="-1" h="-1" measuredW="65" measuredH="27" zOrder="8" locked="true" isInGroup="-1">
-      <controlProperties>
-        <text>Search</text>
-      </controlProperties>
-    </control>
-    <control controlID="104" controlTypeID="com.balsamiq.mockups::ComboBox" x="1181" y="257" w="144" h="-1" measuredW="97" measuredH="23" zOrder="9" locked="true" isInGroup="-1">
-      <controlProperties>
-        <text>Bible%20-%20KJV</text>
-      </controlProperties>
-    </control>
-    <control controlID="105" controlTypeID="com.balsamiq.mockups::Label" x="1081" y="258" w="-1" h="-1" measuredW="91" measuredH="22" zOrder="10" locked="true" isInGroup="-1">
-      <controlProperties>
-        <size>14</size>
-        <text>Scriptural%20text</text>
-      </controlProperties>
-    </control>
-    <control controlID="106" controlTypeID="com.balsamiq.mockups::Canvas" x="141" y="150" w="1200" h="1025" measuredW="100" measuredH="70" zOrder="1" locked="true" isInGroup="-1">
+    <control controlID="106" controlTypeID="com.balsamiq.mockups::Canvas" x="141" y="71" w="1675" h="1104" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <borderStyle>none</borderStyle>
         <color>6710886</color>
       </controlProperties>
     </control>
-    <control controlID="107" controlTypeID="__group__" x="140" y="134" w="1200" h="121" measuredW="1200" measuredH="121" zOrder="11" locked="true" isInGroup="-1">
-      <groupChildrenDescriptors>
-        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="16" w="1200" h="89" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="107">
-          <controlProperties>
-            <borderStyle>none</borderStyle>
-            <color>10066329</color>
-          </controlProperties>
-        </control>
-        <control controlID="1" controlTypeID="com.balsamiq.mockups::RoundButton" x="543" y="0" w="115" h="121" measuredW="32" measuredH="32" zOrder="1" locked="false" isInGroup="107">
-          <controlProperties>
-            <borderColor>10066329</borderColor>
-            <color>10066329</color>
-            <shape>circle</shape>
-            <text/>
-          </controlProperties>
-        </control>
-      </groupChildrenDescriptors>
-    </control>
-    <control controlID="175" controlTypeID="com.balsamiq.mockups::Label" x="178" y="309" w="85" h="24" measuredW="76" measuredH="24" zOrder="13" locked="false" isInGroup="-1">
-      <controlProperties>
-        <bold>true</bold>
-        <size>16</size>
-        <text>Genesis%201</text>
-      </controlProperties>
-    </control>
-    <control controlID="176" controlTypeID="com.balsamiq.mockups::Tooltip" x="768" y="339" w="200" h="122" measuredW="45" measuredH="0" zOrder="14" locked="false" isInGroup="-1">
-      <controlProperties>
-        <align>left</align>
-        <size>13</size>
-        <text/>
-        <tooltipDirection>SW</tooltipDirection>
-      </controlProperties>
-    </control>
-    <control controlID="177" controlTypeID="com.balsamiq.mockups::Tooltip" x="768" y="506" w="200" h="108" measuredW="45" measuredH="0" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="177" controlTypeID="com.balsamiq.mockups::Tooltip" x="1196" y="865" w="180" h="108" measuredW="45" measuredH="0" zOrder="7" locked="false" isInGroup="-1">
       <controlProperties>
         <size>24</size>
         <text/>
         <tooltipDirection>SW</tooltipDirection>
       </controlProperties>
     </control>
-    <control controlID="178" controlTypeID="com.balsamiq.mockups::TextArea" x="782" y="354" w="172" h="63" measuredW="200" measuredH="140" zOrder="16" locked="false" isInGroup="-1">
+    <control controlID="181" controlTypeID="com.balsamiq.mockups::Label" x="1210" y="884" w="152" h="51" measuredW="281" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
       <controlProperties>
-        <text/>
+        <text>A%20previous%20annotation%20will%20be%20displayed%20here%20also.</text>
       </controlProperties>
     </control>
-    <control controlID="179" controlTypeID="com.balsamiq.mockups::Label" x="787" y="358" w="117" h="44" measuredW="142" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
-      <controlProperties>
-        <color>13421772</color>
-        <size>13</size>
-        <text>Annotate%20Genesis%201%3A3-7</text>
-      </controlProperties>
-    </control>
-    <control controlID="180" controlTypeID="com.balsamiq.mockups::Button" x="859" y="417" w="95" h="27" measuredW="76" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Annotate</text>
-      </controlProperties>
-    </control>
-    <control controlID="181" controlTypeID="com.balsamiq.mockups::Label" x="775" y="523" w="179" h="51" measuredW="354" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>An%20annotation%20written%20by%20another%20Nurani%20moderator%20or%20schollar.</text>
-      </controlProperties>
-    </control>
-    <control controlID="182" controlTypeID="com.balsamiq.mockups::Link" x="881" y="576" w="-1" h="-1" measuredW="73" measuredH="21" zOrder="20" locked="false" isInGroup="-1">
+    <control controlID="182" controlTypeID="com.balsamiq.mockups::Link" x="1289" y="929" w="-1" h="-1" measuredW="72" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Rim%20Hansen</text>
       </controlProperties>
     </control>
-    <control controlID="183" controlTypeID="com.balsamiq.mockups::Label" x="861" y="576" w="20" h="21" measuredW="16" measuredH="21" zOrder="21" locked="false" isInGroup="-1">
+    <control controlID="183" controlTypeID="com.balsamiq.mockups::Label" x="1269" y="929" w="20" h="21" measuredW="17" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
       <controlProperties>
         <text>--</text>
       </controlProperties>
     </control>
-    <control controlID="185" controlTypeID="com.balsamiq.mockups::Tooltip" x="767" y="652" w="201" h="162" measuredW="45" measuredH="0" zOrder="22" locked="false" isInGroup="-1">
+    <control controlID="186" controlTypeID="com.balsamiq.mockups::Canvas" x="160" y="125" w="403" h="1056" measuredW="100" measuredH="70" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <value>6</value>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="225" controlTypeID="com.balsamiq.mockups::Label" x="591" y="580" w="158" h="22" measuredW="154" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>13</size>
+        <text>Authority%20and%20Obedience</text>
+      </controlProperties>
+    </control>
+    <control controlID="227" controlTypeID="com.balsamiq.mockups::Label" x="591" y="610" w="82" h="21" measuredW="83" measuredH="18" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>11</size>
+        <text>1.%20*Genesis%201%3A24*</text>
+      </controlProperties>
+    </control>
+    <control controlID="228" controlTypeID="com.balsamiq.mockups::Label" x="591" y="630" w="158" h="21" measuredW="159" measuredH="18" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>11</size>
+        <text>2.%20%5BExodus%203%3A1-8%20%28Hebrew%20Bible%29%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="229" controlTypeID="com.balsamiq.mockups::Label" x="591" y="650" w="137" h="21" measuredW="136" measuredH="18" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>11</size>
+        <text>3.%20%5BTa%20Ha%2020%3A9-23%20%28Qur%27an%29%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="230" controlTypeID="com.balsamiq.mockups::Label" x="591" y="686" w="158" h="21" measuredW="131" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>13</size>
+        <text>%5BExpand%20all%20references%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="253" controlTypeID="com.balsamiq.mockups::Canvas" x="780" y="125" w="403" h="1056" measuredW="100" measuredH="70" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <value>26</value>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="295" controlTypeID="com.balsamiq.mockups::Canvas" x="579" y="565" w="180" h="150" measuredW="100" measuredH="70" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>16770457</color>
+      </controlProperties>
+    </control>
+    <control controlID="297" controlTypeID="com.balsamiq.mockups::RoundButton" x="740" y="624" w="-1" h="-1" measuredW="32" measuredH="32" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16770457</color>
+        <shape>triangle</shape>
+        <shapeRotation>270</shapeRotation>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="298" controlTypeID="com.balsamiq.mockups::Paragraph" x="793" y="129" w="369" h="461" measuredW="200" measuredH="80" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>12.%20But%20the%20more%20they%20afflicted%20them%2C%20the%20more%20they%20multiplied%20and%20grew.%20And%20they%20were%20grieved%20because%20of%20the%20children%20of%20Israel.%0A13.%20And%20the%20Egyptians%20made%20the%20children%20of%20Israel%20to%20serve%20with%20rigour%3A%0A14.%20And%20they%20made%20their%20lives%20bitter%20with%20hard%20bondage%2C%20in%20morter%2C%20and%20in%20brick%2C%20and%20in%20all%20manner%20of%20service%20in%20the%20field%3A%20all%20their%20service%2C%20wherein%20they%20made%20them%20serve%2C%20was%20with%20rigour.%0A15.%20And%20the%20king%20of%20Egypt%20spake%20to%20the%20Hebrew%20midwives%2C%20of%20which%20the%20name%20of%20the%20one%20was%20Shiphrah%2C%20and%20the%20name%20of%20the%20other%20Puah%3A%0A16.%20And%20he%20said%2C%20When%20ye%20do%20the%20office%20of%20a%20midwife%20to%20the%20Hebrew%20women%2C%20and%20see%20them%20upon%20the%20stools%3B%20if%20it%20be%20a%20son%2C%20then%20ye%20shall%20kill%20him%3A%20but%20if%20it%20be%20a%20daughter%2C%20then%20she%20shall%20live.%0A17.%20But%20the%20midwives%20feared%20God%2C%20and%20did%20not%20as%20the%20king%20of%20Egypt%20commanded%20them%2C%20but%20saved%20the%20men%20children%20alive.%0A18.%20And%20the%20king%20of%20Egypt%20called%20for%20the%20midwives%2C%20and%20said%20unto%20them%2C%20Why%20have%20ye%20done%20this%20thing%2C%20and%20have%20saved%20the%20men%20children%20alive%3F%0A19.%20And%20the%20midwives%20said%20unto%20Pharaoh%2C%20Because%20the%20Hebrew%20women%20are%20not%20as%20the%20Egyptian%20women%3B%20for%20they%20are%20lively%2C%20and%20are%20delivered%20ere%20the%20midwives%20come%20in%20unto%20them.%0A20.%20Therefore%20God%20dealt%20well%20with%20the%20midwives%3A%20and%20the%20people%20multiplied%2C%20and%20waxed%20very%20mighty.%0A21.%20And%20it%20came%20to%20pass%2C%20because%20the%20midwives%20feared%20God%2C%20that%20he%20made%20them%20houses.%0A22.%20And%20Pharaoh%20charged%20all%20his%20people%2C%20saying%2C%20Every%20son%20that%20is%20born%20ye%20shall%20cast%20into%20the%20river%2C%20and%20every%20daughter%20ye%20shall%20save%20alive.</text>
+      </controlProperties>
+    </control>
+    <control controlID="299" controlTypeID="com.balsamiq.mockups::Paragraph" x="793" y="636" w="369" h="361" measuredW="200" measuredH="80" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>*1.%20And%20there%20went%20a%20man%20of%20the%20house%20of%20Levi%2C%20and%20took%20to%20wife%20a%20daughter%20of%20Levi.*%0A*2.%20And%20the%20woman%20conceived%2C%20and%20bare%20a%20son%3A%20and%20when%20she%20saw%20him%20that%20he%20was%20a%20goodly%20child%2C%20she%20hid%20him%20three%20months.*%0A*3.%20And%20when%20she%20could%20not%20longer%20hide%20him%2C%20she%20took%20for%20him%20an%20ark%20of%20bulrushes%2C%20and%20daubed%20it%20with%20slime%20and%20with%20pitch%2C%20and%20put%20the%20child%20therein%3B%20and%20she%20laid%20it%20in%20the%20flags%20by%20the%20river%27s%20brink.*%0A*4.%20And%20his%20sister%20stood%20afar%20off%2C%20to%20wit%20what%20would%20be%20done%20to%20him.*%0A*5.%20And%20the%20daughter%20of%20Pharaoh%20came%20down%20to%20wash%20herself%20at%20the%20river%3B%20and%20her%20maidens%20walked%20along%20by%20the%20river%27s%20side%3B%20and%20when%20she%20saw%20the%20ark%20among%20the%20flags%2C%20she%20sent%20her%20maid%20to%20fetch%20it.*%0A*6.%20And%20when%20she%20had%20opened%20it%2C%20she%20saw%20the%20child%3A%20and%2C%20behold%2C%20the%20babe%20wept.%20And%20she%20had%20compassion%20on%20him%2C%20and%20said%2C%20This%20is%20one%20of%20the%20Hebrews%27%20children.*%0A*7.%20Then%20said%20his%20sister%20to%20Pharaoh%27s%20daughter%2C%20Shall%20I%20go%20and%20call%20to%20thee%20a%20nurse%20of%20the%20Hebrew%20women%2C%20that%20she%20may%20nurse%20the%20child%20for%20thee%3F*%0A*8.%20And%20Pharaoh%27s%20daughter%20said%20to%20her%2C%20Go.%20And%20the%20maid%20went%20and%20called%20the%20child%27s%20mother.*%0A9.%20And%20Pharaoh%27s%20daughter%20said%20unto%20her%2C%20Take%20this%20child%20away%2C%20and%20nurse%20it%20for%20me%2C%20and%20I%20will%20give%20thee%20thy%20wages.%20And%20the%20women%20took%20the%20child%2C%20and%20nursed%20it.%0A10.%20And%20the%20child%20grew%2C%20and%20she%20brought%20him%20unto%20Pharaoh%27s%20daughter%2C%20and%20he%20became%20her%20son.%20And%20she%20called%20his%20name%20Moses%3A%20and%20she%20said%2C%20Because%20I%20drew%20him%20out%20of%20the%20water.%0A11.%20And%20it%20came%20to%20pass%20in%20those%20days%2C%20when%20Moses%20was%20grown%2C%20that%20he%20went%20out%20unto%20his%20brethren%2C%20and%20looked%20on%20their%20burdens%3A%20and%20he%20spied%20an%20Egyptian%20smiting%20an%20Hebrew%2C%20one%20of%20his%20brethren.%0A12.%20And%20he%20looked%20this%20way%20and%20that%20way%2C%20and%20when%20he%20saw%20that%20there%20was%20no%20man%2C%20he%20slew%20the%20Egyptian%2C%20and%20hid%20him%20in%20the%20sand.%0A13.%20And%20when%20he%20went%20out%20the%20second%20day%2C%20behold%2C%20two%20men%20of%20the%20Hebrews%20strove%20together%3A%20and%20he%20said%20to%20him%20that%20did%20the%20wrong%2C%20Wherefore%20smitest%20thou%20thy%20fellow%3F%0A14.%20And%20he%20said%2C%20Who%20made%20thee%20a%20prince%20and%20a%20judge%20over%20us%3F%20intendest%20thou%20to%20kill%20me%2C%20as%20thou%20killedst%20the%20Egyptian%3F%20And%20Moses%20feared%2C%20and%20said%2C%20Surely%20this%20thing%20is%20known.%0A15.%20Now%20when%20Pharaoh%20heard%20this%20thing%2C%20he%20sought%20to%20slay%20Moses.%20But%20Moses%20fled%20from%20the%20face%20of%20Pharaoh%2C%20and%20dwelt%20in%20the%20land%20of%20Midian%3A%20and%20he%20sat%20down%20by%20a%20well.%0A16.%20Now%20the%20priest%20of%20Midian%20had%20seven%20daughters%3A%20and%20they%20came%20and%20drew%20water%2C%20and%20filled%20the%20troughs%20to%20water%20their%20father%27s%20flock.%0A17.%20And%20the%20shepherds%20came%20and%20drove%20them%20away%3A%20but%20Moses%20stood%20up%20and%20helped%20them%2C%20and%20watered%20their%20flock.%0A18.%20And%20when%20they%20came%20to%20Reuel%20their%20father%2C%20he%20said%2C%20How%20is%20it%20that%20ye%20are%20come%20so%20soon%20to%20day%3F%0A19.%20And%20they%20said%2C%20An%20Egyptian%20delivered%20us%20out%20of%20the%20hand%20of%20the%20shepherds%2C%20and%20also%20drew%20water%20enough%20for%20us%2C%20and%20watered%20the%20flock.%0A20.%20And%20he%20said%20unto%20his%20daughters%2C%20And%20where%20is%20he%3F%20why%20is%20it%20that%20ye%20have%20left%20the%20man%3F%20call%20him%2C%20that%20he%20may%20eat%20bread.%0A21.%20And%20Moses%20was%20content%20to%20dwell%20with%20the%20man%3A%20and%20he%20gave%20Moses%20Zipporah%20his%20daughter.%0A22.%20And%20she%20bare%20him%20a%20son%2C%20and%20he%20called%20his%20name%20Gershom%3A%20for%20he%20said%2C%20I%20have%20been%20a%20stranger%20in%20a%20strange%20land.%0A23.%20And%20it%20came%20to%20pass%20in%20process%20of%20time%2C%20that%20the%20king%20of%20Egypt%20died%3A%20and%20the%20children%20of%20Israel%20sighed%20by%20reason%20of%20the%20bondage%2C%20and%20they%20cried%2C%20and%20their%20cry%20came%20up%20unto%20God%20by%20reason%20of%20the%20bondage.%0A24.%20And%20God%20heard%20their%20groaning%2C%20and%20God%20remembered%20his%20covenant%20with%20Abraham%2C%20with%20Isaac%2C%20and%20with%20Jacob.%0A25.%20And%20God%20looked%20upon%20the%20children%20of%20Israel%2C%20and%20God%20had%20respect%20unto%20them.</text>
+      </controlProperties>
+    </control>
+    <control controlID="300" controlTypeID="com.balsamiq.mockups::Label" x="793" y="605" w="85" h="24" measuredW="73" measuredH="24" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Exodus%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="302" controlTypeID="com.balsamiq.mockups::Paragraph" x="175" y="129" w="367" h="1031" measuredW="200" measuredH="80" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>11.%20Then%20God%20said%2C%20%u201CLet%20the%20earth%20bring%20forth%20grass%2C%20the%20herb%20that%20yields%20seed%2C%20and%20the%20fruit%20tree%20that%20yields%20fruit%20according%20to%20its%20kind%2C%20whose%20seed%20is%20in%20itself%2C%20on%20the%20earth%u201D%3B%20and%20it%20was%20so.%0A12.%20And%20the%20earth%20brought%20forth%20grass%2C%20the%20herb%20that%20yields%20seed%20according%20to%20its%20kind%2C%20and%20the%20tree%20that%20yields%20fruit%2C%20whose%20seed%20is%20in%20itself%20according%20to%20its%20kind.%20And%20God%20saw%20that%20it%20was%20good.%0A13.%20So%20the%20evening%20and%20the%20morning%20were%20the%20third%20day.%0A14.%20Then%20God%20said%2C%20%u201CLet%20there%20be%20lights%20in%20the%20firmament%20of%20the%20heavens%20to%20divide%20the%20day%20from%20the%20night%3B%20and%20let%20them%20be%20for%20signs%20and%20seasons%2C%20and%20for%20days%20and%20years%3B%0A15.%20and%20let%20them%20be%20for%20lights%20in%20the%20firmament%20of%20the%20heavens%20to%20give%20light%20on%20the%20earth%u201D%3B%20and%20it%20was%20so.%0A16.%20Then%20God%20made%20two%20great%20lights%3A%20the%20greater%20light%20to%20rule%20the%20day%2C%20and%20the%20lesser%20light%20to%20rule%20the%20night.%20He%20made%20the%20stars%20also.%0A17.%20God%20set%20them%20in%20the%20firmament%20of%20the%20heavens%20to%20give%20light%20on%20the%20earth%2C%0A18.%20and%20to%20rule%20over%20the%20day%20and%20over%20the%20night%2C%20and%20to%20divide%20the%20light%20from%20the%20darkness.%20And%20God%20saw%20that%20it%20was%20good.%0A19.%20So%20the%20evening%20and%20the%20morning%20were%20the%20fourth%20day.%0A20.%20Then%20God%20said%2C%20%u201CLet%20the%20waters%20abound%20with%20an%20abundance%20of%20living%20creatures%2C%20and%20let%20birds%20fly%20above%20the%20earth%20across%20the%20face%20of%20the%20firmament%20of%20the%20heavens.%u201D%0A21.%20So%20God%20created%20great%20sea%20creatures%20and%20every%20living%20thing%20that%20moves%2C%20with%20which%20the%20waters%20abounded%2C%20according%20to%20their%20kind%2C%20and%20every%20winged%20bird%20according%20to%20its%20kind.%20And%20God%20saw%20that%20it%20was%20good.%0A22.%20And%20God%20blessed%20them%2C%20saying%2C%20%u201CBe%20fruitful%20and%20multiply%2C%20and%20fill%20the%20waters%20in%20the%20seas%2C%20and%20let%20birds%20multiply%20on%20the%20earth.%u201D%0A23.%20So%20the%20evening%20and%20the%20morning%20were%20the%20fifth%20day.%0A*24.%20Then%20God%20said%2C%20%u201CLet%20the%20earth%20bring%20forth%20the%20living%20creature%20according%20to%20its%20kind%3A%20cattle%20and%20creeping%20thing%20and%20beast%20of%20the%20earth%2C%20each%20according%20to%20its%20kind%u201D%3B%20and%20it%20was%20so.*%0A25.%20And%20God%20made%20the%20beast%20of%20the%20earth%20according%20to%20its%20kind%2C%20cattle%20according%20to%20its%20kind%2C%20and%20everything%20that%20creeps%20on%20the%20earth%20according%20to%20its%20kind.%20And%20God%20saw%20that%20it%20was%20good.%0A26.%20Then%20God%20said%2C%20%u201CLet%20Us%20make%20man%20in%20Our%20image%2C%20according%20to%20Our%20likeness%3B%20let%20them%20have%20dominion%20over%20the%20fish%20of%20the%20sea%2C%20over%20the%20birds%20of%20the%20air%2C%20and%20over%20the%20cattle%2C%20over%20all%5Bb%5D%20the%20earth%20and%20over%20every%20creeping%20thing%20that%20creeps%20on%20the%20earth.%u201D%0A27.%20So%20God%20created%20man%20in%20His%20own%20image%3B%20in%20the%20image%20of%20God%20He%20created%20him%3B%20male%20and%20female%20He%20created%20them.%0A28.%20Then%20God%20blessed%20them%2C%20and%20God%20said%20to%20them%2C%20%u201CBe%20fruitful%20and%20multiply%3B%20fill%20the%20earth%20and%20subdue%20it%3B%20have%20dominion%20over%20the%20fish%20of%20the%20sea%2C%20over%20the%20birds%20of%20the%20air%2C%20and%20over%20every%20living%20thing%20that%20moves%20on%20the%20earth.%u201D%0A29.%20And%20God%20said%2C%20%u201CSee%2C%20I%20have%20given%20you%20every%20herb%20that%20yields%20seed%20which%20is%20on%20the%20face%20of%20all%20the%20earth%2C%20and%20every%20tree%20whose%20fruit%20yields%20seed%3B%20to%20you%20it%20shall%20be%20for%20food.%0A30.%20Also%2C%20to%20every%20beast%20of%20the%20earth%2C%20to%20every%20bird%20of%20the%20air%2C%20and%20to%20everything%20that%20creeps%20on%20the%20earth%2C%20in%20which%20there%20is%20life%2C%20I%20have%20given%20every%20green%20herb%20for%20food%u201D%3B%20and%20it%20was%20so.%0A31.%20Then%20God%20saw%20everything%20that%20He%20had%20made%2C%20and%20indeed%20it%20was%20very%20good.%20So%20the%20evening%20and%20the%20morning%20were%20the%20sixth%20day.</text>
+      </controlProperties>
+    </control>
+    <control controlID="303" controlTypeID="com.balsamiq.mockups::RoundButton" x="566" y="624" w="-1" h="-1" measuredW="32" measuredH="32" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16770457</color>
+        <shape>triangle</shape>
+        <shapeRotation>90</shapeRotation>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="304" controlTypeID="com.balsamiq.mockups::RoundButton" x="1300" y="624" w="-1" h="-1" measuredW="32" measuredH="32" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16770457</color>
+        <shape>triangle</shape>
+        <shapeRotation>270</shapeRotation>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="305" controlTypeID="com.balsamiq.mockups::Canvas" x="1392" y="125" w="403" h="1056" measuredW="100" measuredH="70" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <value>30</value>
+        <verticalScrollbar>true</verticalScrollbar>
+      </controlProperties>
+    </control>
+    <control controlID="306" controlTypeID="com.balsamiq.mockups::Paragraph" x="1405" y="158" w="369" h="461" measuredW="200" measuredH="80" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20%u0631%u064E%u0623%u064E%u0649%u0670%20%u0646%u064E%u0627%u0631%u064B%u0627%20%u0641%u064E%u0642%u064E%u0627</text>
+      </controlProperties>
+    </control>
+    <control controlID="308" controlTypeID="com.balsamiq.mockups::Label" x="1405" y="465" w="85" h="24" measuredW="73" measuredH="24" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Exodus%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="309" controlTypeID="com.balsamiq.mockups::RoundButton" x="1183" y="624" w="-1" h="-1" measuredW="32" measuredH="32" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16770457</color>
+        <shape>triangle</shape>
+        <shapeRotation>90</shapeRotation>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="310" controlTypeID="com.balsamiq.mockups::RoundButton" x="1357" y="624" w="-1" h="-1" measuredW="32" measuredH="32" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16770457</color>
+        <shape>triangle</shape>
+        <shapeRotation>270</shapeRotation>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="311" controlTypeID="com.balsamiq.mockups::Canvas" x="1196" y="565" w="180" h="150" measuredW="100" measuredH="70" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>16770457</color>
+      </controlProperties>
+    </control>
+    <control controlID="312" controlTypeID="com.balsamiq.mockups::Label" x="1208" y="580" w="158" h="22" measuredW="154" measuredH="21" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>13</size>
+        <text>Authority%20and%20Obedience</text>
+      </controlProperties>
+    </control>
+    <control controlID="313" controlTypeID="com.balsamiq.mockups::Label" x="1208" y="610" w="82" h="21" measuredW="83" measuredH="18" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>11</size>
+        <text>1.%20*Genesis%201%3A24*</text>
+      </controlProperties>
+    </control>
+    <control controlID="314" controlTypeID="com.balsamiq.mockups::Label" x="1208" y="630" w="158" h="21" measuredW="161" measuredH="18" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>11</size>
+        <text>2.%20*Exodus%203%3A1-8%20%28Hebrew%20Bible%29*</text>
+      </controlProperties>
+    </control>
+    <control controlID="315" controlTypeID="com.balsamiq.mockups::Label" x="1208" y="650" w="137" h="21" measuredW="136" measuredH="18" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>11</size>
+        <text>3.%20%5BTa%20Ha%2020%3A9-23%20%28Qur%27an%29%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="318" controlTypeID="com.balsamiq.mockups::Image" x="1405" y="317" w="368" h="422" measuredW="383" measuredH="422" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>./Ta%2520Ha%252020.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="329" controlTypeID="com.balsamiq.mockups::Tooltip" x="579" y="189" w="180" h="189" measuredW="45" measuredH="0" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text/>
+        <tooltipDirection>NW</tooltipDirection>
+      </controlProperties>
+    </control>
+    <control controlID="333" controlTypeID="com.balsamiq.mockups::TextArea" x="591" y="232" w="158" h="96" measuredW="200" measuredH="140" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="334" controlTypeID="com.balsamiq.mockups::Label" x="591" y="211" w="158" h="21" measuredW="142" measuredH="18" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>11</size>
+        <text>Annotation%20for%20*Genesis%201%3A12*</text>
+      </controlProperties>
+    </control>
+    <control controlID="335" controlTypeID="com.balsamiq.mockups::Button" x="695" y="334" w="-1" h="-1" measuredW="54" measuredH="27" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Save</text>
+      </controlProperties>
+    </control>
+    <control controlID="336" controlTypeID="com.balsamiq.mockups::Canvas" x="171" y="176" w="371" h="50" measuredW="100" measuredH="70" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <borderStyle>none</borderStyle>
+        <color>6989903</color>
+      </controlProperties>
+    </control>
+    <control controlID="337" controlTypeID="com.balsamiq.mockups::Canvas" x="171" y="615" w="371" h="64" measuredW="100" measuredH="70" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <borderStyle>none</borderStyle>
+        <color>16776960</color>
+      </controlProperties>
+    </control>
+    <control controlID="338" controlTypeID="com.balsamiq.mockups::Canvas" x="789" y="628" w="371" h="369" measuredW="100" measuredH="70" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <borderStyle>none</borderStyle>
+        <color>16776960</color>
+      </controlProperties>
+    </control>
+    <control controlID="339" controlTypeID="com.balsamiq.mockups::Canvas" x="1405" y="575" w="371" h="157" measuredW="100" measuredH="70" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <borderStyle>none</borderStyle>
+        <color>16776960</color>
+      </controlProperties>
+    </control>
+    <control controlID="340" controlTypeID="com.balsamiq.mockups::Image" x="1398" y="129" w="368" h="181" measuredW="383" measuredH="181" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <crop>0%2C571%2C1000%2C429</crop>
+        <src>./Ta%2520Ha%252020.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="341" controlTypeID="com.balsamiq.mockups::Image" x="1405" y="754" w="368" h="413" measuredW="383" measuredH="413" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <crop>0%2C0%2C1000%2C979</crop>
+        <src>./Ta%2520Ha%252020.png</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="342" controlTypeID="com.balsamiq.mockups::Canvas" x="160" y="125" w="397" h="38" measuredW="100" measuredH="70" zOrder="46" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <color>13421772</color>
+      </controlProperties>
+    </control>
+    <control controlID="343" controlTypeID="com.balsamiq.mockups::Label" x="1208" y="686" w="158" h="21" measuredW="131" measuredH="21" zOrder="47" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>13</size>
+        <text>%5BExpand%20all%20references%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="344" controlTypeID="com.balsamiq.mockups::Tooltip" x="579" y="825" w="180" h="70" measuredW="45" measuredH="0" zOrder="48" locked="false" isInGroup="-1">
       <controlProperties>
         <size>24</size>
         <text/>
         <tooltipDirection>SW</tooltipDirection>
       </controlProperties>
     </control>
-    <control controlID="186" controlTypeID="com.balsamiq.mockups::Canvas" x="160" y="294" w="600" h="887" measuredW="100" measuredH="70" zOrder="12" locked="false" isInGroup="-1"/>
-    <control controlID="188" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="339" w="567" h="15" measuredW="200" measuredH="80" zOrder="23" locked="false" isInGroup="-1">
+    <control controlID="345" controlTypeID="com.balsamiq.mockups::Label" x="591" y="844" w="152" h="51" measuredW="141" measuredH="21" zOrder="49" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>1.%20In%20the%20beginning%20God%20created%20the%20heavens%20and%20the%20earth.</text>
+        <text>Theme%20%5BWar%20and%20Peace%5D</text>
       </controlProperties>
     </control>
-    <control controlID="189" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="359" w="567" h="15" measuredW="200" measuredH="80" zOrder="24" locked="false" isInGroup="-1">
+    <control controlID="347" controlTypeID="com.balsamiq.mockups::Canvas" x="780" y="125" w="397" h="38" measuredW="100" measuredH="70" zOrder="50" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>2.The%20earth%20was%20without%20form%2C%20and%20void%3B%20and%20darkness%20was%5Ba%5D%20on%20the%20face%20of%20the%20deep.%20And%20the%20Spirit%20of%20God%20was%20hovering%20over%20the%20face%20of%20the%20waters.</text>
+        <borderStyle>square</borderStyle>
+        <color>13421772</color>
       </controlProperties>
     </control>
-    <control controlID="190" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="379" w="567" h="15" measuredW="200" measuredH="80" zOrder="25" locked="false" isInGroup="-1">
+    <control controlID="348" controlTypeID="com.balsamiq.mockups::SearchBox" x="789" y="132" w="137" h="-1" measuredW="120" measuredH="25" zOrder="51" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>3.%20Then%20God%20said%2C%20%u201CLet%20there%20be%20light%u201D%3B%20and%20there%20was%20light.</text>
+        <text>eg%3A%20Genesis%201%3A1</text>
       </controlProperties>
     </control>
-    <control controlID="191" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="399" w="567" h="15" measuredW="200" measuredH="80" zOrder="26" locked="false" isInGroup="-1">
+    <control controlID="349" controlTypeID="com.balsamiq.mockups::Button" x="932" y="131" w="65" h="26" measuredW="65" measuredH="27" zOrder="52" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>4.And%20God%20saw%20the%20light%2C%20that%20it%20was%20good%3B%20and%20God%20divided%20the%20light%20from%20the%20darkness.</text>
+        <text>Search</text>
       </controlProperties>
     </control>
-    <control controlID="192" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="419" w="567" h="15" measuredW="200" measuredH="80" zOrder="27" locked="false" isInGroup="-1">
+    <control controlID="351" controlTypeID="com.balsamiq.mockups::Canvas" x="1392" y="125" w="397" h="38" measuredW="100" measuredH="70" zOrder="53" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>5.God%20called%20the%20light%20Day%2C%20and%20the%20darkness%20He%20called%20Night.%20So%20the%20evening%20and%20the%20morning%20were%20the%20first%20day.</text>
+        <borderStyle>square</borderStyle>
+        <color>13421772</color>
       </controlProperties>
     </control>
-    <control controlID="193" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="439" w="567" h="15" measuredW="200" measuredH="80" zOrder="28" locked="false" isInGroup="-1">
+    <control controlID="355" controlTypeID="com.balsamiq.mockups::ComboBox" x="1019" y="133" w="149" h="-1" measuredW="150" measuredH="23" zOrder="54" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>6.%20Then%20God%20said%2C%20%u201CLet%20there%20be%20a%20firmament%20in%20the%20midst%20of%20the%20waters%2C%20and%20let%20it%20divide%20the%20waters%20from%20the%20waters.%u201D</text>
+        <text>Hebrew%20Bible%20-%20WLC</text>
       </controlProperties>
     </control>
-    <control controlID="194" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="459" w="567" h="15" measuredW="200" measuredH="80" zOrder="29" locked="false" isInGroup="-1">
+    <control controlID="356" controlTypeID="com.balsamiq.mockups::SearchBox" x="169" y="132" w="137" h="-1" measuredW="120" measuredH="25" zOrder="55" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>7.Thus%20God%20made%20the%20firmament%2C%20and%20divided%20the%20waters%20which%20were%20under%20the%20firmament%20from%20the%20waters%20which%20were%20above%20the%20firmament%3B%20and%20it%20was%20so.</text>
+        <text>eg%3A%20Genesis%201%3A1</text>
       </controlProperties>
     </control>
-    <control controlID="195" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="479" w="567" h="15" measuredW="200" measuredH="80" zOrder="30" locked="false" isInGroup="-1">
+    <control controlID="357" controlTypeID="com.balsamiq.mockups::Button" x="312" y="131" w="65" h="26" measuredW="65" measuredH="27" zOrder="56" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>8.And%20God%20called%20the%20firmament%20Heaven.%20So%20the%20evening%20and%20the%20morning%20were%20the%20second%20day.</text>
+        <text>Search</text>
       </controlProperties>
     </control>
-    <control controlID="196" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="499" w="567" h="15" measuredW="200" measuredH="80" zOrder="31" locked="false" isInGroup="-1">
+    <control controlID="358" controlTypeID="com.balsamiq.mockups::SearchBox" x="1405" y="132" w="137" h="-1" measuredW="120" measuredH="25" zOrder="57" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>9.%20Then%20God%20said%2C%20%u201CLet%20the%20waters%20under%20the%20heavens%20be%20gathered%20together%20into%20one%20place%2C%20and%20let%20the%20dry%20land%20appear%u201D%3B%20and%20it%20was%20so.</text>
+        <text>eg%3A%20Genesis%201%3A1</text>
       </controlProperties>
     </control>
-    <control controlID="197" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="519" w="567" h="15" measuredW="200" measuredH="80" zOrder="32" locked="false" isInGroup="-1">
+    <control controlID="359" controlTypeID="com.balsamiq.mockups::Button" x="1548" y="131" w="65" h="26" measuredW="65" measuredH="27" zOrder="58" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>10.%20And%20God%20called%20the%20dry%20land%20Earth%2C%20and%20the%20gathering%20together%20of%20the%20waters%20He%20called%20Seas.%20And%20God%20saw%20that%20it%20was%20good.</text>
+        <text>Search</text>
       </controlProperties>
     </control>
-    <control controlID="198" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="539" w="567" h="15" measuredW="200" measuredH="80" zOrder="33" locked="false" isInGroup="-1">
+    <control controlID="360" controlTypeID="com.balsamiq.mockups::ComboBox" x="1691" y="133" w="90" h="-1" measuredW="70" measuredH="23" zOrder="59" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>11.%20Then%20God%20said%2C%20%u201CLet%20the%20earth%20bring%20forth%20grass%2C%20the%20herb%20that%20yields%20seed%2C%20and%20the%20fruit%20tree%20that%20yields%20fruit%20according%20to%20its%20kind%2C%20whose%20seed%20is%20in%20itself%2C%20on%20the%20earth%u201D%3B%20and%20it%20was%20so.</text>
+        <text>Qur%27an</text>
       </controlProperties>
     </control>
-    <control controlID="199" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="559" w="567" h="15" measuredW="200" measuredH="80" zOrder="34" locked="false" isInGroup="-1">
+    <control controlID="361" controlTypeID="com.balsamiq.mockups::ComboBox" x="410" y="133" w="134" h="-1" measuredW="133" measuredH="23" zOrder="60" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>12.%20And%20the%20earth%20brought%20forth%20grass%2C%20the%20herb%20that%20yields%20seed%20according%20to%20its%20kind%2C%20and%20the%20tree%20that%20yields%20fruit%2C%20whose%20seed%20is%20in%20itself%20according%20to%20its%20kind.%20And%20God%20saw%20that%20it%20was%20good.</text>
+        <text>The%20Bible%20-%20NKJV</text>
       </controlProperties>
     </control>
-    <control controlID="200" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="579" w="567" h="15" measuredW="200" measuredH="80" zOrder="35" locked="false" isInGroup="-1">
+    <control controlID="362" controlTypeID="com.balsamiq.mockups::Icon" x="513" y="180" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="62" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>13.%20So%20the%20evening%20and%20the%20morning%20were%20the%20third%20day.</text>
+        <icon>PencilIcon%7Csmall</icon>
       </controlProperties>
     </control>
-    <control controlID="201" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="599" w="567" h="15" measuredW="200" measuredH="80" zOrder="36" locked="false" isInGroup="-1">
+    <control controlID="363" controlTypeID="com.balsamiq.mockups::Canvas" x="509" y="176" w="33" h="33" measuredW="100" measuredH="70" zOrder="61" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>14.%20Then%20God%20said%2C%20%u201CLet%20there%20be%20lights%20in%20the%20firmament%20of%20the%20heavens%20to%20divide%20the%20day%20from%20the%20night%3B%20and%20let%20them%20be%20for%20signs%20and%20seasons%2C%20and%20for%20days%20and%20years%3B</text>
+        <color>16770457</color>
       </controlProperties>
     </control>
-    <control controlID="202" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="619" w="567" h="15" measuredW="200" measuredH="80" zOrder="37" locked="false" isInGroup="-1">
+    <control controlID="364" controlTypeID="com.balsamiq.mockups::Canvas" x="793" y="973" w="371" h="24" measuredW="100" measuredH="70" zOrder="63" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>15.%20And%20let%20them%20be%20for%20lights%20in%20the%20firmament%20of%20the%20heavens%20to%20give%20light%20on%20the%20earth%u201D%3B%20and%20it%20was%20so.</text>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <borderStyle>none</borderStyle>
+        <color>6989903</color>
       </controlProperties>
     </control>
-    <control controlID="203" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="639" w="567" h="15" measuredW="200" measuredH="80" zOrder="38" locked="false" isInGroup="-1">
+    <control controlID="365" controlTypeID="com.balsamiq.mockups::Canvas" x="169" y="825" w="371" h="66" measuredW="100" measuredH="70" zOrder="64" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>16.Then%20God%20made%20two%20great%20lights%3A%20the%20greater%20light%20to%20rule%20the%20day%2C%20and%20the%20lesser%20light%20to%20rule%20the%20night.%20He%20made%20the%20stars%20also.</text>
-      </controlProperties>
-    </control>
-    <control controlID="204" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="659" w="567" h="15" measuredW="200" measuredH="80" zOrder="39" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>17.God%20set%20them%20in%20the%20firmament%20of%20the%20heavens%20to%20give%20light%20on%20the%20earth%2C</text>
-      </controlProperties>
-    </control>
-    <control controlID="205" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="679" w="567" h="15" measuredW="200" measuredH="80" zOrder="40" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>18.and%20to%20rule%20over%20the%20day%20and%20over%20the%20night%2C%20and%20to%20divide%20the%20light%20from%20the%20darkness.%20And%20God%20saw%20that%20it%20was%20good.</text>
-      </controlProperties>
-    </control>
-    <control controlID="206" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="699" w="567" h="15" measuredW="200" measuredH="80" zOrder="41" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>19.So%20the%20evening%20and%20the%20morning%20were%20the%20fourth%20day.</text>
-      </controlProperties>
-    </control>
-    <control controlID="207" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="719" w="567" h="15" measuredW="200" measuredH="80" zOrder="42" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>20.%20Then%20God%20said%2C%20%u201CLet%20the%20waters%20abound%20with%20an%20abundance%20of%20living%20creatures%2C%20and%20let%20birds%20fly%20above%20the%20earth%20across%20the%20face%20of%20the%20firmament%20of%20the%20heavens.%u201D</text>
-      </controlProperties>
-    </control>
-    <control controlID="208" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="739" w="567" h="15" measuredW="200" measuredH="80" zOrder="43" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>21.So%20God%20created%20great%20sea%20creatures%20and%20every%20living%20thing%20that%20moves%2C%20with%20which%20the%20waters%20abounded%2C%20according%20to%20their%20kind%2C%20and%20every%20winged%20bird%20according%20to%20its%20kind.%20And%20God%20saw%20that%20it%20was%20good.</text>
-      </controlProperties>
-    </control>
-    <control controlID="209" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="759" w="567" h="15" measuredW="200" measuredH="80" zOrder="44" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>22.And%20God%20blessed%20them%2C%20saying%2C%20%u201CBe%20fruitful%20and%20multiply%2C%20and%20fill%20the%20waters%20in%20the%20seas%2C%20and%20let%20birds%20multiply%20on%20the%20earth.%u201D</text>
-      </controlProperties>
-    </control>
-    <control controlID="210" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="779" w="567" h="15" measuredW="200" measuredH="80" zOrder="45" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>23.So%20the%20evening%20and%20the%20morning%20were%20the%20fifth%20day.</text>
-      </controlProperties>
-    </control>
-    <control controlID="211" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="799" w="567" h="15" measuredW="200" measuredH="80" zOrder="46" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>24%20Then%20God%20said%2C%20%u201CLet%20the%20earth%20bring%20forth%20the%20living%20creature%20according%20to%20its%20kind%3A%20cattle%20and%20creeping%20thing%20and%20beast%20of%20the%20earth%2C%20each%20according%20to%20its%20kind%u201D%3B%20and%20it%20was%20so.</text>
-      </controlProperties>
-    </control>
-    <control controlID="212" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="819" w="567" h="15" measuredW="200" measuredH="80" zOrder="47" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>25.And%20God%20made%20the%20beast%20of%20the%20earth%20according%20to%20its%20kind%2C%20cattle%20according%20to%20its%20kind%2C%20and%20everything%20that%20creeps%20on%20the%20earth%20according%20to%20its%20kind.%20And%20God%20saw%20that%20it%20was%20good.</text>
-      </controlProperties>
-    </control>
-    <control controlID="213" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="839" w="567" h="15" measuredW="200" measuredH="80" zOrder="48" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>26%20Then%20God%20said%2C%20%u201CLet%20Us%20make%20man%20in%20Our%20image%2C%20according%20to%20Our%20likeness%3B%20let%20them%20have%20dominion%20over%20the%20fish%20of%20the%20sea%2C%20over%20the%20birds%20of%20the%20air%2C%20and%20over%20the%20cattle%2C%20over%20all%5Bb%5D%20the%20earth%20and%20over%20every%20creeping%20thing%20that%20creeps%20on%20the%20earth.%u201D</text>
-      </controlProperties>
-    </control>
-    <control controlID="214" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="859" w="567" h="15" measuredW="200" measuredH="80" zOrder="49" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>27.So%20God%20created%20man%20in%20His%20own%20image%3B%20in%20the%20image%20of%20God%20He%20created%20him%3B%20male%20and%20female%20He%20created%20them.</text>
-      </controlProperties>
-    </control>
-    <control controlID="215" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="879" w="567" h="15" measuredW="200" measuredH="80" zOrder="50" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>28.Then%20God%20blessed%20them%2C%20and%20God%20said%20to%20them%2C%20%u201CBe%20fruitful%20and%20multiply%3B%20fill%20the%20earth%20and%20subdue%20it%3B%20have%20dominion%20over%20the%20fish%20of%20the%20sea%2C%20over%20the%20birds%20of%20the%20air%2C%20and%20over%20every%20living%20thing%20that%20moves%20on%20the%20earth.%u201D</text>
-      </controlProperties>
-    </control>
-    <control controlID="216" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="899" w="567" h="15" measuredW="200" measuredH="80" zOrder="51" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>29%20And%20God%20said%2C%20%u201CSee%2C%20I%20have%20given%20you%20every%20herb%20that%20yields%20seed%20which%20is%20on%20the%20face%20of%20all%20the%20earth%2C%20and%20every%20tree%20whose%20fruit%20yields%20seed%3B%20to%20you%20it%20shall%20be%20for%20food.</text>
-      </controlProperties>
-    </control>
-    <control controlID="217" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="919" w="567" h="15" measuredW="200" measuredH="80" zOrder="52" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>30.Also%2C%20to%20every%20beast%20of%20the%20earth%2C%20to%20every%20bird%20of%20the%20air%2C%20and%20to%20everything%20that%20creeps%20on%20the%20earth%2C%20in%20which%20there%20is%20life%2C%20I%20have%20given%20every%20green%20herb%20for%20food%u201D%3B%20and%20it%20was%20so.</text>
-      </controlProperties>
-    </control>
-    <control controlID="218" controlTypeID="com.balsamiq.mockups::Paragraph" x="178" y="939" w="567" h="15" measuredW="200" measuredH="80" zOrder="53" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>31.Then%20God%20saw%20everything%20that%20He%20had%20made%2C%20and%20indeed%20it%20was%20very%20good.%20So%20the%20evening%20and%20the%20morning%20were%20the%20sixth%20day.</text>
-      </controlProperties>
-    </control>
-    <control controlID="223" controlTypeID="com.balsamiq.mockups::Canvas" x="983" y="294" w="357" h="887" measuredW="100" measuredH="70" zOrder="54" locked="false" isInGroup="-1">
-      <controlProperties/>
-    </control>
-    <control controlID="225" controlTypeID="com.balsamiq.mockups::Label" x="775" y="664" w="-1" h="-1" measuredW="164" measuredH="22" zOrder="55" locked="false" isInGroup="-1">
-      <controlProperties>
-        <bold>true</bold>
-        <size>14</size>
-        <text>Authority%20and%20Obedience</text>
-      </controlProperties>
-    </control>
-    <control controlID="227" controlTypeID="com.balsamiq.mockups::Label" x="775" y="696" w="-1" h="-1" measuredW="96" measuredH="21" zOrder="56" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>1.%20%5BGenesis%201%3A24%5D</text>
-      </controlProperties>
-    </control>
-    <control controlID="228" controlTypeID="com.balsamiq.mockups::Label" x="775" y="716" w="-1" h="-1" measuredW="185" measuredH="21" zOrder="57" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>2.%20%5BExodus%203%3A1-8%20%28Hebrew%20Bible%29%5D</text>
-      </controlProperties>
-    </control>
-    <control controlID="229" controlTypeID="com.balsamiq.mockups::Label" x="775" y="736" w="-1" h="-1" measuredW="158" measuredH="21" zOrder="58" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>3.%20%5BTa%20Ha%2020%3A9-23%20%28Qur%27an%29%5D</text>
-      </controlProperties>
-    </control>
-    <control controlID="230" controlTypeID="com.balsamiq.mockups::Label" x="775" y="773" w="-1" h="-1" measuredW="137" measuredH="21" zOrder="59" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>View%20%5Bbundle%20comments%5D</text>
-      </controlProperties>
-    </control>
-    <control controlID="231" controlTypeID="com.balsamiq.mockups::Label" x="996" y="309" w="329" h="24" measuredW="76" measuredH="24" zOrder="60" locked="false" isInGroup="-1">
-      <controlProperties>
-        <bold>true</bold>
-        <size>16</size>
-        <text>Genesis%201</text>
-      </controlProperties>
-    </control>
-    <control controlID="236" controlTypeID="com.balsamiq.mockups::Label" x="996" y="339" w="329" h="21" measuredW="291" measuredH="21" zOrder="61" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BAn%20annotation%20written%20by%20another...%5D%20--%20Rim%20Hansen</text>
-      </controlProperties>
-    </control>
-    <control controlID="237" controlTypeID="com.balsamiq.mockups::Label" x="996" y="359" w="329" h="35" measuredW="504" measuredH="21" zOrder="62" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BGenesis%201%3A24%3B%20Exodus%203%3A1-8%3B%20Ta%20Ha%2020%3A9-23%5D%20text%20bundle%20for%20*Authority%20and%20Obedience*</text>
-      </controlProperties>
-    </control>
-    <control controlID="240" controlTypeID="com.balsamiq.mockups::Label" x="996" y="396" w="329" h="21" measuredW="190" measuredH="21" zOrder="63" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BLorem%20ipsum...%5D%20--%20Hilary%20Marlow</text>
-      </controlProperties>
-    </control>
-    <control controlID="242" controlTypeID="com.balsamiq.mockups::Label" x="996" y="434" w="329" h="24" measuredW="80" measuredH="24" zOrder="64" locked="false" isInGroup="-1">
-      <controlProperties>
-        <bold>true</bold>
-        <size>16</size>
-        <text>Genesis%202</text>
-      </controlProperties>
-    </control>
-    <control controlID="243" controlTypeID="com.balsamiq.mockups::Label" x="996" y="461" w="329" h="21" measuredW="291" measuredH="21" zOrder="65" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BAn%20annotation%20written%20by%20another...%5D%20--%20Rim%20Hansen</text>
-      </controlProperties>
-    </control>
-    <control controlID="244" controlTypeID="com.balsamiq.mockups::Label" x="996" y="481" w="329" h="35" measuredW="506" measuredH="21" zOrder="66" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BGenesis%202%3A24%3B%20Exodus%203%3A1-8%3B%20Ta%20Ha%2020%3A9-23%5D%20text%20bundle%20for%20*Authority%20and%20Obedience*</text>
-      </controlProperties>
-    </control>
-    <control controlID="245" controlTypeID="com.balsamiq.mockups::Label" x="996" y="518" w="329" h="21" measuredW="190" measuredH="21" zOrder="67" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BLorem%20ipsum...%5D%20--%20Hilary%20Marlow</text>
-      </controlProperties>
-    </control>
-    <control controlID="246" controlTypeID="com.balsamiq.mockups::Label" x="996" y="539" w="329" h="35" measuredW="506" measuredH="21" zOrder="68" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BGenesis%202%3A24%3B%20Exodus%203%3A1-8%3B%20Ta%20Ha%2020%3A9-23%5D%20text%20bundle%20for%20*Authority%20and%20Obedience*</text>
-      </controlProperties>
-    </control>
-    <control controlID="247" controlTypeID="com.balsamiq.mockups::Label" x="996" y="594" w="329" h="24" measuredW="79" measuredH="24" zOrder="69" locked="false" isInGroup="-1">
-      <controlProperties>
-        <bold>true</bold>
-        <size>16</size>
-        <text>Genesis%203</text>
-      </controlProperties>
-    </control>
-    <control controlID="248" controlTypeID="com.balsamiq.mockups::Label" x="996" y="621" w="329" h="21" measuredW="291" measuredH="21" zOrder="70" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BAn%20annotation%20written%20by%20another...%5D%20--%20Rim%20Hansen</text>
-      </controlProperties>
-    </control>
-    <control controlID="249" controlTypeID="com.balsamiq.mockups::Label" x="996" y="641" w="329" h="35" measuredW="506" measuredH="21" zOrder="71" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BGenesis%202%3A24%3B%20Exodus%203%3A1-8%3B%20Ta%20Ha%2020%3A9-23%5D%20text%20bundle%20for%20*Authority%20and%20Obedience*</text>
-      </controlProperties>
-    </control>
-    <control controlID="250" controlTypeID="com.balsamiq.mockups::Label" x="996" y="678" w="329" h="21" measuredW="190" measuredH="21" zOrder="72" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BLorem%20ipsum...%5D%20--%20Hilary%20Marlow</text>
-      </controlProperties>
-    </control>
-    <control controlID="251" controlTypeID="com.balsamiq.mockups::Label" x="996" y="699" w="329" h="35" measuredW="506" measuredH="21" zOrder="73" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>*%20%5BGenesis%202%3A24%3B%20Exodus%203%3A1-8%3B%20Ta%20Ha%2020%3A9-23%5D%20text%20bundle%20for%20*Authority%20and%20Obedience*</text>
+        <backgroundAlpha>0.25</backgroundAlpha>
+        <borderStyle>none</borderStyle>
+        <color>10470904</color>
       </controlProperties>
     </control>
   </controls>
