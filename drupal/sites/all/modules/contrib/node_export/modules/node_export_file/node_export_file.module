@@ -7,7 +7,7 @@
  * Export helper module for handling CCK FileFields, Uploaded files, and Images.
  */
 
-define('EXPORT_FILE_FILES_DIR_SUBSTITUTION', '#FILES_DIRECTORY_PATH#');
+define('NODE_EXPORT_FILE_FILES_DIR_SUBSTITUTION', '#FILES_DIRECTORY_PATH#');
 
 /**
  * Implementation of hook_help().
@@ -92,6 +92,12 @@ function node_export_file_form_alter(&$form, $form_state, $form_id) {
  *   for other modules that are very similar to filefield (eg: upload).
  */
 function node_export_file_node_export_node_alter(&$node, $original_node, $op) {
+  if ($op == 'export') {
+    $types = array_filter(variable_get('node_export_file_types', array()));
+    if (!in_array($node->type, $types)) {
+      return;
+    }
+  }
   node_export_file_alter_filefield($node, $original_node, $op, 'node_export_file_filefield_filter');
   node_export_file_alter_upload($node, $original_node, $op);
   node_export_file_alter_image($node, $original_node, $op);
@@ -361,15 +367,15 @@ function node_export_file_get_export_data($file, $export_mode, $assets_path) {
  * installations and non-standard files directory locations.
  */
 function node_export_file_clean_local_file_path(&$path) {
-  $path = preg_replace('/^'. preg_quote(file_directory_path(), '/') .'/', EXPORT_FILE_FILES_DIR_SUBSTITUTION, $path);
+  $path = preg_replace('/^'. preg_quote(file_directory_path(), '/') .'/', NODE_EXPORT_FILE_FILES_DIR_SUBSTITUTION, $path);
 }
 
 /**
- * Replaces the EXPORT_FILE_FILES_DIR_SUBSTITUTION with the files directory
+ * Replaces the NODE_EXPORT_FILE_FILES_DIR_SUBSTITUTION with the files directory
  * path, wherever found.
  */
 function node_export_file_unclean_local_file_path(&$path) {
-  $path = strtr($path, array(EXPORT_FILE_FILES_DIR_SUBSTITUTION => file_directory_path()));
+  $path = strtr($path, array(NODE_EXPORT_FILE_FILES_DIR_SUBSTITUTION => file_directory_path()));
 }
 
 /**
@@ -395,7 +401,9 @@ function node_export_file_import_file(&$file) {
       !is_file($file->node_export_file_path) ||
       (
         is_file($file->node_export_file_path) &&
-        filesize($file->filepath) == filesize($file->node_export_file_path)
+        filesize($file->filepath) == filesize($file->node_export_file_path) &&
+        strtoupper(dechex(crc32(file_get_contents($file->uri)))) ==
+          strtoupper(dechex(crc32(file_get_contents($file->node_export_file_path))))
       )
     )
   ) {

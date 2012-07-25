@@ -101,7 +101,7 @@ function path_set_alias($path = NULL, $alias = NULL, $pid = NULL, $language = ''
    * database error.
    * From D6.16 onwards, duplicates would silently be inserted, and
    * drupal_lookup_path() consistently uses those newer aliases.
-   * While fixing an issue in D6.21, the behavior was reverted to preventing
+   * While fixing an issue in D6.23, the behavior was reverted to preventing
    * duplicates by the below code. Watchdog errors are now logged instead.
    */
   $path = urldecode($path);
@@ -172,7 +172,7 @@ function path_set_alias($path = NULL, $alias = NULL, $pid = NULL, $language = ''
  * Allows URL aliases for nodes to be specified at node edit time rather
  * than through the administrative interface.
  */
-function path_nodeapi(&$node, $op, $arg) {
+function path_nodeapi(&$node, $op, $arg = NULL) {
   // Permissions are required for everything except node loading.
   if (user_access('create url aliases') || user_access('administer url aliases') || ($op == 'load')) {
     $language = isset($node->language) ? $node->language : '';

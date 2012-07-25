@@ -33,7 +33,7 @@ class ds_emptyregionrender {
         $form['emptyregionrender']['region-render-'. $region] = array(
           '#title' => $title,
           '#type' => 'checkbox',
-          '#default_value' => ds_default_value($display_settings, $build_mode, 'emptyregionrender', 'render', $region, ''),
+          '#default_value' => ds_default_value($display_settings, 'emptyregionrender', 'render', $region, ''),
         );
       }
     }
@@ -59,12 +59,12 @@ class ds_emptyregionrender {
   /**
    * execute().
    */
-  public function execute(&$vars, &$display, $display_settings, $object_type, $module) {
+  public function execute($vars, &$display, $display_settings, $object_type, $module) {
 
     $themed_regions = array();
     foreach ($display->all_regions as $region_name => $region_title) {
 
-      $render = ds_default_value($display_settings, $display->build_mode, 'emptyregionrender', 'render', $region_name, FALSE);
+      $render = ds_default_value($display_settings, 'emptyregionrender', 'render', $region_name, FALSE);
 
       if ($render == TRUE && !isset($display->themed_regions[$region_name])) {
 

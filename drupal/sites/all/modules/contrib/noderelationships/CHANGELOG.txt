@@ -4,9 +4,11 @@
 
 Features:
 - #865280 by DeeLay and markus_petrux - Add option to use admin theme for Node Relationships pages rendered in modal frames for features such as "Search and reference".
+- #942518 by travist - Support for latest JQuery (1.4.2) and JQuery UI (1.8.5).
 
 Bugfixes:
 - #589296 follow up by Ozeuss and markus_petrux - Render page container in child node edit form.
+- #966460 by chromix: "Search & Reference" form validation error?
 
 
 6.x-1.6 (2010-05-16)

@@ -110,6 +110,11 @@ class views_php_handler_field extends views_handler_field {
    * @see self::php_post_execute()
    */
   function php_pre_execute() {
+    // Don't do anything if displaying a summary.
+    if (!empty($this->view->build_info['summary'])) {
+      return;
+    }
+
     // Ecexute static PHP code.
     if (!empty($this->options['php_setup'])) {
       $function = create_function('$view, $handler, &$static', $this->options['php_setup'] . ';');
@@ -129,6 +134,11 @@ class views_php_handler_field extends views_handler_field {
    * @see views_php_views_post_execute()
    */
   function php_post_execute() {
+    // Don't do anything if displaying a summary.
+    if (!empty($this->view->build_info['summary'])) {
+      return;
+    }
+
     // Ecexute value PHP code.
     if (!empty($this->options['php_value'])) {
       $function = create_function('$view, $handler, &$static, $row, $data', $this->options['php_value'] . ';');

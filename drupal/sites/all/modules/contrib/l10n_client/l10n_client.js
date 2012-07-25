@@ -1,4 +1,3 @@
-// $Id: l10n_client.js,v 1.10.2.9.2.2 2010/12/08 14:37:03 goba Exp $
 
 // Store all l10n_client related data + methods in its own object
 jQuery.extend(Drupal, {

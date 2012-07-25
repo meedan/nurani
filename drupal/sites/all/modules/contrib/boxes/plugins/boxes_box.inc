@@ -1,5 +1,4 @@
 <?php
-// $Id: boxes_box.inc,v 1.1.2.5 2010/08/04 14:38:02 yhahn Exp $
  
 /**
  * Abstract base class defining a box. A boxes content plugin provides a

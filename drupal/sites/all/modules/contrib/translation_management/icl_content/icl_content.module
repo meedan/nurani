@@ -28,6 +28,7 @@ define ( 'ICL_CONTENT_DONT_PUBLISH_TRANSLATIONS', 'dont_publish_translations');
 
 define ( 'ICL_CONTENT_MENU_ORIGINAL', 'menu_original');
 define ( 'ICL_CONTENT_MENU_SEPARATE', 'menu_separate');
+define ( 'ICL_CONTENT_MENU_NONE', 'menu_none');
 
 define ( 'ICL_CONTENT_DELETE_MANUAL', 'manual' );
 define ( 'ICL_CONTENT_DELETE_AUTOMATIC', 'automatic' );
@@ -1494,6 +1495,9 @@ function _icl_content_get_local_links($body, $language) {
     if (preg_match_all($regexp_links, $body, $matches, PREG_SET_ORDER)) {
       foreach ($matches as $match) {
         $link = $match[2];
+        
+        // handle links to internal nodes from the pathfilter module.
+        $link = str_replace('internal:node/', '/node/', $link);
   
         if (stripos($link, $base_root) === 0) {
           // remove the base path from the start.
@@ -2113,86 +2117,90 @@ function icl_content_icanlocalize($op, $content, $request_id = 0) {
               case 'plain' :
                 $text = $item ['data'];
                 if ($type == 'link_title') {
-                  // A menu
-                  // see if we already have a menu
-                  
-                  $existing_mlid = _icl_wrapper_db_result(db_query_range("SELECT mlid FROM {menu_links} WHERE link_path = 'node/%d' AND module = 'menu' ORDER BY mlid ASC", $node->nid, 0, 1));
-                  
-                  // Find the menu for the original node
-                  
-                  $mlid = _icl_wrapper_db_result(db_query_range("SELECT mlid FROM {menu_links} WHERE link_path = 'node/%d' AND module = 'menu' ORDER BY mlid ASC", $nid, 0, 1));
-                  if ($mlid) {
-                    $item = menu_link_load($mlid);
-                  
-                    // copy the settings but change the text and set language to the translation language.
-                    $menu = array('link_title' => $text, 'mlid' => 0, 'plid' => 0, 'menu_name' => $item['menu_name'], 'weight' => $item['weight'], 'options' => $item['options'], 'module' => 'menu', 'expanded' => $item['expanded'], 'hidden' => $item['hidden'], 'has_children' => 0, 'customized' => $item['customized'], 'localized_options' => $item['localized_options']);
-                    $menu['localized_options']['langcode'] = $node->language;
+
+                  if (variable_get ( 'icl_content_menu_options', ICL_CONTENT_MENU_ORIGINAL ) != ICL_CONTENT_MENU_NONE) {
+
+                    // A menu
+                    // see if we already have a menu
                     
-                    // do we have a link description in the data.
-                    foreach ($data as $test) {
-                      if ($test['type'] == 'link_description') {
-                        $menu['options']['attributes']['title'] = $test['data'];
-                      }
-                    }
+                    $existing_mlid = _icl_wrapper_db_result(db_query_range("SELECT mlid FROM {menu_links} WHERE link_path = 'node/%d' AND module = 'menu' ORDER BY mlid ASC", $node->nid, 0, 1));
                     
-                    $menu['plid'] = icl_content_get_translated_menu($item['plid'], $node->language);
+                    // Find the menu for the original node
                     
-                    if ($existing_mlid){
-                      $menu['mlid'] = $existing_mlid;
-                    }
+                    $mlid = _icl_wrapper_db_result(db_query_range("SELECT mlid FROM {menu_links} WHERE link_path = 'node/%d' AND module = 'menu' ORDER BY mlid ASC", $nid, 0, 1));
+                    if ($mlid) {
+                      $item = menu_link_load($mlid);
                     
-                    if (variable_get ( 'icl_content_menu_options', ICL_CONTENT_MENU_ORIGINAL ) == ICL_CONTENT_MENU_SEPARATE) {
-                      // Using a separate menu for translations.
-                      $variables = variable_get('i18n_variables', array());
+                      // copy the settings but change the text and set language to the translation language.
+                      $menu = array('link_title' => $text, 'mlid' => 0, 'plid' => 0, 'menu_name' => $item['menu_name'], 'weight' => $item['weight'], 'options' => $item['options'], 'module' => 'menu', 'expanded' => $item['expanded'], 'hidden' => $item['hidden'], 'has_children' => 0, 'customized' => $item['customized'], 'localized_options' => $item['localized_options']);
+                      $menu['localized_options']['langcode'] = $node->language;
                       
-                      $i18n_v_orig = _i18n_variable_init($original->language);
-                      $i18n_v_target = _i18n_variable_init($code);
-                      foreach ($variables as $v_name) {
-                        if ($i18n_v_orig[$v_name] == $menu['menu_name']) {
-                          if (isset($i18n_v_target[$v_name])) {
-                            // Set the menu name to the menu used for the target language
-                            $menu['menu_name'] = $i18n_v_target[$v_name];
-                          } else {
-                            // No target menu, so we need to create one.
-                            $menu['menu_name'] .= '-' . $code;
-
-                            $new_menu = array();
-                            $new_menu['menu_name'] = $menu['menu_name'];
-
-                            // remove "menu-" from the front of the menu name
-                            // it will be added when we create the new menu.
-                            if (strpos($new_menu['menu_name'], 'menu-') === 0) {
-                              $new_menu['menu_name'] = substr($new_menu['menu_name'], 5);
-                            }
-
-                            $new_menu['title'] = $new_menu['menu_name'];
-                            $new_menu['description'] = '';
-                            
-                            module_load_include ( 'inc', 'menu', 'menu.admin' );
-                            $form = array();
-                            $form['#insert'] = TRUE;
-                            
-                            $form_state = array();
-                            $form_state['values'] = $new_menu;
-                            
-                            menu_edit_menu_submit($form, $form_state);
-                            
-                            i18n_variable_set($v_name, $menu['menu_name'], $code);
-                          }
-                          
-                          // record that we need to sync these menus.
-                          $icl_menus_to_sync = variable_get('icl_menus_to_sync', array());
-                          $icl_menus_to_sync[$original->language . $code] = array($i18n_v_orig[$v_name],
-                                                       $menu['menu_name'],
-                                                       $original->language,
-                                                       $code);
-                          variable_set('icl_menus_to_sync', $icl_menus_to_sync);
-                                                       
+                      // do we have a link description in the data.
+                      foreach ($data as $test) {
+                        if ($test['type'] == 'link_description') {
+                          $menu['options']['attributes']['title'] = $test['data'];
                         }
                       }
                       
+                      $menu['plid'] = icl_content_get_translated_menu($item['plid'], $node->language);
+                      
+                      if ($existing_mlid){
+                        $menu['mlid'] = $existing_mlid;
+                      }
+                      
+                      if (variable_get ( 'icl_content_menu_options', ICL_CONTENT_MENU_ORIGINAL ) == ICL_CONTENT_MENU_SEPARATE) {
+                        // Using a separate menu for translations.
+                        $variables = variable_get('i18n_variables', array());
+                        
+                        $i18n_v_orig = _i18n_variable_init($original->language);
+                        $i18n_v_target = _i18n_variable_init($code);
+                        foreach ($variables as $v_name) {
+                          if ($i18n_v_orig[$v_name] == $menu['menu_name']) {
+                            if (isset($i18n_v_target[$v_name])) {
+                              // Set the menu name to the menu used for the target language
+                              $menu['menu_name'] = $i18n_v_target[$v_name];
+                            } else {
+                              // No target menu, so we need to create one.
+                              $menu['menu_name'] .= '-' . $code;
+  
+                              $new_menu = array();
+                              $new_menu['menu_name'] = $menu['menu_name'];
+  
+                              // remove "menu-" from the front of the menu name
+                              // it will be added when we create the new menu.
+                              if (strpos($new_menu['menu_name'], 'menu-') === 0) {
+                                $new_menu['menu_name'] = substr($new_menu['menu_name'], 5);
+                              }
+  
+                              $new_menu['title'] = $new_menu['menu_name'];
+                              $new_menu['description'] = '';
+                              
+                              module_load_include ( 'inc', 'menu', 'menu.admin' );
+                              $form = array();
+                              $form['#insert'] = TRUE;
+                              
+                              $form_state = array();
+                              $form_state['values'] = $new_menu;
+                              
+                              menu_edit_menu_submit($form, $form_state);
+                              
+                              i18n_variable_set($v_name, $menu['menu_name'], $code);
+                            }
+                            
+                            // record that we need to sync these menus.
+                            $icl_menus_to_sync = variable_get('icl_menus_to_sync', array());
+                            $icl_menus_to_sync[$original->language . $code] = array($i18n_v_orig[$v_name],
+                                                         $menu['menu_name'],
+                                                         $original->language,
+                                                         $code);
+                            variable_set('icl_menus_to_sync', $icl_menus_to_sync);
+                                                         
+                          }
+                        }
+                        
+                      }
+                      $node->menu = $menu;
                     }
-                    $node->menu = $menu;
                   }
                 } else if ( $type == 'url_alias' ) {
                   $translated_url_alias = $text;
@@ -2339,6 +2347,18 @@ function icl_content_icanlocalize($op, $content, $request_id = 0) {
                     $i = 0;
                     $cck_fields = array();
                     $original_field = $original->$field;
+                    
+                    // Fix a problem where cck translations can be broken at a comma
+                    // We should make sure that the array size of item['data'] is the
+                    // same as item['original_data']
+                    // This is a bit of a HACK. CCK should probably not be sent
+                    // as CSV data in the first place.
+                    if (sizeof($item['data']) > sizeof($item['original_data'])) {
+                      if (sizeof($item['original_data']) == 1) {
+                        $item['data'] = array(implode(',', $item['data']));
+                      }
+                    }
+                    
                     if (!empty($item['data'])) {
                       foreach ($item['data'] as $element) {
                         $cck_fields [] = array(
@@ -2385,6 +2405,13 @@ function icl_content_icanlocalize($op, $content, $request_id = 0) {
                   }
                 }
                 break;
+            }
+          }
+          
+          if (variable_get ( 'icl_content_menu_options', ICL_CONTENT_MENU_ORIGINAL ) == ICL_CONTENT_MENU_NONE) {
+            // unset the $node->menu so that no menu info is saved.
+            if(isset($node->menu)) {
+              unset($node->menu);
             }
           }
           

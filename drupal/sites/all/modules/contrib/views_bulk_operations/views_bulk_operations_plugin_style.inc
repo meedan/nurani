@@ -21,13 +21,14 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
 
     $options['operations'] = array('default' => array());
     $options['execution_type'] = array('default' => VBO_EXECUTION_DIRECT);
+    $options['max_performance'] = array('default' => 0);
     $options['display_type'] = array('default' => 0);
     $options['display_result'] = array('default' => TRUE);
     $options['merge_single_action'] = array('default' => TRUE);
     $options['hide_selector'] = array('default' => FALSE);
     $options['preserve_selection'] = array('default' => TRUE);
 
-    return $options; 
+    return $options;
   }
 
   /**
@@ -35,19 +36,25 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
    */
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
-    
+
     $execution = array(
       VBO_EXECUTION_DIRECT => t('Invoke them directly'),
       VBO_EXECUTION_BATCH => t('Use Batch API'),
     );
-    if (module_exists('job_queue')) {
-      $execution[VBO_EXECUTION_QUEUE] = t('Use <a href="@jobqueue">Job Queue</a>', array('@jobqueue' => url('http://drupal.org/project/job_queue'))); 
+    if (module_exists('drupal_queue')) {
+      $execution[VBO_EXECUTION_QUEUE] = t('Use <a href="@drupalqueue">Drupal Queue</a>', array('@drupalqueue' => url('http://drupal.org/project/drupal_queue')));
     }
     $form['execution_type'] = array(
       '#type' => 'radios',
       '#title' => t('To execute operations'),
       '#default_value' => $this->options['execution_type'],
       '#options' => $execution,
+    );
+    $form['max_performance'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Maximize Batch API performance'),
+      '#description' => t('If checked, each batch process will execute as many rows as possible within the server resource limits.'),
+      '#default_value' => $this->options['max_performance'],
     );
     $form['display_type'] = array(
       '#type' => 'radios',
@@ -120,12 +127,26 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
       if (function_exists($form_function)) {
         $form_settings = call_user_func($form_function, @$this->options['operations'][$key]['settings']);
         foreach (element_children($form_settings) as $child) {
-          $form_settings[$child] += array(
-            '#process' => array('views_process_dependency'),
-            '#dependency' => array(
-              $dom_id => array(1),
-            ),
-          );
+          // The views dependency code requires special handling for checkboxes.
+          if (isset($form_settings[$child]['#type']) && $form_settings[$child]['#type'] == 'checkboxes') {
+            $child_wrapper_id = 'edit-style-options-operations-' . str_replace('_', '-', $key) . '-settings-' . str_replace('_', '-', $child) . '-wrapper';
+            $form_settings[$child] += array(
+              '#prefix' => '<div id="' . $child_wrapper_id . '"><div>',
+              '#suffix' => '</div></div>',
+              '#process' => array('expand_checkboxes', 'views_process_dependency'),
+              '#dependency' => array(
+                $dom_id => array(1),
+              ),
+            );
+          }
+          else {
+            $form_settings[$child] += array(
+              '#process' => array('views_process_dependency'),
+              '#dependency' => array(
+                $dom_id => array(1),
+              ),
+            );
+          }
         }
         $form['operations'][$key]['settings'] = $form_settings;
       }
@@ -161,41 +182,18 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
         call_user_func($form_function, $form, array('values' => $options['settings']));
       }
     }
+
+    // Reset runtime settings for this view.
+    unset($_SESSION['vbo_values'][$this->view->name]);
   }
 
   /**
-   * Implementation of hook_views_pre_execute().
+   * Implementation of views_plugin::query().
    */
-  function pre_execute() {
-    // If preserving selection across pages, reset the pager.
-    if ($this->options['preserve_selection'] || !$this->options['hide_selector']) {
-      $this->pager = new views_bulk_operations_pager_helper($this->view);
-    }
-  }
-
-  /**
-   * Implementation of hook_views_post_execute().
-   */
-  function post_execute() {
-    // Store the results with their signature.
-    foreach ($this->view->result as $result) {
-      $this->result[md5(serialize($result))] = $result;
-    }
-    // Restore the pager to its original settings.
-    if (!empty($this->pager)) {
-      $this->pager->slice();
-    }
-    // Signal that we did this already.
-    $this->post_executed = TRUE;
-  }
-
-  /**
-   * Implementation of views_plugin::pre_render().
-   */
-  function pre_render($result) {
-    // Check that post_execute wasn't called, which is the case for earlier versions of Views 2.
-    if (empty($this->post_executed)) {
-      $this->post_execute();
+  function query() {
+    // Add base field if not present in the query.
+    if (!isset($this->view->query->fields[$this->view->base_field])) {
+      $this->view->query->add_field($this->view->base_table, $this->view->base_field);
     }
   }
 
@@ -203,19 +201,42 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
    * Implementation of views_plugin::render().
    */
   function render() {
-    // We build the groups here to pass them to the node_selector function through the form.
-    $sets = $this->render_grouping($this->view->result, $this->options['grouping']);
-    $this->sets = $sets;
+    // Client code might flag to skip rendering if we just want to build complete results.
+    if (!empty($this->view->skip_render)) {
+      return;
+    }
 
-    // Append suffix to avoid clashing between multiple VBOs on same page.
-    static $form_suffix;
-    if (isset($form_suffix)) {
-      $form_suffix++;
+    // We build the groups here to pass them to the node_selector function through the form.
+    $this->sets = $this->render_grouping($this->view->result, $this->options['grouping']);
+
+    // Create a form ID for the form using the name and display of the view.
+    $parts = array(
+      'views_bulk_operations_form',
+      $this->view->name,
+      $this->view->current_display,
+    );
+    $this->form_id = implode('_', $parts);
+
+    // Populate hashed results for selection.
+    $this->result = array();
+    foreach ($this->view->result as $row) {
+      $this->result[_views_bulk_operations_hash_object($row)] = $row;
     }
-    else {
-      $form_suffix = 1;
+    if ($this->options['preserve_selection']) {
+      $view_id = _views_bulk_operations_view_id($this->view);
+      $view_name = $this->view->name;
+      if (empty($_SESSION['vbo_values'][$view_name][$view_id]['result'])) {
+        $_SESSION['vbo_values'][$view_name][$view_id]['result'] = array();
+      }
+      $_SESSION['vbo_values'][$view_name][$view_id]['result'] += $this->result;
     }
-    return drupal_get_form('views_bulk_operations_form__' . $form_suffix, $this);
+
+    // Copy the plugin globally because we might need it during form validation.
+    global $vbo_plugins;
+    $vbo_plugins[$this->form_id] = $this;
+
+    // Rendering the plugin as a form.
+    return drupal_get_form($this->form_id, $this);
   }
 
   /**
@@ -254,42 +275,21 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
     return $operation;
   }
 
-  /**
-   * API function to strip view of additional components.
-   */
-  function strip_view() {
-    if (isset($this->view->query->pager)) {
-      $this->view->pager_original = $this->view->query->pager;
-      $this->view->query->pager = NULL;
-    }
-    else {
-      $this->view->pager_original = $this->view->pager;
-      $this->view->set_use_pager(FALSE);
-    }
-    $this->view->exposed_widgets = NULL;
-    $this->view->display_handler->set_option('header', '');
-    $this->view->display_handler->set_option('footer', '');
-    $this->view->display_handler->set_option('use_pager', FALSE);
-    $this->view->attachment_before = '';
-    $this->view->attachment_after = '';
-    $this->view->feed_icon = NULL;
-  }
-
-  private function get_operations_options() {
+  function get_operations_options() {
     static $options = array();
     if (empty($options)) {
       $object_info = _views_bulk_operations_object_info_for_view($this->view);
       if (!$object_info) return $options;
       foreach ($this->all_operations as $key => $operation) {
         if ($operation['type'] == $object_info['type'] || $operation['type'] == 'system' || in_array($object_info['hook'], (array) $operation['hooks'])) {
-          $options[$key] = $operation['label'] .' ('. $key .')'; 
+          $options[$key] = $operation['label'] .' ('. $key .')';
         }
       }
     }
     return $options;
   }
 
-  private function populate_operations() {
+  function populate_operations() {
     module_load_include('inc', 'node', 'node.admin');
 
     $operations = array();
@@ -341,7 +341,7 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
     $this->all_operations = $operations;
   }
 
-  private function get_access_op($operation) {
+  function get_access_op($operation) {
     $access_op = 0;
     if (isset($operation['behavior'])) {
       if (in_array('views_node_property', $operation['behavior'])) {
@@ -360,7 +360,7 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
     return $access_op;
   }
 
-  private function get_custom_actions() {
+  function get_custom_actions() {
     $actions = array();
     $static_actions = actions_list();
     $result = db_query("SELECT * FROM {actions} WHERE parameters > ''");
@@ -383,75 +383,3 @@ class views_bulk_operations_plugin_style extends views_plugin_style_table {
     return $actions;
   }
 }
-
-/**
- * Helper class to deal with pager differences between Views 2 and 3.
- */
-class views_bulk_operations_pager_helper {
-
-  function __construct($view) {
-    $this->view = $view;
-    if (version_compare(views_api_version(), '3', '<')) { // Views 2
-      $this->pager = $this->view->pager;
-      $this->view->set_items_per_page(0);
-    }
-    else { // Views 3
-      $this->pager = array(
-        'limit' => $this->view->query->limit,
-        'offset' => $this->view->query->offset,
-        'use_pager' => TRUE,
-      );
-      $this->view->query->set_limit(0);
-      $this->view->query->set_offset(0);
-    }
-  }
-
-  function slice() {
-    if (isset($this->pager) && $this->pager['use_pager']) {
-      if (version_compare(views_api_version(), '3', '<')) { // Views 2
-        $this->view->pager = $this->pager;
-        if (method_exists($this->view, 'synchronize_pager')) {
-          $this->view->synchronize_pager();
-        }
-        else {
-          $this->synchronize();
-        }
-        $offset = $this->view->pager['current_page'] * $this->view->pager['items_per_page'] + $this->view->pager['offset'];
-        $limit = $this->view->pager['items_per_page'];
-      }
-      else { // Views 3
-        $offset = $this->pager['offset'];
-        $limit = $this->pager['limit'];
-        $this->view->query->set_limit($limit);
-        $this->view->query->set_offset($offset);
-      }
-      $results = array_slice($this->view->result, $offset, $limit);
-      $this->view->result = $results;
-    }
-  }
-
-  function synchronize() {
-    if (!empty($this->view->pager['use_pager'])) {
-    // dump information about what we already know into the globals
-      global $pager_page_array, $pager_total, $pager_total_items;
-      // total rows in query
-      $pager_total_items[$this->view->pager['element']] = $this->view->total_rows;
-      // total pages
-      $pager_total[$this->view->pager['element']] = ceil($pager_total_items[$this->view->pager['element']] / $this->view->pager['items_per_page']);
-
-      // What page was requested:
-      $pager_page_array = isset($_GET['page']) ? explode(',', $_GET['page']) : array();
-
-      // If the requested page was within range. $this->pager['current_page']
-      // defaults to 0 so we don't need to set it in an out-of-range condition.
-      if (!empty($pager_page_array[$this->view->pager['element']])) {
-        $page = intval($pager_page_array[$this->view->pager['element']]);
-        if ($page > 0 && $page < $pager_total[$this->view->pager['element']]) {
-          $this->view->pager['current_page'] = $page;
-        }
-      }
-      $pager_page_array[$this->view->pager['element']] = $this->view->pager['current_page'];
-    }
-  }
-}
-

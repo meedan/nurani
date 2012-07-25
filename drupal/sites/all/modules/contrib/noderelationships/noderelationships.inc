@@ -1051,6 +1051,10 @@ function noderelationships_get_noderef_view_overrides($view, $referrer_field) {
     // Make sure we have a filter by content type.
     if (isset($new_view_filters['type'])) {
       $new_view_filters['type']['value'] = $referenceable_types;
+      // If the type filter is exposed, give it a unique identifier.
+      if (isset($new_view_filters['type']['exposed'])) {
+        $new_view_filters['type']['expose']['identifier'] = 'type_'. $referrer_field['field_name'];
+      }
       // If this is the default noderef view AND it has not been overridden,
       // then we want to control if the filter is exposed or not depending
       // on number of referenceable types.
@@ -1074,7 +1078,7 @@ function noderelationships_get_noderef_view_overrides($view, $referrer_field) {
         $new_view_filters['type']['expose'] = array(
           'use_operator' => 0,
           'operator' => 'type_op',
-          'identifier' => 'type',
+          'identifier' => 'type_'. $referrer_field['field_name'],
           'label' => 'Type',
           'optional' => 0,
           'single' => 0,

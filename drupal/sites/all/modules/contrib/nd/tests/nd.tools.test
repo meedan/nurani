@@ -25,6 +25,15 @@ class NodeDisplaysDefaults extends DrupalWebTestCase {
   }
 
   /**
+   * Debug helper function. Writes values away to a text file in the files directory.
+   */
+  function _debugHelper($value, $writetype = 'a+') {
+    $debug = fopen($this->originalFileDirectory .'/simpletestdebug.txt', 'a+');
+    fwrite($debug, print_r($value, TRUE) ."\n");
+    fclose($debug);
+  }
+
+  /**
    * Test defaults.
    */
   function testDefaults() {
@@ -35,13 +44,13 @@ class NodeDisplaysDefaults extends DrupalWebTestCase {
     $this->drupalLogin($admin_user);
 
     // Verify settings are default.
-    $settings = variable_get('nd_display_settings_page', array());
-    $this->assertEqual($settings['full']['status'], DS_SETTINGS_DEFAULT, t('Settings for page full are default'), t('Default settings'));
+    $settings = ds_get_settings('nd', 'page', 'full', 'settings', TRUE);
+    $this->assertEqual($settings['status'], DS_SETTINGS_DEFAULT, t('Settings for page full are default'), t('Default settings'));
 
     // Verify that test key is available on page but not on story.
-    $this->drupalGet('admin/build/ds/layout/page/full');
+    $this->drupalGet(DS_PATH_LAYOUT .'/page/full');
     $this->assertRaw('edit-test-key-full-label-value', t('Default test key found'), t('Default fields'));
-    $this->drupalGet('admin/build/ds/layout/story/full');
+    $this->drupalGet(DS_PATH_LAYOUT .'/story/full');
     $this->assertNoRaw('edit-test-key-full-label-value', t('Default test key not found'), t('Default fields'));
 
     // Verify test key is rendered.
@@ -56,22 +65,21 @@ class NodeDisplaysDefaults extends DrupalWebTestCase {
       'body[full][region]' => 'middle',
       'test_key[full][region]' => 'disabled',
     );
-    $this->drupalPost('admin/build/ds/layout/page/full', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page/full', $edit, t('Save'));
     $this->drupalGet('node/'. $page_node->nid);
     $this->assertNoText('Test key: '. $page_node->nid, t('Test key not rendered.'), t('Default fields'));
 
     // Verify display settings are overriden.
-    $settings = variable_get('nd_display_settings_page', array());
-    $this->assertEqual($settings['full']['status'], DS_SETTINGS_OVERRIDDEN, t('Settings for page full are overriden'), t('Default settings'));
+    $settings = ds_get_settings('nd', 'page', 'full', 'settings', TRUE);
+    $this->assertEqual($settings['status'], DS_SETTINGS_OVERRIDDEN, t('Settings for page full are overriden'), t('Default settings'));
 
     // Verify we can revert to default settings and se test key is rendered again.
-    $this->drupalPost('admin/build/ds/tools/revert/nd/page/full', array(), t('Confirm'));
+    $this->drupalPost(DS_PATH_TOOLS .'/revert/nd/page/full', array(), t('Confirm'));
     $this->drupalGet('node/'. $page_node->nid);
     $this->assertText('Test key: '. $page_node->nid, t('Test key rendered.'), t('Default fields'));
 
     // Verify settings are default again.
-    $settings = variable_get('nd_display_settings_page', array());
-    $this->assertEqual($settings['full']['status'], DS_SETTINGS_DEFAULT, t('Settings for page full are default'), t('Default settings'));
-
+    $settings = ds_get_settings('nd', 'page', 'full', 'settings', TRUE);
+    $this->assertEqual($settings['status'], DS_SETTINGS_DEFAULT, t('Settings for page full are default'), t('Default settings'));
   }
 }

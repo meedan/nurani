@@ -1571,7 +1571,7 @@ adjective|Adjective',
       'format' => 'default',
       'css-class' => array(),
       'region' => 'disabled',
-      'ds_weight' => '-95',
+      'ds_weight' => '-96',
       'text_summary' => array(
         'label' => array(
           'format' => 'hidden',
@@ -1584,7 +1584,7 @@ adjective|Adjective',
         'field_id' => 'field_description',
         'label_value' => '',
         'exclude' => 1,
-        'weight' => '-95',
+        'weight' => '-96',
       ),
       'title_body' => array(
         'label' => array(

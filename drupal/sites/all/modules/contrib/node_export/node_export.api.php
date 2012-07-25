@@ -16,7 +16,22 @@
  * @param $node
  *   The node to determine access for.
  */
-function hook_node_export_access_check_alter(&$access, $node) {
+function hook_node_export_access_export_alter(&$access, $node) {
+  // no example code
+}
+
+/**
+ * Override import access on a node.
+ *
+ * Let other modules alter this - for example to only allow some users to
+ * import specific nodes or types.
+ *
+ * @param &$access
+ *   Boolean access value for current user.
+ * @param $node
+ *   The node to determine access for.
+ */
+function hook_node_export_access_import_alter(&$access, $node) {
   // no example code
 }
 
@@ -150,6 +165,6 @@ function hook_node_export($nodes, $format) {
  *   XML implementation for malformed XML imports for an example that combines
  *   information for the user followed by generated errors from PHP.
  */
-function node_export_node_export_import($code_string) {
+function hook_node_export_import($code_string) {
   // no example code
 }

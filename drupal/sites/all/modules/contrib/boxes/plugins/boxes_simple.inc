@@ -1,5 +1,4 @@
 <?php
-// $Id: boxes_simple.inc,v 1.2.2.1 2010/06/21 20:47:21 jmiccolis Exp $
 
 /**
  * Simple custom text box.

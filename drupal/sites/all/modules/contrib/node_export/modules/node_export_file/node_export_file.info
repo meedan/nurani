@@ -4,9 +4,9 @@ dependencies[] = node_export
 version = VERSION
 core = 6.x
 package = "Node export"
-; Information added by drupal.org packaging script on 2011-03-13
-version = "6.x-3.x-dev"
+; Information added by drupal.org packaging script on 2012-04-28
+version = "6.x-3.3+2-dev"
 core = "6.x"
 project = "node_export"
-datestamp = "1300018182"
+datestamp = "1335615954"
 

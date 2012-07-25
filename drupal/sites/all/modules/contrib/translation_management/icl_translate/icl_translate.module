@@ -304,7 +304,26 @@ function icl_translate_process_translation($rid, $target) {
   module_load_include('inc', 'icl_translate', 'icl_translate.jobs');
   $data = icl_translate_fetch_translation_wrapper($rid, $languages[$target]);
 
-  $result = icl_content_icanlocalize('translation', $data, $rid );
+  // make sure that there is not a later job id for this node.
+  $ok_to_update = true;
+  $nid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT nid FROM {icl_content_status} WHERE rid=%d", $rid));
+  if ($nid > 0) {
+	$max_rid = _icl_wrapper_db_result(_icl_wrapper_db_query("SELECT MAX(c.rid) as max_rid
+															FROM {icl_content_status} c
+															JOIN {icl_core_status} r ON r.rid = c.rid
+															WHERE c.nid=%d AND r.target='%s'", $nid, $target));
+	if ($max_rid != $rid) {
+	  $ok_to_update = false;
+	}
+  }
+  
+  if ($ok_to_update) {
+	$result = icl_content_icanlocalize('translation', $data, $rid );
+  } else {
+	// nothing to update but we need to mark it as complete.
+	$result = true;
+	drupal_set_message(t('Translation not saved. A more recent translation job is available.'), 'warning');	
+  }
   $status = $result ? ICL_STATUS_SUCCESSFUL : ICL_STATUS_FAILED;
   
   if ($target == null) {

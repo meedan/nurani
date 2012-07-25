@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment.convert.inc,v 1.1.2.3 2010/06/27 16:19:10 crea Exp $
 
 /**
  * @file

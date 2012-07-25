@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment_handler_field_link.inc,v 1.1.2.2 2009/06/10 05:41:20 merlinofchaos Exp $
 /**
  * Field handler to present a link to the node comment
  */

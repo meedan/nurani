@@ -5,9 +5,9 @@ dependencies[] = nd
 dependencies[] = poll
 package = "Display suite"
 
-; Information added by drupal.org packaging script on 2011-06-15
-version = "6.x-2.x-dev"
+; Information added by drupal.org packaging script on 2012-02-08
+version = "6.x-2.9"
 core = "6.x"
 project = "nd_contrib"
-datestamp = "1308097736"
+datestamp = "1328695851"
 

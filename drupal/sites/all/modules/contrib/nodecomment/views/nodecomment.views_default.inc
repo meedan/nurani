@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment.views_default.inc,v 1.1.2.2.2.4 2009/06/19 19:08:46 merlinofchaos Exp $
 /**
  * @file
  * Contains default views on behalf of the nodecomment module.

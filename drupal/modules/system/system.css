@@ -377,7 +377,7 @@ a.tabledrag-handle .handle {
   margin-top: 4px;
   height: 13px;
   width: 13px;
-  background: url(../../misc/drag.png) no-repeat 0 0;
+  background: url(../../misc/draggable.png) no-repeat 0 0;
 }
 a.tabledrag-handle-hover .handle {
   background-position: 0 -20px;

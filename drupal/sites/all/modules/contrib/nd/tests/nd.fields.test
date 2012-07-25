@@ -33,18 +33,18 @@ class NodeDisplaysFields extends DrupalWebTestCase {
 
     // Setup styles.
     $edit = array('ds_styles' => 'test-class|Test class');
-    $this->drupalPost('admin/build/ds/layout/styles', $edit, t('Save configuration'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/styles', $edit, t('Save configuration'));
     $page_node = $this->drupalCreateNode();
 
     // Save layout and assert class is default.
     $edit = array('title[full][region]' => 'middle');
-    $this->drupalPost('admin/build/ds/layout/page/full', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page/full', $edit, t('Save'));
     $this->drupalGet('node/'. $page_node->nid);
     $this->assertNoRaw('test-class', t('Normal class'), t('Styles tests'));
 
     // Save layout and assert class is .
     $edit = array('title[full][region]' => 'middle', 'title[full][css-class][]' => 'test-class');
-    $this->drupalPost('admin/build/ds/layout/page/full', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page/full', $edit, t('Save'));
     $this->drupalGet('node/'. $page_node->nid);
     $this->assertRaw('field-title test-class', t('Test class found class'), t('Styles tests'));
   }
@@ -57,7 +57,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
     $this->drupalLogin($admin_user);
 
     // Fields
-    $this->drupalGet('admin/build/ds/nd/fields');
+    $this->drupalGet(DS_PATH_MODULES .'/nd/fields');
 
     // Test being empty.
     $fields = variable_get('nd_fields', array());
@@ -69,14 +69,14 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'code_title' => 'Test field label',
       'code_code' => '<?php echo "test"; ?>',
     );
-    $this->drupalPost('admin/build/ds/nd/fields', $edit, t('Save code field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields', $edit, t('Save code field'));
     $fields = variable_get('nd_fields', array());
     $this->assertTrue(array_key_exists('test_field', $fields), t('test_field exists'), t('Fields'));
     $this->assertEqual($fields['test_field']['title'], $edit['code_title'], t('Title equals Test field label'), t('Fields'));
     $this->assertEqual($fields['test_field']['properties']['code'], $edit['code_code'], t('Code equals <?php echo "test"; ?>'), t('Fields'));
 
     // Try to add the same custom field, must fail.
-    $this->drupalPost('admin/build/ds/nd/fields', $edit, t('Save code field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields', $edit, t('Save code field'));
     $this->assertText(t('This field already exists.'), 'Key already exists', t('Fields.'));
 
     // Update field.
@@ -84,7 +84,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'code_title' => 'Test field label 2',
       'code_code' => '<?php echo "test"; ?>',
     );
-    $this->drupalPost('admin/build/ds/nd/fields/edit/test_field', $edit, t('Save code field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields/edit/test_field', $edit, t('Save code field'));
     $fields = variable_get('nd_fields', array());
     $this->assertEqual($fields['test_field']['title'], $edit['code_title'], t('Label equals Test field label 2'), t('Fields'));
     $this->assertEqual(count($fields), 1, t('Only 1 field'), t('Custom fields'));
@@ -96,17 +96,17 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'code_code' => 'My code',
       'code_exclude[page]' => TRUE,
     );
-    $this->drupalPost('admin/build/ds/nd/fields', $edit, t('Save code field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields', $edit, t('Save code field'));
     $fields = variable_get('nd_fields', array());
     $this->assertEqual($fields['test_field_two']['title'], $edit['code_title'], t('Title equals Test label 3'), t('Fields'));
     $this->assertEqual(count($fields), 2, t('2 custom fields found'), t('Custom fields'));
-    $this->drupalGet('admin/build/ds/layout/page');
+    $this->drupalGet(DS_PATH_LAYOUT .'/page');
     $this->assertNoRaw('Test label 3', t('Custom field excluded on page node type'), t('Custom fields'));
-    $this->drupalGet('admin/build/ds/layout/story');
+    $this->drupalGet(DS_PATH_LAYOUT .'/story');
     $this->assertRaw('Test label 3', t('Custom field available on story node type'), t('Custom fields'));
 
     // Delete field.
-    $this->drupalPost('admin/build/ds/nd/fields/delete/test_field_two', array(), t('Delete'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields/delete/test_field_two', array(), t('Delete'));
     $fields = variable_get('nd_fields', array());
     $this->assertFalse(array_key_exists('test_field_two', $fields), t('test_field_two removed'), t('Fields'));
     $this->assertEqual(count($fields), 1, t('Only 1 field'), t('Custom fields'));
@@ -116,14 +116,14 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'code_title' => 'Override read more',
       'code_code' => '<?php echo "test"; ?>',
     );
-    $this->drupalPost('admin/build/ds/nd/fields/edit/read_more', $edit, t('Save code field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields/edit/read_more', $edit, t('Save code field'));
     $fields = variable_get('nd_fields', array());
     $this->assertEqual($fields['read_more']['status'], DS_FIELD_STATUS_OVERRIDDEN, t('Read more is overridden'), t('Fields'));
     $this->assertEqual($fields['read_more']['title'], $edit['code_title'], t('Label equals Override read more'), t('Fields'));
     $this->assertEqual(count($fields), 2, t('2 fields'), t('Custom fields'));
 
     // Reset overridden field.
-    $this->drupalPost('admin/build/ds/nd/fields/delete/read_more', array(), t('Reset'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields/delete/read_more', array(), t('Reset'));
     $fields = variable_get('nd_fields', array());
     $this->assertFalse(array_key_exists('read_more', $fields), t('read_more removed'), t('Fields'));
     $this->assertEqual(count($fields), 1, t('Only 1 field'), t('Custom fields'));
@@ -134,7 +134,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'code_title' => 'Test label',
       'code_code' => 'test code',
     );
-    $this->drupalPost('admin/build/ds/nd/fields', $edit, t('Save code field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields', $edit, t('Save code field'));
     $this->assertText(t('The machine-readable name must contain only lowercase letters, numbers and underscores.'), 'Key is not valid', t('Fields'));
 
     // Add new field and test with real code :)
@@ -143,7 +143,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'code_title' => 'Real field',
       'code_code' => '<?php echo "Day: ". date("d", $object->created); ?>',
     );
-    $this->drupalPost('admin/build/ds/nd/fields', $edit, t('Save code field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields', $edit, t('Save code field'));
     // Create page.
     $page_node = $this->drupalCreateNode();
 
@@ -152,7 +152,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'title[full][region]' => 'header',
       'test_field_real[full][region]' => 'middle',
     );
-    $this->drupalPost('admin/build/ds/layout/page/full', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page/full', $edit, t('Save'));
 
     // See if it's rendered.
     $this->drupalGet('node/'. $page_node->nid);
@@ -165,7 +165,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'code_code' => '<?php echo "Day month: ". date("d M", $object->created); ?>',
       'code_class' => 'custom-class',
     );
-    $this->drupalPost('admin/build/ds/nd/fields/edit/test_field_real', $edit, t('Save code field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields/edit/test_field_real', $edit, t('Save code field'));
     $this->drupalGet('node/'. $page_node->nid);
     $this->assertText('Day month: '. date("d M", $page_node->created), t('Custom field executed and changed (cached fields is cleared).'), t('Fields'));
     $this->assertRaw('custom-class', t('Custom field uses default class'), t('Custom fields'));
@@ -181,7 +181,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
         'code_token' => FALSE,
       );
 
-      $this->drupalPost('admin/build/ds/nd/fields/edit/test_field_real', $edit, t('Save code field'));
+      $this->drupalPost(DS_PATH_MODULES .'/nd/fields/edit/test_field_real', $edit, t('Save code field'));
       $fields = variable_get('nd_fields', array());
       $this->drupalGet('node/'. $page_node->nid);
       $this->assertNoText('Day: '. date("j", $page_node->created), t('Custom field not executed with token support.'), t('Fields'));
@@ -192,7 +192,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
         'code_token' => TRUE,
       );
 
-      $this->drupalPost('admin/build/ds/nd/fields/edit/test_field_real', $edit, t('Save code field'));
+      $this->drupalPost(DS_PATH_MODULES .'/nd/fields/edit/test_field_real', $edit, t('Save code field'));
       $fields = variable_get('nd_fields', array());
       $this->drupalGet('node/'. $page_node->nid);
       $this->assertText('Day: '. date("j", $page_node->created), t('Custom field executed with token support.'), t('Fields'));
@@ -205,7 +205,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
   function testNdCustomBlockFields() {
     $admin_user = $this->drupalCreateUser(array('administer nodes', 'access display suite', 'administer nd', 'configure layout for nd', 'export and import settings', 'revert overridden settings', 'use PHP in custom fields'));
     $this->drupalLogin($admin_user);
-    $this->drupalGet('admin/build/ds/nd/fields');
+    $this->drupalGet(DS_PATH_MODULES .'/nd/fields');
 
     // Valid field.
     $edit = array(
@@ -214,7 +214,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'block_block' => 'user|3',
       'block_render' => DS_BLOCK_TEMPLATE,
     );
-    $this->drupalPost('admin/build/ds/nd/fields', $edit, t('Save block field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields', $edit, t('Save block field'));
     $fields = variable_get('nd_fields', array());
     $this->assertTrue(array_key_exists('test_field', $fields), t('test_field exists'), t('Block fields'));
     $this->assertEqual($fields['test_field']['title'], $edit['block_title'], t('Title equals Test field label'), t('Block fields'));
@@ -227,7 +227,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'title[full][region]' => 'header',
       'test_field[full][region]' => 'middle',
     );
-    $this->drupalPost('admin/build/ds/layout/page', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page', $edit, t('Save'));
 
     // Block rendering through template.
     $this->drupalGet('node/'. $page_node->nid);
@@ -241,7 +241,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'block_block' => 'user|3',
       'block_render' => DS_BLOCK_TITLE_CONTENT,
     );
-    $this->drupalPost('admin/build/ds/nd/fields/edit/test_field', $edit, t('Save block field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields/edit/test_field', $edit, t('Save block field'));
     $this->drupalGet('node/'. $page_node->nid);
     $this->assertText('Who\'s online', t('Block title found'), t('Block fields'));
     $this->assertText('There are currently 1 user and 0 guests online.', t('Block text found'), t('Block fields'));
@@ -253,7 +253,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'block_block' => 'user|3',
       'block_render' => DS_BLOCK_CONTENT,
     );
-    $this->drupalPost('admin/build/ds/nd/fields/edit/test_field', $edit, t('Save block field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields/edit/test_field', $edit, t('Save block field'));
     $this->drupalGet('node/'. $page_node->nid);
     $this->assertNoText('Who\'s online', t('Block title found'), t('Block fields'));
     $this->assertText('There are currently 1 user and 0 guests online.', t('Block text found'), t('Block fields'));
@@ -267,7 +267,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
   function testNdCustomLabels() {
     $admin_user = $this->drupalCreateUser(array('administer nodes', 'access display suite', 'administer nd', 'configure layout for nd', 'export and import settings', 'revert overridden settings', 'use PHP in custom fields'));
     $this->drupalLogin($admin_user);
-    $this->drupalGet('admin/build/ds/nd/fields');
+    $this->drupalGet(DS_PATH_MODULES .'/nd/fields');
 
     $fields = variable_get('nd_fields', array());
 
@@ -277,7 +277,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'code_title' => 'Real field',
       'code_code' => '<?php echo "Output of a custom field"; ?>',
     );
-    $this->drupalPost('admin/build/ds/nd/fields', $edit, t('Save code field'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fields', $edit, t('Save code field'));
 
     // Make sure we can use the fields for this test.
     $edit = array(
@@ -286,7 +286,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'test_field_real[full][region]' => 'middle',
       'test_field_real[full][label][format]' => 'above',
     );
-    $this->drupalPost('admin/build/ds/layout/page/full', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page/full', $edit, t('Save'));
 
     // Create page.
     $page_node = $this->drupalCreateNode(array('title' => 'MyTitle'));
@@ -302,7 +302,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'title[full][label_value]' => 'New Title',
       'test_field_real[full][label_value]' => 'Unreal field',
     );
-    $this->drupalPost('admin/build/ds/layout/page/full', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page/full', $edit, t('Save'));
 
     // See if the label values have changed.
     $out = $this->drupalGet('node/'. $page_node->nid);
@@ -317,7 +317,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
   function testNdFieldgroups() {
     $admin_user = $this->drupalCreateUser(array('administer nodes', 'access display suite', 'administer nd', 'configure layout for nd', 'export and import settings', 'revert overridden settings', 'use PHP in custom fields'));
     $this->drupalLogin($admin_user);
-    $this->drupalGet('admin/build/ds/nd/fieldgroups');
+    $this->drupalGet(DS_PATH_MODULES .'/nd/fieldgroups');
 
     $fields = variable_get('nd_fields', array());
 
@@ -326,7 +326,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'key' => 'test_group',
       'name' => 'Test group',
     );
-    $this->drupalPost('admin/build/ds/nd/fieldgroups', $edit, t('Save fieldgroup'));
+    $this->drupalPost(DS_PATH_MODULES .'/nd/fieldgroups', $edit, t('Save fieldgroup'));
     $fields = variable_get('nd_fields', array());
     $this->assertTrue(array_key_exists('ds_group_test_group', $fields), t('test_group exists'), t('Fieldgroups'));
     $this->assertEqual($fields['ds_group_test_group']['title'], $edit['name'], t('Title equals Test group'), t('Fieldgroups'));
@@ -338,7 +338,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
       'ds_group_test_group[full][region]' => 'header',
       'ds_group_test_group[full][label][format]' => 'above',
     );
-    $this->drupalPost('admin/build/ds/layout/page/full', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page/full', $edit, t('Save'));
 
     // Create page.
     $page_node = $this->drupalCreateNode(array('title' => 'MyTitle'));
@@ -354,7 +354,7 @@ class NodeDisplaysFields extends DrupalWebTestCase {
     $edit = array(
       'title[full][parent_id]' => 'ds_group_test_group',
     );
-    $this->drupalPost('admin/build/ds/layout/page/full', $edit, t('Save'));
+    $this->drupalPost(DS_PATH_LAYOUT .'/page/full', $edit, t('Save'));
 
     // Title must be shown, inside the fieldgroup div.
     $this->drupalGet('node/'. $page_node->nid);

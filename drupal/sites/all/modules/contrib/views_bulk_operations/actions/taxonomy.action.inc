@@ -118,7 +118,8 @@ function views_bulk_operations_taxonomy_action_form($context) {
   if (isset($context['selection']) && isset($context['view'])) {
     $vocabularies = array();
     $nids = array_map('_views_bulk_operations_get_oid', $context['selection'], array_fill(0, count($context['selection']), $context['view']->base_field));
-    $result = db_query("SELECT DISTINCT v.vid FROM {vocabulary_node_types} v LEFT JOIN {node} n ON v.type = n.type WHERE n.nid IN (%s)", implode(',', $nids));
+    $placeholders = db_placeholders($nids);
+    $result = db_query("SELECT DISTINCT v.vid FROM {vocabulary_node_types} v LEFT JOIN {node} n ON v.type = n.type WHERE n.nid IN ($placeholders)", $nids);
     while ($v = db_fetch_object($result)) {
       $vocabularies[$v->vid] = taxonomy_vocabulary_load($v->vid);
     }
@@ -134,13 +135,13 @@ function views_bulk_operations_taxonomy_action_form($context) {
     '#type' => 'fieldset',
     '#title' => t('Vocabularies'),
     '#tree' => TRUE,
-  );  
+  );
   while (list(,$vocabulary) = each($vocabularies)) {
     $form['taxonomy'][$vocabulary->vid] = taxonomy_form($vocabulary->vid, isset($context['terms']) ? $context['terms'] : NULL);
     $form['taxonomy'][$vocabulary->vid]['#weight'] = $vocabulary->weight;
     if ($vocabulary->tags) { // If tags, give the ability to add new terms
       if ($vocabulary->help) {
-        $help = $vocabulary->help;
+        $help = filter_xss_admin($vocabulary->help);
       }
       else {
         $help = t('A comma-separated list of terms describing this content. Example: funny, bungee jumping, "Company, Inc.".');
@@ -168,6 +169,9 @@ function views_bulk_operations_taxonomy_action_form($context) {
     ),
     '#required' => TRUE,
     '#weight' => -2,
+    '#description' => t('Note that <strong>Replace existing terms with selected ones</strong> will cause all existing terms on the node to be deleted first, 
+                         then the new, selected terms will be added. <strong>Replace terms within same vocabulary</strong> will delete existing terms within
+                         the selected terms\' vocabularies only, and will leave other existing terms untouched.'),
   );
   return $form;
 }
@@ -184,7 +188,7 @@ function _taxonomy_action_parse_terms($taxonomy) {
     }
     else if (!is_array($vocab)) {
       if (!empty($vocab)) $ret[] = $vocab;
-    } 
+    }
     else {
       while (list(,$tid) = each($vocab)) {
         if (!empty($tid)) $ret[] = $tid;
@@ -196,7 +200,7 @@ function _taxonomy_action_parse_terms($taxonomy) {
 
 function views_bulk_operations_taxonomy_action_submit($form, $form_state) {
   return array(
-    'do' => $form_state['values']['do'], 
+    'do' => $form_state['values']['do'],
     'terms' => _taxonomy_action_parse_terms($form_state['values']['taxonomy']),
   );
 }
@@ -209,4 +213,3 @@ function views_bulk_operations_taxonomy_action_validate($form, $form_state) {
     }
   }
 }
-

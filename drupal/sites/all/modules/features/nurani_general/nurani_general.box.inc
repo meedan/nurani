@@ -5,6 +5,7 @@
  */
 function nurani_general_default_box() {
   $export = array();
+
   $box = new stdClass;
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;
@@ -19,8 +20,8 @@ print theme(\'links\', $links);
 ?>',
     'format' => '3',
   );
-
   $export['action_links'] = $box;
+
   $box = new stdClass;
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;
@@ -36,8 +37,8 @@ return $vars[\'object\'];
 ?>',
     'format' => '3',
   );
-
   $export['discussion_info'] = $box;
+
   $box = new stdClass;
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;
@@ -54,8 +55,8 @@ return $vars[\'object\'];
 ',
     'format' => '3',
   );
-
   $export['login_footer'] = $box;
+
   $box = new stdClass;
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;
@@ -67,8 +68,8 @@ return $vars[\'object\'];
     'body' => '<h2>Currently an Invitation-only Private Project</h2>',
     'format' => '3',
   );
-
   $export['login_title'] = $box;
+
   $box = new stdClass;
   $box->disabled = FALSE; /* Edit this to true to make a default box disabled initially */
   $box->api_version = 1;
@@ -81,7 +82,7 @@ return $vars[\'object\'];
 I am delighted to welcome you to <strong>SCRIPTURAL REASONING</strong> online and to Nurani - a platform for dialogue between Muslims, Jews and Christians. The practice of Scriptural Reasoning enables participants to go deeper into the faiths of others while also going deeper into their own faith—for the sake of God and God’s good purposes. I have not found anything else that serves so well to sustain on-going, faith-centred engagement among the Abrahamic traditions. I hope you find this opportunity of sharing and studying your scriptures with people of other faiths a rich and rewarding experience.  <br /><br />With warmest regards, <br />David Ford, Regius Professor of Divinity at the University of Cambridge',
     'format' => '3',
   );
-
   $export['welcome_box'] = $box;
+
   return $export;
 }

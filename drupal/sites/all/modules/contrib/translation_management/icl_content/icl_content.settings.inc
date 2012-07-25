@@ -75,7 +75,8 @@ function icl_content_admin_settings() {
       '#multiple' => FALSE, 
       '#options' => array (
           ICL_CONTENT_MENU_ORIGINAL => t ( 'Save translations in the same menu as original' ), 
-          ICL_CONTENT_MENU_SEPARATE => t ( 'Save translations to a separate menu for each language' ) ), 
+          ICL_CONTENT_MENU_SEPARATE => t ( 'Save translations to a separate menu for each language' ),
+          ICL_CONTENT_MENU_NONE => t ( 'Disable menu translation.  If you want to handle menus manually, select this option. Please note that you cannot mix between automatic and manual menus management.' ) ), 
       '#default_value' => variable_get ( 'icl_content_menu_options', ICL_CONTENT_MENU_ORIGINAL ), 
       '#description' => t ( 'Choose separate menus for larger menu structures. This requires setting multilingual variables. See: ' ) . '<a href="http://drupal.org/node/313302">http://drupal.org/node/313302</a>' );
 

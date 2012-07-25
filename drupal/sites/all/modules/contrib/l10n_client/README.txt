@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.4.2.2 2010/08/04 10:07:37 goba Exp $
 
 CONTENTS
 --------

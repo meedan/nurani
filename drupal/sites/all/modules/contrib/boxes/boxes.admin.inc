@@ -1,5 +1,4 @@
 <?php
-// $Id: boxes.admin.inc,v 1.5.2.4 2010/07/26 19:31:53 jmiccolis Exp $
 
 /**
  * Generate form for creating new boxes.

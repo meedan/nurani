@@ -130,6 +130,12 @@ function install_main() {
     if (!$verify) {
       install_change_settings($profile, $install_locale);
     }
+    // The default lock implementation uses a database table,
+    // so we cannot use it for install, but we still need
+    // the API functions available.
+    require_once './includes/lock-install.inc';
+    $conf['lock_inc'] = './includes/lock-install.inc';
+    lock_init();
 
     // Install system.module.
     drupal_install_system();
@@ -372,14 +378,14 @@ function _install_settings_form_validate($db_prefix, $db_type, $db_user, $db_pas
   }
   else {
     // Verify
-    $_db_url = $db_type .'://'. urlencode($db_user) . ($db_pass ? ':'. urlencode($db_pass) : '') .'@'. ($db_host ? urlencode($db_host) : 'localhost') . ($db_port ? ":$db_port" : '') .'/'. urlencode($db_path);
+    $db_url = $db_type .'://'. urlencode($db_user) . ($db_pass ? ':'. urlencode($db_pass) : '') .'@'. ($db_host ? urlencode($db_host) : 'localhost') . ($db_port ? ":$db_port" : '') .'/'. urlencode($db_path);
     if (isset($form)) {
-      form_set_value($form['_db_url'], $_db_url, $form_state);
+      form_set_value($form['_db_url'], $db_url, $form_state);
     }
     $success = array();
 
     $function = 'drupal_test_'. $db_type;
-    if (!$function($_db_url, $success)) {
+    if (!$function($db_url, $success)) {
       if (isset($success['CONNECT'])) {
         form_set_error('db_type', st('In order for Drupal to work, and to continue with the installation process, you must resolve all permission issues reported above. We were able to verify that we have permission for the following commands: %commands. For more help with configuring your database server, see the <a href="http://drupal.org/node/258">Installation and upgrading handbook</a>. If you are unsure what any of this means you should probably contact your hosting provider.', array('%commands' => implode($success, ', '))));
       }

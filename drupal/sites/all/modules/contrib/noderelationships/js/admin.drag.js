@@ -66,16 +66,16 @@ Drupal.behaviors.nodeRelationshipsDrag = function(context) {
   tableDrag.onDrop = function() {
     var rowObject = this.rowObject;
     if ($(rowObject.element).prev('tr').is('.region-message')) {
-      var regionRow = $(rowObject.element).prev('tr').get(0);
-      var regionName = regionRow.className.replace(/([^ ]+[ ]+)*region-([^ ]+)-message([ ]+[^ ]+)*/, '$2');
-      var regionField = $('select.noderelationships-region-select', rowObject.element);
-      var weightField = $('input.noderelationships-weight', rowObject.element);
-      var oldRegionName = weightField[0].className.replace(/([^ ]+[ ]+)*noderelationships-weight-([^ ]+)([ ]+[^ ]+)*/, '$2');
+      var regionClass = $(rowObject.element).prev('tr').attr('class');
+      var regionName = regionClass.replace(/([^ ]+[ ]+)*region-([^ ]+)-message([ ]+[^ ]+)*/, '$2');
+      var $regionField = $('select.noderelationships-region-select', rowObject.element);
+      var $weightField = $('input.noderelationships-weight', rowObject.element);
+      var oldRegionName = $weightField.attr('class').replace(/([^ ]+[ ]+)*noderelationships-weight-([^ ]+)([ ]+[^ ]+)*/, '$2');
 
-      if (!regionField.is('.noderelationships-region-'+ regionName)) {
-        regionField.removeClass('noderelationships-region-' + oldRegionName).addClass('noderelationships-region-' + regionName);
-        weightField.removeClass('noderelationships-weight-' + oldRegionName).addClass('noderelationships-weight-' + regionName);
-        regionField.val(regionName);
+      if (!$regionField.is('.noderelationships-region-'+ regionName)) {
+        $regionField.removeClass('noderelationships-region-' + oldRegionName).addClass('noderelationships-region-' + regionName);
+        $weightField.removeClass('noderelationships-weight-' + oldRegionName).addClass('noderelationships-weight-' + regionName);
+        $regionField.val(regionName);
       }
     }
   };
@@ -120,7 +120,7 @@ Drupal.behaviors.nodeRelationshipsDrag = function(context) {
             checkEmptyRegions($table, $sourceRow);
 
             // Assign the region class to the row.
-            var oldRegionName = $sourceRow.get(0).className.replace(/([^ ]+[ ]+)*noderelationships-region-([^ ]+)([ ]+[^ ]+)*/, '$2');
+            var oldRegionName = $sourceRow.attr('class').replace(/([^ ]+[ ]+)*noderelationships-region-([^ ]+)([ ]+[^ ]+)*/, '$2');
             $sourceRow.removeClass('noderelationships-region-' + oldRegionName).addClass('noderelationships-region-' + targetRegion);
 
             // Show the row contents.
@@ -158,10 +158,10 @@ Drupal.behaviors.nodeRelationshipsDrag = function(context) {
     $('tr', $table).each(function() {
       if (!rowFound) {
         if ($(this).is('.region-message')) {
-          regionName = this.className.replace(/([^ ]+[ ]+)*region-([^ ]+)-message([ ]+[^ ]+)*/, '$2');
+          regionName = $(this).attr('class').replace(/([^ ]+[ ]+)*region-([^ ]+)-message([ ]+[^ ]+)*/, '$2');
         }
         else if (this == rowObject.element) {
-          var oldRegionName = this.className.replace(/([^ ]+[ ]+)*noderelationships-region-([^ ]+)([ ]+[^ ]+)*/, '$2');
+          var oldRegionName = $(this).attr('class').replace(/([^ ]+[ ]+)*noderelationships-region-([^ ]+)([ ]+[^ ]+)*/, '$2');
           $(rowObject.element).removeClass('noderelationships-region-' + oldRegionName).addClass('noderelationships-region-' + regionName);
           rowFound = true;
         }

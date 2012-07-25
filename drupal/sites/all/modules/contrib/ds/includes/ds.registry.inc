@@ -32,7 +32,7 @@ function _ds_ui_menu() {
   $all_build_modes = ds_get_build_modes(NULL, TRUE);
 
   // Display suite main menu block.
-  $items['admin/build/ds'] = array(
+  $items[DS_PATH_BASE] = array(
     'title' => 'Display suite',
     'description' => 'Manage your site display.',
     'page callback' => 'ds_general_page',
@@ -40,150 +40,35 @@ function _ds_ui_menu() {
     'file' => 'includes/ds.admin.inc',
   );
 
-  // Import / Export
-  $items['admin/build/ds/tools'] = array(
-    'title' => 'Tools',
-    'description' => 'Import and export settings and get a skeleton of your stylesheet depending on your configuration.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ds_import'),
-    'access arguments' => array('export and import settings'),
-    'file' => 'includes/ds.tools.inc',
-    'weight' => -1,
-  );
-  $items['admin/build/ds/tools/import'] = array(
-    'title' => 'Import settings',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'weight' => 0,
-  );
-  $items['admin/build/ds/tools/export'] = array(
-    'title' => 'Export settings',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ds_export'),
-    'access arguments' => array('export and import settings'),
-    'file' => 'includes/ds.tools.inc',
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 1,
-  );
-  $items['admin/build/ds/tools/export_stylesheet'] = array(
-    'title' => 'Export stylesheet',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ds_export_stylesheet'),
-    'access arguments' => array('export and import settings'),
-    'file' => 'includes/ds.tools.inc',
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 1,
-  );
-  $items['admin/build/ds/tools/revert'] = array(
-    'title' => 'Revert',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ds_revert_form'),
-    'access arguments' => array('revert overridden settings'),
-    'file' => 'includes/ds.tools.inc',
-    'type' => MENU_CALLBACK,
-  );
-
-  // Display layout menu item.
-  $items['admin/build/ds/layout'] = array(
-    'title' => 'Layout',
+  // Layouts
+  $items[DS_PATH_LAYOUT] = array(
+    'title' => 'Layouts',
     'description' => 'Go to the overview screen of all the objects in your Drupal site to theme.',
     'page callback' => 'ds_layout_overview',
     'access arguments' => array('access display suite'),
     'file' => 'includes/ds.display.inc',
-    'weight' => 2,
+    'weight' => -5,
   );
-  $items['admin/build/ds/layout/overview'] = array(
+  $items[DS_PATH_LAYOUT .'/overview'] = array(
       'title' => 'Overview',
       'type' => MENU_DEFAULT_LOCAL_TASK,
       'weight' => 0,
   );
-  $items['admin/build/ds/layout/styles'] = array(
-    'title' => 'Styles',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ds_styles_form'),
-    'access arguments' => array('administer styles'),
-    'file' => 'includes/ds.display.inc',
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 1,
+
+  // Modules
+  $items[DS_PATH_MODULES] = array(
+    'title' => 'Module display settings',
+    'description' => 'Settings for modules which provide displays.',
+    'page callback' => 'ds_module_list',
+    'access arguments' => array('access display suite'),
+    'file' => 'includes/ds.modules.inc',
+    'weight' => 3,
   );
 
   foreach (module_implements('ds_api') as $module) {
     $api_info = ds_api_info($module);
     $module = $api_info['module'];
     $title = $api_info['title'];
-
-    // Info.
-    $items['admin/build/ds/'. $module] = array(
-      'title' => $title,
-      'description' => 'Find help, configure build modes, fields, fieldgroups, plugins and possibly other settings for '. $title .'.',
-      'page callback' => 'ds_info',
-      'page arguments' => array($module),
-      'access arguments' => array('administer '. $module),
-      'file' => 'includes/ds.info.inc',
-    );
-    $items['admin/build/ds/'. $module .'/info'] = array(
-      'title' => 'Info',
-      'type' => MENU_DEFAULT_LOCAL_TASK,
-      'weight' => 0,
-    );
-
-    // Fields.
-    $items['admin/build/ds/'. $module .'/fields'] = array(
-      'title' => 'Fields',
-      'page callback' => 'ds_fields',
-      'page arguments' => array($module),
-      'access callback' => '_ds_ui_menu_access',
-      'access arguments' => array('administer '. $module, 'use PHP in custom fields'),
-      'file' => 'includes/ds.fields.inc',
-      'type' => MENU_LOCAL_TASK,
-      'weight' => 1,
-    );
-
-    // Fields examples.
-    if (!isset($api_info['no_fields_examples'])) {
-      $items['admin/build/ds/'. $module .'/fields-examples'] = array(
-        'title' => 'Field examples',
-        'page callback' => 'ds_fields_examples',
-        'page arguments' => array($module),
-        'access callback' => '_ds_ui_menu_access',
-        'access arguments' => array('administer '. $module, 'use PHP in custom fields'),
-        'file' => 'includes/ds.fields.inc',
-        'type' => MENU_CALLBACK,
-        'weight' => 1,
-      );
-    }
-
-    // Field groups
-    $items['admin/build/ds/'. $module .'/fieldgroups'] = array(
-      'title' => 'Fieldgroups',
-      'page callback' => 'ds_fieldgroups',
-      'page arguments' => array($module),
-      'access arguments' => array('administer '. $module),
-      'file' => 'includes/ds.groups.inc',
-      'type' => MENU_LOCAL_TASK,
-      'weight' => 2,
-    );
-
-    // Build modes.
-    $items['admin/build/ds/'. $module .'/buildmodes'] = array(
-      'title' => 'Build modes',
-      'page callback' => 'ds_build_modes',
-      'page arguments' => array($module),
-      'access arguments' => array('administer '. $module),
-      'file' => 'includes/ds.buildmodes.inc',
-      'type' => MENU_LOCAL_TASK,
-      'weight' => 3,
-    );
-
-    // Plugins.
-    $items['admin/build/ds/'. $module .'/plugins'] = array(
-      'title' => 'Plugins',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('ds_plugins', $module),
-      'access arguments' => array('administer '. $module),
-      'file' => 'includes/ds.plugins.inc',
-      'type' => MENU_LOCAL_TASK,
-      'weight' => 4,
-    );
 
     // Displays.
     $build_modes = $all_build_modes[$module];
@@ -216,7 +101,7 @@ function _ds_ui_menu() {
           $build_modes_found = TRUE;
 
           // Tabs.
-          $local_task_items['admin/build/ds/layout/'. $type_url_str .'/'. $key] = array(
+          $local_task_items[DS_PATH_LAYOUT .'/'. $type_url_str .'/'. $key] = array(
             'title' => $value['title'],
             'page callback' => 'drupal_get_form',
             'page arguments' => array('ds_display_overview_form', $type_name, "$key", $module),
@@ -236,7 +121,7 @@ function _ds_ui_menu() {
 
         // Default callback.
         if ($build_modes_found) {
-          $items['admin/build/ds/layout/'. $type_url_str] = array(
+          $items[DS_PATH_LAYOUT .'/'. $type_url_str] = array(
             'title' => drupal_ucfirst($first_title),
             'page callback' => 'drupal_get_form',
             'page arguments' => array('ds_display_overview_form', $type_name, "$first_build_mode", $module),
@@ -249,7 +134,125 @@ function _ds_ui_menu() {
         }
       }
     }
+
+    // Info.
+    $items[DS_PATH_MODULES .'/'.  $module] = array(
+      'title' => $title,
+      'description' => 'Find help, configure build modes, fields, fieldgroups, plugins and possibly other settings for '. $title .'.',
+      'page callback' => 'ds_info',
+      'page arguments' => array($module),
+      'access arguments' => array('administer '. $module),
+      'file' => 'includes/ds.modules.inc',
+    );
+    $items[DS_PATH_MODULES .'/'.  $module .'/info'] = array(
+      'title' => 'Info',
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+      'weight' => 0,
+    );
+
+    // Fields.
+    $items[DS_PATH_MODULES .'/'.  $module .'/fields'] = array(
+      'title' => 'Fields',
+      'page callback' => 'ds_fields',
+      'page arguments' => array($module),
+      'access callback' => '_ds_ui_menu_access',
+      'access arguments' => array('administer '. $module, 'use PHP in custom fields'),
+      'file' => 'includes/ds.fields.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 1,
+    );
+
+    // Fields examples.
+    if (!isset($api_info['no_fields_examples'])) {
+      $items[DS_PATH_MODULES .'/'.  $module .'/fields-examples'] = array(
+        'title' => 'Field examples',
+        'page callback' => 'ds_fields_examples',
+        'page arguments' => array($module),
+        'access callback' => '_ds_ui_menu_access',
+        'access arguments' => array('administer '. $module, 'use PHP in custom fields'),
+        'file' => 'includes/ds.fields.inc',
+        'type' => MENU_CALLBACK,
+        'weight' => 1,
+      );
+    }
+
+    // Field groups
+    $items[DS_PATH_MODULES .'/'.  $module .'/fieldgroups'] = array(
+      'title' => 'Fieldgroups',
+      'page callback' => 'ds_fieldgroups',
+      'page arguments' => array($module),
+      'access arguments' => array('administer '. $module),
+      'file' => 'includes/ds.groups.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 2,
+    );
+
+    // Build modes.
+    $items[DS_PATH_MODULES .'/'.  $module .'/buildmodes'] = array(
+      'title' => 'Build modes',
+      'page callback' => 'ds_build_modes',
+      'page arguments' => array($module),
+      'access arguments' => array('administer '. $module),
+      'file' => 'includes/ds.buildmodes.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 3,
+    );
+
+    // Plugins.
+    $items[DS_PATH_MODULES .'/'.  $module .'/plugins'] = array(
+      'title' => 'Plugins',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('ds_plugins', $module),
+      'access arguments' => array('administer '. $module),
+      'file' => 'includes/ds.plugins.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 4,
+    );
   }
+
+  // Styles
+  $items[DS_PATH_STYLES] = array(
+    'title' => 'Styles',
+    'description' => 'Configure generic CSS class settings for fields and regions.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ds_styles_form'),
+    'access arguments' => array('administer styles'),
+    'file' => 'includes/ds.display.inc',
+    'weight' => 5,
+  );
+  
+  // Tools
+  $items[DS_PATH_TOOLS] = array(
+    'title' => 'Tools',
+    'description' => 'Import and export settings and get a skeleton of your stylesheet depending on your configuration.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ds_import'),
+    'access arguments' => array('export and import settings'),
+    'file' => 'includes/ds.tools.inc',
+    'weight' => 10,
+  );
+  $items[DS_PATH_TOOLS .'/import'] = array(
+    'title' => 'Import settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 0,
+  );
+  $items[DS_PATH_TOOLS .'/export'] = array(
+    'title' => 'Export settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ds_export'),
+    'access arguments' => array('export and import settings'),
+    'file' => 'includes/ds.tools.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+  );
+  $items[DS_PATH_TOOLS .'/revert'] = array(
+    'title' => 'Revert',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ds_revert_form'),
+    'access arguments' => array('revert overridden settings'),
+    'file' => 'includes/ds.tools.inc',
+    'type' => MENU_CALLBACK,
+  );
 
   return $items;
 }
@@ -274,13 +277,19 @@ function _ds_theme() {
     // General theming field.
     'ds_field' => array(
       'arguments' => array(
-        'content' => NULL,
         'field' => NULL,
       ),
       'file' => 'theme.inc',
       'path' => $path .'/theme',
     ),
-
+    'ds_field_inline' => array(
+      'arguments' => array(
+        'field' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+    ),
+    
     // Evaluate code.
     'ds_eval_code' => array(
       'arguments' => array(
@@ -311,30 +320,118 @@ function _ds_theme() {
     // We'll only use one function for the fieldsets.
     'ds_group_fieldset_open' => array(
       'arguments' => array(
-        'content' => NULL,
         'field' => NULL,
       ),
       'file' => 'theme.inc',
       'path' => $path .'/theme',
-      'function' => 'ds_group_fieldset',
+      'function' => 'theme_ds_group_fieldset',
     ),
     'ds_group_fieldset_collapsible' => array(
       'arguments' => array(
-        'content' => NULL,
         'field' => NULL,
       ),
       'file' => 'theme.inc',
       'path' => $path .'/theme',
-      'function' => 'ds_group_fieldset',
+      'function' => 'theme_ds_group_fieldset',
     ),
     'ds_group_fieldset_collapsed' => array(
       'arguments' => array(
-        'content' => NULL,
         'field' => NULL,
       ),
       'file' => 'theme.inc',
       'path' => $path .'/theme',
-      'function' => 'ds_group_fieldset',
+      'function' => 'theme_ds_group_fieldset',
+    ),
+
+    // CCK 3.x multigroup subgroup formatters
+    'ds_multigroup_div' => array(
+      'arguments' => array(
+        'group' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_multigroup_div',
+    ),
+    'ds_multigroup_fieldset_open' => array(
+      'arguments' => array(
+        'group' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_multigroup_fieldset',
+    ),
+    'ds_multigroup_fieldset_collapsible' => array(
+      'arguments' => array(
+        'group' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_multigroup_fieldset',
+    ),
+    'ds_multigroup_fieldset_collapsed' => array(
+      'arguments' => array(
+        'group' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_multigroup_fieldset',
+    ),
+    'ds_multigroup_table_simple' => array(
+      'arguments' => array(
+        'group' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_multigroup_table_simple',
+    ),
+    'ds_multigroup_table_multiple' => array(
+      'arguments' => array(
+        'group' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_multigroup_table_multiple',
+    ),
+    'ds_multigroup_horizontal_line' => array(
+      'arguments' => array(
+        'group' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_multigroup_horizontal_line',
+    ),
+    'ds_multigroup_list_ol' => array(
+      'arguments' => array(
+        'group' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_multigroup_list',
+    ),
+    'ds_multigroup_list_ul' => array(
+      'arguments' => array(
+        'group' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_multigroup_list',
+    ),
+    'ds_multigroup_comma_separated' => array(
+      'arguments' => array(
+        'group' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_multigroup_comma_separated',
+    ),
+    'ds_subgroup_label' => array(
+      'arguments' => array(
+        'label' => NULL,
+        'class' => NULL,
+      ),
+      'file' => 'theme.inc',
+      'path' => $path .'/theme',
+      'function' => 'theme_ds_subgroup_label',
     ),
 
     // Theming for fields which are shared across objects (name, picture etc).

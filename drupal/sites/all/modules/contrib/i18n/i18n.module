@@ -69,8 +69,10 @@ function _i18n_init_mode() {
   if (i18n_selection_mode() != 'off') {
     // Node language when loading specific nodes or creating translations.
     if (arg(0) == 'node' ) {
-      if (($node = menu_get_object('node')) && $node->language) {
-        i18n_selection_mode('node', $node->language);
+      // We shouldn't call menu_get_object() because it may end up calling i18n_selection_mode(), see #614548
+      // Also we better don't do the full node loading here because there may be missing modules (init)
+      if (is_numeric(arg(1)) && (arg(2) == 'edit') && ($lang = i18n_node_get_lang(arg(1)))) {
+        i18n_selection_mode('node', $lang);
       }
       elseif (arg(1) == 'add' && !empty($_GET['translation']) && !empty($_GET['language'])) {
         i18n_selection_mode('translation', db_escape_string($_GET['language']));
@@ -262,7 +264,6 @@ function i18n_link_alter(&$links, $node) {
  */
 function i18n_user($op, &$edit, &$account, $category = NULL) {
   if ($op == 'login' && $account->language) {
-    $_SESSION['language'] = $account->language;
     i18n_get_lang($account->language);
   }
 }

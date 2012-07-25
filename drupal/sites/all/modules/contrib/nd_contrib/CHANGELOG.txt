@@ -1,0 +1,31 @@
+------------------------------------------------------------------------------
+6.x-2.8 2012-01-25
+------------------------------------------------------------------------------
+- Update menu callbacks to use new ds menu constants
+
+------------------------------------------------------------------------------
+6.x-2.7 2012-01-22
+------------------------------------------------------------------------------
+- #1284478 by broncomania: Provide apache solr search snippet on the node object
+- #1411050 by Feng-Shui: Fix an issue where ND Search might not return correct 
+  results
+- #137153 by xtfer: fix an issue where simple multigroups were not rendered
+- NEW comma separated list formatter for multigroup
+
+------------------------------------------------------------------------------
+6.x-2.6 2011-11-15
+------------------------------------------------------------------------------
+- Extras required to make CCK3 multigroups work with Display Suite 6.x-2.x
+- #1280476 by xtfer: fix nd cck tpl file
+
+------------------------------------------------------------------------------
+6.x-2.5 2011-10-29
+------------------------------------------------------------------------------
+- #1017448 by frega: Vote Up/Down support
+- #1031022 by Nico Heulsen: Drupal Core Poll support
+- #1153952 by protyze: Use node_access to check on referenced node.
+- by swentel: Invoke settings on import
+- by swentel: Fix an issue with Apache Solr
+- by swentel: Fix an issue where CCK might not be loaded
+- #900612 by victoriachan: Full address not really full Location field info
+- Strip CVS keywords

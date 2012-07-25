@@ -17,7 +17,7 @@ class views_composite_exposed_form_plugin extends views_plugin_exposed_form {
   }
 
   function summary_title() {
-    $plugins = array_intersect_key(views_fetch_plugin_names('exposed_form'), $this->options['plugins']);
+    $plugins = array_intersect_key(views_fetch_plugin_names('exposed_form'), array_flip($this->options['plugins']));
     if (empty($plugins)) {
       $plugins[] = t('(none)');
     }
@@ -43,14 +43,16 @@ class views_composite_exposed_form_plugin extends views_plugin_exposed_form {
     $options = views_fetch_plugin_names('exposed_form');
     unset($options['composite']);
     $form['plugins'] = array(
-      '#type' => 'select',
+      '#type' => 'checkboxes',
       '#title' => t('Plugins'),
       '#options' => $options,
-      '#multiple' => TRUE,
       '#default_value' => $this->options['plugins'],
       '#description' => t('When you choose new plugins, please click "Update" then edit again to select the new plugin settings.'),
     );
     foreach ($this->options['plugins'] as $name) {
+      if (empty($name)) {
+        continue;
+      }
       $form[$name] = array(
         '#type' => 'fieldset',
         '#title' => $options[$name],
@@ -88,6 +90,12 @@ class views_composite_exposed_form_plugin extends views_plugin_exposed_form {
   function exposed_form_submit(&$form, &$form_state, &$exclude) {
     foreach ($this->plugins as $name => $plugin) {
       $plugin->exposed_form_submit($form, $form_state, $exclude);
+    }
+  }
+
+  function query() {
+    foreach ($this->plugins as $name => $plugin) {
+      $plugin->query();
     }
   }
 

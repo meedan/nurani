@@ -52,7 +52,7 @@ function nd_location_settings() {
         $row[] = check_plain($field['name']);
         $row[] = check_plain($field['type']);
         $row[] = $key;
-        $row[] = l(t('Edit'), 'admin/build/ds/nd/nd_location/field/edit/'. $key) .' - '. l(t('Delete'), 'admin/build/ds/nd/nd_location/field/delete/'. $key);
+        $row[] = l(t('Edit'), DS_PATH_MODULES .'/nd/nd_location/field/edit/'. $key) .' - '. l(t('Delete'), DS_PATH_MODULES .'/nd/nd_location/field/delete/'. $key);
         $rows[] = $row;
       }
 
@@ -82,7 +82,7 @@ function nd_location_settings() {
         $row[] = check_plain($field['zoom']);
         $row[] = isset($field['autoclick']) ? ($field['autoclick'] ? t('True') : t('False')) : t('False');
         $row[] = $key;
-        $row[] = l(t('Edit'), 'admin/build/ds/nd/nd_location/formatter/edit/'. $key) .' - '. l(t('Delete'), 'admin/build/ds/nd/nd_location/formatter/delete/'. $key);
+        $row[] = l(t('Edit'), DS_PATH_MODULES .'/nd/nd_location/formatter/edit/'. $key) .' - '. l(t('Delete'), DS_PATH_MODULES .'/nd/nd_location/formatter/delete/'. $key);
         $rows[] = $row;
       }
 
@@ -179,7 +179,7 @@ function nd_location_field_form_submit($form, &$form_state) {
   variable_set('nd_location_fields', $location_fields);
 
   drupal_set_message(t('Location field %loc_field has been saved.', array('%loc_field' => $form_state['values']['key'])));
-  $form_state['redirect'] = 'admin/build/ds/nd/nd_location';
+  $form_state['redirect'] = DS_PATH_MODULES .'/nd/nd_location';
 }
 
 /**
@@ -203,7 +203,7 @@ function nd_location_field_delete_form($form_state, $location_field) {
   $form['buttons']['cancel'] = array(
     '#suffix' => '</div>',
     '#type' => 'markup',
-    '#value' => l('cancel', 'admin/build/ds/nd/nd_location'),
+    '#value' => l('cancel', DS_PATH_MODULES .'/nd/nd_location'),
   );
 
   return $form;
@@ -218,7 +218,7 @@ function nd_location_field_delete_form_submit($form, &$form_state) {
   variable_set('nd_location_fields', $location_fields);
 
   drupal_set_message(t('Custom location field %location_field has been removed.', array('%location_field' => $form_state['values']['display'])));
-  $form_state['redirect'] = 'admin/build/ds/nd/nd_location';
+  $form_state['redirect'] = DS_PATH_MODULES .'/nd/nd_location';
 }
 
 /**
@@ -338,7 +338,7 @@ function nd_location_formatter_form_submit($form, &$form_state) {
   drupal_rebuild_theme_registry();
 
   drupal_set_message(t('Location field %loc_field has been saved.', array('%loc_field' => $form_state['values']['key'])));
-  $form_state['redirect'] = 'admin/build/ds/nd/nd_location';
+  $form_state['redirect'] = DS_PATH_MODULES .'/nd/nd_location';
 }
 
 /**
@@ -362,7 +362,7 @@ function nd_location_formatter_delete_form($form_state, $location_formatter) {
   $form['buttons']['cancel'] = array(
     '#suffix' => '</div>',
     '#type' => 'markup',
-    '#value' => l('cancel', 'admin/build/ds/nd/nd_location'),
+    '#value' => l('cancel', DS_PATH_MODULES .'/nd/nd_location'),
   );
 
   return $form;
@@ -378,5 +378,5 @@ function nd_location_formatter_delete_form_submit($form, &$form_state) {
   drupal_rebuild_theme_registry();
 
   drupal_set_message(t('Custom location formatter %$location_formatter has been removed.', array('%$location_formatter' => $form_state['values']['display'])));
-  $form_state['redirect'] = 'admin/build/ds/nd/nd_location';
+  $form_state['redirect'] = DS_PATH_MODULES .'/nd/nd_location';
 }

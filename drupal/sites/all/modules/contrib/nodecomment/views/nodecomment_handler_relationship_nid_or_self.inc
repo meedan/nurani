@@ -1,5 +1,4 @@
 <?php
-// $Id: nodecomment_handler_relationship_nid_or_self.inc,v 1.1.2.1 2009/06/04 21:14:55 merlinofchaos Exp $
 
 /**
  * Field handler to display the depth of a comment
