@@ -295,11 +295,9 @@ admin/build/block/configure/boxes/discussion_info.edit-body
             'default' => 't',
           ),
         ),
-<<<<<<< HEAD
+
         'excl_regex' => '#(?:^.*:.*@.*\\.edit\\-export$)|(?:^.*:node_export@node/add/node_export\\.edit\\-code$)|(?:^.*:text@node/add/text\\.edit\\-field\\-description\\-0\\-value$)|(?:^.*:text@node/add/text\\.edit\\-body$)|(?:^.*:.*@admin/build/block/configure/boxes/discussion_info\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-education\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-societies\\-0\\-value$)|(?:^nurani:discussion@.*\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-experience\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-research\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-publications\\-0\\-value$)#',
-=======
         'excl_regex' => '#(?:^.*:.*@.*\\.edit\\-export$)|(?:^.*:node_export@node/add/node_export\\.edit\\-code$)|(?:^.*:text@node/add/text\\.edit\\-field\\-description\\-0\\-value$)|(?:^.*:.*@admin/build/block/configure/boxes/discussion_info\\.edit\\-body$)|(?:^.*:.*@.*\\.edit\\-field\\-education\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-societies\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-experience\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-research\\-0\\-value$)|(?:^.*:.*@.*\\.edit\\-field\\-publications\\-0\\-value$)#',
->>>>>>> 193eb5664c2c437177a8250447198145cff1674c
         'simple_incl_regex' => '',
       ),
       'roles' => array(
