@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" measuredW="1340" measuredH="754" mockupW="1200" mockupH="751">
+<mockup version="1.0" skin="sketch" measuredW="1340" measuredH="754" mockupW="1273" mockupH="751">
   <controls>
     <control controlID="67" controlTypeID="__group__" x="190" y="138" w="1100" h="601" measuredW="1100" measuredH="601" zOrder="1" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
@@ -125,6 +125,11 @@
     <control controlID="165" controlTypeID="com.balsamiq.mockups::Button" x="190" y="95" w="-1" h="-1" measuredW="54" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Login</text>
+      </controlProperties>
+    </control>
+    <control controlID="166" controlTypeID="com.balsamiq.mockups::StickyNote" x="67" y="397" w="162" h="154" measuredW="109" measuredH="123" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Need%20more%20thought%20on%20exactly%20which%20profile%20fields%20we%20should%20capture%20for%20the%20academic%20/%20schollar%20user%20role.</text>
       </controlProperties>
     </control>
   </controls>
