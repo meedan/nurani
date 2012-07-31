@@ -5,12 +5,12 @@
         <text>Home%2C%20Nurani%20Library%2C%20Contact%20Us</text>
       </controlProperties>
     </control>
-    <control controlID="24" controlTypeID="com.balsamiq.mockups::Canvas" x="935" y="268" w="340" h="209" measuredW="100" measuredH="70" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::Canvas" x="935" y="542" w="340" h="209" measuredW="100" measuredH="70" zOrder="3" locked="false" isInGroup="-1">
       <controlProperties>
         <color>16777215</color>
       </controlProperties>
     </control>
-    <control controlID="27" controlTypeID="com.balsamiq.mockups::Canvas" x="570" y="268" w="340" h="418" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::Canvas" x="570" y="268" w="340" h="412" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1"/>
     <control controlID="29" controlTypeID="com.balsamiq.mockups::Label" x="222" y="283" w="-1" h="-1" measuredW="144" measuredH="24" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>true</bold>
@@ -78,7 +78,7 @@
         <text>into%20the%20faiths%20of%20others%20while%20also%20going%20deeper%20into%20their%20own%20faith%u2014for%20the%20sake%20of%20God%20and%20God%u2019s%20good%20purposes.%20I%20have%20not%20found%20anything%20else%20that%20serves%20so%20well%20to%20sustain%20on-going%2C%20faith-centred%20engagement%20among%20the%20Abrahamic%20traditions.%20I%20hope%20you%20find%20this%20opportunity%20of%20sharing%20and%20studying%20your%20scriptures%20with%20people%20of%20other%20faiths%20a%20rich%20and%20rewarding%20experience.%20%0A%20%0AWith%20warmest%20regards%2C%20%0ADavid%20Ford%2C%20Regius%20Professor%20of%20Divinity%20at%20the%20University%20of%20Cambridge</text>
       </controlProperties>
     </control>
-    <control controlID="120" controlTypeID="com.balsamiq.mockups::Label" x="951" y="283" w="-1" h="-1" measuredW="110" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
+    <control controlID="120" controlTypeID="com.balsamiq.mockups::Label" x="951" y="557" w="-1" h="-1" measuredW="110" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>true</bold>
         <size>16</size>
@@ -101,16 +101,16 @@
     <control controlID="165" controlTypeID="com.balsamiq.mockups::Paragraph" x="588" y="530" w="300" h="103" measuredW="200" measuredH="80" zOrder="14" locked="false" isInGroup="-1">
       <controlProperties>
         <align>left</align>
-        <text>%20Lorem%20ipsum%20dolor%20sit%20amet%2C%20consectetur%20adipiscing%20elit.%20Duis%20vehicula%20imperdiet%20aliquam.%20Nunc%20molestie%20libero%20ac%20massa%20laoreet%20fermentum.%20Nulla%20semper%20consectetur%20orci%20eu%20sagittis.%20Nullam%20sit%20amet%20felis%20quam%2C%20sit%20amet%20egestas%20felis.%20Integer%20eget%20mauris%20velit%2C%20suscipit%20gravida%20diam.%20Cras%20non%20neque%20iaculis%20turpis%20malesuada%20bibendum.%20Mauris%20tempor%20tempus%20eros%2C%20a%20egestas%20tellus%20euismod%20et.%20Maecenas%20lobortis%20erat%20ac%20sapien%20adipiscing%20tincidunt.%20Nunc%20tincidunt%20dolor%20pellentesque%20turpis%20vulputate%20sed%20sollicitudin%20lectus%20pellentesque.%20Class%20aptent%20taciti%20sociosqu%20ad%20litora%20torquent%20per%20conubia%20nostra%2C%20per%20inceptos%20himenaeos.%20Pellentesque%20mauris%20tortor%2C%20fermentum%20et%20blandit%20at%2C%20accumsan%20et%20orci.%20Maecenas%20malesuada%20rutrum%20commodo.%20Duis%20ultrices%20massa%20eu%20nibh%20accumsan%20commodo.</text>
+        <text>Lorem%20ipsum%20dolor%20sit%20amet%2C%20consectetur%20adipisicing%20elit%2C%20sed%20do%20eiusmod%20tempor%20incididunt%20ut%20labore%20et%20dolore%20magna%20aliqua.%20Ut%20enim%20ad%20minim%20veniam%2C%20quis%20nostrud%20exercitation%20ullamco%20laboris%20nisi%20ut%20aliquip%20ex%20ea%20commodo%20consequat.%20Duis%20aute%20irure%20dolor%20in%20reprehenderit%20in%20voluptate%20velit%20esse%20cillum%20dolore%20eu%20fugiat%20nulla%20pariatur.%20Excepteur%20sint%20occaecat%20cupidatat%20non%20proident%2C%20sunt%20in%20culpa%20qui%20officia%20deserunt%20mollit%20anim%20id%20est%20laborum.</text>
       </controlProperties>
     </control>
-    <control controlID="166" controlTypeID="com.balsamiq.mockups::Paragraph" x="951" y="317" w="300" h="103" measuredW="200" measuredH="80" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="166" controlTypeID="com.balsamiq.mockups::Paragraph" x="951" y="591" w="300" h="103" measuredW="200" measuredH="80" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
         <align>left</align>
-        <text>%20Lorem%20ipsum%20dolor%20sit%20amet%2C%20consectetur%20adipiscing%20elit.%20Duis%20vehicula%20imperdiet%20aliquam.%20Nunc%20molestie%20libero%20ac%20massa%20laoreet%20fermentum.%20Nulla%20semper%20consectetur%20orci%20eu%20sagittis.%20Nullam%20sit%20amet%20felis%20quam%2C%20sit%20amet%20egestas%20felis.%20Integer%20eget%20mauris%20velit%2C%20suscipit%20gravida%20diam.%20Cras%20non%20neque%20iaculis%20turpis%20malesuada%20bibendum.%20Mauris%20tempor%20tempus%20eros%2C%20a%20egestas%20tellus%20euismod%20et.%20Maecenas%20lobortis%20erat%20ac%20sapien%20adipiscing%20tincidunt.%20Nunc%20tincidunt%20dolor%20pellentesque%20turpis%20vulputate%20sed%20sollicitudin%20lectus%20pellentesque.%20Class%20aptent%20taciti%20sociosqu%20ad%20litora%20torquent%20per%20conubia%20nostra%2C%20per%20inceptos%20himenaeos.%20Pellentesque%20mauris%20tortor%2C%20fermentum%20et%20blandit%20at%2C%20accumsan%20et%20orci.%20Maecenas%20malesuada%20rutrum%20commodo.%20Duis%20ultrices%20massa%20eu%20nibh%20accumsan%20commodo.</text>
+        <text>Lorem%20ipsum%20dolor%20sit%20amet%2C%20consectetur%20adipisicing%20elit%2C%20sed%20do%20eiusmod%20tempor%20incididunt%20ut%20labore%20et%20dolore%20magna%20aliqua.%20Ut%20enim%20ad%20minim%20veniam%2C%20quis%20nostrud%20exercitation%20ullamco%20laboris%20nisi%20ut%20aliquip%20ex%20ea%20commodo%20consequat.%20Duis%20aute%20irure%20dolor%20in%20reprehenderit%20in%20voluptate%20velit%20esse%20cillum%20dolore%20eu%20fugiat%20nulla%20pariatur.%20Excepteur%20sint%20occaecat%20cupidatat%20non%20proident%2C%20sunt%20in%20culpa%20qui%20officia%20deserunt%20mollit%20anim%20id%20est%20laborum.</text>
       </controlProperties>
     </control>
-    <control controlID="167" controlTypeID="com.balsamiq.mockups::PointyButton" x="996" y="435" w="-1" h="-1" measuredW="219" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
+    <control controlID="167" controlTypeID="com.balsamiq.mockups::PointyButton" x="996" y="709" w="-1" h="-1" measuredW="219" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
       <controlProperties>
         <color>11982760</color>
         <text>Request%20invitation%20to%20Nurani%20Library</text>
@@ -119,6 +119,36 @@
     <control controlID="168" controlTypeID="com.balsamiq.mockups::Button" x="190" y="95" w="-1" h="-1" measuredW="54" measuredH="27" zOrder="17" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Login</text>
+      </controlProperties>
+    </control>
+    <control controlID="171" controlTypeID="com.balsamiq.mockups::Canvas" x="935" y="268" w="340" h="262" measuredW="100" measuredH="70" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>16777215</color>
+      </controlProperties>
+    </control>
+    <control controlID="172" controlTypeID="com.balsamiq.mockups::Label" x="951" y="283" w="-1" h="-1" measuredW="164" measuredH="24" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Participating%20in%20Nurani</text>
+      </controlProperties>
+    </control>
+    <control controlID="173" controlTypeID="com.balsamiq.mockups::Paragraph" x="951" y="377" w="300" h="103" measuredW="200" measuredH="80" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>Lorem%20ipsum%20dolor%20sit%20amet%2C%20consectetur%20adipisicing%20elit%2C%20sed%20do%20eiusmod%20tempor%20incididunt%20ut%20labore%20et%20dolore%20magna%20aliqua.%20Ut%20enim%20ad%20minim%20veniam%2C%20quis%20nostrud%20exercitation%20ullamco%20laboris%20nisi%20ut%20aliquip%20ex%20ea%20commodo%20consequat.%20Duis%20aute%20irure%20dolor%20in%20reprehenderit%20in%20voluptate%20velit%20esse%20cillum%20dolore%20eu%20fugiat%20nulla%20pariatur.%20Excepteur%20sint%20occaecat%20cupidatat%20non%20proident%2C%20sunt%20in%20culpa%20qui%20officia%20deserunt%20mollit%20anim%20id%20est%20laborum.</text>
+      </controlProperties>
+    </control>
+    <control controlID="174" controlTypeID="com.balsamiq.mockups::PointyButton" x="996" y="488" w="218" h="-1" measuredW="200" measuredH="27" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>11982760</color>
+        <text>Request%20invitation%20to%20participate</text>
+      </controlProperties>
+    </control>
+    <control controlID="175" controlTypeID="com.balsamiq.mockups::Paragraph" x="951" y="317" w="300" h="51" measuredW="200" measuredH="80" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>New%20to%20Nurani%20or%20unsure%20about%20participating%3F%20%20The%20%5BSROnline%20community%5D%20may%20be%20a%20good%20fit.%20%20Lorem%20ipsum%20dolor%20sit%20amet%2C%20consectetur%20adipisicing%20elit%2C%20sed%20do%20eiusmod%20tempor%20incididunt%20ut%20labore%20et%20dolore%20magna%20aliqua.%20Ut%20enim%20ad%20minim%20veniam%2C%20quis%20nostrud%20exercitation%20ullamco%20laboris%20nisi%20ut%20aliquip%20ex%20ea%20commodo%20consequat.%20Duis%20aute%20irure%20dolor%20in%20reprehenderit%20in%20voluptate%20velit%20esse%20cillum%20dolore%20eu%20fugiat%20nulla%20pariatur.%20Excepteur%20sint%20occaecat%20cupidatat%20non%20proident%2C%20sunt%20in%20culpa%20qui%20officia%20deserunt%20mollit%20anim%20id%20est%20laborum.</text>
       </controlProperties>
     </control>
   </controls>

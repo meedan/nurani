@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" measuredW="1340" measuredH="866" mockupW="1200" mockupH="863">
+<mockup version="1.0" skin="sketch" measuredW="1340" measuredH="866" mockupW="1320" mockupH="863">
   <controls>
     <control controlID="20" controlTypeID="com.balsamiq.mockups::Webcam" x="1116" y="319" w="144" h="146" measuredW="177" measuredH="146" zOrder="3" locked="false" isInGroup="-1"/>
     <control controlID="22" controlTypeID="com.balsamiq.mockups::Paragraph" x="950" y="320" w="157" h="199" measuredW="200" measuredH="80" zOrder="4" locked="false" isInGroup="-1">
@@ -199,11 +199,11 @@
         <color>16777215</color>
       </controlProperties>
     </control>
-    <control controlID="92" controlTypeID="com.balsamiq.mockups::Label" x="222" y="283" w="-1" h="-1" measuredW="100" measuredH="24" zOrder="23" locked="false" isInGroup="-1">
+    <control controlID="92" controlTypeID="com.balsamiq.mockups::Label" x="222" y="283" w="-1" h="-1" measuredW="261" measuredH="24" zOrder="23" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>true</bold>
         <size>16</size>
-        <text>Text%20Bundles</text>
+        <text>Text%20bundles%20from%20your%20discussions</text>
       </controlProperties>
     </control>
     <control controlID="97" controlTypeID="com.balsamiq.mockups::ButtonBar" x="604" y="94" w="-1" h="-1" measuredW="272" measuredH="29" zOrder="24" locked="false" isInGroup="-1">
@@ -241,7 +241,7 @@
       <controlProperties>
         <bold>true</bold>
         <size>14</size>
-        <text>%5BGenesis%2038%3A6-26%3B%20John%208%3A2-11%5D</text>
+        <text>%5BGenesis%2038%3A6-26%5D</text>
       </controlProperties>
     </control>
     <control controlID="119" controlTypeID="com.balsamiq.mockups::PointyButton" x="457" y="315" w="-1" h="-1" measuredW="75" measuredH="27" zOrder="31" locked="false" isInGroup="-1">
@@ -278,7 +278,12 @@
     <control controlID="129" controlTypeID="com.balsamiq.mockups::Paragraph" x="222" y="406" w="227" h="19" measuredW="200" measuredH="80" zOrder="36" locked="false" isInGroup="-1">
       <controlProperties>
         <align>left</align>
-        <text>Discussion%20%5BWomen%20and%20Equality%5D</text>
+        <text>Discussion%20%5BWater%20%28Group%209%29%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="130" controlTypeID="com.balsamiq.mockups::StickyNote" x="20" y="315" w="162" h="312" measuredW="109" measuredH="123" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Note%20that%20text%20bundles%20listed%20here%20will%20reflect%20the%20current%20visibility%20status%20of%20the%20discussion%20they%20belong%20to%20%28eg%3A%20if%20only%20the%20first%20text%20is%20visible%20in%20the%20discussion%20then%20the%20other%20two%20will%20NOT%20be%20downloadable%20here%29.%0A%20%0AAlso%20note%2C%20only%20text%20bundles%20associated%20with%20discussions%20you%20have%20participated%20in%20will%20be%20downloadable%20here.</text>
       </controlProperties>
     </control>
   </controls>
