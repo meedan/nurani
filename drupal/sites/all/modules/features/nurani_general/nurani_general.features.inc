@@ -25,3 +25,10 @@ function nurani_general_ctools_plugin_api() {
     return array("version" => "1");
   }
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function nurani_general_views_api() {
+  return array("version" => "3.0");
+}
