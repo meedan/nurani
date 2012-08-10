@@ -141,15 +141,6 @@ function nurani_core_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: delete terms in 2.
-  $permissions['delete terms in 2'] = array(
-    'name' => 'delete terms in 2',
-    'roles' => array(
-      0 => 'moderator',
-    ),
-    'module' => 'taxonomy',
-  );
-
   // Exported permission: edit any bundle content.
   $permissions['edit any bundle content'] = array(
     'name' => 'edit any bundle content',
@@ -210,15 +201,6 @@ function nurani_core_user_default_permissions() {
     'roles' => array(
       0 => 'administrator',
       1 => 'moderator',
-    ),
-    'module' => 'taxonomy',
-  );
-
-  // Exported permission: edit terms in 2.
-  $permissions['edit terms in 2'] = array(
-    'name' => 'edit terms in 2',
-    'roles' => array(
-      0 => 'moderator',
     ),
     'module' => 'taxonomy',
   );
