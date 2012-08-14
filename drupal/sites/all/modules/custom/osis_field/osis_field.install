@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Implements hook_field_schema().
+ */
+function osis_field_field_schema($field) {
+  switch ($field['type']) {
+    case 'osis_field':
+      $columns = array(
+        'osisIDWork' => array(
+          'type' => 'varchar',
+          'length' => 64,
+          'not null' => FALSE,
+          'description' => t("The OSIS work this passage is from (eg: kjv, wlc)."),
+        ),
+        'osisID' => array(
+          'type' => 'varchar',
+          'length' => 64,
+          'not null' => FALSE,
+          'description' => t("The OSIS identifier for this passage (eg: 'Gen.1.1' or 'John.3.16')."),
+        ),
+      );
+      break;
+  }
+  return array(
+    'columns' => $columns,
+  );
+}

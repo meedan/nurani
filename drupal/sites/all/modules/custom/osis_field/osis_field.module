@@ -1,0 +1,349 @@
+<?php
+
+// TODO: Build an autocompleter / picker widget type (low priority).
+
+// Ex:
+// *  Gen.1.1               Book + CH + Verse
+// *  Gen.1.1-8             Book + CH + Verse Range
+// *  Tob.1.1               Apocryphal book
+// *  Quran.21.1            Quran Sura #21, Aya #1
+
+// Not allowed (short forms):
+// *  Gen                   Book
+// *  Gen.1                 Book + CH
+
+require_once dirname(__FILE__) . '/osis_field.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function osis_field_menu() {
+  $items = array();
+  $items['admin/structure/osis-field'] = array(
+    'title' => 'OSIS Texts',
+    'description' => 'Manage the texts available to OSIS fields.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('osis_field_texts_form'),
+    'access arguments' => array('administer content types'),
+    'file' => 'osis_field.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function osis_field_theme($existing, $type, $theme, $path) {
+  return array(
+    'osis_field_texts_form_table' => array(
+      'render element' => 'element',
+      'file' => 'osis_field.admin.inc',
+      // 'variables' => array('element' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_info().
+ */
+function osis_field_field_info() {
+  return array(
+    'osis_field' => array(
+      'label' => t('OSIS Identifier'),
+      'description' => t('This field stores an OSIS Identifier.'),
+      'instance_settings' => array(/*'min' => '', 'max' => '', 'prefix' => '', 'suffix' => ''*/),
+      'default_widget' => 'osis_field_text',
+      'default_formatter' => 'osis_field',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_settings_form().
+ */
+function osis_field_field_settings_form($field, $instance, $has_data) {
+  $settings = $field['settings'];
+  $form = array();
+
+  if ($field['type'] == 'osis_field') {
+    $form['texts'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Texts'),
+      '#options' => osis_field_text_options(),
+      '#default_value' => $settings['texts'],
+      '#description' => t('Limit which texts can be referenced by this field.'),
+      '#required' => TRUE,
+      '#disabled' => $has_data,
+    );
+  }
+
+  return $form;
+}
+
+/**
+ * Implements hook_field_instance_settings_form().
+ */
+function osis_field_field_instance_settings_form($field, $instance) {
+  $settings = $instance['settings'];
+
+  $form = array();
+  // $form['min'] = array(
+  //   '#type' => 'textfield',
+  //   '#title' => t('Minimum'),
+  //   '#default_value' => $settings['min'],
+  //   '#description' => t('The minimum value that should be allowed in this field. Leave blank for no minimum.'),
+  //   '#element_validate' => array('element_validate_osis_field'),
+  // );
+  // $form['max'] = array(
+  //   '#type' => 'textfield',
+  //   '#title' => t('Maximum'),
+  //   '#default_value' => $settings['max'],
+  //   '#description' => t('The maximum value that should be allowed in this field. Leave blank for no maximum.'),
+  //   '#element_validate' => array('element_validate_osis_field'),
+  // );
+  // $form['prefix'] = array(
+  //   '#type' => 'textfield',
+  //   '#title' => t('Prefix'),
+  //   '#default_value' => $settings['prefix'],
+  //   '#size' => 60,
+  //   '#description' => t("Define a string that should be prefixed to the value, like '$ ' or '&euro; '. Leave blank for none. Separate singular and plural values with a pipe ('pound|pounds')."),
+  // );
+  // $form['suffix'] = array(
+  //   '#type' => 'textfield',
+  //   '#title' => t('Suffix'),
+  //   '#default_value' => $settings['suffix'],
+  //   '#size' => 60,
+  //   '#description' => t("Define a string that should be suffixed to the value, like ' m', ' kb/s'. Leave blank for none. Separate singular and plural values with a pipe ('pound|pounds')."),
+  // );
+
+  return $form;
+}
+
+/**
+ * Implements hook_field_validate().
+ *
+ * Possible error codes:
+ * - 'osis_field_min': The value is less than the allowed minimum value.
+ * - 'osis_field_max': The value is greater than the allowed maximum value.
+ */
+function osis_field_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  foreach ($items as $delta => $item) {
+    if ($item['value'] != '') {
+      // TODO: Test $item['value'], ensure it is a valid osisID
+
+      // EXAMPLE ERROR
+      // $errors[$field['field_name']][$langcode][$delta][] = array(
+      //   'error' => 'osis_field_min',
+      //   'message' => t('%name: the value may be no less than %min.', array('%name' => $instance['label'], '%min' => $instance['settings']['min'])),
+      // );
+    }
+  }
+}
+
+/**
+ * Implements hook_field_presave().
+ */
+function osis_field_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  if ($field['type'] == 'osis_field') {
+    foreach ($items as $delta => $item) {
+      if (isset($item['value'])) {
+        // EXAMPLE PRESAVE FUNCTIONALITY
+        // $items[$delta]['value'] = round($item['value'], $field['settings']['scale']);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function osis_field_field_is_empty($item, $field) {
+  return empty($item['osisID']) && empty($item['osisIDWork']);
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function osis_field_field_formatter_info() {
+  return array(
+    'osis_field_default' => array(
+      'label' => t('Default'),
+      'field types' => array('osis_field'),
+      'settings' =>  array(
+        // 'thousand_separator' => ' ',
+        // 'decimal_separator' => '.',
+        // 'scale' => 0,
+        // 'prefix_suffix' => TRUE,
+      ),
+    ),
+    'osis_field_unformatted' => array(
+      'label' => t('Unformatted'),
+      'field types' => array('osis_field'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function osis_field_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  if ($display['type'] == 'osis_field') {
+    // $options = array(
+    //   ''  => t('<none>'),
+    //   '.' => t('Decimal point'),
+    //   ',' => t('Comma'),
+    //   ' ' => t('Space'),
+    // );
+    // $element['thousand_separator'] = array(
+    //   '#type' => 'select',
+    //   '#title' => t('Thousand marker'),
+    //   '#options' => $options,
+    //   '#default_value' => $settings['thousand_separator'],
+    // );
+    // $element['prefix_suffix'] = array(
+    //   '#type' => 'checkbox',
+    //   '#title' => t('Display prefix and suffix.'),
+    //   '#default_value' => $settings['prefix_suffix'],
+    // );
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function osis_field_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $summary = array();
+  if ($display['type'] == 'osis_field') {
+    // $summary[] = osis_field_format(1234.1234567890, $settings['scale'], $settings['decimal_separator'], $settings['thousand_separator']);
+    // if ($settings['prefix_suffix']) {
+    //   $summary[] = t('Display with prefix and suffix.');
+    // }
+  }
+
+  return implode('<br />', $summary);
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function osis_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  $settings = $display['settings'];
+
+  switch ($display['type']) {
+    case 'osis_field_default':
+      foreach ($items as $delta => $item) {
+        // $output = osis_field_format($item['value'], $settings['scale'], $settings['decimal_separator'], $settings['thousand_separator']);
+        // if ($settings['prefix_suffix']) {
+        //   $prefixes = isset($instance['settings']['prefix']) ? array_map('field_filter_xss', explode('|', $instance['settings']['prefix'])) : array('');
+        //   $suffixes = isset($instance['settings']['suffix']) ? array_map('field_filter_xss', explode('|', $instance['settings']['suffix'])) : array('');
+        //   $prefix = (count($prefixes) > 1) ? format_plural($item['value'], $prefixes[0], $prefixes[1]) : $prefixes[0];
+        //   $suffix = (count($suffixes) > 1) ? format_plural($item['value'], $suffixes[0], $suffixes[1]) : $suffixes[0];
+        //   $output = $prefix . $output . $suffix;
+        // }
+        // $element[$delta] = array('#markup' => $output);
+      }
+      break;
+
+    case 'osis_field_unformatted':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array('#markup' => $item['value']);
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function osis_field_field_widget_info() {
+  return array(
+    'osis_field_text' => array(
+      'label' => t('Text field'),
+      'field types' => array('osis_field'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function osis_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $value = isset($items[$delta]['value']) ? $items[$delta]['value'] : array('osisIDWork' => '', 'osisID' => '');
+
+  dpm($field['type']);
+
+  $element += array(
+    'osisIDWork' => array(
+      '#type' => 'select',
+      '#title' => t('Text'),
+      '#default_value' => $value['osisIDWork'],
+      '#options' => osis_field_text_options(),
+    ),
+    'osisID' => array(
+      '#type' => 'textfield',
+      '#default_value' => $value['osisID'],
+      '#size' => 16,
+      '#maxlength' => 64,
+    ),
+  );
+
+  // Add prefix and suffix.
+  if (!empty($instance['settings']['prefix'])) {
+    $prefixes = explode('|', $instance['settings']['prefix']);
+    $element['#field_prefix'] = field_filter_xss(array_pop($prefixes));
+  }
+  if (!empty($instance['settings']['suffix'])) {
+    $suffixes = explode('|', $instance['settings']['suffix']);
+    $element['#field_suffix'] = field_filter_xss(array_pop($suffixes));
+  }
+
+  $element['#element_validate'][] = 'osis_field_field_widget_validate';
+
+  return array('value' => $element);
+}
+
+/**
+ * FAPI validation of an individual osis_field element.
+ */
+function osis_field_field_widget_validate($element, &$form_state) {
+  dpm(array($element, $form_state), '$element, $form_state');
+  $field = field_widget_field($element, $form_state);
+  $instance = field_widget_instance($element, $form_state);
+
+  dpm(array($field, $instance), '$field, $instance');
+  $value = array(
+    'osisIDWork'  => $element['osisIDWork']['#value'],
+    'osisID' => $element['osisID']['#value'],
+  );
+
+  if (!empty($value['osisIDWork']) && !empty($value['osisID'])) {
+    // TODO: Validate the osisID.
+    // $regexp = '@([^-0-9\\' . $field['settings']['decimal_separator'] . '])|(.-)@';
+    // $message = t('Only osis_fields and the decimal separator (@separator) allowed in %field.', array('%field' => $instance['label'], '@separator' => $field['settings']['decimal_separator']));
+
+    // if ($value != preg_replace($regexp, '', $value)) {
+    //   form_error($element, $message);
+    // }
+    // else {
+      form_set_value($element, $value, $form_state);
+    // }
+  }
+}
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function osis_field_field_widget_error($element, $error, $form, &$form_state) {
+  form_error($element['value'], $error['message']);
+}
