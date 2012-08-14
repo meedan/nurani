@@ -10,7 +10,7 @@
 function nurani_core_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_passage_collection-field_moderator_s_thoughts'
+  // Exported field: 'field_collection_item-field_passage_collection-field_moderator_s_thoughts'.
   $fields['field_collection_item-field_passage_collection-field_moderator_s_thoughts'] = array(
     'field_config' => array(
       'active' => '1',
@@ -31,6 +31,7 @@ function nurani_core_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -70,7 +71,7 @@ function nurani_core_field_default_fields() {
     ),
   );
 
-  // Exported field: 'field_collection_item-field_passage_collection-field_passage'
+  // Exported field: 'field_collection_item-field_passage_collection-field_passage'.
   $fields['field_collection_item-field_passage_collection-field_passage'] = array(
     'field_config' => array(
       'active' => '1',
@@ -78,35 +79,19 @@ function nurani_core_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_passage',
-      'foreign keys' => array(
-        'nid' => array(
-          'columns' => array(
-            'nid' => 'nid',
-          ),
-          'table' => 'node',
-        ),
-      ),
-      'indexes' => array(
-        'nid' => array(
-          0 => 'nid',
-        ),
-      ),
-      'module' => 'node_reference',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'osis_field',
       'settings' => array(
-        'referenceable_types' => array(
-          'bundle' => 0,
-          'discussion' => 0,
-          'page' => 0,
-          'passage' => 'passage',
-        ),
-        'view' => array(
-          'args' => array(),
-          'display_name' => '',
-          'view_name' => '',
+        'texts' => array(
+          'niv' => 0,
+          'nkjv' => 'nkjv',
+          'wlc' => 'wlc',
         ),
       ),
       'translatable' => '0',
-      'type' => 'node_reference',
+      'type' => 'osis_field',
     ),
     'field_instance' => array(
       'bundle' => 'field_passage_collection',
@@ -116,10 +101,10 @@ function nurani_core_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'node_reference',
+          'module' => NULL,
           'settings' => array(),
-          'type' => 'node_reference_default',
-          'weight' => 0,
+          'type' => 'osis_field',
+          'weight' => 2,
         ),
       ),
       'entity_type' => 'field_collection_item',
@@ -130,20 +115,16 @@ function nurani_core_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'node_reference',
-        'settings' => array(
-          'autocomplete_match' => 'contains',
-          'autocomplete_path' => 'node_reference/autocomplete',
-          'size' => '60',
-        ),
-        'type' => 'node_reference_autocomplete',
-        'weight' => '1',
+        'active' => 0,
+        'module' => 'osis_field',
+        'settings' => array(),
+        'type' => 'osis_field_text',
+        'weight' => '3',
       ),
     ),
   );
 
-  // Exported field: 'node-bundle-body'
+  // Exported field: 'node-bundle-body'.
   $fields['node-bundle-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -166,6 +147,7 @@ function nurani_core_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -215,7 +197,7 @@ function nurani_core_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-bundle-field_passage_collection'
+  // Exported field: 'node-bundle-field_passage_collection'.
   $fields['node-bundle-field_passage_collection'] = array(
     'field_config' => array(
       'active' => '1',
@@ -225,6 +207,7 @@ function nurani_core_field_default_fields() {
       'field_name' => 'field_passage_collection',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'field_collection',
       'settings' => array(
         'path' => '',
@@ -275,7 +258,7 @@ function nurani_core_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-discussion-body'
+  // Exported field: 'node-discussion-body'.
   $fields['node-discussion-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -298,6 +281,7 @@ function nurani_core_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -347,7 +331,7 @@ function nurani_core_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-discussion-field_bundle'
+  // Exported field: 'node-discussion-field_bundle'.
   $fields['node-discussion-field_bundle'] = array(
     'field_config' => array(
       'active' => '1',
@@ -368,6 +352,7 @@ function nurani_core_field_default_fields() {
           0 => 'nid',
         ),
       ),
+      'locked' => '0',
       'module' => 'node_reference',
       'settings' => array(
         'referenceable_types' => array(
@@ -426,7 +411,7 @@ function nurani_core_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-discussion-field_discussion_closing_date'
+  // Exported field: 'node-discussion-field_discussion_closing_date'.
   $fields['node-discussion-field_discussion_closing_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -436,6 +421,7 @@ function nurani_core_field_default_fields() {
       'field_name' => 'field_discussion_closing_date',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'cache_count' => '4',
@@ -508,7 +494,7 @@ function nurani_core_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-discussion-field_invitees'
+  // Exported field: 'node-discussion-field_invitees'.
   $fields['node-discussion-field_invitees'] = array(
     'field_config' => array(
       'active' => '1',
@@ -529,6 +515,7 @@ function nurani_core_field_default_fields() {
           0 => 'uid',
         ),
       ),
+      'locked' => '0',
       'module' => 'user_reference',
       'settings' => array(
         'referenceable_roles' => array(
@@ -590,77 +577,6 @@ function nurani_core_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-passage-body'
-  $fields['node-passage-body'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(
-        0 => 'node',
-      ),
-      'field_name' => 'body',
-      'foreign keys' => array(
-        'format' => array(
-          'columns' => array(
-            'format' => 'format',
-          ),
-          'table' => 'filter_format',
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'module' => 'text',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'text_with_summary',
-    ),
-    'field_instance' => array(
-      'bundle' => 'passage',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'hidden',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'hidden',
-          'module' => 'text',
-          'settings' => array(
-            'trim_length' => 600,
-          ),
-          'type' => 'text_summary_or_trimmed',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'body',
-      'label' => 'Body',
-      'required' => FALSE,
-      'settings' => array(
-        'display_summary' => TRUE,
-        'text_processing' => 1,
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'module' => 'text',
-        'settings' => array(
-          'rows' => 20,
-          'summary_rows' => 5,
-        ),
-        'type' => 'text_textarea_with_summary',
-        'weight' => 31,
-      ),
-    ),
-  );
 
   // Translatables
   // Included for use with string extractors like potx.

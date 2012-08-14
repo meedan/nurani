@@ -58,15 +58,6 @@ function nurani_core_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: create passage content.
-  $permissions['create passage content'] = array(
-    'name' => 'create passage content',
-    'roles' => array(
-      0 => 'moderator',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: create url aliases.
   $permissions['create url aliases'] = array(
     'name' => 'create url aliases',
@@ -95,15 +86,6 @@ function nurani_core_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: delete any passage content.
-  $permissions['delete any passage content'] = array(
-    'name' => 'delete any passage content',
-    'roles' => array(
-      0 => 'moderator',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: delete own bundle content.
   $permissions['delete own bundle content'] = array(
     'name' => 'delete own bundle content',
@@ -116,15 +98,6 @@ function nurani_core_user_default_permissions() {
   // Exported permission: delete own discussion content.
   $permissions['delete own discussion content'] = array(
     'name' => 'delete own discussion content',
-    'roles' => array(
-      0 => 'moderator',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: delete own passage content.
-  $permissions['delete own passage content'] = array(
-    'name' => 'delete own passage content',
     'roles' => array(
       0 => 'moderator',
     ),
@@ -159,15 +132,6 @@ function nurani_core_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: edit any passage content.
-  $permissions['edit any passage content'] = array(
-    'name' => 'edit any passage content',
-    'roles' => array(
-      0 => 'moderator',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: edit own bundle content.
   $permissions['edit own bundle content'] = array(
     'name' => 'edit own bundle content',
@@ -180,15 +144,6 @@ function nurani_core_user_default_permissions() {
   // Exported permission: edit own discussion content.
   $permissions['edit own discussion content'] = array(
     'name' => 'edit own discussion content',
-    'roles' => array(
-      0 => 'moderator',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: edit own passage content.
-  $permissions['edit own passage content'] = array(
-    'name' => 'edit own passage content',
     'roles' => array(
       0 => 'moderator',
     ),

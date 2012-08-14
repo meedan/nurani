@@ -35,14 +35,6 @@ function nurani_core_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
-    'passage' => array(
-      'name' => t('Passage'),
-      'base' => 'node_content',
-      'description' => '',
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
   );
   return $items;
 }
