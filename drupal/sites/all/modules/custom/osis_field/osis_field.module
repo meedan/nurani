@@ -1,6 +1,6 @@
 <?php
 
-// TODO: Build an autocompleter / picker widget type (low priority).
+// TODO: .
 
 // Ex:
 // *  Gen.1.1               Book + CH + Verse
@@ -11,6 +11,8 @@
 // Not allowed (short forms):
 // *  Gen                   Book
 // *  Gen.1                 Book + CH
+
+// TODO: Build an autocompleter / picker widget type (low priority).
 
 require_once dirname(__FILE__) . '/osis_field.inc';
 
@@ -42,6 +44,12 @@ function osis_field_theme($existing, $type, $theme, $path) {
     'osis_field' => array(
       'render element' => 'element',
     ),
+    'osis_field_formatter_osis_field_default' => array(
+      'variables' => array('item' => NULL),
+    ),
+    'osis_field_formatter_osis_field_plain' => array(
+      'variables' => array('item' => NULL),
+    ),
   );
 }
 
@@ -52,8 +60,7 @@ function osis_field_field_info() {
   return array(
     'osis_field' => array(
       'label' => t('OSIS Identifier'),
-      'description' => t('This field stores an OSIS Identifier.'),
-      'multiple values' => FIELD_BEHAVIOR_DEFAULT,
+      'description' => t('Store an OSIS identifier in the database.'),
       'default_widget' => 'osis_field',
       'default_formatter' => 'osis_field',
     ),
@@ -96,28 +103,6 @@ function osis_field_field_instance_settings_form($field, $instance) {
   //   '#description' => t('The minimum value that should be allowed in this field. Leave blank for no minimum.'),
   //   '#element_validate' => array('element_validate_osis_field'),
   // );
-  // $form['max'] = array(
-  //   '#type' => 'textfield',
-  //   '#title' => t('Maximum'),
-  //   '#default_value' => $settings['max'],
-  //   '#description' => t('The maximum value that should be allowed in this field. Leave blank for no maximum.'),
-  //   '#element_validate' => array('element_validate_osis_field'),
-  // );
-  // $form['prefix'] = array(
-  //   '#type' => 'textfield',
-  //   '#title' => t('Prefix'),
-  //   '#default_value' => $settings['prefix'],
-  //   '#size' => 60,
-  //   '#description' => t("Define a string that should be prefixed to the value, like '$ ' or '&euro; '. Leave blank for none. Separate singular and plural values with a pipe ('pound|pounds')."),
-  // );
-  // $form['suffix'] = array(
-  //   '#type' => 'textfield',
-  //   '#title' => t('Suffix'),
-  //   '#default_value' => $settings['suffix'],
-  //   '#size' => 60,
-  //   '#description' => t("Define a string that should be suffixed to the value, like ' m', ' kb/s'. Leave blank for none. Separate singular and plural values with a pipe ('pound|pounds')."),
-  // );
-
   return $form;
 }
 
@@ -165,6 +150,7 @@ function osis_field_field_widget_info() {
     'osis_field' => array(
       'label' => t('Text field'),
       'field types' => array('osis_field'),
+      'multiple values' => FIELD_BEHAVIOR_DEFAULT,
     ),
   );
 }
@@ -173,7 +159,6 @@ function osis_field_field_widget_info() {
  * Implements hook_field_widget_form().
  */
 function osis_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-  dpm($instance['widget']['type'], 'type');
   $element += array(
     '#type' => $instance['widget']['type'],
     '#default_value' => isset($items[$delta]) ? $items[$delta] : '',
@@ -189,6 +174,37 @@ function _osis_field_process(&$item, $delta = 0, $field, $entity) {
   $item['osisIDWork'] = trim($item['osisIDWork']);
   $item['osisID'] = trim($item['osisID']);
 }
+
+/**
+ * Cleanup user-entered values for a osis_field field according to field settings.
+ *
+ * @param $item
+ *   A single osis_field item, usually containing url, title, and attributes.
+ * @param $delta
+ *   The delta value if this field is one of multiple fields.
+ * @param $field
+ *   The CCK field definition.
+ * @param $node
+ *   The node containing this osis_field.
+ */
+function _osis_field_sanitize(&$item, $delta, &$field, $instance, &$node) {
+  // // Replace URL tokens.
+  // if (isset($instance['settings']['enable_tokens']) && $instance['settings']['enable_tokens']) {
+  //   global $user;
+  //   // Load the node if necessary for nodes in views.
+  //   $token_node = isset($node->nid) ? node_load($node->nid) : $node;
+  //   $item['url'] = token_replace($item['url'], array('node' => $token_node));
+  // }
+
+  // $type = osis_field_validate_url($item['url']);
+  // // If we can't determine the type of url, and we've been told not to validate it,
+  // // then we assume it's a LINK_EXTERNAL type for later processing. #357604
+  // if ($type == FALSE && $instance['settings']['validate_url'] === 0) {
+  //   $type = LINK_EXTERNAL;
+  // }
+  // $url = osis_field_cleanup_url($item['url']);
+}
+
 
 /**
  * Validates that the osis_field field has been entered properly.
@@ -237,7 +253,7 @@ function osis_field_element_info() {
   $elements = array();
   $elements['osis_field'] =  array(
     '#input' => TRUE,
-    '#process' => array('osis_field_process'),
+    '#process' => array('osis_field_field_process'),
     '#theme' => 'osis_field',
     '#theme_wrappers' => array('form_element'),
   );
@@ -252,8 +268,7 @@ function osis_field_element_info() {
  *
  * The $fields array is in $complete_form['#field_info'][$element['#field_name']].
  */
-function osis_field_process($element, $form_state) {
-  dpm(array($element, $form_state));
+function osis_field_field_process($element, $form_state) {
   $instance = field_widget_instance($element, $form_state);
   $settings = $instance['settings'];
 
@@ -285,7 +300,8 @@ function theme_osis_field($vars) {
   $element = $vars['element'];
 
   $output = '';
-  $output .= drupal_render($element);
+  $output .= drupal_render($element['osisIDWork']);
+  $output .= drupal_render($element['osisID']);
   return $output;
 }
 
@@ -363,30 +379,33 @@ function osis_field_field_formatter_settings_summary($field, $instance, $view_mo
  * Implements hook_field_formatter_view().
  */
 function osis_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
-  $element = array();
-  $settings = $display['settings'];
-
-  switch ($display['type']) {
-    case 'osis_field_default':
-      foreach ($items as $delta => $item) {
-        // $output = osis_field_format($item['value'], $settings['scale'], $settings['decimal_separator'], $settings['thousand_separator']);
-        // if ($settings['prefix_suffix']) {
-        //   $prefixes = isset($instance['settings']['prefix']) ? array_map('field_filter_xss', explode('|', $instance['settings']['prefix'])) : array('');
-        //   $suffixes = isset($instance['settings']['suffix']) ? array_map('field_filter_xss', explode('|', $instance['settings']['suffix'])) : array('');
-        //   $prefix = (count($prefixes) > 1) ? format_plural($item['value'], $prefixes[0], $prefixes[1]) : $prefixes[0];
-        //   $suffix = (count($suffixes) > 1) ? format_plural($item['value'], $suffixes[0], $suffixes[1]) : $suffixes[0];
-        //   $output = $prefix . $output . $suffix;
-        // }
-        // $element[$delta] = array('#markup' => $output);
-      }
-      break;
-
-    case 'osis_field_unformatted':
-      foreach ($items as $delta => $item) {
-        $element[$delta] = array('#markup' => $item['value']);
-      }
-      break;
+  $elements = array();
+  foreach ($items as $delta => $item) {
+    $elements[$delta] = array(
+      '#markup' => theme('osis_field_formatter_'. $display['type'], array('item' => $item, 'field' => $instance)),
+    );
   }
+  return $elements;
+}
 
-  return $element;
+/**
+ * Theme function for 'Default' field formatter.
+ */
+function theme_osis_field_formatter_osis_field_default($variables) {
+  $item = $variables['item'];
+
+  // TODO: Make the default formatter more meaningful.
+  $output = '';
+  $output .= '<strong>Work:</strong> <span class="osisIDWork">' . $item['osisIDWork'] . '</span> ';
+  $output .= '<strong>OSIS identifier:</strong> <span class="osisID">' . $item['osisID'] . '</span>';
+
+  return $output;
+}
+
+/**
+ * Theme function for 'Unfomatted' field formatter.
+ */
+function theme_osis_field_formatter_osis_field_unformatted($variables) {
+  $item = $variables['item'];
+  return $item['osisIDWork'] . ':' . $item['osisID'];
 }
