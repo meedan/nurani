@@ -118,7 +118,7 @@ function nurani_core_field_default_fields() {
         'active' => 0,
         'module' => 'osis_field',
         'settings' => array(),
-        'type' => 'osis_field_text',
+        'type' => 'osis_field',
         'weight' => '3',
       ),
     ),

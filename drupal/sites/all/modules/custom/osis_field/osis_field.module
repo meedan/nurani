@@ -38,7 +38,9 @@ function osis_field_theme($existing, $type, $theme, $path) {
     'osis_field_texts_form_table' => array(
       'render element' => 'element',
       'file' => 'osis_field.admin.inc',
-      // 'variables' => array('element' => NULL),
+    ),
+    'osis_field' => array(
+      'render element' => 'element',
     ),
   );
 }
@@ -52,7 +54,7 @@ function osis_field_field_info() {
       'label' => t('OSIS Identifier'),
       'description' => t('This field stores an OSIS Identifier.'),
       'multiple values' => FIELD_BEHAVIOR_DEFAULT,
-      'default_widget' => 'osis_field_text',
+      'default_widget' => 'osis_field',
       'default_formatter' => 'osis_field',
     ),
   );
@@ -160,7 +162,7 @@ function osis_field_field_prepare_view($entity_type, $entities, $field, $instanc
  */
 function osis_field_field_widget_info() {
   return array(
-    'osis_field_text' => array(
+    'osis_field' => array(
       'label' => t('Text field'),
       'field types' => array('osis_field'),
     ),
@@ -171,37 +173,11 @@ function osis_field_field_widget_info() {
  * Implements hook_field_widget_form().
  */
 function osis_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-  $value = isset($items[$delta]['value']) ? $items[$delta]['value'] : array('osisIDWork' => '', 'osisID' => '');
-
-  dpm($field['type']);
-
+  dpm($instance['widget']['type'], 'type');
   $element += array(
-    'osisIDWork' => array(
-      '#type' => 'select',
-      '#title' => t('Text'),
-      '#default_value' => $value['osisIDWork'],
-      '#options' => osis_field_text_options(),
-    ),
-    'osisID' => array(
-      '#type' => 'textfield',
-      '#default_value' => $value['osisID'],
-      '#size' => 16,
-      '#maxlength' => 64,
-    ),
+    '#type' => $instance['widget']['type'],
+    '#default_value' => isset($items[$delta]) ? $items[$delta] : '',
   );
-
-  // // Add prefix and suffix.
-  // if (!empty($instance['settings']['prefix'])) {
-  //   $prefixes = explode('|', $instance['settings']['prefix']);
-  //   $element['#field_prefix'] = field_filter_xss(array_pop($prefixes));
-  // }
-  // if (!empty($instance['settings']['suffix'])) {
-  //   $suffixes = explode('|', $instance['settings']['suffix']);
-  //   $element['#field_suffix'] = field_filter_xss(array_pop($suffixes));
-  // }
-
-  // $element['#element_validate'][] = 'osis_field_field_widget_validate';
-
   return $element;
 }
 
@@ -252,6 +228,65 @@ function _osis_field_validate(&$item, $delta, $field, $node, $instance) {
   //   form_set_error($instance['field_name'] .'][0][title',
   //                  t('At least one title or URL must be entered.'));
   // }
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function osis_field_element_info() {
+  $elements = array();
+  $elements['osis_field'] =  array(
+    '#input' => TRUE,
+    '#process' => array('osis_field_process'),
+    '#theme' => 'osis_field',
+    '#theme_wrappers' => array('form_element'),
+  );
+  return $elements;
+}
+
+/**
+ * Process the osis_field type element before displaying the field.
+ *
+ * Build the form element. When creating a form using FAPI #process,
+ * note that $element['#value'] is already set.
+ *
+ * The $fields array is in $complete_form['#field_info'][$element['#field_name']].
+ */
+function osis_field_process($element, $form_state) {
+  dpm(array($element, $form_state));
+  $instance = field_widget_instance($element, $form_state);
+  $settings = $instance['settings'];
+
+  $element['osisIDWork'] = array(
+    '#type' => 'select',
+    '#title' => t('Work'),
+    '#default_value' => isset($element['#value']['osisIDWork']) ? $element['#value']['osisIDWork'] : NULL,
+    '#options' => osis_field_text_options(),
+    '#required' => TRUE,
+  );
+  $element['osisID'] = array(
+    '#type' => 'textfield',
+    '#title' => t('OSIS identifier'),
+    '#default_value' => isset($element['#value']['osisIDWork']) ? $element['#value']['osisIDWork'] : NULL,
+    '#size' => 16,
+    '#maxlength' => 64,
+    '#required' => TRUE,
+  );
+
+  return $element;
+}
+
+/**
+ * FAPI theme for an individual text elements.
+ */
+function theme_osis_field($vars) {
+  drupal_add_css(drupal_get_path('module', 'osis_field') .'/osis_field.css');
+
+  $element = $vars['element'];
+
+  $output = '';
+  $output .= drupal_render($element);
+  return $output;
 }
 
 /**
