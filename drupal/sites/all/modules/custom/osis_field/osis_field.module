@@ -1,17 +1,12 @@
 <?php
 
-// TODO: .
+// TODO: Validate entered osisID data, create an EASY API for validating osisID data.  Must take into account the work type (eg: incl. apocrypha).
+// TODO: Properly sanitize data before putting in the DB.
+// TODO: Also sanitize data before displaying on the screen!
 
-// Ex:
-// *  Gen.1.1               Book + CH + Verse
-// *  Gen.1.1-8             Book + CH + Verse Range
-// *  Tob.1.1               Apocryphal book
-// *  Quran.21.1            Quran Sura #21, Aya #1
 
-// Not allowed (short forms):
-// *  Gen                   Book
-// *  Gen.1                 Book + CH
-
+// ---- Low priority
+// TODO: Integrate the OSIS bible reference parser https://github.com/openbibleinfo/Bible-Passage-Reference-Parser.
 // TODO: Build an autocompleter / picker widget type (low priority).
 
 require_once dirname(__FILE__) . '/osis_field.inc';
@@ -210,6 +205,17 @@ function _osis_field_sanitize(&$item, $delta, &$field, $instance, &$node) {
  * Validates that the osis_field field has been entered properly.
  */
 function _osis_field_validate(&$item, $delta, $field, $node, $instance) {
+  // Ex:
+  // *  Gen.1.1               Book + CH + Verse
+  // *  Gen.1.1-8             Book + CH + Verse Range
+  // *  Tob.1.1               Apocryphal book
+  // *  Quran.21.1            Quran Sura #21, Aya #1
+
+  // Not allowed (short forms):
+  // *  Gen                   Book
+  // *  Gen.1                 Book + CH
+
+
   // if ($item['osisIDWork']
   //     && !(isset($instance['default_value'][$delta]['osisIDWork'])
   //     && $item['osisIDWork'] === $instance['default_value'][$delta]['uosisIDWorkrl']
@@ -314,10 +320,7 @@ function osis_field_field_formatter_info() {
       'label' => t('Default'),
       'field types' => array('osis_field'),
       'settings' =>  array(
-        // 'thousand_separator' => ' ',
-        // 'decimal_separator' => '.',
-        // 'scale' => 0,
-        // 'prefix_suffix' => TRUE,
+        // 'example_setting' => TRUE,
       ),
     ),
     'osis_field_unformatted' => array(
@@ -335,44 +338,15 @@ function osis_field_field_formatter_settings_form($field, $instance, $view_mode,
   $settings = $display['settings'];
 
   if ($display['type'] == 'osis_field') {
-    // $options = array(
-    //   ''  => t('<none>'),
-    //   '.' => t('Decimal point'),
-    //   ',' => t('Comma'),
-    //   ' ' => t('Space'),
-    // );
-    // $element['thousand_separator'] = array(
+    // $element['example_setting'] = array(
     //   '#type' => 'select',
-    //   '#title' => t('Thousand marker'),
-    //   '#options' => $options,
-    //   '#default_value' => $settings['thousand_separator'],
-    // );
-    // $element['prefix_suffix'] = array(
-    //   '#type' => 'checkbox',
-    //   '#title' => t('Display prefix and suffix.'),
-    //   '#default_value' => $settings['prefix_suffix'],
+    //   '#title' => t('Example setting'),
+    //   '#options' => array(1,2,3,4),
+    //   '#default_value' => $settings['example_setting'],
     // );
   }
 
   return $element;
-}
-
-/**
- * Implements hook_field_formatter_settings_summary().
- */
-function osis_field_field_formatter_settings_summary($field, $instance, $view_mode) {
-  $display = $instance['display'][$view_mode];
-  $settings = $display['settings'];
-
-  $summary = array();
-  if ($display['type'] == 'osis_field') {
-    // $summary[] = osis_field_format(1234.1234567890, $settings['scale'], $settings['decimal_separator'], $settings['thousand_separator']);
-    // if ($settings['prefix_suffix']) {
-    //   $summary[] = t('Display with prefix and suffix.');
-    // }
-  }
-
-  return implode('<br />', $summary);
 }
 
 /**
