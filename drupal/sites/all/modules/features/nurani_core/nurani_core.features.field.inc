@@ -128,6 +128,69 @@ function nurani_core_field_default_fields() {
     ),
   );
 
+  // Exported field: 'field_collection_item-field_passage_collection-field_visible'.
+  $fields['field_collection_item-field_passage_collection-field_visible'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_visible',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => '',
+          1 => '',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_passage_collection',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 3,
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_visible',
+      'label' => 'Is visible?',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '4',
+      ),
+    ),
+  );
+
   // Exported field: 'node-bundle-body'.
   $fields['node-bundle-body'] = array(
     'field_config' => array(
@@ -346,6 +409,7 @@ function nurani_core_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Body');
   t('Bundle');
+  t('Is visible?');
   t('Moderator\'s thoughts');
   t('Passage');
   t('Passage collection');
