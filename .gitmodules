@@ -1,3 +1,6 @@
 [submodule "nurani-library"]
 	path = nurani-library
 	url = git@github.com:meedan/meedan-nurani-library.git
+[submodule "drupal/sites/all/modules/meedan/meedan_discussion_core"]
+	path = drupal/sites/all/modules/meedan/meedan_discussion_core
+	url = git@github.com:meedan/meedan_discussion_core.git
