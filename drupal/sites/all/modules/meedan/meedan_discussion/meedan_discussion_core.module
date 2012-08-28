@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Nurani Core feature.
+ */
+
+include_once 'meedan_discussion_core.features.inc';
