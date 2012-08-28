@@ -1,0 +1,7 @@
+name = Meedan Discussion: Lock
+description = Enables opening / closing the discussion on a given date.
+core = 7.x
+package = Meedan
+version = 7.x-1.0
+dependencies[] = meedan_discussion
+dependencies[] = date
