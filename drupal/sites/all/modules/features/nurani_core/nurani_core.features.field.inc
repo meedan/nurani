@@ -66,7 +66,7 @@ function nurani_core_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '2',
+        'weight' => '1',
       ),
     ),
   );
@@ -123,7 +123,7 @@ function nurani_core_field_default_fields() {
         'module' => 'osis_field',
         'settings' => array(),
         'type' => 'osis_field',
-        'weight' => '3',
+        'weight' => '0',
       ),
     ),
   );
@@ -186,7 +186,7 @@ function nurani_core_field_default_fields() {
           'display_label' => 1,
         ),
         'type' => 'options_onoff',
-        'weight' => '4',
+        'weight' => '2',
       ),
     ),
   );
