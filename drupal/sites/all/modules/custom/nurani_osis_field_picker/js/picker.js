@@ -21,7 +21,7 @@ Drupal.behaviors.nuraniOsisFieldPicker = {
  * Nurani Passage Picker class.
  */
 function Picker(element) {
-  this.$field = $(element);
+  this.$wrapper = $(element);
   this.init();
 
   return this;
@@ -29,29 +29,56 @@ function Picker(element) {
 
 Picker.prototype.init = function () {
   this.$pickButton = this.createPickButton();
-  this.$field.append(this.$pickButton);
+  this.$wrapper.append(this.$pickButton);
+
+  this.$dialog = this.createDialog();
+  this.$wrapper.append(this.$dialog);
 
   return this;
 };
 
 Picker.prototype.createPickButton = function () {
-  var that = this,
-      btn  = $('<input type="submit" name="pick" class="form-submit pick-button" value="' + Drupal.t('Select passage') + '" />');
+  var that    = this,
+      $button = $('<input type="submit" name="pick" class="form-submit pick-button" value="' + Drupal.t('Select passage') + '" />');
 
-  btn.click(function (e) {
+  $button.click(function (e) {
     that.pick();
     e.stopPropagation();
     return false;
   });
 
-  return btn;
-}
+  return $button;
+};
+
+Picker.prototype.createDialog = function () {
+  var that    = this,
+      // FIXME: This is not working! Some issue with jQuery UI and Drupal I think.
+      $dialog = $('.nurani-osis-field-picker-dialog:first', this.$wrapper).dialog({
+                  autoOpen: false,
+                  height: 300,
+                  width: 350,
+                  modal: true,
+                  buttons: {
+                    Done: function() {
+                      $(this).dialog('close');
+                    },
+                    Cancel: function() {
+                      $(this).dialog('close');
+                    }
+                  },
+                  close: function() {
+                    // TODO: Do things on close, like clear the state.
+                  }
+                });
+
+  return $dialog;
+};
 
 /**
  * Display the passage picker.
  */
 Picker.prototype.pick = function () {
-  alert('Display the passage picker.');
+  this.$dialog.dialog('open');
 
   return this;
 };
