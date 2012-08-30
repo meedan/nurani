@@ -1,0 +1,14 @@
+name = Nurani Library API
+description = Services API endpoint for Nurani Library.
+core = 7.x
+package = Nurani Library
+php = 5.2.4
+version = 7.x-1.0
+project = nurani_library_api
+dependencies[] = ctools
+dependencies[] = rest_server
+dependencies[] = services
+dependencies[] = nurani_library_provider
+features[ctools][] = services:services:3
+features[features_api][] = api:1
+features[services_endpoint][] = api
