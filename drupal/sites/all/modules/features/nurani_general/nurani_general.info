@@ -12,6 +12,7 @@ dependencies[] = panels
 dependencies[] = page_manager
 dependencies[] = strongarm
 dependencies[] = views
+dependencies[] = nurani_osis_field_picker
 features[box][] = nurani_about_nurani
 features[box][] = nurani_welcome
 features[context][] = nurani_home

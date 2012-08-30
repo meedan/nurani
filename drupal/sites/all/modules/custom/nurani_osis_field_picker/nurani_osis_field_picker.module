@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_preprocess_osis_field().
+ */
+function nurani_osis_field_picker_preprocess_osis_field(&$vars) {
+  $path = drupal_get_path('module', 'nurani_osis_field_picker');
+
+  $vars['element']['osisID']['#attached']['css'][] = $path . '/css/picker.css';
+  $vars['element']['osisID']['#attached']['js'][]  = $path . '/js/picker.js';
+}
