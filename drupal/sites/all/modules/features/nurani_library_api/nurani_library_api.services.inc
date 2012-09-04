@@ -41,16 +41,16 @@ function nurani_library_api_default_services_endpoint() {
   );
   $endpoint->resources = array(
     'passage' => array(
+      'actions' => array(
+        'validate' => array(
+          'enabled' => 1,
+        ),
+      ),
       'operations' => array(
         'retrieve' => array(
           'enabled' => 1,
         ),
         'index' => array(
-          'enabled' => 1,
-        ),
-      ),
-      'actions' => array(
-        'validate' => array(
           'enabled' => 1,
         ),
       ),
@@ -73,7 +73,7 @@ function nurani_library_api_default_services_endpoint() {
       ),
     ),
   );
-  $endpoint->debug = 0;
+  $endpoint->debug = 1;
   $export['api'] = $endpoint;
 
   return $export;
