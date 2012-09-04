@@ -32,7 +32,6 @@ Picker.prototype.init = function () {
   this.$wrapper.append(this.$pickButton);
 
   this.$dialog = this.createDialog();
-  this.$wrapper.append(this.$dialog);
 
   return this;
 };
@@ -52,7 +51,6 @@ Picker.prototype.createPickButton = function () {
 
 Picker.prototype.createDialog = function () {
   var that    = this,
-      // FIXME: This is not working! Some issue with jQuery UI and Drupal I think.
       $dialog = $('.nurani-osis-field-picker-dialog:first', this.$wrapper).dialog({
                   autoOpen: false,
                   height: 300,
