@@ -65,15 +65,18 @@ function nurani_library_api_default_services_endpoint() {
         ),
       ),
     ),
-    'system' => array(
+    'user' => array(
       'actions' => array(
-        'connect' => array(
+        'login' => array(
+          'enabled' => 1,
+        ),
+        'logout' => array(
           'enabled' => 1,
         ),
       ),
     ),
   );
-  $endpoint->debug = 1;
+  $endpoint->debug = 0;
   $export['api'] = $endpoint;
 
   return $export;

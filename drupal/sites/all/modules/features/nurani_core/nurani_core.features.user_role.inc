@@ -10,6 +10,12 @@
 function nurani_core_user_default_roles() {
   $roles = array();
 
+  // Exported role: API.
+  $roles['API'] = array(
+    'name' => 'API',
+    'weight' => '3',
+  );
+
   // Exported role: moderator.
   $roles['moderator'] = array(
     'name' => 'moderator',

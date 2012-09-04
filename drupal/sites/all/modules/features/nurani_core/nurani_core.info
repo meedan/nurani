@@ -40,6 +40,7 @@ features[user_permission][] = edit any bundle content
 features[user_permission][] = edit own bundle content
 features[user_permission][] = edit terms in 1
 features[user_permission][] = view the administration theme
+features[user_role][] = API
 features[user_role][] = moderator
 features[variable][] = additional_settings__active_tab_bundle
 features[variable][] = additional_settings__active_tab_text_bundle
