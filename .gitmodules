@@ -7,3 +7,6 @@
 [submodule "drupal/sites/all/modules/meedan/meedan_devel"]
 	path = drupal/sites/all/modules/meedan/meedan_devel
 	url = git@github.com:meedan/meedan_devel.git
+[submodule "drupal/sites/all/themes/bowerbird"]
+	path = drupal/sites/all/themes/bowerbird
+	url = git@github.com:meedan/bowerbird.git
