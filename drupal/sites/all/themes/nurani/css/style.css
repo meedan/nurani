@@ -1,9 +1,0 @@
-@charset "UTF-8";
-
-/* This is just a placeholder for importing the rendered SCSS */
-/* All of the imports are centralized in core.css, which is rendered from nurani/scss */
-/* Don't edit any of the generated files, you can just add styles here is you need to override SCSS */ 
-
-@import url("../generated_css/core.css");
-
- 
