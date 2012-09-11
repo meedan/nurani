@@ -1,9 +1,9 @@
-name = Boilerplate
-description = "A Bower based Meedan child theme"
+name = Bowerbird Boilerplate
+description = "A Bowerbird based Meedan child theme"
 screenshot = screenshot.png
 core = "7.x"
 engine = phptemplate
-base theme = bower
+base theme = bowerbird
 
 ;; Put CSS properties here
 ; stylesheets[all][] = css/boilerplate.css

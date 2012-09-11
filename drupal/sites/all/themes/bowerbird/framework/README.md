@@ -1,4 +1,4 @@
-#Bower Compass Framework
+#Bowerbird Compass Framework
 
 Shared SCSS partials available to sub-themes.
 
@@ -6,4 +6,4 @@ Shared SCSS partials available to sub-themes.
 
 In your sub-theme's config.rb file include a line like this:
 
-    load '../bower/framework'
+    load '../bowerbird/framework'

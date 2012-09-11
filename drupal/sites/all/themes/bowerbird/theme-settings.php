@@ -1,7 +1,7 @@
 <?php
 
 // Form override fo theme settings
-function bower_form_system_theme_settings_alter(&$form, $form_state) {
+function bowerbird_form_system_theme_settings_alter(&$form, $form_state) {
 
   $form['options_settings'] = array(
     '#type' => 'fieldset',
@@ -9,60 +9,60 @@ function bower_form_system_theme_settings_alter(&$form, $form_state) {
     '#collapsible' => FALSE,
     '#collapsed' => FALSE
   );
-  $form['options_settings']['bower_tabs'] = array(
+  $form['options_settings']['bowerbird_tabs'] = array(
     '#type' => 'checkbox',
     '#title' =>  t('Use the ZEN tabs'),
     '#description'   => t('Check this if you wish to replace the default tabs by the ZEN tabs'),
-    '#default_value' => theme_get_setting('bower_tabs'),
+    '#default_value' => theme_get_setting('bowerbird_tabs'),
   );
   
-  $form['options_settings']['bower_breadcrumb'] = array(
+  $form['options_settings']['bowerbird_breadcrumb'] = array(
     '#type'          => 'fieldset',
     '#title'         => t('Breadcrumb settings'),
-    '#attributes'    => array('id' => 'bower-breadcrumb'),
+    '#attributes'    => array('id' => 'bowerbird-breadcrumb'),
   );
-  $form['options_settings']['bower_breadcrumb']['bower_breadcrumb'] = array(
+  $form['options_settings']['bowerbird_breadcrumb']['bowerbird_breadcrumb'] = array(
     '#type'          => 'select',
     '#title'         => t('Display breadcrumb'),
-    '#default_value' => theme_get_setting('bower_breadcrumb'),
+    '#default_value' => theme_get_setting('bowerbird_breadcrumb'),
     '#options'       => array(
                           'yes'   => t('Yes'),
                           'admin' => t('Only in admin section'),
                           'no'    => t('No'),
                         ),
   );
-  $form['options_settings']['bower_breadcrumb']['bower_breadcrumb_separator'] = array(
+  $form['options_settings']['bowerbird_breadcrumb']['bowerbird_breadcrumb_separator'] = array(
     '#type'          => 'textfield',
     '#title'         => t('Breadcrumb separator'),
     '#description'   => t('Text only. Don’t forget to include spaces.'),
-    '#default_value' => theme_get_setting('bower_breadcrumb_separator'),
+    '#default_value' => theme_get_setting('bowerbird_breadcrumb_separator'),
     '#size'          => 5,
     '#maxlength'     => 10,
-    '#prefix'        => '<div id="div-bower-breadcrumb-collapse">', // jquery hook to show/hide optional widgets
+    '#prefix'        => '<div id="div-bowerbird-breadcrumb-collapse">', // jquery hook to show/hide optional widgets
   );
-  $form['options_settings']['bower_breadcrumb']['bower_breadcrumb_home'] = array(
+  $form['options_settings']['bowerbird_breadcrumb']['bowerbird_breadcrumb_home'] = array(
     '#type'          => 'checkbox',
     '#title'         => t('Show home page link in breadcrumb'),
-    '#default_value' => theme_get_setting('bower_breadcrumb_home'),
+    '#default_value' => theme_get_setting('bowerbird_breadcrumb_home'),
   );
-  $form['options_settings']['bower_breadcrumb']['bower_breadcrumb_trailing'] = array(
+  $form['options_settings']['bowerbird_breadcrumb']['bowerbird_breadcrumb_trailing'] = array(
     '#type'          => 'checkbox',
     '#title'         => t('Append a separator to the end of the breadcrumb'),
-    '#default_value' => theme_get_setting('bower_breadcrumb_trailing'),
+    '#default_value' => theme_get_setting('bowerbird_breadcrumb_trailing'),
     '#description'   => t('Useful when the breadcrumb is placed just before the title.'),
   );
-  $form['options_settings']['bower_breadcrumb']['bower_breadcrumb_title'] = array(
+  $form['options_settings']['bowerbird_breadcrumb']['bowerbird_breadcrumb_title'] = array(
     '#type'          => 'checkbox',
     '#title'         => t('Append the content title to the end of the breadcrumb'),
-    '#default_value' => theme_get_setting('bower_breadcrumb_title'),
+    '#default_value' => theme_get_setting('bowerbird_breadcrumb_title'),
     '#description'   => t('Useful when the breadcrumb is not placed just before the title.'),
-    '#suffix'        => '</div>', // #div-bower-breadcrumb
+    '#suffix'        => '</div>', // #div-bowerbird-breadcrumb
   );
   
   $form['options_settings']['wireframe_mode'] = array(
     '#type' => 'checkbox',
     '#title' =>  t('Wireframe Mode - Display borders around main layout elements'),
-    '#description'   => t('<a href="!link">Wireframes</a> are useful when prototyping a website.', array('!link' => 'http://www.boxesandarrows.com/view/html_bower_and_prototypes_all_gain_and_no_pain')),
+    '#description'   => t('<a href="!link">Wireframes</a> are useful when prototyping a website.', array('!link' => 'http://www.boxesandarrows.com/view/html_bowerbird_and_prototypes_all_gain_and_no_pain')),
     '#default_value' => theme_get_setting('wireframe_mode'),
   );
   $form['options_settings']['clear_registry'] = array(

@@ -1,4 +1,4 @@
-name = Bower
+name = Bowerbird
 description = "The Meedan parent theme"
 screenshot = screenshot.png
 core = "7.x"
@@ -35,7 +35,7 @@ compass[status] = 1
 compass[sass_dir] = scss
 compass[css_dir] = css
 
-settings[bower_tabs] = 1
-settings[bower_breadcrumb_separator] = »
+settings[bowerbird_tabs] = 1
+settings[bowerbird_breadcrumb_separator] = »
 settings[wireframe_mode] = 0
 settings[clear_registry] = 0
