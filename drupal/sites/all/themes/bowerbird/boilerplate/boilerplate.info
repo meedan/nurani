@@ -1,0 +1,9 @@
+name = Boilerplate
+description = "A Bower based Meedan child theme"
+screenshot = screenshot.png
+core = "7.x"
+engine = phptemplate
+base theme = bower
+
+;; Put CSS properties here
+; stylesheets[all][] = css/boilerplate.css

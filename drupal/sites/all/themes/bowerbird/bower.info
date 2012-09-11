@@ -1,6 +1,6 @@
 name = Bower
 description = "The Meedan parent theme"
-screenshot = logo.png
+screenshot = screenshot.png
 core = "7.x"
 engine = phptemplate
 
