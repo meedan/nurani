@@ -1,0 +1,81 @@
+$ideal_box_width:     25em;                           // A sensible width
+$ideal_box_height:    $ideal_box_width * 1.618034;    // Width MULT golden ratio
+$box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS right margin
+
+.clone-bundle {
+  width: $box_container_width;
+  // margin: 0 auto 1em auto;
+  margin-bottom: 1em;
+
+  .inner {
+    padding: 1em;
+  }
+
+  .form-type-select {
+    display: inline-block;
+    margin: 0;
+    label,select {
+      display: inline-block;
+    }
+  }
+
+  .form-submit {
+    margin: 0;
+    display: inline-block;
+  }
+}
+
+.passage-boxes {
+  & > .inner {
+    // margin: 0 auto;
+    width: $box_container_width;
+  }
+}
+.passage-box {
+  float: left;
+  width: $ideal_box_width;
+  margin-right: 2em;
+
+  &.third {
+    margin-right: 0;
+  }
+}
+
+.passage-text {
+  padding: 1em;
+  min-height: $ideal_box_height;
+
+  position: relative;
+  z-index: 1;
+
+  &.empty {
+    text-align: center;
+
+    & > .form-submit {
+      margin-top: $ideal_box_height / 2 - 2em;
+    }
+  }
+}
+
+.bib {
+  padding: 2em 1em 1em 1em;
+  margin-top: -1em;
+}
+
+
+//
+// Colours and visual styles, separated for easy removal
+//
+.clone-bundle {
+  background: #ffee66;
+}
+.passage-text {
+  background: #fff;
+  &.empty {
+    border: 2px dashed #444;
+    border-radius: 1em;
+  }
+}
+.bib {
+  background: #ddd;
+}

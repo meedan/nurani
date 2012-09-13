@@ -6,7 +6,7 @@
 Drupal.behaviors.nuraniOsisFieldPicker = {
   attach: function (context) {
 
-    $('.osis-field-input-group:not(.nurani-osis-field-picker-processed)')
+    $('.osis-field-input-group:not(.nurani-osis-field-picker-processed)', context)
       .addClass('nurani-osis-field-picker-processed')
       .each(function () {
         var picker = new Picker(this);

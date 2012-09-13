@@ -12,7 +12,7 @@ function nurani_bundle_theme($existing, $type, $theme, $path) {
       'render element' => 'element',
     ),
     'nurani_bundle_ui_passage_box' => array(
-      'variables' => array('delta' => NULL, 'edit' => NULL),
+      'render element' => 'element',
     ),
   );
 }
@@ -27,22 +27,7 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, $context
     return;
   }
 
-  // Hide the existing node reference widget
-  $element['nid']['#type'] = 'hidden';
-  // Add the custom bundle UI
-  $element['ui'] = array(
-    '#theme' => 'nurani_bundle_ui',
-    // #default_value will be the raw bundle NID at this stage
-    '#bundle_nid' => $element['nid']['#default_value'],
-  );
-}
-
-/**
- * Theme function to display the bundle UI.
- */
-function theme_nurani_bundle_ui(&$variables) {
-  $element = &$variables['element'];
-
+  // TODO: Merge existing data together with the $form_state here to make an $edit array
   $bundle = $passages_collection = FALSE;
   $edit = array(0 => array(), 1 => array(), 2 => array());
   if ($element['#bundle_nid']) {
@@ -57,17 +42,106 @@ function theme_nurani_bundle_ui(&$variables) {
       }
     }
   }
-  // DEBUG
-  // dpm($bundle, '$bundle');
-  // dpm($passages_collection, '$passages_collection');
 
-  $output = '';
+  // Hide the existing node reference widget
+  $element['nid']['#type'] = 'hidden';
+  // Add the custom bundle UI
+  $element['ui'] = array(
+    '#theme' => 'nurani_bundle_ui',
+    // #default_value will be the raw bundle NID at this stage
+    '#bundle_nid' => $element['nid']['#default_value'],
+    'clone' => nurani_bundle_clone_form($field, $form_state, $context),
+    'passages' => nurani_bundle_passages_form($field, $form_state, $context),
+  );
+}
 
-  // TODO: Currently only a fixed number of passages is allowed in this UI, that should not be the case
-  $output .= '<div class="passage-boxes">';
-  foreach (array(0, 1, 2) as $delta) {
-    $output .= theme('nurani_bundle_ui_passage_box', array('delta' => $delta, 'edit' => $edit[$delta]));
+/**
+ * Form elements for the clone <select>.
+ */
+function nurani_bundle_clone_form($field, &$form_state, $context) {
+  $element = array();
+  $discussion_bundle_options = node_reference_options_list($field);
+  foreach ($discussion_bundle_options as $key => $value) {
+    // TODO: Fetch the real discussion title to prepend to the bundle name.
+    $discussion_title = t('Unknown discussion');
+    $discussion_bundle_options[$key] = $discussion_title . ': ' . $value;
   }
+  $element['clone'] = array(
+    '#type' => 'select',
+    '#title' => t('Use passages from existing discussion'),
+    '#default_value' => '',
+    '#options' => array('' => t('- Choose a discussion -')) + $discussion_bundle_options,
+    '#required' => FALSE,
+  );
+  $element['load'] = array(
+    '#type' => 'submit',
+    '#value' => t('Load passages'),
+  );
+  return $element;
+}
+
+/**
+ * Form elements for the passages fields.
+ */
+function nurani_bundle_passages_form($field, &$form_state, $context) {
+  $path = drupal_get_path('module', 'nurani_bundle');
+
+  $edit = $form_state['values']['passages'];
+  $element = array();
+  $element['#tree'] = TRUE;
+
+  foreach (array(0, 1, 2) as $delta) {
+    $element[$delta] = array();
+    $element[$delta]['#delta'] = $delta;
+    $element[$delta]['#theme'] = 'nurani_bundle_ui_passage_box';
+    $element['#attached']['css'][] = $path . '/css/nurani_bundle_ui.css';
+    $element['#attached']['js'][]  = $path . '/js/nurani_bundle_ui.js';
+
+    $element[$delta]['add'] = array(
+      '#type' => 'submit',
+      '#value' => t('Add passage'),
+    );
+    $element[$delta]['osisID'] = array(
+      '#type' => 'hidden',
+      '#value' => $edit['osisID'],
+    );
+    $element[$delta]['osisIDWork'] = array(
+      '#type' => 'hidden',
+      '#value' => $edit['osisIDWork'],
+    );
+    $element[$delta]['moderators_thoughts'] = array(
+      '#type' => 'textarea',
+      '#title' => t("Moderator's thoughts"),
+      '#cols' => 20,
+      '#rows' => 5,
+      '#default_value' => $edit['moderators_thoughts'],
+    );
+    $element[$delta]['visible'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Is visible?'),
+      '#default_value' => $edit['visible'],
+    );
+  }
+
+  return $element;
+}
+
+/**
+ * Theme function to display the bundle UI.
+ */
+function theme_nurani_bundle_ui(&$variables) {
+  $element = &$variables['element'];
+
+  $output  = '';
+  $output .= '<div class="clone-bundle clearfix">';
+  $output .=   '<div class="inner">';
+  $output .=     drupal_render($element['clone']);
+  $output .=   '</div>';
+  $output .= '</div>';
+  $output .= '<div class="passage-boxes clearfix">';
+  $output .=   '<div class="inner">';
+  $output .=     drupal_render($element['passages']);
+  $output .=   '</div>';
   $output .= '</div>';
 
   return $output;
@@ -76,12 +150,32 @@ function theme_nurani_bundle_ui(&$variables) {
 /**
  * Theme function to render a passage box for the bundle UI.
  */
-function theme_nurani_bundle_ui_passage_box($variables) {
-  $delta = $variables['delta'];
-  $edit  = $variables['edit'];
+function theme_nurani_bundle_ui_passage_box(&$variables) {
+  $element = &$variables['element'];
+  $delta   = $element['#delta'];
 
-  $output = '';
-  dpm(array($delta, $edit), 'array($delta, $edit)');
+  switch ($delta % 3) {
+    case 0: $number = 'first'; break;
+    case 1: $number = 'second'; break;
+    case 2: $number = 'third'; break;
+  }
+
+  $output  = '';
+  $output .= '<div class="passage-box passage-box-' . $delta . ' ' . $number . '">';
+  $output .=   '<div class="inner">';
+  $output .=     '<div class="passage-text empty">';
+  $output .=       drupal_render($element['add']);
+  $output .=       drupal_render($element['osisID']);
+  $output .=       drupal_render($element['osisIDWork']);
+  $output .=     '</div>';
+  $output .=     '<div class="bib">';
+  $output .=       drupal_render($element['moderators_thoughts']);
+  $output .=       drupal_render($element['visible']);
+  $output .=     '</div>';
+  $output .=   '</div>';
+  $output .= '</div>';
+
+
   return $output;
 }
 
