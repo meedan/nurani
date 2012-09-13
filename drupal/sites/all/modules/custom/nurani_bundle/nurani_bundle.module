@@ -46,8 +46,13 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, $context
   // Hide the existing node reference widget
   $element['nid']['#type'] = 'hidden';
   // Add the custom bundle UI
+  $path = drupal_get_path('module', 'nurani_bundle');
   $element['ui'] = array(
     '#theme' => 'nurani_bundle_ui',
+    '#attached' => array(
+      'css' => array($path . '/css/nurani_bundle_ui.css'),
+      'js'  => array($path . '/js/nurani_bundle_ui.js'),
+    ),
     // #default_value will be the raw bundle NID at this stage
     '#bundle_nid' => $element['nid']['#default_value'],
     'clone' => nurani_bundle_clone_form($field, $form_state, $context),
@@ -76,6 +81,7 @@ function nurani_bundle_clone_form($field, &$form_state, $context) {
   $element['load'] = array(
     '#type' => 'submit',
     '#value' => t('Load passages'),
+    '#attributes' => array('class' => array('clone-bundle-action')),
   );
   return $element;
 }
@@ -84,8 +90,6 @@ function nurani_bundle_clone_form($field, &$form_state, $context) {
  * Form elements for the passages fields.
  */
 function nurani_bundle_passages_form($field, &$form_state, $context) {
-  $path = drupal_get_path('module', 'nurani_bundle');
-
   $edit = $form_state['values']['passages'];
   $element = array();
   $element['#tree'] = TRUE;
@@ -94,20 +98,21 @@ function nurani_bundle_passages_form($field, &$form_state, $context) {
     $element[$delta] = array();
     $element[$delta]['#delta'] = $delta;
     $element[$delta]['#theme'] = 'nurani_bundle_ui_passage_box';
-    $element['#attached']['css'][] = $path . '/css/nurani_bundle_ui.css';
-    $element['#attached']['js'][]  = $path . '/js/nurani_bundle_ui.js';
 
     $element[$delta]['add'] = array(
       '#type' => 'submit',
       '#value' => t('Add passage'),
+      '#attributes' => array('class' => array('pick-passage-action')),
     );
     $element[$delta]['osisID'] = array(
       '#type' => 'hidden',
       '#value' => $edit['osisID'],
+      '#attributes' => array('class' => array('edit-osisID')),
     );
     $element[$delta]['osisIDWork'] = array(
       '#type' => 'hidden',
       '#value' => $edit['osisIDWork'],
+      '#attributes' => array('class' => array('edit-osisIDWork')),
     );
     $element[$delta]['moderators_thoughts'] = array(
       '#type' => 'textarea',
@@ -115,11 +120,13 @@ function nurani_bundle_passages_form($field, &$form_state, $context) {
       '#cols' => 20,
       '#rows' => 5,
       '#default_value' => $edit['moderators_thoughts'],
+      '#attributes' => array('class' => array('edit-moderators_thoughts')),
     );
     $element[$delta]['visible'] = array(
       '#type' => 'checkbox',
       '#title' => t('Is visible?'),
       '#default_value' => $edit['visible'],
+      '#attributes' => array('class' => array('edit-visible')),
     );
   }
 
