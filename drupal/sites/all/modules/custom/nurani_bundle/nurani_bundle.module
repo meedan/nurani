@@ -1,0 +1,139 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function nurani_bundle_theme($existing, $type, $theme, $path) {
+  return array(
+    'nurani_bundle_formatter' => array(
+      'variables' => array('item' => NULL),
+    ),
+    'nurani_bundle_ui' => array(
+      'render element' => 'element',
+    ),
+    'nurani_bundle_ui_passage_box' => array(
+      'variables' => array('delta' => NULL, 'edit' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form_alter()
+ */
+function nurani_bundle_field_widget_form_alter(&$element, &$form_state, $context) {
+  $field = $context['field'];
+
+  if ($field['type'] != 'node_reference' || $field['field_name'] != 'field_bundle') {
+    return;
+  }
+
+  // Hide the existing node reference widget
+  $element['nid']['#type'] = 'hidden';
+  // Add the custom bundle UI
+  $element['ui'] = array(
+    '#theme' => 'nurani_bundle_ui',
+    // #default_value will be the raw bundle NID at this stage
+    '#bundle_nid' => $element['nid']['#default_value'],
+  );
+}
+
+/**
+ * Theme function to display the bundle UI.
+ */
+function theme_nurani_bundle_ui(&$variables) {
+  $element = &$variables['element'];
+
+  $bundle = $passages_collection = FALSE;
+  $edit = array(0 => array(), 1 => array(), 2 => array());
+  if ($element['#bundle_nid']) {
+    $bundle = node_load($element['#bundle_nid']);
+    $passages_collection = field_collection_item_load($bundle->field_passage_collection[LANGUAGE_NONE][0]['value']);
+
+    foreach (array('field_moderator_s_thoughts', 'field_passage', 'field_visible') as $field_name) {
+      foreach ($passages_collection->{$field_name} as $langcode => $deltas) {
+        foreach ($deltas as $delta => $value) {
+          $edit[$delta][$field_name][$langcode] = $value;
+        }
+      }
+    }
+  }
+  // DEBUG
+  // dpm($bundle, '$bundle');
+  // dpm($passages_collection, '$passages_collection');
+
+  $output = '';
+
+  // TODO: Currently only a fixed number of passages is allowed in this UI, that should not be the case
+  $output .= '<div class="passage-boxes">';
+  foreach (array(0, 1, 2) as $delta) {
+    $output .= theme('nurani_bundle_ui_passage_box', array('delta' => $delta, 'edit' => $edit[$delta]));
+  }
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * Theme function to render a passage box for the bundle UI.
+ */
+function theme_nurani_bundle_ui_passage_box($variables) {
+  $delta = $variables['delta'];
+  $edit  = $variables['edit'];
+
+  $output = '';
+  dpm(array($delta, $edit), 'array($delta, $edit)');
+  return $output;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function nurani_bundle_field_formatter_info() {
+  $formatters = array(
+    'nurani_bundle' => array(
+      'label' => t('Nurani Bundle'),
+      'field types' => array('node_reference'),
+    ),
+  );
+
+  return $formatters;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function nurani_bundle_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $element = array();
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function nurani_bundle_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  foreach ($items as $delta => $item) {
+    $element[$delta] = array(
+      '#theme' => 'nurani_bundle_formatter',
+      '#item' => $item,
+    );
+  }
+
+  return $element;
+}
+
+/**
+ * Returns HTML for an nurani_bundle field formatter.
+ */
+function theme_nurani_bundle_formatter($variables) {
+  $item = $variables['item'];
+
+  $output = 'Hello.';
+
+  return $output;
+}
