@@ -18,13 +18,17 @@ require 'fileutils'
 ]
 @out_file = "nurani_bundle_ui.js"
 
-@prefix = "(function ($) {\n\n"
-@suffix = "})(jQuery);"
+@prefix  = "(function ($) {\n\n"
+@prefix += "  // paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/\n"
+@prefix += "  var log = function f(){ log.history = log.history || []; log.history.push(arguments); if(this.console) { var args = arguments, newarr; args.callee = args.callee.caller; newarr = [].slice.call(args); if (typeof console.log === 'object') log.apply.call(console.log, console, newarr); else console.log.apply(console, newarr);}};\n\n";
+@suffix  = "})(jQuery);"
 
 # Ensure the out_file exists and has zero bytes
 out_file = File.join(@root, @out_file)
 FileUtils.touch(out_file)
 File.truncate(out_file, 0)
+
+puts "Building #{File.join(@root, @out_file)} .."
 
 # Write out the prefix, the contents of each src file and the suffix
 File.open(out_file, 'a') do |f|

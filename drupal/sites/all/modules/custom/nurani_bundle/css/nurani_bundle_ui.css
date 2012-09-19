@@ -46,36 +46,50 @@
   z-index: 1;
 }
 /* line 51, scss/nurani_bundle_ui.scss */
+.passage-text .pick-passage-action {
+  display: none;
+}
+/* line 54, scss/nurani_bundle_ui.scss */
+.passage-text .passage-widget, .passage-text .remove-passage-action {
+  display: inline;
+}
+/* line 58, scss/nurani_bundle_ui.scss */
 .passage-text.empty {
   text-align: center;
 }
-/* line 54, scss/nurani_bundle_ui.scss */
-.passage-text.empty > .form-submit {
+/* line 61, scss/nurani_bundle_ui.scss */
+.passage-text.empty > .pick-passage-action {
+  display: inline-block;
   margin-top: 18.22543em;
 }
+/* line 65, scss/nurani_bundle_ui.scss */
+.passage-text.empty > .passage-widget, .passage-text.empty .remove-passage-action {
+  display: none;
+}
 
-/* line 60, scss/nurani_bundle_ui.scss */
+/* line 71, scss/nurani_bundle_ui.scss */
 .bib {
   padding: 2em 1em 1em 1em;
   margin-top: -1em;
 }
 
-/* line 69, scss/nurani_bundle_ui.scss */
+/* line 80, scss/nurani_bundle_ui.scss */
 .clone-bundle {
   background: #ffee66;
 }
 
-/* line 72, scss/nurani_bundle_ui.scss */
+/* line 83, scss/nurani_bundle_ui.scss */
 .passage-text {
   background: #fff;
+  border: 2px solid rgba(0, 0, 0, 0);
 }
-/* line 74, scss/nurani_bundle_ui.scss */
+/* line 86, scss/nurani_bundle_ui.scss */
 .passage-text.empty {
   border: 2px dashed #444;
   border-radius: 1em;
 }
 
-/* line 79, scss/nurani_bundle_ui.scss */
+/* line 91, scss/nurani_bundle_ui.scss */
 .bib {
   background: #ddd;
 }

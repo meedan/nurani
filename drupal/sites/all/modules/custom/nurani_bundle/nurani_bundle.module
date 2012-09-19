@@ -18,30 +18,36 @@ function nurani_bundle_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_menu().
+ */
+function nurani_bundle_menu() {
+  $items = array();
+  $items['nurani_bundle/clone_bundle/%node/%'] = array(
+    'title' => 'CloneBundle action',
+    'description' => 'Returns a JSON response containing the details of a bundle.',
+    'page callback' => 'nurani_bundle_clone_bundle_json',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
  * Implements hook_field_widget_form_alter()
  */
 function nurani_bundle_field_widget_form_alter(&$element, &$form_state, $context) {
-  $field = $context['field'];
+  $field      = $context['field'];
+  $langcode   = $element['nid']['#language'];
+  $delta      = $element['nid']['#delta'];
+  // #default_value will be the raw bundle NID at this stage
+  $bundle_nid = $element['nid']['#default_value'];
 
   if ($field['type'] != 'node_reference' || $field['field_name'] != 'field_bundle') {
     return;
   }
 
-  // TODO: Merge existing data together with the $form_state here to make an $edit array
-  $bundle = $passages_collection = FALSE;
-  $edit = array(0 => array(), 1 => array(), 2 => array());
-  if ($element['#bundle_nid']) {
-    $bundle = node_load($element['#bundle_nid']);
-    $passages_collection = field_collection_item_load($bundle->field_passage_collection[LANGUAGE_NONE][0]['value']);
-
-    foreach (array('field_moderator_s_thoughts', 'field_passage', 'field_visible') as $field_name) {
-      foreach ($passages_collection->{$field_name} as $langcode => $deltas) {
-        foreach ($deltas as $delta => $value) {
-          $edit[$delta][$field_name][$langcode] = $value;
-        }
-      }
-    }
-  }
+  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state);
 
   // Hide the existing node reference widget
   $element['nid']['#type'] = 'hidden';
@@ -53,17 +59,23 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, $context
       'css' => array($path . '/css/nurani_bundle_ui.css'),
       'js'  => array($path . '/js/nurani_bundle_ui.js'),
     ),
-    // #default_value will be the raw bundle NID at this stage
-    '#bundle_nid' => $element['nid']['#default_value'],
-    'clone' => nurani_bundle_clone_form($field, $form_state, $context),
-    'passages' => nurani_bundle_passages_form($field, $form_state, $context),
+    '#bundle_nid' => $bundle_nid,
+    'clone' => nurani_bundle_clone_form($field, $edit['ui']['clone'], $context),
+    'passages' => nurani_bundle_passages_form($field, $edit['ui']['passages'], $context),
   );
+
+  // The validation runs before node_reference which enables the UI data to
+  // transparently integrate.
+  array_unshift($element['nid']['#element_validate'], 'nurani_bundle_ui_element_validate');
+  // Submission handler attached to the overall form. This is where new objects /
+  // bundles are created, if necessary.
+  $context['form']['#submit'][] = 'nurani_bundle_ui_submit';
 }
 
 /**
  * Form elements for the clone <select>.
  */
-function nurani_bundle_clone_form($field, &$form_state, $context) {
+function nurani_bundle_clone_form($field, &$edit, $context) {
   $element = array();
   $discussion_bundle_options = node_reference_options_list($field);
   foreach ($discussion_bundle_options as $key => $value) {
@@ -79,7 +91,7 @@ function nurani_bundle_clone_form($field, &$form_state, $context) {
     '#required' => FALSE,
   );
   $element['load'] = array(
-    '#type' => 'submit',
+    '#type' => 'button',
     '#value' => t('Load passages'),
     '#attributes' => array('class' => array('clone-bundle-action')),
   );
@@ -89,8 +101,7 @@ function nurani_bundle_clone_form($field, &$form_state, $context) {
 /**
  * Form elements for the passages fields.
  */
-function nurani_bundle_passages_form($field, &$form_state, $context) {
-  $edit = $form_state['values']['passages'];
+function nurani_bundle_passages_form($field, &$edit, $context) {
   $element = array();
   $element['#tree'] = TRUE;
 
@@ -99,6 +110,11 @@ function nurani_bundle_passages_form($field, &$form_state, $context) {
     $element[$delta]['#delta'] = $delta;
     $element[$delta]['#theme'] = 'nurani_bundle_ui_passage_box';
 
+    $element[$delta]['remove'] = array(
+      '#type' => 'submit',
+      '#value' => t('Remove passage'),
+      '#attributes' => array('class' => array('remove-passage-action')),
+    );
     $element[$delta]['add'] = array(
       '#type' => 'submit',
       '#value' => t('Add passage'),
@@ -106,26 +122,28 @@ function nurani_bundle_passages_form($field, &$form_state, $context) {
     );
     $element[$delta]['osisID'] = array(
       '#type' => 'hidden',
-      '#value' => $edit['osisID'],
+      '#value' => isset($edit[$delta]['osisID']) ? $edit[$delta]['osisID'] : '',
       '#attributes' => array('class' => array('edit-osisID')),
     );
     $element[$delta]['osisIDWork'] = array(
       '#type' => 'hidden',
-      '#value' => $edit['osisIDWork'],
+      '#value' => isset($edit[$delta]['osisIDWork']) ? $edit[$delta]['osisIDWork'] : '',
       '#attributes' => array('class' => array('edit-osisIDWork')),
     );
-    $element[$delta]['moderators_thoughts'] = array(
+    // Using 'moderator_s_thoughts' to match the field_moderator_s_thoughts on
+    // the bundle content type.
+    $element[$delta]['moderator_s_thoughts'] = array(
       '#type' => 'textarea',
       '#title' => t("Moderator's thoughts"),
       '#cols' => 20,
       '#rows' => 5,
-      '#default_value' => $edit['moderators_thoughts'],
-      '#attributes' => array('class' => array('edit-moderators_thoughts')),
+      '#default_value' => isset($edit[$delta]['moderator_s_thoughts']) ? $edit[$delta]['moderator_s_thoughts'] : '',
+      '#attributes' => array('class' => array('edit-moderator_s_thoughts')),
     );
     $element[$delta]['visible'] = array(
       '#type' => 'checkbox',
       '#title' => t('Is visible?'),
-      '#default_value' => $edit['visible'],
+      '#default_value' => isset($edit[$delta]['visible']) ? $edit[$delta]['visible'] : '',
       '#attributes' => array('class' => array('edit-visible')),
     );
   }
@@ -171,19 +189,104 @@ function theme_nurani_bundle_ui_passage_box(&$variables) {
   $output .= '<div class="passage-box passage-box-' . $delta . ' ' . $number . '">';
   $output .=   '<div class="inner">';
   $output .=     '<div class="passage-text empty">';
+  $output .=       '<div class="passage-widget"></div>';
+  $output .=       drupal_render($element['remove']);
   $output .=       drupal_render($element['add']);
   $output .=       drupal_render($element['osisID']);
   $output .=       drupal_render($element['osisIDWork']);
   $output .=     '</div>';
   $output .=     '<div class="bib">';
-  $output .=       drupal_render($element['moderators_thoughts']);
+  $output .=       drupal_render($element['moderator_s_thoughts']);
   $output .=       drupal_render($element['visible']);
   $output .=     '</div>';
   $output .=   '</div>';
   $output .= '</div>';
 
-
   return $output;
+}
+
+/**
+ * Combines an existing bundle with $form_state data to generate a combined edit
+ * array.
+ */
+function _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state) {
+  // Default empty edit array, ensure at least the 'passages' and 'clone' keys
+  // exist to avoid PHP notices
+  $edit = array(
+    'ui' => array(
+      'passages' => array(),
+      'clone' => array(),
+    ),
+  );
+
+  // Load existing bundle data into the $edit array, if available
+  if ($bundle_nid) {
+    $bundle = node_load($bundle_nid);
+
+    foreach ($bundle->field_passage_collection[$langcode] as $pc_delta => $pc_data) {
+      $item = field_collection_item_load($pc_data['value']);
+
+      foreach (array('field_moderator_s_thoughts', 'field_passage', 'field_visible') as $field_name) {
+        $edit_name = substr($field_name, 6); // Remove the 'field_' part
+
+        foreach ($item->{$field_name} as $item_field_langcode => $item_field_deltas) {
+          foreach ($item_field_deltas as $item_field_delta => $item_field_data) {
+            if ($field_name == 'field_passage') {
+              $edit['ui']['passages'][$pc_delta]['osisIDWork'] = $item_field_data['osisIDWork'];
+              $edit['ui']['passages'][$pc_delta]['osisID'] = $item_field_data['osisID'];
+            }
+            else {
+              $edit['ui']['passages'][$pc_delta][$edit_name] = $item_field_data['value'];
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Overwrite $edit using form_state, if available
+  if (isset($form_state['input']) && isset($form_state['input']['field_bundle'])) {
+    foreach ($form_state['input']['field_bundle'][$langcode][$delta] as $key => $val) {
+      $edit[$key] = $val;
+    }
+  }
+
+  return $edit;
+}
+
+/**
+ * Form validation for Nurani Bundle UI.
+ */
+function nurani_bundle_ui_element_validate($element, &$form_state, $form) {
+  $field = field_widget_field($element, $form_state);
+  $instance = field_widget_instance($element, $form_state);
+
+  // dpm($field, '$field validate');
+  // dpm($instance, '$instance validate');
+  // dpm($element, '$element validate');
+  // dpm($form_state, '$form_state validate');
+  // dpm($form, '$form validate');
+}
+
+/**
+ * Form submission for Nurani Bundle UI.
+ */
+function nurani_bundle_ui_submit($element, &$form_state, $form) {
+  dpm($form_state, '$form_state submit');
+}
+
+/**
+ * Page callback to generate JSON output for "cloning" a bundle.
+ */
+function nurani_bundle_clone_bundle_json($bundle_node, $langcode = LANGUAGE_NONE) {
+  if (!$bundle_node || $bundle_node->type != 'bundle') {
+    return drupal_json_output(FALSE);
+  }
+
+  // (Ab)use the _nurani_bundle_combine_edit_data to generate a useful array
+  // representation of a bundle's core data fields.
+  $edit = _nurani_bundle_combine_edit_data($bundle_node->nid, $langcode, 0, array());
+  return drupal_json_output($edit['ui']['passages']);
 }
 
 /**

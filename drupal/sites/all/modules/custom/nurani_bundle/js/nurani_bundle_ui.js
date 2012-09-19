@@ -1,5 +1,8 @@
 (function ($) {
 
+  // paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
+  var log = function f(){ log.history = log.history || []; log.history.push(arguments); if(this.console) { var args = arguments, newarr; args.callee = args.callee.caller; newarr = [].slice.call(args); if (typeof console.log === 'object') log.apply.call(console.log, console, newarr); else console.log.apply(console, newarr);}};
+
   /**
    * Drupal integration. Creates and binds new BundleUIs.
    */
@@ -70,6 +73,61 @@
   };
 
   /**
+   * Replaces the current state with that that in "data".
+   */
+  BundleUI.prototype.loadState = function (data, set_message) {
+    var i, len = this.passageBoxes.length;
+
+    this.cloneBundle.setVisibility(data.length == 0, set_message);
+
+    for (i = 0; i < len; i++) {
+      this.passageBoxes[i].loadState(data[i] || {})
+    }
+
+    if (data.length > this.passageBoxes.length) {
+      log('Error, attempting to load more data than is possible with ' + this.passageBoxes.length + ' passage boxes.');
+    }
+  };
+
+  /**
+   * Passage boxes call this method to inform the rest of the application that
+   * their state changed.
+   */
+  BundleUI.prototype.passageBoxStateDidChange = function (passageBox) {
+    var i, len = this.passageBoxes.length, picked = [];
+
+    for (i = 0; i < len; i++) {
+      picked.push(this.passageBoxes[i].picked);
+    }
+
+    this.cloneBundle.setVisibility(picked.indexOf(true) === -1);
+  };
+
+  /**
+   * Helper method, set informational messages which disappear after a set amount
+   * of time.
+   */
+  BundleUI.prototype.setMessage = function (message, type, hideAfter) {
+    type      = type || 'ok';
+    hideAfter = hideAfter || 3000;
+
+    classes = ['messages'];
+    if (type) {
+      classes.push(type);
+    }
+
+    var message = $('<div class="' + classes.join(' ') + '" style="display: none;">' + message + '</div>');
+    this.$wrapper.prepend(message);
+    message.slideDown();
+
+    setTimeout(function () {
+      message.slideUp(function () {
+        $(this).remove();
+      });
+    }, hideAfter);
+  };
+
+  /**
    * Nurani CloneBundle form.
    */
   function CloneBundle(element, bundleUI) {
@@ -81,24 +139,48 @@
   }
 
   CloneBundle.prototype.init = function () {
+    this.bindSelect();
     this.bindSubmitButton();
 
     return this;
+  };
+
+  CloneBundle.prototype.bindSelect = function () {
+    this.$select = $('.form-select', this.$wrapper);
   };
 
   CloneBundle.prototype.bindSubmitButton = function () {
     var that = this;
 
     $('.form-submit.clone-bundle-action', this.$wrapper).click(function () {
-      that.cloneBundle(this);
+      if (that.$select.val()) {
+        that.cloneBundle(that.$select.val());
+      }
       return false;
     });
 
     return this;
   };
 
-  CloneBundle.prototype.cloneBundle = function (button) {
-    console.log('TODO: Clone the bundle..');
+  CloneBundle.prototype.cloneBundle = function (bundle_nid) {
+    var that = this;
+    // TODO: Initiate spinner and lock UI.
+
+    $.getJSON(Drupal.settings.basePath + 'nurani_bundle/clone_bundle/' + bundle_nid + '/und', function (data) {
+      // TODO: Remove spinner and unlock UI.
+      that.bundleUI.loadState(data, true);
+    });
+  };
+
+  CloneBundle.prototype.setVisibility = function (visibility, set_message) {
+    if (visibility) {
+      this.$wrapper.slideDown('slow');
+    } else {
+      if (set_message) {
+        this.bundleUI.setMessage(Drupal.t('Existing bundle selected. Remove all passages to use a different bundle as a template.'));
+      }
+      this.$wrapper.slideUp('slow');
+    }
   };
 
   /**
@@ -107,21 +189,44 @@
   function PassageBox(element, bundleUI) {
     this.$wrapper = $(element);
     this.bundleUI = bundleUI;
+    this.picked   = false;
     this.init();
 
     return this;
   }
 
   PassageBox.prototype.init = function () {
-    this.bindOSISFields();
+    this.bindContainers();
+    this.bindFields();
+    this.bindRemoveButton();
     this.bindAddButton();
+    this.render();
 
     return this;
   };
 
-  PassageBox.prototype.bindOSISFields = function () {
-    this.$osisIDWork = $('.edit-osisIDWork', this.$wrapper);
-    this.$osisID     = $('.edit-osisID', this.$wrapper);
+  PassageBox.prototype.bindContainers = function () {
+    this.$passageText   = $('.passage-text', this.$wrapper);
+    this.$passageWidget = $('.passage-widget', this.$passageText);
+    this.$bib           = $('.bib', this.$wrapper);
+  }
+
+  PassageBox.prototype.bindFields = function () {
+    this.$osisIDWork         = $('.edit-osisIDWork', this.$wrapper);
+    this.$osisID             = $('.edit-osisID', this.$wrapper);
+    this.$moderatorsThoughts = $('.edit-moderator_s_thoughts', this.$wrapper);
+    this.$visible            = $('.edit-visible', this.$wrapper);
+  };
+
+  PassageBox.prototype.bindRemoveButton = function () {
+    var that = this;
+
+    $('.form-submit.remove-passage-action', this.$wrapper).click(function () {
+      that.loadState({}); // Load empty state
+      return false;
+    });
+
+    return this;
   };
 
   PassageBox.prototype.bindAddButton = function () {
@@ -145,14 +250,59 @@
           onPicked: function (work_name, osisID) {
             that.$osisIDWork.val(work_name);
             that.$osisID.val(osisID);
+            that.updatedPicked();
+            that.render();
+
+            that.bundleUI.passageBoxStateDidChange(that);
           },
           onCancel: function () {
-            console.log('onCancel');
             // TODO: Do something on cancel?
           }
         });
 
     passagePicker.pick();
+  };
+
+  PassageBox.prototype.updatedPicked = function () {
+    this.picked = !!(this.$osisIDWork.val() && this.$osisID.val());
+  }
+
+  /**
+   * Retrieves passage text and update other aspects of the display.
+   */
+  PassageBox.prototype.render = function () {
+    if (this.picked) {
+      this.$passageText.removeClass('empty');
+      this.$passageWidget.html('<span>' + this.$osisIDWork.val() + '</span>:<span>' + this.$osisID.val() + '</span>');
+      this.$moderatorsThoughts.removeAttr('disabled');
+      this.$visible.removeAttr('disabled');
+      this.$bib.slideDown();
+    }
+    else {
+      this.$passageText.addClass('empty');
+      this.$moderatorsThoughts.attr('disabled', 'disabled');
+      this.$visible.attr('disabled', 'disabled');
+      this.$bib.slideUp();
+    }
+  };
+
+  /**
+   * Replaces the state of a passage box with that in "data".
+   */
+  PassageBox.prototype.loadState = function (data) {
+    this.$osisIDWork.val(data.osisIDWork || '');
+    this.$osisID.val(data.osisID || '');
+    this.$moderatorsThoughts.val(data.moderator_s_thoughts || '');
+
+    if (data.visible && data.visible === '1') {
+      this.$visible.attr('checked', 'checked');
+    } else {
+      this.$visible.removeAttr('checked');
+    }
+
+    this.updatedPicked();
+    this.render();
+    this.bundleUI.passageBoxStateDidChange(this);
   };
 
   /**

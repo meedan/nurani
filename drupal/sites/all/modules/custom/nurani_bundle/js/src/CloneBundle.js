@@ -10,22 +10,46 @@ function CloneBundle(element, bundleUI) {
 }
 
 CloneBundle.prototype.init = function () {
+  this.bindSelect();
   this.bindSubmitButton();
 
   return this;
+};
+
+CloneBundle.prototype.bindSelect = function () {
+  this.$select = $('.form-select', this.$wrapper);
 };
 
 CloneBundle.prototype.bindSubmitButton = function () {
   var that = this;
 
   $('.form-submit.clone-bundle-action', this.$wrapper).click(function () {
-    that.cloneBundle(this);
+    if (that.$select.val()) {
+      that.cloneBundle(that.$select.val());
+    }
     return false;
   });
 
   return this;
 };
 
-CloneBundle.prototype.cloneBundle = function (button) {
-  console.log('TODO: Clone the bundle..');
+CloneBundle.prototype.cloneBundle = function (bundle_nid) {
+  var that = this;
+  // TODO: Initiate spinner and lock UI.
+
+  $.getJSON(Drupal.settings.basePath + 'nurani_bundle/clone_bundle/' + bundle_nid + '/und', function (data) {
+    // TODO: Remove spinner and unlock UI.
+    that.bundleUI.loadState(data, true);
+  });
+};
+
+CloneBundle.prototype.setVisibility = function (visibility, set_message) {
+  if (visibility) {
+    this.$wrapper.slideDown('slow');
+  } else {
+    if (set_message) {
+      this.bundleUI.setMessage(Drupal.t('Existing bundle selected. Remove all passages to use a different bundle as a template.'));
+    }
+    this.$wrapper.slideUp('slow');
+  }
 };

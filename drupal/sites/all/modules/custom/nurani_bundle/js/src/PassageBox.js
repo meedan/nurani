@@ -4,21 +4,44 @@
 function PassageBox(element, bundleUI) {
   this.$wrapper = $(element);
   this.bundleUI = bundleUI;
+  this.picked   = false;
   this.init();
 
   return this;
 }
 
 PassageBox.prototype.init = function () {
-  this.bindOSISFields();
+  this.bindContainers();
+  this.bindFields();
+  this.bindRemoveButton();
   this.bindAddButton();
+  this.render();
 
   return this;
 };
 
-PassageBox.prototype.bindOSISFields = function () {
-  this.$osisIDWork = $('.edit-osisIDWork', this.$wrapper);
-  this.$osisID     = $('.edit-osisID', this.$wrapper);
+PassageBox.prototype.bindContainers = function () {
+  this.$passageText   = $('.passage-text', this.$wrapper);
+  this.$passageWidget = $('.passage-widget', this.$passageText);
+  this.$bib           = $('.bib', this.$wrapper);
+}
+
+PassageBox.prototype.bindFields = function () {
+  this.$osisIDWork         = $('.edit-osisIDWork', this.$wrapper);
+  this.$osisID             = $('.edit-osisID', this.$wrapper);
+  this.$moderatorsThoughts = $('.edit-moderator_s_thoughts', this.$wrapper);
+  this.$visible            = $('.edit-visible', this.$wrapper);
+};
+
+PassageBox.prototype.bindRemoveButton = function () {
+  var that = this;
+
+  $('.form-submit.remove-passage-action', this.$wrapper).click(function () {
+    that.loadState({}); // Load empty state
+    return false;
+  });
+
+  return this;
 };
 
 PassageBox.prototype.bindAddButton = function () {
@@ -42,12 +65,57 @@ PassageBox.prototype.pickPassage = function (button) {
         onPicked: function (work_name, osisID) {
           that.$osisIDWork.val(work_name);
           that.$osisID.val(osisID);
+          that.updatedPicked();
+          that.render();
+
+          that.bundleUI.passageBoxStateDidChange(that);
         },
         onCancel: function () {
-          console.log('onCancel');
           // TODO: Do something on cancel?
         }
       });
 
   passagePicker.pick();
+};
+
+PassageBox.prototype.updatedPicked = function () {
+  this.picked = !!(this.$osisIDWork.val() && this.$osisID.val());
+}
+
+/**
+ * Retrieves passage text and update other aspects of the display.
+ */
+PassageBox.prototype.render = function () {
+  if (this.picked) {
+    this.$passageText.removeClass('empty');
+    this.$passageWidget.html('<span>' + this.$osisIDWork.val() + '</span>:<span>' + this.$osisID.val() + '</span>');
+    this.$moderatorsThoughts.removeAttr('disabled');
+    this.$visible.removeAttr('disabled');
+    this.$bib.slideDown();
+  }
+  else {
+    this.$passageText.addClass('empty');
+    this.$moderatorsThoughts.attr('disabled', 'disabled');
+    this.$visible.attr('disabled', 'disabled');
+    this.$bib.slideUp();
+  }
+};
+
+/**
+ * Replaces the state of a passage box with that in "data".
+ */
+PassageBox.prototype.loadState = function (data) {
+  this.$osisIDWork.val(data.osisIDWork || '');
+  this.$osisID.val(data.osisID || '');
+  this.$moderatorsThoughts.val(data.moderator_s_thoughts || '');
+
+  if (data.visible && data.visible === '1') {
+    this.$visible.attr('checked', 'checked');
+  } else {
+    this.$visible.removeAttr('checked');
+  }
+
+  this.updatedPicked();
+  this.render();
+  this.bundleUI.passageBoxStateDidChange(this);
 };

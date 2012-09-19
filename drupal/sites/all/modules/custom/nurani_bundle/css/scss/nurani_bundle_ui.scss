@@ -48,11 +48,22 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
   position: relative;
   z-index: 1;
 
+  .pick-passage-action {
+    display: none;
+  }
+  .passage-widget, .remove-passage-action {
+    display: inline;
+  }
+
   &.empty {
     text-align: center;
 
-    & > .form-submit {
+    & > .pick-passage-action {
+      display: inline-block;
       margin-top: $ideal_box_height / 2 - 2em;
+    }
+    & > .passage-widget, .remove-passage-action {
+      display: none;
     }
   }
 }
@@ -71,6 +82,7 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
 }
 .passage-text {
   background: #fff;
+  border: 2px solid rgba(0,0,0,0); // HACK: to fix element size increase when dashed border applied
   &.empty {
     border: 2px dashed #444;
     border-radius: 1em;
