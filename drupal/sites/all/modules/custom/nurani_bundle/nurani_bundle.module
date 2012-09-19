@@ -30,6 +30,14 @@ function nurani_bundle_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+  $items['nurani_bundle/validate_passage'] = array(
+    'title' => 'ValidatePassage action',
+    'description' => 'Returns a JSON response based on whether a passage is valid or not.',
+    'page callback' => 'nurani_bundle_validate_passage_json',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 
@@ -287,6 +295,27 @@ function nurani_bundle_clone_bundle_json($bundle_node, $langcode = LANGUAGE_NONE
   // representation of a bundle's core data fields.
   $edit = _nurani_bundle_combine_edit_data($bundle_node->nid, $langcode, 0, array());
   return drupal_json_output($edit['ui']['passages']);
+}
+
+/**
+ * Page callback to generate JSON output for validating an OSIS identifier.
+ */
+function nurani_bundle_validate_passage_json($osisIDWork, $osisID) {
+  $item = array('osisIDWork' => $osisIDWork, 'osisID' => $osisID);
+  $delta = 0;
+  $field = array('field_name' => 'field_bundle');
+
+  // (Ab)use the osis_field module's validation since it is the gold standard
+  // for valid OSIS passages in the system.
+  $is_valid = _osis_field_validate($item, $delta, $field, NULL, NULL);
+
+  if ($is_valid) {
+    return drupal_json_output(TRUE);
+  }
+  else {
+    $errors = form_get_errors();
+    return drupal_json_output(array('errors' => $errors));
+  }
 }
 
 /**

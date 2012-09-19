@@ -11,6 +11,7 @@ require 'fileutils'
 
 @src_files = [
   "src/drupal-integration.js",
+  "src/Util.js",
   "src/BundleUI.js",
   "src/CloneBundle.js",
   "src/PassageBox.js",

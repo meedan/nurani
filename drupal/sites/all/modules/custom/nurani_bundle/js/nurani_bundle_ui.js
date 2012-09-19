@@ -34,6 +34,39 @@
   };
 
   /**
+   * Corebox util library.
+   */
+  function Util() {
+  }
+
+  // Globally available CB.Util
+  var util = new Util();
+
+  /**
+   * Helper method, set informational messages which disappear after a set amount
+   * of time.
+   */
+  Util.prototype.setMessage = function (prepend_to, message, type, hide_after) {
+    type       = type || 'ok';
+    hide_after = hide_after || 3000;
+
+    classes = ['messages'];
+    if (type) {
+      classes.push(type);
+    }
+
+    var message = $('<div class="' + classes.join(' ') + '" style="display: none;">' + message + '</div>');
+    prepend_to.prepend(message);
+    message.slideDown();
+
+    setTimeout(function () {
+      message.slideUp(function () {
+        $(this).remove();
+      });
+    }, hide_after);
+  }
+
+  /**
    * Main controller object for the bundle UI.
    */
   function BundleUI(element) {
@@ -108,23 +141,7 @@
    * of time.
    */
   BundleUI.prototype.setMessage = function (message, type, hideAfter) {
-    type      = type || 'ok';
-    hideAfter = hideAfter || 3000;
-
-    classes = ['messages'];
-    if (type) {
-      classes.push(type);
-    }
-
-    var message = $('<div class="' + classes.join(' ') + '" style="display: none;">' + message + '</div>');
-    this.$wrapper.prepend(message);
-    message.slideDown();
-
-    setTimeout(function () {
-      message.slideUp(function () {
-        $(this).remove();
-      });
-    }, hideAfter);
+    util.setMessage(this.$wrapper, message, type, hideAfter)
   };
 
   /**
@@ -341,15 +358,14 @@
     var that    = this,
         $dialog = $form.dialog({
                     autoOpen: false,
-                    height: 300,
-                    width: 350,
+                    width: 800,
                     modal: true,
                     buttons: {
                       Done: function() {
-                        if (that.opts.onPicked) {
-                          that.opts.onPicked($('#edit-osisIDWork', $form).val(), $('#edit-osisID', $form).val());
-                        }
-                        $(this).dialog('close');
+                        var osisIDWork = $('#edit-osisIDWork', $form).val(),
+                            osisID     = $('#edit-osisID', $form).val()
+
+                        that.pickIfValid(osisIDWork, osisID);
                       },
                       Cancel: function() {
                         if (that.opts.onCancel) {
@@ -364,6 +380,26 @@
                   });
 
     return $dialog;
+  };
+
+  Picker.prototype.pickIfValid = function (osisIDWork, osisID) {
+    var that = this;
+
+    $.getJSON(Drupal.settings.basePath + 'nurani_bundle/validate_passage/' + osisIDWork + '/' + osisID, function (data) {
+      if (data === true) {
+        if (that.opts.onPicked) {
+          that.opts.onPicked(osisIDWork, osisID);
+        }
+        that.$dialog.dialog('close');
+      }
+      else {
+        for (var key in data.errors) {
+          if (data.errors.hasOwnProperty(key)) {
+            util.setMessage(that.$dialog, data.errors[key], 'error');
+          }
+        }
+      }
+    });
   };
 
   /**

@@ -34,15 +34,14 @@ Picker.prototype.createDialog = function () {
   var that    = this,
       $dialog = $form.dialog({
                   autoOpen: false,
-                  height: 300,
-                  width: 350,
+                  width: 800,
                   modal: true,
                   buttons: {
                     Done: function() {
-                      if (that.opts.onPicked) {
-                        that.opts.onPicked($('#edit-osisIDWork', $form).val(), $('#edit-osisID', $form).val());
-                      }
-                      $(this).dialog('close');
+                      var osisIDWork = $('#edit-osisIDWork', $form).val(),
+                          osisID     = $('#edit-osisID', $form).val()
+
+                      that.pickIfValid(osisIDWork, osisID);
                     },
                     Cancel: function() {
                       if (that.opts.onCancel) {
@@ -57,6 +56,26 @@ Picker.prototype.createDialog = function () {
                 });
 
   return $dialog;
+};
+
+Picker.prototype.pickIfValid = function (osisIDWork, osisID) {
+  var that = this;
+
+  $.getJSON(Drupal.settings.basePath + 'nurani_bundle/validate_passage/' + osisIDWork + '/' + osisID, function (data) {
+    if (data === true) {
+      if (that.opts.onPicked) {
+        that.opts.onPicked(osisIDWork, osisID);
+      }
+      that.$dialog.dialog('close');
+    }
+    else {
+      for (var key in data.errors) {
+        if (data.errors.hasOwnProperty(key)) {
+          util.setMessage(that.$dialog, data.errors[key], 'error');
+        }
+      }
+    }
+  });
 };
 
 /**
