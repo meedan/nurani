@@ -25,8 +25,6 @@ features[] = main_menu
 features[] = secondary_menu
 
 stylesheets[all][] = css/default.css
-stylesheets[all][] = css/layout.css
-stylesheets[all][] = css/style.css
 stylesheets[print][] = css/print.css
 
 ; Compass Support

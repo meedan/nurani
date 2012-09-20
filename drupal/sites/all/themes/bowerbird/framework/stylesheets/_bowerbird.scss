@@ -1,0 +1,16 @@
+/**
+ * Main bowerbird import. Includes common variables and compass goodies.
+ */
+@import 'compass';
+@import 'compass/css3';
+
+// Colors
+$text_color: #444;
+$text_color_dark: darken($text_color, 30%);
+$text_color_light: lighten($text_color, 30%);
+
+// Meedan colours
+$meedan_blue: #2e94d3;
+$meedan_orange: #ef4716;
+$meedan_yellow: #fcc809;
+$meedan_green: #76b423;
