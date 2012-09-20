@@ -45,13 +45,18 @@ function nurani_bundle_menu() {
  * Implements hook_menu_alter().
  */
 function nurani_bundle_menu_alter(&$items) {
-  $items['node/add/bundle']['access callback'] = FALSE;
+  // $items['node/add/bundle']['access callback'] = FALSE;
 }
 
 /**
  * Implements hook_field_widget_form_alter()
  */
-function nurani_bundle_field_widget_form_alter(&$element, &$form_state, $context) {
+function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$context) {
+  // Only apply to node_reference widgets
+  if (!isset($element['nid'])) {
+    return;
+  }
+
   $field      = $context['field'];
   $langcode   = $element['nid']['#language'];
   $delta      = $element['nid']['#delta'];
@@ -62,7 +67,7 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, $context
     return;
   }
 
-  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state);
+  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['input']);
 
   // Hide the existing node reference widget
   $element['nid']['#type'] = 'hidden';
@@ -82,9 +87,6 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, $context
   // The validation runs before node_reference which enables the UI data to
   // transparently integrate.
   array_unshift($element['nid']['#element_validate'], 'nurani_bundle_ui_element_validate');
-  // Submission handler attached to the overall form. This is where new objects /
-  // bundles are created, if necessary.
-  $context['form']['#submit'][] = 'nurani_bundle_ui_submit';
 }
 
 /**
@@ -224,7 +226,7 @@ function theme_nurani_bundle_ui_passage_box(&$variables) {
  * Combines an existing bundle with $form_state data to generate a combined edit
  * array.
  */
-function _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state) {
+function _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state_values) {
   // Default empty edit array, ensure at least the 'passages' and 'clone' keys
   // exist to avoid PHP notices
   $edit = array(
@@ -235,10 +237,9 @@ function _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_
   );
 
   // Load existing bundle data into the $edit array, if available
-  if ($bundle_nid) {
-    $bundle = node_load($bundle_nid);
-
-    foreach ($bundle->field_passage_collection[$langcode] as $pc_delta => $pc_data) {
+  $bundle = node_load($bundle_nid);
+  if (is_object($bundle)) {
+    foreach ((array) $bundle->field_passage_collection[$langcode] as $pc_delta => $pc_data) {
       $item = field_collection_item_load($pc_data['value']);
 
       foreach (array('field_moderator_s_thoughts', 'field_passage', 'field_visible') as $field_name) {
@@ -260,8 +261,8 @@ function _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_
   }
 
   // Overwrite $edit using form_state, if available
-  if (isset($form_state['input']) && isset($form_state['input']['field_bundle'])) {
-    foreach ($form_state['input']['field_bundle'][$langcode][$delta] as $key => $val) {
+  if (isset($form_state_values) && isset($form_state_values['field_bundle'])) {
+    foreach ($form_state_values['field_bundle'][$langcode][$delta] as $key => $val) {
       $edit[$key] = $val;
     }
   }
@@ -276,18 +277,120 @@ function nurani_bundle_ui_element_validate($element, &$form_state, $form) {
   $field = field_widget_field($element, $form_state);
   $instance = field_widget_instance($element, $form_state);
 
-  // dpm($field, '$field validate');
-  // dpm($instance, '$instance validate');
-  // dpm($element, '$element validate');
-  // dpm($form_state, '$form_state validate');
-  // dpm($form, '$form validate');
+  $langcode   = $element['#language'];
+  $delta      = $element['#delta'];
+  $bundle_nid = $form_state['values']['field_bundle'][$langcode][$delta]['nid'];
+
+  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['values']);
+
+  $name_prefix = 'field_bundle[' . $langcode . '][' . $delta . '][ui][passages][';
+  foreach ($edit['ui']['passages'] as $pc_delta => $pc_value) {
+    // Validate that the first passage is set
+    if ($pc_delta == 0) {
+      if (trim($pc_value['osisIDWork']) == '' || trim($pc_value['osisID']) == '') {
+        form_set_error($name_prefix . $delta .']', t('First passage must be set.'));
+      }
+    }
+
+    if (trim($pc_value['osisIDWork']) != '' && trim($pc_value['osisID']) != '') {
+      // Each set passage must have a valid osisID and osisIDWork
+      $result = _nurani_bundle_validate_osisid($pc_value['osisIDWork'], $pc_value['osisID']);
+      if (is_array($result)) {
+        foreach ($result as $key => $message) {
+          // Translation example:
+          //   from: "field_bundle[und][0][osisIDWork"
+          //   to:   "field_bundle[und][0][ui][passages][0][osisIDWork]"
+          $key = strtr($key, array(
+            'osisIDWork' => 'ui][passages][' . $pc_delta . '][osisIDWork',
+            'osisID'     => 'ui][passages][' . $pc_delta . '][osisID',
+          ));
+          form_set_error($key, $message);
+        }
+      }
+    }
+  }
 }
 
 /**
- * Form submission for Nurani Bundle UI.
+ * Implements hook_node_submit().
  */
-function nurani_bundle_ui_submit($element, &$form_state, $form) {
-  dpm($form_state, '$form_state submit');
+function nurani_bundle_node_submit($node, $form, $form_state) {
+  if ($node->type != 'discussion') {
+    return;
+  }
+
+  $langcode   = $node->language;
+  $delta      = 0;
+  $bundle_nid = $form_state['values']['field_bundle'][$langcode][$delta]['nid'];
+
+  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['values']);
+
+  // Create the bundle if it does not exist already
+  if (!$bundle_nid) {
+    $bundle_node = (object) array();
+
+    $bundle_node->type     = 'bundle';
+    $bundle_node->uid      = $node->uid;
+    $bundle_node->name     = $node->name;
+    $bundle_node->title    = _nurani_bundle_generate_title($edit);
+    $bundle_node->status   = 1;
+    $bundle_node->language = $node->language;
+
+    node_object_prepare($bundle_node);
+    $bundle_node = node_submit($bundle_node);
+    node_save($bundle_node);
+
+    // Critically, ensure the new bundle node is attached to the discussion and
+    // ensure the $bundle_nid state is updated.
+    $node->field_bundle[$langcode][$delta]['nid'] = $bundle_node->nid;
+    $bundle_nid                                   = $bundle_node->nid;
+  }
+
+  // Load the bundle, this may be the newly created bundle
+  $bundle_node = node_load($bundle_nid);
+
+  $passages_collection = $bundle_node->field_passage_collection;
+  foreach ($edit['ui']['passages'] as $pc_delta => $pc_value) {
+    if (!isset($passages_collection[$langcode][$pc_delta])) {
+      $item = array(
+        'field_name' => 'field_passage_collection',
+      );
+      $entity = entity_create('field_collection_item', $item);
+      $entity->setHostEntity('node', $bundle_node);
+      $entity->save();
+
+      $passages_collection[$langcode][$pc_delta]['value'] = entity_id('field_collection_item', $entity);
+    }
+
+    $entity = entity_load_single('field_collection_item', $passages_collection[$langcode][$pc_delta]['value']);
+
+    $entity->field_passage[$langcode][0]['osisIDWork']         = $pc_value['osisIDWork'];
+    $entity->field_passage[$langcode][0]['osisID']             = $pc_value['osisID'];
+    $entity->field_moderator_s_thoughts[$langcode][0]['value'] = $pc_value['moderator_s_thoughts'];
+    $entity->field_visible[$langcode][0]['value']              = $pc_value['visible'];
+    $entity->save();
+  }
+}
+
+/**
+ * Validates and OSIS identifier using the osis_field module.
+ *
+ * (Ab)uses the osis_field module's internal validation since it is the gold
+ * standard for valid OSIS passages in the system.
+ */
+function _nurani_bundle_validate_osisid($osisIDWork, $osisID) {
+  $item = array('osisIDWork' => $osisIDWork, 'osisID' => $osisID);
+  $delta = 0;
+  $field = array('field_name' => 'field_bundle');
+
+  return osis_field_validate($item, $delta, $field, NULL, NULL);
+}
+
+/**
+ * Generates a bundle title using the picked passages.
+ */
+function _nurani_bundle_generate_title($edit) {
+  return "Generated bundle title"; // TODO: Finish _nurani_bundle_generate_title()
 }
 
 /**
@@ -308,21 +411,7 @@ function nurani_bundle_clone_bundle_json($bundle_node, $langcode = LANGUAGE_NONE
  * Page callback to generate JSON output for validating an OSIS identifier.
  */
 function nurani_bundle_validate_passage_json($osisIDWork, $osisID) {
-  $item = array('osisIDWork' => $osisIDWork, 'osisID' => $osisID);
-  $delta = 0;
-  $field = array('field_name' => 'field_bundle');
-
-  // (Ab)use the osis_field module's validation since it is the gold standard
-  // for valid OSIS passages in the system.
-  $is_valid = _osis_field_validate($item, $delta, $field, NULL, NULL);
-
-  if ($is_valid) {
-    return drupal_json_output(TRUE);
-  }
-  else {
-    $errors = form_get_errors();
-    return drupal_json_output(array('errors' => $errors));
-  }
+  return drupal_json_output(_nurani_bundle_validate_osisid($osisIDWork, $osisID));
 }
 
 /**
