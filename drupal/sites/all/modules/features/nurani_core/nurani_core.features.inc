@@ -22,7 +22,7 @@ function nurani_core_node_info() {
     'bundle' => array(
       'name' => t('Bundle'),
       'base' => 'node_content',
-      'description' => '',
+      'description' => t('A bundle of passages around which a discussion is based.'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',

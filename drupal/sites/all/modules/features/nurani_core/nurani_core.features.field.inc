@@ -371,11 +371,11 @@ function nurani_core_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'node_reference',
+          'label' => 'hidden',
+          'module' => 'nurani_bundle',
           'settings' => array(),
-          'type' => 'node_reference_default',
-          'weight' => 1,
+          'type' => 'nurani_bundle',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',

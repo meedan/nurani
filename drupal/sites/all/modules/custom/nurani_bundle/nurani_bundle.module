@@ -42,6 +42,13 @@ function nurani_bundle_menu() {
 }
 
 /**
+ * Implements hook_menu_alter().
+ */
+function nurani_bundle_menu_alter(&$items) {
+  $items['node/add/bundle']['access callback'] = FALSE;
+}
+
+/**
  * Implements hook_field_widget_form_alter()
  */
 function nurani_bundle_field_widget_form_alter(&$element, &$form_state, $context) {
