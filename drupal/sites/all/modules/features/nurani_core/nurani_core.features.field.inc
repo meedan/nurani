@@ -268,7 +268,7 @@ function nurani_core_field_default_fields() {
   $fields['node-bundle-field_passage_collection'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '3',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_passage_collection',

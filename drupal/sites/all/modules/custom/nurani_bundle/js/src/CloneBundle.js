@@ -43,13 +43,21 @@ CloneBundle.prototype.cloneBundle = function (bundle_nid) {
   });
 };
 
-CloneBundle.prototype.setVisibility = function (visibility, set_message) {
+CloneBundle.prototype.setVisibility = function (visibility, set_message, animated) {
   if (visibility) {
-    this.$wrapper.slideDown('slow');
+    if (animated) {
+      this.$wrapper.slideDown('slow');
+    } else {
+      this.$wrapper.show();
+    }
   } else {
     if (set_message) {
       this.bundleUI.setMessage(Drupal.t('Existing bundle selected. Remove all passages to use a different bundle as a template.'));
     }
-    this.$wrapper.slideUp('slow');
+    if (animated) {
+      this.$wrapper.slideUp('slow');
+    } else {
+      this.$wrapper.hide();
+    }
   }
 };

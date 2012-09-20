@@ -15,7 +15,11 @@ PassageBox.prototype.init = function () {
   this.bindFields();
   this.bindRemoveButton();
   this.bindAddButton();
-  this.render();
+
+  // Set up initial display state
+  this.updatedPicked();
+  this.render(false);
+  this.bundleUI.passageBoxStateDidChange(this, false);
 
   return this;
 };
@@ -85,19 +89,31 @@ PassageBox.prototype.updatedPicked = function () {
 /**
  * Retrieves passage text and update other aspects of the display.
  */
-PassageBox.prototype.render = function () {
+PassageBox.prototype.render = function (animated) {
+  animated = typeof animated === 'undefined' ? true : animated;
+
   if (this.picked) {
     this.$passageText.removeClass('empty');
     this.$passageWidget.html('<span>' + this.$osisIDWork.val() + '</span>:<span>' + this.$osisID.val() + '</span>');
     this.$moderatorsThoughts.removeAttr('disabled');
     this.$visible.removeAttr('disabled');
-    this.$bib.slideDown();
+
+    if (animated) {
+      this.$bib.slideDown();
+    } else {
+      this.$bib.show();
+    }
   }
   else {
     this.$passageText.addClass('empty');
     this.$moderatorsThoughts.attr('disabled', 'disabled');
     this.$visible.attr('disabled', 'disabled');
-    this.$bib.slideUp();
+
+    if (animated) {
+      this.$bib.slideUp();
+    } else {
+      this.$bib.hide();
+    }
   }
 };
 

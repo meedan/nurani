@@ -12,8 +12,13 @@ BundleUI.prototype.init = function () {
   this.cloneBundle  = undefined;
   this.passageBoxes = [];
 
+  this.bindContainers();
   this.initCloneBundleForm();
   this.initPassageBoxes();
+};
+
+BundleUI.prototype.bindContainers = function () {
+  this.$passageBoxes = $('.passage-boxes', this.$wrapper);
 };
 
 BundleUI.prototype.initCloneBundleForm = function () {
@@ -58,14 +63,16 @@ BundleUI.prototype.loadState = function (data, set_message) {
  * Passage boxes call this method to inform the rest of the application that
  * their state changed.
  */
-BundleUI.prototype.passageBoxStateDidChange = function (passageBox) {
+BundleUI.prototype.passageBoxStateDidChange = function (passageBox, animated) {
   var i, len = this.passageBoxes.length, picked = [];
+
+  animated = typeof animated === 'undefined' ? true : animated;
 
   for (i = 0; i < len; i++) {
     picked.push(this.passageBoxes[i].picked);
   }
 
-  this.cloneBundle.setVisibility(picked.indexOf(true) === -1);
+  this.cloneBundle.setVisibility(picked.indexOf(true) === -1, false, animated);
 };
 
 /**
@@ -73,5 +80,5 @@ BundleUI.prototype.passageBoxStateDidChange = function (passageBox) {
  * of time.
  */
 BundleUI.prototype.setMessage = function (message, type, hideAfter) {
-  util.setMessage(this.$wrapper, message, type, hideAfter)
+  util.setMessage($('> .inner', this.$passageBoxes), message, type, hideAfter)
 };

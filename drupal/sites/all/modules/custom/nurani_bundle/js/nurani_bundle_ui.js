@@ -80,8 +80,13 @@
     this.cloneBundle  = undefined;
     this.passageBoxes = [];
 
+    this.bindContainers();
     this.initCloneBundleForm();
     this.initPassageBoxes();
+  };
+
+  BundleUI.prototype.bindContainers = function () {
+    this.$passageBoxes = $('.passage-boxes', this.$wrapper);
   };
 
   BundleUI.prototype.initCloneBundleForm = function () {
@@ -126,14 +131,16 @@
    * Passage boxes call this method to inform the rest of the application that
    * their state changed.
    */
-  BundleUI.prototype.passageBoxStateDidChange = function (passageBox) {
+  BundleUI.prototype.passageBoxStateDidChange = function (passageBox, animated) {
     var i, len = this.passageBoxes.length, picked = [];
+
+    animated = typeof animated === 'undefined' ? true : animated;
 
     for (i = 0; i < len; i++) {
       picked.push(this.passageBoxes[i].picked);
     }
 
-    this.cloneBundle.setVisibility(picked.indexOf(true) === -1);
+    this.cloneBundle.setVisibility(picked.indexOf(true) === -1, false, animated);
   };
 
   /**
@@ -141,7 +148,7 @@
    * of time.
    */
   BundleUI.prototype.setMessage = function (message, type, hideAfter) {
-    util.setMessage(this.$wrapper, message, type, hideAfter)
+    util.setMessage($('> .inner', this.$passageBoxes), message, type, hideAfter)
   };
 
   /**
@@ -189,14 +196,22 @@
     });
   };
 
-  CloneBundle.prototype.setVisibility = function (visibility, set_message) {
+  CloneBundle.prototype.setVisibility = function (visibility, set_message, animated) {
     if (visibility) {
-      this.$wrapper.slideDown('slow');
+      if (animated) {
+        this.$wrapper.slideDown('slow');
+      } else {
+        this.$wrapper.show();
+      }
     } else {
       if (set_message) {
         this.bundleUI.setMessage(Drupal.t('Existing bundle selected. Remove all passages to use a different bundle as a template.'));
       }
-      this.$wrapper.slideUp('slow');
+      if (animated) {
+        this.$wrapper.slideUp('slow');
+      } else {
+        this.$wrapper.hide();
+      }
     }
   };
 
@@ -217,7 +232,11 @@
     this.bindFields();
     this.bindRemoveButton();
     this.bindAddButton();
-    this.render();
+
+    // Set up initial display state
+    this.updatedPicked();
+    this.render(false);
+    this.bundleUI.passageBoxStateDidChange(this, false);
 
     return this;
   };
@@ -287,19 +306,31 @@
   /**
    * Retrieves passage text and update other aspects of the display.
    */
-  PassageBox.prototype.render = function () {
+  PassageBox.prototype.render = function (animated) {
+    animated = typeof animated === 'undefined' ? true : animated;
+
     if (this.picked) {
       this.$passageText.removeClass('empty');
       this.$passageWidget.html('<span>' + this.$osisIDWork.val() + '</span>:<span>' + this.$osisID.val() + '</span>');
       this.$moderatorsThoughts.removeAttr('disabled');
       this.$visible.removeAttr('disabled');
-      this.$bib.slideDown();
+
+      if (animated) {
+        this.$bib.slideDown();
+      } else {
+        this.$bib.show();
+      }
     }
     else {
       this.$passageText.addClass('empty');
       this.$moderatorsThoughts.attr('disabled', 'disabled');
       this.$visible.attr('disabled', 'disabled');
-      this.$bib.slideUp();
+
+      if (animated) {
+        this.$bib.slideUp();
+      } else {
+        this.$bib.hide();
+      }
     }
   };
 
