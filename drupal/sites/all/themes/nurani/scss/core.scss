@@ -1,0 +1,4 @@
+@import 'bowerbird';
+@import 'bowerbird/basic';
+
+@include basic-default(1200px, 400px, 400px);

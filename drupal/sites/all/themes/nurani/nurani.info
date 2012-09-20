@@ -1,9 +1,8 @@
 name = Nurani
 description = "Nurani.org theme based on the Bowerbird theme."
-screenshot = screenshot.png
 core = "7.x"
 engine = phptemplate
 base theme = bowerbird
 
 ;; Put CSS properties here
-stylesheets[all][] = css/test.css
+stylesheets[all][] = css/core.css
