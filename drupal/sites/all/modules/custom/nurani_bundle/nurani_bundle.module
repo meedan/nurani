@@ -45,7 +45,14 @@ function nurani_bundle_menu() {
  * Implements hook_menu_alter().
  */
 function nurani_bundle_menu_alter(&$items) {
-  // $items['node/add/bundle']['access callback'] = FALSE;
+  $items['node/add/bundle']['access callback'] = 'nurani_bundle_is_administrator';
+}
+
+/**
+ * Menu access callback. Allows access to users in the administrator role.
+ */
+function nurani_bundle_is_administrator() {
+  return array_search('administrator', $GLOBALS['user']->roles) !== FALSE;
 }
 
 /**
