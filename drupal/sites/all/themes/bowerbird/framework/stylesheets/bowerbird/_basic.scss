@@ -1,9 +1,6 @@
-// Ensure the main bowerbird import is .. imported
-@import '../bowerbird';
-
-/**
- * Meta-mixin that enables all of the default Basic theme style.
- */
+//
+// Meta-mixin that enables all of the default Basic theme style.
+//
 @mixin basic-default($width: 1100px, $first_sidebar_width: 200px, $second_sidebar_width: 200px) {
   @include basic-reset;
   @include basic-layout($width, $first_sidebar_width, $second_sidebar_width);
@@ -13,10 +10,10 @@
 }
 
 
-/**
- * Very simplistic reset from the Basic theme, can be replaced with a more
- * advanced reset if necessary.
- */
+//
+// Very simplistic reset from the Basic theme, can be replaced with a more
+// advanced reset if necessary.
+//
 @mixin basic-reset {
   * {
     margin: 0;
@@ -25,15 +22,15 @@
 }
 
 
-/* Layout
- * ------
- * Using a negative margin technique, adapted from ZEN. The page is loaded by this order:
- *
- * 1. Header
- * 2. Content
- * 3. Navigation menus
- * 4. Sidebar Left
- * 5. Sideabr Right */
+// Layout
+// ------
+// Using a negative margin technique, adapted from ZEN. The page is loaded by this order:
+//
+// 1. Header
+// 2. Content
+// 3. Navigation menus
+// 4. Sidebar Left
+// 5. Sideabr Right */
 @mixin basic-layout($width: 1100px, $first_sidebar_width: 200px, $second_sidebar_width: 200px) {
   /* remove 'auto' and the width to switch to a fluid width */
   #page {
@@ -71,14 +68,6 @@
     clear: both;
   }
 
-  /* Sidebars width
-   * --------------
-   * Changing the width of the sidebars is dead easy, just change the
-   * values below corresponding to the sidebar you want to modify.
-   * Make sure you keep negative values as negative values.
-   * For example, if I want to increase the width of the left sidebar
-   * to 300px, I would have to change each '190' to '300'. */
-
   // Left value.
   .two-sidebars,
   .sidebar-first {
@@ -105,19 +94,10 @@
     width: $second_sidebar_width;
   }
 
-  /* Columns Inner
-   * -------------
-   * You can change the padding inside the columns without changing the
-   * width of them by just usinbg the INNER div of each column */
   .inner {
     padding: 0;
   }
 
-  /* Navigation styles
-   * -----------------
-   * The navigation is loaded after the content, so we need to make space
-   * for it, equal to its height, so if you change the height of the navigation,
-   * remember to adapt the margin top of the content and sidebars. */
   #navigation {
     float: left;
     margin-left: 0;
@@ -137,9 +117,9 @@
 }
 
 
-/**
- * Typography setup from the Basic theme.
- */
+//
+// Typography setup from the Basic theme.
+//
 @mixin basic-typography {
   body {
     margin: 0;
@@ -286,9 +266,9 @@
   }
 }
 
-/**
- * "UI Improvements" from the Basic theme.
- */
+// 
+// "UI Improvements" from the Basic theme.
+// 
 @mixin basic-ui-improvements {
   #edit-title {
     font-size: 24px;
@@ -340,9 +320,9 @@
 }
 
 
-/**
- * Default region colors from the Basic theme.
- */
+//
+// Default region colors from the Basic theme.
+//
 @mixin basic-region-colors {
   #header, #footer {
     background: #efefef;
