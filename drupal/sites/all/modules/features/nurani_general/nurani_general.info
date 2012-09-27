@@ -12,6 +12,7 @@ dependencies[] = page_manager
 dependencies[] = panels
 dependencies[] = strongarm
 dependencies[] = views
+dependencies[] = nurani_helpers
 features[box][] = nurani_about_nurani
 features[box][] = nurani_welcome
 features[context][] = nurani_home

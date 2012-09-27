@@ -6,13 +6,22 @@
 function nurani_bundle_theme($existing, $type, $theme, $path) {
   return array(
     'nurani_bundle_formatter' => array(
-      'variables' => array('item' => NULL),
+      'variables' => array('item' => NULL, 'node' => NULL, 'data' => NULL),
     ),
     'nurani_bundle_ui' => array(
       'render element' => 'element',
     ),
     'nurani_bundle_ui_passage_box' => array(
       'render element' => 'element',
+    ),
+    'nurani_bundle_passage_box' => array(
+      'variables' => array('delta' => NULL, 'content' => NULL, 'bib' => NULL),
+    ),
+    'nurani_bundle_passage_box_content' => array(
+      'variables' => array('data' => NULL),
+    ),
+    'nurani_bundle_passage_box_bib' => array(
+      'variables' => array('moderator_s_thoughts' => NULL, 'language' => NULL, 'account' => NULL, 'timestamp' => NULL),
     ),
   );
 }
@@ -203,30 +212,15 @@ function theme_nurani_bundle_ui_passage_box(&$variables) {
   $element = &$variables['element'];
   $delta   = $element['#delta'];
 
-  switch ($delta % 3) {
-    case 0: $number = 'first'; break;
-    case 1: $number = 'second'; break;
-    case 2: $number = 'third'; break;
-  }
+  $content  = drupal_render($element['remove']);
+  $content .= drupal_render($element['add']);
+  $content .= drupal_render($element['osisID']);
+  $content .= drupal_render($element['osisIDWork']);
 
-  $output  = '';
-  $output .= '<div class="passage-box passage-box-' . $delta . ' ' . $number . '">';
-  $output .=   '<div class="inner">';
-  $output .=     '<div class="passage-text empty">';
-  $output .=       '<div class="passage-widget"></div>';
-  $output .=       drupal_render($element['remove']);
-  $output .=       drupal_render($element['add']);
-  $output .=       drupal_render($element['osisID']);
-  $output .=       drupal_render($element['osisIDWork']);
-  $output .=     '</div>';
-  $output .=     '<div class="bib">';
-  $output .=       drupal_render($element['moderator_s_thoughts']);
-  $output .=       drupal_render($element['visible']);
-  $output .=     '</div>';
-  $output .=   '</div>';
-  $output .= '</div>';
+  $bib      = drupal_render($element['moderator_s_thoughts']);
+  $bib     .= drupal_render($element['visible']);
 
-  return $output;
+  return theme('nurani_bundle_passage_box', array('delta' => $delta, 'content' => $content, 'bib' => $bib));
 }
 
 /**
@@ -422,6 +416,63 @@ function nurani_bundle_validate_passage_json($osisIDWork, $osisID) {
 }
 
 /**
+ * Theme function to render a passage box.
+ */
+function theme_nurani_bundle_passage_box(&$variables) {
+  $delta   = $variables['delta'];
+  $content = $variables['content'];
+  $bib     = $variables['bib'];
+
+  switch ($delta % 3) {
+    case 0: $number = 'first'; break;
+    case 1: $number = 'second'; break;
+    case 2: $number = 'third'; break;
+  }
+
+  $output  = '';
+  $output .= '<div class="passage-box passage-box-' . $delta . ' ' . $number . '">';
+  $output .=   '<div class="inner">';
+  $output .=     '<div class="passage-text">';
+  $output .=       '<div class="passage-widget"></div>';
+  $output .=       $content;
+  $output .=     '</div>';
+  $output .=     '<div class="bib">';
+  $output .=       $bib;
+  $output .=     '</div>';
+  $output .=   '</div>';
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * Theme function to render the content for a passage box.
+ */
+function theme_nurani_bundle_passage_box_content(&$variables) {
+  $data = $variables['data'];
+
+  $output  = '';
+  $output .= '<span>' . $data['osisIDWork'] . ':' . $data['osisID'] . '</span>';
+
+  return $output;
+}
+
+/**
+ * Theme function to render the bib for a passage box.
+ */
+function theme_nurani_bundle_passage_box_bib(&$variables) {
+  $output  = '';
+  $output .= '<div class="moderator_s_thoughts">';
+  $output .=   '<label>' . t('Notes on this passage') . '</label>';
+  $output .=   check_markup($variables['moderator_s_thoughts'], NULL, $variables['language']);
+  $output .=   theme('nurani_attribution', array('account' => $variables['account'], 'timestamp' => $variables['timestamp']));
+  $output .= '</div>';
+
+  return $output;
+}
+
+
+/**
  * Implements hook_field_formatter_info().
  */
 function nurani_bundle_field_formatter_info() {
@@ -454,11 +505,19 @@ function nurani_bundle_field_formatter_view($entity_type, $entity, $field, $inst
   $element = array();
 
   foreach ($items as $delta => $item) {
+    $bundle_node = node_load($item['nid']);
+    $bundle_data = _nurani_bundle_combine_edit_data($item['nid'], $entity->language, $delta, array());
+
     $element[$delta] = array(
       '#theme' => 'nurani_bundle_formatter',
       '#item' => $item,
+      '#node' => $bundle_node,
+      '#data' => $bundle_data['ui']['passages'],
     );
   }
+
+  $path = drupal_get_path('module', 'nurani_bundle');
+  $element['#attached']['css'] = array($path . '/css/nurani_bundle_ui.css');
 
   return $element;
 }
@@ -467,9 +526,37 @@ function nurani_bundle_field_formatter_view($entity_type, $entity, $field, $inst
  * Returns HTML for an nurani_bundle field formatter.
  */
 function theme_nurani_bundle_formatter($variables) {
-  $item = $variables['item'];
+  $item        = $variables['item'];
+  $data        = $variables['data'];
+  $bundle_node = $variables['node'];
+  $account     = user_load($bundle_node->revision_uid);
 
-  $output = 'Hello.';
+  $passage_boxes = '';
+  foreach (array(0, 1, 2) as $delta) {
+    if (!isset($data[$delta])) continue;
+
+    $datum = $data[$delta];
+    if (!$datum['visible']) continue;
+
+    $content = theme('nurani_bundle_passage_box_content', array(
+      'data' => $datum
+    ));
+    $bib = theme('nurani_bundle_passage_box_bib', array(
+      'moderator_s_thoughts' => $datum['moderator_s_thoughts'],
+      'language'             => $bundle_node->language,
+      'account'              => $account,
+      'timestamp'            => $bundle_node->revision_timestamp,
+    ));
+
+    $passage_boxes .= theme('nurani_bundle_passage_box', array('delta' => $delta, 'content' => $content, 'bib' => $bib));
+  }
+
+  $output  = '';
+  $output .= '<div class="passage-boxes clearfix">';
+  $output .=   '<div class="inner">';
+  $output .=     $passage_boxes;
+  $output .=   '</div>';
+  $output .= '</div>';
 
   return $output;
 }

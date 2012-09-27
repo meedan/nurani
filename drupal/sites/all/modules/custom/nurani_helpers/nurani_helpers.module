@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function nurani_helpers_theme($existing, $type, $theme, $path) {
+  return array(
+    'nurani_attribution' => array(
+      'variables' => array('author' => NULL, 'timestamp' => NULL),
+    ),
+  );
+}
+
+function theme_nurani_attribution(&$variables) {
+  $output  = '';
+  $output .= '<span class="attribution">';
+  $output .=   theme('username', array('account' => $variables['account']));
+  $output .=   ' ';
+  $output .=   format_date($variables['timestamp'], 'medium', '', $variables['account']->timezone);
+  $output .= '</span>';
+  return $output;
+}
