@@ -27,6 +27,7 @@ features[field][] = field_collection_item-field_passage_collection-field_visible
 features[field][] = node-bundle-body
 features[field][] = node-bundle-field_passage_collection
 features[field][] = node-discussion-field_bundle
+features[field][] = node-discussion-field_subtitle
 features[node][] = bundle
 features[taxonomy][] = theme
 features[user_permission][] = access administration pages
