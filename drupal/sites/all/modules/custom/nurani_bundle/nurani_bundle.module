@@ -436,9 +436,7 @@ function theme_nurani_bundle_passage_box(&$variables) {
   $output .=       '<div class="passage-widget"></div>';
   $output .=       $content;
   $output .=     '</div>';
-  $output .=     '<div class="bib">';
-  $output .=       $bib;
-  $output .=     '</div>';
+  $output .=     $bib ? '<div class="bib">' . $bib . '</div>' : '';
   $output .=   '</div>';
   $output .= '</div>';
 
@@ -461,6 +459,10 @@ function theme_nurani_bundle_passage_box_content(&$variables) {
  * Theme function to render the bib for a passage box.
  */
 function theme_nurani_bundle_passage_box_bib(&$variables) {
+  if (trim($variables['moderator_s_thoughts']) == '') {
+    return '';
+  }
+
   $output  = '';
   $output .= '<div class="moderator_s_thoughts">';
   $output .=   '<label>' . t('Notes on this passage') . '</label>';
