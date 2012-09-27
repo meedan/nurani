@@ -52,7 +52,7 @@
 
             <?php print $breadcrumb; ?>
 
-            <?php if ($page['highlight']): ?>
+            <?php if (isset($page['highlight'])): ?>
               <div id="highlight"><?php print render($page['highlight']) ?></div>
             <?php endif; ?>
 
