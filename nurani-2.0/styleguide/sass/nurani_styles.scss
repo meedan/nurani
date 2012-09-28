@@ -1,0 +1,156 @@
+$gutter: 20px;
+
+@import "meedan-bootstrap/meedan-bootstrap";
+@include typography;	
+
+@mixin nurani-icon($color: $yuma-gold, $font-awesome-icon-selector: '.icon-envelope-alt', $padding: 4px) {
+	@include fancy-button-matte($color, $small-font-size, $padding, 1px);
+	@include icon { 
+		@extend #{$font-awesome-icon-selector}; &:before { margin-right: 5px!important; }
+	}
+}
+
+body {
+	// background: url("../images/brown_bkg.png");
+	// background: url("../images/light_bkg.png");
+	
+	#container {
+		@include container;
+		// @include susy-grid-background;
+	}
+	
+	section.radio-buttons input {
+		float: left;
+		clear: both;
+	}
+
+	.passages {
+		clear: both;
+		@include span-columns($total-columns);
+		margin-top: $gutter*2;
+		.passage {
+			h3 {
+				padding-top: $gutter;
+				padding-bottom: $gutter;
+			}
+			background: #fff;
+			@include pad(1, 1);
+			@include span-columns(7 omega);
+			@include post(1);
+			padding-bottom: $gutter*2;
+		}
+	}
+	
+	select.large {
+		font-size: $medium-font-size;
+		padding: 6px;
+	}
+	button {
+		margin: $gutter-width!important;
+		float:left; 
+		clear: both;
+	}
+
+	form {
+		display: block;
+		
+		input, 
+		textarea, 
+		select {
+			float: left;
+			clear: both;
+			margin-top: $gutter;
+		}
+
+		input.small {
+			@include span-columns(10);
+		}
+		input.medium {
+			@include span-columns(10);
+			margin-top: $gutter;
+			margin-bottom: $gutter;
+		}
+	
+		textarea.medium {
+			@include span-columns(10);
+			height: 50px;
+		}
+
+		textarea.large {
+			@include span-columns(15);
+			height: 150px;
+		}
+
+		button {
+			margin-top: $gutter;
+			margin-bottom: $gutter;
+		}
+
+		button.view-discussion {
+			@include fancy-button-matte(darken($terminal-green, 20%), $small-font-size, 4px, 1px);
+			@include icon { 
+				@extend .icon-comments-alt; &:before { margin-right: 5px!important; } 
+			}
+		}
+
+		button.request-nurani-invite {
+			@include fancy-button-matte($kashmir-blue, $small-font-size, 4px, 1px);
+			@include icon { 
+				@extend .icon-envelope-alt; &:before { margin-right: 5px!important; }
+			}
+		}
+
+		button.start-nurani-discussion {
+			@include fancy-button-matte(darken($terminal-green, 20%), $large-font-size, 4px, 1px);
+			@include icon { 
+				@extend .icon-comment-alt; &:before { margin-right: 15px!important; }
+			}
+		}
+
+		button.start-nurani-discussion-disabled {
+			@include fancy-button-matte($paco-red, $small-font-size, 4px, 1px);
+			@include icon { 
+				@extend .icon-comment-alt; &:before { margin-right: 5px!important; }
+			}
+		}
+
+		button.add-passages {
+			@include nurani-icon($kashmir-blue, '.icon-add');
+		}
+
+		button.search {
+			@include nurani-icon($gray, '.icon-search');
+		}
+
+		button.request-library-invite {
+			@include nurani-icon($paco-red, '.icon-envelope');
+		}
+	}
+
+	.beveled-header {
+		background: url(../images/bevel.jpg);
+		@include span-columns($total-columns);
+		text-align: center;
+		margin-top: $gutter*3;
+		h2 {
+			background: url("../images/brown_bkg.png");
+			padding: $gutter;
+			width: auto;
+			display: inline;
+			@include en-serif-font-stack;
+			@include adjust-font-size-to($large-font-size);
+		}
+	}
+
+	.print-button {
+		@include icon { @extend .icon-print }
+	}
+
+	.request-button {
+		@include icon { @extend .icon-print }
+		@include fancy-button($yuma-gold, 16px, 1em, 1px);
+		margin-top: $gutter;
+		margin-bottom: $gutter;
+	}
+
+}

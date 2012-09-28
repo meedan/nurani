@@ -1,0 +1,14 @@
+// generate a CSS3 pointer using borders to draw triangles
+@mixin pointer-content($color: $buttermilk-yellow, $size: 15px, $shape: transparent transparent $color transparent, $top: -$size * 2, $side: 2%) {
+  &:before {
+    content: ' ';
+    position: absolute; 
+    width: 0;  
+    height: 0;  
+    #{$from-direction}: $side;  
+    top: $top;  
+    border: $size solid;  
+    border-color: $shape;
+    z-index: 100;
+  }
+}

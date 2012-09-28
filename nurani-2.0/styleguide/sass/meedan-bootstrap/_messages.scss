@@ -1,0 +1,19 @@
+@mixin messages($color: $light-gray, $adjustment: "lighten", $font-size: $medium-font-size) {
+  margin: 0;
+  padding-left: rhythm(1/2, $font-size);
+  padding-right: rhythm(1/2, $font-size);
+  margin-top: rhythm(1, $font-size);
+  margin-bottom: rhythm(1, $font-size);
+  color: adjust_hue(darken($color, 50%), -5%);
+  @include adjust-font-size-to($font-size);
+  @include leading-border(1px, 1, $font-size);
+  @include trailing-border(1px, 1, $font-size);
+  border-color: adjust_hue(darken($color, 20%), -5%);
+  
+  @if $adjustment == "lighten" {
+    background: adjust_hue(lighten($color, 20%), -5%);
+  }
+  @else if $adjustment == "darken" {
+    background: adjust_hue(darken($color, 20%), -5%);
+  }
+}

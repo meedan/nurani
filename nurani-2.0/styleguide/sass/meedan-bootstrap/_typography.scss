@@ -1,0 +1,160 @@
+// Standardize font sizes
+$xxxlarge-font-size: 50px !default;
+$xxlarge-font-size: 40px !default;
+$xlarge-font-size: 32px !default;
+$large-font-size: 26px !default;
+$medium-large-font-size: 21px !default;
+$medium-font-size: 16px !default;
+$small-font-size: 14px !default;
+$xsmall-font-size: 11px !default;
+
+@mixin en-sans-font-stack { font-family: 'PT Sans', "Helvetica Neue", arial, sans-serif; }
+@mixin en-sans-caption-font-stack { font-family: 'PT Sans Caption', 'Lucida Sans', "Helvetica Neue", arial, sans-serif; }
+@mixin en-plain-font-stack { font-family: "helvetica neue", sans-serif; }
+@mixin en-alt-font-stack { font-family: 'Pacifico', "helvetica neue"; }
+@mixin en-serif-font-stack { font-family: "Palatino", Georgia, Times, "Times New Roman", serif; }
+
+@mixin leader-and-trailer( $amount: 1, $context: $medium-font-size, $padding: 0) {
+  @include leader($amount, $context);
+  @include trailer($amount, $context);
+  @if $padding > 0 {                        
+    @include leader($amount, $context, padding);
+    @include trailer($amount, $context, padding);
+  }
+}
+
+// special mixin for creating a large "stylistic quote" eg in a blockquote
+@mixin quote-content {
+  &:before {
+    display: block;
+    @include adjust-font-size-to(70px);
+    font-weight: normal!important;
+    content: "\"";
+    height: 1px;
+    margin-#{$from-direction}: -0.45em;
+    position:relative;
+    top:-20px;
+    @include en-alt-font-stack;
+  }
+}
+
+// main typography mixin
+@mixin typography() {
+  ol {
+    list-style-type: decimal;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    color: black;
+    clear: both;
+    @include en-sans-font-stack;
+  }
+  
+  ul {
+    list-style-type: disc;
+    list-style-position: inside;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+  
+  em {
+    font-style: italic;
+  }
+
+  pre {
+    // in syntax.scss
+  }
+  
+  code {
+    background: $syntax-background;
+    color: $syntax-foreground;
+    @include border-radius(6%);
+    font-family: monospace;
+    @include adjust-font-size-to($small-font-size);
+    line-height: $large-font-size * 2;
+    @include border-radius(4px);
+    padding: 2px;
+  }
+  
+  h1 {
+    color: black;
+    @include adjust-font-size-to($xxxlarge-font-size);
+    font-weight: 700;
+  }
+
+  h2 {
+    font-weight: 100;
+    @include adjust-font-size-to($large-font-size);
+    color: black;
+  }
+  
+  h3 {
+    @include adjust-font-size-to($medium-font-size);
+    font-weight: bold;
+  }
+  
+  h1, h2, h3 {
+    &.icon {
+      @include messages($paris-daisy-yellow);
+      font-weight: normal;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  h4 {
+    @include adjust-font-size-to($medium-font-size);
+    @include en-sans-font-stack;
+    display: inline;
+    font-weight: bold;
+  }
+  
+  /* default link styles*/
+  /* link, visited, hover, active */
+  a { 
+    @include link-colors( $links-color, $links-color, $links-color, $links-color, $links-color );
+    text-decoration: none;
+   }
+
+  a:hover { 
+    text-decoration: underline; 
+    }
+  
+  p {
+    @include en-serif-font-stack;
+    clear: both;
+  }
+  
+  p.leader {
+    @include adjust-font-size-to($xlarge-font-size);
+  }
+  
+  blockquote {
+    @include adjust-font-size-to($large-font-size);
+    @include leader-and-trailer(1, $medium-font-size);
+    clear: both;
+    @include quote-content;
+    footer {
+      cite a {
+        @include adjust-font-size-to($xsmall-font-size);
+      }
+    }
+  }
+
+ dt {
+   font-weight: bold;
+ }
+
+  abbr {
+    border-bottom: 1px dotted #666666;
+    cursor: help;
+    white-space: nowrap; 
+  }
+  
+  header {
+    @include en-sans-font-stack;
+  }
+}

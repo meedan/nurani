@@ -1,0 +1,17 @@
+// bevels helper, works with lists of .row elements and li elements
+// used in forms.scss and navigation
+@mixin bevels($color: $light-gray, $background: lighten($gray, 5%)) {
+  .row, li {
+    background: $background;
+    border-top: 1px solid $color;
+    border-bottom: 1px solid darken($color, 20%);
+  }
+  
+  .row:first-child, li:first-child {
+    border-top-width:0;
+  }
+  
+  .row:last-child, li:first-child {
+    border-bottom-width: 0;
+  }
+}
