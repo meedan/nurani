@@ -433,7 +433,6 @@ function theme_nurani_bundle_passage_box(&$variables) {
   $output .= '<div class="passage-box passage-box-' . $delta . ' ' . $number . '">';
   $output .=   '<div class="inner">';
   $output .=     '<div class="passage-text">';
-  $output .=       '<div class="passage-widget"></div>';
   $output .=       $content;
   $output .=     '</div>';
   $output .=     $bib ? '<div class="bib">' . $bib . '</div>' : '';
@@ -540,9 +539,7 @@ function theme_nurani_bundle_formatter($variables) {
     $datum = $data[$delta];
     if (!$datum['visible']) continue;
 
-    $content = theme('nurani_bundle_passage_box_content', array(
-      'data' => $datum
-    ));
+    $content = nurani_passage_widget($datum['osisIDWork'], $datum['osisID']);
     $bib = theme('nurani_bundle_passage_box_bib', array(
       'moderator_s_thoughts' => $datum['moderator_s_thoughts'],
       'language'             => $bundle_node->language,
