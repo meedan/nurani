@@ -1,326 +1,42 @@
-/* line 18, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-* {
-  margin: 0;
-  padding: 0;
-}
-
-/* remove 'auto' and the width to switch to a fluid width */
-/* line 36, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
+/*@import 'bowerbird/basic';*/
+/*$total-width: 1200px;
+$total-columns: 20;
+$column-width:2em;
+$gutter-width:1em;*/
+/* line 3, ../scss/_layout.scss */
 #page {
-  width: 1200px;
-  margin: 0 auto;
+  *zoom: 1;
+  max-width: 98.33333%;
+  _width: 98.33333%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(0%, rgba(100, 100, 225, 0.25)), color-stop(3.38983%, rgba(100, 100, 225, 0.25)), color-stop(3.38983%, rgba(0, 0, 0, 0)), color-stop(5.08475%, rgba(0, 0, 0, 0)), color-stop(5.08475%, rgba(100, 100, 225, 0.25)), color-stop(8.47458%, rgba(100, 100, 225, 0.25)), color-stop(8.47458%, rgba(0, 0, 0, 0)), color-stop(10.16949%, rgba(0, 0, 0, 0)), color-stop(10.16949%, rgba(100, 100, 225, 0.25)), color-stop(13.55932%, rgba(100, 100, 225, 0.25)), color-stop(13.55932%, rgba(0, 0, 0, 0)), color-stop(15.25424%, rgba(0, 0, 0, 0)), color-stop(15.25424%, rgba(100, 100, 225, 0.25)), color-stop(18.64407%, rgba(100, 100, 225, 0.25)), color-stop(18.64407%, rgba(0, 0, 0, 0)), color-stop(20.33898%, rgba(0, 0, 0, 0)), color-stop(20.33898%, rgba(100, 100, 225, 0.25)), color-stop(23.72881%, rgba(100, 100, 225, 0.25)), color-stop(23.72881%, rgba(0, 0, 0, 0)), color-stop(25.42373%, rgba(0, 0, 0, 0)), color-stop(25.42373%, rgba(100, 100, 225, 0.25)), color-stop(28.81356%, rgba(100, 100, 225, 0.25)), color-stop(28.81356%, rgba(0, 0, 0, 0)), color-stop(30.50847%, rgba(0, 0, 0, 0)), color-stop(30.50847%, rgba(100, 100, 225, 0.25)), color-stop(33.89831%, rgba(100, 100, 225, 0.25)), color-stop(33.89831%, rgba(0, 0, 0, 0)), color-stop(35.59322%, rgba(0, 0, 0, 0)), color-stop(35.59322%, rgba(100, 100, 225, 0.25)), color-stop(38.98305%, rgba(100, 100, 225, 0.25)), color-stop(38.98305%, rgba(0, 0, 0, 0)), color-stop(40.67797%, rgba(0, 0, 0, 0)), color-stop(40.67797%, rgba(100, 100, 225, 0.25)), color-stop(44.0678%, rgba(100, 100, 225, 0.25)), color-stop(44.0678%, rgba(0, 0, 0, 0)), color-stop(45.76271%, rgba(0, 0, 0, 0)), color-stop(45.76271%, rgba(100, 100, 225, 0.25)), color-stop(49.15254%, rgba(100, 100, 225, 0.25)), color-stop(49.15254%, rgba(0, 0, 0, 0)), color-stop(50.84746%, rgba(0, 0, 0, 0)), color-stop(50.84746%, rgba(100, 100, 225, 0.25)), color-stop(54.23729%, rgba(100, 100, 225, 0.25)), color-stop(54.23729%, rgba(0, 0, 0, 0)), color-stop(55.9322%, rgba(0, 0, 0, 0)), color-stop(55.9322%, rgba(100, 100, 225, 0.25)), color-stop(59.32203%, rgba(100, 100, 225, 0.25)), color-stop(59.32203%, rgba(0, 0, 0, 0)), color-stop(61.01695%, rgba(0, 0, 0, 0)), color-stop(61.01695%, rgba(100, 100, 225, 0.25)), color-stop(64.40678%, rgba(100, 100, 225, 0.25)), color-stop(64.40678%, rgba(0, 0, 0, 0)), color-stop(66.10169%, rgba(0, 0, 0, 0)), color-stop(66.10169%, rgba(100, 100, 225, 0.25)), color-stop(69.49153%, rgba(100, 100, 225, 0.25)), color-stop(69.49153%, rgba(0, 0, 0, 0)), color-stop(71.18644%, rgba(0, 0, 0, 0)), color-stop(71.18644%, rgba(100, 100, 225, 0.25)), color-stop(74.57627%, rgba(100, 100, 225, 0.25)), color-stop(74.57627%, rgba(0, 0, 0, 0)), color-stop(76.27119%, rgba(0, 0, 0, 0)), color-stop(76.27119%, rgba(100, 100, 225, 0.25)), color-stop(79.66102%, rgba(100, 100, 225, 0.25)), color-stop(79.66102%, rgba(0, 0, 0, 0)), color-stop(81.35593%, rgba(0, 0, 0, 0)), color-stop(81.35593%, rgba(100, 100, 225, 0.25)), color-stop(84.74576%, rgba(100, 100, 225, 0.25)), color-stop(84.74576%, rgba(0, 0, 0, 0)), color-stop(86.44068%, rgba(0, 0, 0, 0)), color-stop(86.44068%, rgba(100, 100, 225, 0.25)), color-stop(89.83051%, rgba(100, 100, 225, 0.25)), color-stop(89.83051%, rgba(0, 0, 0, 0)), color-stop(91.52542%, rgba(0, 0, 0, 0)), color-stop(91.52542%, rgba(100, 100, 225, 0.25)), color-stop(94.91525%, rgba(100, 100, 225, 0.25)), color-stop(94.91525%, rgba(0, 0, 0, 0)), color-stop(96.61017%, rgba(0, 0, 0, 0)), color-stop(96.61017%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-image: linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-position: left top;
+  -webkit-background-origin: content;
+  -moz-background-origin: content;
+  -ms-background-origin: content-box;
+  -o-background-origin: content-box;
+  background-origin: content-box;
+  -webkit-background-clip: content-box;
+  -moz-background-clip: content-box;
+  background-clip: content-box;
 }
-
-/* Layout rules. (Disclaimer: do not change if you're not sure you know what you're doing.) */
-/* line 42, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#content {
-  float: left;
-  width: 100%;
-  margin-right: -100%;
-  padding: 0;
-}
-
-/* line 49, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-.sidebar {
-  float: left;
-}
-
-/* line 53, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#sidebar-second {
-  float: right;
-}
-
-/* line 57, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#footer {
-  float: none;
+/* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+#page:after {
+  content: "";
+  display: table;
   clear: both;
 }
 
-/* Layout Helpers */
-/* line 67, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#header,
-#footer,
-.mission,
-.breadcrumb,
-.node {
-  clear: both;
-}
-
-/* line 74, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-.two-sidebars .center,
-.sidebar-first .center {
-  margin-left: 400px;
-}
-
-/* line 80, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#sidebar-first {
-  width: 400px;
-  margin-right: -400px;
-}
-
-/* line 87, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-.two-sidebars .center,
-.sidebar-second .center {
-  margin-right: 400px;
-}
-
-/* line 93, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#sidebar-second {
-  width: 400px;
-}
-
-/* line 97, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-.inner {
-  padding: 0;
-}
-
-/* line 101, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#navigation {
-  float: left;
-  margin-left: 0;
-  margin-right: -100%;
-  padding: 0;
-  width: 100%;
-  height: 40px;
-}
-
-/* line 113, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-.with-navigation #content,
-.with-navigation .sidebar {
-  margin-top: 40px;
-}
-
-/* line 124, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
+/* line 9, ../scss/_layout.scss */
 body {
-  margin: 0;
-  /* Setting up font size, leading and font family
-   * http://www.markboulton.co.uk/journal/comments/five-simple-steps-to-better-typography */
-  font: 13px/1.5em "Helvetica Neue", helvetica, Arial, sans-serif;
-  letter-spacing: 0.03em;
-  color: #444444;
+  background-color: #f4f0ee;
 }
 
-/* Links */
-/* line 135, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-a:link, a:visited {
-  color: blue;
-  text-decoration: none;
-}
-
-/* line 142, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-a:hover, a:active {
-  color: red;
-  text-decoration: underline;
-}
-
-/* Titles. */
-/* line 149, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#site-name {
-  font-size: 2.2em;
-  line-height: 1.3em;
-  font-weight: 300;
-  padding: 0 0 0.5em;
-  margin: 0;
-}
-
-/* line 157, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.3em;
-}
-
-/* line 161, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-h1, .breadcrumb {
-  font-size: 2.2em;
-  font-weight: 300;
-  padding: 0 0 0.5em;
-  margin: 0;
-  display: inline;
-}
-
-/* line 169, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-h2 {
-  font-size: 1.8em;
-  font-weight: 300;
-  margin-bottom: 0.75em;
-}
-
-/* line 175, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-h3 {
-  font-size: 1.4em;
-  margin-bottom: 1em;
-}
-
-/* line 180, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-h4 {
-  font-size: 1.2em;
-  margin-bottom: 0.8em;
-}
-
-/* line 185, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-h5 {
-  font-size: 1.1em;
-  font-weight: 600;
-  margin-bottom: 0;
-}
-
-/* line 191, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-h6 {
-  font-size: 1em;
-  font-weight: bold;
-}
-
-/* Paragraph styles. */
-/* line 197, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-p {
-  margin: 0 0 1em 0;
-}
-
-/* List styles. */
-/* line 202, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-ul, ol {
-  margin-left: 0;
-  padding-left: 2em;
-}
-
-/* Table styles. */
-/* line 208, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-table {
-  width: 99%;
-}
-
-/* line 214, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-tr.even td,
-tr.odd td {
-  padding: 10px 5px;
-}
-
-/* line 219, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-tr.odd {
-  background-color: white;
-}
-
-/* Code. */
-/* line 224, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-pre, code, tt {
-  font: 1em "andale mono", "lucida console", monospace;
-  line-height: 1.5;
-}
-
-/* line 229, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-pre {
-  background-color: #efefef;
-  display: block;
-  padding: 5px;
-  margin: 5px 0;
-  border: 1px solid #aaaaaa;
-}
-
-/* List styles. */
-/* line 238, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-ul {
-  list-style-type: disc;
-}
-/* line 240, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-ul ul {
-  list-style-type: circle;
-}
-/* line 242, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-ul ul ul {
-  list-style-type: square;
-}
-/* line 244, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-ul ul ul ul {
-  list-style-type: circle;
-}
-
-/* line 251, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-ol {
-  list-style-type: decimal;
-}
-/* line 253, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-ol ol {
-  list-style-type: lower-alpha;
-}
-/* line 255, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-ol ol ol {
-  list-style-type: decimal;
-}
-
-/* Abbreviation. */
-/* line 262, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-abbr {
-  border-bottom: 1px dotted #666666;
-  cursor: help;
-  white-space: nowrap;
-}
-
-/* line 273, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#edit-title {
-  font-size: 24px;
-  width: 99%;
-}
-
-/* line 278, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#system-themes-form img {
-  width: 100px;
-}
-
-/* line 282, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-.form-item .description {
-  font-style: italic;
-  line-height: 1.2em;
-  font-size: 0.8em;
-  margin-top: 5px;
-  color: #777777;
-}
-
-/* line 290, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#edit-delete {
-  color: #cc0000;
-}
-
-/* Console, style from slate theme. */
-/* line 295, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-div.messages {
-  padding: 9px;
-  margin: 1em 0;
-  color: #003366;
-  background: #bbddff;
-  border: 1px solid #aaccee;
-}
-
-/* line 303, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-div.warning {
-  color: #884400;
-  background: #ffee66;
-  border-color: #eedd55;
-}
-
-/* line 309, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-div.error {
-  color: white;
-  background: #ee6633;
-  border-color: #dd5522;
-}
-
-/* line 315, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-div.status {
-  color: #336600;
-  background: #ccff88;
-  border-color: #bbee77;
-}
-
-/* line 327, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#header, #footer {
-  background: #efefef;
-}
-
-/* line 331, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#sidebar-first {
-  background: #e7edff;
-}
-
-/* line 335, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/bowerbird/framework/stylesheets/bowerbird/_basic.scss */
-#sidebar-second {
-  background: #ffd075;
-}
+/*@include basic-default(1200px, 400px, 400px);*/
