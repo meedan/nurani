@@ -1,5 +1,5 @@
-name = Nurani Bundle
-description = ""
+name = Nurani Bundle UI
+description = "User interface for the Nurani Bundles."
 core = 7.x
 version = 7.x-1.0
 package = Nurani

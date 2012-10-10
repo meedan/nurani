@@ -17,9 +17,6 @@ function nurani_bundle_theme($existing, $type, $theme, $path) {
     'nurani_bundle_passage_box' => array(
       'variables' => array('delta' => NULL, 'content' => NULL, 'bib' => NULL),
     ),
-    'nurani_bundle_passage_box_content' => array(
-      'variables' => array('data' => NULL),
-    ),
     'nurani_bundle_passage_box_bib' => array(
       'variables' => array('moderator_s_thoughts' => NULL, 'language' => NULL, 'account' => NULL, 'timestamp' => NULL),
     ),
@@ -438,18 +435,6 @@ function theme_nurani_bundle_passage_box(&$variables) {
   $output .=     $bib ? '<div class="bib">' . $bib . '</div>' : '';
   $output .=   '</div>';
   $output .= '</div>';
-
-  return $output;
-}
-
-/**
- * Theme function to render the content for a passage box.
- */
-function theme_nurani_bundle_passage_box_content(&$variables) {
-  $data = $variables['data'];
-
-  $output  = '';
-  $output .= '<span>' . $data['osisIDWork'] . ':' . $data['osisID'] . '</span>';
 
   return $output;
 }

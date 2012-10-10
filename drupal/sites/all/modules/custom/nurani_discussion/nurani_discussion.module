@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function nurani_discussion_preprocess_page(&$vars) {
+  if (arg(0) == 'node' && is_numeric(arg(1)) && !arg(2)) {
+    $node = node_load(arg(1));
+
+    if ($node->type == 'discussion') {
+      $langcode = $node->language;
+
+      if (isset($node->field_subtitle) && isset($node->field_subtitle[$langcode][0]['value'])) {
+        array_unshift($vars['title_suffix'], array(
+          '#type'   => 'markup',
+          '#markup' => '<h2 class="subtitle">' . $node->field_subtitle[$langcode][0]['value'] . '</h2>'
+        ));
+      }
+    }
+  }
+}

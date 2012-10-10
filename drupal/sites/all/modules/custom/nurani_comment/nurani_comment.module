@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Implements hook_preprocess_comment_wrapper().
+ *
+ * Hide the usual comments list and comment form.
+ */
+function nurani_comment_preprocess_comment_wrapper(&$vars) {
+  $vars['content']['comments'] = array();
+  $vars['content']['comment_form'] = array();
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function nurani_comment_block_info() {
+  $blocks['comment_form']['info'] = t('Comment form');
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ * Displays the comment form. Originally from commentblock module.
+ */
+function nurani_comment_block_view($delta = '') {
+  if ((arg(0) == 'node') && is_numeric(arg(1)) && (arg(2) === NULL)) {
+    $node = node_load(arg(1));
+
+    if (user_access('post comments') && $node->comment > 1) {
+      // Tie into the comment_goodness module when available
+      if (module_exists('comment_goodness')) {
+        $block['subject'] = variable_get('comment_form_label_' . $node->type, comment_goodness_COMMENT_FORM_LABEL);
+      }
+      else {
+        $block['subject'] = t('Your response');
+      }
+
+      $block['content'] = drupal_get_form("comment_node_{$node->type}_form", (object) array('nid' => $node->nid));
+      return $block;
+    }
+  }
+}
