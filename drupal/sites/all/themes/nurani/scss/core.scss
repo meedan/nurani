@@ -1,4 +1,9 @@
 @import 'bowerbird';
-@import 'bowerbird/basic';
+/*@import 'bowerbird/basic';*/ 
+@import "susy";
+@import "layout";
 
-@include basic-default(1200px, 400px, 400px);
+/*@include basic-default(1200px, 400px, 400px);*/
+
+
+

@@ -1,0 +1,11 @@
+@import "variables";
+
+#page{ 
+  @include container;
+  @include susy-grid-background;
+}
+
+
+body{ 
+	background-color:$nurani_salmon_bg; // apply Image url later.
+}
