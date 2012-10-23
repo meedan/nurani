@@ -1,0 +1,6 @@
+name = Meedan Discussion Media
+description = Media objects attached to a Meedan discussion.
+core = 7.x
+version = 7.x-1.0
+package = Meedan
+dependencies[] = meedan_discussion
