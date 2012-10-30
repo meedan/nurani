@@ -4,7 +4,32 @@ $total-columns: 20;
 $column-width:2em;
 $gutter-width:1em;*/
 /* line 3, ../scss/_layout.scss */
-#page {
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 8, ../scss/_layout.scss */
+body {
+  margin: 0;
+  background: #f1e9e4 url("../images/brown_bkg.gif") repeat fixed center right;
+}
+
+/* line 13, ../scss/_layout.scss */
+div#top-strip {
+  margin: 0;
+  background: #fff;
+  height: 37px;
+  padding: 4px 20px 0;
+}
+
+/* line 21, ../scss/_layout.scss */
+#header {
+  height: 39px;
+}
+
+/* line 25, ../scss/_layout.scss */
+#main, #header, div#top-strip {
   *zoom: 1;
   max-width: 98.33333%;
   _width: 98.33333%;
@@ -26,17 +51,57 @@ $gutter-width:1em;*/
   -webkit-background-clip: content-box;
   -moz-background-clip: content-box;
   background-clip: content-box;
+  width: 100%;
 }
 /* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
-#page:after {
+#main:after, #header:after, div#top-strip:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* line 9, ../scss/_layout.scss */
+/* line 2, ../scss/_header.scss */
+div#header {
+  background-color: #4c1313;
+  position: relative;
+}
+/* line 6, ../scss/_header.scss */
+div#header a#logo {
+  left: 489px;
+  position: absolute;
+  top: -12px;
+  z-index: 1;
+}
+
+/* line 4, ../scss/_navigation.scss */
+#top-strip ul.main-menu {
+  width: 38.98305%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+/* line 10, ../scss/_navigation.scss */
+#top-strip ul.main-menu li {
+  list-style-type: none;
+  display: inline;
+}
+/* line 15, ../scss/_navigation.scss */
+#top-strip ul.main-menu li a {
+  float: left;
+  display: block;
+  padding: 3px 10px;
+  margin: 0 1px 0 0;
+  text-align: center;
+  text-decoration: none;
+  color: #4c1313;
+  font-size: 18px;
+}
+
+/* line 1, ../scss/_typography.scss */
 body {
-  background-color: #f4f0ee;
+  font-family: Helvetica Neue;
 }
 
 /*@include basic-default(1200px, 400px, 400px);*/

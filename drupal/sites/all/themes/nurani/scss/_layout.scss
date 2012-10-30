@@ -1,11 +1,31 @@
 @import "variables";
 
-#page{ 
+*{
+  margin:0;
+  padding:0;
+}
+
+body{
+  margin:0;
+  background: #F1E9E4 url('../images/brown_bkg.gif') repeat fixed center right;
+}
+
+div#top-strip {
+  
+  margin:0;
+  background: #fff;
+  height: 37px;
+  padding: 4px 20px 0;
+}
+
+#header{
+  height:39px;
+}
+
+#main, #header, div#top-strip { 
   @include container;
   @include susy-grid-background;
+  width:100%;
 }
 
 
-body{ 
-	background-color:$nurani_salmon_bg; // apply Image url later.
-}

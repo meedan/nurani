@@ -1,0 +1,13 @@
+
+div#header{
+  background-color: $nurani-burgundy;
+  position:relative;
+
+  a#logo{
+	left: 489px;
+	position: absolute;
+    top: -12px;
+    z-index: 1;
+  }
+
+}

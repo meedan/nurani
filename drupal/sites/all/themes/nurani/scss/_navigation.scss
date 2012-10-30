@@ -1,0 +1,28 @@
+
+#top-strip{
+
+  ul.main-menu{
+    @include span-columns(8,20);
+
+  	margin:0;
+  	padding:0;
+
+  	li{
+
+  	  list-style-type: none;
+      display: inline;
+
+      a{
+        float: left;
+        display: block;
+        padding: 3px 10px;
+        margin: 0 1px 0 0;
+        text-align: center;
+        text-decoration: none;
+        color: $nurani-burgundy;
+        font-size:18px;
+      }
+  	}
+
+  }
+}
