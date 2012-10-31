@@ -1,8 +1,9 @@
+<?php if ($page['top_strip']): ?>
+  <div id="top-strip">
+    <?php print render($page['top_strip']); ?>
+  </div>
+<?php endif; ?>
 
-<div id="top-strip">
-  <?php print theme('links', array('links' => $main_menu, 'attributes' => array('id' => 'primary', 'class' => array('links', 'clearfix', 'main-menu')))); ?>
-  
-</div>
 
 <div id="page" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <!-- ______________________ HEADER _______________________ -->

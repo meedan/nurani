@@ -4,5 +4,7 @@ core = "7.x"
 engine = phptemplate
 base theme = bowerbird
 
+regions[top_strip] = Top strip
+
 ;; Put CSS properties here
 stylesheets[all][] = css/core.css

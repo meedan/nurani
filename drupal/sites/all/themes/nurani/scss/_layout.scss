@@ -1,4 +1,5 @@
 @import "variables";
+@import "media-queries";
 
 *{
   margin:0;
@@ -11,10 +12,9 @@ body{
 }
 
 div#top-strip {
-  
   margin:0;
   background: #fff;
-  height: 37px;
+ /* height: 37px;*/
   padding: 4px 20px 0;
 }
 
@@ -24,8 +24,8 @@ div#top-strip {
 
 #main, #header, div#top-strip { 
   @include container;
-  @include susy-grid-background;
-  width:100%;
+ /* @include susy-grid-background;*/
+ 
 }
 
 
