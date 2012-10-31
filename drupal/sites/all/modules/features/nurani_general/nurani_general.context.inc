@@ -74,5 +74,43 @@ function nurani_general_context_default_contexts() {
   t('Nurani.org website homepage blocks.');
   $export['nurani_home'] = $context;
 
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'top_strip';
+  $context->description = 'block that displays main menu and User welcome info';
+  $context->tag = '';
+  $context->conditions = array(
+    'sitewide' => array(
+      'values' => array(
+        1 => 1,
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'menu_block-1' => array(
+          'module' => 'menu_block',
+          'delta' => 1,
+          'region' => 'top_strip',
+          'weight' => '-16',
+        ),
+        'block-1' => array(
+          'module' => 'block',
+          'delta' => 1,
+          'region' => 'top_strip',
+          'weight' => '-15',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('block that displays main menu and User welcome info');
+  $export['top_strip'] = $context;
+
   return $export;
 }
