@@ -1,6 +1,93 @@
 <?php
 
 /**
+ * Implements hook_block_info().
+ */
+function meedan_discussion_lock_block_info() {
+  $blocks['countdown']['info'] = t('Discussion lock countdown');
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function meedan_discussion_lock_block_view($delta = '') {
+  if ((arg(0) == 'node') && is_numeric(arg(1)) && (arg(2) === NULL)) {
+    $node = node_load(arg(1));
+
+    $block['subject'] = variable_get('meedan_discussion_lock_block_countdown_subject', NULL);
+
+    if (!empty($node->field_discussion_closing_date)) {
+      $date = $node->field_discussion_closing_date[$node->language][0];
+    }
+    else {
+      $date = array('value' => NULL, 'timezone' => NULL);
+    }
+    $block['content'] = meedan_discussion_lock_countdown_text($date['value'], $date['timezone']);
+
+    return $block;
+  }
+}
+
+/**
+ * Returns the discussion lock countdown text for a timestamp.
+ *
+ * TODO: Proper timezone handling, finish DateTime object code.
+ */
+function meedan_discussion_lock_countdown_text($timestamp, $timezone = NULL) {
+  $now = time();
+  // $now = date_create('now');
+  // if ($timezone) {
+  //   date_timezone_set($now, $timezone);
+  // }
+  // $now = $now->getTimestamp();
+
+  if (empty($timestamp)) {
+    return variable_get('meedan_discussion_lock_message_open', t('This discussion is not time-limited.'));
+  }
+  else if ($now > $timestamp) {
+    return variable_get('meedan_discussion_lock_message_closed', t('This discussion is closed.'));
+  }
+  else {
+    // Slightly odd translation replacement to allow for a configurable message
+    return str_replace('@time', format_interval($timestamp - $now, 1), variable_get('meedan_discussion_lock_message_countdown', t('<strong>@time</strong> before close of discussion.')));
+  }
+}
+
+/**
+ * Implements hook_node_load().
+ */
+function meedan_discussion_lock_node_load($nodes, $types) {
+  foreach ($nodes as $node) {
+    if ($node->type != 'discussion' || empty($node->field_discussion_closing_date)) {
+      continue;
+    }
+
+    $field = $node->field_discussion_closing_date[$node->language];
+
+    // TODO: Proper timezone handling.
+    if (!empty($field[0]['value']) && $field[0]['value'] < time()) {
+      $node->comment = COMMENT_NODE_CLOSED;
+    }
+  }
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function meedan_discussion_lock_node_presave($node) {
+  if ($node->type != 'discussion' || empty($node->field_discussion_closing_date)) {
+    return;
+  }
+
+  $field = $node->field_discussion_closing_date[$node->language];
+  if (!empty($field[0]['value'])) {
+    $node->comment = $field[0]['value'] < time() ? COMMENT_NODE_CLOSED : COMMENT_NODE_OPEN;
+  }
+}
+
+/**
  * Implements hook_field_default_fields_alter().
  */
 function meedan_discussion_lock_field_default_fields_alter(&$fields) {
