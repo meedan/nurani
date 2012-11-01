@@ -53,11 +53,10 @@ function meedan_discussion_participants_field_default_fields_alter(&$fields) {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'user_reference',
+          'label' => 'hidden',
           'settings' => array(),
-          'type' => 'user_reference_default',
-          'weight' => 2,
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
