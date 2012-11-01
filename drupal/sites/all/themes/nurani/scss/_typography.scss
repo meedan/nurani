@@ -9,7 +9,6 @@ body {
 }
 
 p{
- 	
   font-size: 1em; /* 14px */
   line-height: 1.8571em; /* 26px */
   margin: 0 0 1.8571em 0;
@@ -37,6 +36,7 @@ h2{
 
 ul, ul li{
     list-style-type:disc;
+    list-style: none; // removes bullet points from lists
     
  }
  ol, ol li{ 

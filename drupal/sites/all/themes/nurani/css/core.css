@@ -136,13 +136,13 @@ p {
   margin: 0 0 1.8571em 0;
 }
 
-/* line 17, ../scss/_typography.scss */
+/* line 16, ../scss/_typography.scss */
 h1, h2 {
   font-family: palatino;
   font-style: italic;
 }
 
-/* line 22, ../scss/_typography.scss */
+/* line 21, ../scss/_typography.scss */
 h1 {
   font-size: 2.4286em;
   /* 34px */
@@ -152,7 +152,7 @@ h1 {
   margin-bottom: 0em;
 }
 
-/* line 29, ../scss/_typography.scss */
+/* line 28, ../scss/_typography.scss */
 h2 {
   font-size: 2.1429em;
   /* 30px */
@@ -162,9 +162,10 @@ h2 {
   margin-bottom: 0em;
 }
 
-/* line 38, ../scss/_typography.scss */
+/* line 37, ../scss/_typography.scss */
 ul, ul li {
   list-style-type: disc;
+  list-style: none;
 }
 
 /* line 42, ../scss/_typography.scss */
