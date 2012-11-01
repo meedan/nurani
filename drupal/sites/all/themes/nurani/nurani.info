@@ -16,6 +16,7 @@ regions[footer] = Footer
 regions[page_bottom] = Page bottom
 ; New Nurani theme regions
 regions[top_strip] = Top strip
+regions[content_bottom] = Content Bottom
 
 ;; Put CSS properties here
 stylesheets[all][] = css/core.css
