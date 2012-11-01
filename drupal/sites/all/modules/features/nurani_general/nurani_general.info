@@ -38,7 +38,6 @@ features[page_manager_pages][] = nurani_home
 features[user_permission][] = access comments
 features[user_permission][] = edit own comments
 features[user_permission][] = post comments
-features[variable][] = nurani_library_backend
 features[variable][] = nurani_library_rest_path
 features[variable][] = nurani_library_rest_user
 features[variable][] = site_mail
