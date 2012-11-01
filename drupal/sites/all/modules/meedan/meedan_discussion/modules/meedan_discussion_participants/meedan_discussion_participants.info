@@ -3,5 +3,6 @@ description = Enables limiting discussions to a select group of partipants.
 core = 7.x
 package = Meedan
 version = 7.x-1.0
+dependencies[] = features
 dependencies[] = meedan_discussion
 dependencies[] = user_reference

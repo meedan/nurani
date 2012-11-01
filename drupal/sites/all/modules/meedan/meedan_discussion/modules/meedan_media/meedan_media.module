@@ -18,11 +18,9 @@ function meedan_media_node_info() {
 }
 
 /**
- * Implements hook_field_default_fields().
+ * Implements hook_field_default_fields_alter().
  */
-function meedan_media_field_default_fields() {
-  $fields = array();
-
+function meedan_media_field_default_fields_alter(&$fields) {
   // Exported field: 'node-media-body'.
   $fields['node-media-body'] = array(
     'field_config' => array(
@@ -99,8 +97,6 @@ function meedan_media_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
-
-  return $fields;
 }
 
 /**

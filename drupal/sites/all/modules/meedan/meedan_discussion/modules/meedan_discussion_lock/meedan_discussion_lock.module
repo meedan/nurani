@@ -1,11 +1,9 @@
 <?php
 
 /**
- * Implements hook_field_default_fields().
+ * Implements hook_field_default_fields_alter().
  */
-function meedan_discussion_lock_field_default_fields() {
-  $fields = array();
-
+function meedan_discussion_lock_field_default_fields_alter(&$fields) {
   // Exported field: 'node-discussion-field_discussion_closing_date'.
   $fields['node-discussion-field_discussion_closing_date'] = array(
     'field_config' => array(
@@ -84,7 +82,7 @@ function meedan_discussion_lock_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_select',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -92,6 +90,4 @@ function meedan_discussion_lock_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Discussion closing date');
-
-  return $fields;
 }
