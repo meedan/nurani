@@ -4,6 +4,7 @@
   #block-block-1{
     margin-top:10px;
     @include span-columns(5 omega, 20); // span last 5 cols of the grid
+
   }
 
   #block-menu_block-1{
@@ -14,6 +15,8 @@
       list-style-type: none;
       display: inline;
       a{
+        /*font-size:1.625em;*/
+        font-size:1.5em;
         float: left;
         display: block;
         padding: 0 5px;

@@ -1,3 +1,48 @@
+
+
 body {
   font-family: Helvetica Neue;
+  font-size:14px;
+  line-height:26px;
+  color:$nurani-burgundy;
+
 }
+
+p{
+ 	
+  font-size: 1em; /* 14px */
+  line-height: 1.8571em; /* 26px */
+  margin: 0 0 1.8571em 0;
+}
+h1,h2{
+  font-family: palatino;
+  font-style: italic;
+}
+
+h1{
+  font-size: 2.4286em; /* 34px */
+  line-height: 1.5294em; /* 52px */
+  margin-top: 0.7647em;
+  margin-bottom: 0em;
+}
+
+h2{
+  font-size: 2.1429em; /* 30px */
+  line-height: 1.7333em; /* 52px */
+  margin-top: 0.8667em;
+  margin-bottom: 0em;
+}
+
+
+
+ul, ul li{
+    list-style-type:disc;
+    
+ }
+ ol, ol li{ 
+    list-style:decimal;
+ }
+ sup{
+    font-size:xx-small;
+    vertical-align:super;
+ }
