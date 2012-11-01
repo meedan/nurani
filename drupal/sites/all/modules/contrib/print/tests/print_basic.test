@@ -99,7 +99,7 @@ class PrintBasicTest extends DrupalWebTestCase {
 
     $url[10] = '';
     $rel_url[10] = '';
-    $abs_url[10] = $base_url .'/'. $this->getq;
+    $abs_url[10] = $base_url . '/' . $this->getq;
 
     $size = count($url);
     for ($i = 0; $i < $size; $i++) {

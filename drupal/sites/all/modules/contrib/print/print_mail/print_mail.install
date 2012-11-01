@@ -51,6 +51,7 @@ function print_mail_uninstall() {
   variable_del('print_mail_sys_link_pages');
   variable_del('print_mail_book_link');
   variable_del('print_mail_hourly_threshold');
+  variable_del('print_mail_use_reply_to');
   variable_del('print_mail_teaser_default');
   variable_del('print_mail_teaser_choice');
   variable_del('print_mail_link_text');
@@ -189,4 +190,14 @@ function print_mail_update_7101(&$sandbox) {
     ->fields(array('permission' => 'send unlimited emails'))
     ->condition('permission', 'send unlimited e-mails')
     ->execute();
+}
+
+/**
+ * Enable block and help area links
+ */
+function print_mail_update_7102(&$sandbox) {
+  $link_pos = variable_get('print_mail_link_pos', drupal_json_decode('{ "link": "link", "block": "block", "help": "help" }'));
+  $link_pos['block'] = 'block';
+  $link_pos['help'] = 'help';
+  variable_set('print_mail_link_pos', $link_pos);
 }

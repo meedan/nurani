@@ -27,6 +27,10 @@ function print_pdf_controller() {
   $path = filter_xss(implode('/', $args));
   $cid = isset($_GET['comment']) ? (int)$_GET['comment'] : NULL;
 
+  // Handle the query
+  $query = $_GET;
+  unset($query['q']);
+
   if (!empty($path)) {
     if ($alias = drupal_lookup_path('source', $path)) {
       // Alias
@@ -60,7 +64,7 @@ function print_pdf_controller() {
 
   drupal_alter('print_pdf_filename', $pdf_filename, $path);
 
-  $pdf = print_pdf_generate_path($path, $cid, $pdf_filename . '.pdf');
+  $pdf = print_pdf_generate_path($path, $query, $cid, $pdf_filename . '.pdf');
   if ($pdf == NULL) {
     drupal_goto($path);
     exit;
@@ -79,10 +83,10 @@ function print_pdf_controller() {
   drupal_exit();
 }
 
-function print_pdf_generate_path($path, $cid = NULL, $pdf_filename = NULL) {
+function print_pdf_generate_path($path, $query = NULL, $cid = NULL, $pdf_filename = NULL) {
   global $base_url;
 
-  $print = print_controller($path, $cid, PRINT_PDF_FORMAT);
+  $print = print_controller($path, $query, $cid, PRINT_PDF_FORMAT);
   if ($print === FALSE) {
     return;
   }
@@ -179,6 +183,7 @@ function _print_pdf_dompdf($print, $html, $filename = NULL) {
     define("DOMPDF_ENABLE_REMOTE", TRUE);
     define("DOMPDF_TEMP_DIR", file_directory_temp());
     define("DOMPDF_UNICODE_ENABLED", variable_get('print_pdf_dompdf_unicode', PRINT_PDF_DOMPDF_UNICODE_DEFAULT));
+    define("DOMPDF_FONT_CACHE", drupal_realpath('public://' . PRINT_PDF_DOMPDF_CACHE_DIR_DEFAULT . '/fonts/'));
   }
 
   require_once(DRUPAL_ROOT . '/' . $print_pdf_pdf_tool);
@@ -272,7 +277,7 @@ function _print_pdf_tcpdf($print, $html, $filename = NULL) {
     define('K_PATH_MAIN', dirname($_SERVER['SCRIPT_FILENAME']));
     define('K_PATH_URL', $base_url);
     define('K_PATH_FONTS', $pdf_tool_path . '/fonts/');
-    define('K_PATH_CACHE', $pdf_tool_path . '/cache/');
+    define('K_PATH_CACHE', drupal_realpath('public://' . PRINT_PDF_TCPDF_CACHE_DIR_DEFAULT . '/cache/'));
     define('K_PATH_IMAGES', '');
     define('K_BLANK_IMAGE', $pdf_tool_path . '/images/_blank.png');
     define('K_CELL_HEIGHT_RATIO', 1.25);
@@ -379,7 +384,7 @@ function _print_pdf_wkhtmltopdf($print, $html, $filename = NULL) {
     exit;
   }
 
-  $descriptor = array(0 => array('pipe', 'r'), 1 => array('pipe', 'w'), 2 => array('pipe', 'w'));
+  $descriptor = array(0 => array('pipe', 'r'), 1 => array('pipe', 'w'), 2 => array('pipe', 'a'));
   $cmd = '"' . realpath($print_pdf_pdf_tool) . "\" --page-size $print_pdf_paper_size --orientation $print_pdf_page_orientation --dpi $dpi $print_pdf_wkhtmltopdf_options - -";
 
   $process = proc_open($cmd, $descriptor, $pipes, NULL, NULL);
@@ -393,12 +398,15 @@ function _print_pdf_wkhtmltopdf($print, $html, $filename = NULL) {
 
     stream_set_blocking($pipes[2], 0);
     $error = stream_get_contents($pipes[2]);
-    if (!empty($error)) {
-      watchdog('print_pdf', 'wkhtmltopdf: ' . $error);
-    }
     fclose($pipes[2]);
 
-    $retval = proc_terminate($process);
+    $retval = proc_close($process);
+    if (!empty($error) || ($retval != 0)) {
+      if (empty($error)) {
+        $error = 'No stderr output available.';
+      }
+      watchdog('print_pdf', "wkhtmltopdf (returned $retval): $error");
+    }
   }
 
   if (!empty($pdf)) {
@@ -422,6 +430,8 @@ function _print_pdf_wkhtmltopdf($print, $html, $filename = NULL) {
     }
   }
   else {
+    drupal_set_message(t('Unable to generate PDF file.'), 'error');
+    drupal_goto($meta['url']);
     return NULL;
   }
 }

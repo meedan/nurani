@@ -1,6 +1,14 @@
 <?php
 
 /**
+ * @file
+ * Printer-friendly version Views integration
+ *
+ * @ingroup print
+ */
+
+
+/**
  * Implements hook_views_data().
  */
 function print_views_data() {

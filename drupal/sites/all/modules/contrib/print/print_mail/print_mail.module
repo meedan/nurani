@@ -12,7 +12,7 @@ define('PRINTMAIL_PATH', 'printmail');
 // Defined in print.module
 // define('PRINT_MAIL_FORMAT', 'mail');
 
-define('PRINT_MAIL_LINK_POS_DEFAULT', 'link');
+define('PRINT_MAIL_LINK_POS_DEFAULT', '{ "link": "link", "block": "block", "help": "help" }');
 define('PRINT_MAIL_LINK_TEASER_DEFAULT', 0);
 define('PRINT_MAIL_SHOW_LINK_DEFAULT', 1);
 define('PRINT_MAIL_NODE_LINK_VISIBILITY_DEFAULT', 0);
@@ -23,6 +23,7 @@ define('PRINT_MAIL_SYS_LINK_PAGES_DEFAULT', '');
 define('PRINT_MAIL_LINK_USE_ALIAS_DEFAULT', 0);
 define('PRINT_MAIL_BOOK_LINK_DEFAULT', 1);
 define('PRINT_MAIL_HOURLY_THRESHOLD', 3);
+define('PRINT_MAIL_USE_REPLY_TO', TRUE);
 define('PRINT_MAIL_TEASER_DEFAULT_DEFAULT', 1);
 define('PRINT_MAIL_TEASER_CHOICE_DEFAULT', 0);
 define('PRINT_MAIL_SEND_OPTION_DEFAULT', 'sendpage');
@@ -53,7 +54,7 @@ function print_mail_theme() {
       'variables' => array(),
     ),
     'print_mail_form' => array(
-      'variables' => array('form' => NULL),
+      'render element' => 'form',
       'file' => 'print_mail.inc',
     ),
   );
@@ -117,7 +118,7 @@ function print_mail_requirements($phase) {
     case 'runtime':
       if (module_exists('mailsystem')) {
         $mail_system = mailsystem_get();
-        if (!isset($mail_system['print_mail']) || ($mail_system['print_mail'] != 'DefaultMailSystem')) {
+        if (($mail_system['default-system'] != 'DefaultMailSystem') && (!isset($mail_system['print_mail']) || ($mail_system['print_mail'] != 'DefaultMailSystem'))) {
           $requirements['print_mail_mailsystem'] = array(
             'title' => $t('Printer, email and PDF versions - Send by email'),
             'value' => $t('Incompatible Mail System setting detected'),
@@ -147,7 +148,7 @@ function print_mail_block_view($delta = 0) {
       switch ($delta) {
       case 'print_mail-top':
         $block['subject'] = t('Most emailed');
-        $result = db_query_range("SELECT path FROM {print_mail_page_counter} LEFT JOIN {node} ON path = CONCAT('node/', node.nid) WHERE status <> 0 OR status IS NULL ORDER BY sentcount DESC", 0, 3)
+        $result = db_query_range("SELECT path FROM {print_mail_page_counter} LEFT JOIN {node} n ON path = CONCAT('node/', n.nid) WHERE status <> 0 OR status IS NULL ORDER BY sentcount DESC", 0, 3)
                     ->fetchAll();
         if (count($result)) {
           $block['content'] = '<div class="item-list"><ul>';
@@ -165,7 +166,7 @@ function print_mail_block_view($delta = 0) {
  * Implements hook_node_view().
  */
 function print_mail_node_view($node, $view_mode) {
-  $print_mail_link_pos = variable_get('print_mail_link_pos', array(PRINT_MAIL_LINK_POS_DEFAULT => PRINT_MAIL_LINK_POS_DEFAULT));
+  $print_mail_link_pos = variable_get('print_mail_link_pos', drupal_json_decode(PRINT_MAIL_LINK_POS_DEFAULT));
   $print_mail_link_use_alias = variable_get('print_mail_link_use_alias', PRINT_MAIL_LINK_USE_ALIAS_DEFAULT);
 
   foreach (array('node', 'comment') as $type) {
@@ -226,7 +227,8 @@ function print_mail_node_view($node, $view_mode) {
  * Implements hook_help().
  */
 function print_mail_help($path, $arg) {
-  if ($path !== 'node/%') {
+  $print_mail_link_pos = variable_get('print_mail_link_pos', drupal_json_decode(PRINT_MAIL_LINK_POS_DEFAULT));
+  if (($path !== 'node/%') && !(empty($print_mail_link_pos['help']))) {
     static $output = FALSE;
 
     if ($output === FALSE) {
@@ -355,6 +357,10 @@ function print_mail_send($data) {
  */
 function print_mail_mail($key, &$message, $params) {
   $message['subject'] = $params['subject'];
+
+  if (isset($params['from'])) {
+    $message['headers']['Reply-To'] = $params['from'];
+  }
 
   switch ($key) {
     case 'sendpage':
@@ -694,15 +700,19 @@ function print_mail_views_api() {
 function print_mail_rules_action_info() {
   return array(
     'print_mail_action_submit' => array(
-      'label' => t('Send node as HTML formated email'),
-      'group' => t('Node'),
-      'named parameter' => TRUE,
+      'label' => t('Send node as HTML formatted email'),
+      'group' => t('Send by email'),
       'parameter' => array(
         'from'      => array('type' => 'text', 'label' => t('From email adress')),
         'from_name' => array('type' => 'text', 'label' => t('From name')),
         'to'        => array('type' => 'text', 'label' => t('Send email to')),
         'subject'   => array('type' => 'text', 'label' => t('Subject')),
-        'message'   => array('type' => 'text', 'label' => t('The message that should be displayed.')),
+        'message'   => array(
+          'type' => 'text',
+          'label' => t('Message'),
+          'description' => t('The message that should be displayed (optional).'),
+          'optional' => TRUE,
+        ),
         'node'      => array('type' => 'node', 'label' => t('Content')),
       ),
     ),
@@ -714,18 +724,19 @@ function print_mail_rules_action_info() {
  *
  * @ingroup rules
  */
-function print_mail_action_submit($node, $settings) {
-  require_once(DRUPAL_ROOT . '/' . drupal_get_path('module', 'print_mail') . '/print_mail.inc');
+function print_mail_action_submit($from, $from_name, $to, $subject, $message, $node) {
+  module_load_include('inc', 'print_mail', 'print_mail');
 
   $form_state['values'] = array(
-    'path' => 'node/' . $node['node']->nid,
+    'path' => 'node/' . $node->nid,
     'cid' => NULL,
-    'title' => $node['node']->title,
-    'fld_from_addr' => $settings->settings['from'],
-    'fld_from_name' => $settings->settings['from_name'],
-    'txt_to_addrs' => $settings->settings['to'],
-    'fld_subject' => $settings->settings['subject'],
-    'txt_message' => $settings->settings['message'],
+    'query' => NULL,
+    'title' => $node->title,
+    'fld_from_addr' => $from,
+    'fld_from_name' => $from_name,
+    'txt_to_addrs' => $to,
+    'fld_subject' => $subject,
+    'txt_message' => $message,
     'chk_teaser' => FALSE,
   );
 
