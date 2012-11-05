@@ -1,4 +1,9 @@
-
+//Mixin to to add borders at the top of boxes
+@mixin border($color,$side, $width) {
+  border-#{$side}:$width;
+  border-#{$side}-style:solid;
+  border-#{$side}-color:$color;
+}
 
 body {
   font-family: Helvetica Neue;
@@ -16,7 +21,8 @@ p{
 h1,h2{
   font-family: palatino;
   font-style: italic;
-  font-weight:normal;
+  text-align:center; // hack to center the heading... should be aligned to the grid
+  
 }
 
 h1{
@@ -25,16 +31,31 @@ h1{
   line-height: 1.5294em; /* 52px */
   margin-top: 0.7647em;
   margin-bottom: 0em;
+  font-weight:bold;
 }
 
 h2{
   font-size: 2.1429em; /* 30px */
-  line-height: 1.7333em; /* 52px */
-  margin-top: 0.8667em;
+  line-height: 0.7333em; /* 52px */
+ 
   margin-bottom: 0em;
+  font-weight:normal;
 }
 
+h3{
+  font-size: 1.28571em;
+  line-height:1.4444em;
+  margin-top: 1.4444em;
+  margin-bottom: 0em;
+  }
 
+h4{
+  font-size: 1em;
+  font-weight:normal;
+  margin-top:-0.5em;
+  margin-bottom:1.5em;
+
+ }
 
 
 

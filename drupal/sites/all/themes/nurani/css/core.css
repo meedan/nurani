@@ -4,12 +4,12 @@ $total-columns: 20;
 $column-width:2em;
 $gutter-width:1em;*/
 @media only screen and (max-width: 1024px) {
-  /* line 4, ../scss/_media-queries.scss */
+  /* line 4, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_media-queries.scss */
   div#top-strip {
     width: 100%;
     height: 100%;
   }
-  /* line 10, ../scss/_media-queries.scss */
+  /* line 10, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_media-queries.scss */
   div#top-strip #block-menu_block-1 ul li a {
     padding: 2px;
   }
@@ -80,28 +80,15 @@ div#top-strip {
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 38, ../scss/_layout.scss */
-#content #content-area {
-  /* @include pad (1,1);*/
-  background: yellow;
-}
-/* line 44, ../scss/_layout.scss */
-#content #content-area .content {
-  *zoom: 1;
-  max-width: 98.33333%;
-  _width: 98.33333%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-left: 10.16949%;
+/* line 39, ../scss/_layout.scss */
+#content #content-inner {
+  width: 87.23404%;
+  float: left;
+  margin-right: 2.12766%;
+  display: inline;
+  padding-left: 5.08475%;
   padding-right: 5.08475%;
-}
-/* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
-#content #content-area .content:after {
-  content: "";
-  display: table;
-  clear: both;
+  background: yellow;
 }
 
 /* line 2, ../scss/_header.scss */
@@ -165,7 +152,7 @@ div#header #logo-box a#logo img {
   color: #4c1313;
 }
 
-/* line 3, ../scss/_typography.scss */
+/* line 8, ../scss/_typography.scss */
 body {
   font-family: Helvetica Neue;
   font-size: 14px;
@@ -173,7 +160,7 @@ body {
   color: #4c1313;
 }
 
-/* line 11, ../scss/_typography.scss */
+/* line 16, ../scss/_typography.scss */
 p {
   font-size: 1em;
   /* 14px */
@@ -182,14 +169,14 @@ p {
   margin: 0 0 1.8571em 0;
 }
 
-/* line 16, ../scss/_typography.scss */
+/* line 21, ../scss/_typography.scss */
 h1, h2 {
   font-family: palatino;
   font-style: italic;
-  font-weight: normal;
+  text-align: center;
 }
 
-/* line 22, ../scss/_typography.scss */
+/* line 28, ../scss/_typography.scss */
 h1 {
   /* @include span-columns(8,20);*/
   font-size: 2.4286em;
@@ -198,33 +185,90 @@ h1 {
   /* 52px */
   margin-top: 0.7647em;
   margin-bottom: 0em;
+  font-weight: bold;
 }
 
-/* line 30, ../scss/_typography.scss */
+/* line 37, ../scss/_typography.scss */
 h2 {
   font-size: 2.1429em;
   /* 30px */
-  line-height: 1.7333em;
+  line-height: 0.7333em;
   /* 52px */
-  margin-top: 0.8667em;
+  margin-bottom: 0em;
+  font-weight: normal;
+}
+
+/* line 45, ../scss/_typography.scss */
+h3 {
+  font-size: 1.28571em;
+  line-height: 1.4444em;
+  margin-top: 1.4444em;
   margin-bottom: 0em;
 }
 
-/* line 41, ../scss/_typography.scss */
+/* line 52, ../scss/_typography.scss */
+h4 {
+  font-size: 1em;
+  font-weight: normal;
+  margin-top: -0.5em;
+  margin-bottom: 1.5em;
+}
+
+/* line 62, ../scss/_typography.scss */
 ul, ul li {
   list-style-type: disc;
   list-style: none;
 }
 
-/* line 46, ../scss/_typography.scss */
+/* line 67, ../scss/_typography.scss */
 ol, ol li {
   list-style: decimal;
 }
 
-/* line 49, ../scss/_typography.scss */
+/* line 70, ../scss/_typography.scss */
 sup {
   font-size: xx-small;
   vertical-align: super;
 }
 
 /*@include basic-default(1200px, 400px, 400px);*/
+/* line 7, ../scss/node/_node-discussion.scss */
+body.node-type-discussion .node-discussion .inner > .passage-text {
+  border-top: 3px;
+  border-top-style: solid;
+  border-top-color: #8b000e;
+  border-left: 1px;
+  border-left-style: solid;
+  border-left-color: #ccc6c2;
+  border-bottom: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #ccc6c2;
+  border-right: 1px;
+  border-right-style: solid;
+  border-right-color: #ccc6c2;
+}
+/* line 15, ../scss/node/_node-discussion.scss */
+body.node-type-discussion .node-discussion .inner .passage-widget .verse {
+  margin: 0 0.5em;
+}
+/* line 18, ../scss/node/_node-discussion.scss */
+body.node-type-discussion .node-discussion .inner .passage-widget p {
+  font-family: palatino;
+  margin-top: 0.5em;
+  display: inline;
+}
+/* line 25, ../scss/node/_node-discussion.scss */
+body.node-type-discussion .node-discussion .inner .bib {
+  border: 1px solid #ccc6c2;
+}
+/* line 29, ../scss/node/_node-discussion.scss */
+body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts p {
+  font-size: 1.1429em;
+  text-indent: justify;
+  color: #4a4a4a;
+}
+/* line 35, ../scss/node/_node-discussion.scss */
+body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts span, body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts a.username {
+  color: #005eae;
+  font-weight: bold;
+}
