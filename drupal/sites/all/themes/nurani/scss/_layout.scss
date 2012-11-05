@@ -22,11 +22,34 @@ div#top-strip {
   height:39px;
 }
 
+
 #main, #header, div#top-strip { 
   width:100%;
   @include container;
   @include susy-grid-background;
  
+}
+
+#content{
+  //shortcut for suffix and prefix- create 2 cols empty space left and right
+  @include pad (2,2);
+  @include span-columns(16,20);
+
+  #content-area{
+    @include layout (16);
+    /* @include pad (1,1);*/
+    background:yellow;
+
+
+    .content { 
+      @include container; 
+       @include pad (2,1);
+
+
+
+  }
+
+  }
 }
 
 
