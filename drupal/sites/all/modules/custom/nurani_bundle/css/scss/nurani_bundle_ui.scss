@@ -35,7 +35,7 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
 .passage-box {
   float: left;
   width: $ideal_box_width;
-  margin-right: 2em;
+  margin-right: 1.5em;
 
   &.third {
     margin-right: 0;
@@ -70,8 +70,11 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
 }
 
 .bib {
-  padding: 2em 1em 1em 1em;
+  margin-left: 10px;
   margin-top: -1em;
+  padding: 2em 1em 1em;
+  width: 300px;
+  background: #ddd;
 }
 
 
@@ -89,6 +92,4 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
     border-radius: 1em;
   }
 }
-.bib {
-  background: #ddd;
-}
+

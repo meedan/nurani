@@ -24,72 +24,71 @@
 
 /* line 29, scss/nurani_bundle_ui.scss */
 .passage-boxes > .inner {
+  overflow: hidden;
   width: 79em;
 }
 
-/* line 34, scss/nurani_bundle_ui.scss */
+/* line 35, scss/nurani_bundle_ui.scss */
 .passage-box {
   float: left;
   width: 25em;
-  margin-right: 2em;
+  margin-right: 1.5em;
 }
-/* line 39, scss/nurani_bundle_ui.scss */
+/* line 40, scss/nurani_bundle_ui.scss */
 .passage-box.third {
   margin-right: 0;
 }
 
-/* line 44, scss/nurani_bundle_ui.scss */
+/* line 45, scss/nurani_bundle_ui.scss */
 .passage-text {
   padding: 1em;
   min-height: 40.45085em;
   position: relative;
   z-index: 1;
 }
-/* line 51, scss/nurani_bundle_ui.scss */
+/* line 52, scss/nurani_bundle_ui.scss */
 .passage-text .pick-passage-action {
   display: none;
 }
-/* line 54, scss/nurani_bundle_ui.scss */
+/* line 55, scss/nurani_bundle_ui.scss */
 .passage-text .passage-widget, .passage-text .remove-passage-action {
   display: inline;
 }
-/* line 58, scss/nurani_bundle_ui.scss */
+/* line 59, scss/nurani_bundle_ui.scss */
 .passage-text.empty {
   text-align: center;
 }
-/* line 61, scss/nurani_bundle_ui.scss */
+/* line 62, scss/nurani_bundle_ui.scss */
 .passage-text.empty > .pick-passage-action {
   display: inline-block;
   margin-top: 18.22543em;
 }
-/* line 65, scss/nurani_bundle_ui.scss */
+/* line 66, scss/nurani_bundle_ui.scss */
 .passage-text.empty > .passage-widget, .passage-text.empty .remove-passage-action {
   display: none;
 }
 
-/* line 71, scss/nurani_bundle_ui.scss */
+/* line 72, scss/nurani_bundle_ui.scss */
 .bib {
-  padding: 2em 1em 1em 1em;
+  margin-left: 10px;
   margin-top: -1em;
+  padding: 2em 1em 1em;
+  width: 300px;
+  background: #ddd;
 }
 
-/* line 80, scss/nurani_bundle_ui.scss */
+/* line 84, scss/nurani_bundle_ui.scss */
 .clone-bundle {
   background: #ffee66;
 }
 
-/* line 83, scss/nurani_bundle_ui.scss */
+/* line 87, scss/nurani_bundle_ui.scss */
 .passage-text {
   background: #fff;
   border: 2px solid rgba(0, 0, 0, 0);
 }
-/* line 86, scss/nurani_bundle_ui.scss */
+/* line 90, scss/nurani_bundle_ui.scss */
 .passage-text.empty {
   border: 2px dashed #444;
   border-radius: 1em;
-}
-
-/* line 91, scss/nurani_bundle_ui.scss */
-.bib {
-  background: #ddd;
 }
