@@ -29,17 +29,23 @@ function nurani_general_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-nurani_comment_list-block' => array(
-          'module' => 'views',
-          'delta' => 'nurani_comment_list-block',
-          'region' => 'content',
-          'weight' => '1',
-        ),
         'nurani_comment-comment_form' => array(
           'module' => 'nurani_comment',
           'delta' => 'comment_form',
-          'region' => 'content',
-          'weight' => '2',
+          'region' => 'content_bottom',
+          'weight' => '-10',
+        ),
+        'meedan_discussion_lock-countdown' => array(
+          'module' => 'meedan_discussion_lock',
+          'delta' => 'countdown',
+          'region' => 'content_bottom',
+          'weight' => '-9',
+        ),
+        'views-nurani_comment_list-block' => array(
+          'module' => 'views',
+          'delta' => 'nurani_comment_list-block',
+          'region' => 'content_bottom',
+          'weight' => '-8',
         ),
       ),
     ),

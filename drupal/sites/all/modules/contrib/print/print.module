@@ -52,7 +52,7 @@ define('PRINT_URLS_ANCHORS_DEFAULT', 0);
 define('PRINT_COMMENTS_DEFAULT', 0);
 define('PRINT_NEWWINDOW_DEFAULT', 1);
 
-define('PRINT_HTML_LINK_POS_DEFAULT', 'link');
+define('PRINT_HTML_LINK_POS_DEFAULT', '{ "link": "link", "block": "block", "help": "help" }');
 define('PRINT_HTML_LINK_TEASER_DEFAULT', 0);
 define('PRINT_HTML_SHOW_LINK_DEFAULT', 1);
 define('PRINT_HTML_NODE_LINK_VISIBILITY_DEFAULT', 0);
@@ -122,7 +122,7 @@ function print_theme() {
  * Implements hook_preprocess_HOOK().
  */
 function print_preprocess_node(&$variables) {
-  if ($variables['elements']['#view_mode'] == 'print') {
+  if (($variables['elements']['#view_mode'] == 'print') && isset($variables['elements']['#print_format'])) {
     $type = $variables['elements']['#node']->type;
     $format = $variables['elements']['#print_format'];
     $nid = $variables['elements']['#node']->nid;
@@ -270,7 +270,7 @@ function print_block_view($delta = '') {
         $node = node_load($nid);
         if (!node_access('view', $node)) {
           // If the user doesn't have access to the node, don't show any links
-          $block['content'] == '';
+          $block['content'] = '';
           return;
         }
       }
@@ -279,7 +279,7 @@ function print_block_view($delta = '') {
       }
       $block['content'] = '';
       foreach (array('html' => 'print', 'mail' => 'print_mail', 'pdf' => 'print_pdf') as $format => $module) {
-        $link_pos = variable_get('print_' . $format . '_link_pos', array(PRINT_HTML_LINK_POS_DEFAULT => PRINT_HTML_LINK_POS_DEFAULT));
+        $link_pos = variable_get('print_' . $format . '_link_pos', drupal_json_decode(PRINT_HTML_LINK_POS_DEFAULT));
 
         if (!(empty($link_pos['block']))) {
           $func = $module . '_insert_link';
@@ -295,7 +295,7 @@ function print_block_view($delta = '') {
       break;
     case 'print-top':
       $block['subject'] = t('Most printed');
-      $result = db_query_range("SELECT path FROM {print_page_counter} LEFT JOIN {node} ON path = CONCAT('node/', node.nid) WHERE status <> 0 OR status IS NULL ORDER BY totalcount DESC", 0, 3)
+      $result = db_query_range("SELECT path FROM {print_page_counter} LEFT JOIN {node} n ON path = CONCAT('node/', n.nid) WHERE status <> 0 OR status IS NULL ORDER BY totalcount DESC", 0, 3)
                   ->fetchAll();
       if (count($result)) {
         $block['content'] = '<div class="item-list"><ul>';
@@ -317,7 +317,7 @@ function print_node_view_alter(&$build) {
     $print_html_book_link = variable_get('print_html_book_link', PRINT_HTML_BOOK_LINK_DEFAULT);
 
     if ($print_html_book_link) {
-      $print_html_link_pos = variable_get('print_html_link_pos', array(PRINT_HTML_LINK_POS_DEFAULT => PRINT_HTML_LINK_POS_DEFAULT));
+      $print_html_link_pos = variable_get('print_html_link_pos', drupal_json_decode(PRINT_HTML_LINK_POS_DEFAULT));
 
       if (!empty($print_html_link_pos['link'])) {
         $format = theme('print_format_link');
@@ -356,7 +356,8 @@ function print_help($path, $arg) {
       return _filter_autop(file_get_contents(drupal_get_path('module', 'print') . '/README.txt'));
   }
 
-  if ($path !== 'node/%') {
+  $print_html_link_pos = variable_get('print_html_link_pos', drupal_json_decode(PRINT_HTML_LINK_POS_DEFAULT));
+  if (($path !== 'node/%') && !(empty($print_html_link_pos['help']))) {
     static $output = FALSE;
 
     if ($output === FALSE) {
@@ -374,7 +375,7 @@ function print_help($path, $arg) {
  * Implements hook_node_view().
  */
 function print_node_view($node, $view_mode) {
-  $print_html_link_pos = variable_get('print_html_link_pos', array(PRINT_HTML_LINK_POS_DEFAULT => PRINT_HTML_LINK_POS_DEFAULT));
+  $print_html_link_pos = variable_get('print_html_link_pos', drupal_json_decode(PRINT_HTML_LINK_POS_DEFAULT));
   $print_html_link_use_alias = variable_get('print_html_link_use_alias', PRINT_HTML_LINK_USE_ALIAS_DEFAULT);
 
   foreach (array('node', 'comment') as $type) {
@@ -557,14 +558,24 @@ function _print_get_title($path) {
   $path = drupal_get_normal_path($path);
   $nid = preg_replace('!^node/!', '', $path);
   if (ctype_digit($nid)) {
-    $res = db_query("SELECT title FROM {node} WHERE nid = :nid", array(':nid' => $nid))
+    return db_query("SELECT title FROM {node} WHERE nid = :nid", array(':nid' => $nid))
               ->fetchField();
   }
   else {
-    $res = db_query("SELECT link_title FROM {menu_links} WHERE link_path = :link_path", array(':link_path' => $path))
-              ->fetchField();
+    // Not a node, try to get title from the menu system
+    $menu_item = menu_get_item($path);
+    if (!empty($menu_item['title'])) {
+      return $menu_item['title'];
+    }
+    elseif (drupal_substr($menu_item['page_callback'], 0, 6) == 'views_') {
+      // It's a view, load the view to have access to the title
+      $view = views_get_view($menu_item['page_arguments']['0']);
+      return $view->get_title();
+    }
+    else {
+      return NULL;
+    }
   }
-  return $res;
 }
 
 /**
@@ -886,7 +897,7 @@ function print_link_allowed($args) {
 function print_query_string_encode($query, $exclude = array(), $parent = '') {
   $params = array();
   foreach ($query as $key => $value) {
-    if (in_array($key, $exclude)) {
+    if (in_array($key, $exclude, TRUE)) {
       continue;
     }
 

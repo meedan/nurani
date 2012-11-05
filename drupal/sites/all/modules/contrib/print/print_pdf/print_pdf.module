@@ -14,7 +14,7 @@ define('PRINTPDF_PATH', 'printpdf');
 
 define('PRINT_PDF_LIB_PATH', 'sites/all/libraries');
 
-define('PRINT_PDF_LINK_POS_DEFAULT', 'link');
+define('PRINT_PDF_LINK_POS_DEFAULT', '{ "link": "link", "block": "block", "help": "help" }');
 define('PRINT_PDF_LINK_TEASER_DEFAULT', 0);
 define('PRINT_PDF_SHOW_LINK_DEFAULT', 1);
 define('PRINT_PDF_NODE_LINK_VISIBILITY_DEFAULT', 0);
@@ -36,6 +36,8 @@ define('PRINT_PDF_FONT_SUBSETTING_DEFAULT', FALSE);
 define('PRINT_PDF_FILENAME_DEFAULT', '[site:name] - [node:title] - [node:changed:custom:Y-m-d]');
 define('PRINT_PDF_DOMPDF_UNICODE_DEFAULT', 0);
 define('PRINT_PDF_WKHTMLTOPDF_OPTIONS', "--footer-font-size 7 --footer-right '[page]'");
+define('PRINT_PDF_DOMPDF_CACHE_DIR_DEFAULT', 'print_pdf/dompdf');
+define('PRINT_PDF_TCPDF_CACHE_DIR_DEFAULT', 'print_pdf/tcpdf');
 
 /**
  * Implements hook_permission().
@@ -82,6 +84,32 @@ function print_pdf_theme() {
       'file' => 'print_pdf.pages.inc',
     ),
   );
+}
+
+/**
+ * Implements hook_init().
+ */
+function print_pdf_init() {
+  if (variable_get('print_pdf_autoconfig', PRINT_PDF_AUTOCONFIG_DEFAULT)) {
+    $pdf_dirs = array();
+    $print_pdf_pdf_tool = variable_get('print_pdf_pdf_tool', PRINT_PDF_PDF_TOOL_DEFAULT);
+
+    if (basename($print_pdf_pdf_tool) == 'dompdf_config.inc.php') {
+      $pdf_dirs[] = PRINT_PDF_DOMPDF_CACHE_DIR_DEFAULT . '/fonts';
+    }
+    elseif (basename($print_pdf_pdf_tool) == 'tcpdf.php') {
+      foreach (array('cache', 'images') as $dir) {
+        $pdf_dirs[] = PRINT_PDF_TCPDF_CACHE_DIR_DEFAULT . '/' . $dir;
+      }
+    }
+
+    if (!empty($pdf_dirs)) {
+      foreach ($pdf_dirs as $pdf_dir) {
+        $directory = 'public://' . $pdf_dir;
+        file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
+      }
+    }
+  }
 }
 
 /**
@@ -145,7 +173,7 @@ function print_pdf_block_view($delta = 0) {
       switch ($delta) {
       case 'print_pdf-top':
         $block['subject'] = t('Most PDFd');
-        $result = db_query_range("SELECT path FROM {print_pdf_page_counter} LEFT JOIN {node} ON path = CONCAT('node/', node.nid) WHERE status <> 0 OR status IS NULL ORDER BY totalcount DESC", 0, 3)
+        $result = db_query_range("SELECT path FROM {print_pdf_page_counter} LEFT JOIN {node} n ON path = CONCAT('node/', n.nid) WHERE status <> 0 OR status IS NULL ORDER BY totalcount DESC", 0, 3)
                     ->fetchAll();
         if (count($result)) {
           $block['content'] = '<div class="item-list"><ul>';
@@ -188,7 +216,7 @@ function print_pdf_requirements($phase) {
         }
         elseif (basename($print_pdf_pdf_tool) == 'dompdf_config.inc.php') {
           if (variable_get('print_pdf_autoconfig', PRINT_PDF_AUTOCONFIG_DEFAULT)) {
-            $directory = dirname($print_pdf_pdf_tool) . '/lib/fonts';
+            $directory = 'public://' . PRINT_PDF_DOMPDF_CACHE_DIR_DEFAULT . '/fonts';
             if (!is_dir($directory) || !is_writable($directory)) {
               $requirements['print_pdf_tool'] = array(
                 'title' => $t('DOMPDF font cache directory'),
@@ -219,7 +247,7 @@ function print_pdf_requirements($phase) {
 
           if (variable_get('print_pdf_autoconfig', PRINT_PDF_AUTOCONFIG_DEFAULT)) {
             foreach (array('cache', 'images') as $dir) {
-              $directory = dirname($print_pdf_pdf_tool) . '/' . $dir;
+              $directory = 'public://' . PRINT_PDF_TCPDF_CACHE_DIR_DEFAULT . '/' . $dir;
               if (!is_dir($directory) || !is_writable($directory)) {
                 $requirements['print_pdf_tool_' . $dir] = array(
                   'title' => $t('TCPDF directory'),
@@ -268,7 +296,7 @@ function print_pdf_requirements($phase) {
  * Implements hook_node_view().
  */
 function print_pdf_node_view($node, $view_mode) {
-  $print_pdf_link_pos = variable_get('print_pdf_link_pos', array(PRINT_PDF_LINK_POS_DEFAULT => PRINT_PDF_LINK_POS_DEFAULT));
+  $print_pdf_link_pos = variable_get('print_pdf_link_pos', drupal_json_decode(PRINT_PDF_LINK_POS_DEFAULT));
   $print_pdf_link_use_alias = variable_get('print_pdf_link_use_alias', PRINT_PDF_LINK_USE_ALIAS_DEFAULT);
 
   foreach (array('node', 'comment') as $type) {
@@ -329,7 +357,8 @@ function print_pdf_node_view($node, $view_mode) {
  * Implements hook_help().
  */
 function print_pdf_help($path, $arg) {
-  if ($path !== 'node/%') {
+  $print_pdf_link_pos = variable_get('print_pdf_link_pos', drupal_json_decode(PRINT_PDF_LINK_POS_DEFAULT));
+  if (($path !== 'node/%') && !(empty($print_pdf_link_pos['help']))) {
     static $output = FALSE;
 
     if ($output === FALSE) {
@@ -676,7 +705,7 @@ function _print_pdf_wkhtmltopdf_version() {
     fclose($pipes[0]);
     fclose($pipes[1]);
     fclose($pipes[2]);
-    $retval = proc_terminate($process);
+    $retval = proc_close($process);
   }
 
   return ($matches[1]);

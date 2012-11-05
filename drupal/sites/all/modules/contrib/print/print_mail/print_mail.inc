@@ -52,6 +52,10 @@ function print_mail_form($form, &$form_state) {
     $path = drupal_get_normal_path($path);
   }
 
+  // Handle the query
+  $query = $_GET;
+  unset($query['q']);
+
   $print_mail_hourly_threshold = variable_get('print_mail_hourly_threshold', PRINT_MAIL_HOURLY_THRESHOLD);
 
   if ((!user_access('send unlimited emails')) && (!flood_is_allowed('print_mail', $print_mail_hourly_threshold))) {
@@ -82,6 +86,7 @@ function print_mail_form($form, &$form_state) {
   }
 
   $form['path'] = array('#type' => 'value', '#value' => $path);
+  $form['query'] = array('#type' => 'value', '#value' => $query);
   $form['cid'] =  array('#type' => 'value', '#value' => $cid);
   $form['title'] = array('#type' => 'value', '#value' => $title);
 
@@ -111,6 +116,7 @@ function print_mail_form($form, &$form_state) {
     '#required' => TRUE,
   );
   if (!empty($title)) {
+    // To prevent useless translation strings, try to translate only node titles
     if (drupal_substr($path, 0, 5) == 'node/') {
       $title = t($title);
     }
@@ -118,7 +124,7 @@ function print_mail_form($form, &$form_state) {
     $form['fld_title'] = array(
       '#type' => 'item',
       '#title' => t('Page to be sent'),
-      '#markup' => l($title, $path, array('attributes' => array('title' => t('View page')))),
+      '#markup' => l($title, $path, array('attributes' => array('title' => t('View page')), 'query' => $query)),
     );
   }
   $form['txt_message'] = array(
@@ -181,7 +187,9 @@ function print_mail_form($form, &$form_state) {
  *
  * @ingroup forms
  */
-function theme_print_mail_form($form) {
+function theme_print_mail_form($variables) {
+  $form = $variables['form'];
+
   drupal_add_css(drupal_get_path('module', 'print') . '/css/printlinks.css');
   $content = '';
   foreach (element_children($form) as $key) {
@@ -210,7 +218,7 @@ function print_mail_form_validate($form, &$form_state) {
     form_set_error(NULL, '', TRUE);
     drupal_get_messages('error');
 
-    drupal_goto(preg_replace('!^book/export/html/!', 'node/', $form_state['values']['path']));
+    drupal_goto(preg_replace('!^book/export/html/!', 'node/', $form_state['values']['path']), array('query' => $form_state['values']['query']));
     return;
   }
   $from_addr = trim($form_state['values']['fld_from_addr']);
@@ -266,22 +274,11 @@ function print_mail_form_validate($form, &$form_state) {
  */
 function print_mail_form_submit($form, &$form_state) {
   if (!array_key_exists('cancel', $form_state['values'])) {
-    if (!empty($form_state['values']['fld_from_name'])) {
-      $from = '"' . mime_header_encode($form_state['values']['fld_from_name']) . '" <' . $form_state['values']['fld_from_addr'] . '>';
-    }
-    else {
-      $from = $form_state['values']['fld_from_addr'];
-    }
     $cid = isset($form_state['values']['cid']) ? $form_state['values']['cid'] : NULL;
-
     $print_mail_text_message = filter_xss_admin(variable_get('print_mail_text_message', t('Message from sender')));
     $sender_message = $print_mail_text_message . ':<br /><br /><em>' . nl2br(check_plain($form_state['values']['txt_message'])) . '</em>';
 
-    $print = print_controller($form_state['values']['path'], $cid, PRINT_MAIL_FORMAT, $form_state['values']['chk_teaser'], $sender_message);
-
-    // Spaces in img URLs must be replaced with %20
-    $pattern = '!<(img\s[^>]*?)>!is';
-    $print['content'] = preg_replace_callback($pattern, '_print_replace_spaces', $print['content']);
+    $print = print_controller($form_state['values']['path'], $form_state['values']['query'], $cid, PRINT_MAIL_FORMAT, $form_state['values']['chk_teaser'], $sender_message);
 
     if ($print !== FALSE) {
       $print_mail_send_option_default = variable_get('print_mail_send_option_default', PRINT_MAIL_SEND_OPTION_DEFAULT);
@@ -291,6 +288,24 @@ function print_mail_form_submit($form, &$form_state) {
       $params['message'] = $sender_message;
       $params['link'] = $print['url'];
       $params['title'] = $form_state['values']['title'];
+
+      // If a name is provided, make From: in the format Common Name <address>
+      if (!empty($form_state['values']['fld_from_name'])) {
+        $from = '"' . mime_header_encode($form_state['values']['fld_from_name']) . '" <' . $form_state['values']['fld_from_addr'] . '>';
+      }
+      else {
+        $from = $form_state['values']['fld_from_addr'];
+      }
+
+      // If using reply-to, move the From: info to the params array, so that it is passed to hook_mail later
+      if (variable_get('print_mail_use_reply_to', PRINT_MAIL_USE_REPLY_TO)) {
+        $params['from'] = $from;
+        $from = NULL;
+      }
+
+      // Spaces in img URLs must be replaced with %20
+      $pattern = '!<(img\s[^>]*?)>!is';
+      $print['content'] = preg_replace_callback($pattern, '_print_replace_spaces', $print['content']);
 
       $node = $print['node'];
       $params['body'] = theme('print', array('print' => $print, 'type' => PRINT_MAIL_FORMAT, 'node' => $node));
@@ -325,7 +340,8 @@ function print_mail_form_submit($form, &$form_state) {
         }
       }
       if ($ok) {
-        watchdog('print_mail', '%name [%from] sent %page to [%to]', array('%name' => $form_state['values']['fld_from_name'], '%from' => $form_state['values']['fld_from_addr'], '%page' => $form_state['values']['path'], '%to' => $form_state['values']['txt_to_addrs']));
+        $query = empty($form_state['values']['query']) ? '' : '?' . rawurldecode(drupal_http_build_query($form_state['values']['query']));
+        watchdog('print_mail', '%name [%from] sent %page to [%to]', array('%name' => $form_state['values']['fld_from_name'], '%from' => $form_state['values']['fld_from_addr'], '%page' => $form_state['values']['path'] . $query, '%to' => $form_state['values']['txt_to_addrs']));
         $site_name = variable_get('site_name', t('us'));
         $print_mail_text_confirmation = variable_get('print_mail_text_confirmation', t('Thank you for spreading the word about !site.'));
         drupal_set_message(check_plain(t($print_mail_text_confirmation, array('!site' => $site_name))));
@@ -343,5 +359,5 @@ function print_mail_form_submit($form, &$form_state) {
     }
   }
 
-  $form_state['redirect'] = preg_replace('!^book/export/html/!', 'node/', $form_state['values']['path']);
+  $form_state['redirect'] = array(preg_replace('!^book/export/html/!', 'node/', $form_state['values']['path']), array('query' => $form_state['values']['query']));
 }

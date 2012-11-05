@@ -85,6 +85,7 @@
 
         <div id="content-area">
           <?php print render($page['content']) ?>
+          <?php print render($page['content_bottom']) ?>
         </div>
 
         <?php print $feed_icons; ?>
