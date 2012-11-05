@@ -1,0 +1,43 @@
+
+
+.node-discussion{
+
+	.inner{
+
+	  & > .passage-text{ 
+	    @include border($nurani-red, top, 3px);
+	    @include border($nurani-gray, left, 1px);
+	    @include border($nurani-gray, bottom, 1px);
+	    @include border($nurani-gray, right, 1px);
+	  }
+
+	  .passage-widget {
+	    .verse{
+	  	  margin: 0 0.5em;
+	  	}
+	  	p{
+	  	  font-family: palatino;
+	  	  margin-top:0.5em;
+	  	  display:inline;
+	  	}
+	  }
+
+      .bib{
+        border:1px solid $nurani-gray;
+
+      	.moderator_s_thoughts{
+	  	  p{
+	  	    font-size: 1.1429em; 
+	  		text-indent: justify;
+	  		color:$nurani-text-gray;
+	  	  }
+
+	  	  span, a.username{ color:$nurani-light-blue; font-weight: bold;}
+	    }
+
+      }
+	  
+	}
+}
+
+
