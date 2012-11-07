@@ -46,7 +46,11 @@
 	  		color:$nurani-text-gray;
 	  	  }
 
-	  	  span, a.username{ color:$nurani-light-blue; font-weight: bold;}
+	  	  span, a.username{ 
+	  	  	margin-left: 1.8em;
+	  	  	color:$nurani-light-blue; 
+	  	  	font-weight: bold;
+	  	  }
 	    }
 
       }
@@ -66,6 +70,7 @@
 
 	      .user-picture{
 	        float:left;
+	        margin:0 1em 0 1em;
 	      }
 
 	    }
