@@ -40,7 +40,21 @@ div#top-strip {
     @include span-columns(14,16);
     @include pad(1,1);
     background:yellow;
+
+    #content-area{
+      margin-bottom:100px;
+    }
+
+    #content-bottom-left{
+      float:left;
+      width:650px;
+      margin-right:30px;
+    }
     
+     #content-bottom-right{
+      float:left;
+      width:400px;
+    }
 
   }
 
