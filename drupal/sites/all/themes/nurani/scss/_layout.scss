@@ -23,7 +23,7 @@ div#top-strip {
 }
 
 
-#main, #header, div#top-strip { 
+#main, #header,div#top-strip { 
   width:100%;
   @include container;
   @include susy-grid-background;
