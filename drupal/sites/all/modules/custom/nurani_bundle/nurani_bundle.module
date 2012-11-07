@@ -277,9 +277,9 @@ function nurani_bundle_ui_element_validate($element, &$form_state, $form) {
 
   $langcode   = $element['#language'];
   $delta      = $element['#delta'];
-  $bundle_nid = $form_state['values']['field_bundle'][$langcode][$delta]['nid'];
+  $bundle_nid = $form_state['input']['field_bundle'][$langcode][$delta]['nid'];
 
-  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['values']);
+  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['input']);
 
   $name_prefix = 'field_bundle[' . $langcode . '][' . $delta . '][ui][passages][';
   foreach ($edit['ui']['passages'] as $pc_delta => $pc_value) {
@@ -321,7 +321,7 @@ function nurani_bundle_node_submit($node, $form, $form_state) {
   $delta      = 0;
   $bundle_nid = $form_state['values']['field_bundle'][$langcode][$delta]['nid'];
 
-  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['values']);
+  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['input']);
 
   // Create the bundle if it does not exist already
   if (!$bundle_nid) {
