@@ -1,0 +1,24 @@
+
+.block-nurani-comment{
+
+  background:$nurani-light-blue;
+  margin-bottom:20px;
+  margin-top:86px;
+
+  form{
+    padding:20px;
+
+  	.form-textarea-wrapper textarea{
+  	  height:200px;
+  	}
+
+    label, .form-text, .filter-wrapper{
+      display:none;
+    }
+
+  }
+}
+
+
+
+

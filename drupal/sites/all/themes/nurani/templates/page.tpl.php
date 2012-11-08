@@ -85,7 +85,11 @@
 
         <div id="content-area">
           <?php print render($page['content']) ?>
-          <?php print render($page['content_bottom']) ?>
+         <!--  <?php print render($page['content_bottom']) ?> -->
+        </div>
+        <div id="content-bottom">
+          <div id="content-bottom-left"><?php print render($page['content_bottom_left']) ?></div>
+          <div id="content-bottom-right"><?php print render($page['content_bottom_right']) ?></div>
         </div>
 
         <?php print $feed_icons; ?>
