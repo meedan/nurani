@@ -8,10 +8,69 @@ function nurani_helpers_theme($existing, $type, $theme, $path) {
     'nurani_attribution' => array(
       'variables' => array('author' => NULL, 'timestamp' => NULL),
     ),
+    'nurani_helpers_block_welcome_login' => array(
+      'variables' => array('author' => NULL),
+    ),
   );
 }
 
-function theme_nurani_attribution(&$variables) {
+/**
+ * Implements hook_block_info().
+ */
+function nurani_helpers_block_info() {
+  $blocks = array();
+  $blocks['welcome_login'] = array(
+    'info' => t('Nurani login / welcome'),
+    'cache' => DRUPAL_NO_CACHE
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function nurani_helpers_block_view($delta = '') {
+  global $user;
+  $block = array();
+
+  switch ($delta) {
+    case 'welcome_login':
+      $block['subject'] = NULL;
+      $block['content'] = theme('nurani_helpers_block_welcome_login', array('account' => $user));
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Theme implementation for Nurani 'welcome_login' block.
+ */
+function theme_nurani_helpers_block_welcome_login($variables) {
+  $account = $variables['account'];
+
+  $output = '';
+  if (!$account->uid) {
+    $output  = '<span class="login">';
+    $output .=   l(t("Login"), 'user/login', array('query' => array('destination' => '<front>')));
+    $output .= '</span>';
+  }
+  else {
+    $output  = '<span class="welcome">';
+    $output .=   t("Welcome, <strong>!name</strong>", array('!name' => theme('username', array('account' => $account))));
+    $output .= '</span>';
+    $output .= '<span class="logout">';
+    $output .=   l(t("Logout"), 'user/logout', array('query' => array('destination' => '<front>')));
+    $output .= '</span>';
+  }
+
+  return $output;
+}
+
+/**
+ * Theme implementation for Nurani attribution helper.
+ */
+function theme_nurani_attribution($variables) {
   $output  = '';
   $output .= '<span class="attribution">';
   $output .=   theme('username', array('account' => $variables['account']));

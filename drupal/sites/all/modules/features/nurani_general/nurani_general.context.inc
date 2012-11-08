@@ -114,6 +114,12 @@ function nurani_general_context_default_contexts() {
           'region' => 'top_strip',
           'weight' => '-16',
         ),
+        'nurani_helpers-welcome_login' => array(
+          'module' => 'nurani_helpers',
+          'delta' => 'welcome_login',
+          'region' => 'top_strip',
+          'weight' => '-10',
+        ),
       ),
     ),
   );
