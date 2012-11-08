@@ -6,6 +6,7 @@ php = 5.2.4
 version = 7.x-1.0
 project = nurani_general
 dependencies[] = boxes
+dependencies[] = better_exposed_filters
 dependencies[] = comment_goodness
 dependencies[] = context
 dependencies[] = ctools

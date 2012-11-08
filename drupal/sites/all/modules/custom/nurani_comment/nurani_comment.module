@@ -108,15 +108,14 @@ function nurani_comment_form_comment_form_alter(&$form, &$form_state) {
 }
 
 /**
- * Validation for Nurani comment form.
+ * Implements hook_form_views_exposed_form_alter().
+ *
+ * Alterations to the views exposed form above the comments list
+ * (managed by BEF).
  */
-function nurani_comment_form_validate($form, &$form_state, $node) {
-
-}
-
-/**
- * Submission handler for Nurani comment form.
- */
-function nurani_comment_form_submit($form, &$form_state, $node) {
-
+function nurani_comment_form_views_exposed_form_alter(&$form, &$form_state) {
+  if ($form['#id'] == 'views-exposed-form-nurani-comment-list-block') {
+    $form['submit']['#access'] = FALSE;
+    $form['sort_bef_combine']['#title'] = NULL;
+  }
 }
