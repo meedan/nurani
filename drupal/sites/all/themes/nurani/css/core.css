@@ -10,7 +10,7 @@ $gutter-width:1em;*/
     height: 100%;
   }
   /* line 10, ../scss/_media-queries.scss */
-  div#top-strip #block-menu_block-1 ul li a {
+  div#top-strip #block-menu_block-nurani_main_menu ul li a {
     padding: 2px;
   }
 }
@@ -128,7 +128,7 @@ div#header #logo-box a#logo img {
   display: inline;
 }
 /* line 10, ../scss/_navigation.scss */
-#top-strip #block-menu_block-1 {
+#top-strip #block-menu_block-nurani_main_menu {
   width: 38.98305%;
   float: left;
   margin-right: 1.69492%;
@@ -136,12 +136,12 @@ div#header #logo-box a#logo img {
   padding: 10px;
 }
 /* line 14, ../scss/_navigation.scss */
-#top-strip #block-menu_block-1 ul li {
+#top-strip #block-menu_block-nurani_main_menu ul li {
   list-style-type: none;
   display: inline;
 }
 /* line 17, ../scss/_navigation.scss */
-#top-strip #block-menu_block-1 ul li a {
+#top-strip #block-menu_block-nurani_main_menu ul li a {
   /*font-size:1.625em;*/
   font-size: 1.5em;
   float: left;

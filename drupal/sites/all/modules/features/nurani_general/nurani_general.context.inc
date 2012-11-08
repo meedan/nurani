@@ -108,17 +108,11 @@ function nurani_general_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'menu_block-1' => array(
+        'menu_block-nurani_main_menu' => array(
           'module' => 'menu_block',
-          'delta' => 1,
+          'delta' => 'nurani_main_menu',
           'region' => 'top_strip',
           'weight' => '-16',
-        ),
-        'block-1' => array(
-          'module' => 'block',
-          'delta' => 1,
-          'region' => 'top_strip',
-          'weight' => '-15',
         ),
       ),
     ),
