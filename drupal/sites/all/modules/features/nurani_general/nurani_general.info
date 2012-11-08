@@ -17,6 +17,7 @@ dependencies[] = menu
 dependencies[] = menu_block
 dependencies[] = menu_block_export
 dependencies[] = nurani_comment
+dependencies[] = nurani_discussion
 dependencies[] = nurani_helpers
 dependencies[] = page_manager
 dependencies[] = panels
