@@ -5,14 +5,11 @@
 	.passage-box{
 		margin-top: 2em;
 	}
-
 	.passage-boxes > .inner {
 		@include span-columns(14,16);
 		@include prefix(1);
 		@include suffix(1);
 		min-width:100%;
-
-		
 	}
 
 	.inner{
@@ -62,6 +59,7 @@
   h2.block-title{text-align:left}
 }
 
+// Style for response list
 .view-nurani-comment-list{
     & .views-row {
 	  background:#fff;
@@ -84,12 +82,34 @@
 	      }
 	    }
 	}
+ }
+
+// discussion lock
+.block-meedan-discussion-lock{
+  background:url(../images/clock-icon.png) no-repeat;
+  margin-bottom:30px;
+  .content{
+    margin-left:3em;
+    color:$nurani-text-gray;
+    font-size:1.2em;
+
   }
+}
 
+.view-meedan-discussion-participants{
 
+	& > .view-content{
+		margin-bottom: 4em;
+		.views-field-picture{ float:left;}
+		
+		.views-field-name{	
+		  margin-left:8em;
+		  @include username-links($nurani-light-blue);
+		}
+	}
+  
 
-
-	 
+} 
 
 
 
