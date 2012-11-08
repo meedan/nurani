@@ -1,6 +1,19 @@
 <?php
 
 /**
+ * Implements hook_views_query_alter().
+ *
+ * Adding extra LEFT JOIN information such that the aggregation works correctly
+ * for COUNTing the number of responses for each user in the
+ * meedan_discussion_participants view.
+ */
+function meedan_discussion_participants_views_query_alter(&$view, &$query) {
+  if ($view->name == 'meedan_discussion_participants') {
+    $query->table_queue['comment_node']['join']->extra = 'users.uid = comment_node.uid';
+  }
+}
+
+/**
  * Implements hook_views_api().
  */
 function meedan_discussion_participants_views_api() {
