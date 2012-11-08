@@ -1,3 +1,9 @@
+Menu Block 7.x-2.x-dev, xxxx-xx-xx (development release)
+----------------------------------
+- #1524674 by Crell: Use of $_GET['q'] ignores menu_position module
+- #1688168 by tim.plunkett: Undefined index errors when using CTools content type and '_active' menu
+- #1701702: Disabled menu items still trigger "the menu selected by the page"
+
 Menu Block 7.x-2.3, 2012-02-04
 ------------------------------
 - #1105372 by mikl, fabsor and JohnAlbin: Add menu tree ctools content type to D7

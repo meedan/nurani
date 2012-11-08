@@ -2,6 +2,7 @@ name = "Menu Block"
 description = "Provides configurable blocks of menu items."
 
 core = 7.x
+dependencies[] = ctools
 dependencies[] = menu (>7.11)
 
 files[] = menu_block.module
@@ -14,9 +15,9 @@ files[] = plugins/content_types/menu_tree/menu_tree.inc
 
 configure = admin/config/user-interface/menu-block
 
-; Information added by drupal.org packaging script on 2012-02-03
-version = "7.x-2.3"
+; Information added by drupal.org packaging script on 2012-08-31
+version = "7.x-2.3+7-dev"
 core = "7.x"
 project = "menu_block"
-datestamp = "1328286646"
+datestamp = "1346416665"
 
