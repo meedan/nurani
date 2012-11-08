@@ -1,7 +1,7 @@
 <div class="<?php print $classes . ' ' . $zebra; ?>">
 	<div class="comment-inner">
 
-    <?php dpm($form);?>
+   
 		
     <!-- <h3 class="title"><?php print $title ?></h3> -->
     
@@ -11,13 +11,14 @@
     
     <?php print $picture ?>
 	    
-    <span class="submitted"><?php print $created; ?> — <?php print $author; ?></span>
+    
     
     <div class="content">
       <?php 
         hide($content['links']); 
         print render($content);
         ?>
+      <span class="submitted"> — <?php print $author; ?>  <?php print $created; ?> </span>
       <?php if ($signature): ?>
         <div class="signature"><?php print $signature ?></div>
       <?php endif; ?>

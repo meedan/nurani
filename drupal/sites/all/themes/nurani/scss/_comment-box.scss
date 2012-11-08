@@ -7,6 +7,17 @@
 
   form{
     padding:20px;
+    color:#fff;
+
+    div.head{
+      .user-picture{float:left;}
+      .info{margin-left:8em;
+      @include username-links(#fff);
+
+      }
+      .tip{ margin-top:2em;}
+
+    }
 
   	.form-textarea-wrapper textarea{
   	  height:200px;

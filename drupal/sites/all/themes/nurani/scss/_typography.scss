@@ -5,6 +5,15 @@
   border-#{$side}-color:$color;
 }
 
+//Mixin to style Username links
+@mixin username-links($color){
+  a{
+    color:$color;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
 body {
   font-family: Helvetica Neue;
   font-size:14px;
