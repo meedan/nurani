@@ -60,10 +60,11 @@
 }
 
 #block-views-nurani_comment_list-block {
-  
+
   h2.block-title{text-align:left}
-  
-  .view-nurani-comment-list{
+}
+
+.view-nurani-comment-list{
     & .views-row {
 	  background:#fff;
 	  margin-bottom:25px;
@@ -74,12 +75,21 @@
 
 	      .user-picture{
 	        float:left;
-	        margin:0 2em 0 -1em;
+	        margin:0 1em 0 -1em;
+	      }
+	      .content{ 
+	      	margin-left:8em;
+	      	color:$nurani-text-gray;
+	      	.submitted{ margin-left: 30px;}
+	      	a{ 
+	      		color:$nurani-text-gray;
+	      		font-weight: bold;
+	      		text-decoration: none;
+	      	}
 	      }
 	    }
 	}
   }
-}
 
 
 
