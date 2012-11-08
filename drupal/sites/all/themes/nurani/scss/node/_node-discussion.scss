@@ -19,10 +19,11 @@
 	.inner{
 
 	  & > .passage-text{ 
-	    @include border($nurani-red, top, 3px);
+	    @include border($nurani-red, top, 5px);
 	    @include border($nurani-gray, left, 1px);
 	    @include border($nurani-gray, bottom, 1px);
 	    @include border($nurani-gray, right, 1px);
+	    background:$nurani-salmon-color;
 	  }
 
 	  .passage-widget {
@@ -47,7 +48,7 @@
 	  	  }
 
 	  	  span, a.username{ 
-	  	  	margin-left: 1.8em;
+	  	  	margin-left: 2.5em;
 	  	  	color:$nurani-light-blue; 
 	  	  	font-weight: bold;
 	  	  }
@@ -58,26 +59,34 @@
 	}	
 }
 
-.view-nurani-comment-list{
-
-	 & .view-content .views-row {
-	    background:#fff;
-	    margin-bottom:25px;
-	    @include border($nurani-light-blue, top, 5px);
+#block-views-nurani_comment_list-block {
+  
+  h2.block-title{text-align:left}
+  
+  .view-nurani-comment-list{
+    & .views-row {
+	  background:#fff;
+	  margin-bottom:25px;
+	  @include border($nurani-light-blue, top, 5px);
 
 	    .comment-inner{
 	      padding:35px;
 
 	      .user-picture{
 	        float:left;
-	        margin:0 1em 0 1em;
+	        margin:0 2em 0 -1em;
 	      }
-
 	    }
-	 }
-
-
+	}
+  }
 }
+
+
+
+
+	 
+
+
 
 
 

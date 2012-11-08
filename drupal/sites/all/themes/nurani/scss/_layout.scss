@@ -26,7 +26,7 @@ div#top-strip {
 #main, #header,div#top-strip { 
   width:100%;
   @include container;
-  @include susy-grid-background;
+  /*@include susy-grid-background;*/
  
 }
 
@@ -39,7 +39,7 @@ div#top-strip {
   #content-inner{
     @include span-columns(14,16);
     @include pad(1,1);
-    background:yellow;
+    /*background:yellow;*/
 
     #content-area{
       margin-bottom:100px;
