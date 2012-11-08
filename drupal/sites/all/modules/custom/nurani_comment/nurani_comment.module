@@ -1,5 +1,19 @@
 <?php
 
+require_once dirname(__FILE__) . '/nurani_comment.inc';
+
+/**
+ * Implements hook_theme().
+ */
+function nurani_comment_theme($existing, $type, $theme, $path) {
+  return array(
+    'nurani_comment_form' => array(
+      'render element' => 'element',
+      'template' => 'nurani-comment-form',
+    ),
+  );
+}
+
 /**
  * Implements hook_preprocess_comment_wrapper().
  *
@@ -38,7 +52,71 @@ function nurani_comment_block_view($delta = '') {
       }
 
       $block['content'] = drupal_get_form("comment_node_{$node->type}_form", (object) array('nid' => $node->nid));
+      // $block['content'] = drupal_get_form("nurani_comment_form", $node);
       return $block;
     }
   }
+}
+
+/**
+ * The custom comment form for the Discussion page.
+ */
+function nurani_comment_form_comment_form_alter(&$form, &$form_state) {
+  global $user;
+
+  $node    = $form['#node'];
+  $comment = $form['#entity'];
+
+  array_unshift($form['#theme'], 'nurani_comment_form');
+
+  // Hide many unnecessary things
+  $form['author']['_author']['#access'] = FALSE;
+  $form['author']['mail']['#access'] = FALSE;
+  $form['author']['homepage']['#access'] = FALSE;
+  $form['author']['date']['#access'] = FALSE;
+  $form['author']['status']['#access'] = FALSE;
+  $form['subject']['#access'] = FALSE;
+
+  // Remove the "Title" label from the comment body textarea
+  $form['comment_body'][$node->language]['#title'] = NULL;
+  $form['comment_body'][$node->language][0]['#title'] = NULL;
+  $form['comment_body'][$node->language][0]['value']['#title'] = NULL;
+
+  // Additional info
+  $form['info'] = array(
+    '#weight' => -10,
+  );
+  $form['info']['picture'] = array(
+    '#type'   => 'markup',
+    '#markup' => theme('user_picture', array('account' => $user)),
+  );
+  $number = nurani_comment_next_response_number($node);
+  $form['info']['response_number'] = array(
+    '#type'   => 'markup',
+    '#markup' => t("Response @number", array('@number' => $number)),
+  );
+  $form['info']['by'] = array(
+    '#type'   => 'markup',
+    '#markup' => t("By !author", array('!author' => theme('username', array('account' => $user)))),
+  );
+  $form['info']['tip'] = array(
+    '#type' =>'markup',
+    '#markup' => t("<strong>Tip:</strong> Brief responses are encouraged."),
+  );
+
+  // dpm($form);
+}
+
+/**
+ * Validation for Nurani comment form.
+ */
+function nurani_comment_form_validate($form, &$form_state, $node) {
+
+}
+
+/**
+ * Submission handler for Nurani comment form.
+ */
+function nurani_comment_form_submit($form, &$form_state, $node) {
+
 }
