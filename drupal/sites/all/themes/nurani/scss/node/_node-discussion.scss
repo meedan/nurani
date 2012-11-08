@@ -1,5 +1,4 @@
 
-
 .node-discussion{
 	/*.passage-boxes{@include container;}*/
 
@@ -60,7 +59,6 @@
 }
 
 #block-views-nurani_comment_list-block {
-
   h2.block-title{text-align:left}
 }
 
@@ -81,11 +79,8 @@
 	      	margin-left:8em;
 	      	color:$nurani-text-gray;
 	      	.submitted{ margin-left: 30px;}
-	      	a{ 
-	      		color:$nurani-text-gray;
-	      		font-weight: bold;
-	      		text-decoration: none;
-	      	}
+	      	@include username-links(#000);
+	      	
 	      }
 	    }
 	}
