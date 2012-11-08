@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Implements hook_views_api().
+ */
+function meedan_discussion_participants_views_api() {
+  return array("version" => "3.0");
+}
+
+/**
  * Implements hook_field_default_fields_alter().
  */
 function meedan_discussion_participants_field_default_fields_alter(&$fields) {
