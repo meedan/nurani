@@ -14,6 +14,8 @@
     
     
     <div class="content">
+      <strong>Id: <?php echo $comment_number; ?></strong>
+
       <?php 
         hide($content['links']); 
         print render($content);

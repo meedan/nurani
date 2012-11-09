@@ -25,6 +25,30 @@ function nurani_comment_preprocess_comment_wrapper(&$vars) {
 }
 
 /**
+ * Implements hook_preprocess_comment().
+ */
+function nurani_comment_preprocess_comment(&$vars) {
+  $map = nurani_comment_order_map($vars['comment']->nid);
+  $vars['comment_number'] = $map[$vars['comment']->cid];
+}
+
+function nurani_comment_order_map($nid) {
+  static $maps = array();
+
+  if (!isset($maps[$nid])) {
+    $maps[$nid] = array();
+    $count = 1;
+
+    $result = db_query("SELECT cid FROM {comment} WHERE nid = :nid ORDER BY created ASC", array(':nid' => $nid));
+    foreach ($result as $comment) {
+      $maps[$nid][$comment->cid] = $count++;
+    }
+  }
+
+  return $maps[$nid];
+}
+
+/**
  * Implements hook_block_info().
  */
 function nurani_comment_block_info() {
@@ -103,8 +127,6 @@ function nurani_comment_form_comment_form_alter(&$form, &$form_state) {
     '#type' =>'markup',
     '#markup' => t("<strong>Tip:</strong> Brief responses are encouraged."),
   );
-
-  // dpm($form);
 }
 
 /**
@@ -115,7 +137,7 @@ function nurani_comment_form_comment_form_alter(&$form, &$form_state) {
  */
 function nurani_comment_form_views_exposed_form_alter(&$form, &$form_state) {
   if ($form['#id'] == 'views-exposed-form-nurani-comment-list-block') {
-    $form['submit']['#access'] = FALSE;
-    $form['sort_bef_combine']['#title'] = NULL;
+    $form['#attached']['js'][] = drupal_get_path('module', 'nurani_comment') . '/js/nurani_comment.js';
+    $form['#attached']['css'][] = drupal_get_path('module', 'nurani_comment') . '/css/nurani_comment.css';
   }
 }
