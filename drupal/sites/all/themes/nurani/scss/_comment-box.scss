@@ -11,11 +11,11 @@
 
     div.head{
       .user-picture{float:left;}
-      .info{margin-left:8em;
+      .info{margin-left:4em;
       @include username-links(#fff);
 
       }
-      .tip{ margin-top:2em;}
+      .tip{ margin-top:1em;}
 
     }
 

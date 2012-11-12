@@ -74,7 +74,7 @@
 	        margin:0 1em 0 -1em;
 	      }
 	      .content{ 
-	      	margin-left:8em;
+	      	margin-left:4em;
 	      	color:$nurani-text-gray;
 	      	.submitted{ margin-left: 30px;}
 	      	@include username-links(#000);
@@ -84,15 +84,31 @@
 	}
  }
 
+@mixin discussion-lock-pdf{
+   margin-left:3em;
+   color:$nurani-text-gray;
+   font-size:1.2em;
+}
+
 // discussion lock
 .block-meedan-discussion-lock{
   background:url(../images/clock-icon.png) no-repeat;
-  margin-bottom:30px;
+  margin-bottom:1em;
   .content{
-    margin-left:3em;
-    color:$nurani-text-gray;
-    font-size:1.2em;
+    @include discussion-lock-pdf;
 
+  }
+}
+//pdf of readings
+#block-nurani_discussion-print_pdf{
+  background:url(../images/printer-icon.png) no-repeat;
+  margin-bottom:4em;
+  .content a{
+    @include discussion-lock-pdf;
+    text-decoration: none;
+    &:hover{
+    	text-decoration:underline;
+    }
   }
 }
 
@@ -102,8 +118,8 @@
 		margin-bottom: 4em;
 		.views-field-picture{ float:left;}
 		
-		.views-field-name{	
-		  margin-left:8em;
+		.views-field-name, .views-field-cid{	
+		  margin-left:4em;
 		  @include username-links($nurani-light-blue);
 		}
 	}
