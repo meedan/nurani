@@ -1,0 +1,3 @@
+@mixin nurani-button($base_color: #005EAE, $text_size: 12px, $text_color: #fff) {
+  @include sassy-button("flat", 0.2em, $text_size, lighten($base_color, 2%), $base_color, $text_color);
+}

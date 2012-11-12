@@ -269,6 +269,55 @@ sup {
 .block-nurani-comment form label, .block-nurani-comment form .form-text, .block-nurani-comment form .filter-wrapper {
   display: none;
 }
+/* line 29, ../scss/_comment-box.scss */
+.block-nurani-comment form .form-submit {
+  font-size: 12px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF00447F', endColorstr='#FF000E19');
+  background-color: #00447f;
+  border: 0;
+  color: white;
+  text-shadow: black 0 -1px 0;
+  margin-right: 0.5em;
+}
+/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.block-nurani-comment form .form-submit:hover {
+  text-decoration: none;
+}
+/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.block-nurani-comment form .form-submit:hover {
+  background-color: #003766;
+}
+/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.block-nurani-comment form .form-submit:active {
+  background-color: #002f56;
+}
+/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.block-nurani-comment form .form-submit.disabled, .block-nurani-comment form .form-submit[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+.block-nurani-comment form .form-submit::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+/* line 34, ../scss/_comment-box.scss */
+.block-nurani-comment form .form-actions {
+  margin-left: 14em;
+}
 
 /*@include basic-default(1200px, 400px, 400px);*/
 /* line 2, ../scss/node/_node-discussion.scss */

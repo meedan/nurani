@@ -26,6 +26,15 @@
     label, .form-text, .filter-wrapper{
       display:none;
     }
+    .form-submit{
+      @include nurani-button($nurani-dark-blue);
+      margin-right:0.5em;
+    }
+
+    .form-actions {
+      margin-left:14em;
+    }
+     
 
   }
 }
