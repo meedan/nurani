@@ -4,14 +4,11 @@ $total-columns: 20;
 $column-width:2em;
 $gutter-width:1em;*/
 @media only screen and (max-width: 1024px) {
-  /* line 4, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_media-queries.scss */
+  /* line 4, ../scss/_media-queries.scss */
   div#top-strip {
     width: 100%;
     height: 100%;
   }
-
-  /* line 10, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_media-queries.scss */
-  div#top-strip #block-menu_block-1 ul li a {
   /* line 10, ../scss/_media-queries.scss */
   div#top-strip #block-menu_block-nurani_main_menu ul li a {
     padding: 2px;
