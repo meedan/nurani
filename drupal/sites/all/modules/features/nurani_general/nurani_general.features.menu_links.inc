@@ -38,23 +38,8 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-49',
   );
-  // Exported menu link: main-menu:node/3
-  $menu_links['main-menu:node/3'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'node/3',
-    'router_path' => 'node/%',
-    'link_title' => 'Contact Us',
-    'options' => array(),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-48',
-  );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Contact Us');
   t('Home');
   t('Nurani library');
 
