@@ -2,10 +2,19 @@
   /* Mandatory positioning */
   position: absolute;
   display: none;
+  z-index: 100;
+
+  /* Fairly important constraints */
+  width: 15em;
+  min-height: 5em;
 
   /* Optional initial style, this can be removed */
-  border: 1px solid #333;
-  background: #f7f5d1;
-  padding: 2px 5px;
+  border-radius: 1em;
+  background: #fff;
+  box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.5);
+  padding: 1em;
   color: #333;
+}
+#tooltip.loading {
+  background: rgba(0, 0, 0, 0.5);
 }

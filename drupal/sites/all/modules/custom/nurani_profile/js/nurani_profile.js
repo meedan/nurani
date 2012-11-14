@@ -7,7 +7,8 @@
     attach: function (context) {
       var that = this;
 
-      $('.tooltip:not(.tooltip-processed)', context)
+      $('a.username,.user-picture a', context)
+        .filter(':not(.tooltip-processed)')
         .addClass('tooltip-processed')
         .each(function () {
           $(this).data('nuraniTooltip', new NuraniTooltip(this));
@@ -20,7 +21,7 @@
     this.$element = $(element);
     this.$tooltip = null;
 
-    this.data     = this.$element.data('tooltip');
+    this.data     = this.$element.attr('href');
     this.yOffset  = 10;
 
     this.init();
