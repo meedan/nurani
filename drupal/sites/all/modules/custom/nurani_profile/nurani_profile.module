@@ -27,7 +27,7 @@ function nurani_profile_menu() {
  */
 function nurani_profile_ajax() {
   // FIXME: Brittle, this path lookup may break on differently configured sites.
-  $args = split('/', drupal_get_normal_path(preg_replace('/^\/?/', '', $_GET['data'])));
+  $args = split('/', drupal_get_normal_path(preg_replace('/^(' . preg_quote(base_path(), '/') . ')?/', '', $_GET['data'])));
   $output = '';
 
   // Generate the user profile display
