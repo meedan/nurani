@@ -4,29 +4,29 @@ $total-columns: 20;
 $column-width:2em;
 $gutter-width:1em;*/
 @media only screen and (max-width: 1024px) {
-  /* line 4, ../scss/_media-queries.scss */
+  /* line 4, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_media-queries.scss */
   div#top-strip {
     width: 100%;
     height: 100%;
   }
-  /* line 10, ../scss/_media-queries.scss */
+  /* line 10, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_media-queries.scss */
   div#top-strip #block-menu_block-nurani_main_menu ul li a {
     padding: 2px;
   }
 }
-/* line 4, ../scss/_layout.scss */
+/* line 4, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
 * {
   margin: 0;
   padding: 0;
 }
 
-/* line 9, ../scss/_layout.scss */
+/* line 9, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
 body {
   margin: 0;
   background: #f1e9e4 url("../images/brown_bkg.gif") repeat fixed center right;
 }
 
-/* line 14, ../scss/_layout.scss */
+/* line 14, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
 div#top-strip {
   margin: 0;
   background: #fff;
@@ -34,12 +34,12 @@ div#top-strip {
   padding: 4px 20px 0;
 }
 
-/* line 21, ../scss/_layout.scss */
+/* line 21, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
 #header {
   height: 39px;
 }
 
-/* line 26, ../scss/_layout.scss */
+/* line 26, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
 #main, #header, div#top-strip {
   width: 100%;
   *zoom: 1;
@@ -51,14 +51,14 @@ div#top-strip {
   padding-right: 1em;
   /*@include susy-grid-background;*/
 }
-/* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 38, /Users/james/.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #main:after, #header:after, div#top-strip:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* line 33, ../scss/_layout.scss */
+/* line 33, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
 #content {
   padding-left: 10.16949%;
   padding-right: 10.16949%;
@@ -67,7 +67,7 @@ div#top-strip {
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 39, ../scss/_layout.scss */
+/* line 39, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
 #content #content-inner {
   width: 87.23404%;
   float: left;
@@ -77,27 +77,27 @@ div#top-strip {
   padding-right: 5.08475%;
   /*background:yellow;*/
 }
-/* line 44, ../scss/_layout.scss */
+/* line 44, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
 #content #content-inner #content-area {
   margin-bottom: 100px;
 }
-/* line 48, ../scss/_layout.scss */
+/* line 48, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
 #content #content-inner #content-bottom-left {
   float: left;
   width: 650px;
   margin-right: 30px;
 }
-/* line 54, ../scss/_layout.scss */
+/* line 54, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
 #content #content-inner #content-bottom-right {
   float: left;
   width: 400px;
 }
 
-/* line 2, ../scss/_header.scss */
+/* line 2, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
 div#header {
   background-color: #4c1313;
 }
-/* line 5, ../scss/_header.scss */
+/* line 5, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
 div#header #logo-box {
   width: 59.32203%;
   float: right;
@@ -106,19 +106,19 @@ div#header #logo-box {
   display: inline;
   position: relative;
 }
-/* line 10, ../scss/_header.scss */
+/* line 10, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
 div#header #logo-box a#logo {
   width: 100%;
   position: absolute;
   top: -12px;
   z-index: 1;
 }
-/* line 16, ../scss/_header.scss */
+/* line 16, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
 div#header #logo-box a#logo img {
   max-width: 100%;
 }
 
-/* line 4, ../scss/_navigation.scss */
+/* line 4, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_navigation.scss */
 #top-strip #block-block-1 {
   margin-top: 10px;
   width: 23.72881%;
@@ -127,7 +127,7 @@ div#header #logo-box a#logo img {
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 10, ../scss/_navigation.scss */
+/* line 10, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_navigation.scss */
 #top-strip #block-menu_block-nurani_main_menu {
   width: 38.98305%;
   float: left;
@@ -135,12 +135,12 @@ div#header #logo-box a#logo img {
   display: inline;
   padding: 10px;
 }
-/* line 14, ../scss/_navigation.scss */
+/* line 14, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_navigation.scss */
 #top-strip #block-menu_block-nurani_main_menu ul li {
   list-style-type: none;
   display: inline;
 }
-/* line 17, ../scss/_navigation.scss */
+/* line 17, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_navigation.scss */
 #top-strip #block-menu_block-nurani_main_menu ul li a {
   /*font-size:1.625em;*/
   font-size: 1.5em;
@@ -154,7 +154,7 @@ div#header #logo-box a#logo img {
   color: #4c1313;
 }
 
-/* line 17, ../scss/_typography.scss */
+/* line 17, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 body {
   font-family: Helvetica Neue;
   font-size: 14px;
@@ -162,7 +162,7 @@ body {
   color: #4c1313;
 }
 
-/* line 25, ../scss/_typography.scss */
+/* line 25, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 p {
   font-size: 1em;
   /* 14px */
@@ -171,14 +171,14 @@ p {
   /*margin: 0 0 1.8571em 0;*/
 }
 
-/* line 30, ../scss/_typography.scss */
+/* line 30, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h1, h2 {
   font-family: palatino;
   font-style: italic;
   text-align: center;
 }
 
-/* line 37, ../scss/_typography.scss */
+/* line 37, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h1 {
   font-size: 2.4286em;
   /* 34px */
@@ -189,7 +189,7 @@ h1 {
   font-weight: bold;
 }
 
-/* line 45, ../scss/_typography.scss */
+/* line 45, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h2 {
   font-size: 2.1429em;
   /* 30px */
@@ -199,7 +199,7 @@ h2 {
   font-weight: normal;
 }
 
-/* line 53, ../scss/_typography.scss */
+/* line 53, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h3 {
   font-size: 1.28571em;
   line-height: 1.4444em;
@@ -207,7 +207,7 @@ h3 {
   margin-bottom: 0em;
 }
 
-/* line 60, ../scss/_typography.scss */
+/* line 60, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h4 {
   font-size: 1em;
   font-weight: normal;
@@ -215,92 +215,93 @@ h4 {
   margin-bottom: 1.5em;
 }
 
-/* line 67, ../scss/_typography.scss */
+/* line 67, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 ul, ul li {
   list-style-type: disc;
   list-style: none;
 }
 
-/* line 71, ../scss/_typography.scss */
+/* line 71, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 ol, ol li {
   list-style: decimal;
 }
 
-/* line 74, ../scss/_typography.scss */
+/* line 74, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 sup {
   font-size: xx-small;
   vertical-align: super;
 }
 
-/* line 2, ../scss/_comment-box.scss */
+/* line 2, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_comment-box.scss */
 .block-nurani-comment {
   background: #005eae;
   margin-bottom: 20px;
   margin-top: 86px;
 }
-/* line 8, ../scss/_comment-box.scss */
+/* line 8, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_comment-box.scss */
 .block-nurani-comment form {
   padding: 20px;
   color: #fff;
 }
-/* line 13, ../scss/_comment-box.scss */
+/* line 13, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_comment-box.scss */
 .block-nurani-comment form div.head .user-picture {
   float: left;
 }
-/* line 14, ../scss/_comment-box.scss */
+/* line 15, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_comment-box.scss */
+.block-nurani-comment form div.head .user-picture a {
+  float: left;
+}
+/* line 17, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_comment-box.scss */
 .block-nurani-comment form div.head .info {
   margin-left: 4em;
 }
-/* line 10, ../scss/_typography.scss */
+/* line 10, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 .block-nurani-comment form div.head .info a {
   color: white;
   font-weight: bold;
   text-decoration: none;
 }
-/* line 18, ../scss/_comment-box.scss */
+/* line 21, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_comment-box.scss */
 .block-nurani-comment form div.head .tip {
   margin-top: 1em;
 }
-/* line 22, ../scss/_comment-box.scss */
+/* line 25, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_comment-box.scss */
 .block-nurani-comment form .form-textarea-wrapper textarea {
   height: 200px;
 }
-/* line 26, ../scss/_comment-box.scss */
+/* line 29, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_comment-box.scss */
 .block-nurani-comment form label, .block-nurani-comment form .form-text, .block-nurani-comment form .filter-wrapper {
   display: none;
 }
-/* line 29, ../scss/_comment-box.scss */
+/* line 32, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_comment-box.scss */
 .block-nurani-comment form .form-submit {
   font-size: 12px;
-  padding: 0.5em 1.5em;
+  padding: 0.3em 1.5em;
   display: inline-block;
   cursor: pointer;
+  line-height: 1.5;
+  text-decoration: none;
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   -ms-border-radius: 0.2em;
   -o-border-radius: 0.2em;
   border-radius: 0.2em;
-  *zoom: 1;
-  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF00447F', endColorstr='#FF000E19');
+  background: url('/images/sassy-ie-overlay.png') repeat-x bottom left #00447f;
   background-color: #00447f;
   border: 0;
   color: white;
   text-shadow: black 0 -1px 0;
   margin-right: 0.5em;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-.block-nurani-comment form .form-submit:hover {
-  text-decoration: none;
-}
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 40, /Users/james/.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.1/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .block-nurani-comment form .form-submit:hover {
   background-color: #003766;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, /Users/james/.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.1/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .block-nurani-comment form .form-submit:active {
   background-color: #002f56;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, /Users/james/.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.1/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .block-nurani-comment form .form-submit.disabled, .block-nurani-comment form .form-submit[disabled] {
   opacity: 0.6;
   background: false;
@@ -309,26 +310,21 @@ sup {
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
-.block-nurani-comment form .form-submit::-moz-focus-inner {
-  padding: 0 !important;
-  margin: -1px !important;
-}
-/* line 34, ../scss/_comment-box.scss */
+/* line 37, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_comment-box.scss */
 .block-nurani-comment form .form-actions {
   float: right;
 }
 
 /*@include basic-default(1200px, 400px, 400px);*/
-/* line 2, ../scss/node/_node-discussion.scss */
+/* line 2, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion {
   /*.passage-boxes{@include container;}*/
 }
-/* line 5, ../scss/node/_node-discussion.scss */
+/* line 5, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .passage-box {
   margin-top: 2em;
 }
-/* line 8, ../scss/node/_node-discussion.scss */
+/* line 8, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .passage-boxes > .inner {
   width: 87.23404%;
   float: left;
@@ -338,7 +334,7 @@ body.node-type-discussion .node-discussion .passage-boxes > .inner {
   padding-right: 5.08475%;
   min-width: 100%;
 }
-/* line 17, ../scss/node/_node-discussion.scss */
+/* line 17, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner > .passage-text {
   border-top: 5px;
   border-top-style: solid;
@@ -354,37 +350,37 @@ body.node-type-discussion .node-discussion .inner > .passage-text {
   border-right-color: #ccc6c2;
   background: #f1e9e4;
 }
-/* line 26, ../scss/node/_node-discussion.scss */
+/* line 26, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .passage-widget .verse {
   margin: 0 0.5em;
 }
-/* line 29, ../scss/node/_node-discussion.scss */
+/* line 29, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .passage-widget p {
   font-family: palatino;
   margin-top: 0.5em;
   display: inline;
 }
-/* line 36, ../scss/node/_node-discussion.scss */
+/* line 36, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .bib {
   border: 1px solid #ccc6c2;
 }
-/* line 40, ../scss/node/_node-discussion.scss */
+/* line 40, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts p {
   font-size: 1.1429em;
   text-indent: justify;
   color: #4a4a4a;
 }
-/* line 46, ../scss/node/_node-discussion.scss */
+/* line 46, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts span, body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts a.username {
   margin-left: 2.5em;
   color: #005eae;
   font-weight: bold;
 }
-/* line 59, ../scss/node/_node-discussion.scss */
+/* line 59, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion #block-views-nurani_comment_list-block h2.block-title {
   text-align: left;
 }
-/* line 64, ../scss/node/_node-discussion.scss */
+/* line 64, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row {
   background: #fff;
   margin-bottom: 25px;
@@ -392,75 +388,79 @@ body.node-type-discussion .view-nurani-comment-list .views-row {
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 69, ../scss/node/_node-discussion.scss */
+/* line 69, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner {
   padding: 35px;
 }
-/* line 72, ../scss/node/_node-discussion.scss */
+/* line 72, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .user-picture {
   float: left;
   margin: 0 1em 0 -1em;
 }
-/* line 76, ../scss/node/_node-discussion.scss */
+/* line 75, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .user-picture a {
+  float: left;
+}
+/* line 77, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .content {
   margin-left: 4em;
   color: #4a4a4a;
 }
-/* line 79, ../scss/node/_node-discussion.scss */
+/* line 80, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .content .submitted {
   float: right;
 }
-/* line 10, ../scss/_typography.scss */
+/* line 10, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .content a {
   color: black;
   font-weight: bold;
   text-decoration: none;
 }
-/* line 83, ../scss/node/_node-discussion.scss */
+/* line 84, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .links {
   margin-left: 1.5em;
   margin-top: 1em;
 }
-/* line 95, ../scss/node/_node-discussion.scss */
+/* line 96, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .block-meedan-discussion-lock {
   background: url(../images/clock-icon.png) no-repeat;
   margin-bottom: 1em;
 }
-/* line 98, ../scss/node/_node-discussion.scss */
+/* line 99, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .block-meedan-discussion-lock .content {
   margin-left: 3em;
   color: #4a4a4a;
   font-size: 1.2em;
 }
-/* line 104, ../scss/node/_node-discussion.scss */
+/* line 105, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion #block-nurani_discussion-print_pdf {
   background: url(../images/printer-icon.png) no-repeat;
   margin-bottom: 4em;
 }
-/* line 107, ../scss/node/_node-discussion.scss */
+/* line 108, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion #block-nurani_discussion-print_pdf .content a {
   margin-left: 3em;
   color: #4a4a4a;
   font-size: 1.2em;
   text-decoration: none;
 }
-/* line 110, ../scss/node/_node-discussion.scss */
+/* line 111, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion #block-nurani_discussion-print_pdf .content a:hover {
   text-decoration: underline;
 }
-/* line 118, ../scss/node/_node-discussion.scss */
+/* line 119, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content {
   margin-bottom: 4em;
 }
-/* line 120, ../scss/node/_node-discussion.scss */
+/* line 121, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-picture {
   float: left;
 }
-/* line 122, ../scss/node/_node-discussion.scss */
+/* line 123, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-name, body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-cid {
   margin-left: 4em;
 }
-/* line 10, ../scss/_typography.scss */
+/* line 10, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-name a, body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-cid a {
   color: #005eae;
   font-weight: bold;

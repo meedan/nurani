@@ -1,0 +1,11 @@
+#tooltip {
+  /* Mandatory positioning */
+  position: absolute;
+  display: none;
+
+  /* Optional initial style, this can be removed */
+  border: 1px solid #333;
+  background: #f7f5d1;
+  padding: 2px 5px;
+  color: #333;
+}

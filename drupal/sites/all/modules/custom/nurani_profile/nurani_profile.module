@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function nurani_profile_menu() {
+  $items = array();
+  $items['ajax/nurani_profile'] = array(
+    'title' => 'Nurani Profile Tooltip',
+    'page callback' => 'nurani_profile_ajax',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Tooltip data generator AJAX (AHAH) callback.
+ */
+function nurani_profile_ajax() {
+  $args = split('/', $_GET['data']);
+  $output = '';
+
+  // Generate the user profile display
+  if ($args[0] == 'user' && is_numeric($args[1]) && !isset($args[2])) {
+    $account = user_load($args[1]);
+    echo theme('nurani_profile_tooltip_user_profile', array('account' => $account));
+  }
+
+  return NULL;
+}
+
+function nurani_profile_ensure_scripts() {
+  drupal_add_js(drupal_get_path('module', 'nurani_profile') . '/js/nurani_profile.js');
+  drupal_add_css(drupal_get_path('module', 'nurani_profile') . '/css/nurani_profile.css');
+}
+
+/**
+ * Implements hook_preprocess_username().
+ */
+function nurani_profile_preprocess_username(&$vars) {
+  nurani_profile_ensure_scripts();
+  $vars['attributes_array']['class'][] = 'tooltip';
+  $vars['attributes_array']['data-tooltip'] = 'user/' . $vars['account']->uid;
+}
+
+/**
+ * Implements hook_preprocess_user_picture().
+ */
+function nurani_profile_preprocess_user_picture(&$vars) {
+  nurani_profile_ensure_scripts();
+  // HACK: Inject the class and data information directly into the 'user_picture'
+  //       HTML. This is required because the user module gives no simple
+  //       opportunity to override the HTML (without altering or replacing
+  //       template_preprocess_user_picture() at runtime).
+  $vars['user_picture'] = preg_replace('/<a href="([^"]+)"/', '<a href="$1" class="tooltip" data-tooltip="' . 'user/' . $vars['account']->uid . '"', $vars['user_picture']);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function nurani_profile_theme($existing, $type, $theme, $path) {
+  return array(
+    'nurani_profile_tooltip_user_profile' => array(
+      'template' => 'nurani-profile-tooltip-user-profile',
+      'variables' => array('account' => NULL),
+    ),
+  );
+}
+
+/**
+ * Template preprocessor for nurani-profile-tooltip-user-profile.tpl.php
+ */
+function template_preprocess_nurani_profile_tooltip_user_profile(&$vars) {
+  // Add the user_picture variable. But, WITHOUT having it run through the
+  // preprocess hook chain. This ensures our tooltip data is not added to
+  // the tooltip (recursive chain).
+  template_preprocess_user_picture($vars);
+}

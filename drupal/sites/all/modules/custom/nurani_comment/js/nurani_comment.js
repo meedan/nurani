@@ -18,8 +18,7 @@
       $('#views-exposed-form-nurani-comment-list-block:not(.nurani-comment-processed)', context)
         .addClass('nurani-comment-processed')
         .each(function () {
-          var commentSortUI = new CommentSortUI(this);
-          $(this).data('commentSortUI', commentSortUI);
+          $(this).data('commentSortUI', new CommentSortUI(this));
         });
     }
   };
