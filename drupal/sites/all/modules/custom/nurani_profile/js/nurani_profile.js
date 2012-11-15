@@ -32,7 +32,7 @@
   NuraniTooltip.prototype.init = function () {
     var that = this;
 
-
+    this.$element.click(function (e) { return false; });
     this.$element.hover(function (e) { that.hoverOver(e); },
                         function (e) { that.hoverOut(e); });
   };
