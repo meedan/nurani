@@ -39,6 +39,29 @@ function nurani_profile_ajax() {
 }
 
 /**
+ * Implements hook_menu_alter().
+ */
+function nurani_profile_menu_alter(&$items) {
+  $items['user/%user']['access callback'] = 'nurani_profile_user_view_access';
+}
+
+/**
+ * Access callback, ensures normal Nurani users do not access
+ * profile pages directly.
+ */
+function nurani_profile_user_view_access($account) {
+  global $user;
+
+  if (user_view_access($account)) {
+    if (user_access('administer users')) {
+      return TRUE;
+    }
+  }
+
+  drupal_goto('<front>');
+}
+
+/**
  * Implements hook_theme().
  */
 function nurani_profile_theme($existing, $type, $theme, $path) {
