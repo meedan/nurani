@@ -26,7 +26,6 @@ function nurani_profile_menu() {
  * Tooltip data generator AJAX (AHAH) callback.
  */
 function nurani_profile_ajax() {
-  // FIXME: Brittle, this path lookup may break on differently configured sites.
   $args = split('/', drupal_get_normal_path(preg_replace('/^(' . preg_quote(base_path(), '/') . ')?/', '', $_GET['data'])));
   $output = '';
 
