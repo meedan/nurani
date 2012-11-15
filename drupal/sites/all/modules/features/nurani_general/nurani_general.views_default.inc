@@ -324,7 +324,7 @@ function nurani_general_views_default_views() {
   $handler->display->display_options['fields']['view']['empty_zero'] = 0;
   $handler->display->display_options['fields']['view']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['view']['view'] = 'meedan_discussion_participants';
-  $handler->display->display_options['fields']['view']['display'] = 'references_1';
+  $handler->display->display_options['fields']['view']['display'] = 'block_2';
   $handler->display->display_options['fields']['view']['arguments'] = '[!nid]';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
