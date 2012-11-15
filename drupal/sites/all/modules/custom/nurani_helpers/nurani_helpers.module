@@ -57,7 +57,7 @@ function theme_nurani_helpers_block_welcome_login($variables) {
   }
   else {
     $output  = '<span class="welcome">';
-    $output .=   t("Welcome, <strong>!name</strong>", array('!name' => theme('username', array('account' => $account))));
+    $output .=   t("Welcome, <strong>!name</strong>", array('!name' => l($account->name, '<front>')));
     $output .= '</span>';
     $output .= '<span class="logout">';
     $output .=   l(t("Logout"), 'user/logout', array('query' => array('destination' => '<front>')));
