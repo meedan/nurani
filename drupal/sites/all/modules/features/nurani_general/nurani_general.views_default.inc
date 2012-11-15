@@ -280,7 +280,6 @@ function nurani_general_views_default_views() {
   $handler->display->display_options['fields']['field_bundle']['id'] = 'field_bundle';
   $handler->display->display_options['fields']['field_bundle']['table'] = 'field_data_field_bundle';
   $handler->display->display_options['fields']['field_bundle']['field'] = 'field_bundle';
-  $handler->display->display_options['fields']['field_bundle']['relationship'] = 'field_bundle_nid';
   $handler->display->display_options['fields']['field_bundle']['label'] = '';
   $handler->display->display_options['fields']['field_bundle']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_bundle']['alter']['make_link'] = 0;
@@ -300,7 +299,7 @@ function nurani_general_views_default_views() {
   $handler->display->display_options['fields']['field_bundle']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_bundle']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_bundle']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_bundle']['type'] = 'nurani_bundle';
+  $handler->display->display_options['fields']['field_bundle']['type'] = 'nurani_bundle_short';
   $handler->display->display_options['fields']['field_bundle']['field_api_classes'] = 0;
   /* Field: Global: View */
   $handler->display->display_options['fields']['view']['id'] = 'view';
