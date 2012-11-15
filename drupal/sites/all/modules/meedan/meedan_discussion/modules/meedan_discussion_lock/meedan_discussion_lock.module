@@ -171,3 +171,13 @@ function meedan_discussion_lock_field_default_fields_alter(&$fields) {
   // Included for use with string extractors like potx.
   t('Discussion closing date');
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function meedan_discussion_lock_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'meedan_discussion_lock') . '/views',
+  );
+}

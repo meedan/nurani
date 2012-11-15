@@ -6,3 +6,4 @@ version = 7.x-1.0
 dependencies[] = features
 dependencies[] = meedan_discussion
 dependencies[] = date
+files[] = views/views_handler_field_date_closing.inc
