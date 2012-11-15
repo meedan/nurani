@@ -1,14 +1,17 @@
 #tooltip {
-  /* Mandatory positioning */
   position: absolute;
   display: none;
   z-index: 100;
+}
+.tooltip-processed {
+  display: inline-block; /* Helps the tooltip get positioned correctly above the link */
+}
 
-  /* Fairly important constraints */
+/* Optional initial style, this can be removed / adjusted */
+#tooltip {
   width: 15em;
   min-height: 5em;
 
-  /* Optional initial style, this can be removed */
   border-radius: 1em;
   background: #fff;
   box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.5);

@@ -7,7 +7,7 @@
     attach: function (context) {
       var that = this;
 
-      $('a.username,.user-picture a', context)
+      $('a.username,.user-picture a,.views-field-picture a', context)
         .filter(':not(.tooltip-processed)')
         .addClass('tooltip-processed')
         .each(function () {
@@ -20,6 +20,7 @@
   function NuraniTooltip(element) {
     this.$element = $(element);
     this.$tooltip = null;
+    this.spinner  = null;
 
     this.data     = this.$element.attr('href');
     this.yOffset  = 10;
@@ -47,6 +48,9 @@
       url: Drupal.settings.basePath + 'ajax/nurani_profile?data=' + this.data,
       cache: true,
       success: function (data) {
+        that.spinner.stop();
+        that.spinner = null;
+
         that.$tooltip
           .html(data)
           .removeClass('loading');
@@ -56,6 +60,9 @@
     });
 
     this.positionTooltip().fadeIn('fast');
+
+    // Use spin.js for loading effect
+    this.spinner = new Spinner(Drupal.settings.spin || {}).spin(this.$tooltip[0]);
   };
 
   NuraniTooltip.prototype.hoverOut = function (e) {
