@@ -32,10 +32,31 @@ function nurani_profile_ajax() {
   // Generate the user profile display
   if ($args[0] == 'user' && is_numeric($args[1]) && !isset($args[2])) {
     $account = user_load($args[1]);
-    echo theme('nurani_profile_tooltip_user_profile', array('account' => $account));
+    echo render(user_view($account, 'tooltip'));
   }
 
   return NULL;
+}
+
+/**
+ * Template preprocessor for user-profile.tpl.php
+ */
+function nurani_profile_preprocess_user_profile(&$vars) {
+  $view_mode = $vars['elements']['#view_mode'];
+
+  if ($view_mode == 'tooltip') {
+    // TODO: Preprocess the tooltip user_profile view_mode.
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function nurani_profile_entity_info_alter(&$entity_info) {
+  $entity_info['user']['view modes']['tooltip'] = array(
+    'label' => t('Nurani Profile tooltip'),
+    'custom settings' => FALSE,
+  );
 }
 
 /**
@@ -59,28 +80,6 @@ function nurani_profile_user_view_access($account) {
   }
 
   drupal_goto('<front>');
-}
-
-/**
- * Implements hook_theme().
- */
-function nurani_profile_theme($existing, $type, $theme, $path) {
-  return array(
-    'nurani_profile_tooltip_user_profile' => array(
-      'template' => 'nurani-profile-tooltip-user-profile',
-      'variables' => array('account' => NULL),
-    ),
-  );
-}
-
-/**
- * Template preprocessor for nurani-profile-tooltip-user-profile.tpl.php
- */
-function template_preprocess_nurani_profile_tooltip_user_profile(&$vars) {
-  // Add the user_picture variable. But, WITHOUT having it run through the
-  // preprocess hook chain. This ensures our tooltip data is not added to
-  // the tooltip (recursive chain).
-  template_preprocess_user_picture($vars);
 }
 
 /**

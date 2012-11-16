@@ -1,7 +1,7 @@
 #tooltip {
   position: absolute;
   display: none;
-  z-index: 100;
+  z-index: 1000;
 }
 .tooltip-processed {
   display: inline-block; /* Helps the tooltip get positioned correctly above the link */

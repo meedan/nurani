@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Nurani accounts feature.
+ */
+
+include_once 'nurani_accounts.features.inc';
