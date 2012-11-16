@@ -162,7 +162,7 @@ function i18n_menu_menu_update($menu) {
       ->execute()
       ->fetchCol(0);
     if (!empty($tsids)) {
-      foreach($tsids as $tsid) {
+      foreach ($tsids as $tsid) {
         if ($translation_set = i18n_translation_set_load($tsid)) {
           $translation_set->delete();
         }
@@ -287,7 +287,7 @@ function i18n_menu_mode($name, $mode = NULL) {
  *
  * @see i18n_menu_menu_link_alter()
  */
-function i18n_menu_translated_menu_link_alter(&$item, $map) {
+function i18n_menu_translated_menu_link_alter(&$item) {
   if (!empty($item['customized']) && empty($item['language']) && !empty($item['access']) && empty($item['hidden']) && empty($item['i18n_menu'])) {
     $item['link_title'] = _i18n_menu_link_title($item);
     if ($description = _i18n_menu_link_description($item)) {
@@ -315,7 +315,7 @@ function i18n_menu_help($path, $arg) {
       return $output;
 
     case 'admin/config/regional/i18n':
-      $output = '<p>'. t('Menus and menu items can be translated on the <a href="@configure_menus">Menu administration page</a>.', array('@configure_menus' => url('admin/structure/menu'))) .'</p>';
+      $output = '<p>' . t('Menus and menu items can be translated on the <a href="@configure_menus">Menu administration page</a>.', array('@configure_menus' => url('admin/structure/menu'))) . '</p>';
       return $output;
   }
 }
@@ -475,7 +475,7 @@ function i18n_menu_preprocess_page(&$vars) {
  * Get localized menu title
  */
 function _i18n_menu_link_title($link, $langcode = NULL) {
-  return i18n_string_translate(array('menu', 'item', $link['mlid'], 'title'), $link['link_title'], array('langcode' => $langcode));
+  return i18n_string_translate(array('menu', 'item', $link['mlid'], 'title'), $link['link_title'], array('langcode' => $langcode, 'sanitize' => FALSE));
 }
 
 /**
@@ -822,7 +822,7 @@ function i18n_menu_init() {
   $query->condition('ml.link_path', $path_candidates, 'IN');
 
   // Only look menu links with none or the current language.
-  $query->condition('ml.language', array(LANGUAGE_NONE, $GLOBALS['language']->language), 'IN');
+  $query->condition('ml.language', array(LANGUAGE_NONE, i18n_language_interface()->language), 'IN');
 
   // Sort candidates by link path and menu name.
   $candidates = array();

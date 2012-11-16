@@ -154,7 +154,7 @@ function i18n_translation_options($container_type, $options = NULL) {
   // Get names and translation options for container object and items
   $container_info = i18n_object_info($container_type, 'translation container');
   $replacements = array(
-  	'@container_name' => $container_info['name'],
+    '@container_name' => $container_info['name'],
     '@item_name_multiple' => $container_info['item name'],
     '@item_name_multiple_capitalized' => ucfirst($container_info['item name']),
   );
