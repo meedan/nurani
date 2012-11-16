@@ -4,3 +4,4 @@
 - Jump to search page for searches other than Core, Apache Solr, Lucene and Xapian should return 404.
 - Fix duplication of message logic?
 - Implement hook for custom search module integration?
+- Handle #1253426 - Search 404 should use default search engine
