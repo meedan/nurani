@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * Implements hook_init().
+ */
+function nurani_profile_init() {
+  drupal_add_js(drupal_get_path('module', 'nurani_profile') . '/js/nurani_profile.js');
+  drupal_add_css(drupal_get_path('module', 'nurani_profile') . '/css/nurani_profile.css');
+}
+
+/**
+ * Implements hook_menu().
+ */
+function nurani_profile_menu() {
+  $items = array();
+  $items['ajax/nurani_profile'] = array(
+    'title' => 'Nurani Profile Tooltip',
+    'page callback' => 'nurani_profile_ajax',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Tooltip data generator AJAX (AHAH) callback.
+ */
+function nurani_profile_ajax() {
+  $args = split('/', drupal_get_normal_path(preg_replace('/^(' . preg_quote(base_path(), '/') . ')?/', '', $_GET['data'])));
+  $output = '';
+
+  // Generate the user profile display
+  if ($args[0] == 'user' && is_numeric($args[1]) && !isset($args[2])) {
+    $account = user_load($args[1]);
+    echo render(user_view($account, 'tooltip'));
+  }
+
+  return NULL;
+}
+
+/**
+ * Template preprocessor for user-profile.tpl.php
+ */
+function nurani_profile_preprocess_user_profile(&$vars) {
+  $view_mode = $vars['elements']['#view_mode'];
+
+  if ($view_mode == 'tooltip') {
+    // TODO: Preprocess the tooltip user_profile view_mode.
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function nurani_profile_entity_info_alter(&$entity_info) {
+  $entity_info['user']['view modes']['tooltip'] = array(
+    'label' => t('Nurani Profile tooltip'),
+    'custom settings' => FALSE,
+  );
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function nurani_profile_menu_alter(&$items) {
+  $items['user/%user']['access callback'] = 'nurani_profile_user_view_access';
+}
+
+/**
+ * Access callback, ensures normal Nurani users do not access
+ * profile pages directly.
+ */
+function nurani_profile_user_view_access($account) {
+  global $user;
+
+  if (user_view_access($account)) {
+    if (user_access('administer users') || arg(2) == 'edit') {
+      return TRUE;
+    }
+  }
+
+  drupal_goto('<front>');
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function nurani_profile_block_info() {
+  $blocks = array();
+  $blocks['user_profile'] = array(
+    'info' => t('Nurani Profile: User profile'),
+    'cache' => DRUPAL_NO_CACHE
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function nurani_profile_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'user_profile':
+      // A user_load is necessary to fetch all profile fields. The global $user
+      // object does not contain these.
+      $account = user_load($GLOBALS['user']->uid);
+
+      $block['subject'] = t('Your profile');
+      $block['content'] = render(user_view($account));
+      break;
+  }
+
+  return $block;
+}

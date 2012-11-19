@@ -8,6 +8,9 @@ function nurani_bundle_theme($existing, $type, $theme, $path) {
     'nurani_bundle_formatter' => array(
       'variables' => array('item' => NULL, 'node' => NULL, 'data' => NULL),
     ),
+    'nurani_bundle_short_formatter' => array(
+      'variables' => array('item' => NULL, 'node' => NULL, 'data' => NULL),
+    ),
     'nurani_bundle_ui' => array(
       'render element' => 'element',
     ),
@@ -19,6 +22,9 @@ function nurani_bundle_theme($existing, $type, $theme, $path) {
     ),
     'nurani_bundle_passage_box_bib' => array(
       'variables' => array('moderator_s_thoughts' => NULL, 'language' => NULL, 'account' => NULL, 'timestamp' => NULL),
+    ),
+    'nurani_bundle_passage_title' => array(
+      'variables' => array('element_type' => 'li', 'delta' => NULL, 'osisIDWork' => NULL, 'osisID' => NULL),
     ),
   );
 }
@@ -467,6 +473,10 @@ function nurani_bundle_field_formatter_info() {
       'label' => t('Nurani Bundle'),
       'field types' => array('node_reference'),
     ),
+    'nurani_bundle_short' => array(
+      'label' => t('Nurani Bundle Short'),
+      'field types' => array('node_reference'),
+    ),
   );
 
   return $formatters;
@@ -495,7 +505,7 @@ function nurani_bundle_field_formatter_view($entity_type, $entity, $field, $inst
     $bundle_data = _nurani_bundle_combine_edit_data($item['nid'], $entity->language, $delta, array());
 
     $element[$delta] = array(
-      '#theme' => 'nurani_bundle_formatter',
+      '#theme' => $display['type'] . '_formatter',
       '#item' => $item,
       '#node' => $bundle_node,
       '#data' => $bundle_data['ui']['passages'],
@@ -541,6 +551,51 @@ function theme_nurani_bundle_formatter($variables) {
   $output .=     $passage_boxes;
   $output .=   '</div>';
   $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * Returns HTML for the nurani_bundle_short field formatter.
+ */
+function theme_nurani_bundle_short_formatter($variables) {
+  $data = $variables['data'];
+
+  $passage_titles = '';
+  foreach (array(0, 1, 2) as $delta) {
+    if (!isset($data[$delta])) continue;
+
+    $datum = $data[$delta];
+    if (!$datum['visible']) continue;
+
+    $passage_titles .= theme('nurani_bundle_passage_title', array('element_type' => 'li', 'delta' => $delta, 'osisIDWork' => $datum['osisIDWork'], 'osisID' => $datum['osisID']));
+  }
+
+  $output  = '';
+  $output .= '<ul class="passage-titles">';
+  $output .=   $passage_titles;
+  $output .= '</ul>';
+
+  return $output;
+}
+
+/**
+ * Returns HTML for a themed passage title housed in an element wrapper.
+ */
+function theme_nurani_bundle_passage_title($variables) {
+  $el = $variables['element_type'];
+
+  $info = nurani_library_get_passages_info($variables['osisIDWork'], $variables['osisID']);
+
+  if ($info === FALSE) {
+    return '';
+  }
+
+  $output  = '';
+  $output .= '<' . $el . ' class="passage-title passage-title-' . $variables['delta'] . '">';
+  $output .=   '<span class="passage">' . check_plain($info['passage_human']) . '</span>';
+  $output .=   '<span class="work">' . check_plain($info['work_full_name']) . '</span>';
+  $output .= '</' . $el . '>';
 
   return $output;
 }

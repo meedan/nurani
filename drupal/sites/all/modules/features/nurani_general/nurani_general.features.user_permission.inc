@@ -10,6 +10,16 @@
 function nurani_general_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: access PDF version.
+  $permissions['access PDF version'] = array(
+    'name' => 'access PDF version',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'authenticated user',
+    ),
+    'module' => 'print_pdf',
+  );
+
   // Exported permission: access comments.
   $permissions['access comments'] = array(
     'name' => 'access comments',
@@ -19,6 +29,26 @@ function nurani_general_user_default_permissions() {
       2 => 'authenticated user',
     ),
     'module' => 'comment',
+  );
+
+  // Exported permission: access print.
+  $permissions['access print'] = array(
+    'name' => 'access print',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'authenticated user',
+    ),
+    'module' => 'print',
+  );
+
+  // Exported permission: access user profiles.
+  $permissions['access user profiles'] = array(
+    'name' => 'access user profiles',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'authenticated user',
+    ),
+    'module' => 'user',
   );
 
   // Exported permission: edit own comments.
@@ -38,6 +68,16 @@ function nurani_general_user_default_permissions() {
       1 => 'authenticated user',
     ),
     'module' => 'comment',
+  );
+
+  // Exported permission: search content.
+  $permissions['search content'] = array(
+    'name' => 'search content',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'authenticated user',
+    ),
+    'module' => 'search',
   );
 
   return $permissions;

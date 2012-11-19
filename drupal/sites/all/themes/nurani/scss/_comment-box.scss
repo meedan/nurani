@@ -10,7 +10,10 @@
     color:#fff;
 
     div.head{
-      .user-picture{float:left;}
+      .user-picture{
+        float:left;
+        a{float:left;}
+      }
       .info{margin-left:4em;
       @include username-links(#fff);
 

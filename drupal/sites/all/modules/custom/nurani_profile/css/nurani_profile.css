@@ -1,0 +1,23 @@
+#tooltip {
+  position: absolute;
+  display: none;
+  z-index: 1000;
+}
+.tooltip-processed {
+  display: inline-block; /* Helps the tooltip get positioned correctly above the link */
+}
+
+/* Optional initial style, this can be removed / adjusted */
+#tooltip {
+  width: 15em;
+  min-height: 5em;
+
+  border-radius: 1em;
+  background: #fff;
+  box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.5);
+  padding: 1em;
+  color: #333;
+}
+#tooltip.loading {
+  background: rgba(0, 0, 0, 0.5);
+}

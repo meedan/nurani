@@ -57,7 +57,7 @@ function theme_nurani_helpers_block_welcome_login($variables) {
   }
   else {
     $output  = '<span class="welcome">';
-    $output .=   t("Welcome, <strong>!name</strong>", array('!name' => theme('username', array('account' => $account))));
+    $output .=   t("Welcome, <strong>!name</strong>", array('!name' => l($account->name, '<front>')));
     $output .= '</span>';
     $output .= '<span class="logout">';
     $output .=   l(t("Logout"), 'user/logout', array('query' => array('destination' => '<front>')));
@@ -78,4 +78,32 @@ function theme_nurani_attribution($variables) {
   $output .=   format_date($variables['timestamp'], 'medium', '', $variables['account']->timezone);
   $output .= '</span>';
   return $output;
+}
+
+/**
+ * Implements hook_date_format_types().
+ *
+ * NOTE: This is in nurani_helpers because date formats are not yet supported by
+ *       the features module. see: http://drupal.org/node/1279928#comment-6106170
+ */
+function nurani_helpers_date_format_types() {
+  return array(
+    'date_of_birth' => t('Date of birth'),
+  );
+}
+
+/**
+ * Implements hook_date_formats().
+ *
+ * NOTE: This is in nurani_helpers because date formats are not yet supported by
+ *       the features module. see: http://drupal.org/node/1279928#comment-6106170
+ */
+function nurani_helpers_date_formats() {
+  $formats = array();
+  $formats[] = array(
+    'type' => 'date_of_birth',
+    'format' => 'j F, Y',
+    'locales' => array(),
+  );
+  return $formats;
 }
