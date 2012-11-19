@@ -1,13 +1,13 @@
 
-#top-strip{
-
   #block-nurani_helpers-welcome_login{
-    margin-top:10px;
-    @include span-columns(5 omega, 20); // span last 5 cols of the grid
+    margin-top:-31px;
+    width:20%;
+    float:right;
+   
   }
 
   #block-menu_block-nurani_main_menu{
-    @include span-columns(8,20); //spans first 8 columns of the grid
+    width:45%;
     padding:10px;
 
     ul li{
@@ -28,5 +28,5 @@
       }
     }
   }  
-}
+
 

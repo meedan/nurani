@@ -27,21 +27,13 @@ body {
 }
 
 /* line 14, ../scss/_layout.scss */
-div#top-strip {
-  margin: 0;
+.region-top-strip {
   background: #fff;
-  /* height: 37px;*/
   padding: 4px 20px 0;
 }
 
-/* line 21, ../scss/_layout.scss */
-#header {
-  height: 39px;
-}
-
-/* line 26, ../scss/_layout.scss */
-#main, #header, div#top-strip {
-  width: 100%;
+/* line 19, ../scss/_layout.scss */
+#main {
   *zoom: 1;
   max-width: 98.33333%;
   _width: 98.33333%;
@@ -65,52 +57,72 @@ div#top-strip {
   background-clip: content-box;
 }
 /* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
-#main:after, #header:after, div#top-strip:after {
+#main:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* line 33, ../scss/_layout.scss */
+/* line 25, ../scss/_layout.scss */
+#header {
+  height: 39px;
+  *zoom: 1;
+  max-width: 98.33333%;
+  _width: 98.33333%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+  /* @include susy-grid-background;*/
+}
+/* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+#header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 32, ../scss/_layout.scss */
 #content {
-  padding-left: 10.16949%;
-  padding-right: 10.16949%;
-  width: 79.66102%;
+  padding-left: 5.08475%;
+  padding-right: 5.08475%;
+  width: 89.83051%;
   float: left;
   margin-right: 1.69492%;
   display: inline;
 }
+
 /* line 39, ../scss/_layout.scss */
-#content #content-inner {
-  width: 87.23404%;
-  float: left;
-  margin-right: 2.12766%;
-  display: inline;
-  background: yellow;
-  /* @include pad(1,1);*/
+#content-inner #content-area {
+  margin-bottom: 2em;
 }
 /* line 45, ../scss/_layout.scss */
-#content #content-inner #content-area {
-  margin-bottom: 100px;
-}
-/* line 49, ../scss/_layout.scss */
-#content #content-inner #content-bottom-left {
+#content-inner #content-bottom #content-bottom-left {
   float: left;
-  width: 650px;
+  width: 54.71698%;
+  float: left;
+  margin-right: 1.88679%;
+  display: inline;
+  /*width:650px;*/
   margin-right: 30px;
 }
-/* line 55, ../scss/_layout.scss */
-#content #content-inner #content-bottom-right {
+/* line 52, ../scss/_layout.scss */
+#content-inner #content-bottom #content-bottom-right {
   float: left;
-  width: 400px;
+  width: 37.73585%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -1.66667%;
+  display: inline;
+  /*width:400px;*/
 }
 
 /* line 2, ../scss/_header.scss */
-div#header {
+#header {
   background-color: #4c1313;
 }
 /* line 5, ../scss/_header.scss */
-div#header #logo-box {
+#header #logo-box {
   width: 59.32203%;
   float: right;
   margin-right: 0;
@@ -118,42 +130,36 @@ div#header #logo-box {
   display: inline;
   position: relative;
 }
-/* line 10, ../scss/_header.scss */
-div#header #logo-box a#logo {
-  width: 100%;
+/* line 11, ../scss/_header.scss */
+#header #logo-box a#logo {
+  z-index: 1;
   position: absolute;
   top: -12px;
-  z-index: 1;
 }
-/* line 16, ../scss/_header.scss */
-div#header #logo-box a#logo img {
+/* line 18, ../scss/_header.scss */
+#header #logo-box a#logo img {
   max-width: 100%;
 }
 
-/* line 4, ../scss/_navigation.scss */
-#top-strip #block-nurani_helpers-welcome_login {
-  margin-top: 10px;
-  width: 23.72881%;
+/* line 2, ../scss/_navigation.scss */
+#block-nurani_helpers-welcome_login {
+  margin-top: -31px;
+  width: 20%;
   float: right;
-  margin-right: 0;
-  #margin-left: -1.66667%;
-  display: inline;
 }
+
 /* line 9, ../scss/_navigation.scss */
-#top-strip #block-menu_block-nurani_main_menu {
-  width: 38.98305%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
+#block-menu_block-nurani_main_menu {
+  width: 45%;
   padding: 10px;
 }
 /* line 13, ../scss/_navigation.scss */
-#top-strip #block-menu_block-nurani_main_menu ul li {
+#block-menu_block-nurani_main_menu ul li {
   list-style-type: none;
   display: inline;
 }
 /* line 16, ../scss/_navigation.scss */
-#top-strip #block-menu_block-nurani_main_menu ul li a {
+#block-menu_block-nurani_main_menu ul li a {
   /*font-size:1.625em;*/
   font-size: 1.5em;
   float: left;
@@ -339,18 +345,28 @@ body.node-type-discussion .node-discussion {
 /* line 5, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .passage-box {
   margin-top: 2em;
+  width: 32.07547%;
+  float: left;
+  margin-right: 1.88679%;
+  display: inline;
 }
 /* line 8, ../scss/node/_node-discussion.scss */
+body.node-type-discussion .node-discussion .passage-box:nth-child(3n) {
+  float: right;
+  margin-right: 0;
+  #margin-left: -1.66667%;
+  display: inline;
+}
+/* line 11, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .passage-boxes > .inner {
-  width: 87.23404%;
+  width: 88.67925%;
   float: left;
-  margin-right: 2.12766%;
+  margin-right: 1.88679%;
   display: inline;
   padding-left: 5.08475%;
   padding-right: 5.08475%;
-  min-width: 100%;
 }
-/* line 17, ../scss/node/_node-discussion.scss */
+/* line 20, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner > .passage-text {
   border-top: 5px;
   border-top-style: solid;
@@ -366,37 +382,37 @@ body.node-type-discussion .node-discussion .inner > .passage-text {
   border-right-color: #ccc6c2;
   background: #f1e9e4;
 }
-/* line 26, ../scss/node/_node-discussion.scss */
+/* line 29, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .passage-widget .verse {
   margin: 0 0.5em;
 }
-/* line 29, ../scss/node/_node-discussion.scss */
+/* line 32, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .passage-widget p {
   font-family: palatino;
   margin-top: 0.5em;
   display: inline;
 }
-/* line 36, ../scss/node/_node-discussion.scss */
+/* line 39, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .bib {
   border: 1px solid #ccc6c2;
 }
-/* line 40, ../scss/node/_node-discussion.scss */
+/* line 43, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts p {
   font-size: 1.1429em;
   text-indent: justify;
   color: #4a4a4a;
 }
-/* line 46, ../scss/node/_node-discussion.scss */
+/* line 49, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts span, body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts a.username {
   margin-left: 2.5em;
   color: #005eae;
   font-weight: bold;
 }
-/* line 59, ../scss/node/_node-discussion.scss */
+/* line 62, ../scss/node/_node-discussion.scss */
 body.node-type-discussion #block-views-nurani_comment_list-block h2.block-title {
   text-align: left;
 }
-/* line 64, ../scss/node/_node-discussion.scss */
+/* line 67, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row {
   background: #fff;
   margin-bottom: 25px;
@@ -404,21 +420,21 @@ body.node-type-discussion .view-nurani-comment-list .views-row {
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 69, ../scss/node/_node-discussion.scss */
+/* line 72, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner {
   padding: 35px;
 }
-/* line 72, ../scss/node/_node-discussion.scss */
+/* line 75, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .user-picture {
   float: left;
   margin: 0 1em 0 -1em;
 }
-/* line 76, ../scss/node/_node-discussion.scss */
+/* line 79, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .content {
   margin-left: 4em;
   color: #4a4a4a;
 }
-/* line 79, ../scss/node/_node-discussion.scss */
+/* line 82, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .content .submitted {
   float: right;
 }
@@ -428,47 +444,47 @@ body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .c
   font-weight: bold;
   text-decoration: none;
 }
-/* line 83, ../scss/node/_node-discussion.scss */
+/* line 86, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .links {
   margin-left: 1.5em;
   margin-top: 1em;
 }
-/* line 95, ../scss/node/_node-discussion.scss */
+/* line 98, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .block-meedan-discussion-lock {
   background: url(../images/clock-icon.png) no-repeat;
   margin-bottom: 1em;
 }
-/* line 98, ../scss/node/_node-discussion.scss */
+/* line 101, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .block-meedan-discussion-lock .content {
   margin-left: 3em;
   color: #4a4a4a;
   font-size: 1.2em;
 }
-/* line 104, ../scss/node/_node-discussion.scss */
+/* line 107, ../scss/node/_node-discussion.scss */
 body.node-type-discussion #block-nurani_discussion-print_pdf {
   background: url(../images/printer-icon.png) no-repeat;
   margin-bottom: 4em;
 }
-/* line 107, ../scss/node/_node-discussion.scss */
+/* line 110, ../scss/node/_node-discussion.scss */
 body.node-type-discussion #block-nurani_discussion-print_pdf .content a {
   margin-left: 3em;
   color: #4a4a4a;
   font-size: 1.2em;
   text-decoration: none;
 }
-/* line 110, ../scss/node/_node-discussion.scss */
+/* line 113, ../scss/node/_node-discussion.scss */
 body.node-type-discussion #block-nurani_discussion-print_pdf .content a:hover {
   text-decoration: underline;
 }
-/* line 118, ../scss/node/_node-discussion.scss */
+/* line 121, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content {
   margin-bottom: 4em;
 }
-/* line 120, ../scss/node/_node-discussion.scss */
+/* line 123, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-picture {
   float: left;
 }
-/* line 122, ../scss/node/_node-discussion.scss */
+/* line 125, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-name, body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-cid {
   margin-left: 4em;
 }

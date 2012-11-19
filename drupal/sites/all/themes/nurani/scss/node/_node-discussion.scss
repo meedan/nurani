@@ -4,12 +4,15 @@
 
 	.passage-box{
 		margin-top: 2em;
+		@include span-columns(6,18);
+		&:nth-child(3n) { @include omega; } //every 3rd box completes a row
+		
 	}
 	.passage-boxes > .inner {
-		@include span-columns(14,16);
-		@include prefix(1);
-		@include suffix(1);
-		min-width:100%;
+		@include span-columns(16,18);
+		@include pad(1,1);
+		
+
 	}
 
 	.inner{
