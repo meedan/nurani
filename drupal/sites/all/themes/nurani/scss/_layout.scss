@@ -26,20 +26,21 @@ div#top-strip {
 #main, #header,div#top-strip { 
   width:100%;
   @include container;
-  /*@include susy-grid-background;*/
+  @include susy-grid-background;
  
 }
 
 #content{
-  //shortcut for suffix and prefix- create 2 cols empty space left and right
+  //shortcut for suffix and prefix - create 2 cols empty space left and right
   @include pad (2,2);
   @include span-columns(16,20);
 
 
   #content-inner{
     @include span-columns(14,16);
-    @include pad(1,1);
-    /*background:yellow;*/
+    background: yellow;
+   /* @include pad(1,1);*/
+    
 
     #content-area{
       margin-bottom:100px;
