@@ -13,6 +13,11 @@
 @import "comment-box";
 
 
+
+// Pages
+body.front.not-logged-in          { @import "pages/page-front-not-logged-in"; }
+
+
 //node types
 body.node-type-discussion         { @import "node/node-discussion"; }
 

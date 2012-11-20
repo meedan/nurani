@@ -19,6 +19,12 @@ body{
 #main{ 
   @include container;
   @include susy-grid-background;
+
+  & > #content{
+  //shortcut for suffix and prefix - create 2 cols empty space left and right
+  @include pad (1,1);
+  @include span-columns(18,20);
+}
  
 }
 
@@ -29,11 +35,7 @@ body{
 
  }
 
-#content{
-  //shortcut for suffix and prefix - create 2 cols empty space left and right
-  @include pad (1,1);
-  @include span-columns(18,20);
-}
+
 
 #content-inner{
     #content-area{

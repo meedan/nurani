@@ -1,0 +1,25 @@
+/* Front Page */
+
+
+  	/*.panel-3col-33 .panel-col-first, .panel-3col-33 .panel-col, .panel-3col-33 .panel-col-last{
+  		@include span-columns(6,18);
+  	}*/
+
+
+.panel-panel{
+  @include span-columns(6,18);
+  &:nth-child(3n) { @include omega; }
+}
+  
+  #block-boxes-nurani_welcome, #block-boxes-nurani_about_nurani{
+  	@include white-background-no-border;
+
+	
+}
+   
+
+.panel-pane{
+	@include white-background-no-border;
+
+}
+
