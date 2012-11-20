@@ -295,7 +295,7 @@ function nurani_general_default_page_manager_pages() {
     ),
   );
   $display = new panels_display();
-  $display->layout = 'threecol_33_34_33';
+  $display->layout = 'twocol';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -311,7 +311,7 @@ function nurani_general_default_page_manager_pages() {
   $display->panels = array();
     $pane = new stdClass();
     $pane->pid = 'new-7';
-    $pane->panel = 'middle';
+    $pane->panel = 'left';
     $pane->type = 'block';
     $pane->subtype = 'views-nurani_discussions-block';
     $pane->shown = TRUE;
@@ -330,7 +330,7 @@ function nurani_general_default_page_manager_pages() {
     $pane->position = 0;
     $pane->locks = array();
     $display->content['new-7'] = $pane;
-    $display->panels['middle'][0] = 'new-7';
+    $display->panels['left'][0] = 'new-7';
     $pane = new stdClass();
     $pane->pid = 'new-8';
     $pane->panel = 'right';
