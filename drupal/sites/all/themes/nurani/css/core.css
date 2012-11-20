@@ -62,8 +62,17 @@ body {
   display: table;
   clear: both;
 }
+/* line 23, ../scss/_layout.scss */
+#main > #content {
+  padding-left: 5.08475%;
+  padding-right: 5.08475%;
+  width: 89.83051%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
 
-/* line 25, ../scss/_layout.scss */
+/* line 31, ../scss/_layout.scss */
 #header {
   height: 39px;
   *zoom: 1;
@@ -82,21 +91,11 @@ body {
   clear: both;
 }
 
-/* line 32, ../scss/_layout.scss */
-#content {
-  padding-left: 5.08475%;
-  padding-right: 5.08475%;
-  width: 89.83051%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-}
-
-/* line 39, ../scss/_layout.scss */
+/* line 41, ../scss/_layout.scss */
 #content-inner #content-area {
   margin-bottom: 2em;
 }
-/* line 45, ../scss/_layout.scss */
+/* line 47, ../scss/_layout.scss */
 #content-inner #content-bottom #content-bottom-left {
   float: left;
   width: 60.37736%;
@@ -104,7 +103,7 @@ body {
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 50, ../scss/_layout.scss */
+/* line 52, ../scss/_layout.scss */
 #content-inner #content-bottom #content-bottom-right {
   float: left;
   width: 32.07547%;
@@ -138,7 +137,7 @@ body {
   max-width: 100%;
 }
 
-/* line 23, ../scss/_typography.scss */
+/* line 17, ../scss/_typography.scss */
 body {
   font-family: Helvetica Neue;
   font-size: 14px;
@@ -146,7 +145,7 @@ body {
   color: #4c1313;
 }
 
-/* line 31, ../scss/_typography.scss */
+/* line 25, ../scss/_typography.scss */
 p {
   font-size: 1em;
   /* 14px */
@@ -155,14 +154,14 @@ p {
   /*margin: 0 0 1.8571em 0;*/
 }
 
-/* line 36, ../scss/_typography.scss */
+/* line 30, ../scss/_typography.scss */
 h1, h2 {
   font-family: palatino;
   font-style: italic;
   text-align: center;
 }
 
-/* line 43, ../scss/_typography.scss */
+/* line 37, ../scss/_typography.scss */
 h1 {
   font-size: 2.4286em;
   /* 34px */
@@ -173,7 +172,7 @@ h1 {
   font-weight: bold;
 }
 
-/* line 51, ../scss/_typography.scss */
+/* line 45, ../scss/_typography.scss */
 h2 {
   font-size: 2.1429em;
   /* 30px */
@@ -183,7 +182,7 @@ h2 {
   font-weight: normal;
 }
 
-/* line 59, ../scss/_typography.scss */
+/* line 53, ../scss/_typography.scss */
 h3 {
   font-size: 1.28571em;
   line-height: 1.4444em;
@@ -191,7 +190,7 @@ h3 {
   margin-bottom: 0em;
 }
 
-/* line 66, ../scss/_typography.scss */
+/* line 60, ../scss/_typography.scss */
 h4 {
   font-size: 1em;
   font-weight: normal;
@@ -199,18 +198,18 @@ h4 {
   margin-bottom: 1.5em;
 }
 
-/* line 73, ../scss/_typography.scss */
+/* line 67, ../scss/_typography.scss */
 ul, ul li {
   list-style-type: disc;
   list-style: none;
 }
 
-/* line 77, ../scss/_typography.scss */
+/* line 71, ../scss/_typography.scss */
 ol, ol li {
   list-style: decimal;
 }
 
-/* line 80, ../scss/_typography.scss */
+/* line 74, ../scss/_typography.scss */
 sup {
   font-size: xx-small;
   vertical-align: super;
@@ -224,35 +223,35 @@ sup {
   font-size: 1.2em;
   color: #4a4a4a;
 }
-/* line 10, ../scss/_typography.scss */
+/* line 4, ../scss/_typography.scss */
 #block-nurani_helpers-welcome_login .welcome a {
   color: black;
   font-weight: bold;
   text-decoration: none;
 }
-/* line 15, ../scss/_navigation.scss */
+/* line 13, ../scss/_navigation.scss */
 #block-nurani_helpers-welcome_login .logout {
   margin-left: 50px;
   font-weight: bold;
   text-transform: uppercase;
 }
-/* line 19, ../scss/_navigation.scss */
+/* line 17, ../scss/_navigation.scss */
 #block-nurani_helpers-welcome_login .logout a {
   text-decoration: none;
   color: #4a4a4a;
 }
 
-/* line 28, ../scss/_navigation.scss */
+/* line 26, ../scss/_navigation.scss */
 #block-menu_block-nurani_main_menu {
   width: 45%;
   padding: 10px;
 }
-/* line 32, ../scss/_navigation.scss */
+/* line 30, ../scss/_navigation.scss */
 #block-menu_block-nurani_main_menu ul li {
   list-style-type: none;
   display: inline;
 }
-/* line 35, ../scss/_navigation.scss */
+/* line 33, ../scss/_navigation.scss */
 #block-menu_block-nurani_main_menu ul li a {
   /*font-size:1.625em;*/
   font-size: 1.5em;
@@ -289,7 +288,7 @@ sup {
 .block-nurani-comment form div.head .info {
   margin-left: 4em;
 }
-/* line 10, ../scss/_typography.scss */
+/* line 4, ../scss/_typography.scss */
 .block-nurani-comment form div.head .info a {
   color: white;
   font-weight: bold;
@@ -355,6 +354,41 @@ sup {
 /* line 37, ../scss/_comment-box.scss */
 .block-nurani-comment form .form-actions {
   float: right;
+}
+
+/* line 18, ../scss/core.scss */
+body.front.not-logged-in {
+  /*  Not Logged-in Front Page */
+}
+/* line 3, ../scss/pages/_page-front-not-logged-in.scss */
+body.front.not-logged-in .panel-panel {
+  width: 32.07547%;
+  float: left;
+  margin-right: 1.88679%;
+  display: inline;
+}
+/* line 5, ../scss/pages/_page-front-not-logged-in.scss */
+body.front.not-logged-in .panel-panel:nth-child(3n) {
+  float: right;
+  margin-right: 0;
+  #margin-left: -1.66667%;
+  display: inline;
+}
+/* line 9, ../scss/pages/_page-front-not-logged-in.scss */
+body.front.not-logged-in #block-boxes-nurani_welcome, body.front.not-logged-in #block-boxes-nurani_about_nurani, body.front.not-logged-in .panel-pane {
+  background-color: #fff;
+  margin-bottom: 25px;
+  padding: 30px;
+  text-align: justify;
+  /*fo
+  nt-size: 1em;*/
+}
+/* line 18, ../scss/pages/_page-front-not-logged-in.scss */
+body.front.not-logged-in #boxes-box-nurani_welcome .d_ford {
+  width: 80px;
+  float: left;
+  margin: 0 1.5em;
+  border: 5px solid whiteSmoke;
 }
 
 /* line 2, ../scss/node/_node-discussion.scss */
@@ -433,57 +467,57 @@ body.node-type-discussion #block-views-nurani_comment_list-block h2.block-title 
 }
 /* line 67, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row {
-  background: #fff;
+  background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 72, ../scss/node/_node-discussion.scss */
+/* line 70, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner {
   padding: 35px;
 }
-/* line 75, ../scss/node/_node-discussion.scss */
+/* line 73, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .user-picture {
   float: left;
   margin: 0 1em 0 -1em;
 }
-/* line 78, ../scss/node/_node-discussion.scss */
+/* line 76, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .user-picture a {
   float: left;
 }
-/* line 80, ../scss/node/_node-discussion.scss */
+/* line 78, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .content {
   margin-left: 4em;
   color: #4a4a4a;
 }
-/* line 83, ../scss/node/_node-discussion.scss */
+/* line 81, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .content .submitted {
   float: right;
 }
-/* line 10, ../scss/_typography.scss */
+/* line 4, ../scss/_typography.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .comment-inner .content a {
   color: black;
   font-weight: bold;
   text-decoration: none;
 }
-/* line 87, ../scss/node/_node-discussion.scss */
+/* line 85, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .views-row .links {
   margin-left: 1.5em;
   margin-top: 1em;
 }
-/* line 98, ../scss/node/_node-discussion.scss */
+/* line 92, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .block-meedan-discussion-lock {
   background: url(../images/clock-icon.png) no-repeat;
   margin-bottom: 1em;
 }
-/* line 101, ../scss/node/_node-discussion.scss */
+/* line 95, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .block-meedan-discussion-lock .content {
   margin-left: 3em;
   color: #4a4a4a;
   font-size: 1.2em;
 }
-/* line 108, ../scss/node/_node-discussion.scss */
+/* line 102, ../scss/node/_node-discussion.scss */
 body.node-type-discussion a.printpdf {
   background: url(../images/printer-icon.png) center left no-repeat;
   padding-left: 3em;
@@ -491,27 +525,27 @@ body.node-type-discussion a.printpdf {
   font-size: 1.2em;
   text-decoration: none;
 }
-/* line 114, ../scss/node/_node-discussion.scss */
+/* line 108, ../scss/node/_node-discussion.scss */
 body.node-type-discussion a.printpdf:hover {
   text-decoration: underline;
 }
-/* line 119, ../scss/node/_node-discussion.scss */
+/* line 113, ../scss/node/_node-discussion.scss */
 body.node-type-discussion #block-nurani_discussion-print_pdf {
   margin-bottom: 4em;
 }
-/* line 127, ../scss/node/_node-discussion.scss */
+/* line 119, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content {
   margin-bottom: 4em;
 }
-/* line 129, ../scss/node/_node-discussion.scss */
+/* line 121, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-picture {
   float: left;
 }
-/* line 131, ../scss/node/_node-discussion.scss */
+/* line 123, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-name, body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-cid {
   margin-left: 4em;
 }
-/* line 10, ../scss/_typography.scss */
+/* line 4, ../scss/_typography.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-name a, body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-cid a {
   color: #005eae;
   font-weight: bold;

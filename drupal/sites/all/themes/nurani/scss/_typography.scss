@@ -1,9 +1,3 @@
-//Mixin to to add borders at the top of boxes
-@mixin border($color,$side, $width) {
-  border-#{$side}:$width;
-  border-#{$side}-style:solid;
-  border-#{$side}-color:$color;
-}
 
 //Mixin to style Username links
 @mixin username-links($color){
