@@ -16,6 +16,7 @@
 
 // Pages
 body.front.not-logged-in          { @import "pages/page-front-not-logged-in"; }
+body.front.logged-in 			  { @import "pages/page-front-logged-in";}	
 
 
 //node types
