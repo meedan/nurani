@@ -127,6 +127,30 @@ function nurani_comment_form_comment_form_alter(&$form, &$form_state) {
     '#type' =>'markup',
     '#markup' => t("<strong>Tip:</strong> Brief responses are encouraged."),
   );
+
+  // Alter the ajax_comments module settings a little to better fit into the
+  // Discussions page display
+  $form['actions']['submit']['#ajax']['callback'] = 'nurani_comment_submit_js';
+  // Need to add the missing comment-wrapper div, ajax_comments preview expects it.
+  $form['#prefix'] = '<div id="comment-wrapper"></div>';
+}
+
+/**
+ * FAPI '#ajax' submission override from ajax_comments module.
+ */
+function nurani_comment_submit_js($form, &$form_state) {
+  $response = ajax_comments_submit_js($form, $form_state);
+
+  if ($response['#type'] == 'ajax' && count($response['#commands'])) {
+    foreach ($response['#commands'] as $key => $command) {
+      // Replace the update preview command with a trigger to refresh views
+      if ($command['command'] == 'insert' && $command['selector'] == '#comment-wrapper') {
+        $response['#commands'][$key] = ajax_command_invoke('a.nurani-comment-sort-link.desc', 'click');
+      }
+    }
+  }
+
+  return $response;
 }
 
 /**
