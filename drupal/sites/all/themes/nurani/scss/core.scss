@@ -4,6 +4,7 @@
 @import "sassy-buttons";
 
 @import "helpers/nurani-button";
+@import "helpers/boxes";
 
 @import "layout";
 @import "header";
@@ -11,7 +12,6 @@
 @import "navigation";
 @import "comment-box";
 
-/*@include basic-default(1200px, 400px, 400px);*/
 
 //node types
 body.node-type-discussion         { @import "node/node-discussion"; }

@@ -44,16 +44,12 @@ body{
 
       #content-bottom-left{
         float:left;
-        @include span-columns(10,18);
-        /*width:650px;*/
-        margin-right:30px;
+        @include span-columns(11,18);
       }
     
       #content-bottom-right{
         float:left;
-        @include span-columns(7 omega,18);
-
-        /*width:400px;*/
+        @include span-columns(6 omega,18);
       }
     }
 }
