@@ -358,34 +358,37 @@ sup {
 
 /* line 18, ../scss/core.scss */
 body.front.not-logged-in {
-  /* Front Page */
-  /*.panel-3col-33 .panel-col-first, .panel-3col-33 .panel-col, .panel-3col-33 .panel-col-last{
-  	@include span-columns(6,18);
-  }*/
+  /*  Not Logged-in Front Page */
 }
-/* line 9, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 3, ../scss/pages/_page-front-not-logged-in.scss */
 body.front.not-logged-in .panel-panel {
   width: 32.07547%;
   float: left;
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 11, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 5, ../scss/pages/_page-front-not-logged-in.scss */
 body.front.not-logged-in .panel-panel:nth-child(3n) {
   float: right;
   margin-right: 0;
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 14, ../scss/pages/_page-front-not-logged-in.scss */
-body.front.not-logged-in #block-boxes-nurani_welcome, body.front.not-logged-in #block-boxes-nurani_about_nurani {
+/* line 9, ../scss/pages/_page-front-not-logged-in.scss */
+body.front.not-logged-in #block-boxes-nurani_welcome, body.front.not-logged-in #block-boxes-nurani_about_nurani, body.front.not-logged-in .panel-pane {
   background-color: #fff;
   margin-bottom: 25px;
+  padding: 30px;
+  text-align: justify;
+  /*fo
+  nt-size: 1em;*/
 }
-/* line 21, ../scss/pages/_page-front-not-logged-in.scss */
-body.front.not-logged-in .panel-pane {
-  background-color: #fff;
-  margin-bottom: 25px;
+/* line 18, ../scss/pages/_page-front-not-logged-in.scss */
+body.front.not-logged-in #boxes-box-nurani_welcome .d_ford {
+  width: 80px;
+  float: left;
+  margin: 0 1.5em;
+  border: 5px solid whiteSmoke;
 }
 
 /* line 2, ../scss/node/_node-discussion.scss */

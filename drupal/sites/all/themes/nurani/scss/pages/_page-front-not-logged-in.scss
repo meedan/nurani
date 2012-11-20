@@ -1,25 +1,27 @@
-/* Front Page */
-
-
-  	/*.panel-3col-33 .panel-col-first, .panel-3col-33 .panel-col, .panel-3col-33 .panel-col-last{
-  		@include span-columns(6,18);
-  	}*/
-
+/*  Not Logged-in Front Page */
 
 .panel-panel{
   @include span-columns(6,18);
   &:nth-child(3n) { @include omega; }
+
 }
   
-  #block-boxes-nurani_welcome, #block-boxes-nurani_about_nurani{
-  	@include white-background-no-border;
+#block-boxes-nurani_welcome, #block-boxes-nurani_about_nurani, .panel-pane{
+  @include white-background-no-border;
+  padding:30px;
+  text-align:justify;
+  /*fo
+  nt-size: 1em;*/
+}
+
+#boxes-box-nurani_welcome{
+	.d_ford{
+		width:80px;
+		float:left;
+		margin: 0 1.5em;
+		border: 5px solid whiteSmoke;
+	}
+}
+
 
 	
-}
-   
-
-.panel-pane{
-	@include white-background-no-border;
-
-}
-
