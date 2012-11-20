@@ -390,6 +390,10 @@ body.front.not-logged-in #boxes-box-nurani_welcome .d_ford {
   margin: 0 1.5em;
   border: 5px solid whiteSmoke;
 }
+/* line 29, ../scss/pages/_page-front-not-logged-in.scss */
+body.front.not-logged-in #boxes-box-nurani_about_nurani iframe {
+  margin-bottom: 2em;
+}
 
 /* line 2, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion {
