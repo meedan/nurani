@@ -1,7 +1,20 @@
 //mixin to create white background boxes whereever needed
 
-@mixin white-background-box{
+//Mixin to to add borders at the top of boxes
+@mixin border($color,$side, $width) {
+  border-#{$side}:$width;
+  border-#{$side}-style:solid;
+  border-#{$side}-color:$color;
+}
 
-	background-color: #fff;
+@mixin white-background-no-border{
+  background-color: #fff;
+  margin-bottom:25px;
+}
 
+
+@mixin white-background-bordered-top($color,$side, $width){
+  background-color: #fff;
+  margin-bottom:25px;
+  @include border($color,$side, $width);
 }

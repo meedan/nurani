@@ -65,9 +65,7 @@
 // Style for response list
 .view-nurani-comment-list{
     & .views-row {
-	  background:#fff;
-	  margin-bottom:25px;
-	  @include border($nurani-light-blue, top, 5px);
+	  @include white-background-bordered-top($nurani-light-blue, top, 5px);
 
 	    .comment-inner{
 	      padding:35px;
@@ -89,10 +87,6 @@
 	}
  }
 
-@mixin discussion-lock-pdf{
-   color:$nurani-text-gray;
-   font-size:1.2em;
-}
 
 // discussion lock
 .block-meedan-discussion-lock{
@@ -117,9 +111,7 @@ a.printpdf{
 }
 
 #block-nurani_discussion-print_pdf{
- 
   margin-bottom:4em;
- 
 }
 
 .view-meedan-discussion-participants{
