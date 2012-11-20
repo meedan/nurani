@@ -2,7 +2,6 @@ name = "Menu Block"
 description = "Provides configurable blocks of menu items."
 
 core = 7.x
-dependencies[] = ctools
 dependencies[] = menu (>7.11)
 
 files[] = menu_block.module

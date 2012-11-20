@@ -5,103 +5,23 @@
  */
 
 /**
- * Implements hook_install().
- */
-function menu_block_schema() {
-  $schema['menu_blocks'] = array(
-    'export' => array(
-      'key' => 'name',
-      'key name' => 'Name',
-      'primary key' => 'name',
-      'identifier' => 'menu_block',
-      'default hook' => 'menu_block_defaults',
-      'api' => array(
-        'owner' => 'menu_block',
-        'api' => 'menu_block',
-        'minimum_version' => 1,
-        'current_version' => 1,
-      ),
-    ),
-    'fields' => array(
-      'name' => array(
-        'type' => 'varchar',
-        'length' => 64,
-        'not null' => TRUE,
-        'default' => '',
-      ),
-      'label' => array(
-        'type' => 'varchar',
-        'length' => 64,
-        'not null' => TRUE,
-        'default' => '',
-      ),
-      'description' => array(
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => FALSE,
-        'default' => '',
-      ),
-      'depth' => array(
-        'type' => 'int',
-        'length' => 1,
-        'default' => 0,
-      ),
-      'expanded' => array(
-        'type' => 'int',
-        'length' => 1,
-        'default' => 0,
-      ),
-      'follow' => array(
-        'type' => 'varchar',
-        'length' => 16,
-        'default' => '',
-      ),
-      'level' => array(
-        'type' => 'int',
-        'length' => 1,
-        'default' => 1,
-      ),
-      'parent' => array(
-        'type' => 'varchar',
-        'length' => 64,
-        'default' => '',
-      ),
-      'sort' => array(
-        'type' => 'int',
-        'length' => 1,
-        'default' => 0,
-      ),
-      'title_link' => array(
-        'type' => 'int',
-        'length' => 1,
-        'default' => 0,
-      ),
-    ),
-    'primary key' => array('name'),
-  );
-
-  return $schema;
-}
-
-/**
  * Implements hook_uninstall().
  */
 function menu_block_uninstall() {
   // Delete menu block variables.
-  // foreach (variable_get('menu_block_ids', array()) AS $delta) {
-  //   variable_del("menu_block_{$delta}_title_link");
-  //   variable_del("menu_block_{$delta}_admin_title");
-  //   variable_del("menu_block_{$delta}_parent");
-  //   variable_del("menu_block_{$delta}_level");
-  //   variable_del("menu_block_{$delta}_follow");
-  //   variable_del("menu_block_{$delta}_depth");
-  //   variable_del("menu_block_{$delta}_expanded");
-  //   variable_del("menu_block_{$delta}_sort");
-  // }
-  // variable_del('menu_block_ids');
+  foreach (variable_get('menu_block_ids', array()) AS $delta) {
+    variable_del("menu_block_{$delta}_title_link");
+    variable_del("menu_block_{$delta}_admin_title");
+    variable_del("menu_block_{$delta}_parent");
+    variable_del("menu_block_{$delta}_level");
+    variable_del("menu_block_{$delta}_follow");
+    variable_del("menu_block_{$delta}_depth");
+    variable_del("menu_block_{$delta}_expanded");
+    variable_del("menu_block_{$delta}_sort");
+  }
+  variable_del('menu_block_ids');
   variable_del('menu_block_suppress_core');
   variable_del('menu_block_menu_order');
-
   // Remove block configurations.
   db_delete('block')
     ->condition('module', 'menu_block')
@@ -109,8 +29,6 @@ function menu_block_uninstall() {
   db_delete('block_role')
     ->condition('module', 'menu_block')
     ->execute();
-
-  // Clear all cache.
   cache_clear_all();
 }
 
@@ -119,6 +37,13 @@ function menu_block_uninstall() {
  */
 function menu_block_enable() {
   drupal_set_message(t('To use menu blocks, find the "Add menu block" link on the <a href="@url">administer blocks page</a>.', array('@url' => url('admin/structure/block'))));
+}
+
+/**
+ * Implements hook_install().
+ */
+function menu_block_install() {
+  // No-op.
 }
 
 /**
@@ -270,111 +195,4 @@ function menu_block_fix_custom_menus() {
  */
 function menu_block_update_7202() {
   menu_block_fix_custom_menus();
-}
-
-/**
- * Add database table, migrate variables into database and enable CTools if
- * availble.
- */
-function menu_block_update_7203() {
-  // Add database table.
-  $schema['menu_blocks'] = array(
-    'fields' => array(
-      'name' => array(
-        'type' => 'varchar',
-        'length' => 64,
-        'not null' => TRUE,
-        'default' => '',
-      ),
-      'label' => array(
-        'type' => 'varchar',
-        'length' => 64,
-        'not null' => TRUE,
-        'default' => '',
-      ),
-      'description' => array(
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => FALSE,
-        'default' => '',
-      ),
-      'depth' => array(
-        'type' => 'int',
-        'length' => 1,
-        'default' => 0,
-      ),
-      'expanded' => array(
-        'type' => 'int',
-        'length' => 1,
-        'default' => 0,
-      ),
-      'follow' => array(
-        'type' => 'varchar',
-        'length' => 16,
-        'default' => '',
-      ),
-      'level' => array(
-        'type' => 'int',
-        'length' => 1,
-        'default' => 1,
-      ),
-      'parent' => array(
-        'type' => 'varchar',
-        'length' => 64,
-        'default' => '',
-      ),
-      'sort' => array(
-        'type' => 'int',
-        'length' => 1,
-        'default' => 0,
-      ),
-      'title_link' => array(
-        'type' => 'int',
-        'length' => 1,
-        'default' => 0,
-      ),
-    ),
-    'primary key' => array('name'),
-  );
-  db_create_table('menu_blocks', $schema['menu_blocks']);
-
-  // Migrate variables into database.
-  foreach (variable_get('menu_block_ids', array()) AS $delta) {
-    $config = menu_block_get_config($delta);
-    db_insert('menu_blocks')
-      ->fields(array(
-        'name' => $delta,
-        'label' => $config['admin_title'],
-        'description' => NULL,
-        'depth' => $config['depth'],
-        'expanded' => $config['expanded'],
-        'follow' => $config['active'],
-        'level' => $config['level'],
-        'parent' => "{$config['menu_name']}:{$config['parent_mlid']}",
-        'sort' => $config['sort'],
-        'title_link' => $config['title_link'],
-      ))
-      ->execute();
-
-    // Delete old variables.
-    variable_del("menu_block_{$delta}_title_link");
-    variable_del("menu_block_{$delta}_admin_title");
-    variable_del("menu_block_{$delta}_parent");
-    variable_del("menu_block_{$delta}_level");
-    variable_del("menu_block_{$delta}_follow");
-    variable_del("menu_block_{$delta}_depth");
-    variable_del("menu_block_{$delta}_expanded");
-    variable_del("menu_block_{$delta}_sort");
-  }
-  variable_del('menu_block_ids');
-
-  // Enable CTools if availble.
-  if (!module_exists('ctools')) {
-    module_enable(array('ctools'));
-    if (!module_exists('ctools')) {
-      drupal_set_message(t('The Chaos tool suite (ctools) module is required for Menu Block. Menu Block has been disabled.'));
-      module_disable(array('menu_block'));
-    }
-  }
-  drupal_flush_all_caches();
 }

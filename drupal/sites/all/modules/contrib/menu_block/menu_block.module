@@ -39,12 +39,13 @@ function menu_block_ctools_plugin_directory($module, $plugin) {
  * Implements hook_menu().
  */
 function menu_block_menu() {
+  // @todo Remove this check if block module is re-added as a dependency.
   if (module_exists('block')) {
     $items['admin/structure/block/add-menu-block'] = array(
       'title' => 'Add menu block',
       'description' => 'Add a new menu block.',
-      'page callback' => 'drupal_goto',
-      'page arguments' => array('admin/structure/menu_block/add'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('menu_block_add_block_form'),
       'access arguments' => array('administer blocks'),
       'type' => MENU_LOCAL_ACTION,
       'file' => 'menu_block.admin.inc',
@@ -55,23 +56,31 @@ function menu_block_menu() {
         $items['admin/structure/block/list/' . $key . '/add-menu-block'] = array(
           'title' => 'Add menu block',
           'description' => 'Add a new menu block.',
-          'page callback' => 'drupal_goto',
-          'page arguments' => array('admin/structure/menu_block/add'),
+          'page callback' => 'drupal_get_form',
+          'page arguments' => array('menu_block_add_block_form'),
           'access arguments' => array('administer blocks'),
           'type' => MENU_LOCAL_ACTION,
           'file' => 'menu_block.admin.inc',
         );
       }
     }
+    $items['admin/structure/block/delete-menu-block'] = array(
+      'title' => 'Delete menu block',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('menu_block_delete'),
+      'access arguments' => array('administer blocks'),
+      'type' => MENU_CALLBACK,
+      'file' => 'menu_block.admin.inc',
+    );
   }
 
-  $items['admin/structure/menu_block/settings'] = array(
-    'title' => 'Settings',
+  $items['admin/config/user-interface/menu-block'] = array(
+    'title' => 'Menu block',
     'description' => 'Configure menu block.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('menu_block_admin_settings_form'),
     'access arguments' => array('administer blocks'),
-    'type' => MENU_LOCAL_TASK,
+    'type' => MENU_NORMAL_ITEM,
     'file' => 'menu_block.admin.inc',
   );
   return $items;
@@ -108,7 +117,7 @@ function menu_block_help($path, $arg) {
  * Implements hook_block_view().
  */
 function menu_block_block_view($delta = '') {
-  $config = menu_block_config_load($delta);
+  $config = menu_block_get_config($delta);
   $data = menu_tree_build($config);
   // Add contextual links for this block.
   if (!empty($data['content'])) {
@@ -121,34 +130,6 @@ function menu_block_block_view($delta = '') {
     }
   }
   return $data;
-}
-
-/**
- * CRUD function; Load all menu blocks.
- */
-function menu_block_load_all($disabled = FALSE) {
-  $menu_blocks = array();
-
-  ctools_include('export');
-  foreach (ctools_export_crud_load_all('menu_blocks') as $menu_block) {
-    if (empty($menu_block->disabled) || TRUE == $disabled) {
-      $menu_blocks[$menu_block->name] = $menu_block;
-    }
-  }
-
-  return $menu_blocks;
-}
-
-/**
- * Load the menu block configuration.
- */
-function menu_block_config_load($delta) {
-  $config = ctools_export_crud_load('menu_blocks', $delta);
-  $config->admin_title = $config->name;
-  $config->delta = $delta;
-  list($config->menu_name, $config->parent_mlid) = explode(':', $config->parent);
-
-  return (array) $config;
 }
 
 /**
@@ -200,8 +181,6 @@ function menu_block_get_all_menus() {
  *   array An associated array of configuration options.
  */
 function menu_block_get_config($delta = NULL) {
-  watchdog('menu_block', 'menu_block_get_config() is deprecated and will be removed in the future');
-
   $config = array(
     'delta'       => $delta,
     'menu_name'   => 'main-menu',
