@@ -20,58 +20,68 @@ function nurani_library_api_default_services_endpoint() {
     'services' => 'services',
   );
   $endpoint->server_settings = array(
-    'rest_server' => array(
-      'formatters' => array(
-        'json' => TRUE,
-        'jsonp' => TRUE,
-        'bencode' => FALSE,
-        'php' => FALSE,
-        'rss' => FALSE,
-        'xml' => FALSE,
-        'yaml' => FALSE,
-      ),
-      'parsers' => array(
-        'application/json' => TRUE,
-        'application/x-www-form-urlencoded' => TRUE,
-        'application/vnd.php.serialized' => FALSE,
-        'application/x-yaml' => FALSE,
-        'multipart/form-data' => FALSE,
-      ),
+    'formatters' => array(
+      'json' => TRUE,
+      'jsonp' => TRUE,
+      'bencode' => FALSE,
+      'php' => FALSE,
+      'rss' => FALSE,
+      'xml' => FALSE,
+      'yaml' => FALSE,
+    ),
+    'parsers' => array(
+      'application/json' => TRUE,
+      'application/x-www-form-urlencoded' => TRUE,
+      'application/vnd.php.serialized' => FALSE,
+      'application/x-yaml' => FALSE,
+      'multipart/form-data' => FALSE,
     ),
   );
   $endpoint->resources = array(
     'passage' => array(
-      'actions' => array(
-        'validate' => array(
-          'enabled' => 1,
-        ),
-      ),
       'operations' => array(
         'retrieve' => array(
-          'enabled' => 1,
+          'enabled' => '1',
         ),
         'index' => array(
-          'enabled' => 1,
+          'enabled' => '1',
+        ),
+      ),
+      'actions' => array(
+        'validate' => array(
+          'enabled' => '1',
         ),
       ),
     ),
     'work' => array(
       'operations' => array(
         'retrieve' => array(
-          'enabled' => 1,
+          'enabled' => '1',
         ),
         'index' => array(
-          'enabled' => 1,
+          'enabled' => '1',
+        ),
+      ),
+    ),
+    'system' => array(
+      'actions' => array(
+        'connect' => array(
+          'enabled' => '1',
         ),
       ),
     ),
     'user' => array(
       'actions' => array(
         'login' => array(
-          'enabled' => 1,
+          'enabled' => '1',
         ),
         'logout' => array(
-          'enabled' => 1,
+          'enabled' => '1',
+          'settings' => array(
+            'services' => array(
+              'resource_api_version' => '1.0',
+            ),
+          ),
         ),
       ),
     ),
