@@ -14,7 +14,7 @@ PassageBox.prototype.init = function () {
   this.bindContainers();
   this.bindFields();
   this.bindRemoveButton();
-  this.bindAddButton();
+  this.bindAddEditButton();
 
   // Set up initial display state
   this.updatedPicked();
@@ -48,10 +48,10 @@ PassageBox.prototype.bindRemoveButton = function () {
   return this;
 };
 
-PassageBox.prototype.bindAddButton = function () {
+PassageBox.prototype.bindAddEditButton = function () {
   var that = this;
 
-  $('.form-submit.pick-passage-action', this.$wrapper).click(function () {
+  $('.pick-passage-action,.edit-passage-action', this.$wrapper).click(function () {
     that.pickPassage(this);
     return false;
   });

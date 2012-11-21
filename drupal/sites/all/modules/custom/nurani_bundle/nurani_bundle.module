@@ -151,6 +151,11 @@ function nurani_bundle_passages_form($field, &$edit, $context) {
       '#value' => t('Remove passage'),
       '#attributes' => array('class' => array('remove-passage-action')),
     );
+    $element[$delta]['edit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Edit passage'),
+      '#attributes' => array('class' => array('edit-passage-action')),
+    );
     $element[$delta]['add'] = array(
       '#type' => 'submit',
       '#value' => t('Add passage'),
@@ -217,6 +222,7 @@ function theme_nurani_bundle_ui_passage_box(&$variables) {
 
   $content  = drupal_render($element['remove']);
   $content .= drupal_render($element['add']);
+  $content .= drupal_render($element['edit']);
   $content .= drupal_render($element['osisID']);
   $content .= drupal_render($element['osisIDWork']);
 

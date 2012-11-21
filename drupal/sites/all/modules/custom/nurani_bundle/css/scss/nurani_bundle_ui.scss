@@ -52,7 +52,7 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
   .pick-passage-action {
     display: none;
   }
-  .passage-widget, .remove-passage-action {
+  .passage-widget, .remove-passage-action, .edit-passage-action {
     display: inline;
   }
 
@@ -63,7 +63,7 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
       display: inline-block;
       margin-top: $ideal_box_height / 2 - 2em;
     }
-    & > .passage-widget, .remove-passage-action {
+    & > .passage-widget, .remove-passage-action, .edit-passage-action {
       display: none;
     }
   }
