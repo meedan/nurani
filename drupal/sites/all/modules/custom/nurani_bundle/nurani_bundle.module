@@ -463,7 +463,7 @@ function theme_nurani_bundle_passage_box_bib(&$variables) {
   $output .= '<div class="moderator_s_thoughts">';
   $output .=   '<label>' . t('Notes on this passage') . '</label>';
   $output .=   check_markup($variables['moderator_s_thoughts'], NULL, $variables['language']);
-  $output .=   theme('nurani_attribution', array('account' => $variables['account'], 'timestamp' => $variables['timestamp']));
+  $output .=   theme('nurani_attribution', array('account' => $variables['account']));
   $output .= '</div>';
 
   return $output;
