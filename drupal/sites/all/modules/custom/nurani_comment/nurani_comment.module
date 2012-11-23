@@ -30,6 +30,7 @@ function nurani_comment_preprocess_comment_wrapper(&$vars) {
 function nurani_comment_preprocess_comment(&$vars) {
   $map = nurani_comment_order_map($vars['comment']->nid);
   $vars['comment_number'] = $map[$vars['comment']->cid];
+  unset($vars['content']['links']['comment']['#links']['comment-reply']);
 }
 
 function nurani_comment_order_map($nid) {
