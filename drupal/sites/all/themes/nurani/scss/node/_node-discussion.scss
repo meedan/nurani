@@ -1,6 +1,11 @@
 
+
+h1.title, h2.subtitle{
+  @include bundle-typography;
+}
+
 .node-discussion{
-	/*.passage-boxes{@include container;}*/
+	
 
 	.passage-box{
 		margin-top: 2em;

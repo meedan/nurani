@@ -4,6 +4,12 @@
       text-align: left;
       margin-bottom:1em;
     }
+
+    h3 a{
+      @include bundle-typography;
+      color:$nurani-text-gray;
+      text-decoration:none;
+    }
     
    /*Your discussion block*/
    .panel-col-first{
