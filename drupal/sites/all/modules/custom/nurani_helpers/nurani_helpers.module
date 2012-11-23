@@ -74,8 +74,10 @@ function theme_nurani_attribution($variables) {
   $output  = '';
   $output .= '<span class="attribution">';
   $output .=   theme('username', array('account' => $variables['account']));
-  $output .=   ' ';
-  $output .=   format_date($variables['timestamp'], 'medium', '', $variables['account']->timezone);
+  if ($variables['timestamp']) {
+    $output .= ' ';
+    $output .= format_date($variables['timestamp'], 'medium', '', $variables['account']->timezone);
+  }
   $output .= '</span>';
   return $output;
 }
