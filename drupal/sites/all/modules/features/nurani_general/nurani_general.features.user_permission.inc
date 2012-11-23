@@ -56,6 +56,7 @@ function nurani_general_user_default_permissions() {
     'name' => 'edit own comments',
     'roles' => array(
       0 => 'administrator',
+      1 => 'authenticated user',
     ),
     'module' => 'comment',
   );

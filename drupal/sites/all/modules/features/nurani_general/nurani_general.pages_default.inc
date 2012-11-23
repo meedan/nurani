@@ -161,7 +161,7 @@ function nurani_general_default_page_manager_pages() {
     $pane->locks = array();
     $display->content['new-4'] = $pane;
     $display->panels['right'][1] = 'new-4';
-  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
@@ -267,7 +267,7 @@ function nurani_general_default_page_manager_pages() {
     $pane->locks = array();
     $display->content['new-6'] = $pane;
     $display->panels['right'][0] = 'new-6';
-  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
@@ -352,7 +352,7 @@ function nurani_general_default_page_manager_pages() {
     $pane->locks = array();
     $display->content['new-8'] = $pane;
     $display->panels['right'][0] = 'new-8';
-  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
