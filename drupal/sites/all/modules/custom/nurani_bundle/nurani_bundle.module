@@ -90,13 +90,25 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
 
   // Hide the existing node reference widget
   $element['nid']['#type'] = 'hidden';
-  // Add the custom bundle UI
+  // Add the custom bundle UI and connections to the nurani library UI for the
+  // passage picker
   $path = drupal_get_path('module', 'nurani_bundle');
+  $nl_base_url = nurani_library_base_url(TRUE) . '/' . drupal_get_path('module', 'nurani_library_ui');
   $element['ui'] = array(
     '#theme' => 'nurani_bundle_ui',
     '#attached' => array(
-      'css' => array($path . '/css/nurani_bundle_ui.css'),
-      'js'  => array($path . '/js/nurani_bundle_ui.js'),
+      'css' => array(
+        $nl_base_url . '/css/nurani_library_ui.css' => array(
+          'group' => CSS_THEME,
+          'type' => 'external',
+        ),
+        $path . '/css/nurani_bundle_ui.css',
+      ),
+      'js'  => array(
+        $nl_base_url . '/js/nurani_library_ui.js',
+        $path . '/js/nurani_bundle_ui.js',
+        'sites/all/libraries/handlebars/handlebars-1.0.rc.1.js'
+      ),
     ),
     '#bundle_nid' => $bundle_nid,
     'clone' => nurani_bundle_clone_form($field, $edit['ui']['clone'], $context),

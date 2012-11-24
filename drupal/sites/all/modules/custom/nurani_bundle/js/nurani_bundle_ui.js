@@ -369,34 +369,33 @@
   }
 
   Picker.prototype.init = function () {
-    this.$dialog = this.createDialog();
+    this.pickerUI = new NL.PickerUI({
+      osisIDWork: this.opts.osisIDWork,
+      osisID: this.opts.osisID
+    });
+    this.$dialog = this.createDialog(this.pickerUI.$element);
 
     return this;
   };
 
-  Picker.prototype.createDialog = function () {
-    var $form = $('<div>'
-                +   '<div class="form-item form-type-textfield form-item-osisIDWork">'
-                +     '<label for="edit-osisIDWork">Work name <span class="form-required" title="This field is required.">*</span></label>'
-                +     '<input type="text" id="edit-osisIDWork" name="osisIDWork" value="' + this.opts.osisIDWork + '" size="16" maxlength="32" class="form-text required">'
-                +   '</div>'
-                +   '<div class="form-item form-type-textfield form-item-osisID">'
-                +     '<label for="edit-osisID">Osis ID <span class="form-required" title="This field is required.">*</span></label>'
-                +     '<input type="text" id="edit-osisID" name="osisID" value="' + this.opts.osisID + '" size="16" maxlength="64" class="form-text required">'
-                +   '</div>'
-                + '</div>');
-
+  Picker.prototype.createDialog = function ($element) {
     var that    = this,
-        $dialog = $form.dialog({
+        $window = $(window),
+        $dialog = $element.dialog({
                     autoOpen: false,
-                    width: 800,
+                    width: $window.width() * 0.88,
+                    height: $window.height() * 0.88,
                     modal: true,
                     buttons: {
                       Done: function() {
-                        var osisIDWork = $('#edit-osisIDWork', $form).val(),
-                            osisID     = $('#edit-osisID', $form).val()
+                        var data = this.pickerUI.getSelectionOSIS();
 
-                        that.pickIfValid(osisIDWork, osisID);
+                        if (data) {
+                          if (that.opts.onPicked) {
+                            that.opts.onPicked(data);
+                          }
+                          $(this).dialog('close');
+                        }
                       },
                       Cancel: function() {
                         if (that.opts.onCancel) {
@@ -411,26 +410,6 @@
                   });
 
     return $dialog;
-  };
-
-  Picker.prototype.pickIfValid = function (osisIDWork, osisID) {
-    var that = this;
-
-    $.getJSON(Drupal.settings.basePath + 'nurani_bundle/validate_passage/' + osisIDWork + '/' + osisID, function (data) {
-      if (data === true) {
-        if (that.opts.onPicked) {
-          that.opts.onPicked(osisIDWork, osisID);
-        }
-        that.$dialog.dialog('close');
-      }
-      else {
-        for (var key in data.errors) {
-          if (data.errors.hasOwnProperty(key)) {
-            util.setMessage(that.$dialog, data.errors[key], 'error');
-          }
-        }
-      }
-    });
   };
 
   /**
