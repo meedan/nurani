@@ -13,6 +13,11 @@
    font-size:1.2em;
 }
 
+@mixin bundle-typography{
+  font-family: palatino;
+  font-style: italic;
+}
+
 
 body {
   font-family: Helvetica Neue;
@@ -22,17 +27,17 @@ body {
 
 }
 
+h1,h2,h3,h4,h5,h6{
+  font-family:Helvetica Neue;
+}
+h1,h2{ text-align:center;}
+
 p{
   font-size: 1em; /* 14px */
   line-height: 1.8571em; /* 26px */
   /*margin: 0 0 1.8571em 0;*/
 }
-h1,h2{
-  font-family: palatino;
-  font-style: italic;
-  text-align:center; // hack to center the heading... should be aligned to the grid
-  
-}
+
 
 h1{
   font-size: 2.4286em; /* 34px */
