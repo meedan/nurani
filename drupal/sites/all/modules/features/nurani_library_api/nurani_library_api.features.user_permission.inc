@@ -16,6 +16,8 @@ function nurani_library_api_user_default_permissions() {
     'roles' => array(
       0 => 'API',
       1 => 'administrator',
+      2 => 'anonymous user',
+      3 => 'authenticated user',
     ),
     'module' => 'nurani_library_provider',
   );

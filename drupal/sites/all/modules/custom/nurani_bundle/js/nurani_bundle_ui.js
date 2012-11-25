@@ -384,11 +384,11 @@
         $dialog = $element.dialog({
                     autoOpen: false,
                     width: $window.width() * 0.88,
-                    height: $window.height() * 0.88,
+                    height: $window.height() * 0.60,
                     modal: true,
                     buttons: {
                       Done: function() {
-                        var data = this.pickerUI.getSelectionOSIS();
+                        var data = that.pickerUI.getSelectionOSIS();
 
                         if (data) {
                           if (that.opts.onPicked) {
@@ -406,7 +406,9 @@
                     },
                     close: function() {
                       // TODO: Do things on close, like clear the state.
-                    }
+                    },
+                    open: function () { that.pickerUI.didResize(); },
+                    resize: function () { that.pickerUI.didResize(); }
                   });
 
     return $dialog;

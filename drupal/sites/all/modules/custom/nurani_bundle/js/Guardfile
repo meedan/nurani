@@ -1,0 +1,7 @@
+# A sample Guardfile
+# More info at https://github.com/guard/guard#readme
+
+# This is an example with all options that you can specify for guard-process
+guard 'process', :name => 'build', :command => 'ruby ./build.rb', :stop_signal => "KILL" do
+  watch(%r{^src/(.+)\.js$})
+end
