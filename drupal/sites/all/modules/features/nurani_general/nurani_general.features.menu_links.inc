@@ -24,24 +24,9 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-50',
   );
-  // Exported menu link: main-menu:node/2
-  $menu_links['main-menu:node/2'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'node/2',
-    'router_path' => 'node/%',
-    'link_title' => 'Nurani library',
-    'options' => array(),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-49',
-  );
   // Translatables
   // Included for use with string extractors like potx.
   t('Home');
-  t('Nurani library');
 
 
   return $menu_links;
