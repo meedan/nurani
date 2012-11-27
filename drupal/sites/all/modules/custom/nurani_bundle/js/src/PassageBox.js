@@ -66,9 +66,9 @@ PassageBox.prototype.pickPassage = function (button) {
         osisIDWork: that.$osisIDWork.val(),
         osisID:     that.$osisID.val(),
         // Callbacks
-        onPicked: function (work_name, osisID) {
-          that.$osisIDWork.val(work_name);
-          that.$osisID.val(osisID);
+        onPicked: function (data) {
+          that.$osisIDWork.val(data.osisIDWork);
+          that.$osisID.val(data.osisID);
           that.updatedPicked();
           that.render();
 

@@ -283,9 +283,9 @@
           osisIDWork: that.$osisIDWork.val(),
           osisID:     that.$osisID.val(),
           // Callbacks
-          onPicked: function (work_name, osisID) {
-            that.$osisIDWork.val(work_name);
-            that.$osisID.val(osisID);
+          onPicked: function (data) {
+            that.$osisIDWork.val(data.osisIDWork);
+            that.$osisID.val(data.osisID);
             that.updatedPicked();
             that.render();
 
@@ -384,7 +384,7 @@
         $dialog = $element.dialog({
                     autoOpen: false,
                     width: $window.width() * 0.88,
-                    height: $window.height() * 0.60,
+                    height: $window.height() * 0.80,
                     modal: true,
                     buttons: {
                       Done: function() {

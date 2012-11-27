@@ -29,7 +29,7 @@ Picker.prototype.createDialog = function ($element) {
       $dialog = $element.dialog({
                   autoOpen: false,
                   width: $window.width() * 0.88,
-                  height: $window.height() * 0.60,
+                  height: $window.height() * 0.80,
                   modal: true,
                   buttons: {
                     Done: function() {
