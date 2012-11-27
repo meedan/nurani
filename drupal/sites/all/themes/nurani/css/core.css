@@ -233,13 +233,13 @@ sup {
   text-decoration: none;
 }
 /* line 13, ../scss/_navigation.scss */
-#block-nurani_helpers-welcome_login .logout {
+#block-nurani_helpers-welcome_login .logout, #block-nurani_helpers-welcome_login .login {
   margin-left: 50px;
   font-weight: bold;
   text-transform: uppercase;
 }
 /* line 17, ../scss/_navigation.scss */
-#block-nurani_helpers-welcome_login .logout a {
+#block-nurani_helpers-welcome_login .logout a, #block-nurani_helpers-welcome_login .login a {
   text-decoration: none;
   color: #4a4a4a;
 }
@@ -369,8 +369,6 @@ body.front.not-logged-in .panel-panel {
   float: left;
   margin-right: 1.88679%;
   display: inline;
-  background-color: #fff;
-  margin-bottom: 25px;
 }
 /* line 6, ../scss/pages/_page-front-not-logged-in.scss */
 body.front.not-logged-in .panel-panel:nth-child(3n) {
@@ -381,17 +379,19 @@ body.front.not-logged-in .panel-panel:nth-child(3n) {
 }
 /* line 15, ../scss/pages/_page-front-not-logged-in.scss */
 body.front.not-logged-in #block-boxes-nurani_welcome, body.front.not-logged-in #block-boxes-nurani_about_nurani, body.front.not-logged-in .panel-pane {
+  background-color: #fff;
+  margin-bottom: 25px;
   padding: 30px;
   text-align: justify;
 }
-/* line 21, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 22, ../scss/pages/_page-front-not-logged-in.scss */
 body.front.not-logged-in #boxes-box-nurani_welcome .d_ford {
   width: 80px;
   float: left;
   margin: 0 1.5em;
   border: 5px solid whiteSmoke;
 }
-/* line 30, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 31, ../scss/pages/_page-front-not-logged-in.scss */
 body.front.not-logged-in #boxes-box-nurani_about_nurani iframe {
   margin-bottom: 2em;
   width: 100%;

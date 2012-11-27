@@ -106,7 +106,7 @@ function nurani_general_default_page_manager_pages() {
     $pane->access = array();
     $pane->configuration = array(
       'override_title' => 1,
-      'override_title_text' => 'About Nurani',
+      'override_title_text' => '',
     );
     $pane->cache = array();
     $pane->style = array(

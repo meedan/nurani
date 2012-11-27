@@ -15,7 +15,7 @@ function nurani_general_default_box() {
   $box->api_version = 1;
   $box->delta = 'nurani_about_nurani';
   $box->plugin_key = 'simple';
-  $box->title = '';
+  $box->title = '<none>';
   $box->description = 'About Nurani Video';
   $box->options = array(
     'body' => array(

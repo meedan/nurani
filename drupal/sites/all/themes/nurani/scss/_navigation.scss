@@ -10,7 +10,7 @@
         @include username-links(#000);
     }
 
-    .logout{ 
+    .logout, .login{ 
       margin-left:50px;
       font-weight: bold;
       text-transform:uppercase;
