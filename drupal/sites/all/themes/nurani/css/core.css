@@ -233,13 +233,13 @@ sup {
   text-decoration: none;
 }
 /* line 13, ../scss/_navigation.scss */
-#block-nurani_helpers-welcome_login .logout {
+#block-nurani_helpers-welcome_login .logout, #block-nurani_helpers-welcome_login .login {
   margin-left: 50px;
   font-weight: bold;
   text-transform: uppercase;
 }
 /* line 17, ../scss/_navigation.scss */
-#block-nurani_helpers-welcome_login .logout a {
+#block-nurani_helpers-welcome_login .logout a, #block-nurani_helpers-welcome_login .login a {
   text-decoration: none;
   color: #4a4a4a;
 }
