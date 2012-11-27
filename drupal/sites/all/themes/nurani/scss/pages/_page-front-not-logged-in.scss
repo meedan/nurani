@@ -2,16 +2,19 @@
 
 .panel-panel{
   @include span-columns(6,18);
-  &:nth-child(3n) { @include omega; }
+  
+  &:nth-child(3n){
+  	
+    @include omega;
+  }
+
+  @include white-background-no-border;
 
 }
   
 #block-boxes-nurani_welcome, #block-boxes-nurani_about_nurani, .panel-pane{
-  @include white-background-no-border;
   padding:30px;
   text-align:justify;
-  /*fo
-  nt-size: 1em;*/
 }
 
 #boxes-box-nurani_welcome{
