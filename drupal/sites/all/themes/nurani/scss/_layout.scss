@@ -1,5 +1,11 @@
-@import "variables";
+
+/*globally applied css*/
+@import "typography";
 @import "media-queries";
+@import "header";
+@import "navigation";
+@import "comment-box";
+@import "comments-preview";
 
 *{
   margin:0;
