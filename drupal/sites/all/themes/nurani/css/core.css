@@ -457,7 +457,7 @@ body {
 body.not-logged-in {
   /*  Not Logged-in Front Page */
 }
-/* line 12, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 13, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in .panel-panel {
   width: 32.07547%;
   float: left;
@@ -471,26 +471,26 @@ body.not-logged-in .panel-panel:nth-child(3n) {
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 24, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 18, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #block-boxes-nurani_welcome, body.not-logged-in #block-boxes-nurani_about_nurani, body.not-logged-in .panel-pane {
   background-color: #fff;
   margin-bottom: 25px;
   padding: 30px;
   text-align: justify;
 }
-/* line 31, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 25, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #boxes-box-nurani_welcome .d_ford {
   width: 80px;
   float: left;
   margin: 0 1.5em;
   border: 5px solid whiteSmoke;
 }
-/* line 40, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 34, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #boxes-box-nurani_about_nurani iframe {
   margin-bottom: 2em;
   width: 100%;
 }
-/* line 45, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 39, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link {
   background: url(../images/comment-icon.png) no-repeat 10px 5px;
   font-size: 16px;
@@ -510,6 +510,7 @@ body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link {
   text-shadow: #050e07 0 -1px 0;
   border-radius: 4em;
   padding-left: 3em;
+  margin: 1em 2em;
   text-decoration: none;
   /*<a  class ="front-links" href="#"><span class="icon">View example Discussion</span></a>*/
 }
@@ -539,7 +540,7 @@ body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link::-moz-focus-inn
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 49, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 43, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link:hover {
   color: #fff;
 }

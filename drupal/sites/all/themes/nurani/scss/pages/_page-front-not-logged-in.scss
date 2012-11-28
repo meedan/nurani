@@ -5,20 +5,14 @@
   @include nurani-button($button-green, 16px, darken(#fff, 10%));
   border-radius:4em;
   padding-left:3em;
+  margin:1em 2em;
   text-decoration: none;
 /*<a  class ="front-links" href="#"><span class="icon">View example Discussion</span></a>*/
 }
 
 .panel-panel{
   @include span-columns(6,18);
-  
-  &:nth-child(3n){
-
-    @include omega;
-  }
-
-  
-
+  &:nth-child(3n){ @include omega;}
 }
   
 #block-boxes-nurani_welcome, #block-boxes-nurani_about_nurani, .panel-pane{
@@ -41,7 +35,7 @@
     margin-bottom:2em;
 	width:100%;
   }
-  
+
   a.welcome-link{
     background:url(../images/comment-icon.png) no-repeat 10px 5px;
     @include a-link-styling;
