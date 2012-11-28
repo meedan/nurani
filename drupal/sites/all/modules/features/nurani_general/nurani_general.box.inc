@@ -20,7 +20,9 @@ function nurani_general_default_box() {
   $box->options = array(
     'body' => array(
       'value' => '<iframe width="380" height="300" src="http://www.youtube.com/embed/fwb-J4ACYp0" frameborder="0" allowfullscreen></iframe>
-<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vehicula imperdiet aliquam. Nunc molestie libero ac massa laoreet fermentum. Nulla semper consectetur orci eu sagittis. Nullam sit amet felis quam, sit amet egestas felis. Integer eget mauris velit, suscipit gravida diam. Cras non neque iaculis turpis malesuada bibendum.  </p>',
+<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vehicula imperdiet aliquam. Nunc molestie libero ac massa laoreet fermentum. Nulla semper consectetur orci eu sagittis. Nullam sit amet felis quam, sit amet egestas felis. Integer eget mauris velit, suscipit gravida diam. Cras non neque iaculis turpis malesuada bibendum.  </p>
+
+<a  class ="welcome-link" href="#">View example Discussion</a>',
       'format' => 'full_html',
     ),
     'additional_classes' => '',
@@ -36,7 +38,8 @@ function nurani_general_default_box() {
   $box->description = 'Nurani discussion invitation';
   $box->options = array(
     'body' => array(
-      'value' => '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>',
+      'value' => '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+<a  class ="invitation-link" href="#">Request an invitation to participate</a>',
       'format' => 'filtered_html',
     ),
     'additional_classes' => '',
@@ -52,7 +55,9 @@ function nurani_general_default_box() {
   $box->description = 'Nurani library invitation';
   $box->options = array(
     'body' => array(
-      'value' => '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>',
+      'value' => '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+
+<a  class ="invitation-link" href="#">Request invitation to Nurani Library</a>',
       'format' => 'filtered_html',
     ),
     'additional_classes' => '',
