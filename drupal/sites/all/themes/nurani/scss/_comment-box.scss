@@ -15,11 +15,11 @@
         float:left;
         a{float:left;}
       }
-      .info{margin-left:4em;
+      .info{margin-left:6em;
       @include username-links(#fff);
 
       }
-      .tip{ margin-top:1em;}
+      .tip{ margin-top:2em;}
 
     }
 
