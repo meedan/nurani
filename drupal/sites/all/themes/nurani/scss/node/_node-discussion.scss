@@ -92,14 +92,18 @@ h1.title, h2.subtitle{
   .comment{
   	/*margin-left:80px;*/
     @include white-background-bordered-top($nurani-light-blue, top, 5px);
-    span.new{visibility:hidden;}
+    
+    
     #new{
       position: absolute;
-      left: -77px;
-      margin-top: -41px;
+      left: -68px;
+      margin-top: -57px;
       background-image: url(../images/new.png);
-      width:77px;
-    }	     
+      width:100px;
+      height:100px;
+    }	
+
+    span.new{visibility:hidden;}     
   }
 }
 
@@ -116,7 +120,7 @@ h1.title, h2.subtitle{
 }
 /*//pdf of readings*/
 a.printpdf{
-  background: url(../images/printer-icon.png) center left no-repeat;
+  background: url(../images/print-icon.png) center left no-repeat;
   padding-left:3em;
   @include discussion-lock-pdf;
   text-decoration: none;
