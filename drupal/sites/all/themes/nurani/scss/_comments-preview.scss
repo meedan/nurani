@@ -1,0 +1,21 @@
+/*helper file that styles list of comments and preview on discussion page*/
+
+.comment-inner{
+  padding:35px;
+  .user-picture{
+    float:left;
+    margin:0 1em 0 -1em;
+    a{
+      float:left;
+    }
+  }
+  .content{    	
+    margin-left:4em;
+    color:$nurani-text-gray;
+    .submitted{ 
+      float:right;
+    }
+    @include username-links(#000);
+  }
+}
+.links{margin-left:1.5em; margin-top:1em;}
