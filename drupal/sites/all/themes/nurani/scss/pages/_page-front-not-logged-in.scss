@@ -5,8 +5,10 @@
   @include nurani-button($button-green, 16px, darken(#fff, 10%));
   border-radius:4em;
   padding-left:3em;
-  margin:1em 2em;
   text-decoration: none;
+  &:hover{
+    color: #fff;
+  }
 /*<a  class ="front-links" href="#"><span class="icon">View example Discussion</span></a>*/
 }
 
@@ -39,12 +41,19 @@
   a.welcome-link{
     background:url(../images/comment-icon.png) no-repeat 10px 5px;
     @include a-link-styling;
-
-    &:hover{
-      color: #fff;
-    }
-
+    margin:1em 4em;
   }
+}
+
+.panel-pane{
+	.pane-title{ margin-bottom: 1em;}
+
+  a.invitation-link{
+    background:url(../images/message-icon.png) no-repeat 10px 5px;
+    @include a-link-styling;
+    margin:1em 3em;
+  }
+
 }
 
 
