@@ -1,13 +1,18 @@
-<strong><?php echo $comment_number; ?></strong>
+<div class="comment-number ">
+  <span><?php echo $comment_number; ?></span>
+
+</div>
+
 
 <div class="<?php print $classes . ' ' . $zebra; ?>">
   <div class="comment-inner">
 
     <!-- <h3 class="title"><?php print $title ?></h3> -->
-
-    <?php if ($new) : ?>
-      <span class="new"><?php print drupal_ucfirst($new) ?></span>
-    <?php endif; ?>
+    <div id="new">
+      <?php if ($new) : ?>
+        <span class="new"><?php print drupal_ucfirst($new) ?></span>
+      <?php endif; ?>
+    </div>
 
     <?php print $picture ?>
 
@@ -26,3 +31,4 @@
 
   </div> <!-- /comment-inner -->
 </div> <!-- /comment -->
+

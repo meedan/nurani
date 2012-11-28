@@ -1,5 +1,5 @@
 
-
+/************ Section to style the Text Bundle for discussions ************/
 h1.title, h2.subtitle{
   @include bundle-typography;
 }
@@ -63,34 +63,45 @@ h1.title, h2.subtitle{
 	}	
 }
 
+
+
+
+
+/*********** Styles for the lower section of the discussion page containing i.e. the comment list and comment form ***********/
+
 #block-views-nurani_comment_list-block {
   h2.block-title{text-align:left}
+  margin-left:80px;
+
+  .comment-number{ 
+    position: absolute;
+    left: -80px;
+    margin-top: 46px;
+    font-size: 3.5em;
+    opacity: 0.5;
+  }
 }
 
-// Style for response list
+/*Style for response list comment-preview box*/
+.comment-preview{
+	@include border($nurani-red, top, 5px);
+}
+
+/*Style for response list comment box*/
 .view-nurani-comment-list{
-    & .views-row {
-	  @include white-background-bordered-top($nurani-light-blue, top, 5px);
-
-	    .comment-inner{
-	      padding:35px;
-
-	      .user-picture{
-	        float:left;
-	        margin:0 1em 0 -1em;
-          a{float:left;}
-	      }
-	      .content{ 
-	      	margin-left:4em;
-	      	color:$nurani-text-gray;
-	      	.submitted{ float:right;}
-	      	@include username-links(#000);
-	      }
-	    }
-	  .links{margin-left:1.5em; margin-top:1em;}
-	     
-	}
- }
+  .comment{
+  	/*margin-left:80px;*/
+    @include white-background-bordered-top($nurani-light-blue, top, 5px);
+    span.new{visibility:hidden;}
+    #new{
+      position: absolute;
+      left: -77px;
+      margin-top: -41px;
+      background-image: url(../images/new.png);
+      width:77px;
+    }	     
+  }
+}
 
 
 // discussion lock
@@ -103,7 +114,7 @@ h1.title, h2.subtitle{
 
   }
 }
-//pdf of readings
+/*//pdf of readings*/
 a.printpdf{
   background: url(../images/printer-icon.png) center left no-repeat;
   padding-left:3em;
