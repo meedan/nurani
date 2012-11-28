@@ -33,16 +33,4 @@
 }
 
 
- /*.links {
-    margin-top: 20px;
-    @include border-radius(0.2em);
-
-    a {
-      @include undo-blocky-link;
-      @include sronline-button($form_blue, 12px, darken(#fff, 10%));
-
-      &:hover {
-        color: #fff;
-      }
-    }
-  }*/
+ 

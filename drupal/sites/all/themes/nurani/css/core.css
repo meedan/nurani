@@ -353,19 +353,6 @@ sup {
   color: #fff;
 }
 
- /*.links {
-    margin-top: 20px;
-    @include border-radius(0.2em);
-
-    a {
-      @include undo-blocky-link;
-      @include sronline-button($form_blue, 12px, darken(#fff, 10%));
-
-      &:hover {
-        color: #fff;
-      }
-    }
-  }*/
 /* line 10, ../scss/_layout.scss */
 * {
   margin: 0;
@@ -788,7 +775,7 @@ body.node-type-discussion .block-meedan-discussion-lock .content {
 }
 /* line 122, ../scss/node/_node-discussion.scss */
 body.node-type-discussion a.printpdf {
-  background: url(../images/print-icon.png) center left no-repeat;
+  background: url(../images/print.png) center left no-repeat;
   padding-left: 3em;
   color: #4a4a4a;
   font-size: 1.2em;

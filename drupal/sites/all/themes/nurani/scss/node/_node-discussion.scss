@@ -120,7 +120,7 @@ h1.title, h2.subtitle{
 }
 /*//pdf of readings*/
 a.printpdf{
-  background: url(../images/print-icon.png) center left no-repeat;
+  background: url(../images/print.png) center left no-repeat;
   padding-left:3em;
   @include discussion-lock-pdf;
   text-decoration: none;
