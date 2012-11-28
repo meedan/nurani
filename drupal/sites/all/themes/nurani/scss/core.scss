@@ -13,12 +13,13 @@
 
 
 // Pages
-body.front.not-logged-in          { @import "pages/page-front-not-logged-in"; }
-body.front.logged-in 			  { @import "pages/page-front-logged-in";}	
+/* i removed the front class ...*/
+body.not-logged-in          { @import "pages/page-front-not-logged-in"; }
+body.front.logged-in 	    { @import "pages/page-front-logged-in";}	
 
 
 //node types
-body.node-type-discussion         { @import "node/node-discussion"; }
+body.node-type-discussion   { @import "node/node-discussion"; }
 
 
 

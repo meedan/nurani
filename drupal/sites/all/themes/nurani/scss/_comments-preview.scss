@@ -12,10 +12,37 @@
   .content{    	
     margin-left:4em;
     color:$nurani-text-gray;
-    .submitted{ 
+    .attribution{ 
       float:right;
+      @include username-links(#000);
     }
-    @include username-links(#000);
   }
+
+  .links{
+    margin-left:1.5em; 
+    margin-top:1em;
+    @include border-radius(0.2em);
+
+    a{
+      @include nurani-button($button-green, 12px, darken(#fff, 10%));
+      &:hover{
+        color: #fff;
+      }
+    }
+ }
 }
-.links{margin-left:1.5em; margin-top:1em;}
+
+
+ /*.links {
+    margin-top: 20px;
+    @include border-radius(0.2em);
+
+    a {
+      @include undo-blocky-link;
+      @include sronline-button($form_blue, 12px, darken(#fff, 10%));
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }*/

@@ -1,5 +1,14 @@
 /*  Not Logged-in Front Page */
 
+
+@mixin a-link-styling{
+  @include nurani-button($button-green, 16px, darken(#fff, 10%));
+  border-radius:4em;
+  padding-left:3em;
+  text-decoration: none;
+/*<a  class ="front-links" href="#"><span class="icon">View example Discussion</span></a>*/
+}
+
 .panel-panel{
   @include span-columns(6,18);
   
@@ -19,17 +28,30 @@
 }
 
 #boxes-box-nurani_welcome{
-	.d_ford{
-		width:80px;
-		float:left;
-		margin: 0 1.5em;
-		border: 5px solid whiteSmoke;
-	}
+  .d_ford{
+    width:80px;
+	float:left;
+	margin: 0 1.5em;
+	border: 5px solid whiteSmoke;
+  }
 }
 
 #boxes-box-nurani_about_nurani{
-	iframe{
-	  margin-bottom:2em;
-	  width:100%;
-	}
+  iframe{
+    margin-bottom:2em;
+	width:100%;
+  }
+  
+  a.welcome-link{
+    background:url(../images/comment-icon.png) no-repeat 10px 5px;
+    @include a-link-styling;
+
+    &:hover{
+      color: #fff;
+    }
+
+  }
 }
+
+
+

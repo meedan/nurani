@@ -285,22 +285,87 @@ sup {
   color: #4a4a4a;
 }
 /* line 15, ../scss/_comments-preview.scss */
-.comment-inner .content .submitted {
+.comment-inner .content .attribution {
   float: right;
 }
 /* line 4, ../scss/_typography.scss */
-.comment-inner .content a {
+.comment-inner .content .attribution a {
   color: black;
   font-weight: bold;
   text-decoration: none;
 }
-
 /* line 21, ../scss/_comments-preview.scss */
-.links {
+.comment-inner .links {
   margin-left: 1.5em;
   margin-top: 1em;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+}
+/* line 26, ../scss/_comments-preview.scss */
+.comment-inner .links a {
+  font-size: 12px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF296A36', endColorstr='#FF0D2110');
+  background-color: #296a36;
+  border: 0;
+  color: #e6e6e6;
+  text-shadow: #050e07 0 -1px 0;
+}
+/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.comment-inner .links a:hover {
+  text-decoration: none;
+}
+/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.comment-inner .links a:hover {
+  background-color: #22582c;
+}
+/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.comment-inner .links a:active {
+  background-color: #1e4d27;
+}
+/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.comment-inner .links a.disabled, .comment-inner .links a[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+.comment-inner .links a::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+/* line 28, ../scss/_comments-preview.scss */
+.comment-inner .links a:hover {
+  color: #fff;
 }
 
+ /*.links {
+    margin-top: 20px;
+    @include border-radius(0.2em);
+
+    a {
+      @include undo-blocky-link;
+      @include sronline-button($form_blue, 12px, darken(#fff, 10%));
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }*/
 /* line 10, ../scss/_layout.scss */
 * {
   margin: 0;
@@ -387,42 +452,96 @@ body {
   display: inline;
 }
 
-/* line 16, ../scss/core.scss */
-body.front.not-logged-in {
+/* i removed the front class ...*/
+/* line 17, ../scss/core.scss */
+body.not-logged-in {
   /*  Not Logged-in Front Page */
 }
-/* line 3, ../scss/pages/_page-front-not-logged-in.scss */
-body.front.not-logged-in .panel-panel {
+/* line 12, ../scss/pages/_page-front-not-logged-in.scss */
+body.not-logged-in .panel-panel {
   width: 32.07547%;
   float: left;
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 6, ../scss/pages/_page-front-not-logged-in.scss */
-body.front.not-logged-in .panel-panel:nth-child(3n) {
+/* line 15, ../scss/pages/_page-front-not-logged-in.scss */
+body.not-logged-in .panel-panel:nth-child(3n) {
   float: right;
   margin-right: 0;
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 15, ../scss/pages/_page-front-not-logged-in.scss */
-body.front.not-logged-in #block-boxes-nurani_welcome, body.front.not-logged-in #block-boxes-nurani_about_nurani, body.front.not-logged-in .panel-pane {
+/* line 24, ../scss/pages/_page-front-not-logged-in.scss */
+body.not-logged-in #block-boxes-nurani_welcome, body.not-logged-in #block-boxes-nurani_about_nurani, body.not-logged-in .panel-pane {
   background-color: #fff;
   margin-bottom: 25px;
   padding: 30px;
   text-align: justify;
 }
-/* line 22, ../scss/pages/_page-front-not-logged-in.scss */
-body.front.not-logged-in #boxes-box-nurani_welcome .d_ford {
+/* line 31, ../scss/pages/_page-front-not-logged-in.scss */
+body.not-logged-in #boxes-box-nurani_welcome .d_ford {
   width: 80px;
   float: left;
   margin: 0 1.5em;
   border: 5px solid whiteSmoke;
 }
-/* line 31, ../scss/pages/_page-front-not-logged-in.scss */
-body.front.not-logged-in #boxes-box-nurani_about_nurani iframe {
+/* line 40, ../scss/pages/_page-front-not-logged-in.scss */
+body.not-logged-in #boxes-box-nurani_about_nurani iframe {
   margin-bottom: 2em;
   width: 100%;
+}
+/* line 45, ../scss/pages/_page-front-not-logged-in.scss */
+body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link {
+  background: url(../images/comment-icon.png) no-repeat 10px 5px;
+  font-size: 16px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF296A36', endColorstr='#FF0D2110');
+  background-color: #296a36;
+  border: 0;
+  color: #e6e6e6;
+  text-shadow: #050e07 0 -1px 0;
+  border-radius: 4em;
+  padding-left: 3em;
+  text-decoration: none;
+  /*<a  class ="front-links" href="#"><span class="icon">View example Discussion</span></a>*/
+}
+/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link:hover {
+  text-decoration: none;
+}
+/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link:hover {
+  background-color: #22582c;
+}
+/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link:active {
+  background-color: #1e4d27;
+}
+/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link.disabled, body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+/* line 49, ../scss/pages/_page-front-not-logged-in.scss */
+body.not-logged-in #boxes-box-nurani_about_nurani a.welcome-link:hover {
+  color: #fff;
 }
 
 /* line 1, ../scss/pages/_page-front-logged-in.scss */
@@ -474,7 +593,7 @@ body.front.logged-in .panel-display .panel-col-last div.profile {
   border-top-color: #005eae;
 }
 
-/* line 21, ../scss/core.scss */
+/* line 22, ../scss/core.scss */
 body.node-type-discussion {
   /************ Section to style the Text Bundle for discussions ************/
   /*********** Styles for the lower section of the discussion page containing i.e. the comment list and comment form ***********/
