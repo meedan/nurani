@@ -120,7 +120,7 @@ sup {
   max-width: 100%;
 }
 
-/* line 2, ../scss/_navigation.scss */
+/* line 2, ../scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login {
   margin-top: -31px;
   width: 25%;
@@ -134,29 +134,29 @@ sup {
   font-weight: bold;
   text-decoration: none;
 }
-/* line 13, ../scss/_navigation.scss */
+/* line 13, ../scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login .logout, #block-nurani_helpers-welcome_login .login {
   margin-left: 50px;
   font-weight: bold;
   text-transform: uppercase;
 }
-/* line 17, ../scss/_navigation.scss */
+/* line 17, ../scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login .logout a, #block-nurani_helpers-welcome_login .login a {
   text-decoration: none;
   color: #4a4a4a;
 }
 
-/* line 26, ../scss/_navigation.scss */
+/* line 26, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu {
   width: 45%;
   padding: 10px;
 }
-/* line 30, ../scss/_navigation.scss */
+/* line 30, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li {
   list-style-type: none;
   display: inline;
 }
-/* line 33, ../scss/_navigation.scss */
+/* line 33, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li a {
   /*font-size:1.625em;*/
   font-size: 1.5em;
@@ -170,30 +170,30 @@ sup {
   color: #4c1313;
 }
 
-/* line 2, ../scss/_comment-box.scss */
+/* line 2, ../scss/_comment-form.scss */
 .block-nurani-comment {
   background: #005eae;
   margin-bottom: 20px;
   margin-top: 86px;
 }
-/* line 3, ../scss/_comment-box.scss */
+/* line 3, ../scss/_comment-form.scss */
 .block-nurani-comment h2.block-title {
   display: none;
 }
-/* line 9, ../scss/_comment-box.scss */
+/* line 9, ../scss/_comment-form.scss */
 .block-nurani-comment form {
   padding: 20px;
   color: #fff;
 }
-/* line 14, ../scss/_comment-box.scss */
+/* line 14, ../scss/_comment-form.scss */
 .block-nurani-comment form div.head .user-picture {
   float: left;
 }
-/* line 16, ../scss/_comment-box.scss */
+/* line 16, ../scss/_comment-form.scss */
 .block-nurani-comment form div.head .user-picture a {
   float: left;
 }
-/* line 18, ../scss/_comment-box.scss */
+/* line 18, ../scss/_comment-form.scss */
 .block-nurani-comment form div.head .info {
   margin-left: 6em;
 }
@@ -203,19 +203,19 @@ sup {
   font-weight: bold;
   text-decoration: none;
 }
-/* line 22, ../scss/_comment-box.scss */
+/* line 22, ../scss/_comment-form.scss */
 .block-nurani-comment form div.head .tip {
   margin-top: 2em;
 }
-/* line 26, ../scss/_comment-box.scss */
+/* line 26, ../scss/_comment-form.scss */
 .block-nurani-comment form .form-textarea-wrapper textarea {
   height: 200px;
 }
-/* line 30, ../scss/_comment-box.scss */
+/* line 30, ../scss/_comment-form.scss */
 .block-nurani-comment form label, .block-nurani-comment form .form-text, .block-nurani-comment form .filter-wrapper {
   display: none;
 }
-/* line 33, ../scss/_comment-box.scss */
+/* line 33, ../scss/_comment-form.scss */
 .block-nurani-comment form .form-submit {
   font-size: 12px;
   padding: 0.5em 1.5em;
@@ -260,12 +260,12 @@ sup {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 38, ../scss/_comment-box.scss */
+/* line 38, ../scss/_comment-form.scss */
 .block-nurani-comment form .form-actions {
   float: right;
 }
 
-/*helper file that styles list of comments and preview on discussion page*/
+/* Themes list of comments and preview on discussion page */
 /* line 3, ../scss/_comments-preview.scss */
 .comment-inner {
   padding: 35px;
@@ -353,25 +353,25 @@ sup {
   color: #fff;
 }
 
-/* line 10, ../scss/_layout.scss */
+/* line 11, ../scss/_layout.scss */
 * {
   margin: 0;
   padding: 0;
 }
 
-/* line 15, ../scss/_layout.scss */
+/* line 16, ../scss/_layout.scss */
 body {
   margin: 0;
   background: #f1e9e4 url("../images/brown_bkg.gif") repeat fixed center right;
 }
 
-/* line 20, ../scss/_layout.scss */
+/* line 21, ../scss/_layout.scss */
 .region-top-strip {
   background: #fff;
   padding: 4px 20px 0;
 }
 
-/* line 25, ../scss/_layout.scss */
+/* line 26, ../scss/_layout.scss */
 #main {
   *zoom: 1;
   max-width: 98.33333%;
@@ -388,7 +388,7 @@ body {
   display: table;
   clear: both;
 }
-/* line 29, ../scss/_layout.scss */
+/* line 30, ../scss/_layout.scss */
 #main > #content {
   padding-left: 5.08475%;
   padding-right: 5.08475%;
@@ -398,7 +398,7 @@ body {
   display: inline;
 }
 
-/* line 37, ../scss/_layout.scss */
+/* line 38, ../scss/_layout.scss */
 #header {
   height: 39px;
   *zoom: 1;
@@ -417,11 +417,11 @@ body {
   clear: both;
 }
 
-/* line 47, ../scss/_layout.scss */
+/* line 48, ../scss/_layout.scss */
 #content-inner #content-area {
   margin-bottom: 2em;
 }
-/* line 53, ../scss/_layout.scss */
+/* line 54, ../scss/_layout.scss */
 #content-inner #content-bottom #content-bottom-left {
   float: left;
   width: 60.37736%;
@@ -429,7 +429,7 @@ body {
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 58, ../scss/_layout.scss */
+/* line 59, ../scss/_layout.scss */
 #content-inner #content-bottom #content-bottom-right {
   float: left;
   width: 32.07547%;
@@ -622,7 +622,7 @@ body.front.logged-in .panel-display .panel-col-first .view-nurani-discussions {
   border-top-style: solid;
   border-top-color: #4c1313;
 }
-/* line 25, ../scss/pages/_page-front-logged-in.scss */
+/* line 23, ../scss/pages/_page-front-logged-in.scss */
 body.front.logged-in .panel-display .panel-col-last {
   width: 37.73585%;
   float: right;
@@ -630,7 +630,7 @@ body.front.logged-in .panel-display .panel-col-last {
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 27, ../scss/pages/_page-front-logged-in.scss */
+/* line 25, ../scss/pages/_page-front-logged-in.scss */
 body.front.logged-in .panel-display .panel-col-last div.profile {
   background-color: #fff;
   margin-bottom: 25px;

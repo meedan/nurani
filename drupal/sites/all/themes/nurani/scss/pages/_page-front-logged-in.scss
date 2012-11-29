@@ -16,9 +16,7 @@
      @include span-columns(10,18);
      .view-nurani-discussions{
         @include white-background-bordered-top($nurani-burgundy, top, 5px);	
-
-	 }
-
+	   }
    }
 
   /*profile block*/
@@ -26,11 +24,8 @@
     @include span-columns(7 omega,18);
     div.profile{
       @include white-background-bordered-top($nurani-light-blue, top, 5px);	
-
-	}
+	  }
   }
-
-
 
 }
 

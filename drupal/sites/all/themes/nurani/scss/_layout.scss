@@ -3,9 +3,10 @@
 @import "typography";
 @import "media-queries";
 @import "header";
-@import "navigation";
-@import "comment-box";
+@import "top-strip";
+@import "comment-form";
 @import "comments-preview";
+@import "profile";
 
 *{
   margin:0;
