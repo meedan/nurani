@@ -357,20 +357,38 @@ sup {
 .pane-nurani-profile-user-profile h2.pane-title {
   color: #005eae;
 }
-
 /* line 6, ../scss/_profile.scss */
-.profile {
+.pane-nurani-profile-user-profile .profile {
   padding: 25px;
 }
 /* line 9, ../scss/_profile.scss */
-.profile .user-picture {
+.pane-nurani-profile-user-profile .profile .user-picture {
   float: right;
   margin: 1em 0 0 1em;
 }
 /* line 14, ../scss/_profile.scss */
-.profile .fieldset-legend, .profile a.fieldset-title {
+.pane-nurani-profile-user-profile .profile .fieldset-legend, .pane-nurani-profile-user-profile .profile a.fieldset-title {
   font-size: 1.2em;
   color: #005eae;
+}
+/* line 19, ../scss/_profile.scss */
+.pane-nurani-profile-user-profile .profile .field-name-field-first-name {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+}
+/* line 25, ../scss/_profile.scss */
+.pane-nurani-profile-user-profile .profile .group-details .field {
+  margin-bottom: 1em;
+}
+/* line 27, ../scss/_profile.scss */
+.pane-nurani-profile-user-profile .profile .group-details .field > .field-items {
+  float: right;
+  text-align: right;
+}
+/* line 32, ../scss/_profile.scss */
+.pane-nurani-profile-user-profile .profile .field-name-field-postal-address .field-items {
+  width: 28%;
 }
 
 /* line 11, ../scss/_layout.scss */
