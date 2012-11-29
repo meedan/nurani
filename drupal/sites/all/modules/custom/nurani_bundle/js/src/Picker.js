@@ -41,6 +41,7 @@ Picker.prototype.createDialog = function ($element) {
                         }
                         $(this).dialog('close');
                       }
+                      // NOTE: Error display is managed by PickerUI
                     },
                     Cancel: function() {
                       if (that.opts.onCancel) {
