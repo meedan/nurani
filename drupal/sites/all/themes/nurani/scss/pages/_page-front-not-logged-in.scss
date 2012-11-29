@@ -9,7 +9,6 @@
   &:hover{
     color: #fff;
   }
-/*<a  class ="front-links" href="#"><span class="icon">View example Discussion</span></a>*/
 }
 
 .panel-panel{
@@ -18,12 +17,12 @@
 }
   
 #block-boxes-nurani_welcome, #block-boxes-nurani_about_nurani, .panel-pane{
-  @include white-background-no-border;
   padding:30px;
   text-align:justify;
 }
 
-#boxes-box-nurani_welcome{
+#block-boxes-nurani_welcome{
+  @include white-background-bordered-top($nurani-gold,top, 5px);
   .d_ford{
     width:80px;
 	float:left;
@@ -32,7 +31,8 @@
   }
 }
 
-#boxes-box-nurani_about_nurani{
+#block-boxes-nurani_about_nurani{
+  @include white-background-bordered-top($nurani-burgundy,top, 5px);
   iframe{
     margin-bottom:2em;
 	width:100%;
@@ -46,6 +46,7 @@
 }
 
 .panel-pane{
+  @include white-background-bordered-top($nurani-light-blue,top, 5px);
 	.pane-title{ margin-bottom: 1em;}
 
   a.invitation-link{

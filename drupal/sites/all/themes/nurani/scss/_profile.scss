@@ -1,5 +1,22 @@
 
-.profile{
 
-	
+.pane-nurani-profile-user-profile{
+  h2.pane-title{color:$nurani-light-blue;}
+}
+.profile{
+  padding: 25px;
+
+  .user-picture{
+    float: right;
+    margin: 1em 0 0 1em;
+  }
+
+  .fieldset-legend, a.fieldset-title { 
+
+  	font-size:1.2em;
+  	color:$nurani-light-blue;
+  	
+  }
+
+
 }
