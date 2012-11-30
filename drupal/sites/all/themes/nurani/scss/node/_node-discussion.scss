@@ -15,7 +15,8 @@ h1.title, h2.subtitle{
 	}
 	.passage-boxes > .inner {
 		@include span-columns(16,18);
-		@include pad(1,1);
+		float:none;
+		/*@include pad(1,1);*/
 		
 
 	}
@@ -43,6 +44,8 @@ h1.title, h2.subtitle{
 
       .bib{
         border:1px solid $nurani-gray;
+        margin: -1em 1em 0em 3.4em;
+        width:73%;
 
       	.moderator_s_thoughts{
 	  	  p{
@@ -101,7 +104,7 @@ h1.title, h2.subtitle{
       background: url(../images/new.png) no-repeat;
       width:100px;
       height:100px;
-      span.new{visibility:hidden;}  
+     /* span.new{visibility:hidden;}  */
     }	
 
        
