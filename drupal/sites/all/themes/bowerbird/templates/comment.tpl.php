@@ -3,7 +3,7 @@
 
     <!-- <h3 class="title"><?php print $title ?></h3> -->
 
-    <?php if (isset($new)) : ?>
+    <?php if (isset($new) && $new) : ?>
       <span class="new"><?php print drupal_ucfirst($new) ?></span>
     <?php endif; ?>
 

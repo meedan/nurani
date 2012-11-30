@@ -7,7 +7,7 @@
 
     <?php print $user_picture; ?>
 
-    <?php if (isset($display_submitted)): ?>
+    <?php if (isset($display_submitted) && $display_submitted): ?>
       <span class="submitted"><?php print $date; ?> — <?php print $name; ?></span>
     <?php endif; ?>
 
