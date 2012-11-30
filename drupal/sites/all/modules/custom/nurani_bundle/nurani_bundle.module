@@ -90,6 +90,11 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
 
   // Hide the existing node reference widget
   $element['nid']['#type'] = 'hidden';
+
+  // FIXME: It is really not ideal to add some other module's libraries by force
+  //        in this manner. This should be migrated to some sort of loader
+  //        function.
+
   // Add the custom bundle UI and connections to the nurani library UI for the
   // passage picker
   $path = drupal_get_path('module', 'nurani_bundle');
@@ -110,6 +115,7 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
         $path . '/js/nurani_bundle_ui.js',
         $libraries_path . '/handlebars/handlebars-1.0.rc.1.js',
         $libraries_path . '/Bible-Passage-Reference-Parser/js/en_bcv_parser.min.js',
+        $libraries_path . '/jquery-color/jquery.color-2.1.1.min.js',
       ),
     ),
     '#bundle_nid' => $bundle_nid,
