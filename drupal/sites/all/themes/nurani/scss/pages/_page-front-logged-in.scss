@@ -16,8 +16,18 @@
      @include span-columns(10,18);
      .view-nurani-discussions{
         @include white-background-bordered-top($nurani-burgundy, top, 5px);	
+        
 	   }
    }
+
+.views-row {
+ /* padding:0 25px 0;*/
+  .views-field-title, .views-field-field-discussion-closing-date, .views-field-field-bundle{ 
+   /* width:50%;*/
+    
+  }
+}
+
 
   /*profile block*/
   .panel-col-last{ 

@@ -21,10 +21,9 @@
   .links{
     margin-left:1.5em; 
     margin-top:1em;
-    @include border-radius(0.2em);
-
     a{
-      @include nurani-button($button-green, 12px, darken(#fff, 10%));
+      @include nurani-button($nurani-light-blue, 12px, darken(#fff, 10%));
+      @include border-radius(1.5em);
       &:hover{
         color: #fff;
       }
