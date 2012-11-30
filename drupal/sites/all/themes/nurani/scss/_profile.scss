@@ -4,11 +4,13 @@
   h2.pane-title{color:$nurani-light-blue;}
 
   .profile{
-    padding: 25px;
+    padding: 0 25px 0;
+
+    .group-profile{margin-top:1em;}
 
     .user-picture{
       float: right;
-      margin: 1em 0 0 1em;
+      margin: 2em 0 0 1em;
     }
 
     .fieldset-legend, a.fieldset-title {
@@ -16,7 +18,7 @@
   	  color:$nurani-light-blue;
     }
 
-    .field-name-field-first-name{ 
+    .field-name-field-title, .field-name-field-first-name{ 
       display: inline;
       float: left;
       margin-right: 10px;
@@ -32,5 +34,7 @@
     .field-name-field-postal-address .field-items{
       width:28%;
     }
+
+    .field-label-above{ margin-bottom:1em;}
   }
 }

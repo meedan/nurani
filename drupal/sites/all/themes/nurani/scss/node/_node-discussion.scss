@@ -98,12 +98,13 @@ h1.title, h2.subtitle{
       position: absolute;
       left: -68px;
       margin-top: -57px;
-      background-image: url(../images/new.png);
+      background: url(../images/new.png) no-repeat;
       width:100px;
       height:100px;
+      span.new{visibility:hidden;}  
     }	
 
-    span.new{visibility:hidden;}     
+       
   }
 }
 
