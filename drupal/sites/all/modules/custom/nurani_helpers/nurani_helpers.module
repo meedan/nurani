@@ -101,10 +101,17 @@ function theme_nurani_helpers_block_welcome_login($variables) {
 function theme_nurani_attribution($variables) {
   $output  = '';
   $output .= '<span class="attribution">';
+  $output .=   '&mdash; ';
   $output .=   theme('username', array('account' => $variables['account']));
   if ($variables['timestamp']) {
-    $output .= ' ';
-    $output .= format_date($variables['timestamp'], 'medium', '', $variables['account']->timezone);
+    $output .= ' <span class="date">';
+    $output .=   format_date($variables['timestamp'], 'attribution', '', $variables['account']->timezone);
+    $output .= '</span>';
+  }
+  if ($variables['account']->field_country && $variables['account']->field_country[LANGUAGE_NONE][0]) {
+    $output .= ' <span class="country">';
+    $output .=   check_plain($variables['account']->field_country[LANGUAGE_NONE][0]['value']);
+    $output .= '</span>';
   }
   $output .= '</span>';
   return $output;
@@ -119,6 +126,7 @@ function theme_nurani_attribution($variables) {
 function nurani_helpers_date_format_types() {
   return array(
     'date_of_birth' => t('Date of birth'),
+    'attribution' => t('Attribution time'),
   );
 }
 
@@ -133,6 +141,11 @@ function nurani_helpers_date_formats() {
   $formats[] = array(
     'type' => 'date_of_birth',
     'format' => 'j F, Y',
+    'locales' => array(),
+  );
+  $formats[] = array(
+    'type' => 'attribution',
+    'format' => 'D j M, g A',
     'locales' => array(),
   );
   return $formats;

@@ -39,13 +39,14 @@
   };
 
   CommentSortUI.prototype.addSortLinks = function () {
-    var that = this;
+    var that        = this,
+        currentSort = $('select[name="sort_order"]', this.$wrapper).val();
 
     this.$sortLinks = $('<div class="nurani-sort-links"></div>');
 
     this.sortLinks = [
-      new SortLink('DESC', Drupal.t("Most recent first"), function () { that.applySort('DESC'); }),
-      new SortLink('ASC', Drupal.t("Oldest first"),       function () { that.applySort('ASC'); })
+      new SortLink('DESC', Drupal.t("Most recent first"), currentSort == 'DESC', function () { that.applySort('DESC'); }),
+      new SortLink('ASC', Drupal.t("Oldest first"), currentSort == 'ASC',        function () { that.applySort('ASC'); })
     ];
 
     this.$sortLinks
@@ -64,10 +65,11 @@
   /**
    * A Sort link object.
    */
-  function SortLink(direction, text, callback) {
+  function SortLink(direction, text, isActive, callback) {
     var that = this;
 
     this.direction = direction;
+    this.isActive = isActive;
     this.$link = this.createLink(text);
 
     this.$link.click(function () {
@@ -77,7 +79,7 @@
   };
 
   SortLink.prototype.createLink = function(text) {
-    return $('<a href="#" class="nurani-comment-sort-link ' + this.direction.toLowerCase() + '">' + text + '</a>');
+    return $('<a href="#" class="nurani-comment-sort-link ' + this.direction.toLowerCase() + (this.isActive ? ' active' : '') + '">' + text + '</a>');
   };
 
 })(jQuery);

@@ -1,10 +1,10 @@
 /**
- * Corebox util library.
+ * Util library.
  */
 function Util() {
 }
 
-// Globally available CB.Util
+// Globally available Util
 var util = new Util();
 
 /**
@@ -13,7 +13,7 @@ var util = new Util();
  */
 Util.prototype.setMessage = function (prepend_to, message, type, hide_after) {
   type       = type || 'ok';
-  hide_after = hide_after || 3000;
+  hide_after = hide_after || 4000;
 
   classes = ['messages'];
   if (type) {

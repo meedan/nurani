@@ -94,6 +94,7 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
   // passage picker
   $path = drupal_get_path('module', 'nurani_bundle');
   $nl_base_url = nurani_library_base_url(TRUE) . '/' . drupal_get_path('module', 'nurani_library_ui');
+  $libraries_path = 'sites/all/libraries';
   $element['ui'] = array(
     '#theme' => 'nurani_bundle_ui',
     '#attached' => array(
@@ -107,7 +108,8 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
       'js'  => array(
         $nl_base_url . '/js/nurani_library_ui.js',
         $path . '/js/nurani_bundle_ui.js',
-        'sites/all/libraries/handlebars/handlebars-1.0.rc.1.js'
+        $libraries_path . '/handlebars/handlebars-1.0.rc.1.js',
+        $libraries_path . '/Bible-Passage-Reference-Parser/js/en_bcv_parser.min.js',
       ),
     ),
     '#bundle_nid' => $bundle_nid,
