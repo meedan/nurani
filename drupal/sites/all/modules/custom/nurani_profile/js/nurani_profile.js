@@ -109,4 +109,23 @@
       })
   };
 
+
+  /**
+   * Helper plugin to enable ajax_command_invoke() to do more complex tasks.
+   */
+  $.fn.delayedEffect = function(delay, effect, removeAfter) {
+    var $this = $(this);
+
+    removeAfter = typeof removeAfter !== 'undefined' ? removeAfter : false;
+
+    setTimeout(function () {
+      $this[effect]
+        .call($this, function () {
+          if (removeAfter) {
+            $(this).remove();
+          }
+        });
+    }, delay);
+  };
+
 })(jQuery);
