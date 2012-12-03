@@ -2,9 +2,8 @@
 
 
 @mixin a-link-styling{
-  @include nurani-button($button-green, 16px, darken(#fff, 10%));
-  border-radius:4em;
-  padding-left:3em;
+  @include nurani-button($nurani-light-blue, 14px, darken(#fff, 0.5%));
+  text-transform: uppercase;
   text-decoration: none;
   &:hover{
     color: #fff;
@@ -32,15 +31,17 @@
 }
 
 #block-boxes-nurani_about_nurani{
+  h2.block-title{ margin-bottom:1em;}
   @include white-background-bordered-top($nurani-burgundy,top, 5px);
   iframe{
     margin-bottom:2em;
-	width:100%;
+	  width:100%;
   }
 
   a.welcome-link{
-    background:url(../images/comment-icon.png) no-repeat 10px 5px;
+    background:url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
     @include a-link-styling;
+    padding:1em 3.5em;
     margin:1em 4em;
   }
 }
@@ -50,8 +51,9 @@
 	.pane-title{ margin-bottom: 1em;}
 
   a.invitation-link{
-    background:url(../images/message-icon.png) no-repeat 10px 5px;
+    background:url(../images/mail.png) no-repeat 10px 11px;
     @include a-link-styling;
+    padding:1em 1em 1em 4em;
     margin:1em 3em;
   }
 

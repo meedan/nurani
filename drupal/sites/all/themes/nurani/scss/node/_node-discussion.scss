@@ -170,13 +170,13 @@ a.printpdf{
   a{
     color: $nurani-burgundy;
     padding: 5px;
-    display:none;
+    display:block;
     text-decoration:none;
     opacity:0.5;
   }
 
   a.active{
-	display:block;
+	display:none;
   }
 }
 

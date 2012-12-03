@@ -913,11 +913,11 @@ body.node-type-discussion .nurani-sort-links {
 body.node-type-discussion .nurani-sort-links a {
   color: #4c1313;
   padding: 5px;
-  display: none;
+  display: block;
   text-decoration: none;
   opacity: 0.5;
 }
 /* line 178, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .nurani-sort-links a.active {
-  display: block;
+  display: none;
 }
