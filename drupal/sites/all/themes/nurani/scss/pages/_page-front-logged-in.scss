@@ -14,7 +14,7 @@
    /*Your discussion block*/
    .panel-col-first{
      @include span-columns(10,18);
-     .view-nurani-discussions{
+     .pane-content{
         @include white-background-bordered-top($nurani-burgundy, top, 5px);	
         
 	   }
@@ -32,7 +32,7 @@
   /*profile block*/
   .panel-col-last{ 
     @include span-columns(7 omega,18);
-    div.profile{
+    .pane-content{
       @include white-background-bordered-top($nurani-light-blue, top, 5px);	
 	  }
   }
