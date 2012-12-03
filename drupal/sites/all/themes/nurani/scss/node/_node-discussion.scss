@@ -54,10 +54,15 @@ h1.title, h2.subtitle{
 	  		color:$nurani-text-gray;
 	  	  }
 
-	  	  span, a.username{ 
+	  	  /*span, a.username{ 
 	  	  	margin-left: 2.5em;
 	  	  	color:$nurani-light-blue; 
 	  	  	font-weight: bold;
+	  	  }*/
+
+	  	  span.attribution{
+	  	  	margin-left: 227px;
+	  	  	@include attribution($nurani-light-blue);
 	  	  }
 	    }
 
@@ -69,11 +74,15 @@ h1.title, h2.subtitle{
 
 
 
-
 /*********** Styles for the lower section of the discussion page containing i.e. the comment list and comment form ***********/
 
 #block-views-nurani_comment_list-block {
-  h2.block-title{text-align:left}
+  h2.block-title{
+    text-align:left;
+    width: 250px;
+    margin-bottom: 2px;
+    padding:8px 0;
+  }
   margin-left:80px;
 
   .comment-number{ 
@@ -152,6 +161,26 @@ a.printpdf{
   
 
 } 
+
+.nurani-sort-links{
+  float: right;
+  font-size: 2.1429em;
+  margin-top: -35px;
+  width: 246px;
+  a{
+    color: $nurani-burgundy;
+    padding: 5px;
+    display:none;
+    text-decoration:none;
+    opacity:0.5;
+  }
+
+  a.active{
+	display:block;
+  }
+}
+
+
 
 
 

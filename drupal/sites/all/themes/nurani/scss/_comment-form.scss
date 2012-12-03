@@ -32,6 +32,8 @@
     }
     .form-submit{
       @include nurani-button($nurani-dark-blue);
+      text-transform: uppercase;
+      font-weight: bold;
       margin-right:0.5em;
     }
 

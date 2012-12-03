@@ -1,5 +1,10 @@
 /* Themes list of comments and preview on discussion page */
 
+/*Mixin to style attribution class*/
+@mixin attribution($color){
+    @include username-links($color); 
+}
+
 .comment-inner{
   padding:35px;
   .user-picture{
@@ -14,7 +19,7 @@
     color:$nurani-text-gray;
     .attribution{ 
       float:right;
-      @include username-links(#000);
+      @include attribution($nurani-light-blue);
     }
   }
 
@@ -23,9 +28,12 @@
     margin-top:1em;
     a{
       @include nurani-button($nurani-light-blue, 12px, darken(#fff, 10%));
-      @include border-radius(1.5em);
+      @include border-radius(0.2em);
+      text-transform: uppercase;
+      text-decoration: none;
       &:hover{
         color: #fff;
+        text-decoration: none;
       }
     }
  }
