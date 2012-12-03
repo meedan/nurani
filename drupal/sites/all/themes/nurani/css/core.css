@@ -318,15 +318,11 @@ sup {
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0064B8', endColorstr='#FF002C52');
   background-color: #0064b8;
   border: 0;
-  color: #e6e6e6;
+  color: white;
   text-shadow: #001f39 0 -1px 0;
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  -ms-border-radius: 0.2em;
-  -o-border-radius: 0.2em;
-  border-radius: 0.2em;
   text-transform: uppercase;
   text-decoration: none;
+  font-weight: bold;
 }
 /* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a:hover {
@@ -497,26 +493,26 @@ body {
 body.not-logged-in {
   /*  Not Logged-in Front Page */
 }
-/* line 14, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 13, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in .panel-panel {
   width: 32.07547%;
   float: left;
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 16, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 15, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in .panel-panel:nth-child(3n) {
   float: right;
   margin-right: 0;
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 19, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 18, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #block-boxes-nurani_welcome, body.not-logged-in #block-boxes-nurani_about_nurani, body.not-logged-in .panel-pane {
   padding: 30px;
   text-align: justify;
 }
-/* line 24, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 23, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #block-boxes-nurani_welcome {
   background-color: #fff;
   margin-bottom: 25px;
@@ -524,20 +520,24 @@ body.not-logged-in #block-boxes-nurani_welcome {
   border-top-style: solid;
   border-top-color: #ac9d43;
 }
-/* line 26, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 25, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #block-boxes-nurani_welcome .d_ford {
   width: 80px;
   float: left;
   margin: 0 1.5em;
   border: 5px solid whiteSmoke;
 }
-/* line 34, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 33, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #block-boxes-nurani_about_nurani {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #4c1313;
+}
+/* line 34, ../scss/pages/_page-front-not-logged-in.scss */
+body.not-logged-in #block-boxes-nurani_about_nurani h2.block-title {
+  margin-bottom: 1em;
 }
 /* line 36, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #block-boxes-nurani_about_nurani iframe {
@@ -546,8 +546,8 @@ body.not-logged-in #block-boxes-nurani_about_nurani iframe {
 }
 /* line 41, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link {
-  background: url(../images/comment-icon.png) no-repeat 10px 5px;
-  font-size: 16px;
+  background: url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
+  font-size: 14px;
   padding: 0.5em 1.5em;
   display: inline-block;
   cursor: pointer;
@@ -557,14 +557,14 @@ body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link {
   -o-border-radius: 0.2em;
   border-radius: 0.2em;
   *zoom: 1;
-  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF296A36', endColorstr='#FF0D2110');
-  background-color: #296a36;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0064B8', endColorstr='#FF002C52');
+  background-color: #0064b8;
   border: 0;
-  color: #e6e6e6;
-  text-shadow: #050e07 0 -1px 0;
-  border-radius: 4em;
-  padding-left: 3em;
+  color: #fefefe;
+  text-shadow: #001f39 0 -1px 0;
+  text-transform: uppercase;
   text-decoration: none;
+  padding: 1em 3.5em;
   margin: 1em 4em;
 }
 /* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
@@ -573,11 +573,11 @@ body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link:hover {
 }
 /* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link:hover {
-  background-color: #22582c;
+  background-color: #00569f;
 }
 /* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link:active {
-  background-color: #1e4d27;
+  background-color: #004d8f;
 }
 /* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link.disabled, body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link[disabled] {
@@ -593,11 +593,11 @@ body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link::-moz-focus-i
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 9, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 8, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link:hover {
   color: #fff;
 }
-/* line 48, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 49, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in .panel-pane {
   background-color: #fff;
   margin-bottom: 25px;
@@ -605,14 +605,14 @@ body.not-logged-in .panel-pane {
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 50, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 51, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in .panel-pane .pane-title {
   margin-bottom: 1em;
 }
-/* line 52, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 53, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in .panel-pane a.invitation-link {
-  background: url(../images/message-icon.png) no-repeat 10px 5px;
-  font-size: 16px;
+  background: url(../images/mail.png) no-repeat 10px 11px;
+  font-size: 14px;
   padding: 0.5em 1.5em;
   display: inline-block;
   cursor: pointer;
@@ -622,14 +622,14 @@ body.not-logged-in .panel-pane a.invitation-link {
   -o-border-radius: 0.2em;
   border-radius: 0.2em;
   *zoom: 1;
-  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF296A36', endColorstr='#FF0D2110');
-  background-color: #296a36;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0064B8', endColorstr='#FF002C52');
+  background-color: #0064b8;
   border: 0;
-  color: #e6e6e6;
-  text-shadow: #050e07 0 -1px 0;
-  border-radius: 4em;
-  padding-left: 3em;
+  color: #fefefe;
+  text-shadow: #001f39 0 -1px 0;
+  text-transform: uppercase;
   text-decoration: none;
+  padding: 1em 1em 1em 4em;
   margin: 1em 3em;
 }
 /* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
@@ -638,11 +638,11 @@ body.not-logged-in .panel-pane a.invitation-link:hover {
 }
 /* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.not-logged-in .panel-pane a.invitation-link:hover {
-  background-color: #22582c;
+  background-color: #00569f;
 }
 /* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.not-logged-in .panel-pane a.invitation-link:active {
-  background-color: #1e4d27;
+  background-color: #004d8f;
 }
 /* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.not-logged-in .panel-pane a.invitation-link.disabled, body.not-logged-in .panel-pane a.invitation-link[disabled] {
@@ -658,7 +658,7 @@ body.not-logged-in .panel-pane a.invitation-link::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 9, ../scss/pages/_page-front-not-logged-in.scss */
+/* line 8, ../scss/pages/_page-front-not-logged-in.scss */
 body.not-logged-in .panel-pane a.invitation-link:hover {
   color: #fff;
 }
@@ -727,6 +727,8 @@ body.node-type-discussion {
   /*Style for response list comment-preview box*/
   /*Style for response list comment box*/
   /*//pdf of readings*/
+  /* style to create drop-down arrow*/
+  /*Styles for sort-link*/
 }
 /* line 3, ../scss/node/_node-discussion.scss */
 body.node-type-discussion h1.title, body.node-type-discussion h2.subtitle {
@@ -903,13 +905,27 @@ body.node-type-discussion .view-meedan-discussion-participants > .view-content .
   text-decoration: none;
 }
 /* line 165, ../scss/node/_node-discussion.scss */
+body.node-type-discussion .nurani-sort-links:after {
+  content: ' ';
+  height: 0;
+  position: absolute;
+  width: 0;
+  right: -5px;
+  top: 16px;
+  border: 10px solid transparent;
+  border-top-color: #4c1313;
+  opacity: 0.5;
+}
+/* line 178, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .nurani-sort-links {
+  position: relative;
   float: right;
   font-size: 2.1429em;
-  margin-top: -35px;
+  margin-top: -37px;
   width: 246px;
+  margin-right: 14px;
 }
-/* line 170, ../scss/node/_node-discussion.scss */
+/* line 185, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .nurani-sort-links a {
   color: #4c1313;
   padding: 5px;
@@ -917,7 +933,7 @@ body.node-type-discussion .nurani-sort-links a {
   text-decoration: none;
   opacity: 0.5;
 }
-/* line 178, ../scss/node/_node-discussion.scss */
+/* line 193, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .nurani-sort-links a.active {
   display: none;
 }

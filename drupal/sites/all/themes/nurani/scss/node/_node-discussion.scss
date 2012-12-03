@@ -161,12 +161,27 @@ a.printpdf{
   
 
 } 
+/* style to create drop-down arrow*/
+.nurani-sort-links:after {
+	content: ' ';
+	height: 0;
+	position: absolute;
+	width: 0;
+	right: -5px;
+    top: 16px;
+	border: 10px solid transparent;
+	border-top-color: $nurani-burgundy;
+	opacity:0.5;
+}
 
+/*Styles for sort-link*/
 .nurani-sort-links{
+	position:relative;
   float: right;
   font-size: 2.1429em;
-  margin-top: -35px;
+  margin-top: -37px;
   width: 246px;
+  margin-right:14px;
   a{
     color: $nurani-burgundy;
     padding: 5px;

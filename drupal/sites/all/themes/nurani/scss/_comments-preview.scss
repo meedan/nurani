@@ -27,10 +27,10 @@
     margin-left:1.5em; 
     margin-top:1em;
     a{
-      @include nurani-button($nurani-light-blue, 12px, darken(#fff, 10%));
-      @include border-radius(0.2em);
+      @include nurani-button($nurani-light-blue);
       text-transform: uppercase;
       text-decoration: none;
+      font-weight:bold;
       &:hover{
         color: #fff;
         text-decoration: none;
