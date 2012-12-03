@@ -14,7 +14,7 @@
    /*Your discussion block*/
    .panel-col-first{
      @include span-columns(10,18);
-     .pane-content{
+     .view-nurani-discussions{
         @include white-background-bordered-top($nurani-burgundy, top, 5px);	
         
 	   }
