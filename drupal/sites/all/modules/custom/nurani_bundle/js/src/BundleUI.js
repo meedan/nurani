@@ -64,15 +64,30 @@ BundleUI.prototype.loadState = function (data, set_message) {
  * their state changed.
  */
 BundleUI.prototype.passageBoxStateDidChange = function (passageBox, animated) {
-  var i, len = this.passageBoxes.length, picked = [];
+  var i, len = this.passageBoxes.length, pickedKeys = [], visibleKeys = [], state;
 
   animated = typeof animated === 'undefined' ? true : animated;
 
   for (i = 0; i < len; i++) {
-    picked.push(this.passageBoxes[i].picked);
+    state = this.passageBoxes[i].getState();
+
+    if (this.passageBoxes[i].picked === true) {
+      pickedKeys.push(i);
+    }
+    if (state.visible) {
+      visibleKeys.push(i);
+    }
   }
 
-  this.cloneBundle.setVisibility(picked.indexOf(true) === -1, false, animated);
+  // If there are picked passages but none are visible then ensure the first
+  // passage is marked visible.
+  if (visibleKeys.length == 0 && pickedKeys.length > 0) {
+    state = this.passageBoxes[pickedKeys[0]].getState();
+    state.visible = true;
+    this.passageBoxes[pickedKeys[0]].loadState(state, true);
+  }
+
+  this.cloneBundle.setVisibility(pickedKeys.length > 0, false, animated);
 };
 
 /**

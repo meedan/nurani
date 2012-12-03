@@ -120,12 +120,14 @@ PassageBox.prototype.render = function (animated) {
 /**
  * Replaces the state of a passage box with that in "data".
  */
-PassageBox.prototype.loadState = function (data) {
+PassageBox.prototype.loadState = function (data, quiet) {
+  quiet = quiet || false;
+
   this.$osisIDWork.val(data.osisIDWork || '');
   this.$osisID.val(data.osisID || '');
   this.$moderatorsThoughts.val(data.moderator_s_thoughts || '');
 
-  if (data.visible && data.visible === '1') {
+  if (data.visible) {
     this.$visible.attr('checked', 'checked');
   } else {
     this.$visible.removeAttr('checked');
@@ -133,5 +135,17 @@ PassageBox.prototype.loadState = function (data) {
 
   this.updatedPicked();
   this.render();
-  this.bundleUI.passageBoxStateDidChange(this);
+
+  if (!quiet) {
+    this.bundleUI.passageBoxStateDidChange(this);
+  }
 };
+
+PassageBox.prototype.getState = function (visible) {
+  return {
+    osisIDWork: this.$osisIDWork.val(),
+    osisID: this.$osisID.val(),
+    moderator_s_thoughts: this.$moderatorsThoughts.val(),
+    visible: this.$visible.attr('checked')
+  };
+}
