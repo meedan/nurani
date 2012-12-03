@@ -650,7 +650,7 @@ body.page-home.logged-in .panel-display .panel-col-first {
   display: inline;
 }
 /* line 17, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display .panel-col-first .view-nurani-discussions {
+body.page-home.logged-in .panel-display .panel-col-first .pane-content {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
@@ -674,7 +674,7 @@ body.page-home.logged-in .panel-display .panel-col-last {
   display: inline;
 }
 /* line 35, /Users/james/Code/Meedan/Nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display .panel-col-last div.profile {
+body.page-home.logged-in .panel-display .panel-col-last .pane-content {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
