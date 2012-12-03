@@ -186,7 +186,7 @@ function nurani_profile_edit_profile_callback($account, $ajax) {
  * Makes necessary changes to #ajax enable the user_profile_form.
  */
 function nurani_profile_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_state['build_info']['args'][2] == 'ajax') {
+  if (isset($form_state['build_info']['args'][2]) && $form_state['build_info']['args'][2] == 'ajax') {
     $account = $form_state['build_info']['args'][0];
 
     $form['#prefix'] = '<div id="nurani-profile-wrapper">';

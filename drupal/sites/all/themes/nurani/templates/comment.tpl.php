@@ -8,11 +8,11 @@
   <div class="comment-inner">
 
     <!-- <h3 class="title"><?php print $title ?></h3> -->
-    <div id="new">
-      <?php if ($new) : ?>
+    <?php if (isset($new) && $new) : ?>
+      <div id="new">
         <span class="new"><?php print drupal_ucfirst($new) ?></span>
-      <?php endif; ?>
-    </div>
+      </div>
+    <?php endif; ?>
 
     <?php print $picture ?>
 

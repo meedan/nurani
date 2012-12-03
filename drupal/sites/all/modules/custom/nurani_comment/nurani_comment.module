@@ -153,7 +153,7 @@ function nurani_comment_submit_js($form, &$form_state) {
   if ($response['#type'] == 'ajax' && count($response['#commands'])) {
     foreach ($response['#commands'] as $key => $command) {
       // Replace the update preview command with a trigger to refresh views
-      if ($command['command'] == 'insert' && $command['selector'] == '#comment-wrapper') {
+      if ($command['command'] == 'insert' && preg_match('/^#comment-wrapper/', $command['selector'])) {
         $response['#commands'][$key] = ajax_command_invoke('a.nurani-comment-sort-link.desc', 'click');
       }
     }
