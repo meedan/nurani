@@ -14,11 +14,11 @@ function Picker(opts) {
 }
 
 Picker.prototype.init = function () {
-  this.pickerUI = new NL.PickerUI({
+  this.nuraniLibraryPickerUI = new NL.PickerUI({
     osisIDWork: this.opts.osisIDWork,
     osisID: this.opts.osisID
   });
-  this.$dialog = this.createDialog(this.pickerUI.$element);
+  this.$dialog = this.createDialog(this.nuraniLibraryPickerUI.$element);
 
   return this;
 };
@@ -33,7 +33,7 @@ Picker.prototype.createDialog = function ($element) {
                   modal: true,
                   buttons: {
                     Done: function() {
-                      var data = that.pickerUI.getSelectionOSIS();
+                      var data = that.nuraniLibraryPickerUI.getSelectionOSIS();
 
                       if (data) {
                         if (that.opts.onPicked) {
@@ -53,8 +53,8 @@ Picker.prototype.createDialog = function ($element) {
                   close: function() {
                     // TODO: Do things on close, like clear the state.
                   },
-                  open: function () { that.pickerUI.didResize(); },
-                  resize: function () { that.pickerUI.didResize(); }
+                  open: function () { that.nuraniLibraryPickerUI.didResize(); },
+                  resize: function () { that.nuraniLibraryPickerUI.didResize(); }
                 });
 
   return $dialog;
