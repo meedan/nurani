@@ -120,7 +120,8 @@ sup {
   max-width: 100%;
 }
 
-/* line 2, ../scss/_top-strip.scss */
+/*Welcome block*/
+/* line 3, ../scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login {
   margin-top: -2.5em;
   float: right;
@@ -133,29 +134,29 @@ sup {
   font-weight: bold;
   text-decoration: none;
 }
-/* line 12, ../scss/_top-strip.scss */
+/* line 13, ../scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login .logout, #block-nurani_helpers-welcome_login .login {
   margin-left: 5em;
   font-weight: bold;
   text-transform: uppercase;
 }
-/* line 16, ../scss/_top-strip.scss */
+/* line 17, ../scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login .logout a, #block-nurani_helpers-welcome_login .login a {
   text-decoration: none;
   color: #4a4a4a;
 }
 
-/* line 25, ../scss/_top-strip.scss */
+/* line 26, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu {
   width: 45%;
   padding: 1.8em;
 }
-/* line 29, ../scss/_top-strip.scss */
+/* line 30, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li {
   list-style-type: none;
   display: inline;
 }
-/* line 32, ../scss/_top-strip.scss */
+/* line 33, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li a {
   font-size: 1.5em;
   float: left;
@@ -167,7 +168,7 @@ sup {
   text-transform: uppercase;
   color: #4c1313;
 }
-/* line 43, ../scss/_top-strip.scss */
+/* line 44, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li a.active, #block-menu_block-nurani_main_menu ul li a:hover {
   text-decoration: none;
   color: #fff;
@@ -499,62 +500,64 @@ body {
 
 /* i removed the front class ...*/
 /* line 17, ../scss/core.scss */
-body.not-logged-in {
-  /*  Not Logged-in Front Page */
+body.front {
+  /*  Front-page */
+  /******************************************** Styles for Home page when logged out ********************************************/
+  /******************************************** Styles for Home page when logged in ********************************************/
 }
-/* line 13, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in .panel-panel {
+/* line 3, ../scss/pages/_page-front.scss */
+body.front .block-title, body.front .pane-title {
+  margin-bottom: 1em;
+}
+/* line 21, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 .panel-panel {
   width: 32.07547%;
   float: left;
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 15, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in .panel-panel:nth-child(3n) {
+/* line 23, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 .panel-panel:nth-child(3n) {
   float: right;
   margin-right: 0;
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 18, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in #block-boxes-nurani_welcome, body.not-logged-in #block-boxes-nurani_about_nurani, body.not-logged-in .panel-pane {
+/* line 26, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 #block-boxes-nurani_welcome, body.front .panel-3col-33 #block-boxes-nurani_about_nurani, body.front .panel-3col-33 .panel-pane {
   padding: 30px;
   text-align: justify;
 }
-/* line 23, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in #block-boxes-nurani_welcome {
+/* line 31, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 #block-boxes-nurani_welcome {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #ac9d43;
 }
-/* line 25, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in #block-boxes-nurani_welcome .d_ford {
+/* line 33, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 #block-boxes-nurani_welcome .d_ford {
   width: 80px;
   float: left;
   margin: 0 1.5em;
   border: 5px solid whiteSmoke;
 }
-/* line 33, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in #block-boxes-nurani_about_nurani {
+/* line 41, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #4c1313;
 }
-/* line 34, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in #block-boxes-nurani_about_nurani h2.block-title {
-  margin-bottom: 1em;
-}
-/* line 36, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in #block-boxes-nurani_about_nurani iframe {
+/* line 43, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani iframe {
   margin-bottom: 2em;
   width: 100%;
 }
-/* line 41, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link {
+/* line 48, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link {
   background: url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
   font-size: 14px;
   padding: 0.5em 1.5em;
@@ -577,19 +580,19 @@ body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link {
   margin: 1em 4em;
 }
 /* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link:hover {
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   text-decoration: none;
 }
 /* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link:hover {
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   background-color: #00569f;
 }
 /* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link:active {
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:active {
   background-color: #004d8f;
 }
 /* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link.disabled, body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link[disabled] {
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link.disabled, body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link[disabled] {
   opacity: 0.6;
   background: false;
   cursor: default;
@@ -598,28 +601,24 @@ body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link.disabled, bod
   box-shadow: none;
 }
 /* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
-body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link::-moz-focus-inner {
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 8, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in #block-boxes-nurani_about_nurani a.welcome-link:hover {
+/* line 10, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   color: #fff;
 }
-/* line 49, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in .panel-pane {
+/* line 56, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 .panel-pane {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 51, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in .panel-pane .pane-title {
-  margin-bottom: 1em;
-}
-/* line 53, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in .panel-pane a.invitation-link {
+/* line 58, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 .panel-pane a.invitation-link {
   background: url(../images/mail.png) no-repeat 10px 11px;
   font-size: 14px;
   padding: 0.5em 1.5em;
@@ -639,22 +638,22 @@ body.not-logged-in .panel-pane a.invitation-link {
   text-transform: uppercase;
   text-decoration: none;
   padding: 1em 1em 1em 4em;
-  margin: 1em 3em;
+  margin: 1em 4em;
 }
 /* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-body.not-logged-in .panel-pane a.invitation-link:hover {
+body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   text-decoration: none;
 }
 /* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-body.not-logged-in .panel-pane a.invitation-link:hover {
+body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   background-color: #00569f;
 }
 /* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-body.not-logged-in .panel-pane a.invitation-link:active {
+body.front .panel-3col-33 .panel-pane a.invitation-link:active {
   background-color: #004d8f;
 }
 /* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-body.not-logged-in .panel-pane a.invitation-link.disabled, body.not-logged-in .panel-pane a.invitation-link[disabled] {
+body.front .panel-3col-33 .panel-pane a.invitation-link.disabled, body.front .panel-3col-33 .panel-pane a.invitation-link[disabled] {
   opacity: 0.6;
   background: false;
   cursor: default;
@@ -663,72 +662,71 @@ body.not-logged-in .panel-pane a.invitation-link.disabled, body.not-logged-in .p
   box-shadow: none;
 }
 /* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
-body.not-logged-in .panel-pane a.invitation-link::-moz-focus-inner {
+body.front .panel-3col-33 .panel-pane a.invitation-link::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 8, ../scss/pages/_page-front-not-logged-in.scss */
-body.not-logged-in .panel-pane a.invitation-link:hover {
+/* line 10, ../scss/pages/_page-front.scss */
+body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   color: #fff;
 }
-
-/* line 1, ../scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display {
+/* line 70, ../scss/pages/_page-front.scss */
+body.front .panel-2col {
   /*Your discussion block*/
   /*profile block*/
 }
-/* line 3, ../scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display h2.block-title, body.page-home.logged-in .panel-display h2.pane-title {
+/* line 71, ../scss/pages/_page-front.scss */
+body.front .panel-2col .block-title, body.front .panel-2col .pane-title {
   text-align: left;
-  margin-bottom: 1em;
 }
-/* line 8, ../scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display h3 a {
+/* line 74, ../scss/pages/_page-front.scss */
+body.front .panel-2col h3 a {
   font-family: palatino;
   font-style: italic;
   color: #4a4a4a;
   text-decoration: none;
 }
-/* line 15, ../scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display .panel-col-first {
+/* line 80, ../scss/pages/_page-front.scss */
+body.front .panel-2col .panel-col-first {
   width: 54.71698%;
   float: left;
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 17, ../scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display .panel-col-first .view-nurani-discussions {
+/* line 82, ../scss/pages/_page-front.scss */
+body.front .panel-2col .panel-col-first .view-nurani-discussions {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #4c1313;
 }
-/* line 23, ../scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display .views-row {
-  /* padding:0 25px 0;*/
-}
-/* line 25, ../scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display .views-row .views-field-title, body.page-home.logged-in .panel-display .views-row .views-field-field-discussion-closing-date, body.page-home.logged-in .panel-display .views-row .views-field-field-bundle {
-  /* width:50%;*/
-}
-/* line 33, ../scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display .panel-col-last {
+/* line 87, ../scss/pages/_page-front.scss */
+body.front .panel-2col .panel-col-last {
   width: 37.73585%;
   float: right;
   margin-right: 0;
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 35, ../scss/pages/_page-front-logged-in.scss */
-body.page-home.logged-in .panel-display .panel-col-last .pane-content {
+/* line 89, ../scss/pages/_page-front.scss */
+body.front .panel-2col .panel-col-last .pane-content {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #005eae;
 }
+/* line 94, ../scss/pages/_page-front.scss */
+body.front .panel-2col .views-row {
+  padding: 0 25px 0;
+}
+/* line 96, ../scss/pages/_page-front.scss */
+body.front .panel-2col .views-row .views-field-title, body.front .panel-2col .views-row .views-field-field-discussion-closing-date, body.front .panel-2col .views-row .views-field-field-bundle {
+  width: 30em;
+}
 
+/*body.page-home.logged-in 	    { @import "pages/page-front-logged-in";}*/
 /* line 22, ../scss/core.scss */
 body.node-type-discussion {
   /************ Section to style the Text Bundle for discussions ************/
@@ -858,7 +856,7 @@ body.node-type-discussion .view-nurani-comment-list .comment {
   border-top-color: #005eae;
 }
 /* line 108, ../scss/node/_node-discussion.scss */
-body.node-type-discussion .view-nurani-comment-list .comment #new {
+body.node-type-discussion .view-nurani-comment-list .comment .new {
   position: absolute;
   left: -68px;
   margin-top: -57px;

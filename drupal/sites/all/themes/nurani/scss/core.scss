@@ -14,8 +14,8 @@
 
 // Pages
 /* i removed the front class ...*/
-body.not-logged-in          { @import "pages/page-front-not-logged-in"; }
-body.page-home.logged-in 	    { @import "pages/page-front-logged-in";}	
+body.front        { @import "pages/page-front"; }
+/*body.page-home.logged-in 	    { @import "pages/page-front-logged-in";}*/	
 
 
 //node types
