@@ -1,0 +1,116 @@
+/*  Front-page */
+
+.block-title, .pane-title{ margin-bottom:1em;}
+
+
+@mixin a-link-styling{
+  @include nurani-button($nurani-light-blue, 14px, darken(#fff, 0.5%));
+  text-transform: uppercase;
+  text-decoration: none;
+  &:hover{
+    color: #fff;
+  }
+}
+
+
+
+/******************************************** Styles for Home page when logged out ********************************************/
+
+.panel-3col-33{
+
+  .panel-panel{
+    @include span-columns(6,18);
+    &:nth-child(3n){ @include omega;}
+  }
+
+  #block-boxes-nurani_welcome, #block-boxes-nurani_about_nurani, .panel-pane{
+    padding:30px;
+    text-align:justify;
+  }
+
+ #block-boxes-nurani_welcome{
+   @include white-background-bordered-top($nurani-gold,top, 5px);
+   .d_ford{
+      width:80px;
+      float:left;
+      margin: 0 1.5em;
+      border: 5px solid whiteSmoke;
+    }
+ }
+
+ #block-boxes-nurani_about_nurani{
+   @include white-background-bordered-top($nurani-burgundy,top, 5px);
+   iframe{
+     margin-bottom:2em;
+     width:100%;
+   }
+
+   a.welcome-link{
+     background:url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
+     @include a-link-styling;
+     padding:1em 3.5em;
+     margin:1em 4em;
+   }
+ }
+
+  .panel-pane{
+    @include white-background-bordered-top($nurani-light-blue,top, 5px);
+    a.invitation-link{
+      background:url(../images/mail.png) no-repeat 10px 11px;
+      @include a-link-styling;
+      padding:1em 1em 1em 4em;
+      margin:1em 4em;
+    }
+  }
+}
+
+
+/******************************************** Styles for Home page when logged in ********************************************/
+
+.panel-2col{
+  .block-title, .pane-title{ 
+    text-align: left;
+  }
+  h3 a{
+    @include bundle-typography;
+    color:$nurani-text-gray;
+    text-decoration:none;
+  }
+  /*Your discussion block*/
+  .panel-col-first{
+    @include span-columns(10,18);
+    .view-nurani-discussions{
+      @include white-background-bordered-top($nurani-burgundy, top, 5px); 
+    }
+  }
+  /*profile block*/
+  .panel-col-last{ 
+    @include span-columns(7 omega,18);
+    .pane-content{
+      @include white-background-bordered-top($nurani-light-blue, top, 5px); 
+    }
+  }
+
+  .views-row {
+    padding:0 25px 0;
+    .views-field-title, .views-field-field-discussion-closing-date, .views-field-field-bundle{ 
+      width:30em;
+    }
+  }
+}
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+  
+
+
