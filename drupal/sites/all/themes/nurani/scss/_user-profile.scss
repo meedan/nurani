@@ -1,0 +1,39 @@
+
+.pane-nurani-profile-user-profile{
+  h2.pane-title{color:$nurani-light-blue;}
+
+  .profile{
+    padding: 0 25px 0;
+
+    .group-profile{margin-top:1em;}
+
+    .user-picture{
+      float: right;
+      margin: 2em 0 0 1em;
+    }
+
+    .fieldset-legend, a.fieldset-title {
+  	  font-size:1.2em;
+  	  color:$nurani-light-blue;
+    }
+
+    .field-name-field-title, .field-name-field-first-name{ 
+      display: inline;
+      float: left;
+      margin-right: 10px;
+    }
+
+    .group-details .field{
+      margin-bottom:1em;
+  	  & > .field-items{
+  	    float:right;
+  		text-align: right;
+  	  }
+    }
+    .field-name-field-postal-address .field-items{
+      width:28%;
+    }
+
+    .field-label-above{ margin-bottom:1em;}
+  }
+}

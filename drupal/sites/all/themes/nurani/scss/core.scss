@@ -2,23 +2,23 @@
 @import "susy";
 @import "sassy-buttons";
 
-//global variables 
+/*global variables*/ 
+
 @import "variables";
 
 @import "helpers/nurani-button";
 @import "helpers/boxes";
+@import "helpers/links";
 
 /* Calls layout.scss that renders all the styles on the site*/
+
 @import "layout";
 
 
-// Pages
-/* i removed the front class ...*/
+/* Pages */
 body.front        { @import "pages/page-front"; }
-/*body.page-home.logged-in 	    { @import "pages/page-front-logged-in";}*/	
 
-
-//node types
+/* node types */
 body.node-type-discussion   { @import "node/node-discussion"; }
 
 

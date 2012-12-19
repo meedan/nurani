@@ -1,18 +1,6 @@
 /*  Front-page */
 
-.block-title, .pane-title{ margin-bottom:1em;}
-
-
-@mixin a-link-styling{
-  @include nurani-button($nurani-light-blue, 14px, darken(#fff, 0.5%));
-  text-transform: uppercase;
-  text-decoration: none;
-  &:hover{
-    color: #fff;
-  }
-}
-
-
+h2{ margin-bottom:1em;}
 
 /******************************************** Styles for Home page when logged out ********************************************/
 
@@ -23,10 +11,13 @@
     &:nth-child(3n){ @include omega;}
   }
 
-  #block-boxes-nurani_welcome, #block-boxes-nurani_about_nurani, .panel-pane{
+  .block-boxes, 
+  .panel-pane{
     padding:30px;
     text-align:justify;
   }
+
+
 
  #block-boxes-nurani_welcome{
    @include white-background-bordered-top($nurani-gold,top, 5px);
@@ -47,7 +38,7 @@
 
    a.welcome-link{
      background:url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
-     @include a-link-styling;
+     @include a-link-as-button;
      padding:1em 3.5em;
      margin:1em 4em;
    }
@@ -57,7 +48,7 @@
     @include white-background-bordered-top($nurani-light-blue,top, 5px);
     a.invitation-link{
       background:url(../images/mail.png) no-repeat 10px 11px;
-      @include a-link-styling;
+      @include a-link-as-button;
       padding:1em 1em 1em 4em;
       margin:1em 4em;
     }
@@ -68,7 +59,7 @@
 /******************************************** Styles for Home page when logged in ********************************************/
 
 .panel-2col{
-  .block-title, .pane-title{ 
+  h2{ 
     text-align: left;
   }
   h3 a{
@@ -76,14 +67,16 @@
     color:$nurani-text-gray;
     text-decoration:none;
   }
-  /*Your discussion block*/
+
+  /* This styles the discussion block*/
   .panel-col-first{
     @include span-columns(10,18);
     .view-nurani-discussions{
       @include white-background-bordered-top($nurani-burgundy, top, 5px); 
     }
   }
-  /*profile block*/
+  
+  /* This styles the profile block*/
   .panel-col-last{ 
     @include span-columns(7 omega,18);
     .pane-content{
@@ -93,7 +86,9 @@
 
   .views-row {
     padding:0 25px 0;
-    .views-field-title, .views-field-field-discussion-closing-date, .views-field-field-bundle{ 
+    .views-field-title, 
+    .views-field-field-discussion-closing-date,
+    .views-field-field-bundle { 
       width:30em;
     }
   }

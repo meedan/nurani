@@ -1,23 +1,19 @@
 
-//Mixin to style Username links
-@mixin username-links($color){
-  a{
-    color:$color;
-    font-weight: bold;
-    text-decoration: none;
-  }
-}
-//mixin to style discussion lock & print pdf
-@mixin discussion-lock-pdf{
-   color:$nurani-text-gray;
-   font-size:1.2em;
-}
-
 @mixin bundle-typography{
   font-family: palatino;
   font-style: italic;
 }
 
+.printpdf{
+  background: url(../images/print.png) center left no-repeat;
+  padding-left:3em;
+  @include styling-pdf-discussion-lock;
+  text-decoration: none;
+  
+  &:hover{
+    text-decoration:underline;
+  }
+}
 
 body {
   font-family: Helvetica Neue;
@@ -30,6 +26,7 @@ body {
 h1,h2,h3,h4,h5,h6{
   font-family:Helvetica Neue;
 }
+
 h1,h2{ text-align:center;}
 
 p{
