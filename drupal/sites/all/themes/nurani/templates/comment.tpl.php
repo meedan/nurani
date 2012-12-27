@@ -9,9 +9,7 @@
 
     <!-- <h3 class="title"><?php print $title ?></h3> -->
     <?php if (isset($new) && $new) : ?>
-      <div id="new">
         <span class="new"><?php print drupal_ucfirst($new) ?></span>
-      </div>
     <?php endif; ?>
 
     <?php print $picture ?>

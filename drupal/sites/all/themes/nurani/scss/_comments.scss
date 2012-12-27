@@ -1,10 +1,5 @@
-/* Themes list of comments and preview on discussion page */
 
-/*Mixin to style attribution class*/
-@mixin attribution($color){
-    @include username-links($color); 
-}
-
+/* This themes list of comments and preview on discussion page */
 .comment-inner{
   padding:35px;
   .user-picture{

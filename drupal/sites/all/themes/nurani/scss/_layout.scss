@@ -4,10 +4,8 @@
 @import "media-queries";
 @import "header";
 @import "top-strip";
-@import "comment-form";
-/*@import "comment-box";*/
-@import "comments-preview";
-@import "profile";
+@import "comments";
+@import "user-profile";
 
 
 *{
@@ -44,11 +42,9 @@ body{
 
  }
 
-
-
 #content-inner{
     #content-area{
-      margin-bottom:2em;
+      margin-bottom:4em;
     }
 
     #content-bottom{
