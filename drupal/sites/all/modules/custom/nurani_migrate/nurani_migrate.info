@@ -1,0 +1,8 @@
+name = Nurani D6 Migration
+description = Drupal 6 to Drupal 7 migration for Nurani.org.
+core = 7.x
+version = 7.x-1.0
+package = Nurani
+dependencies[] = migrate
+
+files[] = NuraniMigration.inc
