@@ -113,8 +113,8 @@ class NuraniUserMigration extends NuraniMigration {
 
     // Nurani profile
     $this->addFieldMapping('field_title', 'field_title_value')->callbacks(array($this, 'fuzzy_match_title'));
-    // $this->addFieldMapping('field_first_name', 'field_fullname_value')->callbacks(array($this, 'first_name_part'));
-    // $this->addFieldMapping('field_last_name', 'field_fullname_value')->callbacks(array($this, 'last_name_part'));
+    $this->addFieldMapping('field_first_name', 'field_first_name_value');
+    $this->addFieldMapping('field_last_name', 'field_first_name_value');
     // $this->addFieldMapping('field_date_of_birth', '');
 
     // Invitation request details
@@ -141,28 +141,31 @@ class NuraniUserMigration extends NuraniMigration {
     ));
   }
 
-  // // TODO: Migrate 'moderator' and 'traslator' roles across.
-  // public function prepareRow($current_row) {
-  //   // Additional query on the roles table.
-  //   $source_id = $current_row->uid;
-  //   $query = db_select('sourcetable.users_roles', 'r')
-  //     ->fields('r', array('uid', 'rid'))
-  //     ->condition('r.uid', $source_id, '=');
-  //   $results = $query->execute();
+  // TODO: Migrate 'moderator' and 'traslator' roles across.
+  public function prepareRow($row) {
+    // Migrate roles
+    $query = $this
+               ->d6Connection
+               ->select('users_roles', 'r')
+               ->fields('r', array('uid', 'rid'))
+               ->condition('r.uid', $row->uid, '=');
+    $results = $query->execute();
+    $roles = array();
+    foreach ($results as $record) {
+      // Old 'moderator' role is rid 5 in the new system
+      if ($record->rid == 6) {
+        $roles['5'] = '5';
+      }
+    }
+    $row->roles = $roles;
 
-  //   // Add the Authenticated role for everyone.
-  //   $roles = array('2' => '2');
-  //   foreach ($results as $row) {
+    // Split fullname into a first and last name column
+    $name = explode(' ', $row->field_fullname_value);
+    $row->field_first_name_value = array_shift($name);
+    $row->field_last_name_value = implode(' ', $name);
 
-  //     // Subscriber role should be transfered.
-  //     if ($row->rid == 6) {
-  //       $roles['5'] = '5';
-  //     }
-  //   }
-  //   $current_row->roles = $roles;
-  //   return TRUE;
-  //   // return FALSE if you wish to skip a particular row
-  // }
+    // return FALSE if you wish to skip a particular row
+  }
 
   public function fuzzy_match_title($title) {
     return $this->fuzzy_match($title, array('Ms', 'Miss', 'Mrs', 'Mr', 'Master', 'Rev', 'Fr', 'Dr', 'Prof', 'Hon', 'Pres'));
