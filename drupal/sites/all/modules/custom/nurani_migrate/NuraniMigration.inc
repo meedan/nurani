@@ -20,6 +20,8 @@ class NuraniUserMigration extends NuraniMigration {
   public function __construct() {
     parent::__construct();
 
+    $this->dependencies = array('NuraniUserPictures');
+
     // Select fields from the Drupal 6 user table.
     $query = $this
                ->d6Connection
@@ -30,7 +32,9 @@ class NuraniUserMigration extends NuraniMigration {
                      'uid', 'name', 'pass', 'mail', 'created', 'access',
                      'login', 'status', 'picture', 'init'
                    )
-                 );
+                 )
+               ->condition('u.uid', 2, '>')
+               ->orderBy('u.uid', 'ASC');
 
     // This is supposed to get roles not sure how.
     $source_fields = array(
@@ -68,7 +72,7 @@ class NuraniUserMigration extends NuraniMigration {
     $this->addFieldMapping('access', 'access');
     $this->addFieldMapping('login', 'login');
     $this->addFieldMapping('status', 'status');
-    $this->addFieldMapping('picture')->defaultValue(0);
+    $this->addFieldMapping('picture', 'picture')->sourceMigration('NuraniUserPictures');
     $this->addFieldMapping('init', 'init');
     $this->addFieldMapping('timezone')->defaultValue(NULL);
     // $this->addFieldMapping('roles', 'roles');
@@ -97,6 +101,54 @@ class NuraniUserMigration extends NuraniMigration {
   //   return TRUE;
   //   // return FALSE if you wish to skip a particular row
   // }
+}
+
+
+
+class NuraniUserPicturesMigration extends NuraniMigration {
+  public function __construct() {
+    parent::__construct();
+
+    $this->pictures_path = 'public://' . variable_get('user_picture_path', 'pictures');
+
+    $this->description = t('User pictures');
+
+    $this->map = new MigrateSQLMap($this->machineName,
+      array(
+        'picture' => array(
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'description' => 'Image URI.'
+        )
+      ),
+      MigrateDestinationFile::getKeySchema()
+    );
+
+    $query = $this
+               ->d6Connection
+               ->select('users', 'u')
+               ->fields('u', array('picture'))
+               ->isNotNull('picture')
+               ->condition('picture', '', '!=');
+    $query->distinct();
+    $this->source = new MigrateSourceSQL($query, array(), null, array('map_joinable' => false));
+
+    $this->destination = new MigrateDestinationFile();
+
+    // Just map the incoming URL to the destination's 'uri'
+    $this->addFieldMapping('value', 'picture')->callbacks(array($this, 'path_to_uri'));
+    $this->addUnmigratedDestinations(array('fid', 'uid', 'timestamp',
+      'destination_dir', 'destination_file', 'source_dir', 'preserve_files',
+      'file_replace'));
+    $this->removeFieldMapping('path');
+    $this->removeFieldMapping('pathauto');
+
+  }
+
+  public function path_to_uri($path) {
+    return $this->pictures_path . '/' . str_replace('sites/default/files/pictures/', '', $path);
+  }
 }
 
 
@@ -135,11 +187,12 @@ class NuraniDiscussionMigration extends NuraniMigration {
                      'status', 'created', 'changed', 'comment', 'promote',
                      'moderate', 'sticky', 'tnid', 'translate'
                    )
-                 );
+                 )
+               ->condition('n.type', 'discussion');
 
     // Set source and destination.
     $this->source = new MigrateSourceSQL($query);
-    $this->destination = new MigrateDestinationNode();
+    $this->destination = new MigrateDestinationNode('discussion');
 
     // // Mapped fields
     // $this->addFieldMapping('title', 'name')
@@ -247,21 +300,23 @@ class NuraniCommentMigration extends NuraniMigration {
     );
 
     // Select fields from the Drupal 6 comments table.
+    // Select fields from the Drupal 6 node table.
     $query = $this
                ->d6Connection
-               ->select('comments', 'c')
-               ->fields(
-                   'c',
+               ->select('node_comments', 'nc');
+    $query->join('node', 'n', 'n.nid = nc.cid');
+    $query->fields(
+                   'nc',
                    array(
-                     'cid', 'pid', 'nid', 'uid', 'subject', 'comment',
-                     'hostname', 'timestamp', 'status', 'format', 'thread',
-                     'name', 'mail', 'homepage'
+                     'cid', 'pid', 'nid', 'hostname', 'thread', 'name', 'uid',
+                     'mail', 'homepage'
                    )
-                 );
+                 )
+               ->condition('n.type', 'response');
 
     // Set source and destination.
     $this->source = new MigrateSourceSQL($query);
-    $this->destination = new MigrateDestinationComment();
+    $this->destination = new MigrateDestinationComment('discussion');
 
 
     // // Mapped fields
