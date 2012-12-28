@@ -9,6 +9,25 @@ abstract class NuraniMigration extends DynamicMigration {
 
     $this->d6Connection = Database::getConnection('default', 'migrate');
   }
+
+  public function fuzzy_match($string, $options) {
+    $best_match = $string;
+    $best_lev   = strlen($string);
+
+    foreach ($options as $option) {
+      $lev = levenshtein(strtolower($string), strtolower($option));
+
+      if ($lev == 0) { // Direct hit
+        return $option;
+      }
+      else if ($lev < $best_lev) {
+        $best_match = $option;
+        $best_lev = $lev;
+      }
+    }
+
+    return $best_match;
+  }
 }
 
 
@@ -25,16 +44,30 @@ class NuraniUserMigration extends NuraniMigration {
     // Select fields from the Drupal 6 user table.
     $query = $this
                ->d6Connection
-               ->select('users', 'u')
-               ->fields(
-                   'u',
-                   array(
-                     'uid', 'name', 'pass', 'mail', 'created', 'access',
-                     'login', 'status', 'picture', 'init'
-                   )
-                 )
-               ->condition('u.uid', 2, '>')
-               ->orderBy('u.uid', 'ASC');
+               ->select('users', 'u');
+    $query->join('node', 'n', 'n.uid = u.uid');
+    $query->join('content_type_profile', 'p', 'p.nid = n.nid');
+    $query->fields(
+              'u',
+              array(
+                'uid', 'name', 'pass', 'mail', 'created', 'access',
+                'login', 'status', 'picture', 'init'
+              )
+            )
+          ->fields(
+              'p',
+              array(
+                'field_city_value', 'field_country_value', 'field_education_value',
+                'field_experience_value', 'field_fluency_ar_value',
+                'field_fluency_en_value', 'field_fullname_value',
+                'field_position_value', 'field_publications_value',
+                'field_research_value', 'field_societies_value',
+                'field_title_value'
+              )
+            )
+          ->condition('u.uid', 2, '>')
+          ->condition('n.type', 'profile')
+          ->orderBy('u.uid', 'ASC');
 
     // This is supposed to get roles not sure how.
     $source_fields = array(
@@ -77,9 +110,38 @@ class NuraniUserMigration extends NuraniMigration {
     $this->addFieldMapping('timezone')->defaultValue(NULL);
     // $this->addFieldMapping('roles', 'roles');
     $this->addFieldMapping('roles', 'roles')->defaultValue(DRUPAL_AUTHENTICATED_RID);
+
+    // Nurani profile
+    $this->addFieldMapping('field_title', 'field_title_value')->callbacks(array($this, 'fuzzy_match_title'));
+    // $this->addFieldMapping('field_first_name', 'field_fullname_value')->callbacks(array($this, 'first_name_part'));
+    // $this->addFieldMapping('field_last_name', 'field_fullname_value')->callbacks(array($this, 'last_name_part'));
+    // $this->addFieldMapping('field_date_of_birth', '');
+
+    // Invitation request details
+    $this->addFieldMapping('field_postal_address', 'field_city_value');
+    // $this->addFieldMapping('field_post_code', '');
+    $this->addFieldMapping('field_country', 'field_country_value');
+    // $this->addFieldMapping('field_mobile_phone', '');
+    // $this->addFieldMapping('field_landline_phone', '');
+    $this->addFieldMapping('field_occupation', 'field_position_value');
+
+    // Additional details
+    // $this->addFieldMapping('field_religious_tradition', '');
+    $this->addFieldMapping('field_previous_experience', 'field_experience_value');
+    // $this->addFieldMapping('field_how_did_you_hear_about_us', '');
+    // $this->addFieldMapping('field_reasons', '');
+    // $this->addFieldMapping('field_subjects_of_interest', '');
+    // $this->addFieldMapping('field_social_media_usage', '');
+
+    $this->addUnmigratedDestinations(array(
+      'field_date_of_birth', 'field_post_code', 'field_mobile_phone',
+      'field_landline_phone', 'field_religious_tradition',
+      'field_how_did_you_hear_about_us', 'field_reasons',
+      'field_subjects_of_interest', 'field_social_media_usage'
+    ));
   }
 
-  // // Set up Roles.
+  // // TODO: Migrate 'moderator' and 'traslator' roles across.
   // public function prepareRow($current_row) {
   //   // Additional query on the roles table.
   //   $source_id = $current_row->uid;
@@ -101,6 +163,10 @@ class NuraniUserMigration extends NuraniMigration {
   //   return TRUE;
   //   // return FALSE if you wish to skip a particular row
   // }
+
+  public function fuzzy_match_title($title) {
+    return $this->fuzzy_match($title, array('Ms', 'Miss', 'Mrs', 'Mr', 'Master', 'Rev', 'Fr', 'Dr', 'Prof', 'Hon', 'Pres'));
+  }
 }
 
 
