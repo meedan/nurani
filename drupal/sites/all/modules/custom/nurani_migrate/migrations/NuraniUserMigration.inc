@@ -63,12 +63,14 @@ class NuraniUserMigration extends NuraniMigration {
     );
 
     // Add simple field mappings
+    $this->addFieldMapping('is_new')->defaultValue(TRUE);
+    $this->addFieldMapping('uid', 'uid');
     $this->addFieldMapping('name', 'name')->dedupe('users', 'name');
     $this->addFieldMapping('pass', 'pass');
     $this->addFieldMapping('mail', 'mail')->dedupe('users', 'mail');
-    $this->addFieldMapping('language')->defaultValue('');
-    $this->addFieldMapping('theme')->defaultValue('');
-    $this->addFieldMapping('signature')->defaultValue('');
+    $this->addFieldMapping('language');
+    $this->addFieldMapping('theme');
+    $this->addFieldMapping('signature');
     $this->addFieldMapping('signature_format')->defaultValue('filtered_html');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('access', 'access');
@@ -76,8 +78,7 @@ class NuraniUserMigration extends NuraniMigration {
     $this->addFieldMapping('status', 'status');
     $this->addFieldMapping('picture', 'picture')->sourceMigration('NuraniUserPictures');
     $this->addFieldMapping('init', 'init');
-    $this->addFieldMapping('timezone')->defaultValue(NULL);
-    // $this->addFieldMapping('roles', 'roles');
+    $this->addFieldMapping('timezone');
     $this->addFieldMapping('roles', 'roles')->defaultValue(DRUPAL_AUTHENTICATED_RID);
 
     // Nurani profile
@@ -103,10 +104,12 @@ class NuraniUserMigration extends NuraniMigration {
     // $this->addFieldMapping('field_social_media_usage', '');
 
     $this->addUnmigratedDestinations(array(
+      'role_names', 'data',
       'field_date_of_birth', 'field_post_code', 'field_mobile_phone',
       'field_landline_phone', 'field_religious_tradition',
       'field_how_did_you_hear_about_us', 'field_reasons',
-      'field_subjects_of_interest', 'field_social_media_usage'
+      'field_subjects_of_interest', 'field_social_media_usage',
+      'path',
     ));
   }
 

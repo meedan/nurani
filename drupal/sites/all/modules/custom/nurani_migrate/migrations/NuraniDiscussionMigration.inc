@@ -30,6 +30,7 @@ class NuraniDiscussionMigration extends NuraniMigration {
                ->select('node', 'n');
     $query->join('users', 'u', 'n.uid = u.uid');
     $query->join('content_type_discussion', 'cd', 'n.nid = cd.nid');
+    $query->leftJoin('url_alias', 'a', "CONCAT('node/', n.nid) = a.src AND n.language = a.language");
     $query->fields(
               'n',
               array(
@@ -40,8 +41,10 @@ class NuraniDiscussionMigration extends NuraniMigration {
             )
           ->fields('cd', array('field_exp_comments_value'))
           ->fields('u', array('name'))
+          ->fields('a', array('dst'))
           ->condition('n.type', 'discussion')
           ->condition('n.uid', 0, '>')
+          ->condition('n.language', array('', 'en'), 'IN')
           ->condition('n.language', array('', 'en'), 'IN')
           ->groupBy('n.nid')
           ->orderBy('n.nid');
@@ -51,10 +54,13 @@ class NuraniDiscussionMigration extends NuraniMigration {
     $this->destination = new MigrateDestinationNode('discussion');
 
     // Basic node mapping
+    $this->addFieldMapping('is_new')->defaultValue(TRUE);
+    $this->addFieldMapping('nid', 'nid');
+    $this->addFieldMapping('vid', 'vid');
     $this->addFieldMapping('type', 'type');
     $this->addFieldMapping('language', 'language')->defaultValue(LANGUAGE_NONE);
     $this->addFieldMapping('title', 'title');
-    $this->addFieldMapping('uid', 'd7_uid');
+    $this->addFieldMapping('uid', 'uid');
     $this->addFieldMapping('status', 'status');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');
@@ -62,25 +68,21 @@ class NuraniDiscussionMigration extends NuraniMigration {
     $this->addFieldMapping('promote', 'promote');
     $this->addFieldMapping('moderate', 'moderate');
     $this->addFieldMapping('sticky', 'sticky');
-    // $this->addFieldMapping('tnid', 'tnid');
     $this->addFieldMapping('translate', 'translate');
+    $this->addFieldMapping('path', 'dst');
 
     // Node fields
     $this->addFieldMapping('field_content_body', 'body');
 
-    // Special D7 node_save fields
-    $this->addFieldMapping('is_new')->defaultValue(TRUE);
-    $this->addFieldMapping('revision')->defaultValue(TRUE);
-    $this->addFieldMapping('revision_uid', 'd7_uid');
-    $this->addFieldMapping('pathauto_perform_alias')->defaultValue('1');
-
     // Fields
+    $this->addFieldMapping('field_subtitle')->defaultValue('');
+    $this->addFieldMapping('field_subtitle:language')->defaultValue(LANGUAGE_NONE);
     $this->addFieldMapping('field_bundle', 'bundle_nid')->sourceMigration('NuraniDiscussionBundle');
     $this->addFieldMapping('field_invitees', 'invitees_uids');
     $this->addFieldMapping('field_discussion_closing_date', 'field_exp_comments_value');
 
     // Unmapped destination fields
-    $this->addUnmigratedDestinations(array('nid', 'vid', 'tnid'));
+    $this->addUnmigratedDestinations(array('tnid', 'log'));
   }
 
   public function prepareRow($row) {
@@ -91,28 +93,18 @@ class NuraniDiscussionMigration extends NuraniMigration {
     $query = $this
                ->d6Connection
                ->select('content_field_moderators', 'm');
-    $query->leftJoin('users', 'mu', 'm.field_moderators_uid = mu.uid');
     $query->leftJoin('content_field_translators', 't', 'm.nid = t.nid');
-    $query->leftJoin('users', 'tu', 't.field_translators_uid = tu.uid');
     $query->leftJoin('content_field_scholars', 's', 'm.nid = s.nid');
-    $query->leftJoin('users', 'su', 's.field_scholars_uid = su.uid');
     $query->addField('m', 'field_moderators_uid');
-    $query->addField('mu', 'name', 'field_moderators_name');
     $query->addField('t', 'field_translators_uid');
-    $query->addField('tu', 'name', 'field_translators_name');
     $query->addField('s', 'field_scholars_uid');
-    $query->addField('su', 'name', 'field_scholars_name');
     $query->condition('m.nid', $row->nid);
 
     $result = $query->execute();
     foreach ($result as $record) {
-      $m_uid = $this->d7UidFromName($record->field_moderators_name);
-      $t_uid = $this->d7UidFromName($record->field_translators_name);
-      $s_uid = $this->d7UidFromName($record->field_scholars_name);
-
-      $invitees[$m_uid] = $m_uid;
-      $invitees[$t_uid] = $t_uid;
-      $invitees[$s_uid] = $s_uid;
+      $invitees[$record->field_moderators_uid] = $record->field_moderators_uid;
+      $invitees[$record->field_translators_uid] = $record->field_translators_uid;
+      $invitees[$record->field_scholars_uid] = $record->field_scholars_uid;
     }
     $invitees = array_diff($invitees, array('', NULL));
 

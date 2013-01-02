@@ -55,10 +55,13 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
     $this->destination = new MigrateDestinationNode('bundle');
 
     // Basic node mapping
+    $this->addFieldMapping('is_new')->defaultValue(TRUE);
+    $this->addFieldMapping('nid', 'nid');
+    $this->addFieldMapping('vid', 'vid');
     $this->addFieldMapping('type')->defaultValue('bundle');
     $this->addFieldMapping('language', 'language')->defaultValue(LANGUAGE_NONE);
     $this->addFieldMapping('title', 'title');
-    $this->addFieldMapping('uid', 'd7_uid');
+    $this->addFieldMapping('uid', 'uid');
     $this->addFieldMapping('status', 'status');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');
@@ -66,23 +69,19 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
     $this->addFieldMapping('promote', 'promote');
     $this->addFieldMapping('moderate', 'moderate');
     $this->addFieldMapping('sticky', 'sticky');
-    // $this->addFieldMapping('tnid', 'tnid');
     $this->addFieldMapping('translate', 'translate');
 
     // Node fields
     $this->addFieldMapping('field_content_body', 'body');
 
     // Special D7 node_save fields
-    $this->addFieldMapping('is_new')->defaultValue(TRUE);
-    $this->addFieldMapping('revision')->defaultValue(TRUE);
-    $this->addFieldMapping('revision_uid', 'd7_uid');
     $this->addFieldMapping('pathauto_perform_alias')->defaultValue('1');
 
     // Fields
     $this->addFieldMapping('field_passage_collection', 'passage_collection');
 
     // Unmapped destination fields
-    $this->addUnmigratedDestinations(array('nid', 'vid', 'tnid'));
+    $this->addUnmigratedDestinations(array('tnid', 'log'));
   }
 
   public function prepareRow($row) {
