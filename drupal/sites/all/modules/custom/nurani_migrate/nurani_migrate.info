@@ -7,4 +7,9 @@ dependencies[] = migrate
 dependencies[] = migrate_ui
 dependencies[] = date_migrate
 
-files[] = NuraniMigration.inc
+files[] = migrations/NuraniMigration.inc
+files[] = migrations/NuraniCommentMigration.inc
+files[] = migrations/NuraniDiscussionBundleMigration.inc
+files[] = migrations/NuraniDiscussionMigration.inc
+files[] = migrations/NuraniUserMigration.inc
+files[] = migrations/NuraniUserPicturesMigration.inc

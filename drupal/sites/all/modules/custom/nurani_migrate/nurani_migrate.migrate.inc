@@ -10,6 +10,7 @@ function nurani_migrate_migrate_api() {
       'NuraniUser' => array('class_name' => 'NuraniUserMigration'),
       'NuraniUserPictures' => array('class_name' => 'NuraniUserPicturesMigration'),
       'NuraniDiscussion' => array('class_name' => 'NuraniDiscussionMigration'),
+      'NuraniDiscussionBundle' => array('class_name' => 'NuraniDiscussionBundleMigration'),
       'NuraniComment' => array('class_name' => 'NuraniCommentMigration'),
     ),
   );
