@@ -64,10 +64,10 @@ function meedan_discussion_lock_node_load($nodes, $types) {
       continue;
     }
 
-    $field = $node->field_discussion_closing_date[$node->language];
+    $field = isset($node->field_discussion_closing_date[$node->language]) ? $node->field_discussion_closing_date[$node->language] : NULL;
 
     // TODO: Proper timezone handling.
-    if (!empty($field[0]['value']) && $field[0]['value'] < time()) {
+    if ($field && !empty($field[0]['value']) && $field[0]['value'] < time()) {
       $node->comment = COMMENT_NODE_CLOSED;
     }
   }
@@ -81,8 +81,9 @@ function meedan_discussion_lock_node_presave($node) {
     return;
   }
 
-  $field = $node->field_discussion_closing_date[$node->language];
-  if (!empty($field[0]['value'])) {
+  $field = isset($node->field_discussion_closing_date[$node->language]) ? $node->field_discussion_closing_date[$node->language] : NULL;
+
+  if ($field && !empty($field[0]['value'])) {
     $node->comment = $field[0]['value'] < time() ? COMMENT_NODE_CLOSED : COMMENT_NODE_OPEN;
   }
 }
