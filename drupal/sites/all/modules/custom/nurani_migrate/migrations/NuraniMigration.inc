@@ -14,14 +14,17 @@ abstract class NuraniMigration extends DynamicMigration {
     // Get the account on the D7 site matching the name of the account which
     // created this object on the D6 site.
     if (isset($row->name)) {
-      $account = db_select('users', 'u')
-                   ->fields('u', array('uid', 'name'))
-                   ->condition('u.name', $row->name)
-                   ->execute()
-                   ->fetchObject();
-
-      $row->d7_uid = $account->uid;
+      $row->d7_uid = $this->d7UidFromName($row->name);
     }
+  }
+
+  public function d7UidFromName($name) {
+    $account = db_select('users', 'u')
+                 ->fields('u', array('uid', 'name'))
+                 ->condition('u.name', $name)
+                 ->execute()
+                 ->fetchObject();
+    return $account->uid;
   }
 
   /**

@@ -91,17 +91,28 @@ class NuraniDiscussionMigration extends NuraniMigration {
     $query = $this
                ->d6Connection
                ->select('content_field_moderators', 'm');
+    $query->leftJoin('users', 'mu', 'm.field_moderators_uid = mu.uid');
     $query->leftJoin('content_field_translators', 't', 'm.nid = t.nid');
+    $query->leftJoin('users', 'tu', 't.field_translators_uid = tu.uid');
     $query->leftJoin('content_field_scholars', 's', 'm.nid = s.nid');
-    $query->fields('m', array('field_moderators_uid'))
-          ->fields('t', array('field_translators_uid'))
-          ->fields('s', array('field_scholars_uid'))
-          ->condition('m.nid', $row->nid);
+    $query->leftJoin('users', 'su', 's.field_scholars_uid = su.uid');
+    $query->addField('m', 'field_moderators_uid');
+    $query->addField('mu', 'name', 'field_moderators_name');
+    $query->addField('t', 'field_translators_uid');
+    $query->addField('tu', 'name', 'field_translators_name');
+    $query->addField('s', 'field_scholars_uid');
+    $query->addField('su', 'name', 'field_scholars_name');
+    $query->condition('m.nid', $row->nid);
+
     $result = $query->execute();
     foreach ($result as $record) {
-      $invitees[$record->field_moderators_uid] = $record->field_moderators_uid;
-      $invitees[$record->field_translators_uid] = $record->field_translators_uid;
-      $invitees[$record->field_scholars_uid] = $record->field_scholars_uid;
+      $m_uid = $this->d7UidFromName($record->field_moderators_name);
+      $t_uid = $this->d7UidFromName($record->field_translators_name);
+      $s_uid = $this->d7UidFromName($record->field_scholars_name);
+
+      $invitees[$m_uid] = $m_uid;
+      $invitees[$t_uid] = $t_uid;
+      $invitees[$s_uid] = $s_uid;
     }
     $invitees = array_diff($invitees, array('', NULL));
 

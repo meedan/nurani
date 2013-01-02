@@ -10,6 +10,8 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
 
     $this->description = t('Discussion bundles');
 
+    $this->dependencies = array('NuraniUser');
+
     $this->map = new MigrateSQLMap($this->machineName,
       array(
         'nid' => array(
