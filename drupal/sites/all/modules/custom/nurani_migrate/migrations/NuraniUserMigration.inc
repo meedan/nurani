@@ -33,7 +33,7 @@ class NuraniUserMigration extends NuraniMigration {
                 'field_title_value'
               )
             )
-          ->condition('u.uid', 2, '>')
+          ->condition('u.uid', 0, '>')
           ->condition('n.type', 'profile')
           ->groupBy('u.uid')
           ->orderBy('u.uid', 'ASC');

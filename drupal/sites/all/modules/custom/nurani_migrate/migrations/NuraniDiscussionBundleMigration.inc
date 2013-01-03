@@ -111,4 +111,8 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
     // TODO: Create the 'passage_collection' data and assign it to $row.
     $row->bundle_nid = NULL; // TEMPORARY, until this migration is ready
   }
+
+  public $textToBundlesMap = array(
+    // Put the stuff from the google doc in here.
+  );
 }
