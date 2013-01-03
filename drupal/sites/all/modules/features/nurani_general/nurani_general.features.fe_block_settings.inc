@@ -33,7 +33,7 @@ function nurani_general_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
@@ -71,7 +71,7 @@ function nurani_general_default_fe_block_settings() {
     'custom' => '0',
     'visibility' => '0',
     'pages' => '',
-    'title' => '',
+    'title' => '<none>',
     'cache' => -1,
   );
 
