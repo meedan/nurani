@@ -30,6 +30,7 @@ class NuraniDiscussionMigration extends NuraniMigration {
                ->select('node', 'n');
     $query->join('users', 'u', 'n.uid = u.uid');
     $query->join('content_type_discussion', 'cd', 'n.nid = cd.nid');
+    $query->join('content_field_texts', 'cft', 'n.nid = cft.nid');
     $query->leftJoin('url_alias', 'a', "CONCAT('node/', n.nid) = a.src AND n.language = a.language");
     $query->fields(
               'n',
@@ -41,11 +42,12 @@ class NuraniDiscussionMigration extends NuraniMigration {
             )
           ->fields('cd', array('field_exp_comments_value'))
           ->fields('u', array('name'))
-          ->fields('a', array('dst'))
-          ->condition('n.type', 'discussion')
-          ->condition('n.uid', 0, '>')
+          ->fields('a', array('dst'));
+    $query->addField('cft', 'field_texts_nid', 'bundle_nid');
+    $query->condition('n.type', 'discussion')
           ->condition('n.language', array('', 'en'), 'IN')
           ->condition('n.language', array('', 'en'), 'IN')
+          ->condition('cft.delta', 0)
           ->groupBy('n.nid')
           ->orderBy('n.nid');
 
@@ -58,9 +60,9 @@ class NuraniDiscussionMigration extends NuraniMigration {
     $this->addFieldMapping('nid', 'nid');
     $this->addFieldMapping('vid', 'vid');
     $this->addFieldMapping('type', 'type');
-    $this->addFieldMapping('language', 'language')->defaultValue(LANGUAGE_NONE);
+    $this->addFieldMapping('language')->defaultValue(LANGUAGE_NONE);
     $this->addFieldMapping('title', 'title');
-    $this->addFieldMapping('uid', 'uid');
+    $this->addFieldMapping('uid', 'uid')->defaultValue(1);
     $this->addFieldMapping('status', 'status');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');
@@ -87,6 +89,9 @@ class NuraniDiscussionMigration extends NuraniMigration {
 
   public function prepareRow($row) {
     parent::prepareRow($row);
+
+    // Ensure any Anonymous records are owned by admin
+    $row->uid = $row->uid > 0 ? $row->uid : 1;
 
     // Create a stack of invited uids
     $invitees = array();
