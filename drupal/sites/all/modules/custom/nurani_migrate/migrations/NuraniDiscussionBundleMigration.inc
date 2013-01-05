@@ -110,7 +110,7 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
         'osisIDWork'           => $this->textToBundlesMap[$record->nid]['osisIDWork'],
         'osisID'               => $this->textToBundlesMap[$record->nid]['osisID'],
         'moderator_s_thoughts' => $record->field_description_value,
-        'visible'              => 1,
+        'visible'              => '1', // FIXME: For some reason field_collection is failing to set passages as visible.
       );
     }
   }
@@ -130,7 +130,7 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
         );
         $entity = entity_create('field_collection_item', $item);
         $entity->setHostEntity('node', $node);
-        $entity->save();
+        $entity->save(TRUE);
 
         $passages_collection[$langcode][$pc_delta]['value'] = entity_id('field_collection_item', $entity);
       }
@@ -141,7 +141,7 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
       $entity->field_passage[$langcode][0]['osisID']             = $pc_value['osisID'];
       $entity->field_moderator_s_thoughts[$langcode][0]['value'] = $pc_value['moderator_s_thoughts'];
       $entity->field_visible[$langcode][0]['value']              = $pc_value['visible'];
-      $entity->save();
+      $entity->save(TRUE);
     }
   }
 
