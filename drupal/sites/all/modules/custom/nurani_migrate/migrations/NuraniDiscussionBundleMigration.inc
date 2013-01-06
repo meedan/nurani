@@ -83,6 +83,7 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
           ->fields('ctt', array('field_description_value'))
           ->fields('tr', array('body'));
     $query->addField('d', 'nid', 'discussion_nid');
+    $query->addField('d', 'title', 'discussion_title');
     $query->condition('d.type', 'discussion')
           ->condition('d.language', array('', 'en'), 'IN')
           ->condition('t.type', 'text')
@@ -116,10 +117,25 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
   }
 
   /**
+   * Attaches the discussion helper object to the bundle node. This is required
+   * by nurani_bundle_node_presave() to properly set the bundle title.
+   *
+   * This is a critical step because 'bundle' nodes are imported before
+   * 'discussion' nodes, hence nurani_bundle_node_load() will fail to attach
+   * its data.
+   */
+  public function prepare($node, $row) {
+    $node->discussion = (object) array(
+      'nid'   => $row->discussion_nid,
+      'title' => $row->discussion_title,
+    );
+  }
+
+  /**
    * Create / update field_passage_collection.
    * Code based on nurani_bundle_node_submit()
    */
-  public function prepare($node, $row) {
+  public function complete($node, $row) {
     $langcode   = $node->language;
 
     $passages_collection = $node->field_passage_collection;
@@ -130,18 +146,24 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
         );
         $entity = entity_create('field_collection_item', $item);
         $entity->setHostEntity('node', $node);
-        $entity->save(TRUE);
+        $entity->save();
 
         $passages_collection[$langcode][$pc_delta]['value'] = entity_id('field_collection_item', $entity);
       }
 
       $entity = entity_load_single('field_collection_item', $passages_collection[$langcode][$pc_delta]['value']);
 
+      // HACK: Reset the host entity to force $entity->save() to node_save
+      //       OUR $node rather than one it node_load()'s itself. This is
+      //       critical because our node contains the $node->discussion data
+      //       set in $this->prepare().
+      $entity->setHostEntity('node', $node);
+
       $entity->field_passage[$langcode][0]['osisIDWork']         = $pc_value['osisIDWork'];
       $entity->field_passage[$langcode][0]['osisID']             = $pc_value['osisID'];
       $entity->field_moderator_s_thoughts[$langcode][0]['value'] = $pc_value['moderator_s_thoughts'];
       $entity->field_visible[$langcode][0]['value']              = $pc_value['visible'];
-      $entity->save(TRUE);
+      $entity->save(); // Important to save the host entity here too.
     }
   }
 
