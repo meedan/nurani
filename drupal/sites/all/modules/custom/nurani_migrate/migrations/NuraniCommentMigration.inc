@@ -8,7 +8,7 @@ class NuraniCommentMigration extends NuraniMigration {
   public function __construct() {
     parent::__construct();
 
-    $this->description = 'Comments about beers';
+    $this->description = 'Comments on discussions';
 
     $this->dependencies = array('NuraniUser', 'NuraniDiscussion');
 
@@ -19,6 +19,7 @@ class NuraniCommentMigration extends NuraniMigration {
           'unsigned' => TRUE,
           'not null' => TRUE,
           'description' => 'Discussion comment ID.',
+          'alias' => 'nc',
         )
       ),
       MigrateDestinationComment::getKeySchema()
@@ -30,42 +31,55 @@ class NuraniCommentMigration extends NuraniMigration {
                ->d6Connection
                ->select('node_comments', 'nc');
     $query->join('node', 'n', 'n.nid = nc.cid');
+    $query->join('node_revisions', 'nr', 'n.nid = nr.nid');
     $query->fields(
-                   'nc',
-                   array(
-                     'cid', 'pid', 'nid', 'hostname', 'thread', 'name', 'uid',
-                     'mail', 'homepage'
-                   )
-                 )
-               ->condition('n.type', 'response');
+                    'nc',
+                    array(
+                      'cid', 'pid', 'nid', 'hostname', 'thread', 'name', 'uid',
+                      'mail', 'homepage'
+                    )
+                  )
+          ->fields(
+                    'n',
+                    array(
+                      'title', 'created', 'changed', 'status',
+                    )
+                  )
+          ->fields('nr', array('body'))
+          ->condition('n.type', 'response')
+          ->groupBy('nc.cid')
+          ->orderBy('nc.pid', 'ASC');
 
     // Set source and destination.
     $this->source = new MigrateSourceSQL($query);
-    $this->destination = new MigrateDestinationComment('discussion');
+    $this->destination = new MigrateDestinationComment('comment_node_discussion');
 
+    // Mapped fields
+    $this->addFieldMapping('is_new')->defaultValue(TRUE);
+    $this->addFieldMapping('cid', 'cid');
+    $this->addFieldMapping('pid', 'pid')
+         ->sourceMigration('NuraniComment')
+         ->description('Parent comment.')
+         ->defaultValue(0);
+    $this->addFieldMapping('nid', 'nid');
+    $this->addFieldMapping('uid', 'uid')
+         ->sourceMigration('NuraniUser')
+         ->defaultValue(0);
+    $this->addFieldMapping('subject', 'title');
+    $this->addFieldMapping('comment_body', 'body');
+    $this->addFieldMapping('comment_body:format', 'filtered_html');
+    $this->addFieldMapping('hostname', 'hostname');
+    $this->addFieldMapping('created', 'created');
+    $this->addFieldMapping('changed', 'changed');
+    $this->addFieldMapping('status', 'status')
+         ->defaultValue(COMMENT_PUBLISHED);
+    // $this->addFieldMapping('thread', 'thread');
+    $this->addFieldMapping('name', 'name');
+    $this->addFieldMapping('mail', 'mail');
+    $this->addFieldMapping('homepage', 'homepage');
+    $this->addFieldMapping('language')->defaultValue(LANGUAGE_NONE);
 
-    // // Mapped fields
-    // $this->addSimpleMappings(array('name', 'subject', 'mail'));
-    // $this->addFieldMapping('status')
-    //      ->defaultValue(COMMENT_PUBLISHED);
-
-    // // We preserved bid => nid ids during NuraniNode import so simple mapping suffices.
-    // $this->addFieldMapping('nid', 'bid');
-
-    // $this->addFieldMapping('uid', 'aid')
-    //      ->sourceMigration('NuraniUser')
-    //      ->defaultValue(0);
-
-    // $this->addFieldMapping('pid', 'cid_parent')
-    //      ->sourceMigration('NuraniComment')
-    //      ->description('Parent comment.');
-
-    // $this->addFieldMapping('comment_body', 'body');
-
-    // // No unmapped source fields
-
-    // // Unmapped destination fields
-    // $this->addUnmigratedDestinations(array('hostname', 'created', 'changed',
-    //   'thread', 'homepage', 'language', 'comment_body:format', 'comment_body:language'));
+    // Unmapped destination fields
+    $this->addUnmigratedDestinations(array('cid', 'thread', 'comment_body:format', 'comment_body:language'));
   }
 }
