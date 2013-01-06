@@ -56,7 +56,6 @@ class NuraniCommentMigration extends NuraniMigration {
 
     // Mapped fields
     $this->addFieldMapping('is_new')->defaultValue(TRUE);
-    $this->addFieldMapping('cid', 'cid');
     $this->addFieldMapping('pid', 'pid')
          ->sourceMigration('NuraniComment')
          ->description('Parent comment.')
