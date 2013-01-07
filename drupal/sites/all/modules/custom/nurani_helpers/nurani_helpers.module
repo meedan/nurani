@@ -150,3 +150,13 @@ function nurani_helpers_date_formats() {
   );
   return $formats;
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function nurani_helpers_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'discussion_node_form') {
+    // Extra helper CSS to apply a Nurani specific style to the bundle UI.
+    $form['field_bundle']['und'][0]['ui']['#attached']['css'][] = drupal_get_path('module', 'nurani_helpers') . '/css/nurani_helpers_bundle_ui.css';
+  }
+}
