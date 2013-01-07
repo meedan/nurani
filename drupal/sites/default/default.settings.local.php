@@ -31,6 +31,15 @@ $databases['before_deploy']['default'] = array(
   'host'     => $databases['default']['default']['host'],
   'prefix'   => $databases['default']['default']['prefix'],
 );
+// The old Nurani D6 site. Used for data migration to D7
+$databases['migrate']['default'] = array(
+  'driver'   => 'mysql',
+  'database' => 'DATABASENAME',
+  'username' => 'root',
+  'password' => 'root',
+  'host'     => 'localhost',
+  'prefix'   => '',
+);
 
 
 // Development and debugging.  It is best to remove these lines for
