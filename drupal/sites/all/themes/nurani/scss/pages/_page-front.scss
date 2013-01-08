@@ -85,33 +85,15 @@ h2{ margin-bottom:1em;}
   }
 }  
 
- /* .view-content > .views-row{
-    margin-bottom: 1em;
-    padding:0 25px 0; 
-
-    .views-field-title, .views-field-field-discussion-closing-date, .views-field-field-bundle{ width:200px;}
-    .views-field-nothing, .views-field-new-comments, .views-field-view{
-      float: right;
-      width: 400px;
-      /*margin-top:-9em;*/
-    /*}*/
-   /* & > .views-field-picture{
-      float:left;
-      display:inline;
-      margin-right:0.5em;
-    }
-  }*/
-
  .view-nurani-discussions{
     padding:0 25px 0; 
     & > div.view-content {
       .views-row{ 
         margin-bottom:4em;
       }
-
     }
   
-  & .view-meedan-discussion-participants > .view-content{
+    & .view-meedan-discussion-participants > .view-content{
     .views-row {
       margin:0;
       .views-field-picture{
@@ -120,15 +102,8 @@ h2{ margin-bottom:1em;}
         margin-right:1em;
 
       }
-
-
-    }
-
-  /*  float:right;*/
-    
+    }    
   }
-  
-
 }
 
 

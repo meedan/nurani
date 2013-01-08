@@ -8,7 +8,7 @@ $gutter-width:1em;*/
 /* Mixin to style attribution class and links */
 /* Calls layout.scss that renders all the styles on the site*/
 /*globally applied css*/
-/* line 7, ../scss/_typography.scss */
+/* line 7, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 .printpdf {
   background: url(../images/print.png) center left no-repeat;
   padding-left: 3em;
@@ -16,12 +16,12 @@ $gutter-width:1em;*/
   font-size: 1.2em;
   text-decoration: none;
 }
-/* line 13, ../scss/_typography.scss */
+/* line 13, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 .printpdf:hover {
   text-decoration: underline;
 }
 
-/* line 18, ../scss/_typography.scss */
+/* line 18, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 body {
   font-family: Helvetica Neue;
   font-size: 14px;
@@ -29,17 +29,17 @@ body {
   color: #4c1313;
 }
 
-/* line 26, ../scss/_typography.scss */
+/* line 26, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: Helvetica Neue;
 }
 
-/* line 30, ../scss/_typography.scss */
+/* line 30, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h1, h2 {
   text-align: center;
 }
 
-/* line 32, ../scss/_typography.scss */
+/* line 32, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 p {
   font-size: 1em;
   /* 14px */
@@ -48,7 +48,7 @@ p {
   /*margin: 0 0 1.8571em 0;*/
 }
 
-/* line 39, ../scss/_typography.scss */
+/* line 39, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h1 {
   font-size: 2.4286em;
   /* 34px */
@@ -59,7 +59,7 @@ h1 {
   font-weight: bold;
 }
 
-/* line 47, ../scss/_typography.scss */
+/* line 47, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h2 {
   font-size: 2.1429em;
   /* 30px */
@@ -69,7 +69,7 @@ h2 {
   font-weight: normal;
 }
 
-/* line 55, ../scss/_typography.scss */
+/* line 55, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h3 {
   font-size: 1.28571em;
   line-height: 1.4444em;
@@ -77,7 +77,7 @@ h3 {
   margin-bottom: 0em;
 }
 
-/* line 62, ../scss/_typography.scss */
+/* line 62, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 h4 {
   font-size: 1em;
   font-weight: normal;
@@ -85,39 +85,39 @@ h4 {
   margin-bottom: 1.5em;
 }
 
-/* line 69, ../scss/_typography.scss */
+/* line 69, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 ul, ul li {
   list-style-type: disc;
   list-style: none;
 }
 
-/* line 73, ../scss/_typography.scss */
+/* line 73, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 ol, ol li {
   list-style: decimal;
 }
 
-/* line 76, ../scss/_typography.scss */
+/* line 76, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
 sup {
   font-size: xx-small;
   vertical-align: super;
 }
 
 @media only screen and (max-width: 1024px) {
-  /* line 4, ../scss/_media-queries.scss */
+  /* line 4, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_media-queries.scss */
   div#top-strip {
     width: 100%;
     height: 100%;
   }
-  /* line 10, ../scss/_media-queries.scss */
+  /* line 10, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_media-queries.scss */
   div#top-strip #block-menu_block-nurani_main_menu ul li a {
     padding: 2px;
   }
 }
-/* line 2, ../scss/_header.scss */
+/* line 2, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
 #header {
   background-color: #4c1313;
 }
-/* line 5, ../scss/_header.scss */
+/* line 5, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
 #header #logo-box {
   width: 59.32203%;
   float: right;
@@ -126,19 +126,19 @@ sup {
   display: inline;
   position: relative;
 }
-/* line 11, ../scss/_header.scss */
+/* line 11, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
 #header #logo-box a#logo {
   z-index: 1;
   position: absolute;
   top: -12px;
 }
-/* line 18, ../scss/_header.scss */
+/* line 18, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
 #header #logo-box a#logo img {
   max-width: 100%;
 }
 
 /*Welcome block*/
-/* line 3, ../scss/_top-strip.scss */
+/* line 3, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login {
   margin-top: -2.5em;
   float: right;
@@ -151,29 +151,29 @@ sup {
   font-weight: bold;
   text-decoration: none;
 }
-/* line 13, ../scss/_top-strip.scss */
+/* line 13, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login .logout, #block-nurani_helpers-welcome_login .login {
   margin-left: 5em;
   font-weight: bold;
   text-transform: uppercase;
 }
-/* line 17, ../scss/_top-strip.scss */
+/* line 17, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login .logout a, #block-nurani_helpers-welcome_login .login a {
   text-decoration: none;
   color: #4a4a4a;
 }
 
-/* line 26, ../scss/_top-strip.scss */
+/* line 26, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu {
   width: 45%;
   padding: 1.8em;
 }
-/* line 30, ../scss/_top-strip.scss */
+/* line 30, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li {
   list-style-type: none;
   display: inline;
 }
-/* line 33, ../scss/_top-strip.scss */
+/* line 33, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li a {
   font-size: 1.5em;
   float: left;
@@ -185,7 +185,7 @@ sup {
   text-transform: uppercase;
   color: #4c1313;
 }
-/* line 44, ../scss/_top-strip.scss */
+/* line 44, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li a.active, #block-menu_block-nurani_main_menu ul li a:hover {
   text-decoration: none;
   color: #fff;
@@ -198,25 +198,25 @@ sup {
 }
 
 /* This themes list of comments and preview on discussion page */
-/* line 3, ../scss/_comments.scss */
+/* line 3, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
 .comment-inner {
   padding: 35px;
 }
-/* line 5, ../scss/_comments.scss */
+/* line 5, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
 .comment-inner .user-picture {
   float: left;
   margin: 0 1em 0 -1em;
 }
-/* line 8, ../scss/_comments.scss */
+/* line 8, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
 .comment-inner .user-picture a {
   float: left;
 }
-/* line 12, ../scss/_comments.scss */
+/* line 12, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
 .comment-inner .content {
   margin-left: 4em;
   color: #4a4a4a;
 }
-/* line 15, ../scss/_comments.scss */
+/* line 15, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
 .comment-inner .content .attribution {
   float: right;
 }
@@ -226,12 +226,12 @@ sup {
   font-weight: bold;
   text-decoration: none;
 }
-/* line 21, ../scss/_comments.scss */
+/* line 21, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
 .comment-inner .links {
   margin-left: 1.5em;
   margin-top: 1em;
 }
-/* line 24, ../scss/_comments.scss */
+/* line 24, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
 .comment-inner .links a {
   font-size: 12px;
   padding: 0.5em 1.5em;
@@ -278,54 +278,54 @@ sup {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 29, ../scss/_comments.scss */
+/* line 29, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
 .comment-inner .links a:hover {
   color: #fff;
   text-decoration: none;
 }
 
-/* line 3, ../scss/_user-profile.scss */
+/* line 3, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
 .pane-nurani-profile-user-profile h2.pane-title {
   color: #005eae;
 }
-/* line 5, ../scss/_user-profile.scss */
+/* line 5, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile {
   padding: 0 25px 0;
 }
-/* line 8, ../scss/_user-profile.scss */
+/* line 8, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-profile {
   margin-top: 1em;
 }
-/* line 10, ../scss/_user-profile.scss */
+/* line 10, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .user-picture {
   float: right;
   margin: 2em 0 0 1em;
 }
-/* line 15, ../scss/_user-profile.scss */
+/* line 15, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .fieldset-legend, .pane-nurani-profile-user-profile .profile a.fieldset-title {
   font-size: 1.2em;
   color: #005eae;
 }
-/* line 20, ../scss/_user-profile.scss */
+/* line 20, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-name-field-title, .pane-nurani-profile-user-profile .profile .field-name-field-first-name {
   display: inline;
   float: left;
   margin-right: 10px;
 }
-/* line 26, ../scss/_user-profile.scss */
+/* line 26, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-details .field {
   margin-bottom: 1em;
 }
-/* line 28, ../scss/_user-profile.scss */
+/* line 28, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-details .field > .field-items {
   float: right;
   text-align: right;
 }
-/* line 33, ../scss/_user-profile.scss */
+/* line 33, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-name-field-postal-address .field-items {
   width: 28%;
 }
-/* line 37, ../scss/_user-profile.scss */
+/* line 37, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-label-above {
   margin-bottom: 1em;
 }
@@ -357,20 +357,7 @@ body {
   margin-right: auto;
   padding-left: 1em;
   padding-right: 1em;
-  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(0%, rgba(100, 100, 225, 0.25)), color-stop(3.38983%, rgba(100, 100, 225, 0.25)), color-stop(3.38983%, rgba(0, 0, 0, 0)), color-stop(5.08475%, rgba(0, 0, 0, 0)), color-stop(5.08475%, rgba(100, 100, 225, 0.25)), color-stop(8.47458%, rgba(100, 100, 225, 0.25)), color-stop(8.47458%, rgba(0, 0, 0, 0)), color-stop(10.16949%, rgba(0, 0, 0, 0)), color-stop(10.16949%, rgba(100, 100, 225, 0.25)), color-stop(13.55932%, rgba(100, 100, 225, 0.25)), color-stop(13.55932%, rgba(0, 0, 0, 0)), color-stop(15.25424%, rgba(0, 0, 0, 0)), color-stop(15.25424%, rgba(100, 100, 225, 0.25)), color-stop(18.64407%, rgba(100, 100, 225, 0.25)), color-stop(18.64407%, rgba(0, 0, 0, 0)), color-stop(20.33898%, rgba(0, 0, 0, 0)), color-stop(20.33898%, rgba(100, 100, 225, 0.25)), color-stop(23.72881%, rgba(100, 100, 225, 0.25)), color-stop(23.72881%, rgba(0, 0, 0, 0)), color-stop(25.42373%, rgba(0, 0, 0, 0)), color-stop(25.42373%, rgba(100, 100, 225, 0.25)), color-stop(28.81356%, rgba(100, 100, 225, 0.25)), color-stop(28.81356%, rgba(0, 0, 0, 0)), color-stop(30.50847%, rgba(0, 0, 0, 0)), color-stop(30.50847%, rgba(100, 100, 225, 0.25)), color-stop(33.89831%, rgba(100, 100, 225, 0.25)), color-stop(33.89831%, rgba(0, 0, 0, 0)), color-stop(35.59322%, rgba(0, 0, 0, 0)), color-stop(35.59322%, rgba(100, 100, 225, 0.25)), color-stop(38.98305%, rgba(100, 100, 225, 0.25)), color-stop(38.98305%, rgba(0, 0, 0, 0)), color-stop(40.67797%, rgba(0, 0, 0, 0)), color-stop(40.67797%, rgba(100, 100, 225, 0.25)), color-stop(44.0678%, rgba(100, 100, 225, 0.25)), color-stop(44.0678%, rgba(0, 0, 0, 0)), color-stop(45.76271%, rgba(0, 0, 0, 0)), color-stop(45.76271%, rgba(100, 100, 225, 0.25)), color-stop(49.15254%, rgba(100, 100, 225, 0.25)), color-stop(49.15254%, rgba(0, 0, 0, 0)), color-stop(50.84746%, rgba(0, 0, 0, 0)), color-stop(50.84746%, rgba(100, 100, 225, 0.25)), color-stop(54.23729%, rgba(100, 100, 225, 0.25)), color-stop(54.23729%, rgba(0, 0, 0, 0)), color-stop(55.9322%, rgba(0, 0, 0, 0)), color-stop(55.9322%, rgba(100, 100, 225, 0.25)), color-stop(59.32203%, rgba(100, 100, 225, 0.25)), color-stop(59.32203%, rgba(0, 0, 0, 0)), color-stop(61.01695%, rgba(0, 0, 0, 0)), color-stop(61.01695%, rgba(100, 100, 225, 0.25)), color-stop(64.40678%, rgba(100, 100, 225, 0.25)), color-stop(64.40678%, rgba(0, 0, 0, 0)), color-stop(66.10169%, rgba(0, 0, 0, 0)), color-stop(66.10169%, rgba(100, 100, 225, 0.25)), color-stop(69.49153%, rgba(100, 100, 225, 0.25)), color-stop(69.49153%, rgba(0, 0, 0, 0)), color-stop(71.18644%, rgba(0, 0, 0, 0)), color-stop(71.18644%, rgba(100, 100, 225, 0.25)), color-stop(74.57627%, rgba(100, 100, 225, 0.25)), color-stop(74.57627%, rgba(0, 0, 0, 0)), color-stop(76.27119%, rgba(0, 0, 0, 0)), color-stop(76.27119%, rgba(100, 100, 225, 0.25)), color-stop(79.66102%, rgba(100, 100, 225, 0.25)), color-stop(79.66102%, rgba(0, 0, 0, 0)), color-stop(81.35593%, rgba(0, 0, 0, 0)), color-stop(81.35593%, rgba(100, 100, 225, 0.25)), color-stop(84.74576%, rgba(100, 100, 225, 0.25)), color-stop(84.74576%, rgba(0, 0, 0, 0)), color-stop(86.44068%, rgba(0, 0, 0, 0)), color-stop(86.44068%, rgba(100, 100, 225, 0.25)), color-stop(89.83051%, rgba(100, 100, 225, 0.25)), color-stop(89.83051%, rgba(0, 0, 0, 0)), color-stop(91.52542%, rgba(0, 0, 0, 0)), color-stop(91.52542%, rgba(100, 100, 225, 0.25)), color-stop(94.91525%, rgba(100, 100, 225, 0.25)), color-stop(94.91525%, rgba(0, 0, 0, 0)), color-stop(96.61017%, rgba(0, 0, 0, 0)), color-stop(96.61017%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
-  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
-  background-image: linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
-  background-position: left top;
-  -webkit-background-origin: content;
-  -moz-background-origin: content;
-  -ms-background-origin: content-box;
-  -o-background-origin: content-box;
-  background-origin: content-box;
-  -webkit-background-clip: content-box;
-  -moz-background-clip: content-box;
-  background-clip: content-box;
+  /*@include susy-grid-background;*/
 }
 /* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #main:after {
@@ -435,22 +422,6 @@ body.front {
   /*  Front-page */
   /******************************************** Styles for Home page when logged out ********************************************/
   /******************************************** Styles for Home page when logged in ********************************************/
-      /* .view-content > .views-row{
-    margin-bottom: 1em;
-    padding:0 25px 0; 
-
-    .views-field-title, .views-field-field-discussion-closing-date, .views-field-field-bundle{ width:200px;}
-    .views-field-nothing, .views-field-new-comments, .views-field-view{
-      float: right;
-      width: 400px;
-      /*margin-top:-9em;*/
-  /*}*/
- /* & > .views-field-picture{
-    float:left;
-    display:inline;
-    margin-right:0.5em;
-  }
-}*/
 }
 /* line 3, ../scss/pages/_page-front.scss */
 body.front h2 {
@@ -665,23 +636,19 @@ body.front .panel-2col .panel-col-last .pane-content {
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 105, ../scss/pages/_page-front.scss */
+/* line 88, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions {
   padding: 0 25px 0;
 }
-/* line 108, ../scss/pages/_page-front.scss */
+/* line 91, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > div.view-content .views-row {
   margin-bottom: 4em;
 }
-/* line 114, ../scss/pages/_page-front.scss */
-body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content {
-  /*  float:right;*/
-}
-/* line 115, ../scss/pages/_page-front.scss */
+/* line 97, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
   margin: 0;
 }
-/* line 117, ../scss/pages/_page-front.scss */
+/* line 99, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row .views-field-picture {
   display: inline;
   float: left;
