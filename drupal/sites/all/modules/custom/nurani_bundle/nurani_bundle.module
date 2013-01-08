@@ -415,13 +415,10 @@ function nurani_bundle_node_presave($node) {
   if ($node->type != 'bundle') {
     return;
   }
-  if (!$node->field_passage_collection || empty($node->field_passage_collection)) {
-    return;
-  }
 
   $title_parts = array();
 
-  foreach ($node->field_passage_collection[$node->language] as $delta => $value) {
+  foreach ((array) $node->field_passage_collection[$node->language] as $delta => $value) {
     // Taken from entity_load_single(), but resets cache each time
     $entities = entity_load('field_collection_item', array($value['value']), array(), TRUE);
     $entity = reset($entities);
@@ -430,7 +427,7 @@ function nurani_bundle_node_presave($node) {
     $osisIDWork = $entity->field_passage[$node->language][0]['osisIDWork'];
     $osisID     = $entity->field_passage[$node->language][0]['osisID'];
 
-    if ($visible) {
+    if ($visible && $osisIDWork && $osisID) {
       $info = nurani_library_get_passages_info($osisIDWork, $osisID);
 
       if ($info && $info['passage_human']) {

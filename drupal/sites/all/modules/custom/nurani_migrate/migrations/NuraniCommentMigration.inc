@@ -56,16 +56,16 @@ class NuraniCommentMigration extends NuraniMigration {
 
     // Mapped fields
     $this->addFieldMapping('is_new')->defaultValue(TRUE);
-    $this->addFieldMapping('pid', 'pid')
-         ->sourceMigration('NuraniComment')
-         ->description('Parent comment.')
-         ->defaultValue(0);
+    // $this->addFieldMapping('pid', 'pid')
+    //      ->sourceMigration('NuraniComment')
+    //      ->description('Parent comment.')
+    //      ->defaultValue(0);
     $this->addFieldMapping('nid', 'nid');
     $this->addFieldMapping('uid', 'uid')
          ->sourceMigration('NuraniUser')
          ->defaultValue(0);
     $this->addFieldMapping('subject', 'title');
-    $this->addFieldMapping('comment_body', 'body');
+    $this->addFieldMapping('comment_body', 'body')->callbacks(array($this, 'clean_comment_body'));
     $this->addFieldMapping('comment_body:format', 'filtered_html');
     $this->addFieldMapping('hostname', 'hostname');
     $this->addFieldMapping('created', 'created');
@@ -79,6 +79,14 @@ class NuraniCommentMigration extends NuraniMigration {
     $this->addFieldMapping('language')->defaultValue(LANGUAGE_NONE);
 
     // Unmapped destination fields
-    $this->addUnmigratedDestinations(array('cid', 'thread', 'comment_body:format', 'comment_body:language'));
+    $this->addUnmigratedDestinations(array('cid', 'pid', 'thread', 'comment_body:format', 'comment_body:language'));
+  }
+
+  public function clean_comment_body($body) {
+    $body = preg_replace('@</p>@', "</p>\n\n", $body);
+    $body = strip_tags($body);
+    $body = str_replace('&nbsp;', ' ', $body);
+    $body = html_entity_decode($body, ENT_QUOTES, 'UTF-8');
+    return $body;
   }
 }
