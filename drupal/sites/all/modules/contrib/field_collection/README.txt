@@ -32,5 +32,5 @@ Restrictions
 -------------
 
   * As of now, the field collection field does not properly respect different
-    languages of the host entity. Thus, for now it is suggested to only use the
-    field for entities that are not translatable.
+    revisions or languages of the host entity. Thus, for now it is suggested to
+    only use the field for entities that are not revisionable and translatable.
