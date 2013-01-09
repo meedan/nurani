@@ -77,6 +77,7 @@ function nurani_general_default_box() {
 <p>I am delighted to welcome you to SCRIPTURAL REASONING online and to Nurani - a platform for dialogue between Muslims, Jews and Christians. The practice of Scriptural Reasoning enables participants to go deeper into the faiths of others while also going deeper into their own faith—for the sake of God and God’s good purposes. I have not found anything else that serves so well to sustain on-going, faith-centred engagement among the Abrahamic traditions. I hope you find this opportunity of sharing and studying your scriptures with people of other faiths a rich and rewarding experience. </p>
  <br/>
 With warmest regards, <br/><br/>
+<img class="df_signature" src="<?php print base_path() . path_to_theme() . \'/images/df_signature.png\'; ?>" /> <br/><br/>
 David Ford, <br/>Regius Professor of Divinity <br/>
 University of Cambridge',
       'format' => 'php_code',
