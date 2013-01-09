@@ -101,11 +101,12 @@
     
     .new{
       position: absolute;
-      left: -32px;
-      margin-top: -44px;
-      background: url(../images/new.png) 10px 10px no-repeat;
-      
-      
+      left: -50px;
+      margin-top: -39px;
+      background-color: $nurani-light-blue;
+      text-align:center;
+      width:50px;
+      color: #fff;
     }	
 
   }
