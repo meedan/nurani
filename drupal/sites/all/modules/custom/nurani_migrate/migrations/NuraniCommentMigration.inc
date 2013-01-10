@@ -79,7 +79,7 @@ class NuraniCommentMigration extends NuraniMigration {
     $this->addFieldMapping('language')->defaultValue(LANGUAGE_NONE);
 
     // Unmapped destination fields
-    $this->addUnmigratedDestinations(array('cid', 'pid', 'thread', 'comment_body:format', 'comment_body:language'));
+    $this->addUnmigratedDestinations(array('cid', 'pid', 'thread', 'comment_body:language'));
   }
 
   public function clean_comment_body($body) {
