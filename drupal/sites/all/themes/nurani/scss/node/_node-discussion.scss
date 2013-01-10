@@ -9,15 +9,15 @@
 
 .node-discussion{
 
-  .passage-box{
-    margin-top: 2em;
-	@include span-columns(6,18);
-	&:nth-child(3n) { @include omega; } //every 3rd box completes a row	
-  }
-
   .passage-boxes > .inner {
     @include span-columns(16,18);
-	float:none;
+    float:none;
+  }
+
+  .passage-box{
+    margin-top: 2em;
+	  @include span-columns(6,18);
+	  &:nth-child(3n) { @include omega; } //every 3rd box completes a row	
   }
 
   .inner{
@@ -42,8 +42,9 @@
 
     .bib{
       border:1px solid $nurani-gray;
-      margin: -1em 1em 0em 3.4em;
-      width:73%;
+      margin: -1em 0 0 3.5em;
+      @include span-columns(4,6);
+      @include prefix(2);
 
       .moderator_s_thoughts{
 	    p{
