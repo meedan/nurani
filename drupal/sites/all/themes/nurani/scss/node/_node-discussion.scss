@@ -8,18 +8,15 @@
 
 
 .node-discussion{
-
   .passage-boxes > .inner {
     @include span-columns(16,18);
     float:none;
   }
-
   .passage-box{
     margin-top: 2em;
 	  @include span-columns(6,18);
 	  &:nth-child(3n) { @include omega; } //every 3rd box completes a row	
   }
-
   .inner{
     & > .passage-text{ 
 	  @include border($nurani-red, top, 5px);
@@ -28,44 +25,59 @@
 	  @include border($nurani-gray, right, 1px);
 	  background:$nurani-salmon-color;
 	}
-
 	.passage-widget {
 	  .verse{
 	    margin: 0 0.5em;
 	  }
+    h4{ margin-bottom:4em;}
 	  p {
 	    font-family: palatino;
 	    margin-top:0.5em;
 	    display:inline;
 	  }
 	}
-
     .bib{
       border:1px solid $nurani-gray;
       margin: -1em 0 0 3.5em;
       @include span-columns(4,6);
       @include prefix(2);
-
       .moderator_s_thoughts{
-	    p{
-	  	  font-size: 1.1429em; 
-	  	  text-indent: justify;
-	  	  color:$nurani-text-gray;
-        margin-bottom: 2em;
-	  	}
-
-	  	span.attribution{
-	  	  margin-top: -1em;
-        padding-right: 20px;
-        float: right;
-	  	  @include attribution($nurani-light-blue);
-	  	}
-
-	  }
-
+	      p{
+	  	    font-size: 1.1429em; 
+	  	    text-indent: justify;
+	  	    color:$nurani-text-gray;
+          margin-bottom: 2em;
+	  	  }
+	  	  span.attribution{
+	  	    margin-top: -1em;
+          padding-right: 20px;
+          float: right;
+	  	    @include attribution($nurani-light-blue);
+	  	  }
+	    }
     }
 	  
   }	
+}
+.tab-bar{
+  padding:0;
+  margin:40px 25px;
+  border-bottom: 3px solid $nurani-light-blue;
+  position: absolute;
+  top: 70px;
+
+  .button{
+    padding: 13px 32px 5px 27px;
+    background:$nurani-gray;
+    margin-right:10px;
+    color:$nurani-text-gray;
+    text-decoration:none;
+
+    &:hover{
+      text-decoration:none;
+    }
+
+  }
 }
 
 /*********** Styles for the lower section of the discussion page containing i.e. the comment list and comment form ***********/
@@ -205,7 +217,7 @@
 /******************************************** Styling Discussion info section ********************************************/
 .block-meedan-discussion-lock{
   background:url(../images/clock-icon.png) no-repeat;
-  margin-bottom:1em;
+  margin-bottom:2em;
   .content{
     margin-left:3em;
     @include styling-pdf-discussion-lock;
