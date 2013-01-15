@@ -25,7 +25,7 @@ body{
 
 #main{ 
   @include container;
-  /*@include susy-grid-background;*/
+  @include susy-grid-background;
 
   & > #content{
   //shortcut for suffix and prefix - create 2 cols empty space left and right
