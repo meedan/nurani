@@ -1,0 +1,50 @@
+@import "susy";
+@import "compass/css3";
+@import "fancy-buttons";
+
+// (30px + 30px) * 20 cols = 1200px
+$total-width: 1200px; // total target width in pixels
+$total-columns: 20; // total number of cols across
+$column-width: 30px;
+$gutter-width: 30px;
+
+$nurani-salmon-color: #F1E9E4;
+$nurani-gray: #CCC6C2;
+
+.passage-boxes {
+  @include container;
+  @include susy-grid-background;
+
+  & > .inner {
+  	@include pad(1,1);
+    @include span-columns(18,20);
+  } 
+}
+
+.passage-box {
+  @include span-columns(6,18);
+  &:nth-child(3n){@include omega;}
+  .inner {
+    & > .passage-text {
+      background: $nurani-salmon-color;
+      padding: {left: 5px; right: 5px}
+    }
+  }
+
+  .bib {
+    background-color: $nurani-gray;
+    border-top: 1px solid #CCC6C2;
+    @include span-columns(5,6, $gutter-width/2);
+    margin-top: -1em;
+    margin-#{$from-direction}: columns(1,6);
+  }
+}
+
+// Chris' Debugger "dont leave home without it"
+body * { border-top: 5px solid black; }
+.passage-boxes { border-top-color: yellow; }
+.passage-box { border-top-color: green; }
+.bib { border-top-color: pink; }
+.inner { border-top-color: red; }
+.passage-text { border-top-color: aqua; }
+
