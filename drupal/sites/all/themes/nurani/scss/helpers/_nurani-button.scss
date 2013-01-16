@@ -2,8 +2,9 @@
   @include sassy-button("flat", 0.2em, $text_size, lighten($base_color, 2%), $base_color, $text_color);
 }
 
-@mixin a-link-as-button{
-  @include nurani-button($nurani-light-blue, 14px, darken(#fff, 0.5%));
+@mixin a-link-as-button($color){
+
+  @include nurani-button($color, 14px, darken(#fff, 0.5%));
   text-transform: uppercase;
   text-decoration: none;
   &:hover{

@@ -4,7 +4,7 @@
 /* Mixin to style attribution class and links */
 /* Calls layout.scss that renders all the styles on the site*/
 /*globally applied css*/
-/* line 7, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 7, ../scss/_typography.scss */
 .printpdf {
   background: url(../images/print.png) center left no-repeat;
   margin: 1em 0 1em 0;
@@ -13,30 +13,30 @@
   font-size: 1.2em;
   text-decoration: none;
 }
-/* line 15, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 15, ../scss/_typography.scss */
 .printpdf:hover {
   text-decoration: underline;
 }
 
-/* line 20, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 20, ../scss/_typography.scss */
 body {
   font-family: Helvetica Neue;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 26px;
   color: #4c1313;
 }
 
-/* line 28, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 28, ../scss/_typography.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: Helvetica Neue;
 }
 
-/* line 32, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 32, ../scss/_typography.scss */
 h1, h2 {
   text-align: center;
 }
 
-/* line 34, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 34, ../scss/_typography.scss */
 p {
   font-size: 1em;
   /* 14px */
@@ -45,7 +45,7 @@ p {
   /*margin: 0 0 1.8571em 0;*/
 }
 
-/* line 41, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 41, ../scss/_typography.scss */
 h1 {
   font-size: 2.4286em;
   /* 34px */
@@ -56,7 +56,7 @@ h1 {
   font-weight: bold;
 }
 
-/* line 49, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 49, ../scss/_typography.scss */
 h2 {
   font-size: 2.1429em;
   /* 30px */
@@ -66,7 +66,7 @@ h2 {
   font-weight: normal;
 }
 
-/* line 57, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 57, ../scss/_typography.scss */
 h3 {
   font-size: 1.28571em;
   line-height: 1.4444em;
@@ -74,7 +74,7 @@ h3 {
   margin-bottom: 0em;
 }
 
-/* line 64, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 64, ../scss/_typography.scss */
 h4 {
   font-size: 1em;
   font-weight: normal;
@@ -82,18 +82,18 @@ h4 {
   margin-bottom: 1.5em;
 }
 
-/* line 71, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 71, ../scss/_typography.scss */
 ul, ul li {
   list-style-type: disc;
   list-style: none;
 }
 
-/* line 75, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 75, ../scss/_typography.scss */
 ol, ol li {
   list-style: decimal;
 }
 
-/* line 78, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_typography.scss */
+/* line 78, ../scss/_typography.scss */
 sup {
   font-size: xx-small;
   vertical-align: super;
@@ -101,21 +101,21 @@ sup {
 
 /** menu links fall below the other as screen size reduces **/
 @media only screen and (max-width: 1024px) {
-  /* line 4, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_media-queries.scss */
+  /* line 4, ../scss/_media-queries.scss */
   div#top-strip {
     width: 100%;
     height: 100%;
   }
-  /* line 10, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_media-queries.scss */
+  /* line 10, ../scss/_media-queries.scss */
   div#top-strip #block-menu_block-nurani_main_menu ul li a {
     padding: 2px;
   }
 }
-/* line 2, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
+/* line 2, ../scss/_header.scss */
 #header {
   background-color: #4c1313;
 }
-/* line 5, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
+/* line 5, ../scss/_header.scss */
 #header #logo-box {
   width: 59.32203%;
   float: right;
@@ -124,54 +124,54 @@ sup {
   display: inline;
   position: relative;
 }
-/* line 11, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
+/* line 11, ../scss/_header.scss */
 #header #logo-box a#logo {
   z-index: 1;
   position: absolute;
   top: -12px;
 }
-/* line 18, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_header.scss */
+/* line 18, ../scss/_header.scss */
 #header #logo-box a#logo img {
   max-width: 100%;
 }
 
 /*Welcome block*/
-/* line 3, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
+/* line 3, ../scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login {
   margin-top: -2.5em;
   float: right;
   font-size: 1.5em;
   color: #4a4a4a;
 }
-/* line 4, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_links.scss */
+/* line 4, ../scss/helpers/_links.scss */
 #block-nurani_helpers-welcome_login .welcome a {
   color: black;
   font-weight: bold;
   text-decoration: none;
 }
-/* line 13, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
+/* line 13, ../scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login .logout, #block-nurani_helpers-welcome_login .login {
   margin-left: 5em;
   font-weight: bold;
   text-transform: uppercase;
 }
-/* line 17, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
+/* line 17, ../scss/_top-strip.scss */
 #block-nurani_helpers-welcome_login .logout a, #block-nurani_helpers-welcome_login .login a {
   text-decoration: none;
   color: #4a4a4a;
 }
 
-/* line 26, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
+/* line 26, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu {
   width: 45%;
   padding: 1.8em;
 }
-/* line 30, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
+/* line 30, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li {
   list-style-type: none;
   display: inline;
 }
-/* line 33, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
+/* line 33, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li a {
   font-size: 1.5em;
   float: left;
@@ -183,7 +183,7 @@ sup {
   text-transform: uppercase;
   color: #4c1313;
 }
-/* line 44, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_top-strip.scss */
+/* line 44, ../scss/_top-strip.scss */
 #block-menu_block-nurani_main_menu ul li a.active, #block-menu_block-nurani_main_menu ul li a:hover {
   text-decoration: none;
   color: #fff;
@@ -196,40 +196,40 @@ sup {
 }
 
 /* This themes list of comments and preview on discussion page */
-/* line 3, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
+/* line 3, ../scss/_comments.scss */
 .comment-inner {
   padding: 35px;
 }
-/* line 5, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
+/* line 5, ../scss/_comments.scss */
 .comment-inner .user-picture {
   float: left;
   margin: 0 1em 0 -1em;
 }
-/* line 8, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
+/* line 8, ../scss/_comments.scss */
 .comment-inner .user-picture a {
   float: left;
 }
-/* line 12, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
+/* line 12, ../scss/_comments.scss */
 .comment-inner .content {
   margin-left: 4em;
   color: #4a4a4a;
 }
-/* line 15, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
+/* line 15, ../scss/_comments.scss */
 .comment-inner .content .attribution {
   float: right;
 }
-/* line 4, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_links.scss */
+/* line 4, ../scss/helpers/_links.scss */
 .comment-inner .content .attribution a {
   color: #005eae;
   font-weight: bold;
   text-decoration: none;
 }
-/* line 21, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
+/* line 21, ../scss/_comments.scss */
 .comment-inner .links {
   margin-left: 1.5em;
   margin-top: 1em;
 }
-/* line 24, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
+/* line 24, ../scss/_comments.scss */
 .comment-inner .links a {
   font-size: 12px;
   padding: 0.5em 1.5em;
@@ -250,19 +250,19 @@ sup {
   text-decoration: none;
   font-weight: bold;
 }
-/* line 15, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a:hover {
   text-decoration: none;
 }
-/* line 42, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a:hover {
   background-color: #00569f;
 }
-/* line 44, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a:active {
   background-color: #004d8f;
 }
-/* line 6, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a.disabled, .comment-inner .links a[disabled] {
   opacity: 0.6;
   background: false;
@@ -271,82 +271,82 @@ sup {
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 .comment-inner .links a::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 29, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_comments.scss */
+/* line 29, ../scss/_comments.scss */
 .comment-inner .links a:hover {
   color: #fff;
   text-decoration: none;
 }
 
-/* line 3, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
+/* line 3, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile h2.pane-title {
   color: #005eae;
 }
-/* line 5, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
+/* line 5, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile {
   padding: 0 25px 0;
 }
-/* line 8, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
+/* line 8, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-profile {
   margin-top: 1em;
 }
-/* line 10, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
+/* line 10, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .user-picture {
   float: right;
   margin: 2em 0 0 1em;
 }
-/* line 15, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
+/* line 15, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .fieldset-legend, .pane-nurani-profile-user-profile .profile a.fieldset-title {
   font-size: 1.2em;
   color: #005eae;
 }
-/* line 20, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
+/* line 20, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-name-field-title, .pane-nurani-profile-user-profile .profile .field-name-field-first-name {
   display: inline;
   float: left;
   margin-right: 10px;
 }
-/* line 26, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
+/* line 26, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-details .field {
   margin-bottom: 1em;
 }
-/* line 28, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
+/* line 28, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-details .field > .field-items {
   float: right;
   text-align: right;
 }
-/* line 33, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
+/* line 33, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-name-field-postal-address .field-items {
   width: 28%;
 }
-/* line 37, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_user-profile.scss */
+/* line 37, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-label-above {
   margin-bottom: 1em;
 }
 
-/* line 11, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
+/* line 11, ../scss/_layout.scss */
 * {
   margin: 0;
   padding: 0;
 }
 
-/* line 16, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
+/* line 16, ../scss/_layout.scss */
 body {
   margin: 0;
   background: #f1e9e4 url("../images/brown_bkg.gif") repeat fixed center right;
 }
 
-/* line 21, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
+/* line 21, ../scss/_layout.scss */
 .region-top-strip {
   background: #fff;
   padding: 4px 20px 0;
 }
 
-/* line 26, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
+/* line 26, ../scss/_layout.scss */
 #main {
   *zoom: 1;
   max-width: 98.33333%;
@@ -370,13 +370,13 @@ body {
   -moz-background-clip: content-box;
   background-clip: content-box;
 }
-/* line 38, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #main:after {
   content: "";
   display: table;
   clear: both;
 }
-/* line 30, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
+/* line 30, ../scss/_layout.scss */
 #main > #content {
   padding-left: 5.08475%;
   padding-right: 5.08475%;
@@ -386,7 +386,7 @@ body {
   display: inline;
 }
 
-/* line 38, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
+/* line 38, ../scss/_layout.scss */
 #header {
   height: 39px;
   *zoom: 1;
@@ -398,18 +398,18 @@ body {
   padding-right: 1em;
   /* @include susy-grid-background;*/
 }
-/* line 38, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #header:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* line 46, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
+/* line 46, ../scss/_layout.scss */
 #content-inner #content-area {
   margin-bottom: 4em;
 }
-/* line 52, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
+/* line 52, ../scss/_layout.scss */
 #content-inner #content-bottom #content-bottom-left {
   float: left;
   width: 60.37736%;
@@ -417,7 +417,7 @@ body {
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 57, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/_layout.scss */
+/* line 57, ../scss/_layout.scss */
 #content-inner #content-bottom #content-bottom-right {
   float: left;
   width: 32.07547%;
@@ -434,31 +434,31 @@ body.front {
   /******************************************** Styles for Home page when logged out ********************************************/
   /******************************************** Styles for Home page when logged in ********************************************/
 }
-/* line 3, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 3, ../scss/pages/_page-front.scss */
 body.front h2 {
   margin-bottom: 1em;
 }
-/* line 9, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 9, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 .panel-panel {
   width: 32.07547%;
   float: left;
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 11, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 11, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 .panel-panel:nth-child(3n) {
   float: right;
   margin-right: 0;
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 15, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 15, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 .block-boxes,
 body.front .panel-3col-33 .panel-pane {
   padding: 30px;
   text-align: justify;
 }
-/* line 22, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 22, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 #block-boxes-nurani_welcome {
   background-color: #fff;
   margin-bottom: 25px;
@@ -466,14 +466,14 @@ body.front .panel-3col-33 #block-boxes-nurani_welcome {
   border-top-style: solid;
   border-top-color: #ac9d43;
 }
-/* line 24, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 24, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 #block-boxes-nurani_welcome .d_ford {
   width: 80px;
   float: left;
   margin: 0 1.5em;
   border: 5px solid whiteSmoke;
 }
-/* line 32, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 32, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani {
   background-color: #fff;
   margin-bottom: 25px;
@@ -481,12 +481,12 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani {
   border-top-style: solid;
   border-top-color: #4c1313;
 }
-/* line 34, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 34, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani iframe {
   margin-bottom: 2em;
   width: 100%;
 }
-/* line 39, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 39, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link {
   background: url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
   font-size: 14px;
@@ -509,19 +509,19 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link {
   padding: 1em 3.5em;
   margin: 1em 4em;
 }
-/* line 15, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   text-decoration: none;
 }
-/* line 42, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   background-color: #00569f;
 }
-/* line 44, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:active {
   background-color: #004d8f;
 }
-/* line 6, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link.disabled, body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link[disabled] {
   opacity: 0.6;
   background: false;
@@ -530,16 +530,16 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link.disabl
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 9, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_nurani-button.scss */
+/* line 10, ../scss/helpers/_nurani-button.scss */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   color: #fff;
 }
-/* line 47, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 47, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 .panel-pane {
   background-color: #fff;
   margin-bottom: 25px;
@@ -547,7 +547,7 @@ body.front .panel-3col-33 .panel-pane {
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 49, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 49, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 .panel-pane a.invitation-link {
   background: url(../images/mail.png) no-repeat 10px 11px;
   font-size: 14px;
@@ -570,19 +570,19 @@ body.front .panel-3col-33 .panel-pane a.invitation-link {
   padding: 1em 1em 1em 4em;
   margin: 1em 4em;
 }
-/* line 15, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   text-decoration: none;
 }
-/* line 42, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   background-color: #00569f;
 }
-/* line 44, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link:active {
   background-color: #004d8f;
 }
-/* line 6, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link.disabled, body.front .panel-3col-33 .panel-pane a.invitation-link[disabled] {
   opacity: 0.6;
   background: false;
@@ -591,39 +591,39 @@ body.front .panel-3col-33 .panel-pane a.invitation-link.disabled, body.front .pa
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 9, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_nurani-button.scss */
+/* line 10, ../scss/helpers/_nurani-button.scss */
 body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   color: #fff;
 }
-/* line 61, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 61, ../scss/pages/_page-front.scss */
 body.front .panel-2col {
   /* This styles the discussion block*/
   /* This styles the profile block*/
 }
-/* line 62, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 62, ../scss/pages/_page-front.scss */
 body.front .panel-2col h2 {
   text-align: left;
 }
-/* line 65, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 65, ../scss/pages/_page-front.scss */
 body.front .panel-2col h3 a {
   font-family: palatino;
   font-style: italic;
   color: #4a4a4a;
   text-decoration: none;
 }
-/* line 72, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 72, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-first {
   width: 54.71698%;
   float: left;
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 74, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 74, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-first .view-nurani-discussions {
   background-color: #fff;
   margin-bottom: 25px;
@@ -631,7 +631,7 @@ body.front .panel-2col .panel-col-first .view-nurani-discussions {
   border-top-style: solid;
   border-top-color: #4c1313;
 }
-/* line 80, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 80, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last {
   width: 37.73585%;
   float: right;
@@ -639,7 +639,7 @@ body.front .panel-2col .panel-col-last {
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 82, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 82, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last .pane-content {
   background-color: #fff;
   margin-bottom: 25px;
@@ -647,19 +647,19 @@ body.front .panel-2col .panel-col-last .pane-content {
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 88, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 88, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions {
   padding: 0 25px 0;
 }
-/* line 91, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 91, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > div.view-content .views-row {
   margin-bottom: 4em;
 }
-/* line 97, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 97, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
   margin: 0;
 }
-/* line 99, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/pages/_page-front.scss */
+/* line 99, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row .views-field-picture {
   display: inline;
   float: left;
@@ -680,12 +680,12 @@ body.node-type-discussion {
   /******************************************** Styling Comment form ********************************************/
   /******************************************** Styling Discussion info section ********************************************/
 }
-/* line 4, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 4, ../scss/node/_node-discussion.scss */
 body.node-type-discussion #content-header h1, body.node-type-discussion #content-header h2 {
   font-family: palatino;
   font-style: italic;
 }
-/* line 11, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 11, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .passage-boxes > .inner {
   width: 88.67925%;
   float: left;
@@ -693,7 +693,7 @@ body.node-type-discussion .node-discussion .passage-boxes > .inner {
   display: inline;
   float: none;
 }
-/* line 15, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 15, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .passage-box {
   margin-top: 2em;
   width: 32.07547%;
@@ -701,14 +701,14 @@ body.node-type-discussion .node-discussion .passage-box {
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 18, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 18, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .passage-box:nth-child(3n) {
   float: right;
   margin-right: 0;
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 21, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 21, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner > .passage-text {
   border-top: 5px;
   border-top-style: solid;
@@ -724,21 +724,21 @@ body.node-type-discussion .node-discussion .inner > .passage-text {
   border-right-color: #ccc6c2;
   background: #f1e9e4;
 }
-/* line 29, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 29, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .passage-widget .verse {
   margin: 0 0.5em;
 }
-/* line 32, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 32, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .passage-widget h4 {
-  margin-bottom: 5em;
+  margin-bottom: 1em;
 }
-/* line 33, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 33, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .passage-widget p {
   font-family: palatino;
   margin-top: 0.5em;
   display: inline;
 }
-/* line 39, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 39, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .bib {
   border: 1px solid #ccc6c2;
   margin: -1em 0 0 3.5em;
@@ -748,60 +748,98 @@ body.node-type-discussion .node-discussion .inner .bib {
   display: inline;
   padding-left: 10.16949%;
 }
-/* line 45, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 45, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts p {
   font-size: 1.1429em;
   text-indent: justify;
   color: #4a4a4a;
   margin-bottom: 2em;
 }
-/* line 51, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 51, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts span.attribution {
   margin-top: -1em;
   padding-right: 20px;
   float: right;
 }
-/* line 4, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_links.scss */
+/* line 4, ../scss/helpers/_links.scss */
 body.node-type-discussion .node-discussion .inner .bib .moderator_s_thoughts span.attribution a {
   color: #005eae;
   font-weight: bold;
   text-decoration: none;
 }
-/* line 64, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 64, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .tab-bar {
-  padding: 0;
-  margin: 0 1em;
-  position: absolute;
-  top: 100px;
-  width: 40em;
+  margin-top: 1em;
 }
-/* line 71, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
-body.node-type-discussion .tab-bar .button {
-  margin-left: -0.1em;
-  padding: 0.8em;
-  background: #ccc6c2;
-  text-decoration: none;
-  color: #4a4a4a;
+/* line 67, ../scss/node/_node-discussion.scss */
+body.node-type-discussion .tab-bar a.button {
+  font-size: 14px;
+  padding: 0.5em 1.5em;
   display: inline-block;
-  border-top-left-radius: 0.8em;
-  border-top-right-radius: 0.8em;
-  border: 1px solid #005eae;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFD0BCA5', endColorstr='#FFAE8A61');
+  background-color: #d0bca5;
+  border: 0;
+  color: #fefefe;
+  text-shadow: #a27d54 0 -1px 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 11px;
+  color: #4a4a4a;
+  margin-bottom: 1em;
+  margin-right: 1em;
 }
-/* line 83, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
-body.node-type-discussion .tab-bar .button:hover {
+/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.node-type-discussion .tab-bar a.button:hover {
   text-decoration: none;
 }
-/* line 92, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.node-type-discussion .tab-bar a.button:hover {
+  background-color: #c8b094;
+}
+/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.node-type-discussion .tab-bar a.button:active {
+  background-color: #c3a88a;
+}
+/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.node-type-discussion .tab-bar a.button.disabled, body.node-type-discussion .tab-bar a.button[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+body.node-type-discussion .tab-bar a.button::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+/* line 10, ../scss/helpers/_nurani-button.scss */
+body.node-type-discussion .tab-bar a.button:hover {
+  color: #fff;
+}
+/* line 73, ../scss/node/_node-discussion.scss */
+body.node-type-discussion .tab-bar a.button:hover {
+  color: #4a4a4a;
+}
+/* line 81, ../scss/node/_node-discussion.scss */
 body.node-type-discussion #block-views-nurani_comment_list-block {
   margin-left: 80px;
 }
-/* line 93, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 82, ../scss/node/_node-discussion.scss */
 body.node-type-discussion #block-views-nurani_comment_list-block h2 {
   text-align: left;
   margin-bottom: 2px;
   padding: 8px 0;
 }
-/* line 100, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 89, ../scss/node/_node-discussion.scss */
 body.node-type-discussion #block-views-nurani_comment_list-block .comment-number {
   position: absolute;
   left: -80px;
@@ -809,13 +847,13 @@ body.node-type-discussion #block-views-nurani_comment_list-block .comment-number
   font-size: 3.5em;
   opacity: 0.5;
 }
-/* line 112, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 101, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .comment-preview {
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #8b000e;
 }
-/* line 119, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 108, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .comment {
   background-color: #fff;
   margin-bottom: 25px;
@@ -823,7 +861,7 @@ body.node-type-discussion .view-nurani-comment-list .comment {
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 122, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 111, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-nurani-comment-list .comment .new {
   position: absolute;
   left: -50px;
@@ -833,7 +871,7 @@ body.node-type-discussion .view-nurani-comment-list .comment .new {
   width: 50px;
   color: #fff;
 }
-/* line 137, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 126, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .nurani-sort-links:after {
   content: ' ';
   height: 0;
@@ -845,14 +883,14 @@ body.node-type-discussion .nurani-sort-links:after {
   border-top-color: #4c1313;
   opacity: 0.5;
 }
-/* line 151, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 140, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .nurani-sort-links {
   position: relative;
   float: right;
   font-size: 2.1429em;
   margin-top: -35px;
 }
-/* line 156, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 145, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .nurani-sort-links a {
   color: #4c1313;
   padding-right: 20px;
@@ -860,15 +898,15 @@ body.node-type-discussion .nurani-sort-links a {
   text-decoration: none;
   opacity: 0.5;
 }
-/* line 164, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 153, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .nurani-sort-links a.active {
   display: none;
 }
-/* line 171, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 160, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .block-nurani-comment h2 {
   display: none;
 }
-/* line 177, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 166, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .comment-form {
   background: #005eae;
   margin-bottom: 2em;
@@ -876,35 +914,35 @@ body.node-type-discussion .comment-form {
   color: #fff;
   max-width: 100%;
 }
-/* line 187, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 176, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .comment-form div.head .user-picture {
   float: left;
 }
-/* line 189, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 178, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .comment-form div.head .user-picture a {
   float: left;
 }
-/* line 194, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 183, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .comment-form div.head .info {
   margin-left: 6em;
 }
-/* line 4, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_links.scss */
+/* line 4, ../scss/helpers/_links.scss */
 body.node-type-discussion .comment-form div.head .info a {
   color: white;
   font-weight: bold;
   text-decoration: none;
 }
-/* line 199, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 188, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .comment-form div.head .tip {
   margin-top: 2em;
 }
-/* line 207, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 196, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .comment-form label,
 body.node-type-discussion .comment-form .form-text,
 body.node-type-discussion .comment-form .filter-wrapper {
   display: none;
 }
-/* line 211, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 200, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .comment-form .ajax-processed {
   font-size: 12px;
   padding: 0.5em 1.5em;
@@ -927,19 +965,19 @@ body.node-type-discussion .comment-form .ajax-processed {
   margin-right: 0.5em;
   display: inline;
 }
-/* line 15, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed:hover {
   text-decoration: none;
 }
-/* line 42, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed:hover {
   background-color: #003766;
 }
-/* line 44, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed:active {
   background-color: #002f56;
 }
-/* line 6, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed.disabled, body.node-type-discussion .comment-form .ajax-processed[disabled] {
   opacity: 0.6;
   background: false;
@@ -948,44 +986,44 @@ body.node-type-discussion .comment-form .ajax-processed.disabled, body.node-type
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, /Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.node-type-discussion .comment-form .ajax-processed::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
-/* line 220, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 209, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .comment-form .form-actions {
   float: right;
 }
-/* line 225, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 214, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .block-meedan-discussion-lock {
   background: url(../images/clock-icon.png) no-repeat;
   margin-bottom: 2em;
 }
-/* line 228, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 217, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .block-meedan-discussion-lock .content {
   margin-left: 3em;
   color: #4a4a4a;
   font-size: 1.2em;
 }
-/* line 235, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 224, ../scss/node/_node-discussion.scss */
 body.node-type-discussion #block-nurani_discussion-print_pdf {
   margin-bottom: 4em;
 }
-/* line 240, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 229, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content {
   margin-bottom: 4em;
 }
-/* line 243, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 232, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-picture {
   float: left;
 }
-/* line 247, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/node/_node-discussion.scss */
+/* line 236, ../scss/node/_node-discussion.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-name,
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-cid {
   margin-left: 4em;
 }
-/* line 4, /Applications/MAMP/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_links.scss */
+/* line 4, ../scss/helpers/_links.scss */
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-name a,
 body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-cid a {
   color: #005eae;

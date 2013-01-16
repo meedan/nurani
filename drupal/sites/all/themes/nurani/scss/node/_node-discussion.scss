@@ -29,7 +29,7 @@
 	  .verse{
 	    margin: 0 0.5em;
 	  }
-    h4{ margin-bottom:5em;}
+    h4{ margin-bottom:1em;}
 	  p {
 	    font-family: palatino;
 	    margin-top:0.5em;
@@ -62,28 +62,17 @@
 
 /****** styling tabbed for translation option ******/  
 .tab-bar{
-  padding:0;
-  margin:0 1em;
-  position: absolute;
-  top: 100px;
-  width:40em;
-   
-  .button{
-    margin-left: -0.1em;
-    padding: 0.8em;
-    background: $nurani-gray;
-    text-decoration:none;
+  margin-top:1em;
+  
+  a.button{
+    @include a-link-as-button($nurani-brown);
+    font-size:11px;
     color:$nurani-text-gray;
-    display: inline-block;
-    border-top-left-radius: 0.8em;
-    border-top-right-radius: 0.8em;
-    border: 1px solid $nurani-light-blue;
-   
-
+    margin-bottom:1em;
+    margin-right:1em;
     &:hover{
-      text-decoration:none;
+      color:$nurani-text-gray;
     }
-
   }
 }
 

@@ -38,7 +38,7 @@ h2{ margin-bottom:1em;}
 
    a.welcome-link{
      background:url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
-     @include a-link-as-button;
+     @include a-link-as-button($nurani-light-blue);
      padding:1em 3.5em;
      margin:1em 4em;
    }
@@ -48,7 +48,7 @@ h2{ margin-bottom:1em;}
     @include white-background-bordered-top($nurani-light-blue,top, 5px);
     a.invitation-link{
       background:url(../images/mail.png) no-repeat 10px 11px;
-      @include a-link-as-button;
+      @include a-link-as-button($nurani-light-blue);
       padding:1em 1em 1em 4em;
       margin:1em 4em;
     }
