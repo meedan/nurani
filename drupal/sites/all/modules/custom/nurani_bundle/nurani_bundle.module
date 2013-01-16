@@ -492,6 +492,16 @@ function nurani_bundle_node_load($nodes, $types) {
 }
 
 /**
+ * Implements hook_node_view().
+ */
+function nurani_bundle_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'bundle' && $view_mode == 'print') {
+    // When in print mode, use the discussion title as the title of the PDF
+    $node->title = t('Readings for @discussion', array('@discussion' => $node->discussion['title']));
+  }
+}
+
+/**
  * Page callback to generate JSON output for "cloning" a bundle.
  */
 function nurani_bundle_clone_bundle_json($bundle_node, $langcode = LANGUAGE_NONE) {
