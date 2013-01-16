@@ -268,11 +268,11 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
       'osisID' => 'Quran.58.7-10',
     ),
     1089 => array(
-      'osisIDWork' => 'jps_2000_en',
+      'osisIDWork' => 'njps_en', // 'jps_2000_en',
       'osisID' => 'Num.16.1-6',
     ),
     1123 => array(
-      'osisIDWork' => 'jps_1985_en',
+      'osisIDWork' => 'njps_en', // 'jps_1985_en'
       'osisID' => 'Gen.1.1-5',
     ),
     1251 => array(
@@ -284,7 +284,7 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
       'osisID' => 'Quran.41.9-12',
     ),
     1675 => array(
-      'osisIDWork' => 'jps_1985_en',
+      'osisIDWork' => 'njps_en', // 'jps_1985_en'
       'osisID' => 'Exod.3.1-8',
     ),
     1765 => array(
@@ -328,7 +328,7 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
       'osisID' => 'Quran.20.9-23',
     ),
     2441 => array(
-      'osisIDWork' => 'jps_1985_en',
+      'osisIDWork' => 'njps_en', // 'jps_1985_en'
       'osisID' => 'Exod.3.1-8',
     ),
     2565 => array(
@@ -340,11 +340,11 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
       'osisID' => 'Quran.11.40-44',
     ),
     2659 => array(
-      'osisIDWork' => 'jps_1985_en',
+      'osisIDWork' => 'njps_en', // 'jps_1985_en'
       'osisID' => 'Num.20.1-13',
     ),
     2679 => array(
-      'osisIDWork' => 'jps_1985_en',
+      'osisIDWork' => 'njps_en', // 'jps_1985_en'
       'osisID' => 'Gen.7.1-5',
     ),
     2771 => array(
@@ -356,7 +356,7 @@ class NuraniDiscussionBundleMigration extends NuraniMigration {
       'osisID' => 'Matt.24.35-42',
     ),
     2683 => array(
-      'osisIDWork' => 'jps_1985_en',
+      'osisIDWork' => 'njps_en', // 'jps_1985_en'
       'osisID' => 'Gen.1.26-28',
     ),
     2781 => array(
