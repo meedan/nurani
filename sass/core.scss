@@ -11,36 +11,76 @@ $gutter-width: 30px;
 $nurani-salmon-color: #F1E9E4;
 $nurani-gray: #CCC6C2;
 
-.passage-boxes {
-  @include container;
-  @include susy-grid-background;
+// define breakpoints
+$first-breakpoint: $total-columns - 8;
+
+@mixin banner($text: "testing") {
+  &:after {
+    content: $text; 
+    position: fixed; 
+    bottom: 0; 
+    #{$omega-float}: 0; 
+    background-color: yellow;
+  }
+}
+
+// 1. Default styles
+// apply to all viewport sizes
+//
+.passage-boxes { 
+  @include container; // the container is usually outside of the breakpoint  
+  @include susy-grid-background; // turn on the colors
 
   & > .inner {
-  	@include pad(1,1);
-    @include span-columns(18,20);
+    @include span-columns(18,20); // now all inner columns are in context of 18
+    @include pad(1,1); // padding on each side
   } 
 }
 
-.passage-box {
-  @include span-columns(6,18);
-  &:nth-child(3n){@include omega;}
-  .inner {
-    & > .passage-text {
-      background: $nurani-salmon-color;
-      padding: {left: 5px; right: 5px}
-    }
-  }
+.passage-text {
+  background: $nurani-salmon-color;
+}
 
-  .bib {
-    background-color: $nurani-gray;
-    border-top: 1px solid #CCC6C2;
-    @include span-columns(5,6, $gutter-width/2);
-    margin-top: -1em;
-    margin-#{$from-direction}: columns(1,6);
+.bib {
+  background-color: $nurani-gray;
+}
+
+// 2. Breakpoints
+// The breakpoint says basically,
+// "As soon as the viewport is large enough to contain this"
+// In susy it's done in column units.
+@include at-breakpoint($first-breakpoint) {
+  // You can redeclare container context grid measurments if you want ... 
+  // But it's nice to keep the same configuration if you can.
+  // Even this simple breakpoint has already added quite a bit of complexity.
+  body {@include banner("passed the first breakpoint!");} 
+  .passage-box {
+    @include span-columns(6,18); // 6 in context of 18
+    &:nth-child(3n){@include omega;} // remove omega margin
+    .inner {
+      & > .passage-text {
+        padding: {left: 5px; right: 5px} // not on the grid, so we can mess with the sides!
+      }
+    }
+
+    .bib {
+      @include span-columns(5,6, $gutter-width/2); // Third param is padding!
+      margin-top: -1em; // vertical, not part of the grid
+      margin-#{$from-direction}: columns(1,6); // very handy columns function, read the source!
+    }
   }
 }
 
-// Chris' Debugger "dont leave home without it"
+// 3. Next breakpoint...
+// Even larger screens
+@include at-breakpoint($first-breakpoint + 4) {
+  body {
+    @include banner("passed second breakpoint!");
+    font-size: 1.4rem; // responsive typography!
+  }
+}
+
+// 4. Debuggers "dont leave home without them"
 body * { border-top: 5px solid black; }
 .passage-boxes { border-top-color: yellow; }
 .passage-box { border-top-color: green; }

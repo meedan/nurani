@@ -22,7 +22,7 @@
   outline: none;
 }
 
-/* line 14, ../sass/core.scss */
+/* line 30, ../sass/core.scss */
 .passage-boxes {
   *zoom: 1;
   max-width: 1170px;
@@ -52,76 +52,103 @@
   display: table;
   clear: both;
 }
-/* line 18, ../sass/core.scss */
+/* line 34, ../sass/core.scss */
 .passage-boxes > .inner {
-  padding-left: 5.12821%;
-  padding-right: 5.12821%;
   width: 89.74359%;
   float: left;
   margin-right: 2.5641%;
   display: inline;
+  padding-left: 5.12821%;
+  padding-right: 5.12821%;
 }
 
-/* line 24, ../sass/core.scss */
-.passage-box {
-  width: 31.42857%;
-  float: left;
-  margin-right: 2.85714%;
-  display: inline;
-}
-/* line 26, ../sass/core.scss */
-.passage-box:nth-child(3n) {
-  float: right;
-  margin-right: 0;
-  #margin-left: -30px;
-  display: inline;
-}
-/* line 28, ../sass/core.scss */
-.passage-box .inner > .passage-text {
+/* line 40, ../sass/core.scss */
+.passage-text {
   background: #f1e9e4;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-/* line 34, ../sass/core.scss */
-.passage-box .bib {
-  background-color: #ccc6c2;
-  border-top: 1px solid #ccc6c2;
-  padding-left: 4.54545%;
-  padding-right: 4.54545%;
-  width: 72.72727%;
-  float: left;
-  margin-right: 9.09091%;
-  display: inline;
-  margin-top: -1em;
-  margin-left: 9.09091%;
 }
 
 /* line 44, ../sass/core.scss */
+.bib {
+  background-color: #ccc6c2;
+}
+
+@media (min-width: 690px) {
+  /* line 18, ../sass/core.scss */
+  body:after {
+    content: "passed the first breakpoint!";
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: yellow;
+  }
+
+  /* line 57, ../sass/core.scss */
+  .passage-box {
+    width: 31.42857%;
+    float: left;
+    margin-right: 2.85714%;
+  }
+  /* line 59, ../sass/core.scss */
+  .passage-box:nth-child(3n) {
+    float: right;
+    margin-right: 0;
+  }
+  /* line 61, ../sass/core.scss */
+  .passage-box .inner > .passage-text {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  /* line 66, ../sass/core.scss */
+  .passage-box .bib {
+    padding-left: 4.54545%;
+    padding-right: 4.54545%;
+    width: 72.72727%;
+    float: left;
+    margin-right: 9.09091%;
+    margin-top: -1em;
+    margin-left: 9.09091%;
+  }
+}
+@media (min-width: 930px) {
+  /* line 77, ../sass/core.scss */
+  body {
+    font-size: 1.4rem;
+  }
+  /* line 18, ../sass/core.scss */
+  body:after {
+    content: "passed second breakpoint!";
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: yellow;
+  }
+}
+/* line 84, ../sass/core.scss */
 body * {
   border-top: 5px solid black;
 }
 
-/* line 45, ../sass/core.scss */
+/* line 85, ../sass/core.scss */
 .passage-boxes {
   border-top-color: yellow;
 }
 
-/* line 46, ../sass/core.scss */
+/* line 86, ../sass/core.scss */
 .passage-box {
   border-top-color: green;
 }
 
-/* line 47, ../sass/core.scss */
+/* line 87, ../sass/core.scss */
 .bib {
   border-top-color: pink;
 }
 
-/* line 48, ../sass/core.scss */
+/* line 88, ../sass/core.scss */
 .inner {
   border-top-color: red;
 }
 
-/* line 49, ../sass/core.scss */
+/* line 89, ../sass/core.scss */
 .passage-text {
   border-top-color: aqua;
 }
