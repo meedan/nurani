@@ -146,11 +146,11 @@
   }
 
   Picker.prototype.init = function () {
-    this.pickerUI = new NL.PickerUI({
+    this.nuraniLibraryPickerUI = new NL.PickerUI({
       osisIDWork: this.opts.osisIDWork,
       osisID: this.opts.osisID
     });
-    this.$dialog = this.createDialog(this.pickerUI.$element);
+    this.$dialog = this.createDialog(this.nuraniLibraryPickerUI.$element);
 
     return this;
   };
@@ -165,7 +165,7 @@
                     modal: true,
                     buttons: {
                       Done: function() {
-                        var data = that.pickerUI.getSelectionOSIS();
+                        var data = that.nuraniLibraryPickerUI.getSelectionOSIS();
 
                         if (data) {
                           if (that.opts.onPicked) {
@@ -185,8 +185,8 @@
                     close: function() {
                       // TODO: Do things on close, like clear the state.
                     },
-                    open: function () { that.pickerUI.didResize(); },
-                    resize: function () { that.pickerUI.didResize(); }
+                    open: function () { that.nuraniLibraryPickerUI.didResize(); },
+                    resize: function () { that.nuraniLibraryPickerUI.didResize(); }
                   });
 
     return $dialog;
@@ -369,6 +369,8 @@
     this.bindContainers();
     this.initCloneBundleForm();
     this.initPassageBoxes();
+
+    this.passageBoxStateDidChange(null, false);
   };
 
   BundleUI.prototype.bindContainers = function () {
@@ -385,6 +387,8 @@
   BundleUI.prototype.initPassageBoxes = function () {
     var that = this;
 
+    // The passage-box DIVs are created by Drupal and pre-existing in the HTML.
+    // Loop through and bind a PassageBox object to each.
     $('.passage-box:not(.nurani-bundle-ui-processed)', this.$wrapper)
       .addClass('nurani-bundle-ui-processed')
       .each(function () {
@@ -441,7 +445,7 @@
       this.passageBoxes[pickedKeys[0]].loadState(state, true);
     }
 
-    this.cloneBundle.setVisibility(pickedKeys.length > 0, false, animated);
+    this.cloneBundle.setVisibility(pickedKeys.length == 0, false, animated);
   };
 
   /**
