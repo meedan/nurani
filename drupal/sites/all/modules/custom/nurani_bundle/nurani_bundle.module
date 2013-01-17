@@ -97,6 +97,9 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
   // Hide the existing node reference widget
   $element['nid']['#type'] = 'hidden';
 
+  // JqueryUI Dialog is required for the pop-up passage picker
+  drupal_add_library('system', 'ui.dialog');
+
   // FIXME: It is really not ideal to add some other module's libraries by force
   //        in this manner. This should be migrated to some sort of loader
   //        function.
