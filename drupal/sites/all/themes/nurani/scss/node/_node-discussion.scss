@@ -19,11 +19,7 @@
   }
   .inner{
     & > .passage-text{ 
-	  @include border($nurani-red, top, 5px);
-	  @include border($nurani-gray, left, 1px);
-	  @include border($nurani-gray, bottom, 1px);
-	  @include border($nurani-gray, right, 1px);
-	  background:$nurani-salmon-color;
+    @include passage-text-boxes;
 	}
 	.passage-widget {
 	  .verse{

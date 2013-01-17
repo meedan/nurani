@@ -2,6 +2,7 @@
 @import "compass/css3/box-shadow";
 @import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/forms";
 @import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/variables";
+@import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/boxes";
 
 
 #overlay-content,
@@ -18,8 +19,13 @@
     label{
       display:inline-block;
 	}
-
   }
+
+  .inner{
+    & > .passage-text{ 
+    @include passage-text-boxes;
+  }
+}
   .clone-bundle, 
   .passage-boxes .inner{ 
     margin:0 auto;
