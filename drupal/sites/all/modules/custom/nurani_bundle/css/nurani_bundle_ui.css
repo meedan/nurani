@@ -71,8 +71,12 @@
 .passage-text.empty > .passage-widget, .passage-text.empty .remove-passage-action, .passage-text.empty .edit-passage-action {
   display: none;
 }
+/* line 72, scss/nurani_bundle_ui.scss */
+.passage-text.hidden {
+  opacity: 0.6;
+}
 
-/* line 73, scss/nurani_bundle_ui.scss */
+/* line 77, scss/nurani_bundle_ui.scss */
 .bib {
   margin-left: 10px;
   margin-top: -1em;
@@ -81,17 +85,17 @@
   background: #ddd;
 }
 
-/* line 85, scss/nurani_bundle_ui.scss */
+/* line 89, scss/nurani_bundle_ui.scss */
 .clone-bundle {
   background: #ffee66;
 }
 
-/* line 88, scss/nurani_bundle_ui.scss */
+/* line 92, scss/nurani_bundle_ui.scss */
 .passage-text {
   background: #fff;
   border: 3px dahed #CCC6C2;
 }
-/* line 92, scss/nurani_bundle_ui.scss */
+/* line 96, scss/nurani_bundle_ui.scss */
 .passage-text.empty {
   border: 3px dashed #CCC6C2;
   border-radius: 1em;

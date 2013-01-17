@@ -31,10 +31,13 @@ PassageBox.prototype.bindContainers = function () {
 }
 
 PassageBox.prototype.bindFields = function () {
+  var that = this;
+
   this.$osisIDWork         = $('.edit-osisIDWork', this.$wrapper);
   this.$osisID             = $('.edit-osisID', this.$wrapper);
   this.$moderatorsThoughts = $('.edit-moderator_s_thoughts', this.$wrapper);
-  this.$visible            = $('.edit-visible', this.$wrapper);
+  this.$visible            = $('.edit-visible', this.$wrapper)
+                               .change(function () { that.render(false); });
 };
 
 PassageBox.prototype.bindRemoveButton = function () {
@@ -98,6 +101,12 @@ PassageBox.prototype.render = function (animated) {
     this.$moderatorsThoughts.removeAttr('disabled');
     this.$visible.removeAttr('disabled');
 
+    if (this.$visible[0].checked) {
+      this.$passageText.removeClass('hidden');
+    } else {
+      this.$passageText.addClass('hidden');
+    }
+
     if (animated) {
       this.$bib.slideDown();
     } else {
@@ -106,6 +115,7 @@ PassageBox.prototype.render = function (animated) {
   }
   else {
     this.$passageText.addClass('empty');
+    this.$passageText.removeClass('visible');
     this.$moderatorsThoughts.attr('disabled', 'disabled');
     this.$visible.attr('disabled', 'disabled');
 

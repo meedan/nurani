@@ -68,6 +68,10 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
       display: none;
     }
   }
+
+  &.hidden {
+    opacity: 0.6;
+  }
 }
 
 .bib {
