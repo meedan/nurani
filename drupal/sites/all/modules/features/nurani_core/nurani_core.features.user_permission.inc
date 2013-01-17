@@ -20,6 +20,26 @@ function nurani_core_user_default_permissions() {
     'module' => 'system',
   );
 
+  // Exported permission: access content overview.
+  $permissions['access content overview'] = array(
+    'name' => 'access content overview',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: access dashboard.
+  $permissions['access dashboard'] = array(
+    'name' => 'access dashboard',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'dashboard',
+  );
+
   // Exported permission: access overlay.
   $permissions['access overlay'] = array(
     'name' => 'access overlay',
@@ -30,6 +50,36 @@ function nurani_core_user_default_permissions() {
     'module' => 'overlay',
   );
 
+  // Exported permission: access toolbar.
+  $permissions['access toolbar'] = array(
+    'name' => 'access toolbar',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'toolbar',
+  );
+
+  // Exported permission: administer comments.
+  $permissions['administer comments'] = array(
+    'name' => 'administer comments',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'comment',
+  );
+
+  // Exported permission: administer nodes.
+  $permissions['administer nodes'] = array(
+    'name' => 'administer nodes',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: administer users.
   $permissions['administer users'] = array(
     'name' => 'administer users',
@@ -38,6 +88,16 @@ function nurani_core_user_default_permissions() {
       1 => 'moderator',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: assign moderator role.
+  $permissions['assign moderator role'] = array(
+    'name' => 'assign moderator role',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'role_delegation',
   );
 
   // Exported permission: create bundle content.
@@ -158,6 +218,26 @@ function nurani_core_user_default_permissions() {
       1 => 'moderator',
     ),
     'module' => 'taxonomy',
+  );
+
+  // Exported permission: view own unpublished content.
+  $permissions['view own unpublished content'] = array(
+    'name' => 'view own unpublished content',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: view revisions.
+  $permissions['view revisions'] = array(
+    'name' => 'view revisions',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'node',
   );
 
   // Exported permission: view the administration theme.
