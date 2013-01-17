@@ -401,7 +401,7 @@ function nurani_accounts_field_default_fields() {
           'year_range' => '-100:+0',
         ),
         'type' => 'date_select',
-        'weight' => '8',
+        'weight' => '6',
       ),
     ),
   );
@@ -471,7 +471,7 @@ function nurani_accounts_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '6',
+        'weight' => '4',
       ),
     ),
   );
@@ -677,7 +677,7 @@ function nurani_accounts_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '7',
+        'weight' => '5',
       ),
     ),
   );
@@ -1359,7 +1359,7 @@ function nurani_accounts_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '5',
+        'weight' => '2',
       ),
     ),
   );
