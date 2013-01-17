@@ -44,19 +44,19 @@
 }
 /* line 38, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .bib {
-  margin-left: 26px;
+  border: 1px solid #ccc6c2;
+  margin-left: 10px;
   margin-top: -1em;
   padding: 2em 1em 1em;
-  width: 250px;
+  width: 280px;
   background: #ddd;
 }
-/* line 46, scss/nurani_helpers_bundle_ui.scss */
+/* line 47, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .form-text {
   top: 4px;
   padding: 3px 10px;
-  font-size: 10px;
+  font-size: 16px;
   border: 0;
-  color: #9e928a;
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   -ms-border-radius: 0.2em;
