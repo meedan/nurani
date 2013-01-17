@@ -26,6 +26,7 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
 }
 
 .passage-boxes {
+  margin-top:20px;
   & > .inner {
     // margin: 0 auto;
     overflow: hidden;
@@ -86,9 +87,10 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
 }
 .passage-text {
   background: #fff;
-  border: 2px solid rgba(0,0,0,0); // HACK: to fix element size increase when dashed border applied
+  border: 3px dahed #CCC6C2;
+  // border: 2px solid rgba(0,0,0,0); // HACK: to fix element size increase when dashed border applied
   &.empty {
-    border: 2px dashed #444;
+    border: 3px dashed #CCC6C2;
     border-radius: 1em;
   }
 }
