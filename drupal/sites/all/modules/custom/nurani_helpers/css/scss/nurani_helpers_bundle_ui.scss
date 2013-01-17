@@ -1,3 +1,47 @@
-#overlay-content{
-	background:green;
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/forms";
+@import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/variables";
+
+
+#overlay-content,
+#overlay-content #branding, 
+#overlay-content #page{
+  background:darken($nurani-salmon-color, 2%);
 }
+
+/**** Styling Node discussion Forms ****/
+.node-discussion-form{
+  .form-item-title, 
+  .form-item-field-subtitle-und-0-value{
+    text-align:center;
+    label{
+      display:inline-block;
+	}
+
+  }
+  .clone-bundle, 
+  .passage-boxes .inner{ 
+    margin:0 auto;
+  }
+  .clone-bundle, 
+  .passage-boxes{
+    text-align:center;
+  }
+
+  .bib{
+    margin-left: 26px;
+    margin-top: -1em;
+    padding: 2em 1em 1em;
+    width: 250px;
+    background: #ddd;
+  }
+
+  .form-text{
+    @include form-field;
+    height:30px;
+  }
+
+}
+
+
