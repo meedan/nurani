@@ -1,6 +1,0 @@
-name = OSIS Field Passage Picker
-description = Interactive passage picker for the OSIS Field module.
-core = 7.x
-version = 7.x-1.0
-package = Nurani
-dependencies[] = osis_field
