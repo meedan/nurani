@@ -1,4 +1,4 @@
-/* line 9, scss/nurani_helpers_bundle_ui.scss */
+/* line 10, scss/nurani_helpers_bundle_ui.scss */
 #overlay-content,
 #overlay-content #branding,
 #overlay-content #page {
@@ -6,41 +6,57 @@
 }
 
 /**** Styling Node discussion Forms ****/
-/* line 16, scss/nurani_helpers_bundle_ui.scss */
+/* line 17, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .form-item-title,
 .node-discussion-form .form-item-field-subtitle-und-0-value {
   text-align: center;
 }
-/* line 18, scss/nurani_helpers_bundle_ui.scss */
+/* line 19, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .form-item-title label,
 .node-discussion-form .form-item-field-subtitle-und-0-value label {
   display: inline-block;
 }
-/* line 24, scss/nurani_helpers_bundle_ui.scss */
+/* line 25, scss/nurani_helpers_bundle_ui.scss */
+.node-discussion-form .inner > .passage-text {
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #8b000e;
+  border-left: 1px;
+  border-left-style: solid;
+  border-left-color: #ccc6c2;
+  border-bottom: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #ccc6c2;
+  border-right: 1px;
+  border-right-style: solid;
+  border-right-color: #ccc6c2;
+  background: #f1e9e4;
+}
+/* line 30, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .clone-bundle,
 .node-discussion-form .passage-boxes .inner {
   margin: 0 auto;
 }
-/* line 28, scss/nurani_helpers_bundle_ui.scss */
+/* line 34, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .clone-bundle,
 .node-discussion-form .passage-boxes {
   text-align: center;
 }
-/* line 32, scss/nurani_helpers_bundle_ui.scss */
+/* line 38, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .bib {
-  margin-left: 26px;
+  border: 1px solid #ccc6c2;
+  margin-left: 10px;
   margin-top: -1em;
   padding: 2em 1em 1em;
-  width: 250px;
+  width: 280px;
   background: #ddd;
 }
-/* line 40, scss/nurani_helpers_bundle_ui.scss */
+/* line 47, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .form-text {
   top: 4px;
   padding: 3px 10px;
-  font-size: 10px;
+  font-size: 16px;
   border: 0;
-  color: #9e928a;
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   -ms-border-radius: 0.2em;

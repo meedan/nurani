@@ -1,9 +1,9 @@
 @mixin form-field {
   top: 4px;
   padding: 3px 10px;
-  font-size: 10px;
+  font-size: 16px;
   border: 0;
-  color: darken($nurani-gray, 20%);
+  // color:($nurani-gray);
 
   @include border-radius(0.2em);
   background: #eee;
@@ -11,3 +11,4 @@
 
   @include single-box-shadow(#ccc, 0, 0, 1px, 0.1px, inset);
 }
+
