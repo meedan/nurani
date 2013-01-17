@@ -233,6 +233,13 @@ function nurani_core_field_default_fields() {
           'type' => 'text_default',
           'weight' => '0',
         ),
+        'print' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '0',
+        ),
         'teaser' => array(
           'label' => 'hidden',
           'module' => 'text',
@@ -289,17 +296,18 @@ function nurani_core_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'field_collection',
-          'settings' => array(
-            'add' => 'Add',
-            'delete' => 'Delete',
-            'description' => TRUE,
-            'edit' => 'Edit',
-            'view_mode' => 'full',
-          ),
-          'type' => 'field_collection_view',
-          'weight' => 1,
+          'label' => 'hidden',
+          'module' => 'nurani_bundle',
+          'settings' => array(),
+          'type' => 'nurani_bundle_items',
+          'weight' => '1',
+        ),
+        'print' => array(
+          'label' => 'hidden',
+          'module' => 'nurani_bundle',
+          'settings' => array(),
+          'type' => 'nurani_bundle_items',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
