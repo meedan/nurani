@@ -108,6 +108,7 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
   // passage picker
   $path = drupal_get_path('module', 'nurani_bundle');
   $nl_base_url = nurani_library_base_url(TRUE) . '/' . drupal_get_path('module', 'nurani_library_ui');
+  $pw_path = drupal_get_path('module', 'nurani_passage_widget');
   $libraries_path = 'sites/all/libraries';
   $element['ui'] = array(
     '#theme' => 'nurani_bundle_ui',
@@ -118,6 +119,7 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
           'type' => 'external',
         ),
         $path . '/css/nurani_bundle_ui.css',
+        $pw_path . '/css/nurani_passage_widget.css',
       ),
       'js'  => array(
         $nl_base_url . '/js/nurani_library_ui.js',
@@ -125,6 +127,7 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
         $libraries_path . '/handlebars/handlebars-1.0.rc.1.js',
         $libraries_path . '/Bible-Passage-Reference-Parser/js/en_bcv_parser.min.js',
         $libraries_path . '/jquery-color/jquery.color-2.1.1.min.js',
+        $pw_path . '/js/nurani_passage_widget.js',
       ),
     ),
     '#bundle_nid' => $bundle_nid,
@@ -550,6 +553,7 @@ function theme_nurani_bundle_passage_box(&$variables) {
   $output .=   '<div class="inner">';
   $output .=     '<div class="passage-text">';
   $output .=       $content;
+  $output .=       '<div class="passage-widget"><!-- Picked passage text will be displayed here --></div>';
   $output .=     '</div>';
   $output .=     $bib ? '<div class="bib">' . $bib . '</div>' : '';
   $output .=   '</div>';
