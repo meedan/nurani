@@ -15,6 +15,8 @@ BundleUI.prototype.init = function () {
   this.bindContainers();
   this.initCloneBundleForm();
   this.initPassageBoxes();
+
+  this.passageBoxStateDidChange(null, false);
 };
 
 BundleUI.prototype.bindContainers = function () {
@@ -31,6 +33,8 @@ BundleUI.prototype.initCloneBundleForm = function () {
 BundleUI.prototype.initPassageBoxes = function () {
   var that = this;
 
+  // The passage-box DIVs are created by Drupal and pre-existing in the HTML.
+  // Loop through and bind a PassageBox object to each.
   $('.passage-box:not(.nurani-bundle-ui-processed)', this.$wrapper)
     .addClass('nurani-bundle-ui-processed')
     .each(function () {
@@ -87,7 +91,7 @@ BundleUI.prototype.passageBoxStateDidChange = function (passageBox, animated) {
     this.passageBoxes[pickedKeys[0]].loadState(state, true);
   }
 
-  this.cloneBundle.setVisibility(pickedKeys.length > 0, false, animated);
+  this.cloneBundle.setVisibility(pickedKeys.length == 0, false, animated);
 };
 
 /**

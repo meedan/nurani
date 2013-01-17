@@ -97,6 +97,9 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
   // Hide the existing node reference widget
   $element['nid']['#type'] = 'hidden';
 
+  // JqueryUI Dialog is required for the pop-up passage picker
+  drupal_add_library('system', 'ui.dialog');
+
   // FIXME: It is really not ideal to add some other module's libraries by force
   //        in this manner. This should be migrated to some sort of loader
   //        function.
@@ -105,6 +108,7 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
   // passage picker
   $path = drupal_get_path('module', 'nurani_bundle');
   $nl_base_url = nurani_library_base_url(TRUE) . '/' . drupal_get_path('module', 'nurani_library_ui');
+  $pw_path = drupal_get_path('module', 'nurani_passage_widget');
   $libraries_path = 'sites/all/libraries';
   $element['ui'] = array(
     '#theme' => 'nurani_bundle_ui',
@@ -115,6 +119,7 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
           'type' => 'external',
         ),
         $path . '/css/nurani_bundle_ui.css',
+        $pw_path . '/css/nurani_passage_widget.css',
       ),
       'js'  => array(
         $nl_base_url . '/js/nurani_library_ui.js',
@@ -122,6 +127,7 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
         $libraries_path . '/handlebars/handlebars-1.0.rc.1.js',
         $libraries_path . '/Bible-Passage-Reference-Parser/js/en_bcv_parser.min.js',
         $libraries_path . '/jquery-color/jquery.color-2.1.1.min.js',
+        $pw_path . '/js/nurani_passage_widget.js',
       ),
     ),
     '#bundle_nid' => $bundle_nid,
@@ -140,10 +146,16 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
 function nurani_bundle_clone_form($field, &$edit, $context) {
   $element = array();
   $discussion_bundle_options = node_reference_options_list($field);
-  foreach ($discussion_bundle_options as $key => $value) {
-    // TODO: Fetch the real discussion title to prepend to the bundle name.
-    $discussion_title = t('Unknown discussion');
-    $discussion_bundle_options[$key] = $discussion_title . ': ' . $value;
+  foreach ($discussion_bundle_options as $nid => $value) {
+    $bundle_node = node_load($nid);
+
+    // Orphaned bundles should not be displayed in this list
+    if ($bundle_node->discussion['nid']) {
+      $discussion_title = $bundle_node->discussion['title']
+                        ? $bundle_node->discussion['title']
+                        : t('Unknown discussion');
+      $discussion_bundle_options[$nid] = $discussion_title . ': ' . $value;
+    }
   }
   $element['clone'] = array(
     '#type' => 'select',
@@ -541,6 +553,7 @@ function theme_nurani_bundle_passage_box(&$variables) {
   $output .=   '<div class="inner">';
   $output .=     '<div class="passage-text">';
   $output .=       $content;
+  $output .=       '<div class="passage-widget"><!-- Picked passage text will be displayed here --></div>';
   $output .=     '</div>';
   $output .=     $bib ? '<div class="bib">' . $bib . '</div>' : '';
   $output .=   '</div>';

@@ -94,7 +94,7 @@ PassageBox.prototype.render = function (animated) {
 
   if (this.picked) {
     this.$passageText.removeClass('empty');
-    this.$passageWidget.html('<span>' + this.$osisIDWork.val() + '</span>:<span>' + this.$osisID.val() + '</span>');
+    this.updatePassageWidget();
     this.$moderatorsThoughts.removeAttr('disabled');
     this.$visible.removeAttr('disabled');
 
@@ -115,6 +115,19 @@ PassageBox.prototype.render = function (animated) {
       this.$bib.hide();
     }
   }
+};
+
+PassageBox.prototype.updatePassageWidget = function () {
+  var that = this,
+      url = PassageWidget.oEmbedURL(this.$osisIDWork.val(), this.$osisID.val(), null, 'jsonp', '?');
+
+  $.ajax({
+    url: url,
+    dataType: 'jsonp',
+    success: function (data) {
+      that.$passageWidget.html(data.html);
+    }
+  });
 };
 
 /**
