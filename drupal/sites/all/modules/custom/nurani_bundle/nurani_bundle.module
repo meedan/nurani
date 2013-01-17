@@ -143,10 +143,16 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
 function nurani_bundle_clone_form($field, &$edit, $context) {
   $element = array();
   $discussion_bundle_options = node_reference_options_list($field);
-  foreach ($discussion_bundle_options as $key => $value) {
-    // TODO: Fetch the real discussion title to prepend to the bundle name.
-    $discussion_title = t('Unknown discussion');
-    $discussion_bundle_options[$key] = $discussion_title . ': ' . $value;
+  foreach ($discussion_bundle_options as $nid => $value) {
+    $bundle_node = node_load($nid);
+
+    // Orphaned bundles should not be displayed in this list
+    if ($bundle_node->discussion['nid']) {
+      $discussion_title = $bundle_node->discussion['title']
+                        ? $bundle_node->discussion['title']
+                        : t('Unknown discussion');
+      $discussion_bundle_options[$nid] = $discussion_title . ': ' . $value;
+    }
   }
   $element['clone'] = array(
     '#type' => 'select',
