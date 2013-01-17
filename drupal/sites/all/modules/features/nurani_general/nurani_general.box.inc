@@ -39,8 +39,8 @@ function nurani_general_default_box() {
   $box->options = array(
     'body' => array(
       'value' => '<p>We are now developing an exciting new website for inter-faith conversations and we are looking for participants. Are you interested in being part of one of our newly formed Scriptural Reasoning groups? it is free and you don\'t need to be an expert.</p>
-<a  class ="invitation-link" href="#">Request an invitation to participate</a>',
-      'format' => 'filtered_html',
+<a class="invitation-link" href="<?php echo url(\'user/register\'); ?>">Request an invitation to participate</a>',
+      'format' => 'php_code',
     ),
     'additional_classes' => '',
   );
