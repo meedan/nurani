@@ -31,6 +31,7 @@ class NuraniDiscussionMigration extends NuraniMigration {
     $query->join('users', 'u', 'n.uid = u.uid');
     $query->join('content_type_discussion', 'cd', 'n.nid = cd.nid');
     $query->join('content_field_texts', 'cft', 'n.nid = cft.nid');
+    $query->join('node_revisions', 'nr', 'n.nid = nr.nid');
     $query->leftJoin('url_alias', 'a', "CONCAT('node/', n.nid) = a.src AND n.language = a.language");
     $query->fields(
               'n',
@@ -42,7 +43,8 @@ class NuraniDiscussionMigration extends NuraniMigration {
             )
           ->fields('cd', array('field_exp_comments_value'))
           ->fields('u', array('name'))
-          ->fields('a', array('dst'));
+          ->fields('a', array('dst'))
+          ->fields('nr', array('body'));
     $query->addField('cft', 'field_texts_nid', 'bundle_nid');
     $query->condition('n.type', 'discussion')
           ->condition('n.language', array('', 'en'), 'IN')
@@ -74,7 +76,7 @@ class NuraniDiscussionMigration extends NuraniMigration {
     $this->addFieldMapping('path', 'dst');
 
     // Node fields
-    $this->addFieldMapping('field_content_body', 'body');
+    // $this->addFieldMapping('field_content_body', 'body');
 
     // Fields
     $this->addFieldMapping('field_subtitle')->defaultValue('');
@@ -114,6 +116,14 @@ class NuraniDiscussionMigration extends NuraniMigration {
     $invitees = array_diff($invitees, array('', NULL));
 
     $row->invitees_uids = $invitees;
+  }
+
+  public function prepare($node, $row) {
+    $node->meedan_discussion_permissions = array(
+      'anonymous'     => MEEDAN_DISCUSSION_PERMISSIONS_NONE,
+      'authenticated' => MEEDAN_DISCUSSION_PERMISSIONS_NONE,
+      'participant'   => MEEDAN_DISCUSSION_PERMISSIONS_PARTICIPATE
+    );
   }
 
   public function postImport() {
