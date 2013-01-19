@@ -1,22 +1,8 @@
-/* line 10, scss/nurani_helpers_bundle_ui.scss */
-#overlay-content,
-#overlay-content #branding,
-#overlay-content #page {
-  background: #eee4dd;
-}
-
+/*Mixin to style Username links*/
+/*mixin to style discussion lock & print pdf*/
+/* Mixin to style attribution class and links */
 /**** Styling Node discussion Forms ****/
-/* line 17, scss/nurani_helpers_bundle_ui.scss */
-.node-discussion-form .form-item-title,
-.node-discussion-form .form-item-field-subtitle-und-0-value {
-  text-align: center;
-}
-/* line 19, scss/nurani_helpers_bundle_ui.scss */
-.node-discussion-form .form-item-title label,
-.node-discussion-form .form-item-field-subtitle-und-0-value label {
-  display: inline-block;
-}
-/* line 25, scss/nurani_helpers_bundle_ui.scss */
+/* line 15, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .inner > .passage-text {
   border-top: 5px;
   border-top-style: solid;
@@ -32,14 +18,60 @@
   border-right-color: #ccc6c2;
   background: #f1e9e4;
 }
+/* line 10, ../../../../../../../../../../mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_bundle.scss */
+.node-discussion-form .inner > .passage-text .passage-widget .verse {
+  margin: 0 0.5em;
+}
+/* line 13, ../../../../../../../../../../mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_bundle.scss */
+.node-discussion-form .inner > .passage-text .passage-widget h4 {
+  margin-bottom: 1em;
+}
+/* line 14, ../../../../../../../../../../mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_bundle.scss */
+.node-discussion-form .inner > .passage-text .passage-widget p {
+  font-family: palatino;
+  margin-top: 0.5em;
+  display: inline;
+}
+/* line 19, ../../../../../../../../../../mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_bundle.scss */
+.node-discussion-form .inner > .passage-text .passage-widget .bib {
+  border: 1px solid #ccc6c2;
+}
+/* line 22, ../../../../../../../../../../mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_bundle.scss */
+.node-discussion-form .inner > .passage-text .passage-widget .bib .moderator_s_thoughts p {
+  font-size: 1.1429em;
+  text-indent: justify;
+  color: #4a4a4a;
+  margin-bottom: 2em;
+}
+/* line 28, ../../../../../../../../../../mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_bundle.scss */
+.node-discussion-form .inner > .passage-text .passage-widget .bib .moderator_s_thoughts span.attribution {
+  margin-top: -1em;
+  padding-right: 20px;
+  float: right;
+}
+/* line 4, ../../../../../../../../../../mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_links.scss */
+.node-discussion-form .inner > .passage-text .passage-widget .bib .moderator_s_thoughts span.attribution a {
+  color: #005eae;
+  font-weight: bold;
+  text-decoration: none;
+}
+/* line 18, scss/nurani_helpers_bundle_ui.scss */
+.node-discussion-form .inner > .passage-text > .remove-passage-action {
+  font-size: 0;
+  background: url(images/remove2.png) no-repeat;
+  height: 52px;
+  border: none;
+  position: absolute;
+  right: 10px;
+  top: 7px;
+}
 /* line 30, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .clone-bundle,
 .node-discussion-form .passage-boxes .inner {
   margin: 0 auto;
 }
 /* line 34, scss/nurani_helpers_bundle_ui.scss */
-.node-discussion-form .clone-bundle,
-.node-discussion-form .passage-boxes {
+.node-discussion-form .clone-bundle {
   text-align: center;
 }
 /* line 38, scss/nurani_helpers_bundle_ui.scss */

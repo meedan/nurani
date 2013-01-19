@@ -9,18 +9,14 @@
 
 @import "helpers/nurani-button";
 @import "helpers/boxes";
+@import "helpers/bundle";
 @import "helpers/links";
-
-
 
 /* Calls layout.scss that renders all the styles on the site*/
 
 @import "layout";
-
-
 /* Pages */
 body.front        { @import "pages/page-front"; }
-
 /* node types */
 body.node-type-discussion   { @import "node/node-discussion"; }
 

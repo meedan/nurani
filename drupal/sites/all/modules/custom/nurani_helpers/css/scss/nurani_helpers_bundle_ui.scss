@@ -3,27 +3,27 @@
 @import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/forms";
 @import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/variables";
 @import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/boxes";
+@import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/bundle";
+@import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/links";
 
 
-#overlay-content,
-#overlay-content #branding, 
-#overlay-content #page{
-  background:darken($nurani-salmon-color, 2%);
-}
 
 /**** Styling Node discussion Forms ****/
 .node-discussion-form{
-  .form-item-title, 
-  .form-item-field-subtitle-und-0-value{
-    text-align:center;
-    label{
-      display:inline-block;
-	}
-  }
 
   .inner{
     & > .passage-text{ 
     @include passage-text-boxes;
+
+    & > .remove-passage-action{
+      font-size: 0;
+      background: url(images/remove2.png) no-repeat ;
+      height: 52px;
+      border: none;
+      position: absolute;
+      right: 10px;
+      top: 7px;
+    }
   }
 }
   .clone-bundle, 
@@ -31,7 +31,7 @@
     margin:0 auto;
   }
   .clone-bundle, 
-  .passage-boxes{
+  {
     text-align:center;
   }
 
