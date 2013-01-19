@@ -250,19 +250,19 @@ sup {
   text-decoration: none;
   font-weight: bold;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a:hover {
   background-color: #00569f;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a:active {
   background-color: #004d8f;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a.disabled, .comment-inner .links a[disabled] {
   opacity: 0.6;
   background: false;
@@ -271,7 +271,7 @@ sup {
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 .comment-inner .links a::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -351,32 +351,18 @@ body {
   *zoom: 1;
   max-width: 98.33333%;
   _width: 98.33333%;
-  margin-left: auto;
-  margin-right: auto;
   padding-left: 1em;
   padding-right: 1em;
-  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(0%, rgba(100, 100, 225, 0.25)), color-stop(3.38983%, rgba(100, 100, 225, 0.25)), color-stop(3.38983%, rgba(0, 0, 0, 0)), color-stop(5.08475%, rgba(0, 0, 0, 0)), color-stop(5.08475%, rgba(100, 100, 225, 0.25)), color-stop(8.47458%, rgba(100, 100, 225, 0.25)), color-stop(8.47458%, rgba(0, 0, 0, 0)), color-stop(10.16949%, rgba(0, 0, 0, 0)), color-stop(10.16949%, rgba(100, 100, 225, 0.25)), color-stop(13.55932%, rgba(100, 100, 225, 0.25)), color-stop(13.55932%, rgba(0, 0, 0, 0)), color-stop(15.25424%, rgba(0, 0, 0, 0)), color-stop(15.25424%, rgba(100, 100, 225, 0.25)), color-stop(18.64407%, rgba(100, 100, 225, 0.25)), color-stop(18.64407%, rgba(0, 0, 0, 0)), color-stop(20.33898%, rgba(0, 0, 0, 0)), color-stop(20.33898%, rgba(100, 100, 225, 0.25)), color-stop(23.72881%, rgba(100, 100, 225, 0.25)), color-stop(23.72881%, rgba(0, 0, 0, 0)), color-stop(25.42373%, rgba(0, 0, 0, 0)), color-stop(25.42373%, rgba(100, 100, 225, 0.25)), color-stop(28.81356%, rgba(100, 100, 225, 0.25)), color-stop(28.81356%, rgba(0, 0, 0, 0)), color-stop(30.50847%, rgba(0, 0, 0, 0)), color-stop(30.50847%, rgba(100, 100, 225, 0.25)), color-stop(33.89831%, rgba(100, 100, 225, 0.25)), color-stop(33.89831%, rgba(0, 0, 0, 0)), color-stop(35.59322%, rgba(0, 0, 0, 0)), color-stop(35.59322%, rgba(100, 100, 225, 0.25)), color-stop(38.98305%, rgba(100, 100, 225, 0.25)), color-stop(38.98305%, rgba(0, 0, 0, 0)), color-stop(40.67797%, rgba(0, 0, 0, 0)), color-stop(40.67797%, rgba(100, 100, 225, 0.25)), color-stop(44.0678%, rgba(100, 100, 225, 0.25)), color-stop(44.0678%, rgba(0, 0, 0, 0)), color-stop(45.76271%, rgba(0, 0, 0, 0)), color-stop(45.76271%, rgba(100, 100, 225, 0.25)), color-stop(49.15254%, rgba(100, 100, 225, 0.25)), color-stop(49.15254%, rgba(0, 0, 0, 0)), color-stop(50.84746%, rgba(0, 0, 0, 0)), color-stop(50.84746%, rgba(100, 100, 225, 0.25)), color-stop(54.23729%, rgba(100, 100, 225, 0.25)), color-stop(54.23729%, rgba(0, 0, 0, 0)), color-stop(55.9322%, rgba(0, 0, 0, 0)), color-stop(55.9322%, rgba(100, 100, 225, 0.25)), color-stop(59.32203%, rgba(100, 100, 225, 0.25)), color-stop(59.32203%, rgba(0, 0, 0, 0)), color-stop(61.01695%, rgba(0, 0, 0, 0)), color-stop(61.01695%, rgba(100, 100, 225, 0.25)), color-stop(64.40678%, rgba(100, 100, 225, 0.25)), color-stop(64.40678%, rgba(0, 0, 0, 0)), color-stop(66.10169%, rgba(0, 0, 0, 0)), color-stop(66.10169%, rgba(100, 100, 225, 0.25)), color-stop(69.49153%, rgba(100, 100, 225, 0.25)), color-stop(69.49153%, rgba(0, 0, 0, 0)), color-stop(71.18644%, rgba(0, 0, 0, 0)), color-stop(71.18644%, rgba(100, 100, 225, 0.25)), color-stop(74.57627%, rgba(100, 100, 225, 0.25)), color-stop(74.57627%, rgba(0, 0, 0, 0)), color-stop(76.27119%, rgba(0, 0, 0, 0)), color-stop(76.27119%, rgba(100, 100, 225, 0.25)), color-stop(79.66102%, rgba(100, 100, 225, 0.25)), color-stop(79.66102%, rgba(0, 0, 0, 0)), color-stop(81.35593%, rgba(0, 0, 0, 0)), color-stop(81.35593%, rgba(100, 100, 225, 0.25)), color-stop(84.74576%, rgba(100, 100, 225, 0.25)), color-stop(84.74576%, rgba(0, 0, 0, 0)), color-stop(86.44068%, rgba(0, 0, 0, 0)), color-stop(86.44068%, rgba(100, 100, 225, 0.25)), color-stop(89.83051%, rgba(100, 100, 225, 0.25)), color-stop(89.83051%, rgba(0, 0, 0, 0)), color-stop(91.52542%, rgba(0, 0, 0, 0)), color-stop(91.52542%, rgba(100, 100, 225, 0.25)), color-stop(94.91525%, rgba(100, 100, 225, 0.25)), color-stop(94.91525%, rgba(0, 0, 0, 0)), color-stop(96.61017%, rgba(0, 0, 0, 0)), color-stop(96.61017%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
-  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
-  background-image: linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
-  background-position: left top;
-  -webkit-background-origin: content;
-  -moz-background-origin: content;
-  -ms-background-origin: content-box;
-  -o-background-origin: content-box;
-  background-origin: content-box;
-  -webkit-background-clip: content-box;
-  -moz-background-clip: content-box;
-  background-clip: content-box;
+  margin-left: auto;
+  margin-right: auto;
 }
-/* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 38, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #main:after {
   content: "";
   display: table;
   clear: both;
 }
-/* line 31, ../scss/_layout.scss */
+/* line 30, ../scss/_layout.scss */
 #main > #content {
   padding-left: 5.08475%;
   padding-right: 5.08475%;
@@ -386,30 +372,30 @@ body {
   display: inline;
 }
 
-/* line 39, ../scss/_layout.scss */
+/* line 38, ../scss/_layout.scss */
 #header {
   height: 39px;
   *zoom: 1;
   max-width: 98.33333%;
   _width: 98.33333%;
-  margin-left: auto;
-  margin-right: auto;
   padding-left: 1em;
   padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
   /* @include susy-grid-background;*/
 }
-/* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 38, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #header:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* line 47, ../scss/_layout.scss */
+/* line 46, ../scss/_layout.scss */
 #content-inner #content-area {
   margin-bottom: 4em;
 }
-/* line 53, ../scss/_layout.scss */
+/* line 52, ../scss/_layout.scss */
 #content-inner #content-bottom #content-bottom-left {
   float: left;
   width: 60.37736%;
@@ -417,7 +403,7 @@ body {
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 58, ../scss/_layout.scss */
+/* line 57, ../scss/_layout.scss */
 #content-inner #content-bottom #content-bottom-right {
   float: left;
   width: 32.07547%;
@@ -509,19 +495,19 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link {
   padding: 1em 3.5em;
   margin: 1em 4em;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   background-color: #00569f;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:active {
   background-color: #004d8f;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link.disabled, body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link[disabled] {
   opacity: 0.6;
   background: false;
@@ -530,7 +516,7 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link.disabl
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -570,19 +556,19 @@ body.front .panel-3col-33 .panel-pane a.invitation-link {
   padding: 1em 1em 1em 4em;
   margin: 1em 4em;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   background-color: #00569f;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link:active {
   background-color: #004d8f;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link.disabled, body.front .panel-3col-33 .panel-pane a.invitation-link[disabled] {
   opacity: 0.6;
   background: false;
@@ -591,7 +577,7 @@ body.front .panel-3col-33 .panel-pane a.invitation-link.disabled, body.front .pa
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -798,19 +784,19 @@ body.node-type-discussion .tab-bar a.button {
   margin-bottom: 1em;
   margin-right: 1em;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .tab-bar a.button:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .tab-bar a.button:hover {
   background-color: #c8b094;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .tab-bar a.button:active {
   background-color: #c3a88a;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .tab-bar a.button.disabled, body.node-type-discussion .tab-bar a.button[disabled] {
   opacity: 0.6;
   background: false;
@@ -819,7 +805,7 @@ body.node-type-discussion .tab-bar a.button.disabled, body.node-type-discussion 
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.node-type-discussion .tab-bar a.button::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -968,19 +954,19 @@ body.node-type-discussion .comment-form .ajax-processed {
   margin-right: 0.5em;
   display: inline;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed:hover {
   background-color: #003766;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed:active {
   background-color: #002f56;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed.disabled, body.node-type-discussion .comment-form .ajax-processed[disabled] {
   opacity: 0.6;
   background: false;
@@ -989,7 +975,7 @@ body.node-type-discussion .comment-form .ajax-processed.disabled, body.node-type
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.node-type-discussion .comment-form .ajax-processed::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -1032,4 +1018,23 @@ body.node-type-discussion .view-meedan-discussion-participants > .view-content .
   color: #005eae;
   font-weight: bold;
   text-decoration: none;
+}
+
+/* Susy testing and debugging */
+/* line 25, ../scss/core.scss */
+#page.wireframe-mode {
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(0%, rgba(100, 100, 225, 0.25)), color-stop(3.38983%, rgba(100, 100, 225, 0.25)), color-stop(3.38983%, rgba(0, 0, 0, 0)), color-stop(5.08475%, rgba(0, 0, 0, 0)), color-stop(5.08475%, rgba(100, 100, 225, 0.25)), color-stop(8.47458%, rgba(100, 100, 225, 0.25)), color-stop(8.47458%, rgba(0, 0, 0, 0)), color-stop(10.16949%, rgba(0, 0, 0, 0)), color-stop(10.16949%, rgba(100, 100, 225, 0.25)), color-stop(13.55932%, rgba(100, 100, 225, 0.25)), color-stop(13.55932%, rgba(0, 0, 0, 0)), color-stop(15.25424%, rgba(0, 0, 0, 0)), color-stop(15.25424%, rgba(100, 100, 225, 0.25)), color-stop(18.64407%, rgba(100, 100, 225, 0.25)), color-stop(18.64407%, rgba(0, 0, 0, 0)), color-stop(20.33898%, rgba(0, 0, 0, 0)), color-stop(20.33898%, rgba(100, 100, 225, 0.25)), color-stop(23.72881%, rgba(100, 100, 225, 0.25)), color-stop(23.72881%, rgba(0, 0, 0, 0)), color-stop(25.42373%, rgba(0, 0, 0, 0)), color-stop(25.42373%, rgba(100, 100, 225, 0.25)), color-stop(28.81356%, rgba(100, 100, 225, 0.25)), color-stop(28.81356%, rgba(0, 0, 0, 0)), color-stop(30.50847%, rgba(0, 0, 0, 0)), color-stop(30.50847%, rgba(100, 100, 225, 0.25)), color-stop(33.89831%, rgba(100, 100, 225, 0.25)), color-stop(33.89831%, rgba(0, 0, 0, 0)), color-stop(35.59322%, rgba(0, 0, 0, 0)), color-stop(35.59322%, rgba(100, 100, 225, 0.25)), color-stop(38.98305%, rgba(100, 100, 225, 0.25)), color-stop(38.98305%, rgba(0, 0, 0, 0)), color-stop(40.67797%, rgba(0, 0, 0, 0)), color-stop(40.67797%, rgba(100, 100, 225, 0.25)), color-stop(44.0678%, rgba(100, 100, 225, 0.25)), color-stop(44.0678%, rgba(0, 0, 0, 0)), color-stop(45.76271%, rgba(0, 0, 0, 0)), color-stop(45.76271%, rgba(100, 100, 225, 0.25)), color-stop(49.15254%, rgba(100, 100, 225, 0.25)), color-stop(49.15254%, rgba(0, 0, 0, 0)), color-stop(50.84746%, rgba(0, 0, 0, 0)), color-stop(50.84746%, rgba(100, 100, 225, 0.25)), color-stop(54.23729%, rgba(100, 100, 225, 0.25)), color-stop(54.23729%, rgba(0, 0, 0, 0)), color-stop(55.9322%, rgba(0, 0, 0, 0)), color-stop(55.9322%, rgba(100, 100, 225, 0.25)), color-stop(59.32203%, rgba(100, 100, 225, 0.25)), color-stop(59.32203%, rgba(0, 0, 0, 0)), color-stop(61.01695%, rgba(0, 0, 0, 0)), color-stop(61.01695%, rgba(100, 100, 225, 0.25)), color-stop(64.40678%, rgba(100, 100, 225, 0.25)), color-stop(64.40678%, rgba(0, 0, 0, 0)), color-stop(66.10169%, rgba(0, 0, 0, 0)), color-stop(66.10169%, rgba(100, 100, 225, 0.25)), color-stop(69.49153%, rgba(100, 100, 225, 0.25)), color-stop(69.49153%, rgba(0, 0, 0, 0)), color-stop(71.18644%, rgba(0, 0, 0, 0)), color-stop(71.18644%, rgba(100, 100, 225, 0.25)), color-stop(74.57627%, rgba(100, 100, 225, 0.25)), color-stop(74.57627%, rgba(0, 0, 0, 0)), color-stop(76.27119%, rgba(0, 0, 0, 0)), color-stop(76.27119%, rgba(100, 100, 225, 0.25)), color-stop(79.66102%, rgba(100, 100, 225, 0.25)), color-stop(79.66102%, rgba(0, 0, 0, 0)), color-stop(81.35593%, rgba(0, 0, 0, 0)), color-stop(81.35593%, rgba(100, 100, 225, 0.25)), color-stop(84.74576%, rgba(100, 100, 225, 0.25)), color-stop(84.74576%, rgba(0, 0, 0, 0)), color-stop(86.44068%, rgba(0, 0, 0, 0)), color-stop(86.44068%, rgba(100, 100, 225, 0.25)), color-stop(89.83051%, rgba(100, 100, 225, 0.25)), color-stop(89.83051%, rgba(0, 0, 0, 0)), color-stop(91.52542%, rgba(0, 0, 0, 0)), color-stop(91.52542%, rgba(100, 100, 225, 0.25)), color-stop(94.91525%, rgba(100, 100, 225, 0.25)), color-stop(94.91525%, rgba(0, 0, 0, 0)), color-stop(96.61017%, rgba(0, 0, 0, 0)), color-stop(96.61017%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-image: linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 3.38983%, rgba(0, 0, 0, 0) 3.38983%, rgba(0, 0, 0, 0) 5.08475%, rgba(100, 100, 225, 0.25) 5.08475%, rgba(100, 100, 225, 0.25) 8.47458%, rgba(0, 0, 0, 0) 8.47458%, rgba(0, 0, 0, 0) 10.16949%, rgba(100, 100, 225, 0.25) 10.16949%, rgba(100, 100, 225, 0.25) 13.55932%, rgba(0, 0, 0, 0) 13.55932%, rgba(0, 0, 0, 0) 15.25424%, rgba(100, 100, 225, 0.25) 15.25424%, rgba(100, 100, 225, 0.25) 18.64407%, rgba(0, 0, 0, 0) 18.64407%, rgba(0, 0, 0, 0) 20.33898%, rgba(100, 100, 225, 0.25) 20.33898%, rgba(100, 100, 225, 0.25) 23.72881%, rgba(0, 0, 0, 0) 23.72881%, rgba(0, 0, 0, 0) 25.42373%, rgba(100, 100, 225, 0.25) 25.42373%, rgba(100, 100, 225, 0.25) 28.81356%, rgba(0, 0, 0, 0) 28.81356%, rgba(0, 0, 0, 0) 30.50847%, rgba(100, 100, 225, 0.25) 30.50847%, rgba(100, 100, 225, 0.25) 33.89831%, rgba(0, 0, 0, 0) 33.89831%, rgba(0, 0, 0, 0) 35.59322%, rgba(100, 100, 225, 0.25) 35.59322%, rgba(100, 100, 225, 0.25) 38.98305%, rgba(0, 0, 0, 0) 38.98305%, rgba(0, 0, 0, 0) 40.67797%, rgba(100, 100, 225, 0.25) 40.67797%, rgba(100, 100, 225, 0.25) 44.0678%, rgba(0, 0, 0, 0) 44.0678%, rgba(0, 0, 0, 0) 45.76271%, rgba(100, 100, 225, 0.25) 45.76271%, rgba(100, 100, 225, 0.25) 49.15254%, rgba(0, 0, 0, 0) 49.15254%, rgba(0, 0, 0, 0) 50.84746%, rgba(100, 100, 225, 0.25) 50.84746%, rgba(100, 100, 225, 0.25) 54.23729%, rgba(0, 0, 0, 0) 54.23729%, rgba(0, 0, 0, 0) 55.9322%, rgba(100, 100, 225, 0.25) 55.9322%, rgba(100, 100, 225, 0.25) 59.32203%, rgba(0, 0, 0, 0) 59.32203%, rgba(0, 0, 0, 0) 61.01695%, rgba(100, 100, 225, 0.25) 61.01695%, rgba(100, 100, 225, 0.25) 64.40678%, rgba(0, 0, 0, 0) 64.40678%, rgba(0, 0, 0, 0) 66.10169%, rgba(100, 100, 225, 0.25) 66.10169%, rgba(100, 100, 225, 0.25) 69.49153%, rgba(0, 0, 0, 0) 69.49153%, rgba(0, 0, 0, 0) 71.18644%, rgba(100, 100, 225, 0.25) 71.18644%, rgba(100, 100, 225, 0.25) 74.57627%, rgba(0, 0, 0, 0) 74.57627%, rgba(0, 0, 0, 0) 76.27119%, rgba(100, 100, 225, 0.25) 76.27119%, rgba(100, 100, 225, 0.25) 79.66102%, rgba(0, 0, 0, 0) 79.66102%, rgba(0, 0, 0, 0) 81.35593%, rgba(100, 100, 225, 0.25) 81.35593%, rgba(100, 100, 225, 0.25) 84.74576%, rgba(0, 0, 0, 0) 84.74576%, rgba(0, 0, 0, 0) 86.44068%, rgba(100, 100, 225, 0.25) 86.44068%, rgba(100, 100, 225, 0.25) 89.83051%, rgba(0, 0, 0, 0) 89.83051%, rgba(0, 0, 0, 0) 91.52542%, rgba(100, 100, 225, 0.25) 91.52542%, rgba(100, 100, 225, 0.25) 94.91525%, rgba(0, 0, 0, 0) 94.91525%, rgba(0, 0, 0, 0) 96.61017%, rgba(100, 100, 225, 0.25) 96.61017%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-position: left top;
+  -webkit-background-origin: content;
+  -moz-background-origin: content;
+  -ms-background-origin: content-box;
+  -o-background-origin: content-box;
+  background-origin: content-box;
+  -webkit-background-clip: content-box;
+  -moz-background-clip: content-box;
+  background-clip: content-box;
 }
