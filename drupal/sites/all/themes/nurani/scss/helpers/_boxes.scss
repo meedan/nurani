@@ -19,10 +19,3 @@
   @include border($color,$side, $width);
 }
 
-@mixin passage-text-boxes{
-  @include border($nurani-red, top, 5px);
-  @include border($nurani-gray, left, 1px);
-  @include border($nurani-gray, bottom, 1px);
-  @include border($nurani-gray, right, 1px);
-  background:$nurani-salmon-color;
-}

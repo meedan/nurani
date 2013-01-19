@@ -1,0 +1,38 @@
+
+@mixin passage-text-boxes{
+  @include border($nurani-red, top, 5px);
+  @include border($nurani-gray, left, 1px);
+  @include border($nurani-gray, bottom, 1px);
+  @include border($nurani-gray, right, 1px);
+  background:$nurani-salmon-color;
+
+  .passage-widget {
+    .verse{
+      margin: 0 0.5em;
+    }
+    h4{ margin-bottom:1em;}
+    p{
+     font-family: palatino;
+     margin-top:0.5em;
+     display:inline;
+    }
+    .bib{
+      border:1px solid $nurani-gray;
+      .moderator_s_thoughts{
+        p{
+          font-size: 1.1429em; 
+          text-indent: justify;
+          color:$nurani-text-gray;
+          margin-bottom: 2em;
+        }
+        span.attribution{
+          margin-top: -1em;
+          padding-right: 20px;
+          float: right;
+          @include attribution($nurani-light-blue);
+        }
+      }
+    }
+  }
+}
+
