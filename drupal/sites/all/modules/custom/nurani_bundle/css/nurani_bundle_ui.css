@@ -42,41 +42,41 @@
 .passage-box.third {
   margin-right: 0;
 }
+/* line 44, scss/nurani_bundle_ui.scss */
+.passage-box.hidden {
+  opacity: 0.6;
+}
 
-/* line 46, scss/nurani_bundle_ui.scss */
+/* line 49, scss/nurani_bundle_ui.scss */
 .passage-text {
   padding: 1em;
   min-height: 40.45085em;
   position: relative;
   z-index: 1;
 }
-/* line 53, scss/nurani_bundle_ui.scss */
+/* line 56, scss/nurani_bundle_ui.scss */
 .passage-text .pick-passage-action {
   display: none;
 }
-/* line 56, scss/nurani_bundle_ui.scss */
+/* line 59, scss/nurani_bundle_ui.scss */
 .passage-text .passage-widget, .passage-text .remove-passage-action, .passage-text .edit-passage-action {
   display: inline;
 }
-/* line 60, scss/nurani_bundle_ui.scss */
+/* line 63, scss/nurani_bundle_ui.scss */
 .passage-text.empty {
   text-align: center;
 }
-/* line 63, scss/nurani_bundle_ui.scss */
+/* line 66, scss/nurani_bundle_ui.scss */
 .passage-text.empty > .pick-passage-action {
   display: inline-block;
   margin-top: 18.22543em;
 }
-/* line 67, scss/nurani_bundle_ui.scss */
+/* line 70, scss/nurani_bundle_ui.scss */
 .passage-text.empty > .passage-widget, .passage-text.empty .remove-passage-action, .passage-text.empty .edit-passage-action {
   display: none;
 }
-/* line 72, scss/nurani_bundle_ui.scss */
-.passage-text.hidden {
-  opacity: 0.6;
-}
 
-/* line 77, scss/nurani_bundle_ui.scss */
+/* line 76, scss/nurani_bundle_ui.scss */
 .bib {
   margin-left: 10px;
   margin-top: -1em;
@@ -85,17 +85,17 @@
   background: #ddd;
 }
 
-/* line 89, scss/nurani_bundle_ui.scss */
+/* line 88, scss/nurani_bundle_ui.scss */
 .clone-bundle {
   background: #ffee66;
 }
 
-/* line 92, scss/nurani_bundle_ui.scss */
+/* line 91, scss/nurani_bundle_ui.scss */
 .passage-text {
   background: #fff;
   border: 3px dahed #CCC6C2;
 }
-/* line 96, scss/nurani_bundle_ui.scss */
+/* line 95, scss/nurani_bundle_ui.scss */
 .passage-text.empty {
   border: 3px dashed #CCC6C2;
   border-radius: 1em;

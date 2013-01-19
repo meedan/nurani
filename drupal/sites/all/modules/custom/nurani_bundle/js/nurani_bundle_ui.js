@@ -305,9 +305,9 @@
       this.$visible.removeAttr('disabled');
 
       if (this.$visible[0].checked) {
-        this.$passageText.removeClass('hidden');
+        this.$wrapper.removeClass('hidden');
       } else {
-        this.$passageText.addClass('hidden');
+        this.$wrapper.addClass('hidden');
       }
 
       if (animated) {
@@ -318,7 +318,7 @@
     }
     else {
       this.$passageText.addClass('empty');
-      this.$passageText.removeClass('visible');
+      this.$wrapper.removeClass('hidden');
       this.$moderatorsThoughts.attr('disabled', 'disabled');
       this.$visible.attr('disabled', 'disabled');
 
