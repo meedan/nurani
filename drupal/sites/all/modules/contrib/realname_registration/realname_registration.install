@@ -1,0 +1,31 @@
+<?php
+/**
+* @file
+* Install, update and uninstall functions for the realname_registration module.
+*/
+
+/**
+ * Implementation of hook_install().
+ */
+function realname_registration_install() {
+  db_query("UPDATE {system} SET weight = 10 WHERE name = 'realname_registration'");
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function realname_registration_uninstall() {
+  variable_del('realname_registration_use_profile2_firstname_field');
+  variable_del('realname_registration_profile2_firstname_field_profile_name');
+  variable_del('realname_registration_use_profile2_middlename_field');
+  variable_del('realname_registration_profile2_middlename_field_profile_name');
+  variable_del('realname_registration_use_profile2_lastname_field');
+  variable_del('realname_registration_profile2_lastname_field_profile_name');
+  variable_del('realname_registration_firstname_field');
+  variable_del('realname_registration_middlename_field');
+  variable_del('realname_registration_lastname_field');
+  variable_del('realname_registration_ucfirst');
+  variable_del('realname_registration_format');
+  variable_del('realname_registration_tolower');
+  variable_del('realname_registration_use_validation');
+}
