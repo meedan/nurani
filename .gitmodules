@@ -10,3 +10,6 @@
 [submodule "drupal/sites/all/themes/bowerbird"]
 	path = drupal/sites/all/themes/bowerbird
 	url = git@github.com:meedan/bowerbird.git
+[submodule "drupal/sites/all/modules/meedan/meedan_notifications"]
+	path = drupal/sites/all/modules/meedan/meedan_notifications
+	url = git@github.com:meedan/meedan_notifications.git
