@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__) . '/meedan_discussion_lock.notifications.inc';
+
 /**
  * Implements hook_block_info().
  */

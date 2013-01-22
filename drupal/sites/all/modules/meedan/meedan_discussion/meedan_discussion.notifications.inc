@@ -18,16 +18,19 @@ function meedan_discussion_meedan_notifications_events() {
  * Recipients list for discussions.
  */
 function meedan_discussion_meedan_notifications_recipients($object, $context) {
-  if ($context['event'] != 'discussion') {
+  if ($context['event'] != 'discussion' || $object->type != 'discussion') {
     return;
   }
 
-  $uids = array();
-  $uids[] = $object->uid;
+  // All commenters on this discussion
+  $uids = db_select('comment', 'c')
+            ->fields('c', array('uid'))
+            ->condition('c.nid', $object->nid)
+            ->execute()
+            ->fetchCol();
 
-  foreach ($object->field_invitees[$object->language] as $delta => $item) {
-    $uids[] = $item['uid'];
-  }
+  // Discussion author
+  $uids[] = $object->uid;
 
   return $uids;
 }
@@ -43,9 +46,6 @@ function meedan_discussion_meedan_notifications_recipients_alter(&$uids, $object
   }
 
   $discussion_node = node_load($object->nid);
-  if ($discussion_node->type != 'discussion') {
-    return;
-  }
 
   // Important to clear the user IDs set by meedan_notifications. It is
   // possible that a commenter has been removed from the invitees list. Only
@@ -53,4 +53,5 @@ function meedan_discussion_meedan_notifications_recipients_alter(&$uids, $object
   $uids = array();
 
   $uids = meedan_discussion_meedan_notifications_recipients($discussion_node, array('event' => 'discussion'));
+  $uids = drupal_map_assoc(array_map('intval', $uids));
 }
