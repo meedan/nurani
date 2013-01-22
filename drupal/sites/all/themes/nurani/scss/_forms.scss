@@ -6,9 +6,64 @@
   // color:($nurani-gray);
 
   @include border-radius(0.2em);
-  background: #eee;
+  background: #fff;
   border: 1px solid #ccc;
 
-  @include single-box-shadow(#ccc, 0, 0, 1px, 0.1px, inset);
+  @include single-box-shadow(#ccc, 0 0 0 2.1px inset);
 }
+
+@mixin user-account-form{
+	input.form-submit {
+    @include nurani-button($nurani-light-blue);
+    color:white;
+    font-weight:bold;
+  }
+
+ 
+}
+
+@include user-account-form;
+
+.form-text, .form-textarea, select{
+  @include form-field;
+}
+
+.field-group-fieldset, 
+fieldset{
+  border:none;
+}
+
+
+.field-name-field-title,
+.field-name-field-mobile-phone, 
+.field-name-field-how-did-you-hear-about-us,
+.field-name-field-subjects-of-interest{
+  clear:both;
+}
+
+.page-user-register .form-type-textarea{
+  width:500px;
+}
+.form-item-mail{
+  width:462px;
+}
+
+#edit-picture{
+  width: 300px;
+}
+
+.field-type-list-text, .page-user-register .field-type-text, .field-type-datetime,
+#edit-picture, .page-user-register .form-type-textarea, .form-item-mail{
+  display:inline;
+  float:left;
+  margin-right:15px;
+}
+input.date-clear{
+  background: url(../images/calendar.png) no-repeat 154px 1px;
+
+}
+
+
+
+
 
