@@ -6,7 +6,7 @@
 function nurani_discussion_block_info() {
   $blocks = array();
   $blocks['print_pdf'] = array(
-    'info' => t('Nurani discussion "Print PDF of the readings"'),
+    'info' => t('Nurani discussion "Print PDF of the passages"'),
     'cache' => DRUPAL_CACHE_PER_PAGE
   );
   return $blocks;
@@ -32,7 +32,7 @@ function nurani_discussion_block_view($delta = '') {
 
       $block['subject'] = NULL;
       if (isset($bundle_node) && $bundle_node->nid) {
-        $block['content'] = l(t("Print PDF of the readings"), "printpdf/$bundle_node->nid", array('attributes' => array('class' => 'printpdf')));
+        $block['content'] = l(t("Print PDF of the passages"), "printpdf/$bundle_node->nid", array('attributes' => array('class' => 'printpdf')));
       }
       break;
   }

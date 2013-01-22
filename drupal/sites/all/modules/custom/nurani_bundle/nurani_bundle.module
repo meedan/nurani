@@ -213,7 +213,7 @@ function nurani_bundle_passages_form($field, &$edit, $context) {
     // the bundle content type.
     $element[$delta]['moderator_s_thoughts'] = array(
       '#type' => 'textarea',
-      '#title' => t("Moderator's thoughts"),
+      '#title' => t("Notes on this passage"),
       '#cols' => 20,
       '#rows' => 5,
       '#default_value' => isset($edit[$delta]['moderator_s_thoughts']) ? $edit[$delta]['moderator_s_thoughts'] : '',
