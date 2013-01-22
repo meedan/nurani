@@ -436,27 +436,29 @@ function nurani_bundle_node_presave($node) {
 
   $title_parts = array();
 
-  foreach ((array) $node->field_passage_collection[$node->language] as $delta => $value) {
-    // Taken from entity_load_single(), but resets cache each time
-    $entities = entity_load('field_collection_item', array($value['value']), array(), TRUE);
-    $entity = reset($entities);
+  if (isset($node->field_passage_collection)) {
+    foreach ((array) $node->field_passage_collection[$node->language] as $delta => $value) {
+      // Taken from entity_load_single(), but resets cache each time
+      $entities = entity_load('field_collection_item', array($value['value']), array(), TRUE);
+      $entity = reset($entities);
 
-    $visible    = $entity->field_visible[$node->language][0]['value'];
-    $osisIDWork = $entity->field_passage[$node->language][0]['osisIDWork'];
-    $osisID     = $entity->field_passage[$node->language][0]['osisID'];
+      $visible    = $entity->field_visible[$node->language][0]['value'];
+      $osisIDWork = $entity->field_passage[$node->language][0]['osisIDWork'];
+      $osisID     = $entity->field_passage[$node->language][0]['osisID'];
 
-    if ($visible && $osisIDWork && $osisID) {
-      $info = nurani_library_get_passages_info($osisIDWork, $osisID);
+      if ($visible && $osisIDWork && $osisID) {
+        $info = nurani_library_get_passages_info($osisIDWork, $osisID);
 
-      if ($info && $info['passage_human']) {
-        $title_parts[] = $info['passage_human'];
+        if ($info && $info['passage_human']) {
+          $title_parts[] = $info['passage_human'];
+        }
       }
     }
   }
 
   $node->title = count($title_parts) > 0
                ? implode('; ', $title_parts)
-               : (is_object($node->discussion)
+               : (isset($node->discussion) && is_object($node->discussion)
                  ? t('@title bundle', array('@title' => $node->discussion->title))
                  : t('Generated bundle title'));
 }
