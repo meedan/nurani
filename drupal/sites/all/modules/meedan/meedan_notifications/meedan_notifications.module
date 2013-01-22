@@ -213,8 +213,13 @@ function meedan_notifications_action($object, $context) {
       $context['event'] = $object->type; // sane default in case of human error
     }
     $uids = module_invoke_all('meedan_notifications_recipients', $object, $context);
-    if (count($uids) > 0) $uids = array_combine($uids, $uids); // turn into [uid=>uid]
+    if (count($uids) > 0) {
+      $uids = drupal_map_assoc(array_map('intval', $uids));
+    }
     drupal_alter('meedan_notifications_recipients', $uids, $object, $context);
+    if (count($uids) > 0) {
+      $uids = drupal_map_assoc(array_map('intval', $uids));
+    }
   }
 
   // Send email to each recipient.
@@ -247,7 +252,7 @@ function meedan_notifications_meedan_notifications_recipients($object, $context)
       // Comment node author
       $uids[] = db_select('node', 'n')
                   ->fields('n', array('uid'))
-                  ->condition('nid', $object->nid)
+                  ->condition('n.nid', $object->nid)
                   ->execute()
                   ->fetchField();
       break;
