@@ -37,20 +37,20 @@
   border: 1px solid #ccc6c2;
 }
 /* line 22, ../../../../../../../../../../mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_bundle.scss */
-.node-discussion-form .inner > .passage-text .passage-widget .bib .moderator_s_thoughts p {
+.node-discussion-form .inner > .passage-text .passage-widget .bib .notes p {
   font-size: 1.1429em;
   text-indent: justify;
   color: #4a4a4a;
   margin-bottom: 2em;
 }
 /* line 28, ../../../../../../../../../../mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_bundle.scss */
-.node-discussion-form .inner > .passage-text .passage-widget .bib .moderator_s_thoughts span.attribution {
+.node-discussion-form .inner > .passage-text .passage-widget .bib .notes span.attribution {
   margin-top: -1em;
   padding-right: 20px;
   float: right;
 }
 /* line 4, ../../../../../../../../../../mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/_links.scss */
-.node-discussion-form .inner > .passage-text .passage-widget .bib .moderator_s_thoughts span.attribution a {
+.node-discussion-form .inner > .passage-text .passage-widget .bib .notes span.attribution a {
   color: #005eae;
   font-weight: bold;
   text-decoration: none;
