@@ -141,6 +141,10 @@ class NuraniUserMigration extends NuraniMigration {
     // return FALSE if you wish to skip a particular row
   }
 
+  public function prepare($user, $row) {
+    $user->meedan_notifications = drupal_map_assoc(array_keys(meedan_notifications_get_events()));
+  }
+
   public function fuzzy_match_title($title) {
     return $this->fuzzy_match($title, array('Ms', 'Miss', 'Mrs', 'Mr', 'Master', 'Rev', 'Fr', 'Dr', 'Prof', 'Hon', 'Pres'));
   }
