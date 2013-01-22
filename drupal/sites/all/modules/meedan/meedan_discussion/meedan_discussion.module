@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__) . '/meedan_discussion.notifications.inc';
+
 /**
  * Implements hook_node_info().
  */
