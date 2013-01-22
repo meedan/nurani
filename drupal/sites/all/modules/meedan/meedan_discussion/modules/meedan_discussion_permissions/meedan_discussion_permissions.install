@@ -1,20 +1,6 @@
 <?php
 
 /**
- * Implements hook_install().
- */
-function meedan_discussion_permissions_install() {
-  drupal_install_schema('meedan_discussion_permissions');
-}
-
-/**
- * Implements hook_uninstall().
- */
-function meedan_discussion_permissions_uninstall() {
-  drupal_uninstall_schema('meedan_discussion_permissions');
-}
-
-/**
  * Implements hook_schema().
  */
 function meedan_discussion_permissions_schema() {
