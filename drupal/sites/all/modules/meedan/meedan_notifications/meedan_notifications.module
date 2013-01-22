@@ -18,7 +18,7 @@ function meedan_notifications_menu() {
     'description' => 'Administer notification settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('meedan_notifications_admin_settings'),
-    'access arguments' => array('administer site configuration'), 
+    'access arguments' => array('administer site configuration'),
   );
   $items['user/update-last-time'] = array(
     'type' => MENU_CALLBACK,
@@ -68,10 +68,6 @@ function meedan_notifications_access($account) {
  */
 function meedan_notifications_meedan_notifications_events() {
   return array(
-    'discussion' => array(
-      'label' => t('New discussion'),
-      'token type' => 'node',
-    ),
     'comment' => array(
       'label' => t('New comment'),
       'token type' => 'comment',
@@ -116,7 +112,7 @@ function meedan_notifications_user_page($form, $form_state, $account) {
     '#title' => t('Please select the events for which you wish to be notified'),
     '#options' => $options,
     '#default_value' => $subscriptions,
-  );  
+  );
   $form['account_uid'] = array(
     '#type' => 'value',
     '#value' => $account->uid
@@ -129,7 +125,7 @@ function meedan_notifications_user_page($form, $form_state, $account) {
 }
 
 /**
- * Submit function for form `meedan_notifications_user_page`. 
+ * Submit function for form `meedan_notifications_user_page`.
  */
 function meedan_notifications_user_page_submit($form, &$form_state) {
   $account = user_load($form_state['values']['account_uid']);
@@ -180,7 +176,7 @@ function meedan_notifications_action_form($context) {
   );
   if (module_exists('token')) {
     $form['token_tree'] = array(
-      '#theme' => 'token_tree', 
+      '#theme' => 'token_tree',
       '#token_types' => array('node', 'user'),
     );
   }
@@ -245,13 +241,15 @@ function meedan_notifications_action($object, $context) {
 function meedan_notifications_meedan_notifications_recipients($object, $context) {
   $uids = array();
   switch ($context['event']) {
-    case 'discussion':
-      $uids = db_query("SELECT uid FROM {users}")->fetchCol(); // all users 
-      break;
     case 'comment':
-      $uids = db_query("SELECT uid FROM {comment} WHERE nid = :nid", array(':nid' => $object->nid))->fetchCol(); // other commenters
-      $discussion = node_load($object->nid);
-      $uids[] = $discussion->uid; // discussion author
+      // All commenters on this node
+      $uids = db_query("SELECT uid FROM {comment} WHERE nid = :nid", array(':nid' => $object->nid))->fetchCol();
+      // Comment node author
+      $uids[] = db_select('node', 'n')
+                  ->fields('n', array('uid'))
+                  ->condition('nid', $object->nid)
+                  ->execute()
+                  ->fetchField();
       break;
     case 'user':
       $uids = db_query("SELECT uid FROM {users}")->fetchCol(); // all users
@@ -266,7 +264,7 @@ function meedan_notifications_meedan_notifications_recipients($object, $context)
  */
 function meedan_notifications_meedan_notifications_recipients_alter(&$uids, $object, $context) {
   // Remove author.
-  if (in_array($context['event'], array('discussion', 'comment', 'user'))) {
+  if (in_array($context['event'], array('comment', 'user'))) {
     unset($uids[$object->uid]);
   }
 
@@ -287,7 +285,7 @@ function meedan_notifications_meedan_notifications_recipients_alter(&$uids, $obj
     if (!in_array($context['event'], array_filter($subscriptions))) {
       unset($uids[$uid]);
     }
-    
+
     // Remove users who are blocked.
     if (!$account->status) {
       unset($uids[$uid]);
@@ -345,7 +343,7 @@ function meedan_notifications_tokens($type, $tokens, array $data = array(), arra
   return $replacements;
 }
 
-/** 
+/**
  * Implements hook_mail_alter().
  * Convert the default email sender from just site_mail to "site_name <site_mail>".
  */
