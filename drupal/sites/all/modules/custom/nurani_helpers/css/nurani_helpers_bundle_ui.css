@@ -62,8 +62,8 @@
   height: 52px;
   border: none;
   position: absolute;
-  right: 10px;
-  top: 7px;
+  right: -2px;
+  top: 4px;
 }
 /* line 30, scss/nurani_helpers_bundle_ui.scss */
 .node-discussion-form .clone-bundle,
