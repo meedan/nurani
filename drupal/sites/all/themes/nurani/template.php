@@ -18,3 +18,13 @@ function nurani_preprocess_node(&$vars) {
  */
 function nurani_preprocess_page(&$vars) {
 }
+
+/**
+ * Implements hook_preprocess_textarea()
+ *
+ * Removes resize drag handle from all text areas. Modern browsers implement
+ * this natively these days.
+ */
+function nurani_preprocess_textarea(&$vars) {
+  $vars['element']['#resizable'] = FALSE;
+}
