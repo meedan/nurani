@@ -27,7 +27,7 @@ function nurani_bundle_theme($existing, $type, $theme, $path) {
       'variables' => array('delta' => NULL, 'content' => NULL, 'bib' => NULL),
     ),
     'nurani_bundle_passage_box_bib' => array(
-      'variables' => array('moderator_s_thoughts' => NULL, 'language' => NULL, 'account' => NULL, 'timestamp' => NULL),
+      'variables' => array('notes' => NULL, 'language' => NULL, 'account' => NULL, 'timestamp' => NULL),
     ),
     'nurani_bundle_passage_title' => array(
       'variables' => array('element_type' => 'li', 'delta' => NULL, 'osisIDWork' => NULL, 'osisID' => NULL),
@@ -209,15 +209,13 @@ function nurani_bundle_passages_form($field, &$edit, $context) {
       '#value' => isset($edit[$delta]['osisIDWork']) ? $edit[$delta]['osisIDWork'] : '',
       '#attributes' => array('class' => array('edit-osisIDWork')),
     );
-    // Using 'moderator_s_thoughts' to match the field_moderator_s_thoughts on
-    // the bundle content type.
-    $element[$delta]['moderator_s_thoughts'] = array(
+    $element[$delta]['notes'] = array(
       '#type' => 'textarea',
-      '#title' => t("Moderator's thoughts"),
+      '#title' => t("Notes on this passage"),
       '#cols' => 20,
       '#rows' => 5,
-      '#default_value' => isset($edit[$delta]['moderator_s_thoughts']) ? $edit[$delta]['moderator_s_thoughts'] : '',
-      '#attributes' => array('class' => array('edit-moderator_s_thoughts')),
+      '#default_value' => isset($edit[$delta]['notes']) ? $edit[$delta]['notes'] : '',
+      '#attributes' => array('class' => array('edit-notes')),
     );
     $element[$delta]['visible'] = array(
       '#type' => 'checkbox',
@@ -264,7 +262,7 @@ function theme_nurani_bundle_ui_passage_box(&$variables) {
   $content .= drupal_render($element['osisID']);
   $content .= drupal_render($element['osisIDWork']);
 
-  $bib      = drupal_render($element['moderator_s_thoughts']);
+  $bib      = drupal_render($element['notes']);
   $bib     .= drupal_render($element['visible']);
 
   return theme('nurani_bundle_passage_box', array('delta' => $delta, 'content' => $content, 'bib' => $bib));
@@ -290,7 +288,7 @@ function _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_
     foreach ((array) $bundle->field_passage_collection[$langcode] as $pc_delta => $pc_data) {
       $item = field_collection_item_load($pc_data['value']);
 
-      foreach (array('field_moderator_s_thoughts', 'field_passage', 'field_visible') as $field_name) {
+      foreach (array('field_notes', 'field_passage', 'field_visible') as $field_name) {
         $edit_name = substr($field_name, 6); // Remove the 'field_' part
 
         foreach ($item->{$field_name} as $item_field_langcode => $item_field_deltas) {
@@ -415,7 +413,7 @@ function nurani_bundle_node_submit($node, $form, $form_state) {
 
     $entity->field_passage[$langcode][0]['osisIDWork']         = $pc_value['osisIDWork'];
     $entity->field_passage[$langcode][0]['osisID']             = $pc_value['osisID'];
-    $entity->field_moderator_s_thoughts[$langcode][0]['value'] = $pc_value['moderator_s_thoughts'];
+    $entity->field_notes[$langcode][0]['value'] = $pc_value['notes'];
     $entity->field_visible[$langcode][0]['value']              = $pc_value['visible'];
     // We don't use ->save(TRUE) here because it is important for the host
     // entity (the $bundle_node) to be updated in this case. This will cause
@@ -436,27 +434,29 @@ function nurani_bundle_node_presave($node) {
 
   $title_parts = array();
 
-  foreach ((array) $node->field_passage_collection[$node->language] as $delta => $value) {
-    // Taken from entity_load_single(), but resets cache each time
-    $entities = entity_load('field_collection_item', array($value['value']), array(), TRUE);
-    $entity = reset($entities);
+  if (isset($node->field_passage_collection)) {
+    foreach ((array) $node->field_passage_collection[$node->language] as $delta => $value) {
+      // Taken from entity_load_single(), but resets cache each time
+      $entities = entity_load('field_collection_item', array($value['value']), array(), TRUE);
+      $entity = reset($entities);
 
-    $visible    = $entity->field_visible[$node->language][0]['value'];
-    $osisIDWork = $entity->field_passage[$node->language][0]['osisIDWork'];
-    $osisID     = $entity->field_passage[$node->language][0]['osisID'];
+      $visible    = $entity->field_visible[$node->language][0]['value'];
+      $osisIDWork = $entity->field_passage[$node->language][0]['osisIDWork'];
+      $osisID     = $entity->field_passage[$node->language][0]['osisID'];
 
-    if ($visible && $osisIDWork && $osisID) {
-      $info = nurani_library_get_passages_info($osisIDWork, $osisID);
+      if ($visible && $osisIDWork && $osisID) {
+        $info = nurani_library_get_passages_info($osisIDWork, $osisID);
 
-      if ($info && $info['passage_human']) {
-        $title_parts[] = $info['passage_human'];
+        if ($info && $info['passage_human']) {
+          $title_parts[] = $info['passage_human'];
+        }
       }
     }
   }
 
   $node->title = count($title_parts) > 0
                ? implode('; ', $title_parts)
-               : (is_object($node->discussion)
+               : (isset($node->discussion) && is_object($node->discussion)
                  ? t('@title bundle', array('@title' => $node->discussion->title))
                  : t('Generated bundle title'));
 }
@@ -566,14 +566,14 @@ function theme_nurani_bundle_passage_box(&$variables) {
  * Theme function to render the bib for a passage box.
  */
 function theme_nurani_bundle_passage_box_bib(&$variables) {
-  if (trim($variables['moderator_s_thoughts']) == '') {
+  if (trim($variables['notes']) == '') {
     return '';
   }
 
   $output  = '';
-  $output .= '<div class="moderator_s_thoughts">';
+  $output .= '<div class="notes">';
   $output .=   '<label>' . t('Notes on this passage') . '</label>';
-  $output .=   check_markup($variables['moderator_s_thoughts'], NULL, $variables['language']);
+  $output .=   check_markup($variables['notes'], NULL, $variables['language']);
   $output .=   theme('nurani_attribution', array('account' => $variables['account']));
   $output .= '</div>';
 
@@ -651,7 +651,7 @@ function nurani_bundle_field_formatter_view($entity_type, $entity, $field, $inst
           $data = array(
             'osisIDWork'           => $item_entity->field_passage[$entity->language][0]['osisIDWork'],
             'osisID'               => $item_entity->field_passage[$entity->language][0]['osisID'],
-            'moderator_s_thoughts' => $item_entity->field_moderator_s_thoughts[$entity->language][0]['value'],
+            'notes' => $item_entity->field_notes[$entity->language][0]['value'],
             'visible'              => $item_entity->field_visible[$entity->language][0]['value'],
           );
 
@@ -690,7 +690,7 @@ function theme_nurani_bundle_formatter($variables) {
 
     $content = nurani_passage_widget($datum['osisIDWork'], $datum['osisID']);
     $bib = theme('nurani_bundle_passage_box_bib', array(
-      'moderator_s_thoughts' => $datum['moderator_s_thoughts'],
+      'notes' => $datum['notes'],
       'language'             => $bundle_node->language,
       'account'              => $account,
       'timestamp'            => $bundle_node->revision_timestamp,
@@ -750,7 +750,7 @@ function theme_nurani_bundle_items_formatter($variables) {
 
   $content = _nurani_bundle_raw_passage_widget($data['osisIDWork'], $data['osisID']);
   $bib = theme('nurani_bundle_passage_box_bib', array(
-    'moderator_s_thoughts' => $data['moderator_s_thoughts'],
+    'notes' => $data['notes'],
     'language'             => $bundle_node->language,
     'account'              => $account,
     'timestamp'            => $bundle_node->revision_timestamp,

@@ -46,11 +46,11 @@ function nurani_comment_order_map($nid) {
 
   if (!isset($maps[$nid])) {
     $maps[$nid] = array();
-    $count = 1;
 
-    $result = db_query("SELECT cid FROM {comment} WHERE nid = :nid ORDER BY created ASC", array(':nid' => $nid));
+    $result = db_query("SELECT cid, thread FROM {comment} WHERE nid = :nid ORDER BY created ASC", array(':nid' => $nid));
     foreach ($result as $comment) {
-      $maps[$nid][$comment->cid] = $count++;
+      $parts = explode('.', rtrim($comment->thread, '/'));
+      $maps[$nid][$comment->cid] = vancode2int($parts[0]);
     }
   }
 

@@ -238,7 +238,7 @@
 
     this.$osisIDWork         = $('.edit-osisIDWork', this.$wrapper);
     this.$osisID             = $('.edit-osisID', this.$wrapper);
-    this.$moderatorsThoughts = $('.edit-moderator_s_thoughts', this.$wrapper);
+    this.$notes = $('.edit-notes', this.$wrapper);
     this.$visible            = $('.edit-visible', this.$wrapper)
                                  .change(function () { that.render(false); });
   };
@@ -301,7 +301,7 @@
     if (this.picked) {
       this.$passageText.removeClass('empty');
       this.updatePassageWidget();
-      this.$moderatorsThoughts.removeAttr('disabled');
+      this.$notes.removeAttr('disabled');
       this.$visible.removeAttr('disabled');
 
       if (this.$visible[0].checked) {
@@ -319,7 +319,7 @@
     else {
       this.$passageText.addClass('empty');
       this.$wrapper.removeClass('hidden');
-      this.$moderatorsThoughts.attr('disabled', 'disabled');
+      this.$notes.attr('disabled', 'disabled');
       this.$visible.attr('disabled', 'disabled');
 
       if (animated) {
@@ -351,7 +351,7 @@
 
     this.$osisIDWork.val(data.osisIDWork || '');
     this.$osisID.val(data.osisID || '');
-    this.$moderatorsThoughts.val(data.moderator_s_thoughts || '');
+    this.$notes.val(data.notes || '');
 
     if (data.visible) {
       this.$visible.attr('checked', 'checked');
@@ -371,7 +371,7 @@
     return {
       osisIDWork: this.$osisIDWork.val(),
       osisID: this.$osisID.val(),
-      moderator_s_thoughts: this.$moderatorsThoughts.val(),
+      notes: this.$notes.val(),
       visible: this.$visible.attr('checked')
     };
   }

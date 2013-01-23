@@ -10,14 +10,14 @@
 function nurani_core_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_passage_collection-field_moderator_s_thoughts'.
-  $fields['field_collection_item-field_passage_collection-field_moderator_s_thoughts'] = array(
+  // Exported field: 'field_collection_item-field_passage_collection-field_notes'.
+  $fields['field_collection_item-field_passage_collection-field_notes'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_moderator_s_thoughts',
+      'field_name' => 'field_notes',
       'foreign keys' => array(
         'format' => array(
           'columns' => array(
@@ -52,8 +52,8 @@ function nurani_core_field_default_fields() {
         ),
       ),
       'entity_type' => 'field_collection_item',
-      'field_name' => 'field_moderator_s_thoughts',
-      'label' => 'Moderator\'s thoughts',
+      'field_name' => 'field_notes',
+      'label' => 'Notes on this passage',
       'required' => 0,
       'settings' => array(
         'text_processing' => '0',
@@ -487,7 +487,7 @@ function nurani_core_field_default_fields() {
   t('Body');
   t('Bundle');
   t('Is visible?');
-  t('Moderator\'s thoughts');
+  t('Notes on this passage');
   t('Passage');
   t('Passage collection');
   t('Subtitle');
