@@ -18,21 +18,50 @@
     color:white;
     font-weight:bold;
   }
-
- 
 }
 
 @include user-account-form;
+
+
+.page-user-register{
+  #content-inner{
+    margin: 0 auto;
+    width:1100px;
+  }
+   .field-group-fieldset{
+     & > legend{
+       text-align:center;
+       background:url(../images/bevel.jpg);
+       width: 100%;
+       margin-right: 1.69492%;
+       display: inline;
+
+       .fieldset-title{
+          @include bundle-typography-regular;
+          font-size: 2.1429em;
+          text-decoration:none;
+          color:$nurani-burgundy;
+          background: url(../images/brown_bkg.png);
+          padding:20px;
+       }
+
+    }
+  }
+}
 
 .form-text, .form-textarea, select{
   @include form-field;
 }
 
-.field-group-fieldset, 
-fieldset{
+.field-group-fieldset, fieldset{
   border:none;
+  // font-weight:bold;
 }
 
+.field-group-fieldset{
+  margin-top:30px;
+
+}
 
 .field-name-field-title,
 .field-name-field-mobile-phone, 
@@ -58,6 +87,12 @@ fieldset{
   float:left;
   margin-right:15px;
 }
+.field-type-datetime, #edit-picture{
+  legend{
+    display:none;
+  }
+}
+
 input.date-clear{
   background: url(../images/calendar.png) no-repeat 154px 1px;
 
