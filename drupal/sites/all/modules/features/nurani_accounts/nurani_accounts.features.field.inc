@@ -400,7 +400,7 @@ function nurani_accounts_field_default_fields() {
           'text_parts' => array(),
           'year_range' => '-100:+0',
         ),
-        'type' => 'date_select',
+        'type' => 'date_popup',
         'weight' => '6',
       ),
     ),

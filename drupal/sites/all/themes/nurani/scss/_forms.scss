@@ -22,6 +22,12 @@
 
 @include user-account-form;
 
+.page-user-register, .page-user, .page-user-password{
+  #content-inner{
+    margin: 0 auto;
+    width:1100px;
+  }
+}
 
 .page-user-register{
   #content-inner{
@@ -55,7 +61,6 @@
 
 .field-group-fieldset, fieldset{
   border:none;
-  // font-weight:bold;
 }
 
 .field-group-fieldset{
