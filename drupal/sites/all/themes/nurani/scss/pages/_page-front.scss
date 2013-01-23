@@ -63,7 +63,7 @@ h2{ margin-bottom:1em;}
     text-align: left;
   }
   h3 a{
-    @include bundle-typography;
+    @include bundle-typography-regular;
     color:$nurani-text-gray;
     text-decoration:none;
   }

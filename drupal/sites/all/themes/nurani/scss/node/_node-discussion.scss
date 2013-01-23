@@ -2,7 +2,7 @@
 /******************************************** Section to style the Text Bundle for discussions ********************************************/
 #content-header{
   h1, h2{
-    @include bundle-typography;
+    @include bundle-typography-regular;
   }
 }
 
