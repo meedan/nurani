@@ -133,6 +133,7 @@ function nurani_general_views_default_views() {
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['exclude'] = TRUE;
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_type'] = 'h3';
@@ -142,6 +143,7 @@ function nurani_general_views_default_views() {
   $handler->display->display_options['fields']['field_discussion_closing_date']['table'] = 'field_data_field_discussion_closing_date';
   $handler->display->display_options['fields']['field_discussion_closing_date']['field'] = 'field_discussion_closing_date';
   $handler->display->display_options['fields']['field_discussion_closing_date']['label'] = '';
+  $handler->display->display_options['fields']['field_discussion_closing_date']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_discussion_closing_date']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_discussion_closing_date']['date_format'] = 'time closing';
   /* Field: Content: Bundle */
@@ -149,6 +151,9 @@ function nurani_general_views_default_views() {
   $handler->display->display_options['fields']['field_bundle']['table'] = 'field_data_field_bundle';
   $handler->display->display_options['fields']['field_bundle']['field'] = 'field_bundle';
   $handler->display->display_options['fields']['field_bundle']['label'] = '';
+  $handler->display->display_options['fields']['field_bundle']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_bundle']['alter']['text'] = '<h3> [title] </h3>
+<div> [field_discussion_closing_date][field_bundle]</div>';
   $handler->display->display_options['fields']['field_bundle']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_bundle']['type'] = 'nurani_bundle_short';
   /* Field: Global: View */
