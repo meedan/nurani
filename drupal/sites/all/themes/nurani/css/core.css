@@ -489,7 +489,7 @@ input.date-clear {
   color: #005eae;
 }
 /* line 127, ../scss/_forms.scss */
-#nurani-profile-wrapper #edit-timezone--2, #nurani-profile-wrapper .field-group-fieldset {
+#nurani-profile-wrapper #edit-timezone--2, #nurani-profile-wrapper .field-group-fieldset .legend {
   width: 450px;
 }
 /* line 130, ../scss/_forms.scss */
