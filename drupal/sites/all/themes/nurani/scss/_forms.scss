@@ -1,5 +1,6 @@
 @mixin form-field {
   top: 4px;
+  width:320px;
   padding: 3px 10px;
   font-size: 16px;
   border: 0;
@@ -79,7 +80,7 @@
   width:500px;
 }
 .form-item-mail{
-  width:462px;
+  width:388px;
 }
 
 #edit-picture{
@@ -90,7 +91,7 @@
 #edit-picture, .page-user-register .form-type-textarea, .form-item-mail{
   display:inline;
   float:left;
-  margin-right:15px;
+  margin-right:10px;
 }
 .field-type-datetime, #edit-picture{
   legend{

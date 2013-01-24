@@ -333,7 +333,7 @@ sup {
   margin-bottom: 1em;
 }
 
-/* line 16, ../scss/_forms.scss */
+/* line 17, ../scss/_forms.scss */
 input.form-submit {
   font-size: 12px;
   padding: 0.5em 1.5em;
@@ -380,18 +380,18 @@ input.form-submit::-moz-focus-inner {
   margin: -1px !important;
 }
 
-/* line 26, ../scss/_forms.scss */
+/* line 27, ../scss/_forms.scss */
 .page-user-register #content-inner, .page-user #content-inner, .page-user-password #content-inner {
   margin: 0 auto;
   width: 1100px;
 }
 
-/* line 33, ../scss/_forms.scss */
+/* line 34, ../scss/_forms.scss */
 .page-user-register #content-inner {
   margin: 0 auto;
   width: 1100px;
 }
-/* line 38, ../scss/_forms.scss */
+/* line 39, ../scss/_forms.scss */
 .page-user-register .field-group-fieldset > legend {
   text-align: center;
   background: url(../images/bevel.jpg);
@@ -399,7 +399,7 @@ input.form-submit::-moz-focus-inner {
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 45, ../scss/_forms.scss */
+/* line 46, ../scss/_forms.scss */
 .page-user-register .field-group-fieldset > legend .fieldset-title {
   font-family: "palatino regular";
   font-style: italic;
@@ -410,9 +410,10 @@ input.form-submit::-moz-focus-inner {
   padding: 20px;
 }
 
-/* line 58, ../scss/_forms.scss */
+/* line 59, ../scss/_forms.scss */
 .form-text, .form-textarea, select {
   top: 4px;
+  width: 320px;
   padding: 3px 10px;
   font-size: 16px;
   border: 0;
@@ -428,17 +429,17 @@ input.form-submit::-moz-focus-inner {
   box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
 }
 
-/* line 62, ../scss/_forms.scss */
+/* line 63, ../scss/_forms.scss */
 .field-group-fieldset, fieldset {
   border: none;
 }
 
-/* line 66, ../scss/_forms.scss */
+/* line 67, ../scss/_forms.scss */
 .field-group-fieldset {
   margin-top: 30px;
 }
 
-/* line 74, ../scss/_forms.scss */
+/* line 75, ../scss/_forms.scss */
 .field-name-field-title,
 .field-name-field-mobile-phone,
 .field-name-field-how-did-you-hear-about-us,
@@ -446,35 +447,35 @@ input.form-submit::-moz-focus-inner {
   clear: both;
 }
 
-/* line 78, ../scss/_forms.scss */
+/* line 79, ../scss/_forms.scss */
 .page-user-register .form-type-textarea {
   width: 500px;
 }
 
-/* line 81, ../scss/_forms.scss */
+/* line 82, ../scss/_forms.scss */
 .form-item-mail {
-  width: 462px;
+  width: 388px;
 }
 
-/* line 85, ../scss/_forms.scss */
+/* line 86, ../scss/_forms.scss */
 #edit-picture {
   width: 300px;
 }
 
-/* line 90, ../scss/_forms.scss */
+/* line 91, ../scss/_forms.scss */
 .field-type-list-text, .page-user-register .field-type-text, .field-type-datetime,
 #edit-picture, .page-user-register .form-type-textarea, .form-item-mail {
   display: inline;
   float: left;
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
-/* line 96, ../scss/_forms.scss */
+/* line 97, ../scss/_forms.scss */
 .field-type-datetime legend, #edit-picture legend {
   display: none;
 }
 
-/* line 101, ../scss/_forms.scss */
+/* line 102, ../scss/_forms.scss */
 input.date-clear {
   background: url(../images/calendar.png) no-repeat 154px 1px;
 }
@@ -788,19 +789,31 @@ body.front .panel-2col .panel-col-last .pane-content {
 body.front .view-nurani-discussions {
   padding: 0 25px 0;
 }
-/* line 91, ../scss/pages/_page-front.scss */
-body.front .view-nurani-discussions > div.view-content .views-row {
-  margin-bottom: 4em;
+/* line 90, ../scss/pages/_page-front.scss */
+body.front .view-nurani-discussions > .view-content .views-row {
+  clear: left;
+  padding: 10px;
 }
-/* line 97, ../scss/pages/_page-front.scss */
-body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
-  margin: 0;
+/* line 95, ../scss/pages/_page-front.scss */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
+  margin-bottom: 20px;
 }
-/* line 99, ../scss/pages/_page-front.scss */
-body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row .views-field-picture {
-  display: inline;
+/* line 98, ../scss/pages/_page-front.scss */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle {
   float: left;
-  margin-right: 1em;
+  margin-right: 10px;
+}
+/* line 103, ../scss/pages/_page-front.scss */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
+  margin-left: 385px;
+}
+/* line 107, ../scss/pages/_page-front.scss */
+body.front .view-nurani-discussions .view-meedan-discussion-participants {
+  margin-top: 25px;
+}
+/* line 109, ../scss/pages/_page-front.scss */
+body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
+  display: inline-block;
 }
 
 /* node types */

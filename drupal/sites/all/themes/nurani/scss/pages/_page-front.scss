@@ -85,25 +85,34 @@ h2{ margin-bottom:1em;}
   }
 }  
 
- .view-nurani-discussions{
-    padding:0 25px 0; 
-    & > div.view-content {
-      .views-row{ 
-        margin-bottom:4em;
-      }
-    }
-  
-    & .view-meedan-discussion-participants > .view-content{
-    .views-row {
-      margin:0;
-      .views-field-picture{
-        display:inline;
-        float:left;
-        margin-right:1em;
+.view-nurani-discussions{
+  padding:0 25px 0;
+  & > .view-content .views-row{
+    clear:left;
+    padding:10px;
 
-      }
-    }    
+   
+    .views-field-view{
+      margin-bottom:20px;
+    }
+    .views-field-field-bundle{
+      float:left;
+      margin-right: 10px;
+      // width: 380px;
+    }
+   .views-field-nothing, .views-field-view {margin-left:385px;}
+
   }
+
+  .view-meedan-discussion-participants {
+    margin-top:25px;
+    & > .view-content .views-row{
+      display: inline-block;
+    }
+  }
+  
+
+
 }
 
 
