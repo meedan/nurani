@@ -291,10 +291,6 @@ sup {
 .pane-nurani-profile-user-profile h2.pane-title {
   color: #005eae;
 }
-/* line 5, ../scss/_user-profile.scss */
-.pane-nurani-profile-user-profile .profile {
-  padding: 0 25px 0;
-}
 /* line 8, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-profile {
   margin-top: 1em;
@@ -333,8 +329,27 @@ sup {
   margin-bottom: 1em;
 }
 
+/******************************************** Global Form Styling ********************************************/
 /* line 17, ../scss/_forms.scss */
-input.form-submit {
+.form-text, .form-textarea, select {
+  top: 4px;
+  padding: 3px 10px;
+  font-size: 16px;
+  border: 0;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background: #fff;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+  -moz-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+  box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+}
+
+/* line 21, ../scss/_forms.scss */
+input.form-submit, .button {
   font-size: 12px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -352,21 +367,22 @@ input.form-submit {
   text-shadow: #001f39 0 -1px 0;
   color: white;
   font-weight: bold;
+  text-transform: uppercase;
 }
 /* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-input.form-submit:hover {
+input.form-submit:hover, .button:hover {
   text-decoration: none;
 }
 /* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-input.form-submit:hover {
+input.form-submit:hover, .button:hover {
   background-color: #00569f;
 }
 /* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-input.form-submit:active {
+input.form-submit:active, .button:active {
   background-color: #004d8f;
 }
 /* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
-input.form-submit.disabled, input.form-submit[disabled] {
+input.form-submit.disabled, input.form-submit[disabled], .button.disabled, .button[disabled] {
   opacity: 0.6;
   background: false;
   cursor: default;
@@ -375,23 +391,68 @@ input.form-submit.disabled, input.form-submit[disabled] {
   box-shadow: none;
 }
 /* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
-input.form-submit::-moz-focus-inner {
+input.form-submit::-moz-focus-inner, .button::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
 }
 
-/* line 27, ../scss/_forms.scss */
+/* line 28, ../scss/_forms.scss */
+.field-group-fieldset, fieldset {
+  border: none;
+}
+
+/* line 32, ../scss/_forms.scss */
+input.date-clear {
+  background: url(../images/calendar.png) no-repeat 154px 1px;
+}
+
+/* line 37, ../scss/_forms.scss */
+.field-type-datetime legend, #edit-picture legend {
+  display: none;
+}
+
+/******************************************** Styling for User account forms ********************************************/
+/* line 46, ../scss/_forms.scss */
 .page-user-register #content-inner, .page-user #content-inner, .page-user-password #content-inner {
   margin: 0 auto;
   width: 1100px;
 }
 
-/* line 34, ../scss/_forms.scss */
-.page-user-register #content-inner {
-  margin: 0 auto;
-  width: 1100px;
+/* line 55, ../scss/_forms.scss */
+.page-user-register .field-type-list-text, .page-user-register .field-type-text, .page-user-register .field-type-datetime,
+.page-user-register #edit-picture, .page-user-register .form-type-textarea, .page-user-register .form-item-mail {
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
 }
-/* line 39, ../scss/_forms.scss */
+/* line 64, ../scss/_forms.scss */
+.page-user-register .field-name-field-title,
+.page-user-register .field-name-field-mobile-phone,
+.page-user-register .field-name-field-how-did-you-hear-about-us,
+.page-user-register .field-name-field-subjects-of-interest {
+  clear: both;
+}
+/* line 67, ../scss/_forms.scss */
+.page-user-register .form-item-mail {
+  width: 480px;
+}
+/* line 71, ../scss/_forms.scss */
+.page-user-register input.form-submit {
+  margin-left: 12px;
+}
+/* line 75, ../scss/_forms.scss */
+.page-user-register .form-type-textarea {
+  width: 500px;
+}
+/* line 79, ../scss/_forms.scss */
+.page-user-register #edit-picture {
+  width: 300px;
+}
+/* line 82, ../scss/_forms.scss */
+.page-user-register .field-group-fieldset {
+  margin-top: 30px;
+}
+/* line 88, ../scss/_forms.scss */
 .page-user-register .field-group-fieldset > legend {
   text-align: center;
   background: url(../images/bevel.jpg);
@@ -399,7 +460,7 @@ input.form-submit::-moz-focus-inner {
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 46, ../scss/_forms.scss */
+/* line 95, ../scss/_forms.scss */
 .page-user-register .field-group-fieldset > legend .fieldset-title {
   font-family: "palatino regular";
   font-style: italic;
@@ -410,74 +471,36 @@ input.form-submit::-moz-focus-inner {
   padding: 20px;
 }
 
-/* line 59, ../scss/_forms.scss */
-.form-text, .form-textarea, select {
-  top: 4px;
-  width: 320px;
-  padding: 3px 10px;
-  font-size: 16px;
-  border: 0;
-  -webkit-border-radius: 0.2em;
-  -moz-border-radius: 0.2em;
-  -ms-border-radius: 0.2em;
-  -o-border-radius: 0.2em;
-  border-radius: 0.2em;
-  background: #fff;
-  border: 1px solid #ccc;
-  -webkit-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
-  -moz-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
-  box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+/******************************************** Nurani profile form ********************************************/
+/* line 110, ../scss/_forms.scss */
+#nurani-profile-wrapper {
+  padding: 30px;
 }
-
-/* line 63, ../scss/_forms.scss */
-.field-group-fieldset, fieldset {
-  border: none;
+/* line 114, ../scss/_forms.scss */
+#nurani-profile-wrapper .field-group-fieldset > legend {
+  margin: 0 auto;
 }
-
-/* line 67, ../scss/_forms.scss */
-.field-group-fieldset {
-  margin-top: 30px;
+/* line 116, ../scss/_forms.scss */
+#nurani-profile-wrapper .field-group-fieldset > legend .fieldset-title {
+  font-size: 2.1429em;
+  font-family: "palatino regular";
+  font-style: italic;
+  text-decoration: none;
+  color: #005eae;
 }
-
-/* line 75, ../scss/_forms.scss */
-.field-name-field-title,
-.field-name-field-mobile-phone,
-.field-name-field-how-did-you-hear-about-us,
-.field-name-field-subjects-of-interest {
-  clear: both;
+/* line 127, ../scss/_forms.scss */
+#nurani-profile-wrapper #edit-timezone--2, #nurani-profile-wrapper .field-group-fieldset {
+  width: 450px;
 }
-
-/* line 79, ../scss/_forms.scss */
-.page-user-register .form-type-textarea {
-  width: 500px;
-}
-
-/* line 82, ../scss/_forms.scss */
-.form-item-mail {
-  width: 388px;
-}
-
-/* line 86, ../scss/_forms.scss */
-#edit-picture {
-  width: 300px;
-}
-
-/* line 91, ../scss/_forms.scss */
-.field-type-list-text, .page-user-register .field-type-text, .field-type-datetime,
-#edit-picture, .page-user-register .form-type-textarea, .form-item-mail {
+/* line 130, ../scss/_forms.scss */
+#nurani-profile-wrapper .form-actions {
   display: inline;
-  float: left;
   margin-right: 10px;
 }
-
-/* line 97, ../scss/_forms.scss */
-.field-type-datetime legend, #edit-picture legend {
-  display: none;
-}
-
-/* line 102, ../scss/_forms.scss */
-input.date-clear {
-  background: url(../images/calendar.png) no-repeat 154px 1px;
+/* line 134, ../scss/_forms.scss */
+#nurani-profile-wrapper .button {
+  display: inline;
+  text-decoration: none;
 }
 
 /* line 13, ../scss/_layout.scss */
@@ -748,20 +771,26 @@ body.front .panel-2col h2 {
   text-align: left;
 }
 /* line 65, ../scss/pages/_page-front.scss */
+body.front .panel-2col h3 {
+  margin-bottom: 1em;
+}
+/* line 67, ../scss/pages/_page-front.scss */
 body.front .panel-2col h3 a {
   font-family: "palatino regular";
   font-style: italic;
   color: #4a4a4a;
   text-decoration: none;
+  font-weight: lighter;
+  font-size: 2.1429em;
 }
-/* line 72, ../scss/pages/_page-front.scss */
+/* line 79, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-first {
   width: 54.71698%;
   float: left;
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 74, ../scss/pages/_page-front.scss */
+/* line 81, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-first .view-nurani-discussions {
   background-color: #fff;
   margin-bottom: 25px;
@@ -769,15 +798,15 @@ body.front .panel-2col .panel-col-first .view-nurani-discussions {
   border-top-style: solid;
   border-top-color: #4c1313;
 }
-/* line 80, ../scss/pages/_page-front.scss */
+/* line 87, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last {
-  width: 37.73585%;
+  width: 43.39623%;
   float: right;
   margin-right: 0;
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 82, ../scss/pages/_page-front.scss */
+/* line 89, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last .pane-content {
   background-color: #fff;
   margin-bottom: 25px;
@@ -785,35 +814,37 @@ body.front .panel-2col .panel-col-last .pane-content {
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 88, ../scss/pages/_page-front.scss */
+/* line 95, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions {
   padding: 0 25px 0;
 }
-/* line 90, ../scss/pages/_page-front.scss */
+/* line 97, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row {
   clear: left;
   padding: 10px;
 }
-/* line 95, ../scss/pages/_page-front.scss */
+/* line 102, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
   margin-bottom: 20px;
 }
-/* line 98, ../scss/pages/_page-front.scss */
+/* line 105, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle {
   float: left;
   margin-right: 10px;
+  padding-right: 25px;
 }
-/* line 103, ../scss/pages/_page-front.scss */
+/* line 110, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
   margin-left: 385px;
 }
-/* line 107, ../scss/pages/_page-front.scss */
+/* line 116, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants {
-  margin-top: 25px;
+  margin-top: 23px;
 }
-/* line 109, ../scss/pages/_page-front.scss */
+/* line 118, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
   display: inline-block;
+  margin-right: -15px;
 }
 
 /* node types */
