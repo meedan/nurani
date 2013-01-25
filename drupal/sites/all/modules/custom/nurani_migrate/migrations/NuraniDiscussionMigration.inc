@@ -125,9 +125,4 @@ class NuraniDiscussionMigration extends NuraniMigration {
       'participant'   => MEEDAN_DISCUSSION_PERMISSIONS_PARTICIPATE
     );
   }
-
-  public function postImport() {
-    // Bugs in the old data may cause consistency issues
-    db_query("DELETE ns FROM {node_comment_statistics} ns WHERE ns.nid NOT IN (SELECT nid FROM {node})");
-  }
 }

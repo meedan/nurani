@@ -38,4 +38,9 @@ abstract class NuraniMigration extends DynamicMigration {
 
     return $best_match;
   }
+
+  public function postImport() {
+    // Bugs in the old data may cause consistency issues
+    db_query("DELETE ns FROM {node_comment_statistics} ns WHERE ns.nid NOT IN (SELECT nid FROM {node})");
+  }
 }
