@@ -52,7 +52,7 @@
         that.spinner = null;
 
         that.$tooltip
-          .html(data)
+          .html(data || '')
           .removeClass('loading');
 
         that.positionTooltip();
