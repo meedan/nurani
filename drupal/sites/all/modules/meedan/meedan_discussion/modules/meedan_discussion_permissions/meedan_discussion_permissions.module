@@ -56,8 +56,8 @@ function meedan_discussion_permissions_form_discussion_node_form_alter(&$form, &
     $options['200'] = t('Private to discussion participants only');
   }
   $values = array_keys($options);
-  $default = variable_get('meedan_discussion_permissions_default_discussion_privacy', '220');
-  $default_value = isset($form['#node']->meedan_discussion_permissions) ? _meedan_discussion_permissions_flatten_perm($form['#node']->meedan_discussion_permissions) : (isset($options[$default]) ? $default : key($values));
+  $default = variable_get('meedan_discussion_permissions_default_discussion_privacy', '200');
+  $default_value = isset($form['#node']->meedan_discussion_permissions) ? _meedan_discussion_permissions_flatten_perm($form['#node']->meedan_discussion_permissions) : (isset($options[$default]) ? $default : end($values));
   $form['meedan_discussion_permissions'] = array(
     '#type' => 'fieldset',
     '#title' => t('Discussion privacy'),
