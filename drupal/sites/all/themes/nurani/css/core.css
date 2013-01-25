@@ -291,40 +291,43 @@ sup {
 .pane-nurani-profile-user-profile h2.pane-title {
   color: #005eae;
 }
-/* line 8, ../scss/_user-profile.scss */
+/* line 7, ../scss/_user-profile.scss */
+.pane-nurani-profile-user-profile .profile .group-profile legend span {
+  font-size: 1.2em;
+}
+/* line 12, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-profile {
   margin-top: 1em;
 }
-/* line 10, ../scss/_user-profile.scss */
+/* line 16, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .user-picture {
   float: right;
   margin: 2em 0 0 1em;
 }
-/* line 15, ../scss/_user-profile.scss */
-.pane-nurani-profile-user-profile .profile .fieldset-legend, .pane-nurani-profile-user-profile .profile a.fieldset-title {
-  font-size: 1.2em;
+/* line 21, ../scss/_user-profile.scss */
+.pane-nurani-profile-user-profile .profile .field-group-fieldset .legend, .pane-nurani-profile-user-profile .profile legend span {
   color: #005eae;
 }
-/* line 20, ../scss/_user-profile.scss */
+/* line 26, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-name-field-title, .pane-nurani-profile-user-profile .profile .field-name-field-first-name {
   display: inline;
   float: left;
   margin-right: 10px;
 }
-/* line 26, ../scss/_user-profile.scss */
+/* line 32, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-details .field {
   margin-bottom: 1em;
 }
-/* line 28, ../scss/_user-profile.scss */
+/* line 34, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-details .field > .field-items {
   float: right;
   text-align: right;
 }
-/* line 33, ../scss/_user-profile.scss */
+/* line 39, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-name-field-postal-address .field-items {
   width: 28%;
 }
-/* line 37, ../scss/_user-profile.scss */
+/* line 43, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-label-above {
   margin-bottom: 1em;
 }
@@ -832,15 +835,15 @@ body.front .panel-2col .panel-col-first {
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 81, ../scss/pages/_page-front.scss */
-body.front .panel-2col .panel-col-first .view-nurani-discussions {
+/* line 82, ../scss/pages/_page-front.scss */
+body.front .panel-2col .panel-col-first .view-id-nurani_discussions > .view-content > .views-row {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #4c1313;
 }
-/* line 87, ../scss/pages/_page-front.scss */
+/* line 89, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last {
   width: 43.39623%;
   float: right;
@@ -848,7 +851,7 @@ body.front .panel-2col .panel-col-last {
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 89, ../scss/pages/_page-front.scss */
+/* line 91, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last .pane-content {
   background-color: #fff;
   margin-bottom: 25px;
@@ -856,43 +859,91 @@ body.front .panel-2col .panel-col-last .pane-content {
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 95, ../scss/pages/_page-front.scss */
+/* line 97, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions {
   padding: 0 25px 0;
 }
-/* line 97, ../scss/pages/_page-front.scss */
+/* line 99, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row {
   clear: left;
   padding: 10px;
 }
-/* line 102, ../scss/pages/_page-front.scss */
-body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
-  margin-bottom: 20px;
-}
-/* line 105, ../scss/pages/_page-front.scss */
+/* line 103, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle {
   float: left;
   margin-right: 10px;
   padding-right: 25px;
 }
-/* line 109, ../scss/pages/_page-front.scss */
+/* line 107, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle span.passage {
   display: inline-block;
   padding-right: 1em;
   font-weight: bold;
 }
-/* line 115, ../scss/pages/_page-front.scss */
+/* line 113, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
-  margin-left: 437px;
+  margin-left: 470px;
+  padding-right: 20px;
 }
-/* line 121, ../scss/pages/_page-front.scss */
+/* line 117, ../scss/pages/_page-front.scss */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a {
+  font-size: 14px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0064B8', endColorstr='#FF002C52');
+  background-color: #0064b8;
+  border: 0;
+  color: #fefefe;
+  text-shadow: #001f39 0 -1px 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-image: none;
+}
+/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover {
+  text-decoration: none;
+}
+/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover {
+  background-color: #00569f;
+}
+/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:active {
+  background-color: #004d8f;
+}
+/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a.disabled, body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+/* line 10, ../scss/helpers/_nurani-button.scss */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover {
+  color: #fff;
+}
+/* line 124, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants {
   margin-top: 23px;
 }
-/* line 123, ../scss/pages/_page-front.scss */
+/* line 126, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
   display: inline-block;
-  margin-right: -15px;
+  margin-right: -20px;
 }
 
 /* node types */

@@ -78,9 +78,11 @@ h2{ margin-bottom:1em;}
   /* This styles the discussion block*/
   .panel-col-first{
     @include span-columns(10,18);
-    .view-nurani-discussions{
-      @include white-background-bordered-top($nurani-burgundy, top, 5px); 
-    }
+      .view-id-nurani_discussions {
+        & > .view-content > .views-row{
+          @include white-background-bordered-top($nurani-burgundy, top, 5px); 
+        }
+      }
   }
   
   /* This styles the profile block*/
@@ -98,10 +100,6 @@ h2{ margin-bottom:1em;}
     clear:left;
     padding:10px;
 
-   
-    .views-field-view{
-      margin-bottom:20px;
-    }
     .views-field-field-bundle{
       float:left;
       margin-right: 10px;
@@ -113,8 +111,13 @@ h2{ margin-bottom:1em;}
       }
     }
    .views-field-nothing, .views-field-view {
-      margin-left:437px;
+      margin-left:470px;
+      padding-right:20px;
    }
+  .views-field-nothing a{
+    @include a-link-as-button($nurani-light-blue);
+    background-image:none; 
+  }
 
   }
 
@@ -122,7 +125,7 @@ h2{ margin-bottom:1em;}
     margin-top:23px;
     & > .view-content .views-row{
       display: inline-block;
-      margin-right:-15px;
+      margin-right: -20px;
     }
   }
   

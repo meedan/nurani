@@ -3,18 +3,24 @@
   h2.pane-title{color:$nurani-light-blue;}
 
   .profile{
+
+    .group-profile legend span{ 
+      font-size:1.2em;
+    }
     
 
-    .group-profile{margin-top:1em;}
+    .group-profile{
+      margin-top:1em;
+    }
 
     .user-picture{
       float: right;
       margin: 2em 0 0 1em;
     }
 
-    .fieldset-legend, a.fieldset-title {
-  	  font-size:1.2em;
-  	  color:$nurani-light-blue;
+    .field-group-fieldset .legend , legend span{
+      
+      color:$nurani-light-blue;
     }
 
     .field-name-field-title, .field-name-field-first-name{ 
