@@ -23,12 +23,12 @@ function nurani_accounts_field_group_info() {
     'label' => 'Additional details',
     'weight' => '2',
     'children' => array(
-      0 => 'field_religious_tradition',
+      0 => 'field_how_did_you_hear_about_us',
       1 => 'field_previous_experience',
-      2 => 'field_how_did_you_hear_about_us',
-      3 => 'field_reasons',
-      4 => 'field_subjects_of_interest',
-      5 => 'field_social_media_usage',
+      2 => 'field_reasons',
+      3 => 'field_religious_tradition',
+      4 => 'field_social_media_usage',
+      5 => 'field_subjects_of_interest',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -64,12 +64,13 @@ function nurani_accounts_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Additional details',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_additional_details|user|user|form'] = $field_group;
@@ -87,12 +88,12 @@ function nurani_accounts_field_group_info() {
     'label' => 'Invitation request details',
     'weight' => '1',
     'children' => array(
-      0 => 'field_postal_address',
-      1 => 'field_post_code',
-      2 => 'field_country',
-      3 => 'field_mobile_phone',
-      4 => 'field_landline_phone',
-      5 => 'field_occupation',
+      0 => 'field_country',
+      1 => 'field_landline_phone',
+      2 => 'field_mobile_phone',
+      3 => 'field_occupation',
+      4 => 'field_post_code',
+      5 => 'field_postal_address',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -128,12 +129,13 @@ function nurani_accounts_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Invitation request details',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_details|user|user|form'] = $field_group;
@@ -151,9 +153,9 @@ function nurani_accounts_field_group_info() {
     'label' => 'Name',
     'weight' => '1',
     'children' => array(
-      0 => 'field_title',
-      1 => 'field_first_name',
-      2 => 'field_last_name',
+      0 => 'field_first_name',
+      1 => 'field_last_name',
+      2 => 'field_title',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -184,9 +186,9 @@ function nurani_accounts_field_group_info() {
     'label' => 'Name',
     'weight' => '0',
     'children' => array(
-      0 => 'field_title',
-      1 => 'field_first_name',
-      2 => 'field_last_name',
+      0 => 'field_first_name',
+      1 => 'field_last_name',
+      2 => 'field_title',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -255,12 +257,13 @@ function nurani_accounts_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Your Nurani profile',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_profile|user|user|form'] = $field_group;

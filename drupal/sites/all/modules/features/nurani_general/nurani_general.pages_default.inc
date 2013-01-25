@@ -168,7 +168,7 @@ function nurani_general_default_page_manager_pages() {
           'name' => 'role',
           'settings' => array(
             'rids' => array(
-              0 => 4,
+              0 => 5,
             ),
           ),
           'context' => 'logged-in-user',

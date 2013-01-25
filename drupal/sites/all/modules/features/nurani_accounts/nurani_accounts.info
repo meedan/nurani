@@ -41,6 +41,7 @@ features[field_group][] = group_name|user|user|default
 features[field_group][] = group_name|user|user|tooltip
 features[field_group][] = group_profile|user|user|default
 features[field_group][] = group_profile|user|user|form
+features[variable][] = field_bundle_settings_user__user
 features[variable][] = realname_registration_firstname_field
 features[variable][] = realname_registration_format
 features[variable][] = realname_registration_lastname_field
