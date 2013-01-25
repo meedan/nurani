@@ -3,7 +3,6 @@
   padding: 3px 10px;
   font-size: 16px;
   border: 0;
-  // color:($nurani-gray);
 
   @include border-radius(0.2em);
   background: #fff;
@@ -12,15 +11,36 @@
   @include single-box-shadow(#ccc, 0 0 0 2.1px inset);
 }
 
-@mixin user-account-form{
-	input.form-submit {
-    @include nurani-button($nurani-light-blue);
-    color:white;
-    font-weight:bold;
+/******************************************** Global Form Styling ********************************************/
+
+
+.form-text, .form-textarea,  select{
+  @include form-field;
+}
+
+input.form-submit, .button {
+  @include nurani-button($nurani-light-blue);
+  color:white;
+  font-weight:bold;
+  text-transform:uppercase;
+}
+
+.field-group-fieldset, fieldset{
+  border:none;
+}
+
+input.date-clear{
+  background: url(../images/calendar.png) no-repeat 154px 1px;
+}
+
+.field-type-datetime, #edit-picture{
+  legend{
+    display:none;
   }
 }
 
-@include user-account-form;
+
+/******************************************** Styling for User account forms ********************************************/
 
 .page-user-register, .page-user, .page-user-password{
   #content-inner{
@@ -30,10 +50,43 @@
 }
 
 .page-user-register{
-  #content-inner{
-    margin: 0 auto;
-    width:1100px;
+
+  label{ font-weight: lighter;}
+
+  .field-type-list-text,.field-type-text, .field-type-datetime,
+  #edit-picture, .form-type-textarea, .form-item-mail{
+    display:inline-block;
+    float:left;
+    margin-right:30px;
   }
+  .field-type-datetime{ clear:left;}
+
+  .field-name-field-title,
+  .field-name-field-mobile-phone, 
+  .field-name-field-how-did-you-hear-about-us,
+  .field-name-field-subjects-of-interest{
+    clear:both;
+  }
+  .form-item-mail{
+    width:425px;
+  }
+
+  .form-type-textarea{
+    width:500px;
+  }
+
+  #edit-picture .fieldset-wrapper{
+    width: 280px;
+  }
+  .field-group-fieldset{
+    margin-top:30px;
+  }
+
+  #field-date-of-birth-add-more-wrapper{
+    margin-left:-16px;
+  }
+  
+
    .field-group-fieldset{
      & > legend{
        text-align:center;
@@ -53,55 +106,74 @@
 
     }
   }
+
+  input#edit-field-post-code-und-0-value{ 
+    width:250px;
+  }
+  select#edit-field-country-und{
+    width:158px;
+  }
+  input#edit-field-mobile-phone-und-0-value,
+  input#edit-field-occupation-und-0-value {
+    width:480px;
+  }
+  input#edit-field-landline-phone-und-0-value{
+    width:435px;
+  }
+  input#edit-field-first-name-und-0-value,  
+  input#edit-field-last-name-und-0-value{
+    width:400px;
+  }
+
+  input#edit-mail{
+    width:350px;
+  }
+
+  input#edit-picture-upload{
+    width:200px;
+  }
+
+  input.form-submit{
+    margin-left:12px;
+  }
+  
 }
 
-.form-text, .form-textarea, select{
-  @include form-field;
-}
+/******************************************** Nurani profile form ********************************************/
 
-.field-group-fieldset, fieldset{
-  border:none;
-}
+#nurani-profile-wrapper{
+  padding: 30px;
+  .field-group-fieldset{
+   
+  & > legend {
+    margin: 0 auto;
+    .fieldset-title{
+      font-size: 2.1429em;
+       @include bundle-typography-regular;
+       text-decoration:none;
+       color:$nurani-light-blue;
 
-.field-group-fieldset{
-  margin-top:30px;
+    }
 
-}
+  }
 
-.field-name-field-title,
-.field-name-field-mobile-phone, 
-.field-name-field-how-did-you-hear-about-us,
-.field-name-field-subjects-of-interest{
-  clear:both;
-}
-
-.page-user-register .form-type-textarea{
-  width:500px;
-}
-.form-item-mail{
-  width:462px;
-}
-
-#edit-picture{
-  width: 300px;
-}
-
-.field-type-list-text, .page-user-register .field-type-text, .field-type-datetime,
-#edit-picture, .page-user-register .form-type-textarea, .form-item-mail{
-  display:inline;
-  float:left;
-  margin-right:15px;
-}
-.field-type-datetime, #edit-picture{
-  legend{
-    display:none;
+  }
+  #edit-timezone--2, .field-group-fieldset .legend{
+    width:450px;
+  }
+  .form-actions{
+    display:inline; 
+    margin-right:10px;
+  }
+  .button{
+    display:inline; 
+    text-decoration:none;
   }
 }
 
-input.date-clear{
-  background: url(../images/calendar.png) no-repeat 154px 1px;
 
-}
+
+
 
 
 
