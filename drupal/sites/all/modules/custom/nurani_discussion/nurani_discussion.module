@@ -59,3 +59,10 @@ function nurani_discussion_preprocess_page(&$vars) {
     }
   }
 }
+
+/**
+ * Implements hook_field_default_fields_alter().
+ */
+function nurani_discussion_field_default_fields_alter(&$fields) {
+  $fields['node-discussion-field_discussion_closing_date']['field_instance']['widget']['type'] = 'date_popup';
+}
