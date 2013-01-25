@@ -106,9 +106,14 @@ h2{ margin-bottom:1em;}
       float:left;
       margin-right: 10px;
       padding-right:25px;
+      span.passage{
+        display: inline-block;
+        padding-right: 1em;
+        font-weight:bold;
+      }
     }
    .views-field-nothing, .views-field-view {
-      margin-left:385px;
+      margin-left:437px;
    }
 
   }
@@ -121,8 +126,6 @@ h2{ margin-bottom:1em;}
     }
   }
   
-
-
 }
 
 
