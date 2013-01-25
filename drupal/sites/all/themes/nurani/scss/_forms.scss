@@ -14,7 +14,7 @@
 /******************************************** Global Form Styling ********************************************/
 
 
-.form-text, .form-textarea, select{
+.form-text, .form-textarea,  select{
   @include form-field;
 }
 
@@ -55,8 +55,9 @@ input.date-clear{
   #edit-picture, .form-type-textarea, .form-item-mail{
     display:inline-block;
     float:left;
-    margin-right:10px;
+    margin-right:30px;
   }
+  .field-type-datetime{ clear:left;}
 
   .field-name-field-title,
   .field-name-field-mobile-phone, 
@@ -65,8 +66,12 @@ input.date-clear{
     clear:both;
   }
   .form-item-mail{
-    width:480px;
+    width:425px;
   }
+
+  input#edit-mail{ width:350px;}
+
+  input#edit-picture-upload{width:200px;}
 
   input.form-submit{
     margin-left:12px;
@@ -76,11 +81,15 @@ input.date-clear{
     width:500px;
   }
 
-  #edit-picture{
-    width: 300px;
+  #edit-picture .fieldset-wrapper{
+    width: 280px;
   }
   .field-group-fieldset{
     margin-top:30px;
+  }
+
+  #field-date-of-birth-add-more-wrapper{
+    margin-left:-16px;
   }
   
 
@@ -103,6 +112,15 @@ input.date-clear{
 
     }
   }
+
+  input#edit-field-post-code-und-0-value{ width:250px;}
+  select#edit-field-country-und{width:158px;}
+  input#edit-field-mobile-phone-und-0-value,input#edit-field-occupation-und-0-value {width:480px;}
+  input#edit-field-landline-phone-und-0-value{width:435px;}
+  input#edit-field-first-name-und-0-value,  input#edit-field-last-name-und-0-value{width:400px;}
+
+
+
 }
 
 /******************************************** Nurani profile form ********************************************/
