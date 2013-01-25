@@ -51,6 +51,8 @@ input.date-clear{
 
 .page-user-register{
 
+  label{ font-weight: lighter;}
+
   .field-type-list-text,.field-type-text, .field-type-datetime,
   #edit-picture, .form-type-textarea, .form-item-mail{
     display:inline-block;
@@ -67,14 +69,6 @@ input.date-clear{
   }
   .form-item-mail{
     width:425px;
-  }
-
-  input#edit-mail{ width:350px;}
-
-  input#edit-picture-upload{width:200px;}
-
-  input.form-submit{
-    margin-left:12px;
   }
 
   .form-type-textarea{
@@ -113,14 +107,36 @@ input.date-clear{
     }
   }
 
-  input#edit-field-post-code-und-0-value{ width:250px;}
-  select#edit-field-country-und{width:158px;}
-  input#edit-field-mobile-phone-und-0-value,input#edit-field-occupation-und-0-value {width:480px;}
-  input#edit-field-landline-phone-und-0-value{width:435px;}
-  input#edit-field-first-name-und-0-value,  input#edit-field-last-name-und-0-value{width:400px;}
+  input#edit-field-post-code-und-0-value{ 
+    width:250px;
+  }
+  select#edit-field-country-und{
+    width:158px;
+  }
+  input#edit-field-mobile-phone-und-0-value,
+  input#edit-field-occupation-und-0-value {
+    width:480px;
+  }
+  input#edit-field-landline-phone-und-0-value{
+    width:435px;
+  }
+  input#edit-field-first-name-und-0-value,  
+  input#edit-field-last-name-und-0-value{
+    width:400px;
+  }
 
+  input#edit-mail{
+    width:350px;
+  }
 
+  input#edit-picture-upload{
+    width:200px;
+  }
 
+  input.form-submit{
+    margin-left:12px;
+  }
+  
 }
 
 /******************************************** Nurani profile form ********************************************/
