@@ -22,6 +22,7 @@ dependencies[] = nurani_accounts
 dependencies[] = nurani_comment
 dependencies[] = nurani_discussion
 dependencies[] = nurani_helpers
+dependencies[] = nurani_legal
 dependencies[] = nurani_migrate
 dependencies[] = page_manager
 dependencies[] = panels

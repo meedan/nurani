@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function nurani_legal_install() {
+  module_load_include('inc', 'legal', 'legal.admin');
+
+  $form = drupal_get_form('legal_administration');
+  $form_state = array(
+    'values' => array(
+      'current_id' => '',
+      'language_value' => '',
+      'revision_id' => '',
+      'current_date' => '',
+      'display' => 1, // Scroll box CSS
+      'legal' => array(
+        'conditions' => '',
+        'legal_accept' => 0,
+      ),
+      'conditions' => nurani_legal_conditions(),
+      'language' => 'en',
+      'version_handling' => 'version',
+      'extras' => array(),
+      'changes' => '',
+      'preview' => 'Preview',
+      'save' => 'Save',
+      'op' => 'Save', // Needed?
+    ),
+    'triggering_element' => $form['save'],
+    'clicked_button' => $form['save'],
+  );
+  drupal_form_submit('legal_administration', $form_state);
+}
+
+function nurani_legal_conditions() {
+  return '<p>Nurani.org is designed to allow you to take part in dialogues about your beliefs and opinions, so it is very important that you read and agree to the following terms which relate to how we store personal data that you submit to the platform. The terms form part of the contract that you agree to on registering with this website, but are also here to reassure you that the Cambridge Inter-faith Programme and Meedan, Inc. (the Service Providers) have a strict data policy in place to protect your personal data.</p>'
+       . '<p>We (The Service Providers) reserve the right to modify the information contained herein at anytime. If we do make changes to our privacy policy that affect your personal data, we will notify You (the Registered User) using the email that you have given us. This site and all information and materials on it are provided to you &quot;as is&quot; without warranty of any kind. &Yuml;our use of this site, or your provision to us of any personal information constitutes your agreement to these terms; do not use the site or provide information if you do not agree with all of the terms.</p>'
+       . '<p>Information You Provide</p>'
+       . '<p>1. Registration</p>'
+       . '<p>When you register for an account you will be asked to give your name, email address and password. You can update this information at any time. Only you will be able to see your password. Your email address will be viewable by system administrators representing The Service Providers and moderators granted permission to manage dialogues on Nurani.org by CIP. We will use your email address to communicate important notifications about this privacy policy, requests for disclosure by Third Parties, or other notifications that relate to your use of Nurani.org. Moderators may use your email address to help manage dialogues on Nurani.org and to warn you if your behaviour is deemed inappropriate. You can also opt to receive notifications of new content that will be delivered automatically to your email address.</p>'
+       . '<p>2. Profile Information</p>'
+       . '<p>When you register for an account you will have the option to build a profile. This profile may include, but is not limited to, information such as your personal names, location, education, professional experience and affiliations. You will be able to edit and remove this information at any time, and to control whether it is viewable publicly or only by other users of Nurani.org. We encourage you to supply this information to help other users learn more about you. We think this will help you to have more productive dialogues with other users.</p>'
+       . '<p>3. Posting</p>'
+       . '<p>On Nurani.org you can post three kinds of content: texts, glossary terms, and discussion comments. We intend for all texts and glossary terms added to Nurani.org to be publicly viewable. Discussions, however, depend on the privacy settings of the group to which you were invited by a moderator. A discussion on Nurani may have one of three settings: private to the members of the group, viewable by all groups on Nurani, or public on the web. Identification of all contributed content may include, but is not limited to, display of your account name. All content may be retained for restorative, archival, or research purposes by The Service Providers. Editing or deleting content may alter the displayed state of the content, but will not permanently delete the content from the website.</p>'
+       . '<p>4. Normal Browsing</p>'
+       . '<p>The Service Providers collect certain information about your browsing habits, including your IP address, URL request, browser type, and date and time of your request. This information is gathered on an aggregate basis only. For example, we track which pages are most popular among visitors as a whole. We do not track information on which pages an individual user visits. We do not collect any other information without your knowledge and permission.</p>'
+       . '<p>We analyze traffic to Nurani.org in various ways, including using a service called Google Analytics. (Google Analytics is subject to the privacy policy of Google, Inc., which you can find at the following url: <a href="http://www.google.co.uk/intl/en/privacy/privacy-policy.html">http://www.google.co.uk/intl/en/privacy/privacy-policy.html</a>) Unless you affirmatively provide additional information, we do not collect or store personally identifiable information such as mailing address, phone number, or social security number.<br />'
+       . '  Storage</p>'
+       . '<p>By agreeing to these terms you consent that personal data collected on Nurani.org may be transferred to, and stored at, a destination outside the European Economic Area (&ldquo;EEA&rdquo;). It may also be processed by staff operating outside the EEA who work for the Cambridge Inter-faith Programme (CIP) or for Meedan, Inc. By submitting your personal data, you agree to this transfer, storing or processing.</p>'
+       . '<p>Security</p>'
+       . '<p>The Service Providers will take all reasonable steps to ensure that your data is treated securely and in accordance with the European Commission&rsquo;s contractual requirements for the transfer of personal data to processors outside the EU. In order to prevent against accidental or unlawful destruction or accidental loss, alteration, or unauthorised disclosure or access, The Service Providers have put in place strict technical and managerial procedures to safeguard and secure the information processed by Nurani.org. If you wish to review these measures click here.</p>'
+       . '<p>Disclosure of Information</p>'
+       . '<p>Available log records, account information, and all data stored on our servers may be accessed by system administrators representing The Service Providers.</p>'
+       . '<p>In the event that we are required by law (including a court order) to disclose the information you submit, we will provide you with notice that a request for your information has been made so that you may object to the disclosure. We will send this notice by email to the address you have given us.</p>'
+       . '<p>The Service Providers will take all reasonable measures to notify you in advance of any planned transfer of your personal data to a Third Party or Subprocessor so that you can opt to remove your data from this transfer if you wish. In the unlikely event of unauthorised access to your data, The Service Providers undertake to inform you promptly.</p>'
+       . '<p>If you have any questions regarding the personal data The Service Providers hold about you, you can contact Meedan&rsquo;s Data Protection Manager at the following address:</p>'
+       . '<p><a href="mailto:privacy@meedan.net">privacy@meedan.net</a></p>'
+       . '<p>Meedan, Inc.<br />'
+       . '  972 Mission Street,<br />'
+       . '  San Francisco<br />'
+       . '  California 94310<br />'
+       . '  USA<br />'
+       . '  Cookies<br />'
+       . '  The Service Providers may use session cookies when you visit our website while your browser is open, or while you are logged into Nurani.org. To facilitate registration and login functions, The Service Providers may use cookies to recognise when you return to the website. If you do not logout of your account, these cookies keep track of your username and password so that you do not have to resubmit the information to log into your account. If others will be using your computer, you should log out of your account so that your login information is cleared.</p>'
+       . '<p>These Terms are licensed under CC <a href="http://www.citmedialaw.org/">http://www.citmedialaw.org/</a>)</p>';
+}
