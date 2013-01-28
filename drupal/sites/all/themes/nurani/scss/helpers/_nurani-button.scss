@@ -4,7 +4,7 @@
 
 @mixin a-link-as-button($color){
 
-  @include nurani-button($color, 14px, darken(#fff, 0.5%));
+  @include nurani-button($color, 12px, darken(#fff, 0.5%));
   text-transform: uppercase;
   text-decoration: none;
   &:hover{

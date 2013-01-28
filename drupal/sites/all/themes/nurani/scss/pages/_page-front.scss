@@ -39,8 +39,9 @@ h2{ margin-bottom:1em;}
    a.welcome-link{
      background:url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
      @include a-link-as-button($nurani-light-blue);
-     padding:1em 3.5em;
+     padding:1em 4em;
      margin:1em 4em;
+     width:170px;
    }
  }
 
@@ -51,6 +52,7 @@ h2{ margin-bottom:1em;}
       @include a-link-as-button($nurani-light-blue);
       padding:1em 1em 1em 4em;
       margin:1em 4em;
+      width:250px;
     }
   }
 }
@@ -110,13 +112,16 @@ h2{ margin-bottom:1em;}
         font-weight:bold;
       }
     }
-   .views-field-nothing, .views-field-view {
+   .views-field-nothing, .views-field-view, .views-field-new-comments {
       margin-left:470px;
       padding-right:20px;
    }
-  .views-field-nothing a{
+  .views-field-nothing a, .views-field-new-comments a {
     @include a-link-as-button($nurani-light-blue);
     background-image:none; 
+    width:265px;
+    text-align:center;
+
   }
 
   }
