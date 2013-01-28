@@ -464,7 +464,7 @@ input.date-clear {
   margin-left: -16px;
 }
 /* line 91, ../scss/_forms.scss */
-.page-user-register .field-group-fieldset > legend, .page-user-register .form-wrapper > legend {
+.page-user-register .field-group-fieldset > legend, .page-user-register #edit-legal > legend {
   text-align: center;
   background: url(../images/bevel.jpg);
   width: 100%;
@@ -472,7 +472,7 @@ input.date-clear {
   display: inline;
 }
 /* line 98, ../scss/_forms.scss */
-.page-user-register .field-group-fieldset > legend .fieldset-legend, .page-user-register .form-wrapper > legend .fieldset-legend {
+.page-user-register .field-group-fieldset > legend .fieldset-legend, .page-user-register #edit-legal > legend .fieldset-legend {
   font-family: "palatino regular";
   font-style: italic;
   font-size: 2.1429em;
@@ -493,7 +493,7 @@ input.date-clear {
 /* line 117, ../scss/_forms.scss */
 .page-user-register #edit-legal .fieldset-wrapper .form-item-legal-accept {
   position: absolute;
-  top: 2402px;
+  top: 2372px;
 }
 /* line 124, ../scss/_forms.scss */
 .page-user-register input#edit-field-post-code-und-0-value {
