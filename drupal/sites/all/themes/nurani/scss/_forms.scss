@@ -87,7 +87,7 @@ input.date-clear{
   }
   
 
-   .field-group-fieldset{
+   .field-group-fieldset, #edit-legal{
      & > legend{
        text-align:center;
        background:url(../images/bevel.jpg);
@@ -95,7 +95,7 @@ input.date-clear{
        margin-right: 1.69492%;
        display: inline;
 
-       .fieldset-title{
+       .fieldset-legend{
           @include bundle-typography-regular;
           font-size: 2.1429em;
           text-decoration:none;
@@ -105,7 +105,21 @@ input.date-clear{
        }
 
     }
+
   }
+  .form-type-textarea label{
+    width:466px;
+  }
+ #edit-legal .fieldset-wrapper{
+   overflow-y:auto;
+   height:400px;
+
+   .form-item-legal-accept{
+    position:absolute;
+    top:2060px;
+   }
+
+ }
 
   input#edit-field-post-code-und-0-value{ 
     width:250px;
@@ -135,6 +149,7 @@ input.date-clear{
 
   input.form-submit{
     margin-left:12px;
+    margin-top:30px;
   }
   
 }
@@ -168,6 +183,14 @@ input.date-clear{
   .button{
     display:inline; 
     text-decoration:none;
+  }
+}
+
+/******************************************** Contact us form ********************************************/
+
+.node-type-webform{
+  textarea{
+    width:450px;
   }
 }
 
