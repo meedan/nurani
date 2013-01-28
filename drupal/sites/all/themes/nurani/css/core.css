@@ -563,6 +563,12 @@ input.date-clear {
   text-decoration: none;
 }
 
+/******************************************** Contact us form ********************************************/
+/* line 192, ../scss/_forms.scss */
+.node-type-webform textarea {
+  width: 450px;
+}
+
 /* line 13, ../scss/_layout.scss */
 * {
   margin: 0;
