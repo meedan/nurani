@@ -238,9 +238,6 @@ function theme_legal_administration($variables) {
 function legal_administration_submit($form, &$form_state) {
   $values = $form_state['values'];
 
-  dpm($form);
-  dpm($form_state);
-
   // Preview request, don't save anything.
   if ($form_state['triggering_element']['#value'] == t('Preview')) {
     return;
