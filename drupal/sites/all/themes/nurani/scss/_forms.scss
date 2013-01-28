@@ -87,7 +87,7 @@ input.date-clear{
   }
   
 
-   .field-group-fieldset{
+   .field-group-fieldset, .form-wrapper{
      & > legend{
        text-align:center;
        background:url(../images/bevel.jpg);
@@ -107,8 +107,19 @@ input.date-clear{
     }
 
   }
-  .form-type-textarea label{width:466px;}
- // .form-item-field-social-media-usage-und-0-value label{width:300px;}
+  .form-type-textarea label{
+    width:466px;
+  }
+ #edit-legal .fieldset-wrapper{
+   overflow-y:auto;
+   height:400px;
+
+   .form-item-legal-accept{
+    position:absolute;
+    top:2402px;
+   }
+
+ }
 
   input#edit-field-post-code-und-0-value{ 
     width:250px;
@@ -138,6 +149,7 @@ input.date-clear{
 
   input.form-submit{
     margin-left:12px;
+    margin-top:30px;
   }
   
 }

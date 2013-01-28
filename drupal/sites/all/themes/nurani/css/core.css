@@ -464,7 +464,7 @@ input.date-clear {
   margin-left: -16px;
 }
 /* line 91, ../scss/_forms.scss */
-.page-user-register .field-group-fieldset > legend {
+.page-user-register .field-group-fieldset > legend, .page-user-register .form-wrapper > legend {
   text-align: center;
   background: url(../images/bevel.jpg);
   width: 100%;
@@ -472,7 +472,7 @@ input.date-clear {
   display: inline;
 }
 /* line 98, ../scss/_forms.scss */
-.page-user-register .field-group-fieldset > legend .fieldset-legend {
+.page-user-register .field-group-fieldset > legend .fieldset-legend, .page-user-register .form-wrapper > legend .fieldset-legend {
   font-family: "palatino regular";
   font-style: italic;
   font-size: 2.1429em;
@@ -486,50 +486,61 @@ input.date-clear {
   width: 466px;
 }
 /* line 113, ../scss/_forms.scss */
+.page-user-register #edit-legal .fieldset-wrapper {
+  overflow-y: auto;
+  height: 400px;
+}
+/* line 117, ../scss/_forms.scss */
+.page-user-register #edit-legal .fieldset-wrapper .form-item-legal-accept {
+  position: absolute;
+  top: 2402px;
+}
+/* line 124, ../scss/_forms.scss */
 .page-user-register input#edit-field-post-code-und-0-value {
   width: 250px;
 }
-/* line 116, ../scss/_forms.scss */
+/* line 127, ../scss/_forms.scss */
 .page-user-register select#edit-field-country-und {
   width: 158px;
 }
-/* line 120, ../scss/_forms.scss */
+/* line 131, ../scss/_forms.scss */
 .page-user-register input#edit-field-mobile-phone-und-0-value,
 .page-user-register input#edit-field-occupation-und-0-value {
   width: 480px;
 }
-/* line 123, ../scss/_forms.scss */
+/* line 134, ../scss/_forms.scss */
 .page-user-register input#edit-field-landline-phone-und-0-value {
   width: 435px;
 }
-/* line 127, ../scss/_forms.scss */
+/* line 138, ../scss/_forms.scss */
 .page-user-register input#edit-field-first-name-und-0-value,
 .page-user-register input#edit-field-last-name-und-0-value {
   width: 400px;
 }
-/* line 131, ../scss/_forms.scss */
+/* line 142, ../scss/_forms.scss */
 .page-user-register input#edit-mail {
   width: 350px;
 }
-/* line 135, ../scss/_forms.scss */
+/* line 146, ../scss/_forms.scss */
 .page-user-register input#edit-picture-upload {
   width: 200px;
 }
-/* line 139, ../scss/_forms.scss */
+/* line 150, ../scss/_forms.scss */
 .page-user-register input.form-submit {
   margin-left: 12px;
+  margin-top: 30px;
 }
 
 /******************************************** Nurani profile form ********************************************/
-/* line 147, ../scss/_forms.scss */
+/* line 159, ../scss/_forms.scss */
 #nurani-profile-wrapper {
   padding: 30px;
 }
-/* line 151, ../scss/_forms.scss */
+/* line 163, ../scss/_forms.scss */
 #nurani-profile-wrapper .field-group-fieldset > legend {
   margin: 0 auto;
 }
-/* line 153, ../scss/_forms.scss */
+/* line 165, ../scss/_forms.scss */
 #nurani-profile-wrapper .field-group-fieldset > legend .fieldset-title {
   font-size: 2.1429em;
   font-family: "palatino regular";
@@ -537,16 +548,16 @@ input.date-clear {
   text-decoration: none;
   color: #005eae;
 }
-/* line 164, ../scss/_forms.scss */
+/* line 176, ../scss/_forms.scss */
 #nurani-profile-wrapper #edit-timezone--2, #nurani-profile-wrapper .field-group-fieldset .legend {
   width: 450px;
 }
-/* line 167, ../scss/_forms.scss */
+/* line 179, ../scss/_forms.scss */
 #nurani-profile-wrapper .form-actions {
   display: inline;
   margin-right: 10px;
 }
-/* line 171, ../scss/_forms.scss */
+/* line 183, ../scss/_forms.scss */
 #nurani-profile-wrapper .button {
   display: inline;
   text-decoration: none;
