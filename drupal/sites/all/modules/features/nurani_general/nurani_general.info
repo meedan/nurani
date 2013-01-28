@@ -8,6 +8,7 @@ project = nurani_general
 dependencies[] = ajax_comments
 dependencies[] = boxes
 dependencies[] = comment_goodness
+dependencies[] = compact_forms
 dependencies[] = context
 dependencies[] = ctools
 dependencies[] = fe_block
