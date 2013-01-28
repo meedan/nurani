@@ -34,6 +34,7 @@ dependencies[] = strongarm
 dependencies[] = upload_default_avatar
 dependencies[] = views
 dependencies[] = views_field_view
+dependencies[] = webform
 features[box][] = nurani_about_nurani
 features[box][] = nurani_discussion_initation
 features[box][] = nurani_library_invitation
