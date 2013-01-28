@@ -39,6 +39,25 @@ function nurani_general_default_fe_block_settings() {
 
   $export['theme']['bartik'] = $theme;
 
+  // bowerbird
+  $theme = array();
+
+  $theme['menu_block-nurani_main_menu'] = array(
+    'module' => 'menu_block',
+    'delta' => 'nurani_main_menu',
+    'theme' => 'bowerbird',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '',
+    'title' => '',
+    'cache' => -1,
+  );
+
+  $export['theme']['bowerbird'] = $theme;
+
   // nurani
   $theme = array();
 
