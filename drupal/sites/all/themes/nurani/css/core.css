@@ -482,50 +482,54 @@ input.date-clear {
   padding: 20px;
 }
 /* line 110, ../scss/_forms.scss */
+.page-user-register .form-type-textarea label {
+  width: 466px;
+}
+/* line 113, ../scss/_forms.scss */
 .page-user-register input#edit-field-post-code-und-0-value {
   width: 250px;
 }
-/* line 113, ../scss/_forms.scss */
+/* line 116, ../scss/_forms.scss */
 .page-user-register select#edit-field-country-und {
   width: 158px;
 }
-/* line 117, ../scss/_forms.scss */
+/* line 120, ../scss/_forms.scss */
 .page-user-register input#edit-field-mobile-phone-und-0-value,
 .page-user-register input#edit-field-occupation-und-0-value {
   width: 480px;
 }
-/* line 120, ../scss/_forms.scss */
+/* line 123, ../scss/_forms.scss */
 .page-user-register input#edit-field-landline-phone-und-0-value {
   width: 435px;
 }
-/* line 124, ../scss/_forms.scss */
+/* line 127, ../scss/_forms.scss */
 .page-user-register input#edit-field-first-name-und-0-value,
 .page-user-register input#edit-field-last-name-und-0-value {
   width: 400px;
 }
-/* line 128, ../scss/_forms.scss */
+/* line 131, ../scss/_forms.scss */
 .page-user-register input#edit-mail {
   width: 350px;
 }
-/* line 132, ../scss/_forms.scss */
+/* line 135, ../scss/_forms.scss */
 .page-user-register input#edit-picture-upload {
   width: 200px;
 }
-/* line 136, ../scss/_forms.scss */
+/* line 139, ../scss/_forms.scss */
 .page-user-register input.form-submit {
   margin-left: 12px;
 }
 
 /******************************************** Nurani profile form ********************************************/
-/* line 144, ../scss/_forms.scss */
+/* line 147, ../scss/_forms.scss */
 #nurani-profile-wrapper {
   padding: 30px;
 }
-/* line 148, ../scss/_forms.scss */
+/* line 151, ../scss/_forms.scss */
 #nurani-profile-wrapper .field-group-fieldset > legend {
   margin: 0 auto;
 }
-/* line 150, ../scss/_forms.scss */
+/* line 153, ../scss/_forms.scss */
 #nurani-profile-wrapper .field-group-fieldset > legend .fieldset-title {
   font-size: 2.1429em;
   font-family: "palatino regular";
@@ -533,16 +537,16 @@ input.date-clear {
   text-decoration: none;
   color: #005eae;
 }
-/* line 161, ../scss/_forms.scss */
+/* line 164, ../scss/_forms.scss */
 #nurani-profile-wrapper #edit-timezone--2, #nurani-profile-wrapper .field-group-fieldset .legend {
   width: 450px;
 }
-/* line 164, ../scss/_forms.scss */
+/* line 167, ../scss/_forms.scss */
 #nurani-profile-wrapper .form-actions {
   display: inline;
   margin-right: 10px;
 }
-/* line 168, ../scss/_forms.scss */
+/* line 171, ../scss/_forms.scss */
 #nurani-profile-wrapper .button {
   display: inline;
   text-decoration: none;
