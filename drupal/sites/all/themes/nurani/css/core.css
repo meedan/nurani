@@ -472,7 +472,7 @@ input.date-clear {
   display: inline;
 }
 /* line 98, ../scss/_forms.scss */
-.page-user-register .field-group-fieldset > legend .fieldset-title {
+.page-user-register .field-group-fieldset > legend .fieldset-legend {
   font-family: "palatino regular";
   font-style: italic;
   font-size: 2.1429em;
