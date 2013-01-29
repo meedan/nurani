@@ -53,6 +53,16 @@ function nurani_library_api_default_services_endpoint() {
         ),
       ),
     ),
+    'note' => array(
+      'operations' => array(
+        'retrieve' => array(
+          'enabled' => '1',
+        ),
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'work' => array(
       'operations' => array(
         'retrieve' => array(
