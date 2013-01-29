@@ -21,3 +21,4 @@ regions[content_bottom_right] = Content Bottom right
 
 ;; Put CSS properties here
 stylesheets[all][] = css/core.css
+stylesheets[print][] = css/nurani-print.css

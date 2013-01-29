@@ -493,7 +493,7 @@ input.date-clear {
 /* line 117, ../scss/_forms.scss */
 .page-user-register #edit-legal .fieldset-wrapper .form-item-legal-accept {
   position: absolute;
-  top: 2060px;
+  top: 2093px;
 }
 /* line 124, ../scss/_forms.scss */
 .page-user-register input#edit-field-post-code-und-0-value {
@@ -735,7 +735,6 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link {
   text-decoration: none;
   padding: 1em 4em;
   margin: 1em 4em;
-  width: 170px;
 }
 /* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
@@ -797,7 +796,6 @@ body.front .panel-3col-33 .panel-pane a.invitation-link {
   text-decoration: none;
   padding: 1em 1em 1em 4em;
   margin: 1em 4em;
-  width: 250px;
 }
 /* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
@@ -894,8 +892,8 @@ body.front .view-nurani-discussions > .view-content .views-row {
 /* line 105, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle {
   float: left;
-  margin-right: 10px;
-  padding-right: 25px;
+  width: 30em;
+  margin-right: 1em;
 }
 /* line 109, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle span.passage {
@@ -928,7 +926,6 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
   text-transform: uppercase;
   text-decoration: none;
   background-image: none;
-  width: 265px;
   text-align: center;
 }
 /* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
@@ -961,11 +958,12 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:hover {
   color: #fff;
 }
-/* line 129, ../scss/pages/_page-front.scss */
+/* line 126, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants {
   margin-top: 23px;
+  width: 20em;
 }
-/* line 131, ../scss/pages/_page-front.scss */
+/* line 129, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
   display: inline-block;
   margin-right: -20px;
