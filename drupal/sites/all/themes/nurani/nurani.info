@@ -21,3 +21,20 @@ regions[content_bottom_right] = Content Bottom right
 
 ;; Put CSS properties here
 stylesheets[all][] = css/core.css
+
+;; Default Nurani theme settings
+settings[toggle_logo] = 1
+settings[toggle_name] = 0
+settings[toggle_slogan] = 0
+settings[toggle_node_user_picture] = 1
+settings[toggle_comment_user_picture] = 1
+settings[toggle_comment_user_verification] = 1
+settings[toggle_favicon] = 1
+settings[toggle_main_menu] = 1
+settings[toggle_secondary_menu] = 1
+settings[default_logo] = 1
+settings[logo_path] = ''
+settings[logo_upload] = ''
+settings[default_favicon] = 1
+settings[favicon_path] = ''
+settings[favicon_upload] = ''
