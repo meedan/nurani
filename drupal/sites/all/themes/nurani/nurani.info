@@ -21,6 +21,7 @@ regions[content_bottom_right] = Content Bottom right
 
 ;; Put CSS properties here
 stylesheets[all][] = css/core.css
+stylesheets[print][] = css/nurani-print.css
 
 ;; Default Nurani theme settings
 settings[toggle_logo] = 1

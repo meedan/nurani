@@ -41,7 +41,7 @@ h2{ margin-bottom:1em;}
      @include a-link-as-button($nurani-light-blue);
      padding:1em 4em;
      margin:1em 4em;
-     width:170px;
+    
    }
  }
 
@@ -52,7 +52,7 @@ h2{ margin-bottom:1em;}
       @include a-link-as-button($nurani-light-blue);
       padding:1em 1em 1em 4em;
       margin:1em 4em;
-      width:250px;
+    
     }
   }
 }
@@ -104,30 +104,28 @@ h2{ margin-bottom:1em;}
 
     .views-field-field-bundle{
       float:left;
-      margin-right: 10px;
-      padding-right:25px;
+      width:30em;
+      margin-right:1em;
       span.passage{
         display: inline-block;
         padding-right: 1em;
         font-weight:bold;
       }
     }
-   .views-field-nothing, .views-field-view, .views-field-new-comments {
+    .views-field-nothing, .views-field-view, .views-field-new-comments {
       margin-left:470px;
       padding-right:20px;
-   }
-  .views-field-nothing a, .views-field-new-comments a {
-    @include a-link-as-button($nurani-light-blue);
-    background-image:none; 
-    width:265px;
-    text-align:center;
-
-  }
-
+    }
+    .views-field-nothing a, .views-field-new-comments a {
+      @include a-link-as-button($nurani-light-blue);
+      background-image:none; 
+      text-align:center;
+    }
   }
 
   .view-meedan-discussion-participants {
     margin-top:23px;
+    width:20em;
     & > .view-content .views-row{
       display: inline-block;
       margin-right: -20px;
