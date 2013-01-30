@@ -1,0 +1,21 @@
+
+ul#secondary{
+  display:block;
+  padding-left: 0;
+  text-align: center;
+  li{
+  	display: inline;
+    padding: 0 0 0 15px;
+
+    a{
+      color: $nurani-burgundy;
+      display: inline;
+      border-right: 1px dotted $nurani-burgundy;
+      text-transform: uppercase;
+      padding: 0 10px;
+      font-family: Georgia,Times,Times New Roman,serif;
+      font-weight: normal;
+      text-decoration: none;
+    }
+  }  
+}
