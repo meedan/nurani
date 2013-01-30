@@ -82,7 +82,9 @@ h2{ margin-bottom:1em;}
     @include span-columns(10,18);
       .view-id-nurani_discussions {
         & > .view-content > .views-row{
-          @include white-background-bordered-top($nurani-burgundy, top, 5px); 
+          @include white-background-bordered-top($nurani-burgundy, top, 5px);
+          height: 27em;
+          
         }
       }
   }
@@ -97,25 +99,26 @@ h2{ margin-bottom:1em;}
 }  
 
 .view-nurani-discussions{
-  padding:0 25px 0;
   & > .view-content .views-row{
     clear:left;
     padding:10px;
 
     .views-field-field-bundle{
-      float:left;
-      width:30em;
-      margin-right:1em;
+      @include span-columns(5,10);
+  
       span.passage{
         display: inline-block;
         padding-right: 1em;
         font-weight:bold;
       }
     }
-    .views-field-nothing, .views-field-view, .views-field-new-comments {
-      margin-left:470px;
-      padding-right:20px;
+    .views-field-nothing, .views-field-new-comments, .views-field-view{ 
+      @include span-columns(5 omega,10);
     }
+    .views-field-nothing, .views-field-new-comments{
+      clear:both;
+    }
+   
     .views-field-nothing a, .views-field-new-comments a {
       @include a-link-as-button($nurani-light-blue);
       background-image:none; 
@@ -125,7 +128,6 @@ h2{ margin-bottom:1em;}
 
   .view-meedan-discussion-participants {
     margin-top:23px;
-    width:20em;
     & > .view-content .views-row{
       display: inline-block;
       margin-right: -20px;
