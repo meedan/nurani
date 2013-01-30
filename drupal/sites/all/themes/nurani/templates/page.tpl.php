@@ -99,8 +99,8 @@
 
     <?php if (isset($main_menu) || isset($secondary_menu)): ?>
       <div id="navigation" class="menu <?php if (!empty($main_menu)) {print "with-primary";} if (!empty($secondary_menu)) {print " with-secondary";} ?>">
-        <?php print theme('links', array('links' => $main_menu, 'attributes' => array('id' => 'primary', 'class' => array('links', 'clearfix', 'main-menu')))); ?>
-        <?php print theme('links', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary', 'class' => array('links', 'clearfix', 'sub-menu')))); ?>
+        <!--<?php print theme('links', array('links' => $main_menu, 'attributes' => array('id' => 'primary', 'class' => array('links', 'clearfix', 'main-menu')))); ?> -->
+        <!--<?php print theme('links', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary', 'class' => array('links', 'clearfix', 'sub-menu')))); ?> -->
       </div>
     <?php endif; ?>
 
@@ -126,7 +126,8 @@
 
   <?php if (isset($page['footer'])): ?>
     <div id="footer">
-      <?php print render($page['footer']); ?>
+      <?php print theme('links', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary', 'class' => array('links', 'clearfix', 'sub-menu')))); ?> 
+     <!--   <?php print render($page['footer']); ?>  -->
     </div> <!-- /footer -->
   <?php endif; ?>
 

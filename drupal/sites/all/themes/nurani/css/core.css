@@ -569,25 +569,48 @@ input.date-clear {
   width: 450px;
 }
 
-/* line 13, ../scss/_layout.scss */
+/* line 2, ../scss/footer.scss */
+ul#secondary {
+  display: block;
+  padding-left: 0;
+  text-align: center;
+}
+/* line 6, ../scss/footer.scss */
+ul#secondary li {
+  display: inline;
+  padding: 0 0 0 15px;
+}
+/* line 10, ../scss/footer.scss */
+ul#secondary li a {
+  color: #4c1313;
+  display: inline;
+  border-right: 1px dotted #4c1313;
+  text-transform: uppercase;
+  padding: 0 10px;
+  font-family: Georgia,Times,Times New Roman,serif;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+/* line 15, ../scss/_layout.scss */
 * {
   margin: 0;
   padding: 0;
 }
 
-/* line 18, ../scss/_layout.scss */
+/* line 20, ../scss/_layout.scss */
 body {
   margin: 0;
   background: #f1e9e4 url("../images/brown_bkg.gif") repeat fixed center right;
 }
 
-/* line 23, ../scss/_layout.scss */
+/* line 25, ../scss/_layout.scss */
 .region-top-strip {
   background: #fff;
   padding: 4px 20px 0;
 }
 
-/* line 28, ../scss/_layout.scss */
+/* line 30, ../scss/_layout.scss */
 #main {
   *zoom: 1;
   max-width: 98.33333%;
@@ -603,7 +626,7 @@ body {
   display: table;
   clear: both;
 }
-/* line 31, ../scss/_layout.scss */
+/* line 34, ../scss/_layout.scss */
 #main > #content {
   padding-left: 5.08475%;
   padding-right: 5.08475%;
@@ -613,7 +636,7 @@ body {
   display: inline;
 }
 
-/* line 39, ../scss/_layout.scss */
+/* line 42, ../scss/_layout.scss */
 #header {
   height: 39px;
   *zoom: 1;
@@ -623,7 +646,6 @@ body {
   margin-right: auto;
   padding-left: 1em;
   padding-right: 1em;
-  /* @include susy-grid-background;*/
 }
 /* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #header:after {
@@ -632,11 +654,11 @@ body {
   clear: both;
 }
 
-/* line 47, ../scss/_layout.scss */
+/* line 50, ../scss/_layout.scss */
 #content-inner #content-area {
   margin-bottom: 4em;
 }
-/* line 53, ../scss/_layout.scss */
+/* line 56, ../scss/_layout.scss */
 #content-inner #content-bottom #content-bottom-left {
   float: left;
   width: 60.37736%;
@@ -644,7 +666,7 @@ body {
   margin-right: 1.88679%;
   display: inline;
 }
-/* line 58, ../scss/_layout.scss */
+/* line 61, ../scss/_layout.scss */
 #content-inner #content-bottom #content-bottom-right {
   float: left;
   width: 32.07547%;
@@ -863,8 +885,9 @@ body.front .panel-2col .panel-col-first .view-id-nurani_discussions > .view-cont
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #4c1313;
+  height: 27em;
 }
-/* line 91, ../scss/pages/_page-front.scss */
+/* line 93, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last {
   width: 43.39623%;
   float: right;
@@ -872,7 +895,7 @@ body.front .panel-2col .panel-col-last {
   #margin-left: -1.66667%;
   display: inline;
 }
-/* line 93, ../scss/pages/_page-front.scss */
+/* line 95, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last .pane-content {
   background-color: #fff;
   margin-bottom: 25px;
@@ -880,20 +903,17 @@ body.front .panel-2col .panel-col-last .pane-content {
   border-top-style: solid;
   border-top-color: #005eae;
 }
-/* line 99, ../scss/pages/_page-front.scss */
-body.front .view-nurani-discussions {
-  padding: 0 25px 0;
-}
-/* line 101, ../scss/pages/_page-front.scss */
+/* line 102, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row {
   clear: left;
   padding: 10px;
 }
-/* line 105, ../scss/pages/_page-front.scss */
+/* line 106, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle {
+  width: 48.27586%;
   float: left;
-  width: 30em;
-  margin-right: 1em;
+  margin-right: 3.44828%;
+  display: inline;
 }
 /* line 109, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle span.passage {
@@ -902,11 +922,18 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-fiel
   font-weight: bold;
 }
 /* line 115, ../scss/pages/_page-front.scss */
-body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-view, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments {
-  margin-left: 470px;
-  padding-right: 20px;
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments, body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
+  width: 48.27586%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -1.66667%;
+  display: inline;
 }
-/* line 119, ../scss/pages/_page-front.scss */
+/* line 118, ../scss/pages/_page-front.scss */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments {
+  clear: both;
+}
+/* line 122, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a {
   font-size: 12px;
   padding: 0.5em 1.5em;
@@ -958,12 +985,11 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:hover {
   color: #fff;
 }
-/* line 126, ../scss/pages/_page-front.scss */
+/* line 129, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants {
   margin-top: 23px;
-  width: 20em;
 }
-/* line 129, ../scss/pages/_page-front.scss */
+/* line 131, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
   display: inline-block;
   margin-right: -20px;

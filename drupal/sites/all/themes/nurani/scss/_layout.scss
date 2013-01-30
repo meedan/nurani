@@ -7,6 +7,8 @@
 @import "comments";
 @import "user-profile";
 @import "forms";
+@import "footer";
+@import "nurani-print";
 
 
 
@@ -27,6 +29,7 @@ body{
 
 #main{ 
   @include container;
+  
 
   & > #content{
   //shortcut for suffix and prefix - create 2 cols empty space left and right
@@ -39,7 +42,7 @@ body{
 #header{
    height:39px;
   @include container;
- /* @include susy-grid-background;*/
+ 
 
  }
 

@@ -10,11 +10,13 @@
 }
 
 .profile {
-  .field-group-format, .field-name-field-country { 
-    width:15em;
-  }
-  h3{
+  .field-group-format,  > .field { 
+    
     margin-bottom:1em;
+    h3{
+      margin-bottom:1em;
+      width:11em;
+    }
   }
 
   .field-group-format-wrapper > .field {
@@ -23,7 +25,7 @@
   }
   
   .user-picture{
-    margin: 0 1em 1em 0.5em
+    margin: 0 1em 1em 1em
   }
 
 }
