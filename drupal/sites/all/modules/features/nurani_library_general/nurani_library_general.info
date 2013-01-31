@@ -10,3 +10,4 @@ dependencies[] = strongarm
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:1
 features[variable][] = nurani_library_provider_works_path
+features[variable][] = theme_default
