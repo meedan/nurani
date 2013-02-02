@@ -30,6 +30,7 @@ body{
 #main{ 
   @include container;
   
+  
 
   & > #content{
   //shortcut for suffix and prefix - create 2 cols empty space left and right
@@ -63,6 +64,11 @@ body{
         @include span-columns(6 omega,18);
       }
     }
+}
+
+#footer, .footer, ul.footer-logos{
+  margin:10px auto;
+  text-align:center;
 }
 
 // page layout for the registration page

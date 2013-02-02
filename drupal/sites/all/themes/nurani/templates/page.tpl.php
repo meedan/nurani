@@ -126,8 +126,13 @@
 
   <?php if (isset($page['footer'])): ?>
     <div id="footer">
+      <ul class="footer-logos">
+        <li class= "l1"></li>
+        <li class= "l2"></li>
+        <li class= "l3"></li>
+        <li class= "l4"></li>
+      </ul>
       <?php print theme('links', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary', 'class' => array('links', 'clearfix', 'sub-menu')))); ?> 
-     <!--   <?php print render($page['footer']); ?>  -->
     </div> <!-- /footer -->
   <?php endif; ?>
 
