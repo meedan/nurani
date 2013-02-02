@@ -41,7 +41,6 @@ h2{ margin-bottom:1em;}
      @include a-link-as-button($nurani-light-blue);
      padding:1em 4em;
      margin:1em 4em;
-    
    }
  }
 
@@ -84,7 +83,6 @@ h2{ margin-bottom:1em;}
         & > .view-content > .views-row{
           @include white-background-bordered-top($nurani-burgundy, top, 5px);
           height: 27em;
-          
         }
       }
   }
@@ -112,9 +110,11 @@ h2{ margin-bottom:1em;}
         font-weight:bold;
       }
     }
+
     .views-field-nothing, .views-field-new-comments, .views-field-view{ 
       @include span-columns(5 omega,10);
     }
+
     .views-field-nothing, .views-field-new-comments{
       clear:both;
     }
