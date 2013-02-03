@@ -6,6 +6,7 @@ php = 5.2.4
 version = 7.x-1.0
 project = nurani_library_general
 dependencies[] = nurani_library_provider
+dependencies[] = nurani_library_ui
 dependencies[] = strongarm
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:1

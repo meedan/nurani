@@ -107,27 +107,20 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
   // Add the custom bundle UI and connections to the nurani library UI for the
   // passage picker
   $path = drupal_get_path('module', 'nurani_bundle');
-  $nl_base_url = nurani_library_base_url(TRUE) . '/' . drupal_get_path('module', 'nurani_library_ui');
   $pw_path = drupal_get_path('module', 'nurani_passage_widget');
-  $libraries_path = 'sites/all/libraries';
+
+  // Add dependant CSS / JS
+  nurani_library_ui_load();
+  drupal_add_library('nurani_passage_widget', 'nurani.passage-widget');
+
   $element['ui'] = array(
     '#theme' => 'nurani_bundle_ui',
     '#attached' => array(
       'css' => array(
-        $nl_base_url . '/css/nurani_library_ui.css' => array(
-          'group' => CSS_THEME,
-          'type' => 'external',
-        ),
         $path . '/css/nurani_bundle_ui.css',
-        $pw_path . '/css/nurani_passage_widget.css',
       ),
       'js'  => array(
-        $nl_base_url . '/js/nurani_library_ui.js',
         $path . '/js/nurani_bundle_ui.js',
-        $libraries_path . '/handlebars/handlebars-1.0.rc.1.js',
-        $libraries_path . '/Bible-Passage-Reference-Parser/js/en_bcv_parser.min.js',
-        $libraries_path . '/jquery-color/jquery.color-2.1.1.min.js',
-        $pw_path . '/js/nurani_passage_widget.js',
       ),
     ),
     '#bundle_nid' => $bundle_nid,

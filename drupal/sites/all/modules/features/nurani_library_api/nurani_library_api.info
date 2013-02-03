@@ -9,7 +9,6 @@ dependencies[] = ctools
 dependencies[] = features
 dependencies[] = nurani_library_provider
 dependencies[] = nurani_library_services
-dependencies[] = nurani_library_ui
 dependencies[] = rest_server
 dependencies[] = services
 features[ctools][] = services:services:3
