@@ -19,7 +19,40 @@ function nurani_library_api_user_default_permissions() {
       2 => 'anonymous user',
       3 => 'authenticated user',
     ),
-    'module' => 'nurani_library_provider',
+    'module' => 'nurani_library',
+  );
+
+  // Exported permission: create nurani library annotations.
+  $permissions['create nurani library annotations'] = array(
+    'name' => 'create nurani library annotations',
+    'roles' => array(
+      0 => 'API',
+      1 => 'administrator',
+      2 => 'authenticated user',
+    ),
+    'module' => 'nurani_library',
+  );
+
+  // Exported permission: delete nurani library annotations.
+  $permissions['delete nurani library annotations'] = array(
+    'name' => 'delete nurani library annotations',
+    'roles' => array(
+      0 => 'API',
+      1 => 'administrator',
+      2 => 'authenticated user',
+    ),
+    'module' => 'nurani_library',
+  );
+
+  // Exported permission: update nurani library annotations.
+  $permissions['update nurani library annotations'] = array(
+    'name' => 'update nurani library annotations',
+    'roles' => array(
+      0 => 'API',
+      1 => 'administrator',
+      2 => 'authenticated user',
+    ),
+    'module' => 'nurani_library',
   );
 
   // Exported permission: validate passages.
@@ -30,6 +63,16 @@ function nurani_library_api_user_default_permissions() {
       1 => 'administrator',
     ),
     'module' => 'nurani_library_provider',
+  );
+
+  // Exported permission: view all nurani library annotations.
+  $permissions['view all nurani library annotations'] = array(
+    'name' => 'view all nurani library annotations',
+    'roles' => array(
+      0 => 'API',
+      1 => 'administrator',
+    ),
+    'module' => 'nurani_library',
   );
 
   return $permissions;

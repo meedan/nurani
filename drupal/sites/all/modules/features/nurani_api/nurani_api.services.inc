@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nurani_library_api.services.inc
+ * nurani_api.services.inc
  */
 
 /**
  * Implements hook_default_services_endpoint().
  */
-function nurani_library_api_default_services_endpoint() {
+function nurani_api_default_services_endpoint() {
   $export = array();
 
   $endpoint = new stdClass();
@@ -79,28 +79,6 @@ function nurani_library_api_default_services_endpoint() {
         ),
         'index' => array(
           'enabled' => '1',
-        ),
-      ),
-    ),
-    'system' => array(
-      'actions' => array(
-        'connect' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
-    'user' => array(
-      'actions' => array(
-        'login' => array(
-          'enabled' => '1',
-        ),
-        'logout' => array(
-          'enabled' => '1',
-          'settings' => array(
-            'services' => array(
-              'resource_api_version' => '1.0',
-            ),
-          ),
         ),
       ),
     ),
