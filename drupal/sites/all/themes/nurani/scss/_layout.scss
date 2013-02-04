@@ -27,25 +27,24 @@ body{
   padding: 4px 20px 0;
 }
 
+/* Default layout style */ 
 #main{ 
   @include container;
+  @include susy-grid-background;
   
-  
-
   & > #content{
-  //shortcut for suffix and prefix - create 2 cols empty space left and right
-  @include pad (1,1);
-  @include span-columns(18,20);
+    @include pad (1,1); //shortcut for suffix and prefix - create 2 cols empty space left and right
+    @include span-columns(18,20);
+  }
 }
- 
-}
+
+
 
 #header{
    height:39px;
   @include container;
- 
-
  }
+
 
 #content-inner{
     #content-area{

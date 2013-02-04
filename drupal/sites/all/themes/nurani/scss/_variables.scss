@@ -1,12 +1,11 @@
 // Site wide variables
 
-$total-width:1200px;
-$total-columns: 20;
-$col-width-abs: 40px;
-$column-width: $col-width-abs / $total-width * 100%;
-$gutter-width-abs: 20px;
-$gutter-width: $gutter-width-abs / $total-width * 100%;
-$side-gutter-width: 0;
+$total-width: 1200px; 
+$total-columns: 20; 
+$column-width: 30px;
+$gutter-width: 30px;
+$container-style: fluid; //makes the layout fluid, sets the container to 100% width.
+$first-breakpoint: $total-columns - 8;
 
 
 $nurani-salmon-color: #F1E9E4;
