@@ -1,4 +1,71 @@
 
+ul.footer-logos li{
+  
+}
+ul.footer-logos{
+  width:960px;
+  height:150px;
+    li{
+      float:left;
+      margin-right: 15px;
+    }
+    .l1{
+        background: url(../images/cip.png) no-repeat;
+        height:88px;
+        width:234px;
+        padding:8px 45px 0 13px;
+        &:hover{
+          background:url(../images/cip-brown.png) no-repeat;
+          height:88px;
+          width:234px;
+
+        }
+      }
+
+      .l2{
+        background: url(../images/rcuk.png) no-repeat;
+        height:88px;
+        width:130px;
+        padding: 6px 0 0 36px;
+
+
+        &:hover{
+          background:url(../images/rcuk-brown.png) no-repeat;
+          height:88px;
+          width:130px;
+
+        }
+      }
+      .l3{
+        background: url(../images/meedan-fade2.png) no-repeat;
+        height:120px;
+        width:80px;
+        padding: 0 4px 0 24px;
+        &:hover{
+          background:url(../images/meedan-brown2.png) no-repeat;
+          height:120px;
+          width:80px;
+
+        }
+      }
+
+      .l4{
+        background: url(../images/coexist-fade.png) no-repeat;
+        height:88px;
+        width:317px;
+        padding:0 10px 0 0px;
+        &:hover{
+          background:url(../images/coexist-brown.png) no-repeat;
+          height:88px;
+          width:317px;
+
+        }
+      }
+
+      
+
+} 
+
 ul#secondary{
   display:block;
   padding-left: 0;
