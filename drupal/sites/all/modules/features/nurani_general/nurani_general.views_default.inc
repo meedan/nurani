@@ -117,6 +117,12 @@ function nurani_general_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* No results behavior: Global: Unfiltered text */
+  $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area_text_custom']['content'] = 'You are currently not a participant in any discussions.';
   /* Relationship: Content: Bundle (field_bundle) */
   $handler->display->display_options['relationships']['field_bundle_nid']['id'] = 'field_bundle_nid';
   $handler->display->display_options['relationships']['field_bundle_nid']['table'] = 'field_data_field_bundle';

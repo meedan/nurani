@@ -4326,7 +4326,8 @@ EOT;
       $imagick->setFormat('png');
       
       // Get opacity channel (negative of alpha channel)
-      $alpha_channel = clone $imagick;
+      $alpha_channel = new Imagick($file);
+      $alpha_channel->setFormat('png');
       $alpha_channel->separateImageChannel(Imagick::CHANNEL_ALPHA);
       $alpha_channel->negateImage(true);
       $alpha_channel->writeImage($tempfile_alpha);
