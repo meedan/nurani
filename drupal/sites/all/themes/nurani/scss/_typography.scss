@@ -1,11 +1,8 @@
 
-
-
-
-@include font-face("Palatino Regular", font-files("palatino-regular.eot", "palatino-regular.otf", "palatino-regular.svg", "palatino-regular.ttf", "palatino-regular.woff"));
+// @include font-face("Palatino Regular", font-files("palatino-regular.eot", "palatino-regular.otf", "palatino-regular.svg", "palatino-regular.ttf", "palatino-regular.woff"));
 
 @mixin bundle-typography-regular{
-  font-family: "palatino regular";
+  font-family: palatino;
   font-style: italic;
 }
 

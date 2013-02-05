@@ -25,7 +25,8 @@
     .bib{
       @include span-columns(5,6, $gutter-width/2);
       margin-top: -1em; 
-      margin-#{$from-direction}: columns(1,6); 
+      margin-#{$from-direction}: columns(1,6); // default value is left, so this means margin-left.
+      border: 1px solid $nurani-gray;
 	  }
   }
 	  
@@ -198,6 +199,11 @@
 }
 
 .view-meedan-discussion-participants{
+  & > .view-content > .views-row{ 
+    float:left;
+    clear:both;
+    margin-bottom:1em;
+  }
   & > .view-content{
     margin-bottom: 4em;
 
@@ -206,7 +212,7 @@
     }
     .views-field-name, 
     .views-field-cid { 
-      margin-left:4em;
+      margin-left:5em;
       @include username-links($nurani-light-blue);
     }
   } 

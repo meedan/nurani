@@ -30,7 +30,9 @@ body{
 /* Default layout style */ 
 #main{ 
   @include container;
+  margin-bottom:5em;
   @include susy-grid-background;
+ 
   
   & > #content{
     @include pad (1,1); //shortcut for suffix and prefix - create 2 cols empty space left and right
@@ -38,13 +40,10 @@ body{
   }
 }
 
-
-
 #header{
    height:39px;
   @include container;
  }
-
 
 #content-inner{
     #content-area{
@@ -70,7 +69,7 @@ body{
   text-align:center;
 }
 
-// page layout for the registration page
+
 
   
 

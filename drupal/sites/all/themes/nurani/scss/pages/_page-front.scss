@@ -37,10 +37,11 @@ h2{ margin-bottom:1em;}
    }
 
    a.welcome-link{
+     @include span-columns(4,6);
+     margin-#{$from-direction}: columns(1,6);
      background:url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
      @include a-link-as-button($nurani-light-blue);
-     padding:1em 4em;
-     margin:1em 4em;
+    
    }
  }
 
