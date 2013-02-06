@@ -29,6 +29,11 @@ function theme_nurani_helpers_block_recent_annotations($variables) {
 
   $output  = '';
   $output .= '<div class="annotations">';
+
+  if (empty($annotations)) {
+    $output .= '<div class="empty">' . t("There are no recent annotations") . '</div>';
+  }
+
   foreach($annotations as $annotation) {
     $passage_title = '<strong class="passage-title">' . check_plain($annotation['passage_title']) . '</strong>';
 
@@ -50,6 +55,7 @@ function theme_nurani_helpers_block_recent_annotations($variables) {
     $output .=   '</div>';
     $output .= '</div>';
   }
+
   $output .= '</div>';
 
   return $output;
