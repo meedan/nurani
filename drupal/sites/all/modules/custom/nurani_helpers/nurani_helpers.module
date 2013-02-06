@@ -1,15 +1,25 @@
 <?php
 
+require_once dirname(__FILE__) . '/nurani_helpers.inc';
+
 /**
  * Implements hook_theme().
  */
 function nurani_helpers_theme($existing, $type, $theme, $path) {
+  $base = array(
+    'path' => drupal_get_path('module', 'nurani_helpers'),
+    'file' => 'nurani_helpers.theme.inc',
+  );
+
   return array(
-    'nurani_attribution' => array(
+    'nurani_attribution' => $base + array(
       'variables' => array('author' => NULL, 'timestamp' => NULL),
     ),
-    'nurani_helpers_block_welcome_login' => array(
+    'nurani_helpers_block_welcome_login' => $base + array(
       'variables' => array('author' => NULL),
+    ),
+    'nurani_helpers_block_recent_annotations' => $base + array(
+      'variables' => array('annotations' => array()),
     ),
   );
 }
@@ -51,6 +61,10 @@ function nurani_helpers_block_info() {
     'info' => t('Nurani login / welcome'),
     'cache' => DRUPAL_NO_CACHE
   );
+  $blocks['recent_annotations'] = array(
+    'info' => t('Recent annotations'),
+    'cache' => DRUPAL_NO_CACHE
+  );
   return $blocks;
 }
 
@@ -66,55 +80,14 @@ function nurani_helpers_block_view($delta = '') {
       $block['subject'] = NULL;
       $block['content'] = theme('nurani_helpers_block_welcome_login', array('account' => $user));
       break;
+    case 'recent_annotations':
+      $block['subject'] = t("New library annotations");
+      $page = 0;
+      $block['content'] = theme('nurani_helpers_block_recent_annotations', array('annotations' => nurani_helpers_recent_annotations($user, $page, 20)));
+      break;
   }
 
   return $block;
-}
-
-/**
- * Theme implementation for Nurani 'welcome_login' block.
- */
-function theme_nurani_helpers_block_welcome_login($variables) {
-  $account = $variables['account'];
-
-  $output = '';
-  if (!$account->uid) {
-    $output  = '<span class="login">';
-    $output .=   l(t("Login"), 'user/login', array('query' => array('destination' => '<front>')));
-    $output .= '</span>';
-  }
-  else {
-    $output  = '<span class="welcome">';
-    $output .=   t("Welcome, <strong>!name</strong>", array('!name' => l($account->name, '<front>')));
-    $output .= '</span>';
-    $output .= '<span class="logout">';
-    $output .=   l(t("Logout"), 'user/logout', array('query' => array('destination' => '<front>')));
-    $output .= '</span>';
-  }
-
-  return $output;
-}
-
-/**
- * Theme implementation for Nurani attribution helper.
- */
-function theme_nurani_attribution($variables) {
-  $output  = '';
-  $output .= '<span class="attribution">';
-  $output .=   '&mdash; ';
-  $output .=   theme('username', array('account' => $variables['account']));
-  if ($variables['timestamp']) {
-    $output .= ' <span class="date">';
-    $output .=   format_date($variables['timestamp'], 'attribution', '', $variables['account']->timezone);
-    $output .= '</span>';
-  }
-  if ($variables['account']->field_country && $variables['account']->field_country[LANGUAGE_NONE][0]) {
-    $output .= ' <span class="country">';
-    $output .=   check_plain($variables['account']->field_country[LANGUAGE_NONE][0]['value']);
-    $output .= '</span>';
-  }
-  $output .= '</span>';
-  return $output;
 }
 
 /**
