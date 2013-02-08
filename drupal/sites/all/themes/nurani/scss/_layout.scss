@@ -31,7 +31,6 @@ body{
 #main{ 
   @include container;
   margin-bottom:5em;
-  @include susy-grid-background;
  
   
   & > #content{
