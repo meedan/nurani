@@ -10,6 +10,16 @@
 function nurani_api_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: access nurani library.
+  $permissions['access nurani library'] = array(
+    'name' => 'access nurani library',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'nurani_library',
+  );
+
   // Exported permission: create nurani library annotations.
   $permissions['create nurani library annotations'] = array(
     'name' => 'create nurani library annotations',
@@ -33,6 +43,16 @@ function nurani_api_user_default_permissions() {
     'name' => 'update nurani library annotations',
     'roles' => array(
       0 => 'authenticated user',
+    ),
+    'module' => 'nurani_library',
+  );
+
+  // Exported permission: view all nurani library annotations.
+  $permissions['view all nurani library annotations'] = array(
+    'name' => 'view all nurani library annotations',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
     ),
     'module' => 'nurani_library',
   );
