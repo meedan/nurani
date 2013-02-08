@@ -6,6 +6,19 @@
   @include border($nurani-gray, right, 1px);
   background:$nurani-salmon-color;
 
+  .error {
+    margin-top: 2em;
+    background-repeat: no-repeat;
+    background-position: top-left;
+    padding: 0 0 0 2em;
+    background-color: transparent;
+
+    .message {
+      margin-bottom: 1em;
+      font-weight: bold;
+    }
+  }
+
   .passage-widget {
     .verse{
       margin: 0 0.5em;

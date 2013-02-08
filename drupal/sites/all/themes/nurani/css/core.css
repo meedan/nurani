@@ -250,19 +250,19 @@ sup {
   text-decoration: none;
   font-weight: bold;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a:hover {
   background-color: #00569f;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a:active {
   background-color: #004d8f;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 .comment-inner .links a.disabled, .comment-inner .links a[disabled] {
   opacity: 0.6;
   background: false;
@@ -271,7 +271,7 @@ sup {
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 .comment-inner .links a::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -367,19 +367,19 @@ input.form-submit, .button {
   font-weight: bold;
   text-transform: uppercase;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 input.form-submit:hover, .button:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 input.form-submit:hover, .button:hover {
   background-color: #00569f;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 input.form-submit:active, .button:active {
   background-color: #004d8f;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 input.form-submit.disabled, input.form-submit[disabled], .button.disabled, .button[disabled] {
   opacity: 0.6;
   background: false;
@@ -388,7 +388,7 @@ input.form-submit.disabled, input.form-submit[disabled], .button.disabled, .butt
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 input.form-submit::-moz-focus-inner, .button::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -672,11 +672,10 @@ body {
 /* line 31, ../scss/_layout.scss */
 #main {
   *zoom: 1;
-  width: auto;
-  margin-left: auto;
-  margin-right: auto;
   padding-left: 1em;
   padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 5em;
   background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(0%, rgba(100, 100, 225, 0.25)), color-stop(2.5641%, rgba(100, 100, 225, 0.25)), color-stop(2.5641%, rgba(0, 0, 0, 0)), color-stop(5.12821%, rgba(0, 0, 0, 0)), color-stop(5.12821%, rgba(100, 100, 225, 0.25)), color-stop(7.69231%, rgba(100, 100, 225, 0.25)), color-stop(7.69231%, rgba(0, 0, 0, 0)), color-stop(10.25641%, rgba(0, 0, 0, 0)), color-stop(10.25641%, rgba(100, 100, 225, 0.25)), color-stop(12.82051%, rgba(100, 100, 225, 0.25)), color-stop(12.82051%, rgba(0, 0, 0, 0)), color-stop(15.38462%, rgba(0, 0, 0, 0)), color-stop(15.38462%, rgba(100, 100, 225, 0.25)), color-stop(17.94872%, rgba(100, 100, 225, 0.25)), color-stop(17.94872%, rgba(0, 0, 0, 0)), color-stop(20.51282%, rgba(0, 0, 0, 0)), color-stop(20.51282%, rgba(100, 100, 225, 0.25)), color-stop(23.07692%, rgba(100, 100, 225, 0.25)), color-stop(23.07692%, rgba(0, 0, 0, 0)), color-stop(25.64103%, rgba(0, 0, 0, 0)), color-stop(25.64103%, rgba(100, 100, 225, 0.25)), color-stop(28.20513%, rgba(100, 100, 225, 0.25)), color-stop(28.20513%, rgba(0, 0, 0, 0)), color-stop(30.76923%, rgba(0, 0, 0, 0)), color-stop(30.76923%, rgba(100, 100, 225, 0.25)), color-stop(33.33333%, rgba(100, 100, 225, 0.25)), color-stop(33.33333%, rgba(0, 0, 0, 0)), color-stop(35.89744%, rgba(0, 0, 0, 0)), color-stop(35.89744%, rgba(100, 100, 225, 0.25)), color-stop(38.46154%, rgba(100, 100, 225, 0.25)), color-stop(38.46154%, rgba(0, 0, 0, 0)), color-stop(41.02564%, rgba(0, 0, 0, 0)), color-stop(41.02564%, rgba(100, 100, 225, 0.25)), color-stop(43.58974%, rgba(100, 100, 225, 0.25)), color-stop(43.58974%, rgba(0, 0, 0, 0)), color-stop(46.15385%, rgba(0, 0, 0, 0)), color-stop(46.15385%, rgba(100, 100, 225, 0.25)), color-stop(48.71795%, rgba(100, 100, 225, 0.25)), color-stop(48.71795%, rgba(0, 0, 0, 0)), color-stop(51.28205%, rgba(0, 0, 0, 0)), color-stop(51.28205%, rgba(100, 100, 225, 0.25)), color-stop(53.84615%, rgba(100, 100, 225, 0.25)), color-stop(53.84615%, rgba(0, 0, 0, 0)), color-stop(56.41026%, rgba(0, 0, 0, 0)), color-stop(56.41026%, rgba(100, 100, 225, 0.25)), color-stop(58.97436%, rgba(100, 100, 225, 0.25)), color-stop(58.97436%, rgba(0, 0, 0, 0)), color-stop(61.53846%, rgba(0, 0, 0, 0)), color-stop(61.53846%, rgba(100, 100, 225, 0.25)), color-stop(64.10256%, rgba(100, 100, 225, 0.25)), color-stop(64.10256%, rgba(0, 0, 0, 0)), color-stop(66.66667%, rgba(0, 0, 0, 0)), color-stop(66.66667%, rgba(100, 100, 225, 0.25)), color-stop(69.23077%, rgba(100, 100, 225, 0.25)), color-stop(69.23077%, rgba(0, 0, 0, 0)), color-stop(71.79487%, rgba(0, 0, 0, 0)), color-stop(71.79487%, rgba(100, 100, 225, 0.25)), color-stop(74.35897%, rgba(100, 100, 225, 0.25)), color-stop(74.35897%, rgba(0, 0, 0, 0)), color-stop(76.92308%, rgba(0, 0, 0, 0)), color-stop(76.92308%, rgba(100, 100, 225, 0.25)), color-stop(79.48718%, rgba(100, 100, 225, 0.25)), color-stop(79.48718%, rgba(0, 0, 0, 0)), color-stop(82.05128%, rgba(0, 0, 0, 0)), color-stop(82.05128%, rgba(100, 100, 225, 0.25)), color-stop(84.61538%, rgba(100, 100, 225, 0.25)), color-stop(84.61538%, rgba(0, 0, 0, 0)), color-stop(87.17949%, rgba(0, 0, 0, 0)), color-stop(87.17949%, rgba(100, 100, 225, 0.25)), color-stop(89.74359%, rgba(100, 100, 225, 0.25)), color-stop(89.74359%, rgba(0, 0, 0, 0)), color-stop(92.30769%, rgba(0, 0, 0, 0)), color-stop(92.30769%, rgba(100, 100, 225, 0.25)), color-stop(94.87179%, rgba(100, 100, 225, 0.25)), color-stop(94.87179%, rgba(0, 0, 0, 0)), color-stop(97.4359%, rgba(0, 0, 0, 0)), color-stop(97.4359%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0)));
   background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 2.5641%, rgba(0, 0, 0, 0) 2.5641%, rgba(0, 0, 0, 0) 5.12821%, rgba(100, 100, 225, 0.25) 5.12821%, rgba(100, 100, 225, 0.25) 7.69231%, rgba(0, 0, 0, 0) 7.69231%, rgba(0, 0, 0, 0) 10.25641%, rgba(100, 100, 225, 0.25) 10.25641%, rgba(100, 100, 225, 0.25) 12.82051%, rgba(0, 0, 0, 0) 12.82051%, rgba(0, 0, 0, 0) 15.38462%, rgba(100, 100, 225, 0.25) 15.38462%, rgba(100, 100, 225, 0.25) 17.94872%, rgba(0, 0, 0, 0) 17.94872%, rgba(0, 0, 0, 0) 20.51282%, rgba(100, 100, 225, 0.25) 20.51282%, rgba(100, 100, 225, 0.25) 23.07692%, rgba(0, 0, 0, 0) 23.07692%, rgba(0, 0, 0, 0) 25.64103%, rgba(100, 100, 225, 0.25) 25.64103%, rgba(100, 100, 225, 0.25) 28.20513%, rgba(0, 0, 0, 0) 28.20513%, rgba(0, 0, 0, 0) 30.76923%, rgba(100, 100, 225, 0.25) 30.76923%, rgba(100, 100, 225, 0.25) 33.33333%, rgba(0, 0, 0, 0) 33.33333%, rgba(0, 0, 0, 0) 35.89744%, rgba(100, 100, 225, 0.25) 35.89744%, rgba(100, 100, 225, 0.25) 38.46154%, rgba(0, 0, 0, 0) 38.46154%, rgba(0, 0, 0, 0) 41.02564%, rgba(100, 100, 225, 0.25) 41.02564%, rgba(100, 100, 225, 0.25) 43.58974%, rgba(0, 0, 0, 0) 43.58974%, rgba(0, 0, 0, 0) 46.15385%, rgba(100, 100, 225, 0.25) 46.15385%, rgba(100, 100, 225, 0.25) 48.71795%, rgba(0, 0, 0, 0) 48.71795%, rgba(0, 0, 0, 0) 51.28205%, rgba(100, 100, 225, 0.25) 51.28205%, rgba(100, 100, 225, 0.25) 53.84615%, rgba(0, 0, 0, 0) 53.84615%, rgba(0, 0, 0, 0) 56.41026%, rgba(100, 100, 225, 0.25) 56.41026%, rgba(100, 100, 225, 0.25) 58.97436%, rgba(0, 0, 0, 0) 58.97436%, rgba(0, 0, 0, 0) 61.53846%, rgba(100, 100, 225, 0.25) 61.53846%, rgba(100, 100, 225, 0.25) 64.10256%, rgba(0, 0, 0, 0) 64.10256%, rgba(0, 0, 0, 0) 66.66667%, rgba(100, 100, 225, 0.25) 66.66667%, rgba(100, 100, 225, 0.25) 69.23077%, rgba(0, 0, 0, 0) 69.23077%, rgba(0, 0, 0, 0) 71.79487%, rgba(100, 100, 225, 0.25) 71.79487%, rgba(100, 100, 225, 0.25) 74.35897%, rgba(0, 0, 0, 0) 74.35897%, rgba(0, 0, 0, 0) 76.92308%, rgba(100, 100, 225, 0.25) 76.92308%, rgba(100, 100, 225, 0.25) 79.48718%, rgba(0, 0, 0, 0) 79.48718%, rgba(0, 0, 0, 0) 82.05128%, rgba(100, 100, 225, 0.25) 82.05128%, rgba(100, 100, 225, 0.25) 84.61538%, rgba(0, 0, 0, 0) 84.61538%, rgba(0, 0, 0, 0) 87.17949%, rgba(100, 100, 225, 0.25) 87.17949%, rgba(100, 100, 225, 0.25) 89.74359%, rgba(0, 0, 0, 0) 89.74359%, rgba(0, 0, 0, 0) 92.30769%, rgba(100, 100, 225, 0.25) 92.30769%, rgba(100, 100, 225, 0.25) 94.87179%, rgba(0, 0, 0, 0) 94.87179%, rgba(0, 0, 0, 0) 97.4359%, rgba(100, 100, 225, 0.25) 97.4359%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
@@ -693,7 +692,7 @@ body {
   -moz-background-clip: content-box;
   background-clip: content-box;
 }
-/* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 38, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #main:after {
   content: "";
   display: table;
@@ -713,13 +712,12 @@ body {
 #header {
   height: 39px;
   *zoom: 1;
-  width: auto;
-  margin-left: auto;
-  margin-right: auto;
   padding-left: 1em;
   padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
 }
-/* line 38, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+/* line 38, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 #header:after {
   content: "";
   display: table;
@@ -839,19 +837,19 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link {
   text-transform: uppercase;
   text-decoration: none;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   background-color: #00569f;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:active {
   background-color: #004d8f;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link.disabled, body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link[disabled] {
   opacity: 0.6;
   background: false;
@@ -860,7 +858,7 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link.disabl
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -900,19 +898,19 @@ body.front .panel-3col-33 .panel-pane a.invitation-link {
   padding: 1em 1em 1em 4em;
   margin: 1em 4em;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   background-color: #00569f;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link:active {
   background-color: #004d8f;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link.disabled, body.front .panel-3col-33 .panel-pane a.invitation-link[disabled] {
   opacity: 0.6;
   background: false;
@@ -921,7 +919,7 @@ body.front .panel-3col-33 .panel-pane a.invitation-link.disabled, body.front .pa
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.front .panel-3col-33 .panel-pane a.invitation-link::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -1036,19 +1034,19 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
   background-image: none;
   text-align: center;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:hover {
   background-color: #00569f;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:active, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:active {
   background-color: #004d8f;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a.disabled, body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a[disabled], body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a.disabled, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a[disabled] {
   opacity: 0.6;
   background: false;
@@ -1057,7 +1055,7 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a::-moz-focus-inner, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -1134,28 +1132,41 @@ body.node-type-discussion .node-discussion .inner > .passage-text {
   border-right-color: #ccc6c2;
   background: #f1e9e4;
 }
-/* line 10, ../scss/helpers/_bundle.scss */
+/* line 9, ../scss/helpers/_bundle.scss */
+body.node-type-discussion .node-discussion .inner > .passage-text .error {
+  margin-top: 2em;
+  background-repeat: no-repeat;
+  background-position: top-left;
+  padding: 0 0 0 2em;
+  background-color: transparent;
+}
+/* line 16, ../scss/helpers/_bundle.scss */
+body.node-type-discussion .node-discussion .inner > .passage-text .error .message {
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+/* line 23, ../scss/helpers/_bundle.scss */
 body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget .verse {
   margin: 0 0.5em;
 }
-/* line 13, ../scss/helpers/_bundle.scss */
+/* line 26, ../scss/helpers/_bundle.scss */
 body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget h4 {
   margin-bottom: 1em;
 }
-/* line 14, ../scss/helpers/_bundle.scss */
+/* line 27, ../scss/helpers/_bundle.scss */
 body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget p {
   font-family: palatino;
   margin-top: 0.5em;
   display: inline;
 }
-/* line 22, ../scss/helpers/_bundle.scss */
+/* line 35, ../scss/helpers/_bundle.scss */
 body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget .bib .moderator_s_thoughts p {
   font-size: 1.1429em;
   text-indent: justify;
   color: #4a4a4a;
   margin-bottom: 2em;
 }
-/* line 28, ../scss/helpers/_bundle.scss */
+/* line 41, ../scss/helpers/_bundle.scss */
 body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget .bib .moderator_s_thoughts span.attribution {
   margin-top: -1em;
   padding-right: 20px;
@@ -1207,19 +1218,19 @@ body.node-type-discussion .tab-bar a.button {
   margin-bottom: 1em;
   margin-right: 1em;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .tab-bar a.button:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .tab-bar a.button:hover {
   background-color: #c8b094;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .tab-bar a.button:active {
   background-color: #c3a88a;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .tab-bar a.button.disabled, body.node-type-discussion .tab-bar a.button[disabled] {
   opacity: 0.6;
   background: false;
@@ -1228,7 +1239,7 @@ body.node-type-discussion .tab-bar a.button.disabled, body.node-type-discussion 
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.node-type-discussion .tab-bar a.button::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
@@ -1377,19 +1388,19 @@ body.node-type-discussion .comment-form .ajax-processed {
   margin-right: 0.5em;
   display: inline;
 }
-/* line 15, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 15, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed:hover {
   text-decoration: none;
 }
-/* line 42, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 42, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed:hover {
   background-color: #003766;
 }
-/* line 44, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 44, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed:active {
   background-color: #002f56;
 }
-/* line 6, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+/* line 6, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
 body.node-type-discussion .comment-form .ajax-processed.disabled, body.node-type-discussion .comment-form .ajax-processed[disabled] {
   opacity: 0.6;
   background: false;
@@ -1398,7 +1409,7 @@ body.node-type-discussion .comment-form .ajax-processed.disabled, body.node-type
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 73, ../../../../../../../../../../Users/zeebalogun/.rvm/gems/ruby-1.9.3-p194/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
+/* line 73, ../../../../../../../../../.rvm/gems/ruby-1.9.2-p320/gems/sassy-buttons-0.1.4/stylesheets/_sassy-buttons.sass */
 body.node-type-discussion .comment-form .ajax-processed::-moz-focus-inner {
   padding: 0 !important;
   margin: -1px !important;
