@@ -17,5 +17,6 @@ features[services_endpoint][] = api
 features[user_permission][] = access nurani library
 features[user_permission][] = create nurani library annotations
 features[user_permission][] = delete nurani library annotations
+features[user_permission][] = edit all nurani library annotations
 features[user_permission][] = update nurani library annotations
 features[user_permission][] = view all nurani library annotations

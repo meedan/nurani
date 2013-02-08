@@ -44,6 +44,15 @@ function nurani_library_api_user_default_permissions() {
     'module' => 'nurani_library',
   );
 
+  // Exported permission: edit all nurani library annotations.
+  $permissions['edit all nurani library annotations'] = array(
+    'name' => 'edit all nurani library annotations',
+    'roles' => array(
+      0 => 'API',
+    ),
+    'module' => 'nurani_library',
+  );
+
   // Exported permission: update nurani library annotations.
   $permissions['update nurani library annotations'] = array(
     'name' => 'update nurani library annotations',
