@@ -1384,7 +1384,7 @@ function nurani_accounts_field_default_fields() {
       ),
       'entity_type' => 'user',
       'field_name' => 'field_subjects_of_interest',
-      'label' => 'Are there particular subjects that are of interest to you? (NB we cannot guaranteethese will be included in discussion themes).',
+      'label' => 'Are there particular subjects that are of interest to you? (NB we cannot guarantee these will be included in discussion themes).',
       'required' => 0,
       'settings' => array(
         'text_processing' => '0',
@@ -1484,7 +1484,7 @@ function nurani_accounts_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Are there particular subjects that are of interest to you? (NB we cannot guaranteethese will be included in discussion themes).');
+  t('Are there particular subjects that are of interest to you? (NB we cannot guarantee these will be included in discussion themes).');
   t('Country');
   t('Date of birth');
   t('First name');
