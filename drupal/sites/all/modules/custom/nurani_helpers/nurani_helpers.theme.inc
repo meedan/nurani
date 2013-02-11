@@ -35,6 +35,7 @@ function theme_nurani_helpers_block_recent_annotations($variables) {
   }
 
   foreach($annotations as $annotation) {
+    $annotation = (array) $annotation;
     $passage_title = '<strong class="passage-title">' . check_plain($annotation['passage_title']) . '</strong>';
 
     if (isset($annotation['author'])) {
