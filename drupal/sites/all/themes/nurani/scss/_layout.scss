@@ -31,7 +31,7 @@ body{
 #main{ 
   @include container;
   margin-bottom:5em;
-   
+
   & > #content{
     @include pad (1,1); //shortcut for suffix and prefix - create 2 cols empty space left and right
     @include span-columns(18,20);

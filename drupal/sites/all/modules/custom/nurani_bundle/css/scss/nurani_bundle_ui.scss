@@ -53,6 +53,10 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
   position: relative;
   z-index: 1;
 
+  .passage-widget-wrapper {
+    min-height: $ideal_box_height;
+  }
+
   .pick-passage-action {
     display: none;
   }
