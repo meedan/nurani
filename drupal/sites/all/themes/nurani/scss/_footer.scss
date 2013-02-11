@@ -1,44 +1,15 @@
 
-ul.footer-logos li{
-  
+.footer{
+  &.footer-logos{
+     text-align: center;
+     margin-bottom:35px;
+      a, & > img {
+        display: inline-block;
+        margin-right: 50px;
+        padding-top: 5px;
+      }
+  }
 }
-ul.footer-logos{
-  width:960px;
-  height:150px;
-    li{
-      float:left;
-      margin-right: 15px;
-    }
-    .l1 {
-        background: url(../images/cip.png) no-repeat;
-        height:88px;
-        width:234px;
-        padding:8px 45px 0 13px;
-      }
-
-      .l2{
-        background: url(../images/rcuk.png) no-repeat;
-        height:88px;
-        width:130px;
-        padding: 6px 0 0 36px;
-      }
-      .l3{
-        background: url(../images/meedan-fade2.png) no-repeat;
-        height:120px;
-        width:80px;
-        padding: 0 4px 0 24px;
-      }
-
-      .l4{
-        background: url(../images/coexist-fade.png) no-repeat;
-        height:88px;
-        width:317px;
-        padding:0 10px 0 0px;
-      }
-
-      
-
-} 
 
 ul#secondary{
   display:block;
