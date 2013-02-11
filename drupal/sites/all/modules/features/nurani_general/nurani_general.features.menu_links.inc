@@ -42,6 +42,24 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '0',
   );
+  // Exported menu link: user-menu:legal
+  $menu_links['user-menu:legal'] = array(
+    'menu_name' => 'user-menu',
+    'link_path' => 'legal',
+    'router_path' => 'legal',
+    'link_title' => 'Terms',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-46',
+  );
   // Exported menu link: user-menu:node/2304
   $menu_links['user-menu:node/2304'] = array(
     'menu_name' => 'user-menu',
@@ -95,24 +113,6 @@ function nurani_general_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '-47',
-  );
-  // Exported menu link: user-menu:node/2307
-  $menu_links['user-menu:node/2307'] = array(
-    'menu_name' => 'user-menu',
-    'link_path' => 'node/2307',
-    'router_path' => 'node/%',
-    'link_title' => 'Terms',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-46',
   );
   // Exported menu link: user-menu:node/2308
   $menu_links['user-menu:node/2308'] = array(
