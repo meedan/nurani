@@ -126,12 +126,18 @@
 
   <?php if (isset($page['footer'])): ?>
     <div id="footer">
-      <ul class="footer-logos">
+      <div class="footer footer-logos">
+         <a href="http://www.interfaith.cam.ac.uk/"><img src="<?php print base_path() . path_to_theme() . '/' . 'images/CIP.png'; ?>" alt="University of Cambridge Logo" /></a>
+          <img src="<?php print base_path() . path_to_theme() . '/' . 'images/rcuk.png'; ?>" alt="Digital Economy Logo" />
+          <a href="http://meedan.org"><img src="<?php print base_path() . path_to_theme() . '/' . 'images/meedan-fade2.png'; ?>" alt="Meedan Logo" /></a>
+          <a href="http://www.coexistfoundation.net/"><img src="<?php print base_path() . path_to_theme() . '/' . 'images/coexist-fade.png'; ?>" alt="Meedan Logo" /></a>
+      </div>
+      <!-- <ul class="footer-logos">
         <li class= "l1"></li>
         <li class= "l2"></li>
         <li class= "l3"></li>
         <li class= "l4"></li>
-      </ul>
+      </ul> -->
       <?php print theme('links', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary', 'class' => array('links', 'clearfix', 'sub-menu')))); ?> 
     </div> <!-- /footer -->
   <?php endif; ?>

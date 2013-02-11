@@ -67,8 +67,37 @@ body{
   text-align:center;
 }
 
+/* fixed width and centralised Div on Basic pages and registration form */
+@mixin basic-page-layout{
+  margin:0 auto;
+}
 
+.node-type-page, .page-legal{
 
+  #content-inner{
+    @include basic-page-layout;
+  }
+
+  #content-area{
+    background:#fff;
+    padding:0;
+
+    .region-content{
+      padding:10px 40px 0 40px;
+      text-align: left;
+    } 
+
+  }
   
+}
+
+.page-user-register, .page-user, .page-user-password{
+  #content-inner{
+    width: 1200px;
+    @include basic-page-layout;
+  }
+}
+
+
 
 
