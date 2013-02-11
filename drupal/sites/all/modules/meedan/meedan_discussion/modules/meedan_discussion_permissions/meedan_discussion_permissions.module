@@ -68,7 +68,12 @@ function meedan_discussion_permissions_form_discussion_node_form_alter(&$form, &
       '#default_value' => $default_value,
     )
   );
+  // If no options available, use the most restricted permissions
   if (count($options) < 2) {
+    $form['meedan_discussion_permissions']['meedan_discussion_permissions'] = array(
+      '#type' => 'value',
+      '#value' => '200',
+    );
     $form['meedan_discussion_permissions']['#access'] = FALSE;
   }
   // if (!user_access('mark discussions as private')) {
@@ -264,11 +269,13 @@ function _meedan_discussion_permissions_expand_perm($perm) {
   if (is_array($perm)) {
     return $perm;
   }
-  list($participant, $authenticated, $anonymous) = array_map('intval', str_split($perm));
+
+  list($participant, $authenticated, $anonymous) = str_split($perm);
+
   return array(
-    'participant'   => $participant,
-    'authenticated' => $authenticated,
-    'anonymous'     => $anonymous
+    'participant'   => (int) $participant,
+    'authenticated' => (int) $authenticated,
+    'anonymous'     => (int) $anonymous
   );
 }
 
