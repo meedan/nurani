@@ -220,6 +220,35 @@ function nurani_core_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
+  // Exported permission: mark discussions as private.
+  $permissions['mark discussions as private'] = array(
+    'name' => 'mark discussions as private',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'meedan_discussion_permissions',
+  );
+
+  // Exported permission: mark discussions as public.
+  $permissions['mark discussions as public'] = array(
+    'name' => 'mark discussions as public',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'meedan_discussion_permissions',
+  );
+
+  // Exported permission: mark discussions as restricted.
+  $permissions['mark discussions as restricted'] = array(
+    'name' => 'mark discussions as restricted',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'meedan_discussion_permissions',
+  );
+
   // Exported permission: view own unpublished content.
   $permissions['view own unpublished content'] = array(
     'name' => 'view own unpublished content',
