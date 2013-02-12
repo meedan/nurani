@@ -191,20 +191,20 @@ function meedan_discussion_permissions_node_access_records($node) {
     $grants[] = array(
       'realm' => 'meedan_discussion',
       'gid' => DRUPAL_ANONYMOUS_RID,
-      'grant_view' => TRUE,
-      'grant_update' => FALSE,
-      'grant_delete' => FALSE,
-      'priority' => 0,
+      'grant_view'   => 1,
+      'grant_update' => 0,
+      'grant_delete' => 0,
+      'priority'     => 0,
     );
   }
   if ($perm['authenticated'] > MEEDAN_DISCUSSION_PERMISSIONS_NONE) {
     $grants[] = array(
       'realm' => 'meedan_discussion',
       'gid' => DRUPAL_AUTHENTICATED_RID,
-      'grant_view' => TRUE,
-      'grant_update' => FALSE,
-      'grant_delete' => FALSE,
-      'priority' => 0,
+      'grant_view'   => 1,
+      'grant_update' => 0,
+      'grant_delete' => 0,
+      'priority'     => 0,
     );
   }
 
