@@ -25,6 +25,7 @@ dependencies[] = nurani_accounts
 dependencies[] = nurani_api
 dependencies[] = nurani_comment
 dependencies[] = nurani_discussion
+dependencies[] = nurani_example
 dependencies[] = nurani_helpers
 dependencies[] = nurani_legal
 dependencies[] = nurani_migrate
