@@ -137,9 +137,16 @@ h2{ margin-bottom:1em;}
   
 }
 
+/******************************************** Styles for Library Annotations ********************************************/
 
+.annotations{
+& .annotation{
+  @include white-background-no-border;
+  margin-bottom:5px;
+  padding:10px;
+}
 
-
+}
 
  
 
