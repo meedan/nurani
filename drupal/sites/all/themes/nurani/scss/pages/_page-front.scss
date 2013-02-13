@@ -145,6 +145,10 @@ h2{ margin-bottom:1em;}
     margin-bottom:2px;
     padding:10px 25px;
 
+    em{
+      font-weight:bold;
+    }
+
     .contents{
       max-height:75px;
       overflow: hidden;
