@@ -213,7 +213,20 @@ input.date-clear{
   }
 
 }
+  
+#user-profile-form #edit-legal{
+  legend{
+    margin:0 auto;
+  }
+  & > .fieldset-wrapper{
+    padding: 8px 30px;
+    height:400px;
+    overflow-y:auto;
+  }
  
+
+}
+
 /******************************************** Contact us form ********************************************/
 
 .node-type-webform{
