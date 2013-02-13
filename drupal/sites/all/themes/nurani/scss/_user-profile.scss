@@ -6,14 +6,16 @@
 
   .group-details, .group-additional-details{
     border: 1px solid $nurani-light-blue;
-
   }
+
   .group-details, .group-additional-details, .group-profile{
-    
     & > .fieldset-wrapper{ 
       padding:5px 20px 0 15px;
     }
+  }
 
+  .group-additional-details .field-label{
+    margin-bottom: 1em;
   }
 
   .profile{
@@ -21,7 +23,6 @@
     .group-profile legend span{ 
       font-size:1.2em;
     }
-    
 
     .group-profile{
       padding:0;
@@ -34,7 +35,6 @@
     }
 
     .field-group-fieldset .legend , legend span{
-      
       color:$nurani-light-blue;
     }
 
@@ -51,6 +51,7 @@
   		text-align: right;
   	  }
     }
+
     .field-name-field-postal-address .field-items{
       width:50%;
     }
@@ -58,5 +59,7 @@
     .field-label-above{ 
       margin-bottom:1em;
     }
+
   }
+
 }

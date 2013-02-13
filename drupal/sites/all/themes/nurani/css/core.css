@@ -290,25 +290,29 @@ sup {
 .pane-nurani-profile-user-profile .group-details, .pane-nurani-profile-user-profile .group-additional-details {
   border: 1px solid #005eae;
 }
-/* line 13, ../scss/_user-profile.scss */
+/* line 12, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .group-details > .fieldset-wrapper, .pane-nurani-profile-user-profile .group-additional-details > .fieldset-wrapper, .pane-nurani-profile-user-profile .group-profile > .fieldset-wrapper {
   padding: 5px 20px 0 15px;
 }
-/* line 21, ../scss/_user-profile.scss */
+/* line 17, ../scss/_user-profile.scss */
+.pane-nurani-profile-user-profile .group-additional-details .field-label {
+  margin-bottom: 1em;
+}
+/* line 23, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-profile legend span {
   font-size: 1.2em;
 }
-/* line 26, ../scss/_user-profile.scss */
+/* line 27, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-profile {
   padding: 0;
   margin-top: 1em;
 }
-/* line 31, ../scss/_user-profile.scss */
+/* line 32, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .user-picture {
   float: right;
   margin: 2em 2em 0 1em;
 }
-/* line 36, ../scss/_user-profile.scss */
+/* line 37, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-group-fieldset .legend, .pane-nurani-profile-user-profile .profile legend span {
   color: #005eae;
 }
@@ -327,11 +331,11 @@ sup {
   float: right;
   text-align: right;
 }
-/* line 54, ../scss/_user-profile.scss */
+/* line 55, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-name-field-postal-address .field-items {
   width: 50%;
 }
-/* line 58, ../scss/_user-profile.scss */
+/* line 59, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-label-above {
   margin-bottom: 1em;
 }
@@ -746,6 +750,7 @@ body.front {
   /*  Front-page */
   /******************************************** Styles for Home page when logged out ********************************************/
   /******************************************** Styles for Home page when logged in ********************************************/
+  /******************************************** Styles for Library Annotations ********************************************/
 }
 /* line 3, ../scss/pages/_page-front.scss */
 body.front h2 {
@@ -1060,6 +1065,13 @@ body.front .view-nurani-discussions .view-meedan-discussion-participants {
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
   display: inline-block;
   margin-right: -20px;
+}
+/* line 143, ../scss/pages/_page-front.scss */
+body.front .annotations .annotation {
+  background-color: #fff;
+  margin-bottom: 25px;
+  margin-bottom: 5px;
+  padding: 10px;
 }
 
 /* node types */
