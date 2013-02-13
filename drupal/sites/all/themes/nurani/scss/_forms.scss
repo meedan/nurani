@@ -179,17 +179,23 @@ input.date-clear{
     margin-right:10px;
   }
   .button{
-    display:inline; 
+    display:block; 
     text-decoration:none;
+    width:88px;
+    margin: 0 auto;
   }
 
 }
+
 #user-profile-form{
-  fieldset.group-profile{
+
+  .group-additional-details, .group-details, #edit-legal, .group-profile{
     padding:0;
     overflow:hidden;
     width:100%;
+  }
 
+  fieldset.group-profile{
     & > .fieldset-wrapper{
       padding:5px;
       .field-name-field-title, 
@@ -207,7 +213,7 @@ input.date-clear{
   }
 
 }
-
+ 
 /******************************************** Contact us form ********************************************/
 
 .node-type-webform{
