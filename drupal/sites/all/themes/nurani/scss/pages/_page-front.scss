@@ -140,12 +140,26 @@ h2{ margin-bottom:1em;}
 /******************************************** Styles for Library Annotations ********************************************/
 
 .annotations{
-& .annotation{
-  @include white-background-no-border;
-  margin-bottom:5px;
-  padding:10px;
-}
+  & .annotation{
+    @include white-background-no-border;
+    margin-bottom:2px;
+    padding:10px 25px;
 
+    .contents{
+      max-height:75px;
+      overflow: hidden;
+      margin:10px 0;
+   
+      &:hover{
+        transition:height 2s;
+        max-height:100%;
+        transition:all .5s ease-out;
+        -moz-transition:all .5s ease-out; /* Firefox 4 */
+        -webkit-transition:all .5s ease-out; /* Safari and Chrome */
+        -o-transition:all .5s ease-out; /* Opera */
+      }
+    }
+  }
 }
 
  
