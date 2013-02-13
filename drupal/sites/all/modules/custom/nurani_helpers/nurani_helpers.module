@@ -144,6 +144,11 @@ function nurani_helpers_form_alter(&$form, &$form_state, $form_id) {
       drupal_exit();
     }
   }
+  if ($form_id == 'user_register_form') {
+    $form['#groups']['group_details']->format_settings['formatter'] = 'open';
+    $form['#groups']['group_profile']->format_settings['formatter'] = 'open';
+    $form['#groups']['group_additional_details']->format_settings['formatter'] = 'open';
+  }
 }
 
 /**
