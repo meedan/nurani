@@ -1,6 +1,20 @@
 
 .pane-nurani-profile-user-profile{
-  h2.pane-title{color:$nurani-light-blue;}
+  h2.pane-title{
+    color:$nurani-light-blue;
+  }
+
+  .group-details, .group-additional-details{
+    border: 1px solid $nurani-light-blue;
+
+  }
+  .group-details, .group-additional-details, .group-profile{
+    
+    & > .fieldset-wrapper{ 
+      padding:5px 20px 0 15px;
+    }
+
+  }
 
   .profile{
 
@@ -10,12 +24,13 @@
     
 
     .group-profile{
+      padding:0;
       margin-top:1em;
     }
 
     .user-picture{
       float: right;
-      margin: 2em 0 0 1em;
+      margin: 2em 2em 0 1em;
     }
 
     .field-group-fieldset .legend , legend span{
@@ -37,9 +52,11 @@
   	  }
     }
     .field-name-field-postal-address .field-items{
-      width:28%;
+      width:50%;
     }
 
-    .field-label-above{ margin-bottom:1em;}
+    .field-label-above{ 
+      margin-bottom:1em;
+    }
   }
 }

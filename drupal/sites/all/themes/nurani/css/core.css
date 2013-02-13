@@ -287,42 +287,51 @@ sup {
   color: #005eae;
 }
 /* line 7, ../scss/_user-profile.scss */
+.pane-nurani-profile-user-profile .group-details, .pane-nurani-profile-user-profile .group-additional-details {
+  border: 1px solid #005eae;
+}
+/* line 13, ../scss/_user-profile.scss */
+.pane-nurani-profile-user-profile .group-details > .fieldset-wrapper, .pane-nurani-profile-user-profile .group-additional-details > .fieldset-wrapper, .pane-nurani-profile-user-profile .group-profile > .fieldset-wrapper {
+  padding: 5px 20px 0 15px;
+}
+/* line 21, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-profile legend span {
   font-size: 1.2em;
 }
-/* line 12, ../scss/_user-profile.scss */
+/* line 26, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-profile {
+  padding: 0;
   margin-top: 1em;
 }
-/* line 16, ../scss/_user-profile.scss */
+/* line 31, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .user-picture {
   float: right;
-  margin: 2em 0 0 1em;
+  margin: 2em 2em 0 1em;
 }
-/* line 21, ../scss/_user-profile.scss */
+/* line 36, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-group-fieldset .legend, .pane-nurani-profile-user-profile .profile legend span {
   color: #005eae;
 }
-/* line 26, ../scss/_user-profile.scss */
+/* line 41, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-name-field-title, .pane-nurani-profile-user-profile .profile .field-name-field-first-name {
   display: inline;
   float: left;
   margin-right: 10px;
 }
-/* line 32, ../scss/_user-profile.scss */
+/* line 47, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-details .field {
   margin-bottom: 1em;
 }
-/* line 34, ../scss/_user-profile.scss */
+/* line 49, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .group-details .field > .field-items {
   float: right;
   text-align: right;
 }
-/* line 39, ../scss/_user-profile.scss */
+/* line 54, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-name-field-postal-address .field-items {
-  width: 28%;
+  width: 50%;
 }
-/* line 43, ../scss/_user-profile.scss */
+/* line 58, ../scss/_user-profile.scss */
 .pane-nurani-profile-user-profile .profile .field-label-above {
   margin-bottom: 1em;
 }
@@ -394,40 +403,34 @@ input.form-submit::-moz-focus-inner, .button::-moz-focus-inner {
   margin: -1px !important;
 }
 
-/* line 28, ../scss/_forms.scss */
-.field-group-fieldset, fieldset {
-  border: none;
-}
-
-/* line 32, ../scss/_forms.scss */
+/* line 29, ../scss/_forms.scss */
 input.date-clear {
   background: url(../images/calendar.png) no-repeat 154px 1px;
 }
 
-/* line 37, ../scss/_forms.scss */
+/* line 34, ../scss/_forms.scss */
 .field-type-datetime legend, #edit-picture legend {
   display: none;
 }
 
 /******************************************** Styling for User account forms ********************************************/
-/* line 46, ../scss/_forms.scss */
-.page-user-register #content-inner, .page-user #content-inner, .page-user-password #content-inner {
-  margin: 0 auto;
-  width: 1100px;
+/* line 42, ../scss/_forms.scss */
+.field-group-fieldset, fieldset {
+  border: none;
 }
 
-/* line 54, ../scss/_forms.scss */
+/* line 50, ../scss/_forms.scss */
 .page-user-register label {
   font-weight: lighter;
 }
-/* line 57, ../scss/_forms.scss */
+/* line 55, ../scss/_forms.scss */
 .page-user-register .field-type-list-text, .page-user-register .field-type-text, .page-user-register .field-type-datetime,
 .page-user-register #edit-picture, .page-user-register .form-type-textarea, .page-user-register .form-item-mail {
   display: inline-block;
   float: left;
   margin-right: 30px;
 }
-/* line 62, ../scss/_forms.scss */
+/* line 60, ../scss/_forms.scss */
 .page-user-register .field-type-datetime {
   clear: left;
 }
@@ -438,27 +441,27 @@ input.date-clear {
 .page-user-register .field-name-field-subjects-of-interest {
   clear: both;
 }
-/* line 70, ../scss/_forms.scss */
+/* line 71, ../scss/_forms.scss */
 .page-user-register .form-item-mail {
   width: 425px;
 }
-/* line 74, ../scss/_forms.scss */
+/* line 75, ../scss/_forms.scss */
 .page-user-register .form-type-textarea {
   width: 500px;
 }
-/* line 78, ../scss/_forms.scss */
+/* line 79, ../scss/_forms.scss */
 .page-user-register #edit-picture .fieldset-wrapper {
   width: 280px;
 }
-/* line 81, ../scss/_forms.scss */
+/* line 82, ../scss/_forms.scss */
 .page-user-register .field-group-fieldset {
   margin-top: 30px;
 }
-/* line 85, ../scss/_forms.scss */
+/* line 86, ../scss/_forms.scss */
 .page-user-register #field-date-of-birth-add-more-wrapper {
   margin-left: -16px;
 }
-/* line 91, ../scss/_forms.scss */
+/* line 92, ../scss/_forms.scss */
 .page-user-register .field-group-fieldset > legend, .page-user-register #edit-legal > legend {
   text-align: center;
   background: url(../images/bevel.jpg);
@@ -466,7 +469,7 @@ input.date-clear {
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 98, ../scss/_forms.scss */
+/* line 99, ../scss/_forms.scss */
 .page-user-register .field-group-fieldset > legend .fieldset-legend, .page-user-register #edit-legal > legend .fieldset-legend {
   font-family: palatino;
   font-style: italic;
@@ -476,60 +479,60 @@ input.date-clear {
   background: url(../images/brown_bkg.png);
   padding: 20px;
 }
-/* line 110, ../scss/_forms.scss */
+/* line 111, ../scss/_forms.scss */
 .page-user-register .form-type-textarea label {
   width: 466px;
 }
-/* line 113, ../scss/_forms.scss */
+/* line 114, ../scss/_forms.scss */
 .page-user-register #edit-legal .fieldset-wrapper {
   overflow-y: auto;
   height: 400px;
 }
-/* line 117, ../scss/_forms.scss */
+/* line 118, ../scss/_forms.scss */
 .page-user-register #edit-legal .fieldset-wrapper .form-item-legal-accept {
   position: absolute;
   top: 2093px;
 }
-/* line 124, ../scss/_forms.scss */
+/* line 125, ../scss/_forms.scss */
 .page-user-register input#edit-field-post-code-und-0-value {
   width: 250px;
 }
-/* line 127, ../scss/_forms.scss */
+/* line 128, ../scss/_forms.scss */
 .page-user-register select#edit-field-country-und {
   width: 158px;
 }
-/* line 131, ../scss/_forms.scss */
+/* line 132, ../scss/_forms.scss */
 .page-user-register input#edit-field-mobile-phone-und-0-value,
 .page-user-register input#edit-field-occupation-und-0-value {
   width: 480px;
 }
-/* line 134, ../scss/_forms.scss */
+/* line 135, ../scss/_forms.scss */
 .page-user-register input#edit-field-landline-phone-und-0-value {
   width: 435px;
 }
-/* line 138, ../scss/_forms.scss */
+/* line 139, ../scss/_forms.scss */
 .page-user-register input#edit-field-first-name-und-0-value,
 .page-user-register input#edit-field-last-name-und-0-value {
   width: 400px;
 }
-/* line 142, ../scss/_forms.scss */
+/* line 143, ../scss/_forms.scss */
 .page-user-register input#edit-mail {
   width: 350px;
 }
-/* line 146, ../scss/_forms.scss */
+/* line 147, ../scss/_forms.scss */
 .page-user-register input#edit-picture-upload {
   width: 200px;
 }
-/* line 150, ../scss/_forms.scss */
+/* line 151, ../scss/_forms.scss */
 .page-user-register input.form-submit {
   margin-left: 12px;
   margin-top: 30px;
 }
 
 /******************************************** Nurani profile form ********************************************/
-/* line 159, ../scss/_forms.scss */
+/* line 160, ../scss/_forms.scss */
 #nurani-profile-wrapper {
-  padding: 30px;
+  padding: 5px 15px;
 }
 /* line 163, ../scss/_forms.scss */
 #nurani-profile-wrapper .field-group-fieldset > legend {
@@ -537,29 +540,55 @@ input.date-clear {
 }
 /* line 165, ../scss/_forms.scss */
 #nurani-profile-wrapper .field-group-fieldset > legend .fieldset-title {
-  font-size: 2.1429em;
+  font-size: 1.2em;
   font-family: palatino;
   font-style: italic;
   text-decoration: none;
   color: #005eae;
 }
-/* line 176, ../scss/_forms.scss */
-#nurani-profile-wrapper #edit-timezone--2, #nurani-profile-wrapper .field-group-fieldset .legend {
+/* line 174, ../scss/_forms.scss */
+#nurani-profile-wrapper #edit-timezone--2,
+#nurani-profile-wrapper .field-group-fieldset .legend {
   width: 450px;
 }
-/* line 179, ../scss/_forms.scss */
+/* line 177, ../scss/_forms.scss */
 #nurani-profile-wrapper .form-actions {
   display: inline;
   margin-right: 10px;
 }
-/* line 183, ../scss/_forms.scss */
+/* line 181, ../scss/_forms.scss */
 #nurani-profile-wrapper .button {
   display: inline;
   text-decoration: none;
 }
 
+/* line 188, ../scss/_forms.scss */
+#user-profile-form fieldset.group-profile {
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+}
+/* line 193, ../scss/_forms.scss */
+#user-profile-form fieldset.group-profile > .fieldset-wrapper {
+  padding: 5px;
+}
+/* line 197, ../scss/_forms.scss */
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-type-datetime {
+  display: inline-block;
+  margin-right: 10px;
+  float: left;
+}
+/* line 202, ../scss/_forms.scss */
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title input.form-text,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name input.form-text,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name input.form-text, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-type-datetime input.form-text {
+  width: 120px;
+}
+
 /******************************************** Contact us form ********************************************/
-/* line 192, ../scss/_forms.scss */
+/* line 214, ../scss/_forms.scss */
 .node-type-webform textarea {
   width: 450px;
 }

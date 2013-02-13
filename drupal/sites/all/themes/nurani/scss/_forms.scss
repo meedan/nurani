@@ -25,9 +25,6 @@ input.form-submit, .button {
   text-transform:uppercase;
 }
 
-.field-group-fieldset, fieldset{
-  border:none;
-}
 
 input.date-clear{
   background: url(../images/calendar.png) no-repeat 154px 1px;
@@ -42,16 +39,17 @@ input.date-clear{
 
 /******************************************** Styling for User account forms ********************************************/
 
-.page-user-register, .page-user, .page-user-password{
-  #content-inner{
-    margin: 0 auto;
-    width:1100px;
+.field-group-fieldset, fieldset{
+    border:none;
   }
-}
 
 .page-user-register{
 
-  label{ font-weight: lighter;}
+  
+
+  label{ 
+    font-weight: lighter;
+  }
 
   .field-type-list-text,.field-type-text, .field-type-datetime,
   #edit-picture, .form-type-textarea, .form-item-mail{
@@ -59,7 +57,9 @@ input.date-clear{
     float:left;
     margin-right:30px;
   }
-  .field-type-datetime{clear:left;}
+  .field-type-datetime{
+    clear:left;
+  }
 
   .field-name-field-title,
   .field-name-field-mobile-phone, 
@@ -67,6 +67,7 @@ input.date-clear{
   .field-name-field-subjects-of-interest{
     clear:both;
   }
+
   .form-item-mail{
     width:425px;
   }
@@ -157,23 +158,20 @@ input.date-clear{
 /******************************************** Nurani profile form ********************************************/
 
 #nurani-profile-wrapper{
-  padding: 30px;
+  padding: 5px 15px;
   .field-group-fieldset{
-   
-  & > legend {
-    margin: 0 auto;
-    .fieldset-title{
-      font-size: 2.1429em;
-       @include bundle-typography-regular;
-       text-decoration:none;
-       color:$nurani-light-blue;
-
+    & > legend {
+      margin: 0 auto;
+      .fieldset-title{
+        font-size: 1.2em;
+         @include bundle-typography-regular;
+         text-decoration:none;
+         color:$nurani-light-blue;
+      }
     }
-
   }
-
-  }
-  #edit-timezone--2, .field-group-fieldset .legend{
+  #edit-timezone--2, 
+  .field-group-fieldset .legend{
     width:450px;
   }
   .form-actions{
@@ -184,6 +182,30 @@ input.date-clear{
     display:inline; 
     text-decoration:none;
   }
+
+}
+#user-profile-form{
+  fieldset.group-profile{
+    padding:0;
+    overflow:hidden;
+    width:100%;
+
+    & > .fieldset-wrapper{
+      padding:5px;
+      .field-name-field-title, 
+      .field-name-field-first-name, 
+      .field-name-field-last-name, .field-type-datetime{
+        display:inline-block;
+        margin-right:10px;
+        float:left;
+
+        input.form-text{
+          width:120px;
+        }
+      }
+    }
+  }
+
 }
 
 /******************************************** Contact us form ********************************************/
