@@ -33,28 +33,29 @@ function theme_nurani_helpers_block_recent_annotations($variables) {
   if (empty($annotations)) {
     $output .= '<div class="empty">' . t("There are no recent annotations") . '</div>';
   }
+  else {
+    foreach ($annotations as $annotation) {
+      $annotation = (array) $annotation;
+      $passage_title = '<strong class="passage-title">' . check_plain($annotation['passage_title']) . '</strong>';
 
-  foreach($annotations as $annotation) {
-    $annotation = (array) $annotation;
-    $passage_title = '<strong class="passage-title">' . check_plain($annotation['passage_title']) . '</strong>';
+      if (isset($annotation['author'])) {
+        $author = user_load($annotation['author']['uid']);
+        $action = t('!author privately annotated !passage_title', array('!author' => theme('username', array('account' => $author)), '!passage_title' => $passage_title));
+      }
+      else if (isset($annotation['author_uuid'])) {
+        $action = t('<em>Unknown author</em> annotated !passage_title', array('!passage_title' => $passage_title));
+      }
+      else {
+        $action = t('!passage_title is annotated with', array('!passage_title' => $passage_title));
+      }
 
-    if (isset($annotation['author'])) {
-      $author = user_load($annotation['author']['uid']);
-      $action = t('!author privately annotated !passage_title', array('!author' => theme('username', array('account' => $author)), '!passage_title' => $passage_title));
+      $output .= '<div class="annotation">';
+      $output .=   $action;
+      $output .=   '<div class="contents">';
+      $output .=   check_plain($annotation['value']);
+      $output .=   '</div>';
+      $output .= '</div>';
     }
-    else if (isset($annotation['author_uuid'])) {
-      $action = t('<em>Unknown author</em> annotated !passage_title', array('!passage_title' => $passage_title));
-    }
-    else {
-      $action = t('!passage_title is annotated with', array('!passage_title' => $passage_title));
-    }
-
-    $output .= '<div class="annotation">';
-    $output .=   $action;
-    $output .=   '<div class="contents">';
-    $output .=   check_plain($annotation['value']);
-    $output .=   '</div>';
-    $output .= '</div>';
   }
 
   $output .= '</div>';

@@ -97,9 +97,6 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
   // Hide the existing node reference widget
   $element['nid']['#type'] = 'hidden';
 
-  // JqueryUI Dialog is required for the pop-up passage picker
-  drupal_add_library('system', 'ui.dialog');
-
   // FIXME: It is really not ideal to add some other module's libraries by force
   //        in this manner. This should be migrated to some sort of loader
   //        function.
@@ -109,24 +106,20 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
   $path = drupal_get_path('module', 'nurani_bundle');
   $pw_path = drupal_get_path('module', 'nurani_passage_widget');
 
-  // Add dependant CSS / JS
-  nurani_library_ui_load();
-  drupal_add_library('nurani_passage_widget', 'nurani.passage-widget');
-
   $element['ui'] = array(
     '#theme' => 'nurani_bundle_ui',
-    '#attached' => array(
-      'css' => array(
-        $path . '/css/nurani_bundle_ui.css',
-      ),
-      'js'  => array(
-        $path . '/js/nurani_bundle_ui.js',
-      ),
-    ),
+    // Add dependant CSS / JS first
+    '#attached' => nurani_library_ui_attached(),
     '#bundle_nid' => $bundle_nid,
     'clone' => nurani_bundle_clone_form($field, $edit['ui']['clone'], $context),
     'passages' => nurani_bundle_passages_form($field, $edit['ui']['passages'], $context),
   );
+
+  // JqueryUI Dialog is required for the pop-up passage picker
+  $element['ui']['#attached']['library'][] = array('system', 'ui.dialog');
+  $element['ui']['#attached']['library'][] = array('nurani_passage_widget', 'nurani.passage-widget');
+  $element['ui']['#attached']['css'][]     = $path . '/css/nurani_bundle_ui.css';
+  $element['ui']['#attached']['js'][]      = $path . '/js/nurani_bundle_ui.js';
 
   // The validation runs before node_reference which enables the UI data to
   // transparently integrate.

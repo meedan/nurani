@@ -145,3 +145,20 @@ function nurani_helpers_form_alter(&$form, &$form_state, $form_id) {
     }
   }
 }
+
+/**
+ * Implements hook_menu_alter().
+ */
+function nurani_helpers_menu_alter(&$items) {
+  $items['admin/config/people/accounts']['access callback'] = 'nurani_helpers_user_admin_access';
+  $items['admin/config/people/realname_registration']['access callback'] = 'nurani_helpers_user_admin_access';
+}
+
+/**
+ * Menu access callback to ensure an account meets the original access
+ * requirement AND is an administrator user.
+ */
+function nurani_helpers_user_admin_access($string, $account = NULL) {
+  $account = $account ? $account : $GLOBALS['user'];
+  return user_access($string, $account) && (in_array('administrator', $account->roles) || $account->uid == 1);
+}

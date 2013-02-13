@@ -1,0 +1,127 @@
+<?php
+
+/**
+ * Creates the example Discussion node.
+ */
+function nurani_example_add_example_discussion() {
+  $admin = user_load(1);
+  $bundle = _nurani_example_add_example_bundle();
+
+  $discussion = (object) array();
+  $discussion->type     = 'discussion';
+  $discussion->uid      = $admin->uid;
+  $discussion->name     = $admin->name;
+  $discussion->title    = 'Example discussion';
+  $discussion->status   = 1;
+  $discussion->language = LANGUAGE_NONE;
+
+  $discussion->field_subtitle = array(
+    LANGUAGE_NONE => array(
+      array(
+        'value' => 'An example Nurani discussion',
+      )
+    )
+  );
+  $discussion->field_discussion_closing_date = array(
+    LANGUAGE_NONE => array(
+      array(
+        'value' => time(), // Discussion closes NOW, to ensure nobody comments on it.
+      )
+    )
+  );
+  $discussion->field_bundle = array(
+    LANGUAGE_NONE => array(
+      array(
+        'nid' => $bundle->nid,
+      )
+    )
+  );
+  $discussion->meedan_discussion_permissions = array(
+    'anonymous'     => MEEDAN_DISCUSSION_PERMISSIONS_READ,
+    'authenticated' => MEEDAN_DISCUSSION_PERMISSIONS_READ,
+    'participant'   => MEEDAN_DISCUSSION_PERMISSIONS_PARTICIPATE
+  );
+
+  node_object_prepare($discussion);
+  $discussion = node_submit($discussion);
+  node_save($discussion);
+
+  variable_set('nurani_example_discussion', $discussion->nid);
+
+  return node_load($discussion->nid);
+}
+
+/**
+ * Creates the example bundle node.
+ */
+function _nurani_example_add_example_bundle() {
+  $admin = user_load(1);
+
+  $bundle = (object) array();
+  $bundle->type     = 'bundle';
+  $bundle->uid      = $admin->uid;
+  $bundle->name     = $admin->name;
+  $bundle->title    = 'Generated bundle title';
+  $bundle->status   = 1;
+  $bundle->language = LANGUAGE_NONE;
+
+  node_object_prepare($bundle);
+  $bundle = node_submit($bundle);
+  node_save($bundle);
+
+  $passages = array(
+    array(
+      'osisIDWork' => 'njps_en',
+      'osisID'     => 'Exod.3.1-8',
+      'notes'      => '',
+      'visible'    => '1',
+    ),
+    array(
+      'osisIDWork' => 'quran_ahmedali_en',
+      'osisID'     => 'Quran.20.9-23',
+      'notes'      => '',
+      'visible'    => '1',
+    ),
+    array(
+      'osisIDWork' => 'nrsv_en',
+      'osisID'     => 'Acts.9.1-9',
+      'notes'      => '',
+      'visible'    => '1',
+    ),
+  );
+
+  foreach ($passages as $passage) {
+    $item = array(
+      'field_name' => 'field_passage_collection',
+    );
+    $entity = entity_create('field_collection_item', $item);
+    $entity->setHostEntity('node', $bundle);
+    $entity->field_passage[$bundle->language][0]['osisIDWork'] = $passage['osisIDWork'];
+    $entity->field_passage[$bundle->language][0]['osisID']     = $passage['osisID'];
+    $entity->field_notes[$bundle->language][0]['value']        = $passage['notes'];
+    $entity->field_visible[$bundle->language][0]['value']      = $passage['visible'];
+    $entity->save();
+  }
+
+  return node_load($bundle->nid);
+}
+
+function nurani_example_remove_example_discussion() {
+  $nid = variable_get('nurani_example_discussion', FALSE);
+
+  if ($nid) {
+    $discussion = node_load($nid);
+
+    if ($discussion) {
+      $bundle = node_load($discussion->field_bundle[LANGUAGE_NONE][0]['nid']);
+
+      if ($bundle) {
+        node_delete($bundle->nid);
+      }
+
+      node_delete($discussion->nid);
+
+      variable_del('nurani_example_discussion');
+    }
+  }
+}

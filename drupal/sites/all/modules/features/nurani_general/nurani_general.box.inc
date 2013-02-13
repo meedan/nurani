@@ -20,10 +20,11 @@ function nurani_general_default_box() {
   $box->options = array(
     'body' => array(
       'value' => '<iframe width="380" height="300" src="http://www.youtube.com/embed/fwb-J4ACYp0" frameborder="0" allowfullscreen></iframe>
-<p> Scriptural Reasoning is a practice of inter-faith reading.  Small groups of Jews, Christians and Muslims, and sometimes people of other faiths, gather to read and reflect on short passages from their scriptures together.  </p>
+<p><?php echo t("Scriptural Reasoning is a practice of inter-faith reading.  Small groups of Jews, Christians and Muslims, and sometimes people of other faiths, gather to read and reflect on short passages from their scriptures together."); ?></p>
 
-<a  class ="welcome-link" href="#">View example Discussion</a>',
-      'format' => 'full_html',
+<?php echo l(t("View example Discussion"), \'node/\' . variable_get(\'nurani_example_discussion\', \'not-found\'), array(\'attributes\' => array(\'class\' => array(\'welcome-link\')))); ?>
+',
+      'format' => 'php_code',
     ),
     'additional_classes' => '',
   );
