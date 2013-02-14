@@ -30,8 +30,8 @@ input.date-clear{
   background: url(../images/calendar.png) no-repeat 154px 1px;
 }
 
-.field-type-datetime, #edit-picture{
-  legend{
+.form-type-date-popup, #edit-picture{
+  label{
     display:none;
   }
 }
@@ -85,9 +85,13 @@ input.date-clear{
 
   #field-date-of-birth-add-more-wrapper{
     margin-left:-16px;
+    margin-top:20px;
   }
   
-
+  .date-no-float {
+    margin-top:-16px;
+    margin-left:-11px;
+  }
    .field-group-fieldset, #edit-legal{
      & > legend{
        text-align:center;
@@ -111,16 +115,27 @@ input.date-clear{
   .form-type-textarea label{
     width:466px;
   }
- #edit-legal .fieldset-wrapper{
-   overflow-y:auto;
-   height:400px;
 
-   .form-item-legal-accept{
-    position:absolute;
-    top:2093px;
-   }
+  #edit-legal{
+    position:relative;
 
- }
+    div.fieldset-wrapper{
+      overflow-y:auto;
+      height:400px;
+      padding-bottom:2em;
+  
+      div.form-item-legal-accept{
+        position :absolute; 
+        bottom :0;
+        top:30em;
+        width:100%;
+        padding: 0; 
+        margin: 0;
+        height: 2em;
+      }
+    }
+  }
+ 
 
   input#edit-field-post-code-und-0-value{ 
     width:250px;
@@ -135,6 +150,9 @@ input.date-clear{
   input#edit-field-landline-phone-und-0-value{
     width:435px;
   }
+  .form-item-files-picture-upload{
+    margin-top:-7px;
+  }
   input#edit-field-first-name-und-0-value,  
   input#edit-field-last-name-und-0-value{
     width:400px;
@@ -147,6 +165,10 @@ input.date-clear{
   input#edit-picture-upload{
     width:200px;
   }
+  #edit-picture{
+    margin-top:15px;
+  }
+
 
   input.form-submit{
     margin-left:12px;
