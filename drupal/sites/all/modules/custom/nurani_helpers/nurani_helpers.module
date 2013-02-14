@@ -143,8 +143,23 @@ function nurani_helpers_form_alter(&$form, &$form_state, $form_id) {
       drupal_access_denied();
       drupal_exit();
     }
+
+    // Ensure that user's without the correct permissions cannot change their
+    // first and last name (hence their username)
+    if (!user_access('change own username') && !user_access('administer users')) {
+      foreach (array('field_first_name', 'field_last_name') as $name) {
+        $field = &$form[$name]['und'][0]['value'];
+        $field['#type'] = 'value';
+        $field['readonly'] = array(
+          '#type' => 'item',
+          '#title' => $field['#title'],
+          '#markup' => check_plain($field['#default_value']),
+        );
+      }
+    }
   }
   if ($form_id == 'user_register_form') {
+    // Ensure all fieldsets are open on the registration page
     $form['#groups']['group_details']->format_settings['formatter'] = 'open';
     $form['#groups']['group_profile']->format_settings['formatter'] = 'open';
     $form['#groups']['group_additional_details']->format_settings['formatter'] = 'open';
