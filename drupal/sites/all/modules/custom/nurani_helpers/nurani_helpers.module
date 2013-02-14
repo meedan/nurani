@@ -3,6 +3,31 @@
 require_once dirname(__FILE__) . '/nurani_helpers.inc';
 
 /**
+ * Implements hook_cron().
+ */
+function nurani_helpers_cron() {
+  $pic_path     = str_replace('public://', '', variable_get('user_picture_default', 'public://pictures/avatar.png'));
+  $files_path   = variable_get('file_public_path', conf_path() . '/files');
+  $pic_filepath = $files_path . '/' . $pic_path;
+
+  if (!is_dir($files_path) && !is_writable($files_path)) {
+    return;
+  }
+
+  $default_pic_filepath = drupal_get_path('theme', 'nurani') . '/images/avatar.png';
+  if (!file_exists($default_pic_filepath)) {
+    watchdog('nurani_helpers', "Failed to update default profile. Could not locate template default image at %defaultpath", array('%defaultpath' => $default_pic_filepath));
+    return;
+  }
+
+  if (!file_exists($pic_filepath) || filesize($pic_filepath) != filesize($default_pic_filepath)) {
+    if (copy($default_pic_filepath, $pic_filepath) !== TRUE) {
+      watchdog('nurani_helpers', "Failed to update default profile pic %filepath using template default image %defaultpath", array('%filepath' => $pic_filepath, '%defaultpath' => $default_pic_filepath));
+    }
+  }
+}
+
+/**
  * Implements hook_theme().
  */
 function nurani_helpers_theme($existing, $type, $theme, $path) {
