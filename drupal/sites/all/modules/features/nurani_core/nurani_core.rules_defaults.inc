@@ -63,7 +63,7 @@ function nurani_core_default_rules_configuration() {
             "object" : [ "comment" ],
             "event" : "comment",
             "subject" : "[comment:author:name] has just responded on [comment:node:title] on [site:name]",
-            "message" : "Dear [recipient:name],\\r\\n\\r\\n[comment:author:name] has just posted a new response to [site:name] on [comment:node:title]. \\r\\n\\r\\nyou can be the first to reply here: [comment:node:url]\\r\\n\\r\\nwe look forward to hearing what you have to say.\\r\\n\\r\\nThanks,\\r\\nThe [site:name] team.\\r\\n",
+            "message" : "Dear [recipient:name],\\r\\n\\r\\n[comment:author:name] has just posted a new response to [site:name] on [comment:node:title]. \\r\\n\\r\\nyou can be the first to reply here: [comment:node:url]#comment-[comment:cid]\\r\\n\\r\\nwe look forward to hearing what you have to say.\\r\\n\\r\\nThanks,\\r\\nThe [site:name] team.",
             "actor" : "[comment:author:uid]"
           }
         }
