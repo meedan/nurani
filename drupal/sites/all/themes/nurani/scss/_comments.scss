@@ -10,7 +10,7 @@
     }
   }
   .content{    	
-    margin-left:4em;
+   
     color:$nurani-text-gray;
     .attribution{ 
       float:right;
@@ -19,7 +19,7 @@
   }
 
   .links{
-    margin-left:1.5em; 
+   
     margin-top:1em;
     a{
       @include nurani-button($nurani-light-blue);
