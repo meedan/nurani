@@ -40,12 +40,9 @@ h1, h2 {
 p {
   font-size: 1em;
   /* 14px */
-  line-height: 1.8571em;
-  /* 26px */
-  /*margin: 0 0 1.8571em 0;*/
 }
 
-/* line 42, ../scss/_typography.scss */
+/* line 41, ../scss/_typography.scss */
 h1 {
   font-size: 2.4286em;
   /* 34px */
@@ -56,9 +53,9 @@ h1 {
   font-weight: bold;
 }
 
-/* line 50, ../scss/_typography.scss */
+/* line 49, ../scss/_typography.scss */
 h2 {
-  font-size: 2.1429em;
+  font-size: 1.3em;
   /* 30px */
   line-height: 0.7333em;
   /* 52px */
@@ -66,15 +63,15 @@ h2 {
   font-weight: normal;
 }
 
-/* line 58, ../scss/_typography.scss */
+/* line 57, ../scss/_typography.scss */
 h3 {
-  font-size: 1.28571em;
+  font-size: 1.3em;
   line-height: 1.4444em;
   margin-top: 1.4444em;
   margin-bottom: 0em;
 }
 
-/* line 65, ../scss/_typography.scss */
+/* line 64, ../scss/_typography.scss */
 h4 {
   font-size: 1em;
   font-weight: normal;
@@ -82,18 +79,18 @@ h4 {
   margin-bottom: 1.5em;
 }
 
-/* line 72, ../scss/_typography.scss */
+/* line 71, ../scss/_typography.scss */
 ul, ul li {
   list-style-type: disc;
   list-style: none;
 }
 
-/* line 76, ../scss/_typography.scss */
+/* line 75, ../scss/_typography.scss */
 ol, ol li {
   list-style: decimal;
 }
 
-/* line 79, ../scss/_typography.scss */
+/* line 78, ../scss/_typography.scss */
 sup {
   font-size: xx-small;
   vertical-align: super;
@@ -211,7 +208,6 @@ sup {
 }
 /* line 12, ../scss/_comments.scss */
 .comment-inner .content {
-  margin-left: 4em;
   color: #4a4a4a;
 }
 /* line 15, ../scss/_comments.scss */
@@ -226,7 +222,6 @@ sup {
 }
 /* line 21, ../scss/_comments.scss */
 .comment-inner .links {
-  margin-left: 1.5em;
   margin-top: 1em;
 }
 /* line 24, ../scss/_comments.scss */
@@ -561,15 +556,15 @@ input.date-clear {
 
 /******************************************** Nurani profile form ********************************************/
 /* line 182, ../scss/_forms.scss */
-#nurani-profile-wrapper {
+.profile {
   padding: 5px 15px;
 }
 /* line 185, ../scss/_forms.scss */
-#nurani-profile-wrapper .field-group-fieldset > legend {
+.profile .field-group-fieldset > legend {
   margin: 0 auto;
 }
 /* line 187, ../scss/_forms.scss */
-#nurani-profile-wrapper .field-group-fieldset > legend .fieldset-title {
+.profile .field-group-fieldset > legend .fieldset-title {
   font-size: 1.2em;
   font-family: palatino;
   font-style: italic;
@@ -577,17 +572,17 @@ input.date-clear {
   color: #005eae;
 }
 /* line 196, ../scss/_forms.scss */
-#nurani-profile-wrapper #edit-timezone--2,
-#nurani-profile-wrapper .field-group-fieldset .legend {
+.profile #edit-timezone--2,
+.profile .field-group-fieldset .legend {
   width: 450px;
 }
 /* line 199, ../scss/_forms.scss */
-#nurani-profile-wrapper .form-actions {
+.profile .form-actions {
   display: inline;
   margin-right: 10px;
 }
 /* line 203, ../scss/_forms.scss */
-#nurani-profile-wrapper .button {
+.profile .button {
   display: block;
   text-decoration: none;
   width: 88px;
@@ -840,7 +835,7 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani {
 }
 /* line 34, ../scss/pages/_page-front.scss */
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani iframe {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   width: 100%;
 }
 /* line 39, ../scss/pages/_page-front.scss */
@@ -972,7 +967,6 @@ body.front .panel-2col h2 {
 /* line 67, ../scss/pages/_page-front.scss */
 body.front .panel-2col h3 {
   margin-bottom: 1em;
-  white-space: nowrap;
   display: inline;
 }
 /* line 71, ../scss/pages/_page-front.scss */
@@ -983,23 +977,29 @@ body.front .panel-2col h3 a {
   text-decoration: none;
   font-weight: lighter;
 }
-/* line 83, ../scss/pages/_page-front.scss */
+/* line 76, ../scss/pages/_page-front.scss */
+body.front .panel-2col h3 a:hover {
+  color: #005eae;
+  text-decoration: underline;
+}
+/* line 87, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-first {
   width: 54.28571%;
   float: left;
   margin-right: 2.85714%;
   display: inline;
 }
-/* line 86, ../scss/pages/_page-front.scss */
+/* line 90, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-first .view-id-nurani_discussions > .view-content > .views-row {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #4c1313;
-  height: 27em;
+  float: left;
+  padding: 0 2em 2em 2em;
 }
-/* line 91, ../scss/pages/_page-front.scss */
+/* line 96, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-first .view-id-nurani_discussions .view-empty {
   background-color: #fff;
   margin-bottom: 25px;
@@ -1008,7 +1008,7 @@ body.front .panel-2col .panel-col-first .view-id-nurani_discussions .view-empty 
   border-top-color: #4c1313;
   padding: 35px;
 }
-/* line 99, ../scss/pages/_page-front.scss */
+/* line 104, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last {
   width: 42.85714%;
   float: right;
@@ -1016,20 +1016,16 @@ body.front .panel-2col .panel-col-last {
   #margin-left: -30px;
   display: inline;
 }
-/* line 101, ../scss/pages/_page-front.scss */
+/* line 106, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last .pane-content {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #005eae;
+  padding: 0 2em 2em 2em;
 }
-/* line 108, ../scss/pages/_page-front.scss */
-body.front .view-nurani-discussions > .view-content .views-row {
-  clear: left;
-  padding: 10px;
-}
-/* line 112, ../scss/pages/_page-front.scss */
+/* line 115, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle {
   width: 57.89474%;
   float: left;
@@ -1037,13 +1033,13 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-fiel
   display: inline;
   margin-top: 2em;
 }
-/* line 116, ../scss/pages/_page-front.scss */
+/* line 119, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle span.passage {
   display: inline-block;
   padding-right: 1em;
   font-weight: bold;
 }
-/* line 123, ../scss/pages/_page-front.scss */
+/* line 126, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments, body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
   width: 36.84211%;
   float: right;
@@ -1051,11 +1047,11 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
   #margin-left: -30px;
   display: inline;
 }
-/* line 127, ../scss/pages/_page-front.scss */
+/* line 130, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments {
   clear: both;
 }
-/* line 131, ../scss/pages/_page-front.scss */
+/* line 134, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a {
   font-size: 12px;
   padding: 0.5em 1.5em;
@@ -1107,33 +1103,34 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:hover {
   color: #fff;
 }
-/* line 138, ../scss/pages/_page-front.scss */
+/* line 141, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants {
   margin-top: 23px;
 }
-/* line 140, ../scss/pages/_page-front.scss */
+/* line 143, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
   display: inline-block;
   margin-right: -20px;
+  padding: 10px;
 }
-/* line 151, ../scss/pages/_page-front.scss */
+/* line 155, ../scss/pages/_page-front.scss */
 body.front .annotations .annotation {
   background-color: #fff;
   margin-bottom: 25px;
   margin-bottom: 2px;
   padding: 10px 25px;
 }
-/* line 156, ../scss/pages/_page-front.scss */
+/* line 160, ../scss/pages/_page-front.scss */
 body.front .annotations .annotation em {
   font-weight: bold;
 }
-/* line 160, ../scss/pages/_page-front.scss */
+/* line 164, ../scss/pages/_page-front.scss */
 body.front .annotations .annotation .contents {
   max-height: 75px;
   overflow: hidden;
   margin: 10px 0;
 }
-/* line 165, ../scss/pages/_page-front.scss */
+/* line 169, ../scss/pages/_page-front.scss */
 body.front .annotations .annotation .contents:hover {
   transition: height 2s;
   max-height: 100%;
