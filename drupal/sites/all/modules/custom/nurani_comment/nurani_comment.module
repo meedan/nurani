@@ -137,6 +137,8 @@ function nurani_comment_form_comment_form_alter(&$form, &$form_state) {
     '#markup' => t("<strong>Tip:</strong> Brief responses are encouraged."),
   );
 
+  $form['actions']['submit']['#value'] = t('Submit');
+
   // Alter the ajax_comments module settings a little to better fit into the
   // Discussions page display
   $form['actions']['submit']['#ajax']['callback'] = 'nurani_comment_submit_js';
