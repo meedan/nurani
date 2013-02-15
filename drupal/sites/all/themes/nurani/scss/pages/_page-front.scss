@@ -89,7 +89,8 @@ h2{ margin-bottom:1em;}
       .view-id-nurani_discussions {
         & > .view-content > .views-row{
           @include white-background-bordered-top($nurani-burgundy, top, 5px);
-          height: 27em;
+          float:left;
+          padding:0 2em 2em 2em;
         }
 
         & .view-empty{
@@ -104,15 +105,13 @@ h2{ margin-bottom:1em;}
     @include span-columns(8 omega,18);
     .pane-content{
       @include white-background-bordered-top($nurani-light-blue, top, 5px); 
+      padding:0 2em 2em 2em;
     }
   }
 }  
 
 .view-nurani-discussions{
   & > .view-content .views-row{
-    clear:left;
-    padding:10px;
-
     .views-field-field-bundle{
       @include span-columns(6,10);
       margin-top:2em;
@@ -144,6 +143,7 @@ h2{ margin-bottom:1em;}
     & > .view-content .views-row{
       display: inline-block;
       margin-right: -20px;
+      padding:10px;
     }
   }
   
