@@ -81,15 +81,14 @@ h2{ margin-bottom:1em;}
     }
   }
 
- 
-
-  /* This styles the discussion block*/
+  
+/* This styles the discussion block*/
   .panel-col-first{
     @include span-columns(10,18);
       .view-id-nurani_discussions {
         & > .view-content > .views-row{
           @include white-background-bordered-top($nurani-burgundy, top, 5px);
-          float:left;
+          overflow:hidden;
           padding:0 2em 2em 2em;
         }
 
@@ -123,13 +122,15 @@ h2{ margin-bottom:1em;}
       }
     }
 
-    .views-field-nothing, .views-field-new-comments, .views-field-view{ 
+    .views-field-nothing, .views-field-new-comments,.views-field-view{ 
       @include span-columns(4 omega,10);
     }
 
-    .views-field-nothing, .views-field-new-comments{
+    .views-field-new-comments,.views-field-nothing{
       clear:both;
     }
+
+   
    
     .views-field-nothing a, .views-field-new-comments a {
       @include a-link-as-button($nurani-light-blue);

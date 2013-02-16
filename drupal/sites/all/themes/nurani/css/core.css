@@ -982,24 +982,24 @@ body.front .panel-2col h3 a:hover {
   color: #005eae;
   text-decoration: underline;
 }
-/* line 87, ../scss/pages/_page-front.scss */
+/* line 86, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-first {
   width: 54.28571%;
   float: left;
   margin-right: 2.85714%;
   display: inline;
 }
-/* line 90, ../scss/pages/_page-front.scss */
+/* line 89, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-first .view-id-nurani_discussions > .view-content > .views-row {
   background-color: #fff;
   margin-bottom: 25px;
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #4c1313;
-  float: left;
+  overflow: hidden;
   padding: 0 2em 2em 2em;
 }
-/* line 96, ../scss/pages/_page-front.scss */
+/* line 95, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-first .view-id-nurani_discussions .view-empty {
   background-color: #fff;
   margin-bottom: 25px;
@@ -1008,7 +1008,7 @@ body.front .panel-2col .panel-col-first .view-id-nurani_discussions .view-empty 
   border-top-color: #4c1313;
   padding: 35px;
 }
-/* line 104, ../scss/pages/_page-front.scss */
+/* line 103, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last {
   width: 42.85714%;
   float: right;
@@ -1016,7 +1016,7 @@ body.front .panel-2col .panel-col-last {
   #margin-left: -30px;
   display: inline;
 }
-/* line 106, ../scss/pages/_page-front.scss */
+/* line 105, ../scss/pages/_page-front.scss */
 body.front .panel-2col .panel-col-last .pane-content {
   background-color: #fff;
   margin-bottom: 25px;
@@ -1025,7 +1025,7 @@ body.front .panel-2col .panel-col-last .pane-content {
   border-top-color: #005eae;
   padding: 0 2em 2em 2em;
 }
-/* line 115, ../scss/pages/_page-front.scss */
+/* line 114, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle {
   width: 57.89474%;
   float: left;
@@ -1033,13 +1033,13 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-fiel
   display: inline;
   margin-top: 2em;
 }
-/* line 119, ../scss/pages/_page-front.scss */
+/* line 118, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle span.passage {
   display: inline-block;
   padding-right: 1em;
   font-weight: bold;
 }
-/* line 126, ../scss/pages/_page-front.scss */
+/* line 125, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments, body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
   width: 36.84211%;
   float: right;
@@ -1047,11 +1047,11 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
   #margin-left: -30px;
   display: inline;
 }
-/* line 130, ../scss/pages/_page-front.scss */
-body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments {
+/* line 129, ../scss/pages/_page-front.scss */
+body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments, body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing {
   clear: both;
 }
-/* line 134, ../scss/pages/_page-front.scss */
+/* line 135, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a {
   font-size: 12px;
   padding: 0.5em 1.5em;
@@ -1103,34 +1103,34 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:hover {
   color: #fff;
 }
-/* line 141, ../scss/pages/_page-front.scss */
+/* line 142, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants {
   margin-top: 23px;
 }
-/* line 143, ../scss/pages/_page-front.scss */
+/* line 144, ../scss/pages/_page-front.scss */
 body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
   display: inline-block;
   margin-right: -20px;
   padding: 10px;
 }
-/* line 155, ../scss/pages/_page-front.scss */
+/* line 156, ../scss/pages/_page-front.scss */
 body.front .annotations .annotation {
   background-color: #fff;
   margin-bottom: 25px;
   margin-bottom: 2px;
   padding: 10px 25px;
 }
-/* line 160, ../scss/pages/_page-front.scss */
+/* line 161, ../scss/pages/_page-front.scss */
 body.front .annotations .annotation em {
   font-weight: bold;
 }
-/* line 164, ../scss/pages/_page-front.scss */
+/* line 165, ../scss/pages/_page-front.scss */
 body.front .annotations .annotation .contents {
   max-height: 75px;
   overflow: hidden;
   margin: 10px 0;
 }
-/* line 169, ../scss/pages/_page-front.scss */
+/* line 170, ../scss/pages/_page-front.scss */
 body.front .annotations .annotation .contents:hover {
   transition: height 2s;
   max-height: 100%;
