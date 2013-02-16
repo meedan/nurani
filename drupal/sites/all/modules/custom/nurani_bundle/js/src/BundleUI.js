@@ -58,6 +58,8 @@ BundleUI.prototype.loadState = function (data, set_message) {
     this.passageBoxes[i].loadState(data[i] || {})
   }
 
+  this.passageBoxStateDidChange(null, true);
+
   if (data.length > this.passageBoxes.length) {
     log('Error, attempting to load more data than is possible with ' + this.passageBoxes.length + ' passage boxes.');
   }

@@ -129,7 +129,7 @@ PassageBox.prototype.render = function (animated) {
 
 PassageBox.prototype.updatePassageWidget = function () {
   var that = this,
-      url = PassageWidget.oEmbedURL(this.$osisIDWork.val(), this.$osisID.val(), null, 'jsonp', '?');
+      url = NL.PassageWidget.oEmbedURL(this.$osisIDWork.val(), this.$osisID.val(), null, 'jsonp', '?');
 
   $.ajax({
     url: url,

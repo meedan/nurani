@@ -332,7 +332,7 @@
 
   PassageBox.prototype.updatePassageWidget = function () {
     var that = this,
-        url = PassageWidget.oEmbedURL(this.$osisIDWork.val(), this.$osisID.val(), null, 'jsonp', '?');
+        url = NL.PassageWidget.oEmbedURL(this.$osisIDWork.val(), this.$osisID.val(), null, 'jsonp', '?');
 
     $.ajax({
       url: url,
@@ -434,6 +434,8 @@
     for (i = 0; i < len; i++) {
       this.passageBoxes[i].loadState(data[i] || {})
     }
+
+    this.passageBoxStateDidChange(null, true);
 
     if (data.length > this.passageBoxes.length) {
       log('Error, attempting to load more data than is possible with ' + this.passageBoxes.length + ' passage boxes.');

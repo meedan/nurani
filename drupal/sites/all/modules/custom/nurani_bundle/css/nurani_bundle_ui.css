@@ -91,16 +91,16 @@
 
 /* line 92, scss/nurani_bundle_ui.scss */
 .clone-bundle {
-  background: #ffee66;
+  background: #bbddff;
 }
 
 /* line 95, scss/nurani_bundle_ui.scss */
 .passage-text {
   background: #fff;
-  border: 3px dahed #CCC6C2;
+  border: 3px dahed #ccc6c2;
 }
 /* line 99, scss/nurani_bundle_ui.scss */
 .passage-text.empty {
-  border: 3px dashed #CCC6C2;
+  border: 3px dashed #ccc6c2;
   border-radius: 1em;
 }
