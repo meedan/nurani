@@ -1,12 +1,13 @@
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
-@import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/forms";
-@import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/variables";
-@import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/boxes";
-@import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/bundle";
-@import "/Applications/mamp/htdocs/meedan-nurani/drupal/sites/all/themes/nurani/scss/helpers/links";
-
-
+@import "sassy-buttons";
+@import "../../../../../themes/nurani/scss/helpers/nurani-button";
+@import "../../../../../themes/nurani/scss/helpers/links";
+@import "../../../../../themes/nurani/scss/helpers/boxes";
+@import "../../../../../themes/nurani/scss/helpers/bundle";
+@import "../../../../../themes/nurani/scss/variables";
+@import "../../../../../themes/nurani/scss/typography";
+@import "../../../../../themes/nurani/scss/forms";
 
 /**** Styling Node discussion Forms ****/
 .node-discussion-form{
@@ -43,10 +44,11 @@
     width: 280px;
     background: #ddd;
   }
+ 
 
   .form-text{
     @include form-field;
-    height:30px;
+    height:22px;
   }
 
 }
