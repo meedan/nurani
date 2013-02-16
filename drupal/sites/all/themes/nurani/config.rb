@@ -1,5 +1,5 @@
 
-load "../../bowerbird/framework";
+load "../bowerbird/framework";
 require "susy"
 require "sassy-buttons"
 require "breakpoint"
