@@ -310,7 +310,7 @@ function nurani_bundle_ui_element_after_build($element, &$form_state) {
 
   $langcode   = $element['#language'];
   $delta      = $element['#delta'];
-  $bundle_nid = $form_state['values']['field_bundle'][$langcode][$delta]['nid'];
+  $bundle_nid = $form_state['complete form']['field_bundle'][$langcode][$delta]['nid']['#default_value'];
   $input      = isset($_POST) ? $_POST : array();
 
   $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $input);
@@ -324,7 +324,7 @@ function nurani_bundle_ui_element_after_build($element, &$form_state) {
     $element['passages'][$pc_delta]['osisIDWork']['#value'] = $pc_value['osisIDWork'];
     $element['passages'][$pc_delta]['osisID']['#value'] = $pc_value['osisID'];
     $element['passages'][$pc_delta]['notes']['#value'] = $pc_value['notes'];
-    $element['passages'][$pc_delta]['visible']['#value'] = $pc_value['visible'];
+    $element['passages'][$pc_delta]['visible']['#checked'] = (boolean) $pc_value['visible'];
   }
 
   return $element;
@@ -426,10 +426,10 @@ function nurani_bundle_node_submit($node, $form, $form_state) {
 
     $entity = entity_load_single('field_collection_item', $passages_collection[$langcode][$pc_delta]['value']);
 
-    $entity->field_passage[$langcode][0]['osisIDWork']         = $pc_value['osisIDWork'];
-    $entity->field_passage[$langcode][0]['osisID']             = $pc_value['osisID'];
-    $entity->field_notes[$langcode][0]['value'] = $pc_value['notes'];
-    $entity->field_visible[$langcode][0]['value']              = $pc_value['visible'];
+    $entity->field_passage[$langcode][0]['osisIDWork'] = $pc_value['osisIDWork'];
+    $entity->field_passage[$langcode][0]['osisID']     = $pc_value['osisID'];
+    $entity->field_notes[$langcode][0]['value']        = $pc_value['notes'];
+    $entity->field_visible[$langcode][0]['value']      = $pc_value['visible'];
     // We don't use ->save(TRUE) here because it is important for the host
     // entity (the $bundle_node) to be updated in this case. This will cause
     // hook_node_presave() to fire which will update the bundle title.
@@ -664,10 +664,10 @@ function nurani_bundle_field_formatter_view($entity_type, $entity, $field, $inst
       foreach ($items as $delta => $item) {
         if ($item_entity = field_collection_field_get_entity($item)) {
           $data = array(
-            'osisIDWork'           => $item_entity->field_passage[$entity->language][0]['osisIDWork'],
-            'osisID'               => $item_entity->field_passage[$entity->language][0]['osisID'],
-            'notes' => $item_entity->field_notes[$entity->language][0]['value'],
-            'visible'              => $item_entity->field_visible[$entity->language][0]['value'],
+            'osisIDWork' => $item_entity->field_passage[$entity->language][0]['osisIDWork'],
+            'osisID'     => $item_entity->field_passage[$entity->language][0]['osisID'],
+            'notes'      => $item_entity->field_notes[$entity->language][0]['value'],
+            'visible'    => $item_entity->field_visible[$entity->language][0]['value'],
           );
 
           if ($data['visible']) {
