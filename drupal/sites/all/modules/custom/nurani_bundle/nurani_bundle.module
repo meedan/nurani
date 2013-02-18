@@ -92,14 +92,8 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
     return;
   }
 
-  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['input']);
-
   // Hide the existing node reference widget
   $element['nid']['#type'] = 'hidden';
-
-  // FIXME: It is really not ideal to add some other module's libraries by force
-  //        in this manner. This should be migrated to some sort of loader
-  //        function.
 
   // Add the custom bundle UI and connections to the nurani library UI for the
   // passage picker
@@ -107,12 +101,14 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
   $pw_path = drupal_get_path('module', 'nurani_passage_widget');
 
   $element['ui'] = array(
+    '#delta' => $delta,
+    '#language' => $langcode,
     '#theme' => 'nurani_bundle_ui',
     // Add dependant CSS / JS first
     '#attached' => nurani_library_ui_attached(),
     '#bundle_nid' => $bundle_nid,
-    'clone' => nurani_bundle_clone_form($field, $edit['ui']['clone'], $context),
-    'passages' => nurani_bundle_passages_form($field, $edit['ui']['passages'], $context),
+    'clone' => nurani_bundle_clone_form($field, $edit['ui']['clone']),
+    'passages' => nurani_bundle_passages_form($field, $edit['ui']['passages']),
   );
 
   // JqueryUI Dialog is required for the pop-up passage picker
@@ -124,12 +120,16 @@ function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$contex
   // The validation runs before node_reference which enables the UI data to
   // transparently integrate.
   array_unshift($element['nid']['#element_validate'], 'nurani_bundle_ui_element_validate');
+  // #after_build is used to attach the input onto the form. This seems to be
+  // required because our 'ui' element is not defined in hook_elements.
+  // @see form_builder() in form.inc for more detailed information.
+  $element['ui']['#after_build'] = array('nurani_bundle_ui_element_after_build');
 }
 
 /**
  * Form elements for the clone <select>.
  */
-function nurani_bundle_clone_form($field, &$edit, $context) {
+function nurani_bundle_clone_form($field, &$edit) {
   $element = array();
   $discussion_bundle_options = node_reference_options_list($field);
   foreach ($discussion_bundle_options as $nid => $value) {
@@ -161,7 +161,7 @@ function nurani_bundle_clone_form($field, &$edit, $context) {
 /**
  * Form elements for the passages fields.
  */
-function nurani_bundle_passages_form($field, &$edit, $context) {
+function nurani_bundle_passages_form($field, &$edit) {
   $element = array();
   $element['#tree'] = TRUE;
 
@@ -303,6 +303,34 @@ function _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_
 }
 
 /**
+ * Form after build callback for Nurani Bundle UI.
+ */
+function nurani_bundle_ui_element_after_build($element, &$form_state) {
+  $node = $form_state['node'];
+
+  $langcode   = $element['#language'];
+  $delta      = $element['#delta'];
+  $bundle_nid = $form_state['values']['field_bundle'][$langcode][$delta]['nid'];
+  $input      = isset($_POST) ? $_POST : array();
+
+  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $input);
+
+  foreach ($edit['ui']['passages'] as $pc_delta => $pc_value) {
+    form_set_value($element['passages'][$pc_delta]['osisIDWork'], $pc_value['osisIDWork'], $form_state);
+    form_set_value($element['passages'][$pc_delta]['osisID'], $pc_value['osisID'], $form_state);
+    form_set_value($element['passages'][$pc_delta]['notes'], $pc_value['notes'], $form_state);
+    form_set_value($element['passages'][$pc_delta]['visible'], $pc_value['visible'], $form_state);
+
+    $element['passages'][$pc_delta]['osisIDWork']['#value'] = $pc_value['osisIDWork'];
+    $element['passages'][$pc_delta]['osisID']['#value'] = $pc_value['osisID'];
+    $element['passages'][$pc_delta]['notes']['#value'] = $pc_value['notes'];
+    $element['passages'][$pc_delta]['visible']['#value'] = $pc_value['visible'];
+  }
+
+  return $element;
+}
+
+/**
  * Form validation for Nurani Bundle UI.
  */
 function nurani_bundle_ui_element_validate($element, &$form_state, $form) {
@@ -315,16 +343,13 @@ function nurani_bundle_ui_element_validate($element, &$form_state, $form) {
 
   $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['input']);
 
-  $name_prefix = 'field_bundle[' . $langcode . '][' . $delta . '][ui][passages][';
-  foreach ($edit['ui']['passages'] as $pc_delta => $pc_value) {
-    // Validate that the first passage is set
-    if ($pc_delta == 0) {
-      if (trim($pc_value['osisIDWork']) == '' || trim($pc_value['osisID']) == '') {
-        form_set_error($name_prefix . $delta .']', t('First passage must be set.'));
-      }
-    }
+  $name_prefix = 'field_bundle[' . $langcode . '][' . $delta . '][ui][passages]';
+  $no_passages_set = TRUE;
 
+  foreach ($edit['ui']['passages'] as $pc_delta => $pc_value) {
     if (trim($pc_value['osisIDWork']) != '' && trim($pc_value['osisID']) != '') {
+      $no_passages_set = FALSE;
+
       // Each set passage must have a valid osisID and osisIDWork
       $result = _nurani_bundle_validate_osisid($pc_value['osisIDWork'], $pc_value['osisID']);
       if (is_array($result)) {
@@ -340,6 +365,10 @@ function nurani_bundle_ui_element_validate($element, &$form_state, $form) {
         }
       }
     }
+  }
+
+  if ($no_passages_set) {
+    form_set_error($name_prefix, t('At least one passage must be set.'));
   }
 }
 
