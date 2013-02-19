@@ -1,7 +1,5 @@
 <?php
 
-require_once dirname(__FILE__) . '/nurani_comment.inc';
-
 /**
  * Implements hook_theme().
  */
@@ -55,6 +53,12 @@ function nurani_comment_order_map($nid) {
   }
 
   return $maps[$nid];
+}
+
+function nurani_comment_next_response_number($nid) {
+  $map = nurani_comment_order_map($nid);
+  sort($map);
+  return end($map) + 1;
 }
 
 /**
@@ -123,7 +127,7 @@ function nurani_comment_form_comment_form_alter(&$form, &$form_state) {
     '#type'   => 'markup',
     '#markup' => theme('user_picture', array('account' => $user)),
   );
-  $number = nurani_comment_next_response_number($node);
+  $number = nurani_comment_next_response_number($node->nid);
   $form['info']['response_number'] = array(
     '#type'   => 'markup',
     '#markup' => t("Response @number", array('@number' => $number)),
