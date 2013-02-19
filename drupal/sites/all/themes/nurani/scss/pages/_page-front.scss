@@ -81,6 +81,15 @@ h2{ margin-bottom:1em;}
     }
   }
 
+ 
+ //  .view-id-nurani_discussions{
+ //    & > .view-content > .views-row:after {
+ //       content: "";
+ //       display: table;
+ //       clear: both;  
+ //    }
+ // }
+
   
 /* This styles the discussion block*/
   .panel-col-first{
@@ -89,9 +98,10 @@ h2{ margin-bottom:1em;}
         & > .view-content > .views-row{
           @include white-background-bordered-top($nurani-burgundy, top, 5px);
           overflow:hidden;
-          padding:0 2em 2em 2em;
+          padding:0 4em 2em 2em;
         }
 
+       
         & .view-empty{
           @include white-background-bordered-top($nurani-burgundy, top, 5px);
           padding:35px;

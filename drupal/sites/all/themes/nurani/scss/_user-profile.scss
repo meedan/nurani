@@ -18,12 +18,33 @@
     margin-bottom: 1em;
   }
 
-  .profile{
 
-    .group-profile legend span{ 
-      font-size:1.2em;
-      @include bundle-typography-regular;
-    }
+  .button{
+    display:block; 
+    text-decoration:none;
+    width:100px;
+    margin: 0 auto;
+    text-align:center;
+  }
+
+}
+
+ .profile{
+    padding: 5px 15px;
+  
+    .group-profile, .group-details, .group-additional-details{
+
+      & > legend{
+       margin: 0 auto;
+      }
+
+      span.fieldset-legend, .fieldset-title{ 
+        // font-size:1.2em;
+        @include bundle-typography-regular;
+        text-decoration:none;
+        color:$nurani-light-blue;
+      }
+    } 
 
     .group-profile{
       padding:0;
@@ -35,10 +56,6 @@
       margin: 2em 0 -3em;
     }
 
-    .field-group-fieldset .legend , legend span{
-      color:$nurani-light-blue;
-    }
-
     .field-name-field-title, .field-name-field-first-name{ 
       display: inline;
       float: left;
@@ -47,10 +64,10 @@
 
     .group-details .field{
       margin-bottom:1em;
-  	  & > .field-items{
-  	    float:right;
-  		text-align: right;
-  	  }
+      & > .field-items{
+        float:right;
+      text-align: right;
+      }
     }
 
     .field-name-field-postal-address .field-items{
@@ -60,7 +77,9 @@
     .field-label-above{ 
       margin-bottom:1em;
     }
+  }
+  .page-user- {
+
+    @include white-background-no-border;
 
   }
-
-}

@@ -36,16 +36,34 @@ input.date-clear{
   }
 }
 
+#edit-legal{
+    position:relative;
 
-/******************************************** Styling for User account forms ********************************************/
+    div.fieldset-wrapper{
+      overflow-y:auto;
+      height:400px;
+      padding-bottom:2em;
+  
+      div.form-item-legal-accept{
+        position :absolute; 
+        bottom :0;
+        top:30em;
+        width:100%;
+        padding: 0; 
+        margin: 0;
+        height: 2em;
+      }
+    }
+  }
+
+
+/******************************************** Styling for User Registration forms ********************************************/
 
 .field-group-fieldset, fieldset{
     border:none;
   }
 
 .page-user-register{
-
-  
 
   label{ 
     font-weight: lighter;
@@ -116,25 +134,7 @@ input.date-clear{
     width:466px;
   }
 
-  #edit-legal{
-    position:relative;
-
-    div.fieldset-wrapper{
-      overflow-y:auto;
-      height:400px;
-      padding-bottom:2em;
   
-      div.form-item-legal-accept{
-        position :absolute; 
-        bottom :0;
-        top:30em;
-        width:100%;
-        padding: 0; 
-        margin: 0;
-        height: 2em;
-      }
-    }
-  }
  
 
   input#edit-field-post-code-und-0-value{ 
@@ -180,37 +180,16 @@ input.date-clear{
 /******************************************** Nurani profile form ********************************************/
 
 .profile{
-  padding: 5px 15px;
-  .field-group-fieldset{
-    & > legend {
-      margin: 0 auto;
-      .fieldset-title{
-        font-size: 1.2em;
-         @include bundle-typography-regular;
-         text-decoration:none;
-         color:$nurani-light-blue;
-      }
-    }
-  }
-  #edit-timezone--2, 
-  .field-group-fieldset .legend{
-    width:450px;
-  }
-  .form-actions{
-    display:inline; 
-    margin-right:10px;
-  }
-  .button{
-    display:block; 
-    text-decoration:none;
-    width:88px;
-    margin: 0 auto;
-  }
+ 
+  
+  
+  
 
 }
 
 #user-profile-form{
 
+ 
   .group-additional-details, .group-details, #edit-legal, .group-profile{
     padding:0;
     overflow:hidden;
@@ -220,34 +199,107 @@ input.date-clear{
   fieldset.group-profile{
     & > .fieldset-wrapper{
       padding:5px;
+      width:90%;
       .field-name-field-title, 
       .field-name-field-first-name, 
-      .field-name-field-last-name, .field-type-datetime{
+      .field-name-field-last-name, .field-name-field-date-of-birth{
         display:inline-block;
         margin-right:10px;
         float:left;
-
         input.form-text{
           width:120px;
         }
       }
+
+      #edit-account {float:left; width:90%; clear:both}
+
+      #edit-overlay-control{
+        clear:both;
+      }
+    
+    #edit-account{
+      .form-item{ 
+        width:200px;
+        float:left;
+        margin-right:51px;
+         input{ width:200px;}
+      }
+      .form-item-pass-pass1 .password-strength{
+        float:none;
+      }
+     }
+   }
+ }
+
+  #edit-timezone--2, .form-item-timezone .description,
+  .field-group-fieldset .legend{
+    width:280px;
+  }
+
+  fieldset.group-details{
+    .field-name-field-postal-address, 
+    .field-name-field-post-code,
+    .field-name-field-country,
+    .field-name-field-occupation,
+    .field-name-field-landline-phone, 
+    .field-name-field-mobile-phone{
+      float:left; 
+      margin-right:22px;
+    }
+
+    
+
+    input,select,textarea{
+      width:200px;
+    }
+    
+    .field-name-field-country{
+      clear:both;
     }
   }
 
-}
-  
-#user-profile-form #edit-legal{
-  legend{
-    margin:0 auto;
+  .group-additional-details{
+    .field-type-text-long{
+      float:left;
+      margin-right:10px;
+    }
+    .form-type-textarea label{
+      width:200px;
+    }
+    textarea{width:211px;}
   }
-  & > .fieldset-wrapper{
-    padding: 8px 30px;
-    height:400px;
-    overflow-y:auto;
+
+
+/* legal stuff */
+ #edit-legal{
+    legend{
+      margin:0 auto;
+    }
+    & > .fieldset-wrapper{
+      height:350px;
+      div.form-item-legal-accept{
+        top: 24em;
+        margin: 0 0 1em;
+      }
+    }
   }
- 
+
+/* buttons */
+ .form-actions{
+    display:inline; 
+    margin-right:10px;
+  }
+
+ a{
+   display:inline;
+   text-decoration:none;
+ }
+ .form-actions input{
+   margin-top:2em;
+ }
 
 }
+  
 
 /******************************************** Contact us form ********************************************/
 
