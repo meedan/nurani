@@ -16,6 +16,12 @@ function nurani_general_menu_default_menu_custom() {
     'title' => 'Main menu',
     'description' => 'The <em>Main</em> menu is used on many sites to show the major sections of the site, often in a top navigation bar.',
   );
+  // Exported menu: menu-footer-links.
+  $menus['menu-footer-links'] = array(
+    'menu_name' => 'menu-footer-links',
+    'title' => 'Footer links',
+    'description' => '',
+  );
   // Exported menu: user-menu.
   $menus['user-menu'] = array(
     'menu_name' => 'user-menu',
@@ -24,6 +30,7 @@ function nurani_general_menu_default_menu_custom() {
   );
   // Translatables
   // Included for use with string extractors like potx.
+  t('Footer links');
   t('Main menu');
   t('The <em>Main</em> menu is used on many sites to show the major sections of the site, often in a top navigation bar.');
   t('The <em>User</em> menu contains links related to the user\'s account, as well as the \'Log out\' link.');

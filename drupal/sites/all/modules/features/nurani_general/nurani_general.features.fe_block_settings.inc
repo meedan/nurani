@@ -14,6 +14,10 @@ function nurani_general_default_fe_block_settings() {
 
   // Theme independent visibility settings.
   $export['visibility'] = array(
+    'menu_block-nurani_footer_menu' => array(
+      'delta' => 'nurani_footer_menu',
+      'module' => 'menu_block',
+    ),
     'menu_block-nurani_main_menu' => array(
       'delta' => 'nurani_main_menu',
       'module' => 'menu_block',
@@ -22,6 +26,20 @@ function nurani_general_default_fe_block_settings() {
 
   // bartik
   $theme = array();
+
+  $theme['menu_block-nurani_footer_menu'] = array(
+    'module' => 'menu_block',
+    'delta' => 'nurani_footer_menu',
+    'theme' => 'bartik',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '',
+    'title' => '<none>',
+    'cache' => -1,
+  );
 
   $theme['menu_block-nurani_main_menu'] = array(
     'module' => 'menu_block',
@@ -42,6 +60,20 @@ function nurani_general_default_fe_block_settings() {
   // nurani
   $theme = array();
 
+  $theme['menu_block-nurani_footer_menu'] = array(
+    'module' => 'menu_block',
+    'delta' => 'nurani_footer_menu',
+    'theme' => 'nurani',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '',
+    'title' => '<none>',
+    'cache' => -1,
+  );
+
   $theme['menu_block-nurani_main_menu'] = array(
     'module' => 'menu_block',
     'delta' => 'nurani_main_menu',
@@ -60,6 +92,20 @@ function nurani_general_default_fe_block_settings() {
 
   // seven
   $theme = array();
+
+  $theme['menu_block-nurani_footer_menu'] = array(
+    'module' => 'menu_block',
+    'delta' => 'nurani_footer_menu',
+    'theme' => 'seven',
+    'status' => 0,
+    'weight' => '0',
+    'region' => '',
+    'custom' => '0',
+    'visibility' => '0',
+    'pages' => '',
+    'title' => '<none>',
+    'cache' => -1,
+  );
 
   $theme['menu_block-nurani_main_menu'] = array(
     'module' => 'menu_block',
