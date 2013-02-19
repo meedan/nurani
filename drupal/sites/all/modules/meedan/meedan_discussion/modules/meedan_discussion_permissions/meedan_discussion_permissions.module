@@ -233,11 +233,16 @@ function meedan_discussion_permissions_node_grants($account, $op) {
  *  The account to check.
  */
 function _meedan_discussion_permissions_discussion($op, $discussion, $account = NULL) {
-  $account = is_null($account) ? $GLOBALS['user'] : $account;
+  $account = !$account ? $GLOBALS['user'] : $account;
 
   // Anonymous users are only ever allowed to view, definitely never participate
   if ($account->uid == 0) {
     return $op == 'view' && $discussion->meedan_discussion_permissions['anonymous'] > 0;
+  }
+
+  // Administrators have special access
+  if (user_access('administer comments', $account)) {
+    return TRUE;
   }
 
   // Create a list of definitely allowed users. This includes the author and
