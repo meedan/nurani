@@ -199,14 +199,18 @@ input.date-clear{
   fieldset.group-profile{
     & > .fieldset-wrapper{
       padding:5px;
-      width:90%;
+      .field-name-field-title, 
+      .field-name-field-first-name, 
+      .field-name-field-last-name{
+        width:32%;
+      }
       .field-name-field-title, 
       .field-name-field-first-name, 
       .field-name-field-last-name, .field-name-field-date-of-birth{
         display:inline-block;
-        margin-right:10px;
+        margin-right:5px;
         float:left;
-        input.form-text{
+        input.text-full,select{
           width:120px;
         }
       }
@@ -222,7 +226,9 @@ input.date-clear{
         width:200px;
         float:left;
         margin-right:51px;
-         input{ width:200px;}
+         input[type=text]{ 
+          width:200px;
+        }
       }
       .form-item-pass-pass1 .password-strength{
         float:none;
@@ -243,14 +249,15 @@ input.date-clear{
     .field-name-field-occupation,
     .field-name-field-landline-phone, 
     .field-name-field-mobile-phone{
+      width:40%;
       float:left; 
-      margin-right:22px;
+      margin-right:30px;
     }
 
     
 
     input,select,textarea{
-      width:200px;
+      width:169px;
     }
     
     .field-name-field-country{

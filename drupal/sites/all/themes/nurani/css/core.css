@@ -590,112 +590,120 @@ input.date-clear {
 /* line 200, ../scss/_forms.scss */
 #user-profile-form fieldset.group-profile > .fieldset-wrapper {
   padding: 5px;
-  width: 90%;
 }
-/* line 205, ../scss/_forms.scss */
+/* line 204, ../scss/_forms.scss */
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name {
+  width: 32%;
+}
+/* line 209, ../scss/_forms.scss */
 #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title,
 #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name,
 #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-date-of-birth {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 5px;
   float: left;
 }
-/* line 209, ../scss/_forms.scss */
-#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title input.form-text,
-#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name input.form-text,
-#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name input.form-text, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-date-of-birth input.form-text {
+/* line 213, ../scss/_forms.scss */
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title input.text-full, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title select,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name input.text-full,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name select,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name input.text-full,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name select, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-date-of-birth input.text-full, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-date-of-birth select {
   width: 120px;
 }
-/* line 214, ../scss/_forms.scss */
+/* line 218, ../scss/_forms.scss */
 #user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account {
   float: left;
   width: 90%;
   clear: both;
 }
-/* line 216, ../scss/_forms.scss */
+/* line 220, ../scss/_forms.scss */
 #user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-overlay-control {
   clear: both;
 }
-/* line 221, ../scss/_forms.scss */
+/* line 225, ../scss/_forms.scss */
 #user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item {
   width: 200px;
   float: left;
   margin-right: 51px;
 }
-/* line 225, ../scss/_forms.scss */
-#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item input {
+/* line 229, ../scss/_forms.scss */
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item input[type=text] {
   width: 200px;
 }
-/* line 227, ../scss/_forms.scss */
+/* line 233, ../scss/_forms.scss */
 #user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item-pass-pass1 .password-strength {
   float: none;
 }
-/* line 235, ../scss/_forms.scss */
+/* line 241, ../scss/_forms.scss */
 #user-profile-form #edit-timezone--2, #user-profile-form .form-item-timezone .description,
 #user-profile-form .field-group-fieldset .legend {
   width: 280px;
 }
-/* line 245, ../scss/_forms.scss */
+/* line 251, ../scss/_forms.scss */
 #user-profile-form fieldset.group-details .field-name-field-postal-address,
 #user-profile-form fieldset.group-details .field-name-field-post-code,
 #user-profile-form fieldset.group-details .field-name-field-country,
 #user-profile-form fieldset.group-details .field-name-field-occupation,
 #user-profile-form fieldset.group-details .field-name-field-landline-phone,
 #user-profile-form fieldset.group-details .field-name-field-mobile-phone {
+  width: 40%;
   float: left;
-  margin-right: 22px;
+  margin-right: 30px;
 }
-/* line 252, ../scss/_forms.scss */
+/* line 259, ../scss/_forms.scss */
 #user-profile-form fieldset.group-details input, #user-profile-form fieldset.group-details select, #user-profile-form fieldset.group-details textarea {
-  width: 200px;
+  width: 169px;
 }
-/* line 256, ../scss/_forms.scss */
+/* line 263, ../scss/_forms.scss */
 #user-profile-form fieldset.group-details .field-name-field-country {
   clear: both;
 }
-/* line 262, ../scss/_forms.scss */
+/* line 269, ../scss/_forms.scss */
 #user-profile-form .group-additional-details .field-type-text-long {
   float: left;
   margin-right: 10px;
 }
-/* line 266, ../scss/_forms.scss */
+/* line 273, ../scss/_forms.scss */
 #user-profile-form .group-additional-details .form-type-textarea label {
   width: 200px;
 }
-/* line 269, ../scss/_forms.scss */
+/* line 276, ../scss/_forms.scss */
 #user-profile-form .group-additional-details textarea {
   width: 211px;
 }
-/* line 275, ../scss/_forms.scss */
+/* line 282, ../scss/_forms.scss */
 #user-profile-form #edit-legal legend {
   margin: 0 auto;
 }
-/* line 278, ../scss/_forms.scss */
+/* line 285, ../scss/_forms.scss */
 #user-profile-form #edit-legal > .fieldset-wrapper {
   height: 350px;
 }
-/* line 280, ../scss/_forms.scss */
+/* line 287, ../scss/_forms.scss */
 #user-profile-form #edit-legal > .fieldset-wrapper div.form-item-legal-accept {
   top: 24em;
   margin: 0 0 1em;
 }
-/* line 288, ../scss/_forms.scss */
+/* line 295, ../scss/_forms.scss */
 #user-profile-form .form-actions {
   display: inline;
   margin-right: 10px;
 }
-/* line 293, ../scss/_forms.scss */
+/* line 300, ../scss/_forms.scss */
 #user-profile-form a {
   display: inline;
   text-decoration: none;
 }
-/* line 297, ../scss/_forms.scss */
+/* line 304, ../scss/_forms.scss */
 #user-profile-form .form-actions input {
   margin-top: 2em;
 }
 
 /******************************************** Contact us form ********************************************/
-/* line 307, ../scss/_forms.scss */
+/* line 314, ../scss/_forms.scss */
 .node-type-webform textarea {
   width: 450px;
 }
