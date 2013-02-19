@@ -19,7 +19,6 @@ PassageBox.prototype.init = function () {
   // Set up initial display state
   this.updatedPicked();
   this.render(false);
-  this.bundleUI.passageBoxStateDidChange(this, false);
 
   return this;
 };
