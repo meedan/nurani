@@ -179,20 +179,14 @@ input.date-clear{
 
 /******************************************** Nurani profile form ********************************************/
 
-.profile{
- 
-  
-  
-  
 
-}
 
 #user-profile-form{
-
+  margin-top:1em;
  
   .group-additional-details, .group-details, #edit-legal, .group-profile{
     padding:0;
-    overflow:hidden;
+    // overflow:hidden;
     width:100%;
   }
 
@@ -265,16 +259,6 @@ input.date-clear{
     }
   }
 
-  .group-additional-details{
-    .field-type-text-long{
-      float:left;
-      margin-right:10px;
-    }
-    .form-type-textarea label{
-      width:200px;
-    }
-    textarea{width:211px;}
-  }
 
 
 /* legal stuff */
@@ -286,7 +270,9 @@ input.date-clear{
       height:350px;
       div.form-item-legal-accept{
         top: 24em;
-        margin: 0 0 1em;
+        margin: 1em 0 1em;
+        background: #fff;
+
       }
     }
   }

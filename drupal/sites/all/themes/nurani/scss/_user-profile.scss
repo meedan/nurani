@@ -29,6 +29,15 @@
 
 }
 
+.group-profile, .group-details, .group-additional-details{
+
+      & > legend{
+       margin: 0 auto;
+      }
+
+     
+    } 
+
  .profile{
     padding: 5px 15px;
   
