@@ -31,8 +31,9 @@ function nurani_comment_preprocess_comment(&$vars) {
 
   unset($vars['content']['links']['comment']['#links']['comment-reply']);
 
-  // Ensure all links are removed on comment preview
-  if ($vars['status'] == 'comment-preview') {
+  // Ensure all links are removed on comment preview and when the user can't post
+  // comments (this removes the "Login or Register to post comments" text)
+  if ($vars['status'] == 'comment-preview' || !user_access('post comments')) {
     foreach ($vars['content']['links']['comment']['#links'] as $key => $link) {
       unset($vars['content']['links']['comment']['#links'][$key]);
     }
