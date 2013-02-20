@@ -60,10 +60,10 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '0',
   );
-  // Exported menu link: menu-footer-links:node/2304
-  $menu_links['menu-footer-links:node/2304'] = array(
+  // Exported menu link: menu-footer-links:node/2
+  $menu_links['menu-footer-links:node/2'] = array(
     'menu_name' => 'menu-footer-links',
-    'link_path' => 'node/2304',
+    'link_path' => 'node/2',
     'router_path' => 'node/%',
     'link_title' => 'Getting Started',
     'options' => array(
@@ -78,10 +78,10 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '0',
   );
-  // Exported menu link: menu-footer-links:node/2305
-  $menu_links['menu-footer-links:node/2305'] = array(
+  // Exported menu link: menu-footer-links:node/5
+  $menu_links['menu-footer-links:node/5'] = array(
     'menu_name' => 'menu-footer-links',
-    'link_path' => 'node/2305',
+    'link_path' => 'node/5',
     'router_path' => 'node/%',
     'link_title' => 'How to do Scriptural Reasoning',
     'options' => array(
@@ -96,10 +96,10 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '0',
   );
-  // Exported menu link: menu-footer-links:node/2306
-  $menu_links['menu-footer-links:node/2306'] = array(
+  // Exported menu link: menu-footer-links:node/3
+  $menu_links['menu-footer-links:node/3'] = array(
     'menu_name' => 'menu-footer-links',
-    'link_path' => 'node/2306',
+    'link_path' => 'node/3',
     'router_path' => 'node/%',
     'link_title' => 'About Nurani.org',
     'options' => array(
@@ -114,10 +114,10 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '0',
   );
-  // Exported menu link: menu-footer-links:node/2308
-  $menu_links['menu-footer-links:node/2308'] = array(
+  // Exported menu link: menu-footer-links:node/4
+  $menu_links['menu-footer-links:node/4'] = array(
     'menu_name' => 'menu-footer-links',
-    'link_path' => 'node/2308',
+    'link_path' => 'node/4',
     'router_path' => 'node/%',
     'link_title' => 'Privacy',
     'options' => array(
@@ -131,42 +131,6 @@ function nurani_general_menu_default_menu_links() {
     'has_children' => '0',
     'expanded' => '0',
     'weight' => '0',
-  );
-  // Exported menu link: user-menu:legal
-  $menu_links['user-menu:legal'] = array(
-    'menu_name' => 'user-menu',
-    'link_path' => 'legal',
-    'router_path' => 'legal',
-    'link_title' => 'Terms',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '1',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-46',
-  );
-  // Exported menu link: user-menu:node/2
-  $menu_links['user-menu:node/2'] = array(
-    'menu_name' => 'user-menu',
-    'link_path' => 'node/2',
-    'router_path' => 'node/%',
-    'link_title' => 'Getting Started',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '1',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-49',
   );
   // Translatables
   // Included for use with string extractors like potx.
