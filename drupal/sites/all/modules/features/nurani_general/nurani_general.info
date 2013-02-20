@@ -14,6 +14,7 @@ dependencies[] = ctools
 dependencies[] = fe_block
 dependencies[] = features
 dependencies[] = image
+dependencies[] = mailsystem
 dependencies[] = meedan_discussion
 dependencies[] = meedan_discussion_lock
 dependencies[] = meedan_general
