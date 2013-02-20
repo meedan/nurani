@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * nurani_general.features.field.inc
+ * nurani_pages.features.field.inc
  */
 
 /**
  * Implements hook_field_default_fields().
  */
-function nurani_general_field_default_fields() {
+function nurani_pages_field_default_fields() {
   $fields = array();
 
   // Exported field: 'node-webform-body'.
