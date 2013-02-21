@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Implements hook_install().
- */
-function nurani_example_install() {
-  nurani_example_add_example_discussion();
-}
-
 function nurani_example_uninstall() {
   require_once dirname(__FILE__) . '/nurani_example.module';
   nurani_example_remove_example_discussion();

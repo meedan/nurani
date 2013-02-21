@@ -1,6 +1,29 @@
 <?php
 
 /**
+ * Implements hook_init().
+ */
+function nurani_example_init() {
+  // HACK: Only install the node after the module is installed AND the first
+  //       page view has occurred. This ensures all dependencies are met.
+  //       Features does not always have everything ready to go when hook_install()
+  //       executes.
+  $types = node_type_get_types();
+  $info  = entity_get_info("field_collection_item");
+  $ready = (
+       array_key_exists('discussion', $types)
+    && array_key_exists('bundle', $types)
+    && is_array($info)
+    && isset($info['bundles'])
+    && isset($info['bundles']['field_passage_collection'])
+  );
+
+  if ($ready && !variable_get('nurani_example_discussion', FALSE)) {
+    nurani_example_add_example_discussion();
+  }
+}
+
+/**
  * Creates the example Discussion node.
  */
 function nurani_example_add_example_discussion() {

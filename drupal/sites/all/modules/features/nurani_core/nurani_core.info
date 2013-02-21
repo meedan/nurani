@@ -16,6 +16,7 @@ dependencies[] = meedan_discussion_lock
 dependencies[] = meedan_discussion_participants
 dependencies[] = meedan_discussion_permissions
 dependencies[] = meedan_notifications
+dependencies[] = meedan_general
 dependencies[] = node_reference
 dependencies[] = nurani_bundle
 dependencies[] = osis_field

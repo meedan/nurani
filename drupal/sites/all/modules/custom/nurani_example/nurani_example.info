@@ -3,4 +3,7 @@ description = An example discussion to help potential participants better unders
 core = 7.x
 version = 7.x-1.0
 package = Nurani
-dependencies[] = uuid
+; Ensure 'discussion' content type and field_bundle, field_invitees exist
+dependencies[] = nurani_core
+; Ensure that static site pages are created BEFORE the example discussion
+dependencies[] = nurani_pages
