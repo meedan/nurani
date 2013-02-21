@@ -1,7 +1,6 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
-
-  // paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
-  var log = function f(){ log.history = log.history || []; log.history.push(arguments); if(this.console) { var args = arguments, newarr; args.callee = args.callee.caller; newarr = [].slice.call(args); if (typeof console.log === 'object') log.apply.call(console.log, console, newarr); else console.log.apply(console, newarr);}};
+  "use strict";
 
   /**
    * Drupal integration. Creates and binds new BundleUIs.
@@ -10,19 +9,19 @@
     bundleUIs: [],
 
     attach: function (context) {
-      var that = this;
+      var that = this,
+          i, bundleUI;
 
       $('#edit-field-bundle:not(.nurani-bundle-ui-processed)', context)
         .addClass('nurani-bundle-ui-processed')
         .each(function () {
-          var bundleUI = new BundleUI(this);
+          bundleUI = new BundleUI(this);
           $(this).data('bundleUI', bundleUI);
 
           that.bundleUIs.push(bundleUI);
         });
 
-      var i, bundleUI;
-      for (var i = this.bundleUIs.length - 1; i >= 0 ; i--) {
+      for (i = this.bundleUIs.length - 1; i >= 0 ; i--) {
         bundleUI = this.bundleUIs[i];
 
         if ($(context).index(bundleUI.$wrapper) !== -1) {
@@ -47,6 +46,8 @@
    * of time.
    */
   Util.prototype.setMessage = function (prepend_to, message, type, hide_after) {
+    var classes, $message;
+
     type       = type || 'ok';
     hide_after = hide_after || 4000;
 
@@ -55,16 +56,16 @@
       classes.push(type);
     }
 
-    var message = $('<div class="' + classes.join(' ') + '" style="display: none;">' + message + '</div>');
-    prepend_to.prepend(message);
-    message.slideDown();
+    $message = $('<div class="' + classes.join(' ') + '" style="display: none;">' + message + '</div>');
+    prepend_to.prepend($message);
+    $message.slideDown();
 
     setTimeout(function () {
-      message.slideUp(function () {
+      $message.slideUp(function () {
         $(this).remove();
       });
     }, hide_after);
-  }
+  };
 
   /**
    * Nurani CloneBundle form.
@@ -136,7 +137,7 @@
   function Picker(opts) {
     this.defaults = {
       osisIDWork: '',
-      osisID:     '',
+      osisID:     ''
     };
 
     this.opts = $.extend(this.defaults, opts);
@@ -230,7 +231,7 @@
     this.$passageText   = $('.passage-text', this.$wrapper);
     this.$passageWidget = $('.passage-widget', this.$passageText);
     this.$bib           = $('.bib', this.$wrapper);
-  }
+  };
 
   PassageBox.prototype.bindFields = function () {
     var that = this;
@@ -289,7 +290,7 @@
 
   PassageBox.prototype.updatedPicked = function () {
     this.picked = !!(this.$osisIDWork.val() && this.$osisID.val());
-  }
+  };
 
   /**
    * Retrieves passage text and update other aspects of the display.
@@ -373,7 +374,8 @@
       notes: this.$notes.val(),
       visible: this.$visible.attr('checked')
     };
-  }
+  };
+
   /**
    * Main controller object for the bundle UI.
    */
@@ -428,16 +430,16 @@
   BundleUI.prototype.loadState = function (data, set_message) {
     var i, len = this.passageBoxes.length;
 
-    this.cloneBundle.setVisibility(data.length == 0, set_message);
+    this.cloneBundle.setVisibility(data.length === 0, set_message);
 
     for (i = 0; i < len; i++) {
-      this.passageBoxes[i].loadState(data[i] || {})
+      this.passageBoxes[i].loadState(data[i] || {});
     }
 
     this.passageBoxStateDidChange(null, true);
 
     if (data.length > this.passageBoxes.length) {
-      log('Error, attempting to load more data than is possible with ' + this.passageBoxes.length + ' passage boxes.');
+      throw 'Error, attempting to load more data than is possible with ' + this.passageBoxes.length + ' passage boxes.';
     }
   };
 
@@ -463,13 +465,13 @@
 
     // If there are picked passages but none are visible then ensure the first
     // passage is marked visible.
-    if (visibleKeys.length == 0 && pickedKeys.length > 0) {
+    if (visibleKeys.length === 0 && pickedKeys.length > 0) {
       state = this.passageBoxes[pickedKeys[0]].getState();
       state.visible = true;
       this.passageBoxes[pickedKeys[0]].loadState(state, true);
     }
 
-    this.cloneBundle.setVisibility(pickedKeys.length == 0, false, animated);
+    this.cloneBundle.setVisibility(pickedKeys.length === 0, false, animated);
   };
 
   /**
@@ -477,7 +479,7 @@
    * of time.
    */
   BundleUI.prototype.setMessage = function (message, type, hideAfter) {
-    util.setMessage($('> .inner', this.$passageBoxes), message, type, hideAfter)
+    util.setMessage($('> .inner', this.$passageBoxes), message, type, hideAfter);
   };
 
-})(jQuery);
+}(jQuery));

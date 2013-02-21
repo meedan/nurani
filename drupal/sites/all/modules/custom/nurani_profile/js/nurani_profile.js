@@ -1,4 +1,6 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
+  "use strict";
 
   /**
    * Drupal integration. Applies a tooltip effect.
@@ -92,7 +94,7 @@
         var $this = $(this);
         $this.data('title', $this.attr('title'));
         $this.attr('title', '');
-      })
+      });
   };
 
   /**
@@ -106,7 +108,7 @@
         var $this = $(this);
         $this.attr('title', $this.data('title'));
         $this.data('title', null);
-      })
+      });
   };
 
 
@@ -128,4 +130,4 @@
     }, delay);
   };
 
-})(jQuery);
+}(jQuery));

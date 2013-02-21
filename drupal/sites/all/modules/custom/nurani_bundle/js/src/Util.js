@@ -12,6 +12,8 @@ var util = new Util();
  * of time.
  */
 Util.prototype.setMessage = function (prepend_to, message, type, hide_after) {
+  var classes, $message;
+
   type       = type || 'ok';
   hide_after = hide_after || 4000;
 
@@ -20,13 +22,13 @@ Util.prototype.setMessage = function (prepend_to, message, type, hide_after) {
     classes.push(type);
   }
 
-  var message = $('<div class="' + classes.join(' ') + '" style="display: none;">' + message + '</div>');
-  prepend_to.prepend(message);
-  message.slideDown();
+  $message = $('<div class="' + classes.join(' ') + '" style="display: none;">' + message + '</div>');
+  prepend_to.prepend($message);
+  $message.slideDown();
 
   setTimeout(function () {
-    message.slideUp(function () {
+    $message.slideUp(function () {
       $(this).remove();
     });
   }, hide_after);
-}
+};

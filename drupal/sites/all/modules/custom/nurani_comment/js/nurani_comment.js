@@ -1,4 +1,6 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 (function ($) {
+  "use strict";
 
   /**
    * Drupal integration. Hides the default views exposed filter sort form and
@@ -45,8 +47,8 @@
     this.$sortLinks = $('<div class="nurani-sort-links"></div>');
 
     this.sortLinks = [
-      new SortLink('DESC', Drupal.t("Most recent first"), currentSort == 'DESC', function () { that.applySort('DESC'); }),
-      new SortLink('ASC', Drupal.t("Oldest first"), currentSort == 'ASC',        function () { that.applySort('ASC'); })
+      new SortLink('DESC', Drupal.t("Most recent first"), currentSort === 'DESC', function () { that.applySort('DESC'); }),
+      new SortLink('ASC', Drupal.t("Oldest first"), currentSort === 'ASC',        function () { that.applySort('ASC'); })
     ];
 
     this.$sortLinks
@@ -76,10 +78,10 @@
       callback(that);
       return false;
     });
-  };
+  }
 
   SortLink.prototype.createLink = function(text) {
     return $('<a href="#" class="nurani-comment-sort-link ' + this.direction.toLowerCase() + (this.isActive ? ' active' : '') + '">' + text + '</a>');
   };
 
-})(jQuery);
+}(jQuery));

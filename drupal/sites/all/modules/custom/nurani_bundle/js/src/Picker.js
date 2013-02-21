@@ -4,7 +4,7 @@
 function Picker(opts) {
   this.defaults = {
     osisIDWork: '',
-    osisID:     '',
+    osisID:     ''
   };
 
   this.opts = $.extend(this.defaults, opts);

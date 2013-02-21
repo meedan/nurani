@@ -27,7 +27,7 @@ PassageBox.prototype.bindContainers = function () {
   this.$passageText   = $('.passage-text', this.$wrapper);
   this.$passageWidget = $('.passage-widget', this.$passageText);
   this.$bib           = $('.bib', this.$wrapper);
-}
+};
 
 PassageBox.prototype.bindFields = function () {
   var that = this;
@@ -86,7 +86,7 @@ PassageBox.prototype.pickPassage = function (button) {
 
 PassageBox.prototype.updatedPicked = function () {
   this.picked = !!(this.$osisIDWork.val() && this.$osisID.val());
-}
+};
 
 /**
  * Retrieves passage text and update other aspects of the display.
@@ -170,4 +170,4 @@ PassageBox.prototype.getState = function (visible) {
     notes: this.$notes.val(),
     visible: this.$visible.attr('checked')
   };
-}
+};
