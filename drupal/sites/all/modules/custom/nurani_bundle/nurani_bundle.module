@@ -494,28 +494,23 @@ function _nurani_bundle_validate_osisid($osisIDWork, $osisID) {
  * Implements hook_node_load().
  */
 function nurani_bundle_node_load($nodes, $types) {
-  foreach ($nodes as $node) {
-    if ($node->type == 'bundle') {
-      // TODO: Properly use the references API to retrieve the bundle's parent.
-      $query = db_select('node', 'n');
-      $query->join('field_data_field_bundle', 'b', 'n.nid = b.entity_id');
-      $query->fields('n', array('nid', 'title'));
-      $query->condition('n.type', 'discussion');
-      $query->condition('b.field_bundle_nid', $node->nid);
-      $query->condition('b.language', $node->language);
-      $query->condition('b.delta', 0);
-      $query->condition('b.deleted', 0);
+  if (db_table_exists('field_data_field_bundle')) {
+    foreach ($nodes as $node) {
+      if ($node->type == 'bundle') {
+        // TODO: Properly use the references API to retrieve the bundle's parent.
+        $query = db_select('node', 'n');
+        $query->join('field_data_field_bundle', 'b', 'n.nid = b.entity_id');
+        $query->fields('n', array('nid', 'title'));
+        $query->condition('n.type', 'discussion');
+        $query->condition('b.field_bundle_nid', $node->nid);
+        $query->condition('b.language', $node->language);
+        $query->condition('b.delta', 0);
+        $query->condition('b.deleted', 0);
 
-      $nodes[$node->nid]->discussion = $query->execute()->fetchAssoc();
+        $nodes[$node->nid]->discussion = $query->execute()->fetchAssoc();
+      }
     }
   }
-  /*
-   *$result = db_query('SELECT nid, foo FROM {mytable} WHERE nid IN(:nids)', array(':nids' => array_keys($nodes)));
-   *foreach ($result as $record) {
-   *  $nodes[$record->nid]->foo = $record->foo;
-   *}
-   */
-  /* Your code here */
 }
 
 /**

@@ -6,4 +6,4 @@ package = Nurani
 dependencies[] = nurani_library
 dependencies[] = nurani_library_ui
 dependencies[] = nurani_passage_widget
-dependencies[] = node_reference
+dependencies[] = meedan_discussion
