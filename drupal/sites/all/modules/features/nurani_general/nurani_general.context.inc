@@ -13,9 +13,42 @@ function nurani_general_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'footer';
+  $context->description = 'Blocks for the footer area.';
+  $context->tag = 'Nurani';
+  $context->conditions = array(
+    'sitewide' => array(
+      'values' => array(
+        1 => 1,
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'menu-menu-footer-links' => array(
+          'module' => 'menu',
+          'delta' => 'menu-footer-links',
+          'region' => 'footer',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Blocks for the footer area.');
+  t('Nurani');
+  $export['footer'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'nurani_discussion';
   $context->description = 'Discussion page for nurani';
-  $context->tag = 'nurani';
+  $context->tag = 'Nurani';
   $context->conditions = array(
     'node' => array(
       'values' => array(
@@ -73,7 +106,7 @@ function nurani_general_context_default_contexts() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Discussion page for nurani');
-  t('nurani');
+  t('Nurani');
   $export['nurani_discussion'] = $context;
 
   $context = new stdClass();
@@ -103,7 +136,7 @@ function nurani_general_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'top_strip';
   $context->description = 'block that displays main menu and User welcome info';
-  $context->tag = '';
+  $context->tag = 'Nurani';
   $context->conditions = array(
     'sitewide' => array(
       'values' => array(
@@ -133,6 +166,7 @@ function nurani_general_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Nurani');
   t('block that displays main menu and User welcome info');
   $export['top_strip'] = $context;
 

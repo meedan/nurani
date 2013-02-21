@@ -27,7 +27,6 @@ function nurani_general_menu_default_menu_custom() {
   t('Footer links');
   t('Main menu');
   t('The <em>Main</em> menu is used on many sites to show the major sections of the site, often in a top navigation bar.');
-  t('The <em>User</em> menu contains links related to the user\'s account, as well as the \'Log out\' link.');
 
 
   return $menus;

@@ -78,24 +78,6 @@ function nurani_general_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '0',
   );
-  // Exported menu link: menu-footer-links:node/5
-  $menu_links['menu-footer-links:node/5'] = array(
-    'menu_name' => 'menu-footer-links',
-    'link_path' => 'node/5',
-    'router_path' => 'node/%',
-    'link_title' => 'How to do Scriptural Reasoning',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '0',
-  );
   // Exported menu link: menu-footer-links:node/3
   $menu_links['menu-footer-links:node/3'] = array(
     'menu_name' => 'menu-footer-links',
@@ -120,6 +102,24 @@ function nurani_general_menu_default_menu_links() {
     'link_path' => 'node/4',
     'router_path' => 'node/%',
     'link_title' => 'Privacy',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '0',
+  );
+  // Exported menu link: menu-footer-links:node/5
+  $menu_links['menu-footer-links:node/5'] = array(
+    'menu_name' => 'menu-footer-links',
+    'link_path' => 'node/5',
+    'router_path' => 'node/%',
+    'link_title' => 'How to do Scriptural Reasoning',
     'options' => array(
       'attributes' => array(
         'title' => '',
