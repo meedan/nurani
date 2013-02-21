@@ -1,0 +1,21 @@
+/* line 1, ../scss/nurani-print.scss */
+body {
+  background: blue;
+}
+
+/* line 5, ../scss/nurani-print.scss */
+.passage-box {
+  float: none;
+  width: 1200px;
+  margin: 0 auto;
+}
+/* line 10, ../scss/nurani-print.scss */
+.passage-box .passage-widget-wrapper {
+  padding: 0 5em 0 9em;
+}
+/* line 13, ../scss/nurani-print.scss */
+.passage-box .passage-widget-wrapper .passage-widget {
+  float: left;
+  width: 25em;
+  margin-right: 2em;
+}
