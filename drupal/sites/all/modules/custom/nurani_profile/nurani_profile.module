@@ -50,7 +50,7 @@ function nurani_profile_menu() {
  * Tooltip data generator AJAX (AHAH) callback.
  */
 function nurani_profile_ajax() {
-  $args = split('/', drupal_get_normal_path(preg_replace('/^(' . preg_quote(base_path(), '/') . ')?/', '', $_GET['data'])));
+  $args = explode('/', drupal_get_normal_path(preg_replace('/^(' . preg_quote(base_path(), '/') . ')?/', '', $_GET['data'])));
   $output = '';
 
   // Generate the user profile display
@@ -88,6 +88,7 @@ function nurani_profile_entity_info_alter(&$entity_info) {
  */
 function nurani_profile_menu_alter(&$items) {
   $items['user/%user']['access callback'] = 'nurani_profile_user_view_access';
+  $items['user/%user/edit']['page callback'] = 'nurani_profile_user_profile_redirect';
 }
 
 /**
@@ -104,6 +105,22 @@ function nurani_profile_user_view_access($account) {
   }
 
   drupal_goto('<front>');
+}
+
+/**
+ * Menu callback override for 'user/%user/edit' to redirect to the homepage for
+ * regular users.
+ */
+function nurani_profile_user_profile_redirect($form_id, $account) {
+  // Administrators get to access the form
+  if (user_access('administer users')) {
+    return drupal_get_form($form_id, $account);
+  }
+
+  $query = array_diff_key($_GET, array('q' => NULL));
+  $query['nurani_profile'] = 'edit';
+
+  drupal_goto('<front>', array('query' => $query));
 }
 
 /**
@@ -134,18 +151,28 @@ function nurani_profile_block_view($delta = '') {
       $content = user_view($account);
 
       if (user_edit_access($account)) {
-        $content['edit_link'] = array(
-          '#type' => 'link',
-          '#title' => t('Edit profile'),
-          '#href' => 'ajax/nurani_profile_edit/' . $account->uid . '/nojs',
-          '#options' => array('attributes' => array('class' => array('button'))),
-          '#weight' => 100,
-          '#ajax' => array(
-            'wrapper' => 'nurani-profile-wrapper',
-            'method' => 'replace',
-            'effect' => 'fade',
-          )
-        );
+        if (isset($_GET['nurani_profile']) && $_GET['nurani_profile'] == 'edit') {
+          $content = drupal_get_form('user_profile_form', $account, 'account', 'ajax');
+        }
+        else {
+          $content['edit_link'] = array(
+            '#type' => 'link',
+            '#title' => t('Edit profile'),
+            '#href' => 'ajax/nurani_profile_edit/' . $account->uid . '/nojs',
+            '#options' => array(
+              'query' => isset($_GET['pass-reset-token']) ? array('pass-reset-token' => $_GET['pass-reset-token']) : array(),
+              'attributes' => array(
+                'class' => array('button')
+              ),
+            ),
+            '#weight' => 100,
+            '#ajax' => array(
+              'wrapper' => 'nurani-profile-wrapper',
+              'method' => 'replace',
+              'effect' => 'fade',
+            )
+          );
+        }
       }
       $block['content'] = '<div id="nurani-profile-wrapper">' . render($content) . '</div>';
       break;
@@ -188,6 +215,11 @@ function nurani_profile_edit_profile_callback($account, $ajax) {
 function nurani_profile_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   if (isset($form_state['build_info']['args'][2]) && $form_state['build_info']['args'][2] == 'ajax') {
     $account = $form_state['build_info']['args'][0];
+
+    // Pass any nurani_profile messages along for the ride.
+    if (isset($_GET['nurani_profile'])) {
+      $form_state['storage']['nurani_profile'] = $_GET['nurani_profile'];
+    }
 
     $form['#prefix'] = '<div id="nurani-profile-wrapper">';
     $form['#suffix'] = '</div>';
