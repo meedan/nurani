@@ -61,7 +61,7 @@ function nurani_accounts_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 10,
+          'weight' => '4',
         ),
         'tooltip' => array(
           'label' => 'above',

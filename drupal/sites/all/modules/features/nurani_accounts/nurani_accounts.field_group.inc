@@ -156,6 +156,7 @@ function nurani_accounts_field_group_info() {
       0 => 'field_first_name',
       1 => 'field_last_name',
       2 => 'field_title',
+      3 => 'field_age',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -218,8 +219,7 @@ function nurani_accounts_field_group_info() {
     'label' => 'Your Nurani profile',
     'weight' => '0',
     'children' => array(
-      0 => 'field_date_of_birth',
-      1 => 'group_name',
+      0 => 'group_name',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
