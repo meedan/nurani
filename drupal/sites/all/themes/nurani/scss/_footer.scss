@@ -12,23 +12,30 @@
   }
 }
 
-.menu-block-nurani_footer_menu{
+#block-menu-menu-footer-links{
   display:block;
   padding-left: 0;
   text-align: center;
   li{
-  	display: inline;
-    padding: 0 0 0 15px;
+  	display: inline-block;
+    padding: 0 15px 0 0;
+    margin: 0 15px 0 0;
+    border-right: 1px dotted $nurani-burgundy;
 
     a{
       color: $nurani-burgundy;
       display: inline;
-      border-right: 1px dotted $nurani-burgundy;
       text-transform: uppercase;
-      padding: 0 10px;
+      padding: 10px 0;
       font-family: Georgia,Times,Times New Roman,serif;
       font-weight: normal;
       text-decoration: none;
     }
-  }  
+
+    &.last {
+      border-right: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
 }
