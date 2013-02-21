@@ -32,16 +32,16 @@ function nurani_accounts_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'account' => array(
-          'weight' => '8',
+          'weight' => '7',
         ),
         'timezone' => array(
-          'weight' => '10',
-        ),
-        'picture' => array(
           'weight' => '9',
         ),
+        'picture' => array(
+          'weight' => '8',
+        ),
         'overlay_control' => array(
-          'weight' => '5',
+          'weight' => '6',
         ),
       ),
       'display' => array(
