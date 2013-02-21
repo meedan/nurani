@@ -10,6 +10,83 @@
 function nurani_accounts_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'user-user-field_age'.
+  $fields['user-user-field_age'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_age',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          '<20' => 'Under 20',
+          '20-25' => '20 - 25',
+          '25-30' => '25 - 30',
+          '30-35' => '30 - 35',
+          '35-40' => '35 - 40',
+          '40-45' => '40 - 45',
+          '45-50' => '45 - 50',
+          '50-55' => '50 - 55',
+          '55-60' => '55 - 60',
+          '60-65' => '60 - 65',
+          '65-70' => '65 - 70',
+          '70-75' => '70 - 75',
+          '75-80' => '75 - 80',
+          '80-85' => '80 - 85',
+          '85-90' => '85 - 90',
+          '>90' => '90+',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'user',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 10,
+        ),
+        'tooltip' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'user',
+      'field_name' => 'field_age',
+      'label' => 'Age',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => 1,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '7',
+      ),
+    ),
+  );
+
   // Exported field: 'user-user-field_country'.
   $fields['user-user-field_country'] = array(
     'field_config' => array(
@@ -326,102 +403,6 @@ function nurani_accounts_field_default_fields() {
         'settings' => array(),
         'type' => 'options_select',
         'weight' => '11',
-      ),
-    ),
-  );
-
-  // Exported field: 'user-user-field_date_of_birth'.
-  $fields['user-user-field_date_of_birth'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_date_of_birth',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datetime',
-    ),
-    'field_instance' => array(
-      'bundle' => 'user',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'date_of_birth',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-          ),
-          'type' => 'date_default',
-          'weight' => '2',
-        ),
-        'full' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'date_of_birth',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-          ),
-          'type' => 'date_default',
-          'weight' => '2',
-        ),
-        'tooltip' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '11',
-        ),
-      ),
-      'entity_type' => 'user',
-      'field_name' => 'field_date_of_birth',
-      'label' => 'Date of birth',
-      'required' => 1,
-      'settings' => array(
-        'default_value' => 'blank',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => 1,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'm/d/Y - H:i:s',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'text_parts' => array(),
-          'year_range' => '-100:+0',
-        ),
-        'type' => 'date_popup',
-        'weight' => '6',
       ),
     ),
   );
@@ -1484,9 +1465,9 @@ function nurani_accounts_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Age');
   t('Are there particular subjects that are of interest to you? (NB we cannot guarantee these will be included in discussion themes).');
   t('Country');
-  t('Date of birth');
   t('First name');
   t('Have you any previous experience of Scriptural Reasoning and/or inter-faith dialogue?');
   t('How did you hear about Scriptural Reasoning online?');
