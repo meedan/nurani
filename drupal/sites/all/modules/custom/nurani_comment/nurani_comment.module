@@ -127,6 +127,10 @@ function nurani_comment_form_comment_form_alter(&$form, &$form_state) {
   $node    = $form['#node'];
   $comment = $form['#entity'];
 
+  if (!ajax_comments_node_type_active($node->type) || ajax_comments_is_comment_page()) {
+    return;
+  }
+
   array_unshift($form['#theme'], 'nurani_comment_form');
 
   // Hide many unnecessary things
