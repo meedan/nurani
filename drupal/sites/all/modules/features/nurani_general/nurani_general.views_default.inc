@@ -57,13 +57,13 @@ function nurani_general_views_default_views() {
   $handler->display->display_options['fields']['subject']['label'] = '';
   $handler->display->display_options['fields']['subject']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['subject']['alter']['ellipsis'] = FALSE;
-  /* Sort criterion: Comment: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'comment';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['created']['expose']['label'] = 'Post date';
+  /* Sort criterion: Comment: Thread */
+  $handler->display->display_options['sorts']['thread']['id'] = 'thread';
+  $handler->display->display_options['sorts']['thread']['table'] = 'comment';
+  $handler->display->display_options['sorts']['thread']['field'] = 'thread';
+  $handler->display->display_options['sorts']['thread']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['thread']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['thread']['expose']['label'] = 'Thread';
   /* Contextual filter: Comment: Nid */
   $handler->display->display_options['arguments']['nid']['id'] = 'nid';
   $handler->display->display_options['arguments']['nid']['table'] = 'comment';

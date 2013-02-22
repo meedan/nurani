@@ -48,7 +48,8 @@ class NuraniCommentMigration extends NuraniMigration {
           ->fields('nr', array('body'))
           ->condition('n.type', 'response')
           ->groupBy('nc.cid')
-          ->orderBy('nc.pid', 'ASC');
+          ->orderBy('nc.nid', 'ASC')
+          ->orderBy('nc.thread', 'ASC');
 
     // Set source and destination.
     $this->source = new MigrateSourceSQL($query);

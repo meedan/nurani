@@ -10,125 +10,59 @@
 function nurani_general_default_fe_block_settings() {
   $export = array();
 
-  $export['version'] = '1.0';
+  $export['version'] = '2.0';
 
-  // Theme independent visibility settings.
-  $export['visibility'] = array(
-    'menu-menu-footer-links' => array(
-      'delta' => 'menu-footer-links',
-      'module' => 'menu',
+  $export['menu-menu-footer-links'] = array(
+    'cache' => -1,
+    'custom' => '0',
+    'delta' => 'menu-footer-links',
+    'module' => 'menu',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => '0',
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => '0',
+      ),
     ),
-    'menu_block-nurani_main_menu' => array(
-      'delta' => 'nurani_main_menu',
-      'module' => 'menu_block',
+    'title' => '<none>',
+    'visibility' => '0',
+  );
+
+  $export['menu_block-nurani_main_menu'] = array(
+    'cache' => -1,
+    'custom' => '0',
+    'delta' => 'nurani_main_menu',
+    'module' => 'menu_block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => '0',
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => '0',
+      ),
     ),
-  );
-
-  // bartik
-  $theme = array();
-
-  $theme['menu-menu-footer-links'] = array(
-    'module' => 'menu',
-    'delta' => 'menu-footer-links',
-    'theme' => 'bartik',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
     'title' => '<none>',
-    'cache' => -1,
-  );
-
-  $theme['menu_block-nurani_main_menu'] = array(
-    'module' => 'menu_block',
-    'delta' => 'nurani_main_menu',
-    'theme' => 'bartik',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
     'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => -1,
   );
 
-  $export['theme']['bartik'] = $theme;
-
-  // nurani
-  $theme = array();
-
-  $theme['menu-menu-footer-links'] = array(
-    'module' => 'menu',
-    'delta' => 'menu-footer-links',
-    'theme' => 'nurani',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => -1,
-  );
-
-  $theme['menu_block-nurani_main_menu'] = array(
-    'module' => 'menu_block',
-    'delta' => 'nurani_main_menu',
-    'theme' => 'nurani',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => -1,
-  );
-
-  $export['theme']['nurani'] = $theme;
-
-  // seven
-  $theme = array();
-
-  $theme['menu-menu-footer-links'] = array(
-    'module' => 'menu',
-    'delta' => 'menu-footer-links',
-    'theme' => 'seven',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => -1,
-  );
-
-  $theme['menu_block-nurani_main_menu'] = array(
-    'module' => 'menu_block',
-    'delta' => 'nurani_main_menu',
-    'theme' => 'seven',
-    'status' => 0,
-    'weight' => '0',
-    'region' => '',
-    'custom' => '0',
-    'visibility' => '0',
-    'pages' => '',
-    'title' => '<none>',
-    'cache' => -1,
-  );
-
-  $export['theme']['seven'] = $theme;
-
-  $theme_default = variable_get('theme_default', 'garland');
-  $themes = list_themes();
-  foreach ($export as $theme_key => $settings) {
-    if ($theme_key != $theme_default && empty($themes[$theme_key]->status)) {
-      unset($export['theme'][$theme_key]);
-    }
-  }
   return $export;
 }
