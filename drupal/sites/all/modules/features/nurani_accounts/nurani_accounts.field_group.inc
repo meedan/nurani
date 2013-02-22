@@ -94,6 +94,7 @@ function nurani_accounts_field_group_info() {
       3 => 'field_occupation',
       4 => 'field_post_code',
       5 => 'field_postal_address',
+      6 => 'field_age',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -156,7 +157,6 @@ function nurani_accounts_field_group_info() {
       0 => 'field_first_name',
       1 => 'field_last_name',
       2 => 'field_title',
-      3 => 'field_age',
     ),
     'format_type' => 'div',
     'format_settings' => array(

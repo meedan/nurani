@@ -41,7 +41,7 @@ function nurani_accounts_strongarm() {
           'weight' => '8',
         ),
         'overlay_control' => array(
-          'weight' => '5',
+          'weight' => '6',
         ),
       ),
       'display' => array(

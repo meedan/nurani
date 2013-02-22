@@ -61,7 +61,7 @@ function nurani_accounts_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '4',
+          'weight' => '10',
         ),
         'tooltip' => array(
           'label' => 'above',
@@ -373,7 +373,7 @@ function nurani_accounts_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '5',
+          'weight' => '13',
         ),
         'full' => array(
           'label' => 'inline',
@@ -598,7 +598,7 @@ function nurani_accounts_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '7',
+          'weight' => '15',
         ),
         'full' => array(
           'label' => 'inline',
@@ -751,7 +751,7 @@ function nurani_accounts_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '14',
         ),
         'full' => array(
           'label' => 'inline',
@@ -827,7 +827,7 @@ function nurani_accounts_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '8',
+          'weight' => '16',
         ),
         'full' => array(
           'label' => 'inline',
@@ -903,7 +903,7 @@ function nurani_accounts_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '4',
+          'weight' => '12',
         ),
         'full' => array(
           'label' => 'inline',
@@ -977,7 +977,7 @@ function nurani_accounts_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '3',
+          'weight' => '11',
         ),
         'full' => array(
           'label' => 'inline',
