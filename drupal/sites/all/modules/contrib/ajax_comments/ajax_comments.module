@@ -65,6 +65,13 @@ function ajax_comments_menu() {
 }
 
 /**
+ * Returns TRUE when currently on a full comment page.
+ */
+function ajax_comments_is_comment_page() {
+  return arg(0) == 'comment' && is_numeric(arg(1));
+}
+
+/**
  * Implements hook_preprocess_node().
  *
  * AJAXify "Add new comment" link when there is no default form.
@@ -77,7 +84,7 @@ function ajax_comments_preprocess_node(&$variables) {
 
   $node = $variables['node'];
 
-  if (!ajax_comments_node_type_active($node->type)) {
+  if (!ajax_comments_node_type_active($node->type) || ajax_comments_is_comment_page()) {
     return;
   }
 
@@ -97,7 +104,7 @@ function ajax_comments_preprocess_node(&$variables) {
  */
 function ajax_comments_form_comment_form_alter(&$form, &$form_state, $form_id) {
   // Check to see if this node type uses ajax comments.
-  if (!ajax_comments_node_type_active($form['#node']->type)) {
+  if (!ajax_comments_node_type_active($form['#node']->type) || ajax_comments_is_comment_page()) {
     return;
   }
 
@@ -128,8 +135,9 @@ function ajax_comments_form_comment_confirm_delete_alter(&$form, &$form_state, $
   $comment = $form['#comment'];
   $node = node_load($comment->nid);
 
-  // Check to see if this node type uses ajax comments.
-  if (!ajax_comments_node_type_active($node->type)) {
+  // Check to see if this node type uses ajax comments or if we are on a full
+  // comment page.
+  if (!ajax_comments_node_type_active($node->type) || ajax_comments_is_comment_page()) {
     return;
   }
 
@@ -308,7 +316,7 @@ function ajax_comments_delete_js($form, &$form_state) {
 function ajax_comments_comment_view($comment, $view_mode, $langcode) {
   $active = ajax_comments_node_type_active(substr($comment->node_type, strlen('comment_node_')));
 
-  if (!$active) {
+  if (!$active || ajax_comments_is_comment_page()) {
     return;
   }
 
