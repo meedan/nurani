@@ -498,7 +498,7 @@ function ajax_comments_edit($comment) {
   $form = drupal_render($form_build);
 
   // Replace comment with form.
-  $commands[] = ajax_command_replace('#comment-wrapper-' . $comment->cid . ' >.comment', $form);
+  $commands[] = ajax_command_replace('#comment-wrapper-' . $comment->cid . ' .comment:first', $form);
 
   return array('#type' => 'ajax', '#commands' => $commands);
 }
