@@ -27,6 +27,12 @@ function nurani_general_default_fe_block_settings() {
         'theme' => 'bartik',
         'weight' => '0',
       ),
+      'nurani' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'nurani',
+        'weight' => '0',
+      ),
       'seven' => array(
         'region' => '',
         'status' => 0,
@@ -51,6 +57,12 @@ function nurani_general_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'bartik',
+        'weight' => '0',
+      ),
+      'nurani' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'nurani',
         'weight' => '0',
       ),
       'seven' => array(

@@ -102,6 +102,7 @@ features[variable][] = date_format_medium
 features[variable][] = date_format_short
 features[variable][] = nurani_library_rest_path
 features[variable][] = nurani_library_rest_user
+features[variable][] = print_css
 features[variable][] = print_pdf_pdf_tool
 features[variable][] = site_frontpage
 features[variable][] = site_name
