@@ -89,11 +89,33 @@ function nurani_comment_block_view($delta = '') {
         $block['subject'] = t('Your response');
       }
 
-      $block['content'] = drupal_get_form("comment_node_{$node->type}_form", (object) array('nid' => $node->nid));
-      // $block['content'] = drupal_get_form("nurani_comment_form", $node);
+      $block['content'] = array(
+        // Need to add the missing comment-wrapper div, ajax_comments preview expects it.
+        'preview' => array(
+          '#type' => 'markup',
+          '#markup' => '<div id="comment-wrapper"></div>'
+        ),
+        'form' => drupal_get_form("comment_node_{$node->type}_form", (object) array('nid' => $node->nid)),
+      );
+
       return $block;
     }
   }
+}
+
+/**
+ * Implements hook_comment_view_alter().
+ *
+ * Ajax Comments module has bugs with the closing tags for its wrappers.
+ * Sometimes it adds too many. Since Nurani does not use threaded comments lets
+ * just simplify this to a basic prefix and suffix for each comment.
+ */
+function nurani_comment_comment_view_alter(&$build) {
+  $comment = $build['#comment'];
+
+  $build['#prefix'] = '<div class="ajax-comment-wrapper" id="comment-wrapper-' . $comment->cid . '">'
+                    .   '<a id="comment-' . $comment->cid . '"></a>';
+  $build['#suffix'] = '</div>';
 }
 
 /**
@@ -147,8 +169,22 @@ function nurani_comment_form_comment_form_alter(&$form, &$form_state) {
   // Alter the ajax_comments module settings a little to better fit into the
   // Discussions page display
   $form['actions']['submit']['#ajax']['callback'] = 'nurani_comment_submit_js';
-  // Need to add the missing comment-wrapper div, ajax_comments preview expects it.
-  $form['#prefix'] = '<div id="comment-wrapper"></div>';
+  $form['actions']['preview']['#ajax']['callback'] = 'nurani_comment_preview_js';
+}
+
+function nurani_comment_preview_js($form, $form_state) {
+  $response = ajax_comments_preview_js($form, $form_state);
+
+  if ($response['#type'] == 'ajax' && count($response['#commands'])) {
+    foreach ($response['#commands'] as $key => $command) {
+      // Replace the append preview command with a replace preview command
+      if ($command['command'] == 'insert' && preg_match('/^#comment-wrapper/', $command['selector'])) {
+        $response['#commands'][$key]['method'] = 'html';
+      }
+    }
+  }
+
+  return $response;
 }
 
 /**
@@ -165,6 +201,9 @@ function nurani_comment_submit_js($form, &$form_state) {
       }
     }
   }
+
+  // Remove the preview, if it exists
+  $response['#commands'][] = ajax_command_html('#comment-wrapper', '');
 
   return $response;
 }

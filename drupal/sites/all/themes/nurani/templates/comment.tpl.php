@@ -1,10 +1,8 @@
-<div class="comment-number ">
-  <span><?php echo $comment_number; ?></span>
-
-</div>
-
-
 <div class="<?php print $classes . ' ' . $zebra; ?>">
+  <div class="comment-number ">
+    <span><?php echo $comment_number; ?></span>
+  </div>
+
   <div class="comment-inner">
 
     <!-- <h3 class="title"><?php print $title ?></h3> -->
@@ -29,4 +27,3 @@
 
   </div> <!-- /comment-inner -->
 </div> <!-- /comment -->
-
