@@ -1,9 +1,12 @@
 <?php
+
 /**
  * @file
  * Administrative page code for the smtp module.
  *
  */
+
+
 /**
  * Administrative settings.
  *
@@ -109,7 +112,7 @@ function smtp_admin_settings() {
     '#type'          => 'password',
     '#title'         => t('Password'),
     '#default_value' => variable_get('smtp_password', ''),
-    '#description'   => t('SMTP password. Leave blank if you don\'t wish to change it.'),
+    '#description'   => t('SMTP password. If you have already entered your password before, you should leave this field blank, unless you want to change the stored password.'),
   );
 
   $form['email_options'] = array(
@@ -132,7 +135,7 @@ function smtp_admin_settings() {
     '#type'          => 'checkbox',
     '#title'         => t('Allow to send e-mails formated as Html'),
     '#default_value' => variable_get('smtp_allowhtml', 0),
-    '#description'   => t('Cheking this box will allow Html formated e-mails to be sent with the SMTP protocol.'),
+    '#description'   => t('Checking this box will allow Html formated e-mails to be sent with the SMTP protocol.'),
   );
 
   // If an address was given, send a test e-mail message.
@@ -170,7 +173,7 @@ function smtp_admin_settings() {
 
 
 /**
- * Validataion for the administrative settings form.
+ * Validation for the administrative settings form.
  *
  * @param form
  *   An associative array containing the structure of the form.
@@ -189,9 +192,15 @@ function smtp_admin_settings_validate($form, &$form_state) {
   if ($form_state['values']['smtp_from'] && !valid_email_address($form_state['values']['smtp_from'])) {
     form_set_error('smtp_from', t('The provided from e-mail address is not valid.'));
   }
+
+  // If username is set empty, we must set both username/password empty as well.
+  if (empty($form_state['values']['smtp_username'])) {
+    $form_state['values']['smtp_password'] = '';
+  }
+
   // A little hack. When form is presentend, the password is not shown (Drupal way of doing).
-  // So, if user submits the form without changing the password, we mus prevent it from being reset.
-  if (empty($form_state['values']['smtp_password'])) {
+  // So, if user submits the form without changing the password, we must prevent it from being reset.
+  elseif (empty($form_state['values']['smtp_password'])) {
     unset($form_state['values']['smtp_password']);
   }
 }  //  End of smtp_admin_settings_validate().

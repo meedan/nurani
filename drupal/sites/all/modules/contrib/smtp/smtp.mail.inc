@@ -46,12 +46,12 @@ class SmtpMailSystem implements MailSystemInterface {
    *   TRUE if the mail was successfully accepted, otherwise FALSE.
    */
   public function mail(array $message) {
-    $id       = $message['id'];
-    $to       = $message['to'];
-    $from     = $message['from'];
-    $subject  = $message['subject'];
-    $body     = $message['body'];
-    $headers  = $message['headers'];
+    $id = $message['id'];
+    $to = $message['to'];
+    $from = $message['from'];
+    $body = $message['body'];
+    $headers = $message['headers'];
+    $subject = $message['subject'];
 
     // Create a new PHPMailer object - autoloaded from registry.
     $mailer = new PHPMailer();
@@ -61,7 +61,7 @@ class SmtpMailSystem implements MailSystemInterface {
       $mailer->SMTPDebug = TRUE;
     }
 
-    // Set the from name and e-mail address.
+    // Set the from name.
     if (variable_get('smtp_fromname', '') != '') {
       $from_name = variable_get('smtp_fromname', '');
     }
@@ -91,7 +91,7 @@ class SmtpMailSystem implements MailSystemInterface {
       // If from e-mail address is blank, use smtp_from config option.
       if (($from = variable_get('smtp_from', '')) == '') {
         // If smtp_from config option is blank, use site_email.
-        if (($from = variable_get('site_email', '')) == '') {
+        if (($from = variable_get('site_mail', '')) == '') {
           drupal_set_message(t('There is no submitted from address.'), 'error');
           watchdog('smtp', 'There is no submitted from address.', array(), WATCHDOG_ERROR);
           return FALSE;
@@ -152,20 +152,20 @@ class SmtpMailSystem implements MailSystemInterface {
         case 'content-type':
           // Parse several values on the Content-type header, storing them in an array like
           // key=value -> $vars['key']='value'
-          $vars = explode('; ', $value);
+          $vars = explode(';', $value);
           foreach ($vars as $i => $var) {
             if ($cut = strpos($var, '=')) {
-              $new_var = drupal_strtolower(drupal_substr($var, $cut + 1));
-              $new_key = drupal_substr($var, 0, $cut);
+              $new_var = trim(drupal_strtolower(drupal_substr($var, $cut + 1)));
+              $new_key = trim(drupal_substr($var, 0, $cut));
               unset($vars[$i]);
               $vars[$new_key] = $new_var;
             }
           }
-          // Set the charset based on the provided value, if there is one.
-          $charset = $vars['charset'];
-          if ($charset) {
-            $mailer->CharSet = $charset;
-          }
+          // Set the charset based on the provided value, otherwise set it to UTF-8 (which is Drupals internal default).
+          $mailer->CharSet = isset($vars['charset']) ? $vars['charset'] : 'UTF-8';
+          // If $vars is empty then set an empty value at index 0 to avoid a PHP warning in the next statement
+          $vars[0] = isset($vars[0])?$vars[0]:'';
+
           switch ($vars[0]) {
             case 'text/plain':
               // The message includes only a plain text part.
@@ -200,8 +200,8 @@ class SmtpMailSystem implements MailSystemInterface {
             break;
             default:
               // Everything else is unsuppored by PHPMailer.
-              drupal_set_message(t('The Content-Type of your message is not supported by PHPMailer and will be sent as text/plain instead.'), 'error');
-              watchdog('smtp', 'The Content-Type of your message is not supported by PHPMailer and will be sent as text/plain instead.', array(), WATCHDOG_ERROR);
+              drupal_set_message(t('The %header of your message is not supported by PHPMailer and will be sent as text/plain instead.', array('%header' => "Content-Type: $value")), 'error');
+              watchdog('smtp', 'The %header of your message is not supported by PHPMailer and will be sent as text/plain instead.', array('%header' => "Content-Type: $value"), WATCHDOG_ERROR);
 
               // Force the Content-Type to be text/plain.
               $mailer->IsHTML(FALSE);
@@ -251,7 +251,7 @@ class SmtpMailSystem implements MailSystemInterface {
               $ccname = '';
               $ccaddr = $ccrecipient;
             }
-            $mailer->AddBCC($ccaddr, $ccname);
+            $mailer->AddCC($ccaddr, $ccname);
           }
           break;
 
@@ -277,27 +277,23 @@ class SmtpMailSystem implements MailSystemInterface {
       }
     }
 
-
-  /**
-   * TODO
-   * Need to figure out the following.
-
-    // Add one last header item, but not if it has already been added.
-    $errors_to = FALSE;
-    foreach ($mailer->CustomHeader as $custom_header) {
-      if ($custom_header[0] = '') {
-        $errors_to = TRUE;
-      }
-    }
-    if ($errors_to) {
-      $mailer->AddCustomHeader('Errors-To: '. $from);
-    }
-   */
-
-
+/**
+ * TODO
+ * Need to figure out the following.
+ *
+ * Add one last header item, but not if it has already been added.
+ * $errors_to = FALSE;
+ * foreach ($mailer->CustomHeader as $custom_header) {
+ *   if ($custom_header[0] = '') {
+ *     $errors_to = TRUE;
+ *   }
+ * }
+ * if ($errors_to) {
+ *   $mailer->AddCustomHeader('Errors-To: '. $from);
+ * }
+ */
     // Add the message's subject.
     $mailer->Subject = $subject;
-
 
     // Processes the message's body.
     switch ($content_type) {
@@ -353,10 +349,10 @@ class SmtpMailSystem implements MailSystemInterface {
           // $mailer->AltBody or $mailer->Body, depending on whether there is
           // also a text/html part ot not.
           if (strpos($body_part, 'multipart/alternative')) {
-            // Clean up the text.
-            $body_part = trim($this->_remove_headers(trim($body_part)));
             // Get boundary ID from the Content-Type header.
             $boundary2 = $this->_get_substring($body_part, 'boundary', '"', '"');
+            // Clean up the text.
+            $body_part = trim($this->_remove_headers(trim($body_part)));
             // Split the body based on the boundary ID.
             $body_parts2 = $this->_boundary_split($body_part, $boundary2);
 
@@ -412,7 +408,7 @@ class SmtpMailSystem implements MailSystemInterface {
             $file_type     = $this->_get_substring($body_part, 'Content-Type', ' ', ';');
 
             if (file_exists($file_path)) {
-              if (!$mailer->AddAttachment($file_path, $file_name, $file_encoding, $filetype)) {
+              if (!$mailer->AddAttachment($file_path, $file_name, $file_encoding, $file_type)) {
                 drupal_set_message(t('Attahment could not be found or accessed.'));
               }
             }
@@ -430,10 +426,11 @@ class SmtpMailSystem implements MailSystemInterface {
                 $attachment = $body_part;
               }
 
-              $attachment_new_filename = tempnam(realpath(file_directory_temp()), 'smtp');
-              $file_path               = file_save_data($attachment, $attachment_new_filename, FILE_EXISTS_RENAME);
+              $attachment_new_filename = drupal_tempnam('temporary://', 'smtp');
+              $file_path = file_save_data($attachment, $attachment_new_filename, FILE_EXISTS_REPLACE);
+              $real_path = drupal_realpath($file_path->uri);
 
-              if (!$mailer->AddAttachment($file_path, $file_name)) { // , $file_encoding, $filetype);
+              if (!$mailer->AddAttachment($real_path, $file_name)) {
                 drupal_set_message(t('Attachment could not be found or accessed.'));
               }
             }
@@ -446,6 +443,17 @@ class SmtpMailSystem implements MailSystemInterface {
         break;
     }
 
+    // Process mimemail attachments
+    if (isset($message['params']['attachments'])) {
+      foreach ($message['params']['attachments'] as $attachment) {
+        if (isset($attachment['filecontent'])) {
+          $mailer->AddStringAttachment($attachment['filecontent'], $attachment['filename'], 'base64', $attachment['filemime']);
+        }
+        if (isset($attachment['filepath'])) {
+          $mailer->AddAttachment($attachment['filepath'], $attachment['filename'], 'base64', $attachment['filemime']);
+        }
+      }
+    }
 
     // Set the authentication settings.
     $username = variable_get('smtp_username', '');
@@ -475,10 +483,9 @@ class SmtpMailSystem implements MailSystemInterface {
 
 
     // Set other connection settings.
-    $mailer->Host   = variable_get('smtp_host', '') . ';' . variable_get('smtp_hostbackup', '');
-    $mailer->Port   = variable_get('smtp_port', '25');
+    $mailer->Host = variable_get('smtp_host', '') . ';' . variable_get('smtp_hostbackup', '');
+    $mailer->Port = variable_get('smtp_port', '25');
     $mailer->Mailer = 'smtp';
-
 
     // Let the people know what is going on.
     watchdog('smtp', 'Sending mail to: @to', array('@to' => $to));
@@ -492,6 +499,7 @@ class SmtpMailSystem implements MailSystemInterface {
     $mailer->SmtpClose();
     return TRUE;
   }
+
   /**
    * Splits the input into parts based on the given boundary.
    *
@@ -525,8 +533,6 @@ class SmtpMailSystem implements MailSystemInterface {
     return $parts;
   }  //  End of _smtp_boundary_split().
 
-
-
   /**
    * Strips the headers from the body part.
    *
@@ -538,28 +544,35 @@ class SmtpMailSystem implements MailSystemInterface {
   protected function _remove_headers($input) {
     $part_array = explode("\n", $input);
 
-    if (strpos($part_array[0], 'Content') !== FALSE) {
-      if (strpos($part_array[1], 'Content') !== FALSE) {
-        if (strpos($part_array[2], 'Content') !== FALSE) {
-            array_shift($part_array);
-            array_shift($part_array);
-            array_shift($part_array);
-        }
-        else {
-          array_shift($part_array);
-          array_shift($part_array);
+    // will strip these headers according to RFC2045
+    $headers_to_strip = array( 'Content-Type', 'Content-Transfer-Encoding', 'Content-ID', 'Content-Disposition');
+    $pattern = '/^(' . implode('|', $headers_to_strip) . '):/';
+
+    while (count($part_array) > 0) {
+
+      // ignore trailing spaces/newlines
+      $line = rtrim($part_array[0]);
+
+      // if the line starts with a known header string
+      if (preg_match($pattern, $line)) {
+        $line = rtrim(array_shift($part_array));
+        // remove line containing matched header.
+
+        // if line ends in a ';' and the next line starts with four spaces, it's a continuation
+        // of the header split onto the next line. Continue removing lines while we have this condition.
+        while (substr($line, -1) == ';' && count($part_array) > 0 && substr($part_array[0], 0, 4) == '    ') {
+          $line = rtrim(array_shift($part_array));
         }
       }
       else {
-        array_shift($part_array);
+        // no match header, must be past headers; stop searching.
+        break;
       }
     }
 
     $output = implode("\n", $part_array);
     return $output;
   }  //  End of _smtp_remove_headers().
-
-
 
   /**
    * Returns a string that is contained within another string.
