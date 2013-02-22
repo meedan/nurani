@@ -704,7 +704,7 @@ select.form-select:focus {
   border-color: #ace;
 }
 html.js input.form-autocomplete {
-  background-position: 100% 8px;
+  background-position: 100% 4px;
 }
 html.js input.throbbing {
   background-position: 100% -16px;
