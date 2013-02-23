@@ -173,18 +173,8 @@ h2{ margin-bottom:1em;}
     }
 
     .contents{
-      max-height:75px;
       overflow: hidden;
       margin:10px 0;
-   
-      &:hover{
-        transition:height 2s;
-        max-height:100%;
-        transition:all .5s ease-out;
-        -moz-transition:all .5s ease-out; /* Firefox 4 */
-        -webkit-transition:all .5s ease-out; /* Safari and Chrome */
-        -o-transition:all .5s ease-out; /* Opera */
-      }
     }
   }
 }

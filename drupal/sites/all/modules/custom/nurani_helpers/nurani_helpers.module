@@ -3,6 +3,14 @@
 require_once dirname(__FILE__) . '/nurani_helpers.inc';
 
 /**
+ * Implements hook_init().
+ */
+function nurani_helpers_init() {
+  libraries_load('jquery.expander');
+  drupal_add_js(drupal_get_path('module', 'nurani_helpers') . '/js/nurani_helpers.js');
+}
+
+/**
  * Implements hook_cron().
  */
 function nurani_helpers_cron() {
@@ -206,4 +214,25 @@ function nurani_helpers_menu_alter(&$items) {
 function nurani_helpers_user_admin_access($string, $account = NULL) {
   $account = $account ? $account : $GLOBALS['user'];
   return user_access($string, $account) && (in_array('administrator', $account->roles) || $account->uid == 1);
+}
+
+/**
+ * Implements hook_libraries_info()
+ */
+function nurani_helpers_libraries_info() {
+  $libraries = array();
+  $libraries['jquery.expander'] = array(
+    'name' => 'jQuery Expander',
+    'vendor url' => 'https://github.com/kswedberg/jquery-expander',
+    'download url' => 'https://raw.github.com/kswedberg/jquery-expander/master/jquery.expander.min.js',
+    'version arguments' => array(
+      'file' => 'jquery.expander.min.js',
+      'pattern' => '/jQuery Expander Plugin v([0-9\.]+)/',
+      'lines' => 5,
+    ),
+    'files' => array(
+      'js' => array('jquery.expander.min.js'),
+    ),
+  );
+  return $libraries;
 }

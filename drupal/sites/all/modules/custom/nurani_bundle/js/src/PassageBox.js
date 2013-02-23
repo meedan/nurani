@@ -135,6 +135,7 @@ PassageBox.prototype.updatePassageWidget = function () {
     dataType: 'jsonp',
     success: function (data) {
       that.$passageWidget.html(data.html);
+      Drupal.attachBehaviors(that.$passageWidget);
     }
   });
 };
