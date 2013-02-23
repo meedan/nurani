@@ -30,6 +30,9 @@ function nurani_general_wysiwyg_default_profiles() {
           'Unlink' => 1,
           'Superscript' => 1,
         ),
+        'nurani_library_passages_filter' => array(
+          'nurani_library_passages_filter' => 1,
+        ),
       ),
       'toolbar_loc' => 'top',
       'toolbar_align' => 'left',

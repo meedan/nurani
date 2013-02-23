@@ -19,14 +19,14 @@ function nurani_general_filter_default_formats() {
     'weight' => '0',
     'filters' => array(
       'filter_url' => array(
-        'weight' => '0',
+        'weight' => '-48',
         'status' => '1',
         'settings' => array(
           'filter_url_length' => '72',
         ),
       ),
       'filter_html' => array(
-        'weight' => '1',
+        'weight' => '-47',
         'status' => '1',
         'settings' => array(
           'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <sup>',
@@ -35,14 +35,43 @@ function nurani_general_filter_default_formats() {
         ),
       ),
       'filter_autop' => array(
-        'weight' => '2',
+        'weight' => '-46',
         'status' => '1',
         'settings' => array(),
       ),
       'filter_htmlcorrector' => array(
-        'weight' => '10',
+        'weight' => '-45',
         'status' => '1',
         'settings' => array(),
+      ),
+      'nurani_library_passages' => array(
+        'weight' => '-44',
+        'status' => '1',
+        'settings' => array(
+          'allowed_works' => array(
+            'nrsv_en' => 1,
+            'njps_en' => 1,
+            'quran_ar' => 1,
+            'quran_ahmedali_en' => 1,
+            'quran_ahmedraza_en' => 1,
+            'quran_arberry_en' => 1,
+            'quran_asad_en' => 1,
+            'quran_daryabadi_en' => 1,
+            'quran_hilali_en' => 1,
+            'quran_maududi_en' => 1,
+            'quran_qaribullah_en' => 1,
+            'quran_sahih_en' => 1,
+            'quran_sarwar_en' => 1,
+            'quran_shakir_en' => 1,
+            'quran_transliteration_en' => 1,
+            'quran_wahiduddin_en' => 1,
+            'quran_yusufali_en' => 1,
+            'wlc_he' => 1,
+            'lxx_el' => 1,
+            'tisch_el' => 1,
+            'wh_el' => 1,
+          ),
+        ),
       ),
     ),
   );
