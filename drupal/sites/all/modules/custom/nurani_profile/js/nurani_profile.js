@@ -53,11 +53,13 @@
         that.spinner.stop();
         that.spinner = null;
 
-        that.$tooltip
-          .html(data || '')
-          .removeClass('loading');
+        if (data && that.$tooltip) {
+          that.$tooltip
+            .html(data)
+            .removeClass('loading');
 
-        that.positionTooltip();
+          that.positionTooltip();
+        }
       }
     });
 
