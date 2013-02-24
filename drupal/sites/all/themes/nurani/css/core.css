@@ -113,6 +113,10 @@ sup {
   max-width: 100%;
 }
 
+body .ui-dialog .ui-dialog-titlebar {
+  height: 24px;
+}
+
 /*Welcome block*/
 #block-nurani_helpers-welcome_login {
   margin-top: -2.5em;

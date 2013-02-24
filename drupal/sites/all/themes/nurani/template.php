@@ -1,6 +1,15 @@
 <?php
 
 /**
+ * Implements hook_css_alter()
+ */
+function nurani_css_alter(&$css) {
+  if (isset($css['misc/ui/jquery.ui.theme.css'])) {
+    $css['misc/ui/jquery.ui.theme.css']['data'] = drupal_get_path('theme', 'seven') . '/jquery.ui.theme.css';
+  }
+}
+
+/**
  * Implements hook_preprocess_node().
  */
 function nurani_preprocess_node(&$vars) {
