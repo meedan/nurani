@@ -18,8 +18,18 @@
   padding:0;
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+#scroll-capture {
+  overflow: auto;
+  height: 100%;
+}
+
 body{
-  margin:0;
   background: #F1E9E4 url('../images/brown_bkg.gif') repeat fixed center right;
 }
 

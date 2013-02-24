@@ -630,8 +630,18 @@ input.date-clear {
   padding: 0;
 }
 
-body {
+html, body {
+  height: 100%;
+  overflow: hidden;
   margin: 0;
+}
+
+#scroll-capture {
+  overflow: auto;
+  height: 100%;
+}
+
+body {
   background: #f1e9e4 url("../images/brown_bkg.gif") repeat fixed center right;
 }
 
