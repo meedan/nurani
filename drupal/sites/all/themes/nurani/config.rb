@@ -11,3 +11,6 @@ sass_dir = "scss"
 images_dir = "images"
 javascripts_dir = "js"
 fonts_dir = "fonts"
+
+# Extra options
+line_comments = false
