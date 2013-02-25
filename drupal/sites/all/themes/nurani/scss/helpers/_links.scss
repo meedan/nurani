@@ -1,0 +1,20 @@
+
+/*Mixin to style Username links*/
+@mixin username-links($color){
+  a{
+    color:$color;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
+/*mixin to style discussion lock & print pdf*/
+@mixin styling-pdf-discussion-lock{
+   color:$nurani-text-gray;
+   font-size:1.2em;
+}
+
+/* Mixin to style attribution class and links */
+@mixin attribution($color){
+    @include username-links($color); 
+}

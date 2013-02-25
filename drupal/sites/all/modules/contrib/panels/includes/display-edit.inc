@@ -7,7 +7,6 @@
  * as well as the ajax modal forms associated with them.
  */
 
-
 /**
  * Handle calling and processing of the form for editing display content.
  *
@@ -51,7 +50,7 @@ function _panels_edit($display, $destination, $content_types, $title = FALSE) {
  * @ingroup forms
  * @see panels_edit_display_submit()
  */
-function panels_edit_display_form(&$form_state) {
+function panels_edit_display_form($form, &$form_state) {
   $display = &$form_state['display'];
   $renderer = &$form_state['renderer'];
 
@@ -69,22 +68,23 @@ function panels_edit_display_form(&$form_state) {
     $links = $renderer->get_display_links();
   }
   else {
+    $renderer->no_edit_links = TRUE;
     $links = '';
   }
   $form['hide']['display-settings'] = array(
-    '#value' => $links,
+    '#markup' => $links,
   );
 
-  $form += panels_edit_display_settings_form($form_state);
+  $form += panels_edit_display_settings_form($form, $form_state);
 
   $form['panel'] = array('#tree' => TRUE);
   $form['panel']['pane'] = array('#tree' => TRUE);
 
   $form['display'] = array(
-    '#value' => $renderer->render(),
+    '#markup' => $renderer->render(),
   );
 
-  foreach ($renderer->plugins['layout']['panels'] as $region_id => $title) {
+  foreach ($renderer->plugins['layout']['regions'] as $region_id => $title) {
     // Make sure we at least have an empty array for all possible locations.
     if (!isset($display->panels[$region_id])) {
       $display->panels[$region_id] = array();
@@ -123,13 +123,20 @@ function panels_edit_display_form(&$form_state) {
     $form['preview']['button'] = array(
       '#type' => 'submit',
       '#value' => t('Preview'),
-      '#attributes' => array('class' => 'ctools-use-ajax'),
+      '#attributes' => array('class' => array('use-ajax-submit')),
       '#id' => 'panels-live-preview-button',
       '#submit' => array('panels_edit_display_form_submit', 'panels_edit_display_form_preview'),
     );
   }
 
   return $form;
+}
+
+/**
+ * Handle form validation of the display content editor.
+ */
+function panels_edit_display_form_validate($form, &$form_state) {
+  panels_edit_display_settings_form_validate($form, $form_state);
 }
 
 /**
@@ -146,16 +153,24 @@ function panels_edit_display_form_submit($form, &$form_state) {
   $display->content = array();
 
   if (!empty($form_state['values']['panel']['pane'])) {
-    foreach ($form_state['values']['panel']['pane'] as $panel_id => $panes) {
-      $display->panels[$panel_id] = array();
+    foreach ($form_state['values']['panel']['pane'] as $region_id => $panes) {
+      $display->panels[$region_id] = array();
       if ($panes) {
         $pids = explode(',', $panes);
         // need to filter the array, b/c passing it in a hidden field can generate trash
         foreach (array_filter($pids) as $pid) {
           if ($old_content[$pid]) {
-            $display->panels[$panel_id][] = $pid;
-            $old_content[$pid]->panel = $panel_id;
+            $display->panels[$region_id][] = $pid;
+            $old_content[$pid]->panel = $region_id;
             $display->content[$pid] = $old_content[$pid];
+
+            // If the panel has region locking, make sure that the region
+            // the panel is in is applicable. This can happen if the panel
+            // was moved and then the lock changed and the server didn't
+            // know.
+            if (!empty($old_content[$pid]->locks) && $old_content[$pid]->locks['type'] == 'regions') {
+              $old_content[$pid]->locks['regions'][$region_id] = $region_id;
+            }
           }
         }
       }
@@ -188,15 +203,16 @@ function panels_edit_display_form_preview(&$form, &$form_state) {
     'output' => $output,
   );
 
-  ctools_ajax_render($commands);
+  print ajax_render($commands);
+  ajax_footer();
+  exit;
 }
 
 
 /**
  * Form for display settings.
  */
-function panels_edit_display_settings_form(&$form_state) {
-  $form = array();
+function panels_edit_display_settings_form($form, &$form_state) {
   $display = &$form_state['display'];
 
   $layout = panels_get_layout($display->layout);
@@ -227,6 +243,7 @@ function panels_edit_display_settings_form(&$form_state) {
       '#description' => t('The title of this panel. If left blank, a default title may be used. Set to No Title if you want the title to actually be blank.'),
       '#process' => array('ctools_dependent_process'),
       '#dependency' => array('edit-display-title-hide-title' => array(PANELS_TITLE_FIXED)),
+      '#maxlength' => 255,
     );
 
     if (!empty($display->context)) {
@@ -235,14 +252,15 @@ function panels_edit_display_settings_form(&$form_state) {
       // We have to create a manual fieldset because fieldsets do not support IDs.
       // Use 'hidden' instead of 'markup' so that the process will run.
       // Add js for collapsible fieldsets manually
-      drupal_add_js('misc/collapse.js');
-      $form['display_title']['contexts_prefix'] = array(
-        '#type' => 'hidden',
-        '#id' => 'edit-display-substitutions',
-        '#prefix' => '<div><fieldset id="edit-display-substitutions" class="collapsed collapsible"><legend>' . t('Substitutions') . '</legend>',
-        '#process' => array('ctools_dependent_process'),
-        '#dependency' => array('edit-display-title-hide-title' => array(PANELS_TITLE_FIXED)),
-      );
+//      drupal_add_js('misc/form.js');
+//      drupal_add_js('misc/collapse.js');
+//      $form['display_title']['contexts_prefix'] = array(
+//        '#type' => 'hidden',
+//        '#id' => 'edit-display-substitutions',
+//        '#prefix' => '<div><fieldset id="edit-display-substitutions" class="collapsed collapsible"><legend>' . t('Substitutions') . '</legend><div class="fieldset-wrapper">',
+//        '#process' => array('ctools_dependent_process'),
+//        '#dependency' => array('edit-display-title-hide-title' => array(PANELS_TITLE_FIXED)),
+//      );
 
       $rows = array();
       foreach ($display->context as $context) {
@@ -256,11 +274,18 @@ function panels_edit_display_settings_form(&$form_state) {
 
       $header = array(t('Keyword'), t('Value'));
       $form['display_title']['contexts'] = array(
-        '#value' => theme('table', $header, $rows),
+        '#type' => 'fieldset',
+        '#title' => t('Substitutions'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#value' => theme('table', array('header' => $header, 'rows' => $rows)),
+//        '#process' => array('form_process_fieldset', 'ctools_dependent_process'),
+//        '#id' => 'edit-display-title-context',
+//        '#dependency' => array('edit-display-title-hide-title' => array(PANELS_TITLE_FIXED)),
       );
-      $form['display_title']['contexts_suffix'] = array(
-        '#value' => '</fieldset></div>',
-      );
+//      $form['display_title']['contexts_suffix'] = array(
+//        '#value' => '</div></fieldset></div>',
+//      );
     }
   }
 

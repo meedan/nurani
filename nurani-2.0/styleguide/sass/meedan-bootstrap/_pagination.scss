@@ -1,0 +1,20 @@
+
+@mixin pagination($font-size: 19px) {
+  @include full;
+  @include adjust-font-size-to($font-size);
+  @include leader(1, $font-size);
+  @include trailer(1, $font-size);
+  background: $light-gray;
+  text-align: center;
+  li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    a {
+      font-weight: bold;
+      text-decoration: none;
+      background: $light-gray;
+      padding: 0 rhythm(1, $font-size);
+    }
+  }
+}

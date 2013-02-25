@@ -1,5 +1,4 @@
 <?php
-// $Id: page.inc,v 1.17.2.4 2010/08/30 22:07:52 merlinofchaos Exp $
 
 /**
  * @file
@@ -26,6 +25,7 @@ function page_manager_page_page_manager_tasks() {
     'subtask callback' => 'page_manager_page_subtask',
     'subtasks callback' => 'page_manager_page_subtasks',
     'save subtask callback' => 'page_manager_page_save_subtask',
+    'access callback' => 'page_manager_page_access_check',
     'hook menu' => array(
       'file' => 'page.admin.inc',
       'path' => drupal_get_path('module', 'page_manager') . '/plugins/tasks',
@@ -37,7 +37,7 @@ function page_manager_page_page_manager_tasks() {
     'page operations' => array(
       array(
         'title' => ' &raquo; ' . t('Create a new page'),
-        'href' => 'admin/build/pages/add',
+        'href' => 'admin/structure/pages/add',
         'html' => TRUE,
       ),
     ),
@@ -139,7 +139,7 @@ function page_manager_page_build_subtask($task, $page) {
   $operations = array();
   $operations['settings'] = array(
     'type' => 'group',
-    'class' => 'operations-settings',
+    'class' => array('operations-settings'),
     'title' => t('Settings'),
     'children' => array(),
   );
@@ -236,13 +236,13 @@ function page_manager_page_theme(&$items, $task) {
     'path' => drupal_get_path('module', 'page_manager') . '/plugins/tasks',
   );
   $items['page_manager_page_form_argument_table'] = $base + array(
-    'arguments' => array('form' => NULL),
+    'render element' => 'form',
   );
   $items['page_manager_page_lock'] = $base + array(
-    'arguments' => array('lock' => array(), 'task_name' => NULL),
+    'variables' => array('lock' => array(), 'task_name' => NULL),
   );
   $items['page_manager_page_changed'] = $base + array(
-    'arguments' => array(),
+    'variables' => array(),
   );
 }
 
@@ -291,7 +291,6 @@ function page_manager_page_execute($subtask_id) {
         $argument['keyword'] = $name;
         if (isset($args[$count])) {
           // Hack: use a special argument config variable to learn if we need
-          $plugin = ctools_get_argument($argument['name']);
           // to use menu_tail style behavior:
           if (empty($argument['settings']['use_tail'])) {
             $value = $args[$count];
@@ -314,18 +313,6 @@ function page_manager_page_execute($subtask_id) {
       $count++;
     }
   }
-
-  // Add a fake tab for 'View' so that edit tabs can be added.
-  if (user_access('administer page manager') && (!isset($page->menu['type']) || !in_array($page->menu['type'], array('tab', 'default tab')))) {
-    ctools_include('menu');
-    ctools_menu_add_tab(array(
-      'title' => t('View'),
-      'href' => $_GET['q'],
-      'type' => MENU_DEFAULT_LOCAL_TASK,
-      'weight' => -10,
-    ));
-  }
-
 
   if ($function = ctools_plugin_get_function($task, 'page callback')) {
     return call_user_func_array($function, array($page, $contexts, $args));
@@ -456,7 +443,9 @@ function page_manager_page_delete($page) {
       page_manager_delete_task_handler($handler);
     }
   }
-  db_query("DELETE FROM {page_manager_pages} WHERE name = '%s'", $page->name);
+  db_delete('page_manager_pages')
+    ->condition('name', $page->name)
+    ->execute();
   // Make sure that the cache is reset so that the menu rebuild does not
   // rebuild this page again.
   ctools_include('export');
@@ -574,9 +563,9 @@ function page_manager_page_admin_summary($task, $subtask) {
   $rows = array();
 
   $rows[] = array(
-    array('class' => t('page-summary-label'), 'data' => t('Storage')),
-    array('class' => t('page-summary-data'), 'data' => $subtask['storage']),
-    array('class' => t('page-summary-operation'), 'data' => ''),
+    array('class' => array('page-summary-label'), 'data' => t('Storage')),
+    array('class' => array('page-summary-data'), 'data' => $subtask['storage']),
+    array('class' => array('page-summary-operation'), 'data' => ''),
   );
 
   if (!empty($page->disabled)) {
@@ -589,9 +578,9 @@ function page_manager_page_admin_summary($task, $subtask) {
   }
 
   $rows[] = array(
-    array('class' => t('page-summary-label'), 'data' => t('Status')),
-    array('class' => t('page-summary-data'), 'data' => $text),
-    array('class' => t('page-summary-operation'), 'data' => $link),
+    array('class' => array('page-summary-label'), 'data' => t('Status')),
+    array('class' => array('page-summary-data'), 'data' => $text),
+    array('class' => array('page-summary-operation'), 'data' => $link),
   );
 
 
@@ -616,8 +605,8 @@ function page_manager_page_admin_summary($task, $subtask) {
 
   if ($message) {
     $rows[] = array(
-      array('class' => t('page-summary-data'), 'data' => $message, 'colspan' => 2),
-      array('class' => t('page-summary-operation'), 'data' => $link),
+      array('class' => array('page-summary-data'), 'data' => $message, 'colspan' => 2),
+      array('class' => array('page-summary-operation'), 'data' => $link),
     );
   }
 
@@ -629,9 +618,9 @@ function page_manager_page_admin_summary($task, $subtask) {
   }
 
   $rows[] = array(
-    array('class' => t('page-summary-label'), 'data' => t('Path')),
-    array('class' => t('page-summary-data'), 'data' => $path),
-    array('class' => t('page-summary-operation'), 'data' => $link),
+    array('class' => array('page-summary-label'), 'data' => t('Path')),
+    array('class' => array('page-summary-data'), 'data' => $path),
+    array('class' => array('page-summary-operation'), 'data' => $link),
   );
 
   if (empty($access['plugins'])) {
@@ -650,9 +639,9 @@ function page_manager_page_admin_summary($task, $subtask) {
   $link = l(t('Edit'), page_manager_edit_url($task_name, array('settings', 'access')));
 
   $rows[] = array(
-    array('class' => t('page-summary-label'), 'data' => t('Access')),
-    array('class' => t('page-summary-data'), 'data' => $access),
-    array('class' => t('page-summary-operation'), 'data' => $link),
+    array('class' => array('page-summary-label'), 'data' => t('Access')),
+    array('class' => array('page-summary-data'), 'data' => $access),
+    array('class' => array('page-summary-operation'), 'data' => $link),
   );
 
   $menu_options = array(
@@ -660,6 +649,7 @@ function page_manager_page_admin_summary($task, $subtask) {
     'normal' => t('Normal menu entry.'),
     'tab' => t('Menu tab.'),
     'default tab' => t('Default menu tab.'),
+    'action' => t('Local action'),
   );
 
   if (!empty($page->menu)) {
@@ -685,12 +675,12 @@ function page_manager_page_admin_summary($task, $subtask) {
 
   $link = l(t('Edit'), page_manager_edit_url($task_name, array('settings', 'menu')));
   $rows[] = array(
-    array('class' => t('page-summary-label'), 'data' => t('Menu')),
-    array('class' => t('page-summary-data'), 'data' => $menu),
-    array('class' => t('page-summary-operation'), 'data' => $link),
+    array('class' => array('page-summary-label'), 'data' => t('Menu')),
+    array('class' => array('page-summary-data'), 'data' => $menu),
+    array('class' => array('page-summary-operation'), 'data' => $link),
   );
 
-  $output .= theme('table', array(), $rows, array('id' => 'page-manager-page-summary'));
+  $output .= theme('table', array('rows' => $rows, 'attributes' => array('id' => 'page-manager-page-summary')));
   return $output;
 }
 
@@ -777,4 +767,21 @@ function page_manager_page_new_page_cache(&$page, &$cache) {
 
   $cache->locked = FALSE;
   $cache->changed = TRUE;
+}
+
+/**
+ * Callback to determine if a page is accessible.
+ *
+ * @param $task
+ *   The task plugin.
+ * @param $subtask_id
+ *   The subtask id
+ * @param $contexts
+ *   The contexts loaded for the task.
+ * @return
+ *   TRUE if the current user can access the page.
+ */
+function page_manager_page_access_check($task, $subtask_id, $contexts) {
+  $page = page_manager_page_load($subtask_id);
+  return ctools_access($page->access, $contexts);
 }

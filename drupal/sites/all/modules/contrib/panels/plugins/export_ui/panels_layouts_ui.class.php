@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains the administrative UI for reusable layouts.
+ */
+
 class panels_layouts_ui extends ctools_export_ui {
   var $lipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam egestas congue nibh, vel dictum ante posuere vitae. Cras gravida massa tempor metus eleifend sed elementum tortor scelerisque. Vivamus egestas, tortor quis luctus tristique, sem velit adipiscing risus, et tempus enim felis in massa. Morbi viverra, nisl quis rhoncus imperdiet, turpis massa vestibulum turpis, egestas faucibus nibh metus vel nunc. In hac habitasse platea dictumst. Nunc sit amet nisi quis ipsum tincidunt semper. Donec ac urna enim, et placerat arcu. Morbi eu laoreet justo. Nullam nec velit eu neque mattis pulvinar sed non libero. Sed sed vulputate erat. Fusce sit amet dui nibh.";
 
@@ -110,9 +115,7 @@ class panels_layouts_ui extends ctools_export_ui {
     $form_state['renderer'] = panels_get_renderer_handler('editor', $cache->display);
     $form_state['renderer']->cache = &$cache;
 
-    $form = array_merge($form, panels_edit_display_form($form_state));
-    // Make sure the theme will work since our form id is different.
-    $form['#theme'] = 'panels_edit_display_form';
+    $form = panels_edit_display_form($form, $form_state);
 
     // If we leave the standard submit handler, it'll try to reconcile
     // content from the input, but we've not exposed that to the user. This
@@ -204,26 +207,29 @@ class panels_layouts_ui extends ctools_export_ui {
 
     $type = !empty($this->builders[$item->plugin]) ? $this->builders[$item->plugin]['title'] : t('Broken/missing plugin');
     $category = $item->category ? check_plain($item->category) : t('Miscellaneous');
+
+    $ops = theme('links__ctools_dropbutton', array('links' => $operations, 'attributes' => array('class' => array('links', 'inline'))));
+
     $this->rows[$item->name] = array(
       'data' => array(
-        array('data' => check_plain($type), 'class' => 'ctools-export-ui-type'),
-        array('data' => check_plain($item->name), 'class' => 'ctools-export-ui-name'),
-        array('data' => check_plain($item->admin_title), 'class' => 'ctools-export-ui-title'),
-        array('data' => $category, 'class' => 'ctools-export-ui-category'),
-        array('data' => theme('links', $operations), 'class' => 'ctools-export-ui-operations'),
+        array('data' => check_plain($type), 'class' => array('ctools-export-ui-type')),
+        array('data' => check_plain($item->name), 'class' => array('ctools-export-ui-name')),
+        array('data' => check_plain($item->admin_title), 'class' => array('ctools-export-ui-title')),
+        array('data' => $category, 'class' => array('ctools-export-ui-category')),
+        array('data' => $ops, 'class' => array('ctools-export-ui-operations')),
       ),
       'title' => check_plain($item->admin_description),
-      'class' => !empty($item->disabled) ? 'ctools-export-ui-disabled' : 'ctools-export-ui-enabled',
+      'class' => array(!empty($item->disabled) ? 'ctools-export-ui-disabled' : 'ctools-export-ui-enabled'),
     );
   }
 
   function list_table_header() {
     return array(
-      array('data' => t('Type'), 'class' => 'ctools-export-ui-type'),
-      array('data' => t('Name'), 'class' => 'ctools-export-ui-name'),
-      array('data' => t('Title'), 'class' => 'ctools-export-ui-title'),
-      array('data' => t('Category'), 'class' => 'ctools-export-ui-category'),
-      array('data' => t('Operations'), 'class' => 'ctools-export-ui-operations'),
+      array('data' => t('Type'), 'class' => array('ctools-export-ui-type')),
+      array('data' => t('Name'), 'class' => array('ctools-export-ui-name')),
+      array('data' => t('Title'), 'class' => array('ctools-export-ui-title')),
+      array('data' => t('Category'), 'class' => array('ctools-export-ui-category')),
+      array('data' => t('Operations'), 'class' => array('ctools-export-ui-operations')),
     );
   }
 }

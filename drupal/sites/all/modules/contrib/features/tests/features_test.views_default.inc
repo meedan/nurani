@@ -1,32 +1,37 @@
 <?php
+/**
+ * @file
+ * features_test.views_default.inc
+ */
 
 /**
- * Implementation of hook_views_default_views().
+ * Implements hook_views_default_views().
  */
 function features_test_views_default_views() {
-  $views = array();
+  $export = array();
 
-  // Exported view: features_test
   $view = new view;
   $view->name = 'features_test';
   $view->description = 'Test view provided by Features testing module.';
   $view->tag = 'testing';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->human_name = '';
+  $view->core = 0;
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
-  $handler->override_option('access', array(
-    'type' => 'none',
-  ));
-  $handler->override_option('cache', array(
-    'type' => 'none',
-  ));
-  $handler->override_option('title', 'Test');
-  $handler->override_option('row_plugin', 'node');
+  $handler->display->display_options['title'] = 'Test';
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'node';
+  $export['features_test'] = $view;
 
-  $views[$view->name] = $view;
-
-  return $views;
+  return $export;
 }

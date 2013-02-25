@@ -19,7 +19,7 @@ function print_main_settings() {
   $print_css = variable_get('print_css', PRINT_CSS_DEFAULT);
   // Check that the stylesheet path is indeed valid and relative to base_path()
   if (!empty($print_css) && empty($_POST)) {
-    $css_path = dirname($_SERVER['SCRIPT_FILENAME']) .'/'. strtr($print_css, array('%t' => drupal_get_path('theme', variable_get('theme_default', 'garland'))));
+    $css_path = dirname($_SERVER['SCRIPT_FILENAME']) . '/' . strtr($print_css, array('%t' => drupal_get_path('theme', variable_get('theme_default', 'garland'))));
     if (!is_file($css_path) || !is_readable($css_path)) {
       drupal_set_message(t("File %file is not readable by the web server.", array('%file' => $css_path)), 'warning', FALSE);
     }
@@ -36,9 +36,9 @@ function print_main_settings() {
     '#default_value' => $print_css,
     '#size' => 60,
     '#maxlength' => 250,
-    '#description' => t('The path to your custom print cascading stylesheet, if any. The path provided must be relative to the base path. When none is specified, the default module CSS file is used.') .'<br />'.
-                      t('Macros: %t (path to theme: "%theme")', array('%theme' => drupal_get_path('theme', variable_get('theme_default', 'garland')))) .'<br />'.
-                      t('Requires the <em>administer site configuration</em> permission.'),
+    '#description' => t('The path to your custom print cascading stylesheet, if any. The path provided must be relative to the base path. When none is specified, the default module CSS file is used.') . '<br />' .
+                      t('Macros: %t (path to theme: "%theme")', array('%theme' => drupal_get_path('theme', variable_get('theme_default', 'bartik')))) . '<br />' .
+                      t('Requires the <em>Administer site configuration</em> permission.'),
     '#disabled' => !user_access('administer site configuration'),
   );
 
@@ -53,8 +53,8 @@ function print_main_settings() {
     '#type' => 'checkbox',
     '#title' => t('Printer-friendly URLs list'),
     '#default_value' => variable_get('print_urls', PRINT_URLS_DEFAULT),
-    '#description' => t('If set, a list of the destination URLs for the page links will be displayed at the bottom of the page.') .'<br />'.
-                      t('Note that you can enable/disable the URL list for each content type individually from the !url.', array('!url' => l(t('Content Types page'), 'admin/content/types'))),
+    '#description' => t('If set, a list of the destination URLs for the page links will be displayed at the bottom of the page.') . '<br />' .
+                      t('Note that you can enable/disable the URL list for each content type individually from the !url.', array('!url' => l(t('Content Types page'), 'admin/structure/types'))),
   );
 
   $form['settings']['print_urls_anchors'] = array(
@@ -171,19 +171,18 @@ function print_main_settings() {
  * Validate print_main_settings form.
  */
 function _print_main_settings_validate($form, &$form_state) {
-  global $base_url;
+  global $base_root;
 
   // Check for a new uploaded logo, and use that instead.
   if ($file = file_save_upload('print_logo_upload', array('file_validate_is_image' => array()))) {
-    $parts = pathinfo($file->filename);
-    $filename = 'print_logo.'. drupal_strtolower($parts['extension']);
-
     // The image was saved using file_save_upload() and was added to the
     // files table as a temporary file. We'll make a copy and let the garbage
     // collector delete the original upload.
-    if (file_copy($file, $filename, FILE_EXISTS_REPLACE)) {
+    if ($filename = file_unmanaged_copy($file->uri)) {
+      $wrapper = file_stream_wrapper_get_instance_by_uri($filename);
+
       $form_state['values']['print_logo_options'] = 2;
-      $form_state['values']['print_logo_url'] = base_path() . $file->filepath;
+      $form_state['values']['print_logo_url'] = str_replace($base_root, '', $wrapper->getExternalUrl());
     }
   }
 }
@@ -202,8 +201,8 @@ function print_html_settings() {
   $form['settings']['print_html_link_pos'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Printer-friendly page link'),
-    '#default_value' => variable_get('print_html_link_pos', array(PRINT_HTML_LINK_POS_DEFAULT => PRINT_HTML_LINK_POS_DEFAULT)),
-    '#options' => array('link' => t('Links area'), 'corner' => t('Content corner')),
+    '#default_value' => variable_get('print_html_link_pos', drupal_json_decode(PRINT_HTML_LINK_POS_DEFAULT)),
+    '#options' => array('link' => t('Links area'), 'corner' => t('Content corner'), 'block' => t('Block'), 'help' => t('Help area')),
     '#description' => t('Choose the location of the link(s) to the printer-friendly page. The Links area is usually below the node content, whereas the Content corner is placed in the upper-right corner of the node content. Unselect all options to disable the link. Even if the link is disabled, you can still view the print version of a node by going to !path/nid where nid is the numeric id of the node.', array('!path' => PRINT_PATH)),
   );
 
@@ -257,18 +256,19 @@ function print_html_settings() {
     '#default_value' => variable_get('print_html_node_link_pages', PRINT_HTML_NODE_LINK_PAGES_DEFAULT),
     '#rows' => 3,
     '#description' => t("Enter one page per line as Drupal paths. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array('%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>')),
-    '#wysiwyg' => FALSE,
   );
 
-  $access = user_access('use PHP for link visibility');
+  if (module_exists('php')) {
+    $access = user_access('use PHP for settings');
 
-  if ($form['settings']['adv_link']['print_html_node_link_visibility']['#default_value'] == 2 && !$access) {
-    $form['settings']['adv_link']['print_html_node_link_visibility'] = array('#type' => 'value', '#value' => 2);
-    $form['settings']['adv_link']['print_html_node_link_pages'] = array('#type' => 'value', '#value' => $form['settings']['adv_link']['print_html_node_link_pages']['#default_value']);
-  }
-  elseif ($access) {
-    $form['settings']['adv_link']['print_html_node_link_visibility']['#options'][] = t('Show if the following PHP code returns <code>TRUE</code> (PHP-mode, experts only).');
-    $form['settings']['adv_link']['print_html_node_link_pages']['#description'] .= ' '. t('If the PHP-mode is chosen, enter PHP code between %php. Note that executing incorrect PHP-code can break your Drupal site.', array('%php' => '<?php ?>'));
+    if ($form['settings']['adv_link']['print_html_node_link_visibility']['#default_value'] == 2 && !$access) {
+      $form['settings']['adv_link']['print_html_node_link_visibility'] = array('#type' => 'value', '#value' => 2);
+      $form['settings']['adv_link']['print_html_node_link_pages'] = array('#type' => 'value', '#value' => $form['settings']['adv_link']['print_html_node_link_pages']['#default_value']);
+    }
+    elseif ($access) {
+      $form['settings']['adv_link']['print_html_node_link_visibility']['#options'][] = t('Show if the following PHP code returns <code>TRUE</code> (PHP-mode, experts only).');
+      $form['settings']['adv_link']['print_html_node_link_pages']['#description'] .= ' ' . t('If the PHP-mode is chosen, enter PHP code between %php. Note that executing incorrect PHP-code can break your Drupal site.', array('%php' => '<?php ?>'));
+    }
   }
 
   $form['settings']['adv_link']['print_html_sys_link_visibility'] = array(
@@ -283,18 +283,19 @@ function print_html_settings() {
     '#type' => 'textarea',
     '#default_value' => variable_get('print_html_sys_link_pages', PRINT_HTML_SYS_LINK_PAGES_DEFAULT),
     '#rows' => 3,
-    '#description' => t('Setting this option will add a printer-friendly version page link on pages created by Drupal or the enabled modules.') .'<br />'.
+    '#description' => t('Setting this option will add a printer-friendly version page link on pages created by Drupal or the enabled modules.') . '<br />' .
                       t("Enter one page per line as Drupal paths. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", array('%blog' => 'blog', '%blog-wildcard' => 'blog/*', '%front' => '<front>')),
-    '#wysiwyg' => FALSE,
   );
 
-  if ($form['settings']['adv_link']['print_html_sys_link_visibility']['#default_value'] == 2 && !$access) {
-    $form['settings']['adv_link']['print_html_sys_link_visibility'] = array('#type' => 'value', '#value' => 2);
-    $form['settings']['adv_link']['print_html_sys_link_pages'] = array('#type' => 'value', '#value' => $form['settings']['adv_link']['print_html_sys_link_pages']['#default_value']);
-  }
-  elseif ($access) {
-    $form['settings']['adv_link']['print_html_sys_link_visibility']['#options'][] = t('Show if the following PHP code returns <code>TRUE</code> (PHP-mode, experts only).');
-    $form['settings']['adv_link']['print_html_sys_link_pages']['#description'] .= ' '. t('If the PHP-mode is chosen, enter PHP code between %php. Note that executing incorrect PHP-code can break your Drupal site.', array('%php' => '<?php ?>'));
+  if (module_exists('php')) {
+    if ($form['settings']['adv_link']['print_html_sys_link_visibility']['#default_value'] == 2 && !$access) {
+      $form['settings']['adv_link']['print_html_sys_link_visibility'] = array('#type' => 'value', '#value' => 2);
+      $form['settings']['adv_link']['print_html_sys_link_pages'] = array('#type' => 'value', '#value' => $form['settings']['adv_link']['print_html_sys_link_pages']['#default_value']);
+    }
+    elseif ($access) {
+      $form['settings']['adv_link']['print_html_sys_link_visibility']['#options'][] = t('Show if the following PHP code returns <code>TRUE</code> (PHP-mode, experts only).');
+      $form['settings']['adv_link']['print_html_sys_link_pages']['#description'] .= ' ' . t('If the PHP-mode is chosen, enter PHP code between %php. Note that executing incorrect PHP-code can break your Drupal site.', array('%php' => '<?php ?>'));
+    }
   }
 
   $form['settings']['adv_link']['print_html_book_link'] = array(
@@ -392,8 +393,25 @@ function print_main_strings_settings() {
     '#type' => 'textfield',
     '#default_value' => variable_get('print_text_links', t('Links')),
   );
+  $form['print_main_text']['reset'] = array(
+    '#type' => 'submit',
+    '#value' => t('Reset to defaults'),
+    '#submit' => array('print_main_strings_settings_delete'),
+  );
 
   return system_settings_form($form);
+}
+
+/**
+ * Reset button callback for text strings settings form
+ *
+ * @ingroup forms
+ */
+function print_main_strings_settings_delete() {
+  variable_del('print_text_published');
+  variable_del('print_text_source_url');
+  variable_del('print_text_retrieved');
+  variable_del('print_text_links');
 }
 
 /**
@@ -415,6 +433,20 @@ function print_html_strings_settings() {
     '#default_value' => variable_get('print_html_link_text', t('Printer-friendly version')),
     '#description' => t('Text used in the link to the printer-friendly version.'),
   );
+  $form['print_html_text']['reset'] = array(
+    '#type' => 'submit',
+    '#value' => t('Reset to defaults'),
+    '#submit' => array('print_html_strings_settings_delete'),
+  );
 
   return system_settings_form($form);
+}
+
+/**
+ * Reset button callback for text strings settings form
+ *
+ * @ingroup forms
+ */
+function print_html_strings_settings_delete() {
+  variable_del('print_html_link_text');
 }

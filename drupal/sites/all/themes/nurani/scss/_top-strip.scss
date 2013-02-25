@@ -1,0 +1,54 @@
+
+/*Welcome block*/
+  #block-nurani_helpers-welcome_login{
+    margin-top:-2.5em;
+    float:right;
+    font-size:1.5em;
+    color:$nurani-text-gray;
+
+    .welcome{
+        @include username-links(#000);
+    }
+
+    .logout, .login{ 
+      margin-left:5em;
+      font-weight: bold;
+      text-transform:uppercase;
+      a{
+        text-decoration: none;
+        color:$nurani-text-gray;
+      }
+    }
+   
+
+  }
+
+  #block-menu_block-nurani_main_menu{
+    width:45%;
+    padding:1.8em;
+
+    ul li{
+      list-style-type: none;
+      display: inline;
+      a{
+        font-size:1.5em;
+        float: left;
+        display: block;
+        margin: 0 1em 0 0;
+        padding: 0.2em 0.5em;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: $nurani-burgundy;
+
+        &.active, &:hover {
+          text-decoration: none;
+          color:#fff;
+          background: $nurani-burgundy;
+          @include border-radius(0.4em);
+        }
+      }
+    }
+  }  
+
+

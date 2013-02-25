@@ -20,7 +20,7 @@ function strongarm_admin_form($form_state) {
         $storage = t('Hardcoded');
         $hardcoded = TRUE;
       }
-      elseif (isset($variable->in_code_only)) {
+      elseif (!empty($variable->in_code_only)) {
         $storage = t('In code');
         $restorable = TRUE;
       }
@@ -42,18 +42,17 @@ function strongarm_admin_form($form_state) {
         $form['revert'][$name]['value'] = array('#type' => 'value', '#value' => $default->value);
       }
 
-      $form['name'][$name] = array(
-        '#type' => 'markup',
-        '#value' => $name,
-      );
-      $form['storage'][$name] = array(
-        '#type' => 'markup',
-        '#value' => $storage,
-      );
-      $form['value'][$name] = array(
-        '#type' => 'markup',
-        '#value' => check_plain(_strongarm_readable($value)),
-      );
+      if (module_exists('variable') && ($info = variable_get_info($name))) {
+        $form['name'][$name] = array('#markup' => $info['title'] . '<br/>' . $name);
+        $form['storage'][$name] = array('#markup' => $storage);
+        $info['value'] = $variable->value;
+        $form['value'][$name] = array('#markup' => variable_format_value($info));
+      }
+      else {
+        $form['name'][$name] = array('#markup' => $name);
+        $form['storage'][$name] = array('#markup' => $storage);
+        $form['value'][$name] = array('#markup' => check_plain(_strongarm_readable($value)));
+      }
     }
   }
   if (!empty($form['revert'])) {
@@ -120,10 +119,12 @@ function _strongarm_readable($var) {
 /**
  * Theme function for the strongarm admin form.
  */
-function theme_strongarm_admin_form($form) {
+function theme_strongarm_admin_form(&$vars) {
+  $form = $vars['form'];
+
   drupal_add_js('misc/tableselect.js');
   $rows = $headers = array();
-  $headers[] = theme('table_select_header_cell');
+  $headers[] = array('class' => array('select-all'));
   $headers[] = t('Variable');
   $headers[] = t('Storage');
   $headers[] = t('Value');
@@ -135,7 +136,7 @@ function theme_strongarm_admin_form($form) {
     $row[] = drupal_render($form['value'][$name]);
     $rows[] = $row;
   }
-  $output = theme('table', $headers, $rows);
-  $output .= drupal_render($form);
+  $output = theme('table', array('header' => $headers, 'rows' => $rows));
+  $output .= drupal_render_children($form);
   return $output;
 }

@@ -1,5 +1,4 @@
 <?php
-// $Id: node_author.inc,v 1.1.2.1 2010/01/29 20:18:25 merlinofchaos Exp $
 
 /**
  * Plugins are described by creating a $plugin array which will be used
@@ -27,12 +26,13 @@ function ctools_node_author_content_type_render($subtype, $conf, $panel_args, $c
 
   // Get a shortcut to the node.
   $node = $context->data;
+  $user = user_load($node->uid);
 
   // Build the content type block.
   $block = new stdClass();
   $block->module  = 'node_author';
   $block->title   = t('Author');
-  $block->content = !empty($conf['link']) ? theme('username', $node) : check_plain($node->name ? $node->name : variable_get('anonymous', t('Anonymous')));
+  $block->content = !empty($conf['link']) ? theme('username', array('account' => $user, 'link_path' => 'user/' . $node->uid)) : check_plain(format_username($node));
   $block->delta   = $node->nid;
 
   return $block;
@@ -41,7 +41,7 @@ function ctools_node_author_content_type_render($subtype, $conf, $panel_args, $c
 /**
  * Returns an edit form for custom type settings.
  */
-function ctools_node_author_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_author_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
 
   $form['link'] = array(
@@ -50,12 +50,13 @@ function ctools_node_author_content_type_edit_form(&$form, &$form_state) {
     '#default_value' => $conf['link'],
     '#description' => t('Check here to link to the node author profile.'),
   );
+  return $form;
 }
 
 /**
  * Submit handler for the custom type settings form.
  */
-function ctools_node_author_content_type_edit_form_submit(&$form, &$form_state) {
+function ctools_node_author_content_type_edit_form_submit($form, &$form_state) {
   // Copy everything from our defaults.
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];

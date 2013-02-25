@@ -1,3 +1,6 @@
+# Compass Junk
+.sass-cache
+
 # Never add SQL files to the repository
 *.sql
 *.sql.gz
@@ -11,7 +14,7 @@ settings.local.php
 *.komodoproject
 *.proj
 *.tmp
-.DS_Store?
-Icon?
+.DS_Store
+Icon
 Thumbs.db
 .bundle

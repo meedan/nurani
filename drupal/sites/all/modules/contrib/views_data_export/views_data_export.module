@@ -39,7 +39,7 @@ function views_data_export_theme() {
   $hooks = array();
   $hooks['views_data_export_feed_icon'] = array(
     'pattern' => 'views_data_export_feed_icon__',
-    'arguments' => array(
+    'variables' => array(
       'image_path' => NULL,
       'url' => NULL,
       'query' => '',
@@ -49,7 +49,7 @@ function views_data_export_theme() {
   );
 
   $hooks['views_data_export_complete_page'] = array (
-    'arguments' => array(
+    'variables' => array(
       'file' => '',
       'errors' => array(),
       'return_url'=> '',
@@ -58,7 +58,7 @@ function views_data_export_theme() {
   );
 
   $hooks['views_data_export_message'] = array (
-    'arguments' => array(
+    'variables' => array(
       'message' => '',
       'type' => 'info',
     ),
@@ -102,15 +102,15 @@ function views_data_export_garbage_collect($expires = NULL, $chunk = NULL) {
   }
 
   if ($chunk == -1) {
-    $qry = db_query("SELECT eid FROM {views_data_export} WHERE time_stamp <= %d ORDER BY time_stamp ASC", time() - $expires);
+    $result = db_query("SELECT eid FROM {views_data_export} WHERE time_stamp <= :timestamp ORDER BY time_stamp ASC", array(':timestamp' => REQUEST_TIME - $expires));
   }
   else {
-    $qry = db_query_range("SELECT eid FROM {views_data_export} WHERE time_stamp <= %d ORDER BY time_stamp ASC", time() - $expires, 0, $chunk);
+    $result = db_query_range("SELECT eid FROM {views_data_export} WHERE time_stamp <= :timestamp ORDER BY time_stamp ASC", 0, $chunk, array(':timestamp' => REQUEST_TIME - $expires));
   }
 
   $eids_to_clear = array();
-  while ($row = db_fetch_array($qry)) {
-    $eids_to_clear[] = $row['eid'];
+  foreach ($result as $row) {
+    $eids_to_clear[] = $row->eid;
   }
 
   // We do two things to exports we want to garbage collect
@@ -118,17 +118,18 @@ function views_data_export_garbage_collect($expires = NULL, $chunk = NULL) {
   // 2. Delete the row from the exports table
   // 3. Delete the view from the object_cache
   if (count($eids_to_clear)) {
-    $ret = array();
     foreach ($eids_to_clear as $eid) {
       // 1. Delete index table, if it is still around for some reason
       $table = VIEWS_DATA_EXPORT_INDEX_TABLE_PREFIX . $eid;
       if (db_table_exists($table)) {
-        db_drop_table($ret, $table);
+        db_drop_table($table);
       }
     }
 
     // 2. Delete the entries in the exports table.
-    db_query("DELETE FROM {views_data_export} WHERE eid IN (" . db_placeholders($eids_to_clear) . ")", $eids_to_clear);
+    db_delete('views_data_export')
+      ->condition('eid', $eids_to_clear, 'IN')
+      ->execute();
 
     // 3. Clear the cached views
     views_data_export_view_clear($eids_to_clear);
@@ -142,12 +143,21 @@ function views_data_export_garbage_collect($expires = NULL, $chunk = NULL) {
  * Handles all batching operations by executing the appropriate view.
  */
 function _views_data_export_batch_process($export_id, $display_id, &$context) {
+  // Don't show the admin menu on batch page, some people don't like it.
+  if (module_exists('admin_menu')) {
+    module_invoke('admin_menu', 'suppress');
+  }
+
   // Fetch the view in question from our cache
   $view = views_data_export_view_retrieve($export_id);
   $view->set_display($display_id);
 
   // Inform the data_export display which export it corresponds to and execute
+  if (!isset($view->display_handler->batched_execution_state)) {
+    $view->display_handler->batched_execution_state = new stdClass();
+  }
   $view->display_handler->batched_execution_state->eid = $export_id;
+  $view->display_handler->views_data_export_cached_view_loaded = TRUE;
   $view->execute_display($display_id);
 
   // Update batch api progress information
@@ -172,7 +182,7 @@ function views_data_export_new($view_name, $view_display_id, $file) {
   $record = (object) array(
     'view_name' => $view_name,
     'view_display_id' => $view_display_id,
-    'time_stamp' => time(),
+    'time_stamp' => REQUEST_TIME,
     'fid' => $file,
     'batch_state' => VIEWS_DATA_EXPORT_HEADER,
     'sandbox' => array(),
@@ -197,8 +207,7 @@ function views_data_export_update($state) {
  * Get the information about a previous export.
  */
 function views_data_export_get($export_id) {
-  $qry = db_query("SELECT * FROM {views_data_export} WHERE eid = %d", (int)$export_id);
-  $object = db_fetch_object($qry);
+  $object = db_query("SELECT * FROM {views_data_export} WHERE eid = :eid", array(':eid' => (int)$export_id))->fetch();
   if ($object) {
     $object->sandbox = unserialize($object->sandbox);
   }
@@ -209,7 +218,9 @@ function views_data_export_get($export_id) {
  * Remove the information about an export.
  */
 function views_data_export_clear($export_id) {
-  db_query("DELETE FROM {views_data_export} WHERE eid = %d", $export_id);
+  db_delete('views_data_export')
+    ->condition('eid', $export_id)
+    ->execute();
   views_data_export_view_clear($export_id);
 }
 
@@ -225,7 +236,7 @@ function views_data_export_view_store($export_id, $view) {
   $record = array(
     'eid' => $export_id,
     'data' => $_view,
-    'updated' => time(),
+    'updated' => REQUEST_TIME,
   );
   drupal_write_record('views_data_export_object_cache', $record);
 }
@@ -235,7 +246,7 @@ function views_data_export_view_store($export_id, $view) {
  */
 function views_data_export_view_retrieve($export_id) {
   views_include('view');
-  $data = db_fetch_object(db_query("SELECT * FROM {views_data_export_object_cache} WHERE eid = '%s'", $export_id));
+  $data = db_query("SELECT * FROM {views_data_export_object_cache} WHERE eid = :eid", array(':eid' => $export_id))->fetch();
   if ($data) {
     $view = unserialize($data->data);
   }
@@ -250,9 +261,13 @@ function views_data_export_view_retrieve($export_id) {
  */
 function views_data_export_view_clear($export_id) {
   if (is_array($export_id)) {
-    db_query("DELETE FROM {views_data_export_object_cache} WHERE eid IN (" . db_placeholders($export_id) . ")", $export_id);
+    db_delete('views_data_export_object_cache')
+    ->condition('eid', $export_id, 'IN')
+    ->execute();
   }
   else {
-    db_query("DELETE FROM {views_data_export_object_cache} WHERE eid = '%s'", $export_id);
+    db_delete('views_data_export_object_cache')
+    ->condition('eid', $export_id)
+    ->execute();
   }
 }

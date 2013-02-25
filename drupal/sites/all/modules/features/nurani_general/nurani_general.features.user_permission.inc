@@ -1,325 +1,247 @@
 <?php
+/**
+ * @file
+ * nurani_general.features.user_permission.inc
+ */
 
 /**
- * Implementation of hook_user_default_permissions().
+ * Implements hook_user_default_permissions().
  */
 function nurani_general_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: access ckeditor
-  $permissions['access ckeditor'] = array(
-    'name' => 'access ckeditor',
+  // Exported permission: access PDF version.
+  $permissions['access PDF version'] = array(
+    'name' => 'access PDF version',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
-      '2' => 'moderator',
-      '3' => 'scholar',
-      '4' => 'translator',
+      0 => 'administrator',
+      1 => 'authenticated user',
     ),
+    'module' => 'print_pdf',
   );
 
-  // Exported permission: access comments
+  // Exported permission: access all webform results.
+  $permissions['access all webform results'] = array(
+    'name' => 'access all webform results',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'webform',
+  );
+
+  // Exported permission: access comments.
   $permissions['access comments'] = array(
     'name' => 'access comments',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      0 => 'administrator',
+      1 => 'anonymous user',
+      2 => 'authenticated user',
     ),
+    'module' => 'comment',
   );
 
-  // Exported permission: access content
-  $permissions['access content'] = array(
-    'name' => 'access content',
+  // Exported permission: access own webform results.
+  $permissions['access own webform results'] = array(
+    'name' => 'access own webform results',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      0 => 'administrator',
+      1 => 'moderator',
     ),
+    'module' => 'webform',
   );
 
-  // Exported permission: access print
+  // Exported permission: access own webform submissions.
+  $permissions['access own webform submissions'] = array(
+    'name' => 'access own webform submissions',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'webform',
+  );
+
+  // Exported permission: access print.
   $permissions['access print'] = array(
     'name' => 'access print',
     'roles' => array(
-      '0' => 'Participant',
-      '1' => 'administrator',
-      '2' => 'anonymous user',
-      '3' => 'authenticated user',
-      '4' => 'moderator',
-      '5' => 'scholar',
-      '6' => 'translator',
+      0 => 'administrator',
+      1 => 'authenticated user',
     ),
+    'module' => 'print',
   );
 
-  // Exported permission: access user profiles
+  // Exported permission: access user profiles.
   $permissions['access user profiles'] = array(
     'name' => 'access user profiles',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
+      0 => 'administrator',
+      1 => 'authenticated user',
     ),
+    'module' => 'user',
   );
 
-  // Exported permission: administer ckeditor
-  $permissions['administer ckeditor'] = array(
-    'name' => 'administer ckeditor',
-    'roles' => array(
-      '0' => 'administrator',
-    ),
-  );
-
-  // Exported permission: administer icanlocalize
-  $permissions['administer icanlocalize'] = array(
-    'name' => 'administer icanlocalize',
-    'roles' => array(
-      '0' => 'administrator',
-    ),
-  );
-
-  // Exported permission: administer permissions
-  $permissions['administer permissions'] = array(
-    'name' => 'administer permissions',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'moderator',
-    ),
-  );
-
-  // Exported permission: administer users
-  $permissions['administer users'] = array(
-    'name' => 'administer users',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'moderator',
-    ),
-  );
-
-  // Exported permission: can do translation jobs
-  $permissions['can do translation jobs'] = array(
-    'name' => 'can do translation jobs',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'translator',
-    ),
-  );
-
-  // Exported permission: can manage translation jobs
-  $permissions['can manage translation jobs'] = array(
-    'name' => 'can manage translation jobs',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'moderator',
-      '2' => 'translator',
-    ),
-  );
-
-  // Exported permission: can view translation jobs
-  $permissions['can view translation jobs'] = array(
-    'name' => 'can view translation jobs',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'translator',
-    ),
-  );
-
-  // Exported permission: create annotation content
-  $permissions['create annotation content'] = array(
-    'name' => 'create annotation content',
-    'roles' => array(
-      '0' => 'administrator',
-    ),
-  );
-
-  // Exported permission: create discussion content
-  $permissions['create discussion content'] = array(
-    'name' => 'create discussion content',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'moderator',
-    ),
-  );
-
-  // Exported permission: create page content
+  // Exported permission: create page content.
   $permissions['create page content'] = array(
     'name' => 'create page content',
     'roles' => array(
-      '0' => 'administrator',
+      0 => 'administrator',
+      1 => 'moderator',
     ),
+    'module' => 'node',
   );
 
-  // Exported permission: create profile content
-  $permissions['create profile content'] = array(
-    'name' => 'create profile content',
+  // Exported permission: create webform content.
+  $permissions['create webform content'] = array(
+    'name' => 'create webform content',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
+      0 => 'moderator',
     ),
+    'module' => 'node',
   );
 
-  // Exported permission: create response content
-  $permissions['create response content'] = array(
-    'name' => 'create response content',
+  // Exported permission: delete all webform submissions.
+  $permissions['delete all webform submissions'] = array(
+    'name' => 'delete all webform submissions',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
+      0 => 'administrator',
     ),
+    'module' => 'webform',
   );
 
-  // Exported permission: create term content
-  $permissions['create term content'] = array(
-    'name' => 'create term content',
+  // Exported permission: delete any page content.
+  $permissions['delete any page content'] = array(
+    'name' => 'delete any page content',
     'roles' => array(
-      '0' => 'administrator',
+      0 => 'administrator',
+      1 => 'moderator',
     ),
+    'module' => 'node',
   );
 
-  // Exported permission: create text content
-  $permissions['create text content'] = array(
-    'name' => 'create text content',
+  // Exported permission: delete any webform content.
+  $permissions['delete any webform content'] = array(
+    'name' => 'delete any webform content',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'moderator',
+      0 => 'moderator',
     ),
+    'module' => 'node',
   );
 
-  // Exported permission: edit own annotation content
-  $permissions['edit own annotation content'] = array(
-    'name' => 'edit own annotation content',
+  // Exported permission: delete own page content.
+  $permissions['delete own page content'] = array(
+    'name' => 'delete own page content',
     'roles' => array(
-      '0' => 'administrator',
+      0 => 'administrator',
+      1 => 'moderator',
     ),
+    'module' => 'node',
   );
 
-  // Exported permission: edit own discussion content
-  $permissions['edit own discussion content'] = array(
-    'name' => 'edit own discussion content',
+  // Exported permission: delete own webform content.
+  $permissions['delete own webform content'] = array(
+    'name' => 'delete own webform content',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'moderator',
+      0 => 'moderator',
     ),
+    'module' => 'node',
   );
 
-  // Exported permission: edit own page content
+  // Exported permission: delete own webform submissions.
+  $permissions['delete own webform submissions'] = array(
+    'name' => 'delete own webform submissions',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'webform',
+  );
+
+  // Exported permission: edit all webform submissions.
+  $permissions['edit all webform submissions'] = array(
+    'name' => 'edit all webform submissions',
+    'roles' => array(
+      0 => 'administrator',
+    ),
+    'module' => 'webform',
+  );
+
+  // Exported permission: edit any page content.
+  $permissions['edit any page content'] = array(
+    'name' => 'edit any page content',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'moderator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: edit any webform content.
+  $permissions['edit any webform content'] = array(
+    'name' => 'edit any webform content',
+    'roles' => array(
+      0 => 'moderator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: edit own comments.
+  $permissions['edit own comments'] = array(
+    'name' => 'edit own comments',
+    'roles' => array(
+      0 => 'administrator',
+      1 => 'authenticated user',
+    ),
+    'module' => 'comment',
+  );
+
+  // Exported permission: edit own page content.
   $permissions['edit own page content'] = array(
     'name' => 'edit own page content',
     'roles' => array(
-      '0' => 'administrator',
+      0 => 'administrator',
+      1 => 'moderator',
     ),
+    'module' => 'node',
   );
 
-  // Exported permission: edit own profile content
-  $permissions['edit own profile content'] = array(
-    'name' => 'edit own profile content',
+  // Exported permission: edit own webform content.
+  $permissions['edit own webform content'] = array(
+    'name' => 'edit own webform content',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
+      0 => 'moderator',
     ),
+    'module' => 'node',
   );
 
-  // Exported permission: edit own response content
-  $permissions['edit own response content'] = array(
-    'name' => 'edit own response content',
+  // Exported permission: edit own webform submissions.
+  $permissions['edit own webform submissions'] = array(
+    'name' => 'edit own webform submissions',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
+      0 => 'administrator',
+      1 => 'moderator',
     ),
+    'module' => 'webform',
   );
 
-  // Exported permission: edit own term content
-  $permissions['edit own term content'] = array(
-    'name' => 'edit own term content',
-    'roles' => array(
-      '0' => 'administrator',
-    ),
-  );
-
-  // Exported permission: edit own text content
-  $permissions['edit own text content'] = array(
-    'name' => 'edit own text content',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
-    ),
-  );
-
-  // Exported permission: moderate comments in own language
-  $permissions['moderate comments in own language'] = array(
-    'name' => 'moderate comments in own language',
-    'roles' => array(
-      '0' => 'administrator',
-    ),
-  );
-
-  // Exported permission: opt out from ICL notifications
-  $permissions['opt out from ICL notifications'] = array(
-    'name' => 'opt out from ICL notifications',
-    'roles' => array(
-      '0' => 'administrator',
-    ),
-  );
-
-  // Exported permission: post comments
+  // Exported permission: post comments.
   $permissions['post comments'] = array(
     'name' => 'post comments',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
+      0 => 'administrator',
+      1 => 'authenticated user',
     ),
+    'module' => 'comment',
   );
 
-  // Exported permission: post comments without approval
-  $permissions['post comments without approval'] = array(
-    'name' => 'post comments without approval',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
-    ),
-  );
-
-  // Exported permission: search content
+  // Exported permission: search content.
   $permissions['search content'] = array(
     'name' => 'search content',
     'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
+      0 => 'administrator',
+      1 => 'authenticated user',
     ),
-  );
-
-  // Exported permission: submit content for translation
-  $permissions['submit content for translation'] = array(
-    'name' => 'submit content for translation',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
-    ),
-  );
-
-  // Exported permission: translate content
-  $permissions['translate content'] = array(
-    'name' => 'translate content',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'translator',
-    ),
-  );
-
-  // Exported permission: view imagecache thumbnail
-  $permissions['view imagecache thumbnail'] = array(
-    'name' => 'view imagecache thumbnail',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
-    ),
-  );
-
-  // Exported permission: view imagecache thumbnail_view
-  $permissions['view imagecache thumbnail_view'] = array(
-    'name' => 'view imagecache thumbnail_view',
-    'roles' => array(
-      '0' => 'administrator',
-      '1' => 'authenticated user',
-    ),
+    'module' => 'search',
   );
 
   return $permissions;

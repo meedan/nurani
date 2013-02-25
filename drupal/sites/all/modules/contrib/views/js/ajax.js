@@ -1,365 +1,235 @@
 /**
- * @file ajax_admin.js
- *
+ * @file
  * Handles AJAX submission and response in Views UI.
  */
+(function ($) {
 
-Drupal.Views.Ajax = Drupal.Views.Ajax || {};
-
-/**
- * Handles the simple process of setting the ajax form area with new data.
- */
-Drupal.Views.Ajax.setForm = function(title, output) {
-  $(Drupal.settings.views.ajax.title).html(title);
-  $(Drupal.settings.views.ajax.id).html(output);
-}
-
-/**
- * An ajax responder that accepts a packet of JSON data and acts appropriately.
- *
- * The following fields control behavior.
- * - 'display': Display the associated data in the form area; bind the new
- *   form to 'url' if appropriate. The 'title' field may also be used.
- * - 'add': This is a keyed array of HTML output to add via append. The key is
- *   the id to append via $(key).append(value)
- * - 'replace': This is a keyed array of HTML output to add via replace. The key is
- *   the id to append via $(key).html(value)
- *
- */
-Drupal.Views.Ajax.ajaxResponse = function(data) {
-  $('a.views-throbbing').removeClass('views-throbbing');
-  $('span.views-throbbing').remove();
-
-  if (data.debug) {
-    alert(data.debug);
-  }
-
-  // See if we have any settings to extend. Do this first so that behaviors
-  // can access the new settings easily.
-
-  if (Drupal.settings.viewsAjax) {
-    Drupal.settings.viewsAjax = {};
-  }
-  if (data.js) {
-    $.extend(Drupal.settings, data.js);
-  }
-
-  // Check the 'display' for data.
-  if (data.display) {
-    Drupal.Views.Ajax.setForm(data.title, data.display);
-
-    // if a URL was supplied, bind the form to it.
-    if (data.url) {
-      var ajax_area = Drupal.settings.views.ajax.id;
-      var ajax_title = Drupal.settings.views.ajax.title;
-
-      // Bind a click to the button to set the value for the button.
-      $('input[type=submit], button', ajax_area).unbind('click');
-      $('input[type=submit], button', ajax_area).click(function() {
-        $('form', ajax_area).append('<input type="hidden" name="'
-          + $(this).attr('name') + '" value="' + $(this).val() + '">');
-        $(this).after('<span class="views-throbbing">&nbsp</span>');
+  Drupal.ajax.prototype.commands.viewsSetForm = function (ajax, response, status) {
+    var ajax_title = Drupal.settings.views.ajax.title;
+    var ajax_body = Drupal.settings.views.ajax.id;
+    var ajax_popup = Drupal.settings.views.ajax.popup;
+    $(ajax_title).html(response.title);
+    $(ajax_body).html(response.output);
+    $(ajax_popup).dialog('open');
+    Drupal.attachBehaviors($(ajax_popup), ajax.settings);
+    if (response.url) {
+      // Identify the button that was clicked so that .ajaxSubmit() can use it.
+      // We need to do this for both .click() and .mousedown() since JavaScript
+      // code might trigger either behavior.
+      var $submit_buttons = $('input[type=submit], button', ajax_body);
+      $submit_buttons.click(function(event) {
+        this.form.clk = this;
+      });
+      $submit_buttons.mousedown(function(event) {
+        this.form.clk = this;
       });
 
-      // Bind forms to ajax submit.
-      $('form', ajax_area).unbind('submit'); // be safe here.
-      $('form', ajax_area).submit(function(arg) {
-        $(this).ajaxSubmit({
-          url: data.url,
-          data: { 'js': 1 },
-          type: 'POST',
-          success: Drupal.Views.Ajax.ajaxResponse,
-          error: function(xhr) { $('span.views-throbbing').remove(); Drupal.Views.Ajax.handleErrors(xhr, data.url); },
-          dataType: 'json'
-        });
-        return false;
+      $('form', ajax_body).once('views-ajax-submit-processed').each(function() {
+        var element_settings = { 'url': response.url, 'event': 'submit', 'progress': { 'type': 'throbber' } };
+        var $form = $(this);
+        var id = $form.attr('id');
+        Drupal.ajax[id] = new Drupal.ajax(id, this, element_settings);
+        Drupal.ajax[id].form = $form;
       });
     }
+    Drupal.viewsUi.resizeModal();
+  };
 
-    Drupal.attachBehaviors(ajax_area);
-  }
-  else if (!data.tab) {
-    // If no display, reset the form.
-    Drupal.Views.Ajax.setForm('', Drupal.settings.views.ajax.defaultForm);
-    //Enable the save and delete button.
-    $('#edit-save').removeAttr('disabled');
-    $('#edit-delete').removeAttr('disabled');
-    // Trigger an update for the live preview when we reach this state:
-    if ($('#views-ui-preview-form input#edit-live-preview').is(':checked')) {
-      $('#views-ui-preview-form').trigger('submit');
-    }
+  Drupal.ajax.prototype.commands.viewsDismissForm = function (ajax, response, status) {
+    Drupal.ajax.prototype.commands.viewsSetForm({}, {'title': '', 'output': Drupal.settings.views.ajax.defaultForm});
+    $(Drupal.settings.views.ajax.popup).dialog('close');
   }
 
-  // Go through the 'add' array and add any new content we're instructed to add.
-  if (data.add) {
-    for (id in data.add) {
-      var newContent = $(id).append(data.add[id]);
-      Drupal.attachBehaviors(newContent);
-    }
-  }
-
-  // Go through the 'replace' array and replace any content we're instructed to.
-  if (data.replace) {
-    for (id in data.replace) {
-      $(id).html(data.replace[id]);
-      Drupal.attachBehaviors(id);
-    }
-  }
-
-  // Go through and add any requested tabs
-  if (data.tab) {
-    for (id in data.tab) {
-      // Retrieve the tabset instance by stored ID.
-      var instance = Drupal.Views.Tabs.instances[$('#views-tabset').data('UI_TABS_UUID')];
-      instance.add(id, data.tab[id]['title'], 0);
-      instance.click(instance.$tabs.length);
-
-      $(id).html(data.tab[id]['body']);
-      $(id).addClass('views-tab');
-
-      // Update the preview widget to preview the new tab.
-      var display_id = id.replace('#views-tab-', '');
-      $("#preview-display-id").append('<option selected="selected" value="' + display_id + '">' + data.tab[id]['title'] + '</option>');
-
-      Drupal.attachBehaviors(id);
-    }
-  }
-
-  if (data.hilite) {
+  Drupal.ajax.prototype.commands.viewsHilite = function (ajax, response, status) {
     $('.hilited').removeClass('hilited');
-    $(data.hilite).addClass('hilited');
+    $(response.selector).addClass('hilited');
+  };
+
+  Drupal.ajax.prototype.commands.viewsAddTab = function (ajax, response, status) {
+    var id = '#views-tab-' + response.id;
+    $('#views-tabset').viewsAddTab(id, response.title, 0);
+    $(id).html(response.body).addClass('views-tab');
+
+    // Update the preview widget to preview the new tab.
+    var display_id = id.replace('#views-tab-', '');
+    $("#preview-display-id").append('<option selected="selected" value="' + display_id + '">' + response.title + '</option>');
+
+    Drupal.attachBehaviors(id);
+    var instance = $.viewsUi.tabs.instances[$('#views-tabset').get(0).UI_TABS_UUID];
+    $('#views-tabset').viewsClickTab(instance.$tabs.length);
+  };
+
+  Drupal.ajax.prototype.commands.viewsShowButtons = function (ajax, response, status) {
+    $('div.views-edit-view div.form-actions').removeClass('js-hide');
+    $('div.views-edit-view div.view-changed.messages').removeClass('js-hide');
+  };
+
+  Drupal.ajax.prototype.commands.viewsTriggerPreview = function (ajax, response, status) {
+    if ($('input#edit-displays-live-preview').is(':checked')) {
+      $('#preview-submit').trigger('click');
+    }
+  };
+
+  Drupal.ajax.prototype.commands.viewsReplaceTitle = function (ajax, response, status) {
+    // In case we're in the overlay, get a reference to the underlying window.
+    var doc = parent.document;
+    // For the <title> element, make a best-effort attempt to replace the page
+    // title and leave the site name alone. If the theme doesn't use the site
+    // name in the <title> element, this will fail.
+    var oldTitle = doc.title;
+    // Escape the site name, in case it has special characters in it, so we can
+    // use it in our regex.
+    var escapedSiteName = response.siteName.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    var re = new RegExp('.+ (.) ' + escapedSiteName);
+    doc.title = oldTitle.replace(re, response.title + ' $1 ' + response.siteName);
+
+    $('h1.page-title').text(response.title);
+    $('h1#overlay-title').text(response.title);
+  };
+
+  /**
+   * Get rid of irritating tabledrag messages
+   */
+  Drupal.theme.tableDragChangedWarning = function () {
+    return [];
   }
 
-  if (data.changed) {
-    $('div.views-basic-info').addClass('changed');
-  }
-}
-
-/**
- * An ajax responder that accepts a packet of JSON data and acts appropriately.
- * This one specifically responds to the Views live preview area, so it's
- * hardcoded and specialized.
- */
-Drupal.Views.Ajax.previewResponse = function(data) {
-  $('a.views-throbbing').removeClass('views-throbbing');
-  $('span.views-throbbing').remove();
-
-  if (data.debug) {
-    alert(data.debug);
-  }
-
-  // See if we have any settings to extend. Do this first so that behaviors
-  // can access the new settings easily.
-
-  // Clear any previous viewsAjax settings.
-  if (Drupal.settings.viewsAjax) {
-    Drupal.settings.viewsAjax = {};
-  }
-  if (data.js) {
-    $.extend(Drupal.settings, data.js);
-  }
-
-  // Check the 'display' for data.
-  if (data.display) {
-    var ajax_area = 'div#views-live-preview';
-    $(ajax_area).html(data.display);
-
-    var url = $(ajax_area, 'form').attr('action');
-
-    // if a URL was supplied, bind the form to it.
-    if (url) {
-      // Bind a click to the button to set the value for the button.
-      $('input[type=submit], button', ajax_area).unbind('click');
-      $('input[type=submit], button', ajax_area).click(function() {
-        $('form', ajax_area).append('<input type="hidden" name="'
-          + $(this).attr('name') + '" value="' + $(this).val() + '">');
-        $(this).after('<span class="views-throbbing">&nbsp</span>');
-      });
-
-      // Bind forms to ajax submit.
-      $('form', ajax_area).unbind('submit'); // be safe here.
-      $('form', ajax_area).submit(function() {
-        $(this).ajaxSubmit({
-          url: url,
-          data: { 'js': 1 },
-          type: 'POST',
-          success: Drupal.Views.Ajax.previewResponse,
-          error: function(xhr) { $('span.views-throbbing').remove(); Drupal.Views.Ajax.handleErrors(xhr, url); },
-          dataType: 'json'
-        });
-        return false;
+  /**
+   * Trigger preview when the "live preview" checkbox is checked.
+   */
+  Drupal.behaviors.livePreview = {
+    attach: function (context) {
+      $('input#edit-displays-live-preview', context).once('views-ajax-processed').click(function() {
+        if ($(this).is(':checked')) {
+          $('#preview-submit').click();
+        }
       });
     }
-
-    Drupal.attachBehaviors(ajax_area);
-  }
-}
-
-Drupal.Views.updatePreviewForm = function() {
-  var url = $(this).attr('action');
-  url = url.replace('nojs', 'ajax');
-
-  $('input[type=submit], button', this).after('<span class="views-throbbing">&nbsp</span>');
-  $(this).ajaxSubmit({
-    url: url,
-    data: { 'js': 1 },
-    type: 'POST',
-    success: Drupal.Views.Ajax.previewResponse,
-    error: function(xhr) { $('span.views-throbbing').remove(); Drupal.Views.Ajax.handleErrors(xhr, url); },
-    dataType: 'json'
-  });
-
-  return false;
-}
-
-Drupal.Views.updatePreviewFilterForm = function() {
-  var url = $(this).attr('action');
-  url = url.replace('nojs', 'ajax');
-
-  $('input[type=submit], button', this).after('<span class="views-throbbing">&nbsp</span>');
-  $('input[name=q]', this).remove(); // remove 'q' for live preview.
-  $(this).ajaxSubmit({
-    url: url,
-    data: { 'js': 1 },
-    type: 'GET',
-    success: Drupal.Views.Ajax.previewResponse,
-    error: function(xhr) { $('span.views-throbbing').remove(); Drupal.Views.Ajax.handleErrors(xhr, url); },
-    dataType: 'json'
-  });
-
-  return false;
-}
-
-Drupal.Views.updatePreviewLink = function() {
-  var url = $(this).attr('href');
-  url = url.replace('nojs', 'ajax');
-  var intern_url = Drupal.Views.getPath(url);
-
-  if (intern_url.substring(0, 17) != 'admin/build/views') {
-    return true;
   }
 
-  $(this).addClass('views-throbbing');
-  $.ajax({
-    url: url,
-    data: 'js=1',
-    type: 'POST',
-    success: Drupal.Views.Ajax.previewResponse,
-    error: function(xhr) { $(this).removeClass('views-throbbing'); Drupal.Views.Ajax.handleErrors(xhr, url); },
-    dataType: 'json'
-  });
-
-  return false;
-}
-
-Drupal.behaviors.ViewsAjaxLinks = function() {
-  // Make specified links ajaxy.
-  $('a.views-ajax-link:not(.views-processed)').addClass('views-processed').click(function() {
-    // Translate the href on the link to the ajax href. That way this degrades
-    // into a nice, normal link.
-    var url = $(this).attr('href');
-    url = url.replace('nojs', 'ajax');
-
-    // Turn on the hilite to indicate this is in use.
-    $(this).addClass('hilite');
-
-    // Disable the save and delete button.
-    $('#edit-save').attr('disabled', 'true');
-    $('#edit-delete').attr('disabled', 'true');
-
-    $(this).addClass('views-throbbing');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: 'js=1',
-      success: Drupal.Views.Ajax.ajaxResponse,
-      error: function(xhr) { $(this).removeClass('views-throbbing'); Drupal.Views.Ajax.handleErrors(xhr, url); },
-      dataType: 'json'
-    });
-
-    return false;
-  });
-
-  $('form.views-ajax-form:not(.views-processed)').addClass('views-processed').submit(function(arg) {
-    // Translate the href on the link to the ajax href. That way this degrades
-    // into a nice, normal link.
-    var url = $(this).attr('action');
-    url = url.replace('nojs', 'ajax');
-
-//    $('input[@type=submit]', this).after('<span class="views-throbbing">&nbsp</span>');
-    $(this).ajaxSubmit({
-      url: url,
-      data: { 'js': 1 },
-      type: 'POST',
-      success: Drupal.Views.Ajax.ajaxResponse,
-      error: function(xhr) { $('span.views-throbbing').remove(); Drupal.Views.Ajax.handleErrors(xhr, url); },
-      dataType: 'json'
-    });
-
-    return false;
-  });
-
-  // Bind the live preview to where it's supposed to go.
-
-  $('form#views-ui-preview-form:not(.views-processed)')
-    .addClass('views-processed')
-    .submit(Drupal.Views.updatePreviewForm);
-
-  $('div#views-live-preview form:not(.views-processed)')
-    .addClass('views-processed')
-    .submit(Drupal.Views.updatePreviewFilterForm);
-
-  $('div#views-live-preview a:not(.views-processed)')
-    .addClass('views-processed')
-    .click(Drupal.Views.updatePreviewLink);
-}
-
-/**
- * Sync preview display.
- */
-Drupal.behaviors.syncPreviewDisplay = function() {
-  $("#views-tabset a").click(function() {
-    var href = $(this).attr('href');
-    // Cut of #views-tabset.
-    var display_id = href.substr(11);
-    // Set the form element.
-    $("#views-live-preview #preview-display-id").val(display_id);
-  });
-}
-
-/**
- * Get rid of irritating tabledrag messages
- */
-Drupal.theme.tableDragChangedWarning = function () {
-  return '<div></div>';
-}
-
-/**
- * Display error in a more fashion way
- */
-Drupal.Views.Ajax.handleErrors = function (xhr, path) {
-  var error_text = '';
-
-  if ((xhr.status == 500 && xhr.responseText) || xhr.status == 200) {
-    error_text = xhr.responseText;
-
-    // Replace all &lt; and &gt; by < and >
-    error_text = error_text.replace("/&(lt|gt);/g", function (m, p) {
-      return (p == "lt")? "<" : ">";
-    });
-
-    // Now, replace all html tags by empty spaces
-    error_text = error_text.replace(/<("[^"]*"|'[^']*'|[^'">])*>/gi,"");
-
-    // Fix end lines
-    error_text = error_text.replace(/[\n]+\s+/g,"\n");
-  }
-  else if (xhr.status == 500) {
-    error_text = xhr.status + ': ' + Drupal.t("Internal server error. Please see server or PHP logs for error information.");
-  }
-  else {
-    error_text = xhr.status + ': ' + xhr.statusText;
+  /**
+   * Sync preview display.
+   */
+  Drupal.behaviors.syncPreviewDisplay = {
+    attach: function (context) {
+      $("#views-tabset a").once('views-ajax-processed').click(function() {
+        var href = $(this).attr('href');
+        // Cut of #views-tabset.
+        var display_id = href.substr(11);
+        // Set the form element.
+        $("#views-live-preview #preview-display-id").val(display_id);
+      }).addClass('views-ajax-processed');
+    }
   }
 
-  alert(Drupal.t("An error occurred at @path.\n\nError Description: @error", {'@path': path, '@error': error_text}));
-}
+  Drupal.behaviors.viewsAjax = {
+    collapseReplaced: false,
+    attach: function (context, settings) {
+      if (!settings.views) {
+        return;
+      }
+      // Create a jQuery UI dialog, but leave it closed.
+      var dialog_area = $(settings.views.ajax.popup, context);
+      dialog_area.dialog({
+        'autoOpen': false,
+        'dialogClass': 'views-ui-dialog',
+        'modal': true,
+        'position': 'center',
+        'resizable': false,
+        'width': 750
+      });
+
+      var base_element_settings = {
+        'event': 'click',
+        'progress': { 'type': 'throbber' }
+      };
+      // Bind AJAX behaviors to all items showing the class.
+      $('a.views-ajax-link', context).once('views-ajax-processed').each(function () {
+        var element_settings = base_element_settings;
+        // Set the URL to go to the anchor.
+        if ($(this).attr('href')) {
+          element_settings.url = $(this).attr('href');
+        }
+        var base = $(this).attr('id');
+        Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
+      });
+
+      $('div#views-live-preview a')
+        .once('views-ajax-processed').each(function () {
+        // We don't bind to links without a URL.
+        if (!$(this).attr('href')) {
+          return true;
+        }
+
+        var element_settings = base_element_settings;
+        // Set the URL to go to the anchor.
+        element_settings.url = $(this).attr('href');
+        if (Drupal.Views.getPath(element_settings.url).substring(0, 21) != 'admin/structure/views') {
+          return true;
+        }
+
+        element_settings.wrapper = 'views-live-preview';
+        element_settings.method = 'html';
+        var base = $(this).attr('id');
+        Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
+      });
+
+      // Within a live preview, make exposed widget form buttons re-trigger the
+      // Preview button.
+      // @todo Revisit this after fixing Views UI to display a Preview outside
+      //   of the main Edit form.
+      $('div#views-live-preview input[type=submit]')
+        .once('views-ajax-processed').each(function(event) {
+        $(this).click(function () {
+          this.form.clk = this;
+          return true;
+        });
+        var element_settings = base_element_settings;
+        // Set the URL to go to the anchor.
+        element_settings.url = $(this.form).attr('action');
+        if (Drupal.Views.getPath(element_settings.url).substring(0, 21) != 'admin/structure/views') {
+          return true;
+        }
+
+        element_settings.wrapper = 'views-live-preview';
+        element_settings.method = 'html';
+        element_settings.event = 'click';
+
+        var base = $(this).attr('id');
+        Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
+      });
+
+      if (!this.collapseReplaced && Drupal.collapseScrollIntoView) {
+        this.collapseReplaced = true;
+        Drupal.collapseScrollIntoView = function (node) {
+          for (var $parent = $(node); $parent.get(0) != document && $parent.size() != 0; $parent = $parent.parent()) {
+            if ($parent.css('overflow') == 'scroll' || $parent.css('overflow') == 'auto') {
+              if (Drupal.viewsUi.resizeModal) {
+                // If the modal is already at the max height, don't bother with
+                // this since the only reason to do it is to grow the modal.
+                if ($('.views-ui-dialog').height() < parseInt($(window).height() * .8)) {
+                  Drupal.viewsUi.resizeModal('', true);
+                }
+              }
+              return;
+            }
+          }
+
+          var h = document.documentElement.clientHeight || document.body.clientHeight || 0;
+          var offset = document.documentElement.scrollTop || document.body.scrollTop || 0;
+          var posY = $(node).offset().top;
+          var fudge = 55;
+          if (posY + node.offsetHeight + fudge > h + offset) {
+            if (node.offsetHeight > h) {
+              window.scrollTo(0, posY);
+            }
+            else {
+              window.scrollTo(0, posY + node.offsetHeight - h + fudge);
+            }
+          }
+        };
+      }
+    }
+  };
+
+})(jQuery);

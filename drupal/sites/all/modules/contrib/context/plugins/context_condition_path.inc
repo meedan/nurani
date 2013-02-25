@@ -1,5 +1,4 @@
 <?php
-// $Id: context_condition_path.inc,v 1.1.2.6 2010/07/30 14:39:06 yhahn Exp $
 
 /**
  * Expose paths as a context condition.
@@ -48,7 +47,7 @@ class context_condition_path extends context_condition {
     if ($this->condition_used()) {
       // Include both the path alias and normal path for matching.
       $current_path = array(drupal_get_path_alias($_GET['q']));
-      if ($current_path != $_GET['q']) {
+      if ($current_path[0] != $_GET['q']) {
         $current_path[] = $_GET['q'];
       }
       foreach ($this->get_contexts() as $context) {
@@ -92,10 +91,10 @@ class context_condition_path extends context_condition {
       $pattern = ltrim($pattern, '~');
       if (!isset($regexps[$pattern])) {
         if ($path) {
-          $regexps[$pattern] = '/^('. preg_replace(array('/(\r\n?|\n)/', '/\\\\\*/', '/(^|\|)\\\\<front\\\\>($|\|)/'), array('|', '.*', '\1'. preg_quote(variable_get('site_frontpage', 'node'), '/') .'\2'), preg_quote($pattern, '/')) .')$/';
+          $regexps[$pattern] = '/^(' . preg_replace(array('/(\r\n?|\n)/', '/\\\\\*/', '/(^|\|)\\\\<front\\\\>($|\|)/'), array('|', '.*', '\1' . preg_quote(variable_get('site_frontpage', 'node'), '/') . '\2'), preg_quote($pattern, '/')) . ')$/';
         }
         else {
-          $regexps[$pattern] = '/^('. preg_replace(array('/(\r\n?|\n)/', '/\\\\\*/'), array('|', '.*'), preg_quote($pattern, '/')) .')$/';
+          $regexps[$pattern] = '/^(' . preg_replace(array('/(\r\n?|\n)/', '/\\\\\*/'), array('|', '.*'), preg_quote($pattern, '/')) . ')$/';
         }
       }
       foreach ($subject as $value) {

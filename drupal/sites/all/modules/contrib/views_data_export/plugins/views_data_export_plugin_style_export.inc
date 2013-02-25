@@ -67,7 +67,7 @@ class views_data_export_plugin_style_export extends views_plugin_style {
       '#title' => t('Filename'),
       '#default_value' => $this->options['filename'],
       '#description' => t('The filename that will be suggested to the browser for downloading purposes. You may include replacement patterns from the list below.'),
-      '#process' => array('views_process_dependency'),
+      '#process' => array('ctools_dependent_process'),
       '#dependency' => array(
         'edit-style-options-provide-file' => array(TRUE),
       ),
@@ -80,7 +80,7 @@ class views_data_export_plugin_style_export extends views_plugin_style {
       '%display == ' . t('Display name'),
     );
 
-    $output .= theme('item_list', $items);
+    $output .= theme('item_list', array('items' => $items));
 
     // Get a list of the available arguments for token replacement.
     $options = array();
@@ -95,7 +95,7 @@ class views_data_export_plugin_style_export extends views_plugin_style {
     $options[t('Exposed filters')]['%exposed'] = t('effective exposed filters, like <em>filter1_foo-filter2_bar</em>');
 
     // ...and datestamp.
-    $time = time();
+    $time = REQUEST_TIME;
     $parts = array(
       'full' => 'Y-m-d\TH-i-s',
       'yy' => 'y',
@@ -120,21 +120,18 @@ class views_data_export_plugin_style_export extends views_plugin_style {
           foreach ($options[$type] as $key => $value) {
             $items[] = $key . ' == ' . $value;
           }
-          $output .= theme('item_list', $items, $type);
+          $output .= theme('item_list', array('items' => $items, 'title' => $type));
         }
       }
     }
-    // This construct uses 'hidden' and not markup because process doesn't
-    // run. It also has an extra div because the dependency wants to hide
-    // the parent in situations like this, so we need a second div to
-    // make this work.
     $form['help'] = array(
-      '#type' => 'hidden',
-      '#id' => 'views-tokens-help',
-      '#prefix' => '<div><fieldset id="views-tokens-help"><legend>' . t('Replacement patterns') . '</legend>' . $output . '</fieldset></div>',
-      '#process' => array('views_process_dependency'),
+      '#type' => 'fieldset',
+      '#title' => t('Replacement patterns'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#value' => $output,
       '#dependency' => array(
-        'edit-style-options-provide-file' => array(TRUE),
+        'edit-style-options-provide-file' => array(1),
       ),
     );
     $form['parent_sort'] = array(
@@ -168,11 +165,12 @@ class views_data_export_plugin_style_export extends views_plugin_style {
     if ($this->options['parent_sort']) {
       $query['attach'] = $display_id;
     }
-    $this->view->feed_icon .= theme($theme_pattern,
-      $this->definition['export feed icon'],
-      $this->view->get_url(NULL, $path),
-      $query,
-      $this->options['attach_text']
+    $this->view->feed_icon .= theme($theme_pattern, array(
+        'image_path' => $this->definition['export feed icon'],
+        'url' => $this->view->get_url(NULL, $path),
+        'query' => $query,
+        'text' => $this->options['attach_text'],
+      )
     );
   }
 
@@ -225,20 +223,24 @@ class views_data_export_plugin_style_export extends views_plugin_style {
     $rows['header'] = $this->render_header();
     $rows['body'] = $this->render_body();
     $rows['footer'] = $this->render_footer();
-    $output .= theme($this->theme_functions(), $this->view, $this->options, $rows, $title);
+    $title = '';
+    $output .= theme($this->theme_functions(), array('view' => $this->view, 'options' => $this->options, 'rows' => $rows, 'title' => $title));
     return $output;
   }
 
   function render_header() {
     $rows = array();
-
-    $output = theme($this->theme_functions($this->definition['additional themes base'] . '_header'), $this->view, $this->options, $rows, '');
+    $title = '';
+    $output = '';
+    $output .= theme($this->theme_functions($this->definition['additional themes base'] . '_header'), array('view' => $this->view, 'options' => $this->options, 'rows' => $rows, 'title' => $title));
     return $output;
   }
 
   function render_footer() {
     $rows = array();
-    $output = theme($this->theme_functions($this->definition['additional themes base'] . '_footer'), $this->view, $this->options, $rows, '');
+    $title = '';
+    $output = '';
+    $output .= theme($this->theme_functions($this->definition['additional themes base'] . '_footer'), array('view' => $this->view, 'options' => $this->options, 'rows' => $rows, 'title' => $title));
 
     return $output;
   }
@@ -267,7 +269,8 @@ class views_data_export_plugin_style_export extends views_plugin_style {
         $rows = $records;
       }
 
-      $output .= theme($this->theme_functions($this->definition['additional themes base'] . '_body'), $this->view, $this->options, $rows, '');
+      $title = '';
+      $output .= theme($this->theme_functions($this->definition['additional themes base'] . '_body'), array('view' => $this->view, 'options' => $this->options, 'rows' => $rows, 'title' => $title));
     }
     unset($this->view->row_index);
     return $output;
@@ -290,11 +293,11 @@ class views_data_export_plugin_style_export extends views_plugin_style {
   function add_http_headers() {
     $view = &$this->view;
 
-    drupal_set_header('Cache-Control: max-age=60, must-revalidate');
+    drupal_add_http_header('Cache-Control', 'max-age=60, must-revalidate');
 
     if (!empty($this->definition['export headers'])) {
-      foreach ($this->definition['export headers'] as $header) {
-        drupal_set_header($header);
+      foreach ($this->definition['export headers'] as $name => $value) {
+        drupal_add_http_header($name, $value);
       }
     }
 
@@ -330,7 +333,7 @@ class views_data_export_plugin_style_export extends views_plugin_style {
       }
 
       // Timestamp token.
-      $time = time();
+      $time = REQUEST_TIME;
       $parts = array(
         'full' => 'Y-m-d\TH-i-s',
         'yy' => 'y',
@@ -351,7 +354,7 @@ class views_data_export_plugin_style_export extends views_plugin_style {
 
 
       if ($filename) {
-        drupal_set_header('Content-Disposition: attachment; filename="'. $filename .'"');
+        drupal_add_http_header('Content-Disposition', 'attachment; filename="'. $filename .'"');
       }
     }
   }

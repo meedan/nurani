@@ -25,7 +25,6 @@ class views_handler_field_node_link_export extends views_handler_field_node_link
     $node->uid = $values->{$this->aliases['uid']};
     $node->type = $values->{$this->aliases['type']};
     $node->format = $values->{$this->aliases['format']};
-    $node->status = 1; // unpublished nodes ignore access control
     if (!node_export_access_check($node)) {
       return;
     }

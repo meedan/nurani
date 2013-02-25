@@ -1,0 +1,226 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function nurani_comment_theme($existing, $type, $theme, $path) {
+  return array(
+    'nurani_comment_form' => array(
+      'render element' => 'element',
+      'template' => 'nurani-comment-form',
+    ),
+  );
+}
+
+/**
+ * Implements hook_preprocess_comment_wrapper().
+ *
+ * Hide the usual comments list and comment form.
+ */
+function nurani_comment_preprocess_comment_wrapper(&$vars) {
+  $vars['content']['comments'] = array();
+  $vars['content']['comment_form'] = array();
+}
+
+/**
+ * Implements hook_preprocess_comment().
+ */
+function nurani_comment_preprocess_comment(&$vars) {
+  $map = nurani_comment_order_map($vars['comment']->nid);
+  $vars['comment_number'] = $map[$vars['comment']->cid];
+
+  unset($vars['content']['links']['comment']['#links']['comment-reply']);
+
+  // Ensure all links are removed on comment preview and when the user can't post
+  // comments (this removes the "Login or Register to post comments" text)
+  if ($vars['status'] == 'comment-preview' || !user_access('post comments')) {
+    foreach ($vars['content']['links']['comment']['#links'] as $key => $link) {
+      unset($vars['content']['links']['comment']['#links'][$key]);
+    }
+  }
+}
+
+function nurani_comment_order_map($nid) {
+  static $maps = array();
+
+  if (!isset($maps[$nid])) {
+    $maps[$nid] = array();
+
+    $result = db_query("SELECT cid, thread FROM {comment} WHERE nid = :nid ORDER BY created ASC", array(':nid' => $nid));
+    foreach ($result as $comment) {
+      $parts = explode('.', rtrim($comment->thread, '/'));
+      $maps[$nid][$comment->cid] = vancode2int($parts[0]);
+    }
+  }
+
+  return $maps[$nid];
+}
+
+function nurani_comment_next_response_number($nid) {
+  $map = nurani_comment_order_map($nid);
+  sort($map);
+  return end($map) + 1;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function nurani_comment_block_info() {
+  $blocks['comment_form']['info'] = t('Comment form');
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ * Displays the comment form. Originally from commentblock module.
+ */
+function nurani_comment_block_view($delta = '') {
+  if ((arg(0) == 'node') && is_numeric(arg(1)) && (arg(2) === NULL)) {
+    $node = node_load(arg(1));
+
+    if (user_access('post comments') && $node->comment > 1) {
+      // Tie into the comment_goodness module when available
+      if (module_exists('comment_goodness')) {
+        $block['subject'] = variable_get('comment_form_label_' . $node->type, comment_goodness_COMMENT_FORM_LABEL);
+      }
+      else {
+        $block['subject'] = t('Your response');
+      }
+
+      $block['content'] = array(
+        // Need to add the missing comment-wrapper div, ajax_comments preview expects it.
+        'preview' => array(
+          '#type' => 'markup',
+          '#markup' => '<div id="comment-wrapper"></div>'
+        ),
+        'form' => drupal_get_form("comment_node_{$node->type}_form", (object) array('nid' => $node->nid)),
+      );
+
+      return $block;
+    }
+  }
+}
+
+/**
+ * Implements hook_comment_view_alter().
+ *
+ * Ajax Comments module has bugs with the closing tags for its wrappers.
+ * Sometimes it adds too many. Since Nurani does not use threaded comments lets
+ * just simplify this to a basic prefix and suffix for each comment.
+ */
+function nurani_comment_comment_view_alter(&$build) {
+  $comment = $build['#comment'];
+
+  $build['#prefix'] = '<div class="ajax-comment-wrapper" id="comment-wrapper-' . $comment->cid . '">'
+                    .   '<a id="comment-' . $comment->cid . '"></a>';
+  $build['#suffix'] = '</div>';
+}
+
+/**
+ * The custom comment form for the Discussion page.
+ */
+function nurani_comment_form_comment_form_alter(&$form, &$form_state) {
+  global $user;
+
+  $node    = $form['#node'];
+  $comment = $form['#entity'];
+
+  if (!ajax_comments_node_type_active($node->type) || ajax_comments_is_comment_page()) {
+    return;
+  }
+
+  array_unshift($form['#theme'], 'nurani_comment_form');
+
+  // Hide many unnecessary things
+  $form['author']['_author']['#access'] = FALSE;
+  $form['author']['mail']['#access'] = FALSE;
+  $form['author']['homepage']['#access'] = FALSE;
+  $form['author']['date']['#access'] = FALSE;
+  $form['author']['status']['#access'] = FALSE;
+  $form['subject']['#access'] = FALSE;
+
+  // Remove the "Title" label from the comment body textarea
+  $form['comment_body'][$node->language]['#title'] = NULL;
+  $form['comment_body'][$node->language][0]['#title'] = NULL;
+  $form['comment_body'][$node->language][0]['value']['#title'] = NULL;
+
+  // Additional info
+  $form['info'] = array(
+    '#weight' => -10,
+  );
+  $form['info']['picture'] = array(
+    '#type'   => 'markup',
+    '#markup' => theme('user_picture', array('account' => $user)),
+  );
+  $number = nurani_comment_next_response_number($node->nid);
+  $form['info']['response_number'] = array(
+    '#type'   => 'markup',
+    '#markup' => t("Response @number", array('@number' => $number)),
+  );
+  $form['info']['by'] = array(
+    '#type'   => 'markup',
+    '#markup' => t("By !author", array('!author' => theme('username', array('account' => $user)))),
+  );
+  $form['info']['tip'] = array(
+    '#type' =>'markup',
+    '#markup' => t("<strong>Tip:</strong> Brief responses are encouraged."),
+  );
+
+  $form['actions']['submit']['#value'] = t('Submit');
+
+  // Alter the ajax_comments module settings a little to better fit into the
+  // Discussions page display
+  $form['actions']['submit']['#ajax']['callback'] = 'nurani_comment_submit_js';
+  $form['actions']['preview']['#ajax']['callback'] = 'nurani_comment_preview_js';
+}
+
+function nurani_comment_preview_js($form, $form_state) {
+  $response = ajax_comments_preview_js($form, $form_state);
+
+  if ($response['#type'] == 'ajax' && count($response['#commands'])) {
+    foreach ($response['#commands'] as $key => $command) {
+      // Replace the append preview command with a replace preview command
+      if ($command['command'] == 'insert' && preg_match('/^#comment-wrapper/', $command['selector'])) {
+        $response['#commands'][$key]['method'] = 'html';
+      }
+    }
+  }
+
+  return $response;
+}
+
+/**
+ * FAPI '#ajax' submission override from ajax_comments module.
+ */
+function nurani_comment_submit_js($form, &$form_state) {
+  $response = ajax_comments_submit_js($form, $form_state);
+
+  if ($response['#type'] == 'ajax' && count($response['#commands'])) {
+    foreach ($response['#commands'] as $key => $command) {
+      // Replace the update preview command with a trigger to refresh views
+      if ($command['command'] == 'insert' && preg_match('/^#comment-wrapper/', $command['selector'])) {
+        $response['#commands'][$key] = ajax_command_invoke('a.nurani-comment-sort-link.desc', 'click');
+      }
+    }
+  }
+
+  // Remove the preview, if it exists
+  $response['#commands'][] = ajax_command_html('#comment-wrapper', '');
+
+  return $response;
+}
+
+/**
+ * Implements hook_form_views_exposed_form_alter().
+ *
+ * Alterations to the views exposed form above the comments list
+ * (managed by BEF).
+ */
+function nurani_comment_form_views_exposed_form_alter(&$form, &$form_state) {
+  if ($form['#id'] == 'views-exposed-form-nurani-comment-list-block') {
+    $form['#attached']['js'][] = drupal_get_path('module', 'nurani_comment') . '/js/nurani_comment.js';
+    $form['#attached']['css'][] = drupal_get_path('module', 'nurani_comment') . '/css/nurani_comment.css';
+  }
+}

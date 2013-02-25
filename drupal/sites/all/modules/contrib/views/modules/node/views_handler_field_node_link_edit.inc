@@ -1,29 +1,31 @@
 <?php
+
+/**
+ * @file
+ * Definition of views_handler_field_node_link_edit.
+ */
+
 /**
  * Field handler to present a link node edit.
+ *
+ * @ingroup views_field_handlers
  */
 class views_handler_field_node_link_edit extends views_handler_field_node_link {
-  function construct() {
-    parent::construct();
-    $this->additional_fields['uid'] = 'uid';
-    $this->additional_fields['type'] = 'type';
-    $this->additional_fields['format'] = array('table' => 'node_revisions', 'field' => 'format');
-  }
 
-  function render($values) {
-    // ensure user has access to edit this node.
-    $node = new stdClass();
-    $node->nid = $values->{$this->aliases['nid']};
-    $node->uid = $values->{$this->aliases['uid']};
-    $node->type = $values->{$this->aliases['type']};
-    $node->format = $values->{$this->aliases['format']};
-    $node->status = 1; // unpublished nodes ignore access control
+  /**
+   * Renders the link.
+   */
+  function render_link($node, $values) {
+    // Ensure user has access to edit this node.
     if (!node_access('update', $node)) {
       return;
     }
 
+    $this->options['alter']['make_link'] = TRUE;
+    $this->options['alter']['path'] = "node/$node->nid/edit";
+    $this->options['alter']['query'] = drupal_get_destination();
+
     $text = !empty($this->options['text']) ? $this->options['text'] : t('edit');
-    return l($text, "node/$node->nid/edit", array('query' => drupal_get_destination()));
+    return $text;
   }
 }
-

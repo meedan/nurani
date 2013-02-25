@@ -1,0 +1,99 @@
+/* don't use 3-digit colors, use the full hex */
+
+
+// Nurani base colors
+$paco-red: #4c1313;
+$silver-rust: #ccc6c2;
+$dawn-cream: #f1e9e4;
+$schooner-gray: #998d86;
+$woody-brown: #3d2f2e;
+
+// accents
+$kashmir-blue: #536b99;
+$yuma-gold: #cdc388;
+$cinnamon-red: #8b000e;
+
+$identity: $cinnamon-red;
+/* ======================================= Stock Colors */
+
+/* Generic useful colors */
+$bright-blue: #0089e4;
+$midnight-blue: #003366;
+$cinnamon-brown: #884400;
+$frenchpass-blue: #bbddff;
+$cornflower-blue: #aaccee;
+$sulu-green: #bbee77;
+$terminal-green: #5BB304;
+
+/* Greys */
+$light-gray: #eeeeee;
+$gray: #cccccc;
+$dark-gray: #d0d0d0;
+$darker-gray: darken($dark-gray, 30%);
+$darkest-gray: #000000;
+
+/* ... More random colors available */
+$dark-blue: #0064a6;
+$yellow-orange: #ffcd93;
+$postit-yellow: #fff9e6;
+$paris-daisy-yellow: #ffee66;
+$confetti-yellow: #eedd55;
+$flamingo-orange: #ee6633;
+$cinnamon-orange: #C25000;
+$hot-cinnamon-orange: #dd5522;
+$verdun-green: #336600;
+$reef-green: #ccff88;
+$dark-brown: #998d86;
+$firetruck-red: #B60800;
+$donjuan: #5f4c4c;
+$thrush-brown: #a55c26;
+$buttermilk-yellow: #ffe789;
+$tupperware-blue: #1777a4;
+
+// Identity and theme colors 
+$identity: $firetruck-red;
+
+// needed by compass 
+$default-box-shadow-color: #c3c3c3;
+$accent: $identity;
+
+// ===============
+// = syntax.scss =
+// ===============
+$syntax-background: lighten(#09223F, 30%);
+$syntax-foreground: #FFEFFF;
+$syntax-border: #888;
+$line-no-background: #EFEFEF;
+$line-no-foreground: #888;
+$entity-clr: #FFDD00;
+$keyword-clr: #FF9D00;
+$constant-clr: #FF628C;
+$string-clr: #3AD900;
+$comment-clr: #0088FF;
+$regex-clr: #80FFC2;
+$variable-clr: #CCCCCC;
+$key: #ddf080;
+
+// Social network colors
+$twitter-blue: #1D88C9;
+$facebook-blue: #264887;
+$youtube-red: #F32824;
+
+// Legacy colors
+$body-bkg-color: $light-gray;
+$sidebar-bkg-color: #ffffff;
+
+// susy grid colors
+$grid-background-gutter-color : $postit-yellow;
+$grid-background-column-color : white;
+
+// links colors for compass links helper
+$links-color: $tupperware-blue;
+$links-active-color: $darkest-gray;
+$links-visited-color: $tupperware-blue;
+
+// form colors for forms.scss
+$form-primary-accent: $bright-blue;
+$form-validation-error: $firetruck-red;
+$form-validation-success: $verdun-green;
+$form-valifation-warning: $yellow-orange;

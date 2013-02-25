@@ -1,12 +1,13 @@
 <?php
-// $Id: context.conditions.test,v 1.1.2.7 2010/07/30 16:42:15 yhahn Exp $
 
 class ContextConditionUserTest extends DrupalWebTestCase {
-  function getInfo() {
+  protected $profile = 'testing';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: user'),
-      'description' => t('Test user condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: user',
+      'description' => 'Test user condition.',
+      'group' => 'Context',
     );
   }
 
@@ -15,11 +16,12 @@ class ContextConditionUserTest extends DrupalWebTestCase {
     $this->user1 = $this->drupalCreateUser(array('access content', 'administer site configuration'));
     $this->user2 = $this->drupalCreateUser(array('access content'));
 
-    // Grab role from user1.
+    // The role name is not reliably put on the user object. Retrive from
+    // user_roles().
     $role = '';
-    foreach ($this->user1->roles as $r) {
-      if ($r !== 'authenticated user') {
-        $role = $r;
+    foreach (array_keys($this->user1->roles) as $rid) {
+      if ($rid !== DRUPAL_AUTHENTICATED_RID) {
+        $role = user_role_load($rid)->name;
         break;
       }
     }
@@ -37,9 +39,8 @@ class ContextConditionUserTest extends DrupalWebTestCase {
   function tearDown() {
     parent::tearDown();
     context_delete($this->context);
-    $edit = array();
-    user_delete($edit, $this->user1->uid);
-    user_delete($edit, $this->user2->uid);
+    user_delete($this->user1->uid);
+    user_delete($this->user2->uid);
   }
 
   function test() {
@@ -56,11 +57,13 @@ class ContextConditionUserTest extends DrupalWebTestCase {
 }
 
 class ContextConditionUserPageTest extends DrupalWebTestCase {
-  function getInfo() {
+  protected $profile = 'testing';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: user page'),
-      'description' => t('Test user page condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: user page',
+      'description' => 'Test user page condition.',
+      'group' => 'Context',
     );
   }
 
@@ -83,8 +86,8 @@ class ContextConditionUserPageTest extends DrupalWebTestCase {
     parent::tearDown();
     context_delete($this->context);
     $edit = array();
-    user_delete($edit, $this->user1->uid);
-    user_delete($edit, $this->user2->uid);
+    user_delete($this->user1->uid);
+    user_delete($this->user2->uid);
   }
 
   function test() {
@@ -119,41 +122,36 @@ class ContextConditionUserPageTest extends DrupalWebTestCase {
 }
 
 class ContextConditionNodeTaxonomyTest extends DrupalWebTestCase {
-  function getInfo() {
+  // We want the default taxonomy and content types created
+  protected $profile = 'standard';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: taxonomy'),
-      'description' => t('Test taxonomy condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: taxonomy',
+      'description' => 'Test taxonomy condition.',
+      'group' => 'Context',
     );
   }
 
   function setUp() {
     parent::setUp('context', 'ctools', 'taxonomy');
-    $admin_user = $this->drupalCreateUser(array('administer site configuration', 'create page content'));
+    $admin_user = $this->drupalCreateUser(array('administer site configuration', 'create article content'));
     $this->drupalLogin($admin_user);
 
-    // Create test vocab.
-    $this->vocab = array(
-      'name' => 'Test',
-      'description' => 'Test vocab.',
-      'multiple' => 0,
-      'tags' => 0,
-      'nodes' => array('page' => TRUE),
-    );
-    taxonomy_save_vocabulary($this->vocab);
-
     // Create test terms.
+    $this->vocab = taxonomy_vocabulary_machine_name_load('tags');
+
     $this->terms = array();
-    $this->terms['apples'] = array('name' => 'apples', 'vid' => $this->vocab['vid']);
-    $this->terms['oranges'] = array('name' => 'oranges', 'vid' => $this->vocab['vid']);
-    taxonomy_save_term($this->terms['apples']);
-    taxonomy_save_term($this->terms['oranges']);
+    $this->terms['apples'] = (object)array('name' => 'apples', 'vid' => $this->vocab->vid);
+    $this->terms['oranges'] = (object)array('name' => 'oranges', 'vid' => $this->vocab->vid);
+    taxonomy_term_save($this->terms['apples']);
+    taxonomy_term_save($this->terms['oranges']);
 
     // Create test context.
     ctools_include('export');
     $this->context = ctools_export_new_object('context');
     $this->context->name = 'testcontext';
-    $this->context->conditions = array('node_taxonomy' => array('values' => array($this->terms['apples']['tid'])));
+    $this->context->conditions = array('node_taxonomy' => array('values' => array($this->terms['apples']->tid)));
     $this->context->reactions = array('debug' => array('debug' => TRUE));
     $saved = context_save($this->context);
     $this->assertTrue($saved, "Context 'testcontext' saved.");
@@ -162,28 +160,41 @@ class ContextConditionNodeTaxonomyTest extends DrupalWebTestCase {
   function tearDown() {
     parent::tearDown();
     context_delete($this->context);
-    taxonomy_del_vocabulary($this->vocab['vid']);
-    taxonomy_del_term($this->terms['apples']['tid']);
-    taxonomy_del_term($this->terms['oranges']['tid']);
+    taxonomy_term_delete($this->terms['apples']->tid);
+    taxonomy_term_delete($this->terms['oranges']->tid);
   }
 
   function test() {
     // Apples does trigger the context.
-    $this->drupalPost('node/add/page', array('title' => 'Apples', "taxonomy[{$this->vocab['vid']}]" => $this->terms['apples']['tid']), 'Save');
+    $edit = array(
+      'title' => 'Apples', 
+      'field_tags[und]' => $this->terms['apples']->name
+    );
+    $this->drupalPost('node/add/article', $edit, t('Save'));
+    $node = $this->drupalGetNodeByTitle($edit['title']);
+    $this->drupalGet('node/' . $node->nid);
     $this->assertText('Active context: testcontext');
 
     // Oranges does not trigger the context.
-    $this->drupalPost('node/add/page', array('title' => 'Oranges', "taxonomy[{$this->vocab['vid']}]" => $this->terms['oranges']['tid']), 'Save');
+    $edit = array(
+      'title' => 'Oranges', 
+      'field_tags[und]' => $this->terms['oranges']->name
+    );
+    $this->drupalPost('node/add/article', $edit, t('Save'));
+    $node = $this->drupalGetNodeByTitle($edit['title']);
+    $this->drupalGet('node/' . $node->nid);
     $this->assertNoText('Active context: testcontext');
   }
 }
 
 class ContextConditionLanguageTest extends DrupalWebTestCase {
-  function getInfo() {
+  protected $profile = 'testing';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: language'),
-      'description' => t('Test language condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: language',
+      'description' => 'Test language condition.',
+      'group' => 'Context',
     );
   }
 
@@ -193,8 +204,8 @@ class ContextConditionLanguageTest extends DrupalWebTestCase {
     $this->drupalLogin($admin_user);
 
     // Set up Spanish as second language.
-    $this->drupalPost('admin/settings/language/add', array('langcode' => 'es'), t('Add language'));
-    $this->drupalPost('admin/settings/language/configure', array('language_negotiation' => 1), t('Save settings'));
+    $this->drupalPost('admin/config/regional/language/add', array('langcode' => 'es'), t('Add language'));
+    $this->drupalPost('admin/config/regional/language/configure', array('language[enabled][locale-url]' => 1), t('Save settings'));
   }
 
   function test() {
@@ -218,11 +229,13 @@ class ContextConditionLanguageTest extends DrupalWebTestCase {
 }
 
 class ContextConditionSitewideTest extends DrupalWebTestCase {
-  function getInfo() {
+  protected $profile = 'testing';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: sitewide'),
-      'description' => t('Test sitewide condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: sitewide',
+      'description' => 'Test sitewide condition.',
+      'group' => 'Context',
     );
   }
 
@@ -250,11 +263,13 @@ class ContextConditionSitewideTest extends DrupalWebTestCase {
 }
 
 class ContextConditionPathTest extends DrupalWebTestCase {
-  function getInfo() {
+  protected $profile = 'testing';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: path'),
-      'description' => t('Test path condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: path',
+      'description' => 'Test path condition.',
+      'group' => 'Context',
     );
   }
 
@@ -292,11 +307,13 @@ class ContextConditionPathTest extends DrupalWebTestCase {
 }
 
 class ContextConditionContextTest extends DrupalWebTestCase {
-  function getInfo() {
+  protected $profile = 'testing';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: context'),
-      'description' => t('Test context condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: context',
+      'description' => 'Test context condition.',
+      'group' => 'Context',
     );
   }
 
@@ -334,17 +351,24 @@ class ContextConditionContextTest extends DrupalWebTestCase {
 }
 
 class ContextConditionNodeTest extends DrupalWebTestCase {
-  function getInfo() {
+  protected $profile = 'testing';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: node'),
-      'description' => t('Test node condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: node',
+      'description' => 'Test node condition.',
+      'group' => 'Context',
     );
   }
 
   function setUp() {
-    parent::setUp('context', 'ctools', 'blog');
-    $admin_user = $this->drupalCreateUser(array('administer site configuration', 'administer nodes'));
+    parent::setUp('context', 'ctools', 'blog', 'book');
+    $admin_user = $this->drupalCreateUser(array(
+      'administer site configuration',
+      'administer nodes',
+      'create blog content',
+      'create book content'
+    ));
     $this->drupalLogin($admin_user);
   }
 
@@ -360,14 +384,14 @@ class ContextConditionNodeTest extends DrupalWebTestCase {
     $this->drupalGet("node/add/blog");
     $this->assertNoText('Active context: testcontext');
 
-    $this->drupalGet("node/add/page");
+    $this->drupalGet("node/add/book");
     $this->assertNoText('Active context: testcontext');
 
     $node = $this->drupalCreateNode(array('type' => 'blog'));
     $this->drupalGet("node/{$node->nid}");
     $this->assertText('Active context: testcontext');
 
-    $node = $this->drupalCreateNode(array('type' => 'page'));
+    $node = $this->drupalCreateNode(array('type' => 'book'));
     $this->drupalGet("node/{$node->nid}");
     $this->assertNoText('Active context: testcontext');
 
@@ -378,7 +402,7 @@ class ContextConditionNodeTest extends DrupalWebTestCase {
     $this->drupalGet("node/add/blog");
     $this->assertText('Active context: testcontext');
 
-    $this->drupalGet("node/add/page");
+    $this->drupalGet("node/add/book");
     $this->assertNoText('Active context: testcontext');
 
     // Cleanup
@@ -387,17 +411,19 @@ class ContextConditionNodeTest extends DrupalWebTestCase {
 }
 
 class ContextConditionMenuTest extends DrupalWebTestCase {
-  function getInfo() {
+  protected $profile = 'testing';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: menu'),
-      'description' => t('Test menu condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: menu',
+      'description' => 'Test menu condition.',
+      'group' => 'Context',
     );
   }
 
   function setUp() {
-    parent::setUp('context', 'ctools');
-    $admin_user = $this->drupalCreateUser(array('administer site configuration', 'administer nodes'));
+    parent::setUp('context', 'ctools', 'blog', 'menu');
+    $admin_user = $this->drupalCreateUser(array('administer site configuration', 'administer nodes', 'create blog content'));
     $this->drupalLogin($admin_user);
   }
 
@@ -425,11 +451,13 @@ class ContextConditionMenuTest extends DrupalWebTestCase {
 }
 
 class ContextConditionBookTest extends DrupalWebTestCase {
-  function getInfo() {
+  protected $profile = 'testing';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: book'),
-      'description' => t('Test book condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: book',
+      'description' => 'Test book condition.',
+      'group' => 'Context',
     );
   }
 
@@ -467,17 +495,24 @@ class ContextConditionBookTest extends DrupalWebTestCase {
 }
 
 class ContextConditionBookroot extends DrupalWebTestCase {
-  function getInfo() {
+  protected $profile = 'testing';
+
+  public static function getInfo() {
     return array(
-      'name' => t('Condition: bookroot'),
-      'description' => t('Test bookroot condition.'),
-      'group' => t('Context'),
+      'name' => 'Condition: bookroot',
+      'description' => 'Test bookroot condition.',
+      'group' => 'Context',
     );
   }
 
   function setUp() {
     parent::setUp('context', 'ctools', 'book', 'menu');
-    $admin_user = $this->drupalCreateUser(array('administer site configuration', 'administer nodes'));
+    $admin_user = $this->drupalCreateUser(array(
+      'administer site configuration',
+      'administer nodes',
+      'create book content',
+      'edit any book content',
+    ));
     $this->drupalLogin($admin_user);
     variable_set('book_allowed_types', array('book', 'page'));
   }

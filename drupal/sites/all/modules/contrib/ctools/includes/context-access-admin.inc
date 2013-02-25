@@ -1,5 +1,4 @@
 <?php
-// $Id: context-access-admin.inc,v 1.7.2.2 2010/07/14 23:32:08 merlinofchaos Exp $
 
 /**
  * @file
@@ -82,7 +81,6 @@
  * To utilize this form:
  * @code
  *   ctools_include('context-access-admin');
- *   ctools_include('form'),
  *   $form_state = array(
  *     'access' => $access,
  *     'module' => 'module name',
@@ -91,7 +89,7 @@
  *     // 'logged-in-user' will be added if not present as the access system
  *     // requires this context.
  *   ),
- *   $output = ctools_build_form('ctools_access_admin_form', $form_state);
+ *   $output = drupal_build_form('ctools_access_admin_form', $form_state);
  *   if (!empty($form_state['executed'])) {
  *     // save $form_state['access'] however you like.
  *   }
@@ -101,7 +99,7 @@
  * form into your own, and instead call
  *
  * @code{
- *   $form = array_merge($form, ctools_access_admin_form($form_state));
+ *   $form = ctools_access_admin_form($form, $form_state);
  * }
  *
  * You'll be responsible for adding a submit button.
@@ -113,7 +111,7 @@
 /**
  * Administrative form for access control.
  */
-function ctools_access_admin_form(&$form_state) {
+function ctools_access_admin_form($form, &$form_state) {
   ctools_include('context');
   $argument = isset($form_state['callback argument']) ? $form_state['callback argument'] : '';
   $fragment = $form_state['module'];
@@ -124,7 +122,7 @@ function ctools_access_admin_form(&$form_state) {
   $contexts = isset($form_state['contexts']) ? $form_state['contexts'] : array();
 
   $form['access_table'] = array(
-    '#value' => ctools_access_admin_render_table($form_state['access'], $fragment, $contexts),
+    '#markup' => ctools_access_admin_render_table($form_state['access'], $fragment, $contexts),
   );
 
   $form['add-button'] = array(
@@ -132,7 +130,7 @@ function ctools_access_admin_form(&$form_state) {
   );
   // This sets up the URL for the add access modal.
   $form['add-button']['add-url'] = array(
-    '#attributes' => array('class' => "ctools-access-add-url"),
+    '#attributes' => array('class' => array("ctools-access-add-url")),
     '#type' => 'hidden',
     '#value' => url("ctools/context/ajax/access/add/$fragment", array('absolute' => TRUE)),
   );
@@ -147,14 +145,15 @@ function ctools_access_admin_form(&$form_state) {
 
   $form['add-button']['type'] = array(
     // This ensures that the form item is added to the URL.
-    '#attributes' => array('class' => "ctools-access-add-url"),
+    '#attributes' => array('class' => array("ctools-access-add-url")),
     '#type' => 'select',
     '#options' => $options,
+    '#required' => FALSE,
   );
 
   $form['add-button']['add'] = array(
     '#type' => 'submit',
-    '#attributes' => array('class' => 'ctools-use-modal'),
+    '#attributes' => array('class' => array('ctools-use-modal')),
     '#id' => "ctools-access-add",
     '#value' => t('Add'),
   );
@@ -197,23 +196,23 @@ function ctools_access_admin_render_table($access, $fragment, $contexts) {
     $plugin = ctools_get_access_plugin($test['name']);
     $title  = isset($plugin['title']) ? $plugin['title'] : t('Broken/missing access plugin %plugin', array('%plugin' => $test['name']));
 
-    $row[] = array('data' => $title, 'class' => 'ctools-access-title');
+    $row[] = array('data' => $title, 'class' => array('ctools-access-title'));
 
     $description = ctools_access_summary($plugin, $contexts, $test);
-    $row[] = array('data' => $description, 'class' => 'ctools-access-description');
+    $row[] = array('data' => $description, 'class' => array('ctools-access-description'));
 
     $operations = ctools_modal_image_button(ctools_image_path('icon-configure.png'), "ctools/context/ajax/access/configure/$fragment/$id", t('Configure settings for this item.'));
     $operations .= ctools_ajax_image_button(ctools_image_path('icon-delete.png'), "ctools/context/ajax/access/delete/$fragment/$id", t('Remove this item.'));
 
-    $row[] = array('data' => $operations, 'class' => 'ctools-access-operations', 'align' => 'right');
+    $row[] = array('data' => $operations, 'class' => array('ctools-access-operations'), 'align' => 'right');
 
     $rows[] = $row;
   }
 
   $header = array(
-    array('data' => t('Title'), 'class' => 'ctools-access-title'),
-    array('data' => t('Description'), 'class' => 'ctools-access-description'),
-    array('data' => '', 'class' => 'ctools-access-operations', 'align' => 'right'),
+    array('data' => t('Title'), 'class' => array('ctools-access-title')),
+    array('data' => t('Description'), 'class' => array('ctools-access-description')),
+    array('data' => '', 'class' => array('ctools-access-operations'), 'align' => 'right'),
   );
 
   if (empty($rows)) {
@@ -221,16 +220,16 @@ function ctools_access_admin_render_table($access, $fragment, $contexts) {
   }
 
   ctools_modal_add_js();
-  return theme('table', $header, $rows, array('id' => 'ctools-access-table'));
+  return theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('id' => 'ctools-access-table')));
 }
 
 /**
  * Theme the 'add' portion of the access form into a table.
  */
-function theme_ctools_access_admin_add($form) {
-  $rows = array(array(drupal_render($form)));
+function theme_ctools_access_admin_add($vars) {
+  $rows = array(array(drupal_render_children($vars['form'])));
   $output = '<div class="container-inline">';
-  $output .= theme('table', array(), $rows);
+  $output .= theme('table', array('rows' => $rows));
   $output .= '</div>';
   return $output;
 }
@@ -240,7 +239,7 @@ function ctools_access_admin_form_submit($form, &$form_state) {
 
   $function = $form_state['module'] . '_ctools_access_clear';
   if (function_exists($function)) {
-    $function($form_state['argument']);
+    $function($form_state['callback argument']);
   }
 }
 
@@ -302,10 +301,12 @@ function ctools_access_ajax_add($fragment = NULL, $name = NULL) {
     'contexts' => $contexts,
     'title' => t('Add criteria'),
     'ajax' => TRUE,
+    'modal' => TRUE,
+    'modal return' => TRUE,
   );
 
   $output = ctools_modal_form_wrapper('ctools_access_ajax_edit_item', $form_state);
-  if (empty($output)) {
+  if (!isset($output[0])) {
     $function = $module . '_ctools_access_set';
     if (function_exists($function)) {
       $function($argument, $access);
@@ -313,11 +314,11 @@ function ctools_access_ajax_add($fragment = NULL, $name = NULL) {
 
     $table    = ctools_access_admin_render_table($access, $fragment, $contexts);
     $output   = array();
-    $output[] = ctools_ajax_command_replace('table#ctools-access-table', $table);
+    $output[] = ajax_command_replace('table#ctools-access-table', $table);
     $output[] = ctools_modal_command_dismiss();
   }
 
-  ctools_ajax_render($output);
+  print ajax_render($output);
 }
 
 /**
@@ -366,10 +367,13 @@ function ctools_access_ajax_edit($fragment = NULL, $id = NULL) {
     'contexts' => $contexts,
     'title' => t('Edit criteria'),
     'ajax' => TRUE,
+    'ajax' => TRUE,
+    'modal' => TRUE,
+    'modal return' => TRUE,
   );
 
   $output = ctools_modal_form_wrapper('ctools_access_ajax_edit_item', $form_state);
-  if (empty($output)) {
+  if (!isset($output[0])) {
     $function = $module . '_ctools_access_set';
     if (function_exists($function)) {
       $function($argument, $access);
@@ -377,26 +381,25 @@ function ctools_access_ajax_edit($fragment = NULL, $id = NULL) {
 
     $table    = ctools_access_admin_render_table($access, $fragment, $contexts);
     $output   = array();
-    $output[] = ctools_ajax_command_replace('table#ctools-access-table', $table);
+    $output[] = ajax_command_replace('table#ctools-access-table', $table);
     $output[] = ctools_modal_command_dismiss();
   }
 
-  ctools_ajax_render($output);
+  print ajax_render($output);
 }
 
 /**
  * Form to edit the settings of an access test.
  */
-function ctools_access_ajax_edit_item(&$form_state) {
+function ctools_access_ajax_edit_item($form, &$form_state) {
   $test = &$form_state['test'];
   $plugin = &$form_state['plugin'];
-
   if (isset($plugin['required context'])) {
     $form['context'] = ctools_context_selector($form_state['contexts'], $plugin['required context'], $test['context']);
   }
   $form['settings'] = array('#tree' => TRUE);
   if ($function = ctools_plugin_get_function($plugin, 'settings form')) {
-    $function($form, $form_state, $test['settings']);
+    $form = $function($form, $form_state, $test['settings']);
   }
 
   $form['not'] = array(
@@ -416,7 +419,7 @@ function ctools_access_ajax_edit_item(&$form_state) {
 /**
  * Validate handler for argument settings.
  */
-function ctools_access_ajax_edit_item_validate(&$form, &$form_state) {
+function ctools_access_ajax_edit_item_validate($form, &$form_state) {
   if ($function = ctools_plugin_get_function($form_state['plugin'], 'settings form validate')) {
     $function($form, $form_state);
   }
@@ -425,7 +428,7 @@ function ctools_access_ajax_edit_item_validate(&$form, &$form_state) {
 /**
  * Submit handler for argument settings.
  */
-function ctools_access_ajax_edit_item_submit(&$form, &$form_state) {
+function ctools_access_ajax_edit_item_submit($form, &$form_state) {
   if ($function = ctools_plugin_get_function($form_state['plugin'], 'settings form submit')) {
     $function($form, $form_state);
   }
@@ -446,7 +449,7 @@ function ctools_access_ajax_delete($fragment = NULL, $id = NULL) {
   ctools_include('context');
 
   if (empty($fragment) || !isset($id)) {
-    ctools_ajax_render_error();
+    ajax_render_error();
   }
 
   // Separate the fragment into 'module' and 'argument'
@@ -460,7 +463,7 @@ function ctools_access_ajax_delete($fragment = NULL, $id = NULL) {
 
   $function = $module . '_ctools_access_get';
   if (!function_exists($function)) {
-    ctools_ajax_render_error(t('Missing callback hooks.'));
+    ajax_render_error(t('Missing callback hooks.'));
   }
 
   list($access, $contexts) = $function($argument);
@@ -477,7 +480,7 @@ function ctools_access_ajax_delete($fragment = NULL, $id = NULL) {
 
   $table    = ctools_access_admin_render_table($access, $fragment, $contexts);
   $output   = array();
-  $output[] = ctools_ajax_command_replace('table#ctools-access-table', $table);
+  $output[] = ajax_command_replace('table#ctools-access-table', $table);
 
-  ctools_ajax_render($output);
+  print ajax_render($output);
 }

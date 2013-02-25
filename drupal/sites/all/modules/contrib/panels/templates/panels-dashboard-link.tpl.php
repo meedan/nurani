@@ -1,6 +1,6 @@
 <?php
 ?>
-<div class="dashboard-entry clear-block">
+<div class="dashboard-entry clearfix">
   <div class="dashboard-text">
     <div class="dashboard-link">
       <?php print $link['title']; ?>

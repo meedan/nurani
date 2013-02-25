@@ -1,0 +1,85 @@
+.clone-bundle {
+  width: 79em;
+  margin-bottom: 1em;
+}
+.clone-bundle .inner {
+  padding: 1em;
+}
+.clone-bundle .form-type-select {
+  display: inline-block;
+  margin: 0;
+}
+.clone-bundle .form-type-select label, .clone-bundle .form-type-select select {
+  display: inline-block;
+}
+.clone-bundle .form-submit {
+  margin: 0;
+  display: inline-block;
+}
+
+.passage-boxes {
+  margin-top: 20px;
+}
+.passage-boxes > .inner {
+  overflow: hidden;
+  width: 79em;
+}
+
+.passage-box {
+  float: left;
+  width: 25em;
+  margin-right: 1.5em;
+}
+.passage-box.third {
+  margin-right: 0;
+}
+.passage-box.hidden {
+  opacity: 0.6;
+}
+
+.passage-text {
+  padding: 1em;
+  min-height: 40.45085em;
+  position: relative;
+  z-index: 1;
+}
+.passage-text .passage-widget-wrapper {
+  min-height: 40.45085em;
+}
+.passage-text .pick-passage-action {
+  display: none;
+}
+.passage-text .passage-widget, .passage-text .remove-passage-action, .passage-text .edit-passage-action {
+  display: inline;
+}
+.passage-text.empty {
+  text-align: center;
+}
+.passage-text.empty > .pick-passage-action {
+  display: inline-block;
+  margin-top: 18.22543em;
+}
+.passage-text.empty > .passage-widget, .passage-text.empty .remove-passage-action, .passage-text.empty .edit-passage-action {
+  display: none;
+}
+
+.bib {
+  margin-left: 10px;
+  margin-top: -1em;
+  padding: 2em 1em 1em;
+  width: 300px;
+  background: #ddd;
+}
+
+.clone-bundle {
+  background: #bbddff;
+}
+
+.passage-text {
+  background: #fff;
+  border: 3px dahed #ccc6c2;
+}
+.passage-text.empty {
+  border: 3px dashed #ccc6c2;
+  border-radius: 1em;
+}

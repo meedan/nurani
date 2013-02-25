@@ -41,24 +41,23 @@ functionalities to the 5.x version without modifying Drupal itself.
 INSTALLATION
 ------------
 
- 1. Enable the Localization client module at Administer > Site configuration >
-    Modules
- 2. Enable two or more languages at Administer > Site configuration > Languages
-    For help with building a multilingual website please check the Drupal
-    handbook page about the Locale module at
+ 1. Enable the Localization client module at Administer > Modules
+ 2. Enable two or more languages at Administer > Configuration > Regional and
+    Language > Languages. For help with building a multilingual website please
+    check the Drupal handbook page about the Locale module at
     http://drupal.org/handbook/modules/locale
  3. Assign the appropriate permissions to the user roles under the section
-    "l10n_client module" at Administer > User management > Permissions
+    "Localization client module" at Administer > People > Permissions
 
 ON-PAGE TRANSLATION
 -------------------
 
-Users with the permission "use on-page translation" can translate interface
+Users with the permission "Use on-page translation" can translate interface
 strings right on the page that they are viewing.
 
  1. Switch the website's language to one that is not English.
  2. Browse to the webpage that contains the interface string you want to translate
- 3. Click the  "TRANSLATE TEXT" button in the right bottom corner of the webpage
+ 3. Click the "TRANSLATE TEXT" button in the right bottom corner of the webpage
     The on-page translation pane appears, showing all strings available on the
     current webpage in the left column. Already translated strings are marked
     green, yet untranslated strings are shown in white. You can filter the list
@@ -76,12 +75,12 @@ SHARING TRANSLATIONS
 --------------------
 
 Localization client can instantly share your translations by sending them to a
-localization server. For this a user needs the "submit translations to
+localization server. For this a user needs the "Submit translations to
 localization server" permission. To be able to share translations a user needs
 an API key from the localization server.
 
- 1. Enable translation sharing at Administer > Site configuration > Languages >
-    Configure > Localization sharing
+ 1. Enable translation sharing at Administer > Configuration > Regional and
+    Language > Languages > Sharing
  2. Enter a localization server, e.g. "http://localize.drupal.org"
  3. Enter your localization server API key at My account > Edit
     (The form field has a link to obtain the key from the set localization server)
@@ -94,7 +93,8 @@ To re-import translation all files should be already uncompressed to the
 Drupal directories.
 
 Choose the languages for which you want to re-import translations at
-Administer > Site building > Translate interface > Import > Reimport packages.
+Administer > Configuration > Regional and language > Translate interface >
+Import > Reimport packages.
 
 See also http://drupal.org/project/l10n_update.
 

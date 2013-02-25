@@ -115,6 +115,8 @@ $plugin = array(
 
   // Callback to render the data.
   'render' => 'panels_panel_context_render',
+  // Callback to return addressable data
+  'addressable callback' => 'panels_panel_context_get_addressable',
 
   // Various callbacks for operations performed on the handler to ensure
   // related data is updated properly.
@@ -183,6 +185,8 @@ $plugin = array(
     'title' => t('Panel'),
     'no_blocks' => FALSE,
     'pipeline' => 'standard',
+    'body_classes_to_remove' => '',
+    'body_classes_to_add' => '',
     'css_id' => '',
     'css' => '',
     'contexts' => array(),
@@ -273,18 +277,23 @@ function panels_panel_context_render($handler, $base_contexts, $args, $test = TR
     if (!$filename) {
       $filename = ctools_css_store($css_id, $handler->conf['css']);
     }
-    ctools_css_add_css($filename);
+    drupal_add_css($filename);
   }
 
   // With an argument, this actually sets the display.
   panels_get_current_page_display($display);
 
-  // Handle backward compatibility with the IPE checkbox.
-  if (empty($handler->conf['pipeline'])) {
-    $handler->conf['pipeline'] = !empty($handler->conf['use_ipe']) ? 'ipe' : 'standard';
-  }
-
   $renderer = panels_get_renderer($handler->conf['pipeline'], $display);
+
+  // Remove and add body element classes
+  $panel_body_css = &drupal_static('panel_body_css');
+
+  if (isset($handler->conf['body_classes_to_remove']) && !isset($panel_body_css['body_classes_to_remove'])) {
+    $panel_body_css['body_classes_to_remove'] = $handler->conf['body_classes_to_remove'];
+  }
+  if (isset($handler->conf['body_classes_to_add']) && !isset($panel_body_css['body_classes_to_add'])) {
+    $panel_body_css['body_classes_to_add'] = $handler->conf['body_classes_to_add'];
+  }
 
   $info = array(
     'content' => panels_render_display($display, $renderer),
@@ -404,7 +413,7 @@ function panels_panel_context_admin_summary($handler, $task, $subtask, $page, $s
   // Get operations for just this handler.
   $operations = $operations['handlers']['children'][$handler->name]['children']['actions']['children'];
   $args = array('handlers', $handler->name, 'actions');
-  $rendered_operations = page_manager_render_operations($page, $operations, array(), array('class' => 'actions'), 'actions', $args);
+  $rendered_operations = page_manager_render_operations($page, $operations, array(), array('class' => array('actions')), 'actions', $args);
 
   $layout = panels_get_layout($display->layout);
 
@@ -464,27 +473,16 @@ function panels_panel_context_admin_summary($handler, $task, $subtask, $page, $s
   $content_link = ' [' . l(t('Edit'), page_manager_edit_url($task_name, array('handlers', $handler->name, 'content'))) . ']';
   $context_link = ' [' . l(t('Edit'), page_manager_edit_url($task_name, array('handlers', $handler->name, 'context'))) . ']';
 
-  $info = theme('table', array(), $rows, array('class' => 'page-manager-handler-summary'));
-
-/*
-  $content = theme('panels_common_content_list', $display);
-  if (empty($contents)) {
-    $contents = t('This panel has no content.');
-  }
-  $contexts = theme('ctools_context_list_no_table', $object);
-  if (empty($contexts)) {
-    $contexts = t('This panel has no contexts.');
-  }
-*/
+  $info = theme('table', array('rows' => $rows, 'attributes' => array('class' => 'page-manager-handler-summary')));
 
   $title = $handler->conf['title'];
   if ($title != t('Panel')) {
     $title = t('Panel: @title', array('@title' => $title));
   }
 
-  $output .= '<div class="clear-block">';
+  $output .= '<div class="clearfix">';
   if ($show_title) {
-  $output .= '<div class="handler-title clear-block">';
+  $output .= '<div class="handler-title clearfix">';
     $output .= '<div class="actions handler-actions">' . $rendered_operations['actions'] . '</div>';
     $output .= '<span class="title-label">' . $title . '</span>';
   }
@@ -531,7 +529,7 @@ function panels_panel_context_admin_summary($handler, $task, $subtask, $page, $s
  * previous layout to choose from. a different, only slightly different
  * variant is called to change a pre-existing layout.
  */
-function panels_panel_context_edit_choose(&$form, &$form_state) {
+function panels_panel_context_edit_choose($form, &$form_state) {
   ctools_include('common', 'panels');
   ctools_include('display-layout', 'panels');
   ctools_include('plugins', 'panels');
@@ -546,7 +544,9 @@ function panels_panel_context_edit_choose(&$form, &$form_state) {
 
   // Change the #id of the form so the CSS applies properly.
   $form['#id'] = 'panels-choose-layout';
-  $form = array_merge($form, panels_choose_layout($form_state));
+  $form = panels_choose_layout($form, $form_state);
+
+  return $form;
 }
 
 /**
@@ -577,7 +577,7 @@ function panels_panel_context_edit_choose_submit(&$form, &$form_state) {
  * to the move content form, which is 'hidden' so it won't be accessed
  * directly.
  */
-function panels_panel_context_edit_layout(&$form, &$form_state) {
+function panels_panel_context_edit_layout($form, &$form_state) {
   ctools_include('common', 'panels');
   ctools_include('display-layout', 'panels');
   ctools_include('plugins', 'panels');
@@ -592,7 +592,9 @@ function panels_panel_context_edit_layout(&$form, &$form_state) {
 
   // Change the #id of the form so the CSS applies properly.
   $form['#id'] = 'panels-choose-layout';
-  $form = array_merge($form, panels_choose_layout($form_state));
+  $form = panels_choose_layout($form, $form_state);
+
+  return $form;
 }
 
 /**
@@ -623,9 +625,11 @@ function panels_panel_context_edit_layout_submit(&$form, &$form_state) {
 /**
  * When a layout is changed, the user is given the opportunity to move content.
  */
-function panels_panel_context_edit_move(&$form, &$form_state) {
+function panels_panel_context_edit_move($form, &$form_state) {
   $form_state['display'] = &panels_panel_context_get_display($form_state['handler']);
   $form_state['layout'] = $form_state['handler']->conf['temp_layout'];
+
+  $form_state['cache_key'] = 'panel_context:' . $form_state['task_name'] . ':' . $form_state['handler_id'];
 
   ctools_include('common', 'panels');
   ctools_include('display-layout', 'panels');
@@ -635,7 +639,7 @@ function panels_panel_context_edit_move(&$form, &$form_state) {
   $form_state['no buttons'] = TRUE;
 
   // Change the #id of the form so the CSS applies properly.
-  $form = array_merge($form, panels_change_layout($form_state));
+  $form = panels_change_layout($form, $form_state);
 
   // Change the 'back' button to just go directly to the previous form
 //  $task_id = $form_state['task']['name'];
@@ -648,13 +652,14 @@ function panels_panel_context_edit_move(&$form, &$form_state) {
   $form['buttons']['next']['#next'] = 'content';
 
   $form_state['form_info']['return path'] = page_manager_edit_url($form_state['page']->task_name, array('handlers', $form_state['handler_id'], 'content'));
+  return $form;
 }
 
 /**
  * Present the panels drag & drop editor to edit the display attached
  * to the task handler.
  */
-function panels_panel_context_edit_content(&$form, &$form_state) {
+function panels_panel_context_edit_content($form, &$form_state) {
   ctools_include('ajax');
   ctools_include('plugins', 'panels');
   ctools_include('common', 'panels');
@@ -674,14 +679,20 @@ function panels_panel_context_edit_content(&$form, &$form_state) {
   $form_state['no preview'] = TRUE;
   $form_state['page']->display_cache[$form_state['handler_id']] = $cache;
 
-  $form = array_merge($form, panels_edit_display_form($form_state));
-  // Make sure the theme will work since our form id is different.
-  $form['#theme'] = 'panels_edit_display_form';
+  $form = panels_edit_display_form($form, $form_state);
 
   if (!isset($form_state['type']) || $form_state['type'] != 'add' && !empty($form_state['handler_id']) && !empty($form['buttons'])) {
     $form['buttons']['preview'] = $form['buttons']['return'];
     $form['buttons']['preview']['#value'] = t('Update and preview');
   }
+  return $form;
+}
+
+/**
+ * Validate changes to the panel content form.
+ */
+function panels_panel_context_edit_content_validate(&$form, &$form_state) {
+  panels_edit_display_form_validate($form, $form_state);
 }
 
 function panels_panel_context_edit_content_submit(&$form, &$form_state) {
@@ -701,7 +712,7 @@ function panels_panel_context_edit_content_submit(&$form, &$form_state) {
 /**
  * General settings for the panel
  */
-function panels_panel_context_edit_settings(&$form, &$form_state) {
+function panels_panel_context_edit_settings($form, &$form_state) {
   $conf = $form_state['handler']->conf;
   $form['conf']['title'] = array(
     '#type' => 'textfield',
@@ -715,6 +726,22 @@ function panels_panel_context_edit_settings(&$form, &$form_state) {
     '#default_value' => $conf['no_blocks'],
     '#title' => t('Disable Drupal blocks/regions'),
     '#description' => t('Check this to have the page disable all regions displayed in the theme. Note that some themes support this setting better than others. If in doubt, try with stock themes to see.'),
+  );
+
+  $form['conf']['body_classes_to_remove'] = array(
+    '#type' => 'textfield',
+    '#size' => 128,
+    '#default_value' => $conf['body_classes_to_remove'],
+    '#title' => t('Remove body CSS classes'),
+    '#description' => t('The CSS classes to remove from the body element of this page. Separated by a space. For example: no-sidebars one-sidebar sidebar-first sidebar-second two-sidebars.'),
+  );
+
+  $form['conf']['body_classes_to_add'] = array(
+    '#type' => 'textfield',
+    '#size' => 128,
+    '#default_value' => $conf['body_classes_to_add'],
+    '#title' => t('Add body CSS classes'),
+    '#description' => t('The CSS classes to add to the body element of this page. Separated by a space. For example: no-sidebars one-sidebar sidebar-first sidebar-second two-sidebars.'),
   );
 
   ctools_include('plugins', 'panels');
@@ -763,6 +790,8 @@ function panels_panel_context_edit_settings(&$form, &$form_state) {
     '#description' => t('Enter well-formed CSS code here; this code will be embedded into the page, and should only be used for minor adjustments; it is usually better to try to put CSS for the page into the theme if possible. This CSS will be filtered for safety so some CSS may not work.'),
     '#default_value' => $conf['css'],
   );
+
+  return $form;
 }
 
 /**
@@ -770,6 +799,8 @@ function panels_panel_context_edit_settings(&$form, &$form_state) {
  */
 function panels_panel_context_edit_settings_submit(&$form, &$form_state) {
   $form_state['handler']->conf['no_blocks'] = $form_state['values']['no_blocks'];
+  $form_state['handler']->conf['body_classes_to_remove'] = $form_state['values']['body_classes_to_remove'];
+  $form_state['handler']->conf['body_classes_to_add'] = $form_state['values']['body_classes_to_add'];
   $form_state['handler']->conf['pipeline'] = $form_state['values']['pipeline'];
   $form_state['handler']->conf['css_id'] = $form_state['values']['css_id'];
   $form_state['handler']->conf['css'] = $form_state['values']['css'];
@@ -784,7 +815,7 @@ function panels_panel_context_edit_settings_submit(&$form, &$form_state) {
 /**
  * Form to show a nice preview.
  */
-function panels_panel_context_edit_preview(&$form, &$form_state) {
+function panels_panel_context_edit_preview($form, &$form_state) {
   ctools_include('context');
   ctools_include('context-task-handler');
 
@@ -809,11 +840,13 @@ function panels_panel_context_edit_preview(&$form, &$form_state) {
 
   if (!empty($output)) {
     $form['output'] = array(
-      '#value' => $output,
+      '#markup' => $output,
     );
   }
 
   $form_state['do not cache'] = TRUE;
+
+  return $form;
 }
 
 /**
@@ -826,4 +859,24 @@ function panels_panel_context_edit_preview_submit(&$form, &$form_state) {
   $form_state['content'] = panels_render_display($display);
   $form_state['redirect'] = FALSE;
   $form_state['rerender'] = TRUE;
+}
+
+function panels_panel_context_get_addressable($task, $subtask_name, $handler, $address, $contexts, $arguments, $type) {
+  // Load the display
+  $display = panels_panel_context_get_display($handler);
+
+  $display->context = $contexts;
+  $display->args = $arguments;
+  $display->css_id = $handler->conf['css_id'];
+  $display->cache_key = 'panel_context:' . $task->name . ':' . $handler->name;
+
+  $renderer = panels_get_renderer($handler->conf['pipeline'], $display);
+  if ($type == 'content') {
+    $renderer->prepare();
+
+    $pid = array_shift($address);
+    if (!empty($renderer->prepared['panes'][$pid])) {
+      return $renderer->render_pane($renderer->prepared['panes'][$pid]);
+    }
+  }
 }

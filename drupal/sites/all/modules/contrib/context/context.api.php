@@ -1,5 +1,4 @@
 <?php
-// $Id: context.api.php,v 1.1.2.4 2010/07/29 16:24:04 yhahn Exp $
 
 /**
  * @file
@@ -52,6 +51,30 @@ function hook_context_registry() {
       ),
     ),
   );
+}
+
+/**
+ * Execute Context page conditions
+ *
+ * Allows modules to hook into Context's hook_page_build to execute their
+ * conditions at an appropriate time before the firing of reactions.
+ */
+function hook_context_page_condition() {
+  if ($plugin = context_get_plugin('condition', 'bar')) {
+    $plugin->execute();
+  }
+}
+
+/**
+ * Execute Context page reactions
+ *
+ * Allows modules to hook into Context's hook_page_build to execute their
+ * reactions at an appropriate time after the firing of conditions.
+ */
+function hook_context_page_reaction() {
+  if ($plugin = context_get_plugin('reaction', 'baz')) {
+    $plugin->execute();
+  }
 }
 
 /**

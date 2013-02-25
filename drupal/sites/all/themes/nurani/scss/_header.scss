@@ -1,0 +1,28 @@
+
+#header{
+  background-color: $nurani-burgundy;
+
+  #logo-box{
+  	
+  	@include span-columns(12 omega,20);
+  	position: relative;
+
+
+  	a#logo{
+  	 
+      z-index: 1;
+	    position: absolute;
+      top: -12px;
+    
+
+      img{
+      	max-width:100%;
+      }
+    }
+
+
+  }
+
+  
+
+} 

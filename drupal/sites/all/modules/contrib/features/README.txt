@@ -1,5 +1,41 @@
 
-Features 1.x for Drupal 6.x
+Current state of Features for Drupal 7
+--------------------------------------
+Work on Features for D7 is currently aimed at getting to a point where Features
+can be used on a new install of Drupal 7 with features that were created on D7.
+Once this has been achieved, we will begin working on supporting D6 features as
+well as possibly supporting upgrades & migrations between legacy components and
+new equivalents (e.g. CCK to fields, imagecache to core image styles).
+
+### Working components
+
+- ctools
+- dependencies
+- field
+- filter
+- image
+- menu_custom
+- menu_links
+- node
+- taxonomy
+- user_permission
+- user_role
+- views
+
+### Has changes to export format between D6 and D7
+
+(@TODO legacy export compatibility)
+
+- filter
+- taxonomy
+
+### Requires upgrade/migration path
+
+- imagecache > image
+- content > field
+
+
+Features 1.x for Drupal 7.x
 ---------------------------
 The features module enables the capture and management of features in Drupal. A
 feature is a collection of Drupal entities which taken together satisfy a
@@ -40,14 +76,14 @@ You can build features in Drupal by using site building tools that are supported
 
 Once you've built and configured functionality on a site, you can export it into
 a feature module by using the feature create page at
-`admin/build/features/create`.
+`admin/structure/features/create`.
 
 
 ### Task 2: Manage features
 
 The features module also provides a way to manage features through a more
-targeted interface than `admin/build/modules`. The interface at
-`admin/build/features` shows you only feature modules, and will also inform you
+targeted interface than `admin/modules`. The interface at
+`admin/structure/features` shows you only feature modules, and will also inform you
 if any of their components have been overridden. If this is the case, you can
 also re-create features to bring the module code up to date with any changes
 that have occurred in the database.
@@ -104,6 +140,13 @@ Features provides several useful drush commands:
 - `drush features-export [feature name] [component list]`
 
   Write a new feature in code containing the components listed.
+  If called with no arguments, display a list of available components.
+  If called with one argument, take the argument as a component name and 
+  attempt to create a feature with the same name.
+  
+  The option '--destination=foo' may be used to specify the path (from Drupal
+  root) where the feature should be created. The default destination is
+  'sites/all/modules'.
 
 - `drush features-update [feature name]`
 
@@ -136,15 +179,23 @@ Features provides integration for the following exportables:
 Features also provides faux-exportable functionality for the following Drupal
 core and contrib components:
 
-- CCK fields
-- CCK fieldgroups
+- Fields
 - Content types
 - Input filters
 - User roles/permissions
 - Custom menus and menu links *
-- Taxonomy vocabularies *
+- Taxonomy vocabularies
 
 * Currently in development.
+
+
+Security Concerns
+-----------------
+If you are using Features to export Roles and also use those Roles in other
+exportable code (like Views filters) you can wind up with an unintended
+security hole.  When you import your Feature, if the Roles do not get created
+with the exact same Role IDs then your Views filters (or other component) will
+be referencing a different Role than you intended.
 
 
 For developers
@@ -155,8 +206,10 @@ points in the Features module.
 
 Maintainers
 -----------
-- yhahn (Young Hahn)
-- jmiccolis (Jeff Miccolis)
+- febbraro (Frank Febbraro)
+- hefox (Fox)
+- mpotter (Mike Potter)
+- timplunkett (Tim Plunkett)
 
 
 [1]: http://drupal.org/project/drush

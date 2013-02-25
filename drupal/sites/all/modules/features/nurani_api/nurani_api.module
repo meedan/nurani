@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Nurani API feature.
+ */
+
+include_once 'nurani_api.features.inc';

@@ -1,0 +1,6 @@
+name = Nurani Legal
+description = Legal module setup and integration for Nurani.
+core = 7.x
+version = 7.x-1.0
+package = Nurani
+dependencies[] = legal

@@ -1,11 +1,19 @@
 <?php
+
 /**
- * Allow taxonomy term ID(s) as argument
+ * @file
+ * Definition of views_handler_argument_term_node_tid.
+ */
+
+/**
+ * Allow taxonomy term ID(s) as argument.
+ *
+ * @ingroup views_argument_handlers
  */
 class views_handler_argument_term_node_tid extends views_handler_argument_many_to_one {
   function option_definition() {
     $options = parent::option_definition();
-    $options['set_breadcrumb'] = array('default' => FALSE);
+    $options['set_breadcrumb'] = array('default' => FALSE, 'bool' => TRUE);
     return $options;
   }
 
@@ -29,13 +37,13 @@ class views_handler_argument_term_node_tid extends views_handler_argument_many_t
 
   function title_query() {
     $titles = array();
-    $placeholders = implode(', ', array_fill(0, sizeof($this->value), '%d'));
-
-    $result = db_query("SELECT name FROM {term_data} WHERE tid IN ($placeholders)", $this->value);
-    while ($term = db_fetch_object($result)) {
+    $result = db_select('taxonomy_term_data', 'td')
+      ->fields('td', array('name'))
+      ->condition('td.tid', $this->value)
+      ->execute();
+    foreach ($result as $term) {
       $titles[] = check_plain($term->name);
     }
     return $titles;
   }
 }
-

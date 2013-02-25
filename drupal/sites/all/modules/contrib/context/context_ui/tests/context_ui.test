@@ -1,5 +1,4 @@
 <?php
-// $Id: context_ui.test,v 1.4.4.1.2.2 2010/08/05 16:46:26 yhahn Exp $
 
 /**
  * Functional Test for Context UI
@@ -8,25 +7,27 @@
  */
 
 class ContextUiTestCase extends DrupalWebTestCase {
+  protected $profile = 'testing';
 
-  function getInfo() {
+  public static function getInfo() {
     return array(
-      'name' => t('Context UI functional tests'),
-      'description' => t('Create and save a context.') ,
-      'group' => t('Context UI'),
+      'name' => 'Context UI functional tests',
+      'description' => 'Create and save a context.',
+      'group' => 'Context UI',
     );
   }
 
   function setUp() {
-    parent::setUp('ctools', 'context', 'context_ui');
+    parent::setUp('ctools', 'context', 'context_ui', 'blog', 'menu');
 
     // Create and login user
-    $admin_user = $this->drupalCreateUser(array('administer site configuration', 'administer blocks', 'access content', 'create page content'));
+    $admin_user = $this->drupalCreateUser(array(
+      'access administration pages',
+      'administer site configuration',
+      'access content',
+      'create blog content'
+    ));
     $this->drupalLogin($admin_user);
-  }
-
-  function tearDown() {
-    parent::tearDown();
   }
 
   function testCreateContext() {
@@ -37,15 +38,23 @@ class ContextUiTestCase extends DrupalWebTestCase {
     $context->tag = strtolower($this->randomName(15));
     $this->context = $context;
 
+    $this->drupalGet('admin');
+    $this->drupalGet('admin/structure');
+    $this->drupalGet('admin/structure/context');
+
     $edit = array(
       'name' => $context->name,
       'description' => $context->description,
       'tag' => $context->tag,
-      'conditions[plugins][node][values][page]' => 'page',
-      'reactions[plugins][menu]' => 'node/add/page',
+      'conditions[plugins][node][values][blog]' => 'blog',
+      'reactions[plugins][menu]' => 'node/add/blog',
     );
-    $this->drupalPost('admin/build/context/add', $edit, 'Save');
+    $this->drupalPost('admin/structure/context/add', $edit, 'Save');
     $this->assertText($context->name . ' has been created.', 'Context saved.');
 
+    $edit = array();
+    // export_ui confirm delete
+    $this->drupalPost('admin/structure/context/list/' . $context->name . '/edit', $edit, 'Delete');
+    $this->assertTrue(strpos($this->getUrl(), 'admin/structure/context/list/' . $context->name . '/delete') !== FALSE, 'Context deletion confirmation page displayed');
   }
 }

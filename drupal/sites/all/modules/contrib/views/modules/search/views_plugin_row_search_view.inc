@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @file
- * Contains the search row style plugin.
+ * Definition of views_plugin_row_search_view.
  */
 
 /**
@@ -11,7 +12,7 @@ class views_plugin_row_search_view extends views_plugin_row {
   function option_definition() {
     $options = parent::option_definition();
 
-    $options['score'] = array('default' => TRUE);
+    $options['score'] = array('default' => TRUE, 'bool' => TRUE);
 
     return $options;
   }
@@ -28,6 +29,11 @@ class views_plugin_row_search_view extends views_plugin_row {
    * Override the behavior of the render() function.
    */
   function render($row) {
-    return theme($this->theme_functions(), $this->view, $this->options, $row);
+    return theme($this->theme_functions(),
+      array(
+        'view' => $this->view,
+        'options' => $this->options,
+        'row' => $row
+      ));
   }
 }

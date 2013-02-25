@@ -36,6 +36,10 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
    */
   var $_output_file = '';
 
+  var $views_data_export_cached_view_loaded;
+
+  var $errors = array();
+
   /**
    * Return the type of styles we require.
    */
@@ -57,7 +61,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
    */
   function option_definition() {
     $options = parent::option_definition();
-    $options['use_batch'] = array('default' => $this->is_compatible());
+    $options['use_batch'] = array('default' => 'no_batch');
     $options['items_per_page'] = array('default' => '0');
     $options['style_plugin']['default'] = 'views_data_export_csv';
 
@@ -82,9 +86,9 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     $options['use_batch'] = array(
       'category' => 'page',
       'title' => t('Batched export'),
-      'value' => $this->get_option('use_batch') ? t('Yes') : t('No'),
+      'value' => ($this->get_option('use_batch') == 'batch' ? t('Yes') : t('No')),
     );
-    
+
     if (!$this->is_compatible() && $this->get_option('use_batch')) {
       $options['use_batch']['value'] .= ' <strong>' . t('(Warning: incompatible)') . '</strong>';
     }
@@ -105,16 +109,16 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
           '#description' => t(''),
           '#default_value' => $this->get_option('use_batch'),
           '#options' => array(
-            TRUE => t('Export data in small segments to build a complete export. Recommended for large exports sets (1000+ rows)'),
-            FALSE => t('Export data all in one segment. Possible time and memory limit issues.'),
+            'no_batch' => t('Export data all in one segment. Possible time and memory limit issues.'),
+            'batch' => t('Export data in small segments to build a complete export. Recommended for large exports sets (1000+ rows)'),
           ),
         );
         if (!$this->is_compatible()) {
           $form['use_batch']['#disabled'] = TRUE;
-          $form['use_batch']['#default_value'] = 0;
+          $form['use_batch']['#default_value'] = 'no_batch';
           $form['use_batch']['message'] = array (
             '#type' => 'markup',
-            '#value' => theme('views_data_export_message', t('The underlying database (!db_driver) is incompatible with the batched export option and it has been disabled.', array('!db_driver' => $this->_get_database_driver()))),
+            '#markup' => theme('views_data_export_message', array('message' => t('The underlying database (!db_driver) is incompatible with the batched export option and it has been disabled.', array('!db_driver' => $this->_get_database_driver())), 'type' => 'warning')),
             '#weight' => -10,
           );
         }
@@ -140,7 +144,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
    */
   function is_batched() {
     // The source of this option may change in the future.
-    return $this->get_option('use_batch') && empty($this->view->live_preview);
+    return ($this->get_option('use_batch') == 'batch') && empty($this->view->live_preview);
   }
 
   /**
@@ -192,6 +196,22 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
       $output = $this->execute_initial();
     }
 
+    // Call me on the cached version of this view please
+    // This allows this view to be programatically executed with nothing
+    // more than the eid in $_GET in order for it to execute the next chunk
+    // TODO: What is going on here?
+    /*
+     Jamsilver tells me this might be useful one day.
+    if (!$this->views_data_export_cached_view_loaded) {
+      $view = views_data_export_view_retrieve($this->batched_execution_state->eid);
+      $view->set_display($this->view->current_display);
+      $view->display_handler->batched_execution_state->eid = $this->batched_execution_state->eid;
+      $view->display_handler->views_data_export_cached_view_loaded = TRUE;
+      $ret =  $view->execute_display($this->view->current_display);
+      $this->batched_execution_state = &$view->display_handler->batched_execution_state;
+      return $ret;
+    }*/
+
     // Last time through
     if ($this->batched_execution_state->batch_state == VIEWS_DATA_EXPORT_FINISHED) {
       $output = $this->execute_final();
@@ -225,7 +245,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     //$this->batched_execution_state->fid = $this->outputfile_create();
 
     // Initialize the progress counter
-    $this->batched_execution_state->sandbox['max'] = db_result(db_query('SELECT COUNT(*) FROM {' . $this->index_tablename() . '}'));
+    $this->batched_execution_state->sandbox['max'] = db_query('SELECT COUNT(*) FROM {' . $this->index_tablename() . '}')->fetchField();
     // Record the time we started.
     list($usec, $sec) = explode(' ', microtime());
     $this->batched_execution_state->sandbox['started'] = (float) $usec + (float) $sec;
@@ -239,7 +259,6 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
       // Get the path of the attached display:
       $querystring['return-url'] = $this->view->display[$_GET['attach']]->handler->get_path();
     }
-    $querystring_built = drupal_query_string_encode($querystring);
 
     //Set the batch off
     $batch = array(
@@ -255,7 +274,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     // We do not return, so update database sandbox now
     views_data_export_update($this->batched_execution_state);
 
-    $final_destination = $this->get_option('path');
+    $final_destination = $this->view->get_url();
 
     // Provide a way in for others at this point
     // e.g. Drush to grab this batch and yet execute it in
@@ -263,15 +282,14 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     $batch['view_name'] = $this->view->name;
     $batch['display_id'] = $this->view->current_display;
     $batch['eid'] = $this->batched_execution_state->eid;
-    $batch['__drupal_alter_by_ref']['final_destination'] = &$final_destination;
-    $batch['__drupal_alter_by_ref']['querystring'] = &$querystring_built;
-    drupal_alter('views_data_export_batch', $batch);
+    $batch_redirect = array($final_destination, array('query' => $querystring));
+    drupal_alter('views_data_export_batch', $batch, $batch_redirect);
 
     // Modules may have cleared out $batch, indicating that we shouldn't process further.
     if (!empty($batch)) {
       batch_set($batch);
       // batch_process exits
-      batch_process(array($final_destination, $querystring_built));
+      batch_process($batch_redirect);
     }
   }
 
@@ -298,10 +316,13 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
         // Remove rendered results from our index
         if (count($this->view->result) && ($sandbox['weight_field_alias'])) {
           $last = end($this->view->result);
-          db_query('DELETE FROM {' . $this->index_tablename() . '} WHERE ' . $sandbox['weight_field_alias'] . '  <= %d', $last->{$sandbox['weight_field_alias']});
+          db_delete($this->index_tablename())
+            ->condition($sandbox['weight_field_alias'], $last->{$sandbox['weight_field_alias']}, '<=')
+            ->execute();
 
           // Update progress.
-          $progress = db_result(db_query('SELECT COUNT(*) FROM {' . $this->index_tablename() . '}'));
+          $progress = db_query('SELECT COUNT(*) FROM {' . $this->index_tablename() . '}')->fetchField();
+          // TODO: These next few lines are messy, clean them up.
           $progress = 0.99 - ($progress / $sandbox['max'] * 0.99);
           $progress = ((int)floor($progress * 100000));
           $progress = $progress / 100000;
@@ -336,7 +357,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
    */
   function execute_final() {
     // Should we download the file.
-    if ($_GET['download']) {
+    if (!empty($_GET['download'])) {
       // This next method will exit.
       $this->transfer_file();
     }
@@ -409,15 +430,16 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
         case VIEWS_DATA_EXPORT_FOOTER:
           // Tell views its been executed.
           $this->view->executed = TRUE;
+
           // Grab our results from the index, and push them into the view result.
           // TODO: Handle external databases.
           $result = db_query_range('SELECT * FROM {' . $this->index_tablename() . '} ORDER BY ' . $this->batched_execution_state->sandbox['weight_field_alias'] . ' ASC', 0, 100);
           $this->view->result = array();
-          while ($item_arr = db_fetch_array($result)) {
+          foreach ($result as $item_hashed) {
             $item = new stdClass();
             // We had to shorten some of the column names in the index, restore
             // those now.
-            foreach ($item_arr as $hash => $value) {
+            foreach ($item_hashed as $hash => $value) {
               if (isset($this->batched_execution_state->sandbox['field_aliases'][$hash])) {
                 $item->{$this->batched_execution_state->sandbox['field_aliases'][$hash]} = $value;
               }
@@ -428,6 +450,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
             // Push the restored $item in the views result array.
             $this->view->result[] = $item;
           }
+          $this->view->_post_execute();
           break;
       }
     }
@@ -440,7 +463,15 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
   function render_complete() {
     $return_path = empty($_GET['return-url']) ? '' : $_GET['return-url'];
 
-    return theme('views_data_export_complete_page', url($this->get_option('path'), array('query' => 'download=1&eid=' . $this->batched_execution_state->eid)), $this->errors, $return_path);
+    $query = array(
+      'download' => 1,
+      'eid' => $this->batched_execution_state->eid,
+    );
+
+    return theme('views_data_export_complete_page', array(
+      'file' => url($this->view->get_url(), array('query' => $query)),
+      'errors' => $this->errors,
+      'return_url' => $return_path));
   }
 
   /**
@@ -459,8 +490,10 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     if (!$this->is_batched()) {
       // Can replace with return parent::preview() when views 2.12 lands.
       if (!empty($this->view->live_preview)) {
-        // Change the items per page:
+        // Change the items per page.
         $this->view->set_items_per_page(20);
+        // Force a pager to be used.
+        $this->set_option('pager', array('type' => 'some'));
         return '<p>' . t('A maximum of 20 items will be shown here, all results will be shown on export.') . '</p><pre>' . check_plain($this->view->render()) . '</pre>';
       }
       return $this->view->render();
@@ -497,74 +530,16 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     // Get views to build the query.
     $view->build();
 
-    // In views 2 there isn't actually an easy way to get the query that has
-    // been executed, so we'll have to duplicte a lot of the code from the
-    // view::execute() method.
-
-    // Let modules modify the view just prior to executing it.
-    foreach (module_implements('views_pre_execute') as $module) {
-      $function = $module . '_views_pre_execute';
-      $function($view);
+    // Change the query object to use our custom one.
+    $query = new views_data_export_plugin_query_default_batched();
+    // Copy the query over:
+    foreach ($view->query as $property => $value) {
+      $query->$property = $value;
     }
+    // Replace the query object.
+    $view->query = $query;
 
-    // only rewrite the query if we have an initial query to begin with.
-    if ($view->build_info['query']) {
-      $query = db_rewrite_sql($view->build_info['query'], $view->base_table, $view->base_field, array('view' => &$view));
-      $count_query = db_rewrite_sql($view->build_info['count_query'], $view->base_table, $view->base_field, array('view' => &$view));
-    }
-    $args = $view->build_info['query_args'];
-
-    vpr($query);
-
-    if ($query) {
-      $replacements = module_invoke_all('views_query_substitutions', $view);
-      $query = str_replace(array_keys($replacements), $replacements, $query);
-
-      if (is_array($args)) {
-        foreach ($args as $id => $arg) {
-          $args[$id] = str_replace(array_keys($replacements), $replacements, $arg);
-        }
-      }
-
-      // The $query is final and ready to go, we are going to redirect it to
-      // become an insert into our table, sneaky!
-      // Our query will look like:
-      // CREATE TABLE {idx} SELECT @row := @row + 1 AS weight_alias, cl.* FROM
-      // (-query-) AS cl, (SELECT @row := 0) AS r
-      // We do some magic to get the row count.
-
-      $this->batched_execution_state->sandbox['weight_field_alias'] = $this->_weight_alias_create($this->view);
-      // Views can construct queries that have fields with aliases longer than
-      // 64 characters, which will cause problems when creating the table to
-      // insert them into. So we hash the aliases down to make sure they are
-      // unique.
-      $this->batched_execution_state->sandbox['field_aliases'] = $this->field_aliases_create($this->view);
-      $select_aliases = array();
-      foreach ($this->batched_execution_state->sandbox['field_aliases'] as $hash => $alias) {
-        $select_aliases[] = "cl.$alias AS $hash";
-      }
-
-      $insert_query = 'CREATE TABLE {' . $this->index_tablename() . '} SELECT @row := @row + 1 AS ' . $this->batched_execution_state->sandbox['weight_field_alias'] . ', ' . implode(', ', $select_aliases) . ' FROM (' . $query . ') AS cl, (SELECT @row := 0) AS r';
-
-      // Allow for a view to query an external database.
-      if (isset($view->base_database)) {
-        db_set_active($view->base_database);
-        $external = TRUE;
-      }
-
-      db_query($insert_query, $args);
-
-      // Now create an index for the weight field, otherwise the queries on the
-      // index will take a long time to execute.
-      $ret = array();
-      db_add_unique_key($ret, $this->index_tablename(), $this->batched_execution_state->sandbox['weight_field_alias'], array($this->batched_execution_state->sandbox['weight_field_alias']));
-
-      if (!empty($external)) {
-        db_set_active();
-      }
-
-    }
-
+    $view->execute();
   }
 
   /**
@@ -610,7 +585,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
   function remove_index() {
     $ret = array();
     if (db_table_exists($this->index_tablename())) {
-      db_drop_table($ret, $this->index_tablename());
+      db_drop_table($this->index_tablename());
     }
   }
 
@@ -629,7 +604,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
       // Return the filename associated with this file.
       $this->_output_file = $this->file_load($this->batched_execution_state->fid);
     }
-    return $this->_output_file->filepath;
+    return $this->_output_file->uri;
   }
 
   /**
@@ -639,23 +614,17 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
    */
   protected function outputfile_create() {
 
-    $dir = file_directory_temp() . '/views_plugin_display';
+    $dir = 'temporary://views_plugin_display';
 
     // Make sure the directory exists first.
-    if (!file_check_directory($dir, FILE_CREATE_DIRECTORY)) {
+    if (!file_prepare_directory($dir, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
       $this->abort_export(t('Could not create temporary directory for result export (@dir). Check permissions.', array ('@dir' => $dir)));
     }
 
-    // TODO: do we need the realpath here?
-    $path = tempnam(realpath($dir), 'views_data');
-
-    // Create the file.
-    if (($output_filename = file_create_path($path)) === FALSE) {
-      $this->abort_export(t('Could not create temporary output file for result export (@file). Check permissions.', array ('@file' => $path)));
-    }
+    $path = drupal_tempnam($dir, 'views_data_export');
 
     // Save the file into the DB.
-    $file = $this->file_save_file($output_filename);
+    $file = $this->file_save_file($path);
 
     return $file->fid;
   }
@@ -665,8 +634,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
    */
   protected function outputfile_write($string) {
     $output_file = $this->outputfile_path();
-    $handle = fopen($output_file, 'a');
-    if (fwrite($handle, $string) === FALSE) {
+    if (file_put_contents($output_file, $string, FILE_APPEND) === FALSE) {
       $this->abort_export(t('Could not write to temporary output file for result export (@file). Check permissions.', array ('@file' => $output_file)));
     }
   }
@@ -691,22 +659,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     *   A file object.
     */
   function file_load($fid) {
-    if (empty($fid)) {
-      return array('fid' => 0, 'filepath' => '', 'filename' => '', 'filemime' => '', 'filesize' => 0);
-    }
-
-    if (is_numeric($fid)) {
-      $file = db_fetch_object(db_query('SELECT f.* FROM {files} f WHERE f.fid = %d', $fid));
-    }
-    else {
-      $file = db_fetch_object(db_query("SELECT f.* FROM {files} f WHERE f.filepath = '%s'", $fid));
-    }
-
-    if (!$file) {
-      $file = (object) array('fid' => 0, 'filepath' => '', 'filename' => '', 'filemime' => '', 'filesize' => 0);
-    }
-
-    return !empty($file) ? $file : FALSE;
+    return file_load($fid);
   }
 
   /**
@@ -718,38 +671,11 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
   *
   * @param $filepath
   *   The local file path of the file to be saved.
-  * @param $account
-  *   The user account object that should associated with the uploaded file.
   * @return
   *   An array containing the file information, or 0 in the event of an error.
   */
-  function file_save_file($filepath, $account = NULL) {
-    if (!isset($account)) {
-      $account = $GLOBALS['user'];
-    }
-
-    // Begin building file object.
-    $file = new stdClass();
-    $file->uid = $account->uid;
-    $file->filename = basename($filepath);
-    $file->filepath = $filepath;
-    $file->filemime = module_exists('mimedetect') ? mimedetect_mime($file) : file_get_mimetype($file->filename);
-
-    // Rename potentially executable files, to help prevent exploits.
-    if (preg_match('/\.(php|pl|py|cgi|asp|js)$/i', $file->filename) && (substr($file->filename, -4) != '.txt')) {
-      $file->filemime = 'text/plain';
-      $file->filepath .= '.txt';
-      $file->filename .= '.txt';
-    }
-
-    $file->filesize = filesize($filepath);
-
-    // If we made it this far it's safe to record this file in the database.
-    $file->status = FILE_STATUS_TEMPORARY;
-    $file->timestamp = time();
-    // Insert new record to the database.
-    drupal_write_record('files', $file);
-    return (object)$file;
+  function file_save_file($filepath) {
+    return file_save_data('', $filepath);
   }
 
   /**
@@ -769,7 +695,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
       return t('Time remaining: about @interval.', array('@interval' => format_interval($stamp)));
     }
   }
-  
+
   /**
    * Checks the driver of the database underlying
    * this query and returns FALSE if it is imcompatible
@@ -783,18 +709,123 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     $db_driver = $this->_get_database_driver();
     return !in_array($db_driver, $incompatible_drivers);
   }
-  
+
   function  _get_database_driver() {
     $name = !empty($this->view->base_database) ? $this->view->base_database : 'default';
-    // Lifted out of the middle of db_set_active()
-    global $db_url, $db_type, $active_db;
-    if (is_array($db_url)) {
-      $connect_url = array_key_exists($name, $db_url) ? $db_url[$name] : $db_url['default'];
+    $conn_info = Database::getConnectionInfo($name);
+    return $conn_info[$name]['driver'];
+  }
+}
+
+class views_data_export_plugin_query_default_batched extends views_plugin_query_default {
+
+
+  /**
+   * Executes the query and fills the associated view object with according
+   * values.
+   *
+   * Values to set: $view->result, $view->total_rows, $view->execute_time,
+   * $view->current_page.
+   */
+  function execute(&$view) {
+    $display_handler = &$view->display_handler;
+    $external = FALSE; // Whether this query will run against an external database.
+    $query = $view->build_info['query'];
+    $count_query = $view->build_info['count_query'];
+
+    $query->addMetaData('view', $view);
+    $count_query->addMetaData('view', $view);
+
+    if (empty($this->options['disable_sql_rewrite'])) {
+      $base_table_data = views_fetch_data($this->base_table);
+      if (isset($base_table_data['table']['base']['access query tag'])) {
+        $access_tag = $base_table_data['table']['base']['access query tag'];
+        $query->addTag($access_tag);
+        $count_query->addTag($access_tag);
+      }
     }
-    else {
-      $connect_url = $db_url;
+
+    $items = array();
+    if ($query) {
+      $additional_arguments = module_invoke_all('views_query_substitutions', $view);
+
+      // Count queries must be run through the preExecute() method.
+      // If not, then hook_query_node_access_alter() may munge the count by
+      // adding a distinct against an empty query string
+      // (e.g. COUNT DISTINCT(1) ...) and no pager will return.
+      // See pager.inc > PagerDefault::execute()
+      // http://api.drupal.org/api/drupal/includes--pager.inc/function/PagerDefault::execute/7
+      // See http://drupal.org/node/1046170.
+      $count_query->preExecute();
+
+      // Build the count query.
+      $count_query = $count_query->countQuery();
+
+      // Add additional arguments as a fake condition.
+      // XXX: this doesn't work... because PDO mandates that all bound arguments
+      // are used on the query. TODO: Find a better way to do this.
+      if (!empty($additional_arguments)) {
+        // $query->where('1 = 1', $additional_arguments);
+        // $count_query->where('1 = 1', $additional_arguments);
+      }
+
+      $start = microtime(TRUE);
+
+      if ($this->pager->use_count_query() || !empty($view->get_total_rows)) {
+        $this->pager->execute_count_query($count_query);
+      }
+
+      // Let the pager modify the query to add limits.
+      $this->pager->pre_execute($query);
+
+      if (!empty($this->limit) || !empty($this->offset)) {
+        // We can't have an offset without a limit, so provide a very large limit instead.
+        $limit  = intval(!empty($this->limit) ? $this->limit : 999999);
+        $offset = intval(!empty($this->offset) ? $this->offset : 0);
+        $query->range($offset, $limit);
+      }
+
+      try {
+        // The $query is final and ready to go, we are going to redirect it to
+        // become an insert into our table, sneaky!
+        // Our query will look like:
+        // CREATE TABLE {idx} SELECT @row := @row + 1 AS weight_alias, cl.* FROM
+        // (-query-) AS cl, (SELECT @row := 0) AS r
+        // We do some magic to get the row count.
+
+        $display_handler->batched_execution_state->sandbox['weight_field_alias'] = $display_handler->_weight_alias_create($view);
+
+        $display_handler->batched_execution_state->sandbox['field_aliases'] = $display_handler->field_aliases_create($view);
+        $select_aliases = array();
+        foreach ($display_handler->batched_execution_state->sandbox['field_aliases'] as $hash => $alias) {
+          $select_aliases[] = "cl.$alias AS $hash";
+        }
+
+        // TODO: this could probably be replaced with a query extender and new query type.
+        $query->preExecute();
+        $args = $query->getArguments();
+        $insert_query = 'CREATE TABLE {' . $display_handler->index_tablename() . '} SELECT @row := @row + 1 AS ' . $display_handler->batched_execution_state->sandbox['weight_field_alias'] . ', ' . implode(', ', $select_aliases) . ' FROM (' . (string)$query . ') AS cl, (SELECT @row := 0) AS r';
+        db_query($insert_query, $args);
+
+
+        $view->result = array();
+
+        $this->pager->post_execute($view->result);
+
+        if ($this->pager->use_pager()) {
+          $view->total_rows = $this->pager->get_total_items();
+        }
+
+        // Now create an index for the weight field, otherwise the queries on the
+        // index will take a long time to execute.
+        db_add_unique_key($display_handler->index_tablename(), $display_handler->batched_execution_state->sandbox['weight_field_alias'], array($display_handler->batched_execution_state->sandbox['weight_field_alias']));
+      }
+      catch (Exception $e) {
+        $view->result = array();
+        debug('Exception: ' . $e->getMessage());
+      }
+
     }
-    $db_type = substr($connect_url, 0, strpos($connect_url, '://'));
-    return $db_type;
+    $view->execute_time = microtime(TRUE) - $start;
   }
 }

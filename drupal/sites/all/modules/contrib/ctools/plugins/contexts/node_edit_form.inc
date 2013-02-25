@@ -1,5 +1,4 @@
 <?php
-// $Id: node_edit_form.inc,v 1.10.2.7 2010/07/20 20:49:21 merlinofchaos Exp $
 
 /**
  * @file
@@ -15,10 +14,7 @@ $plugin = array(
   'title' => t("Node edit form"),
   'description' => t('A node edit form.'),
   'context' => 'ctools_context_create_node_edit_form',
-  'settings form' => 'ctools_context_node_edit_form_settings_form',
-  'settings form validate' => 'ctools_context_node_edit_form_settings_form_validate',
-  'settings form validate' => 'ctools_context_node_edit_form_settings_form_validate',
-  'settings form submit' => 'ctools_context_node_edit_form_settings_form_submit',
+  'edit form' => 'ctools_context_node_edit_form_settings_form',
   'defaults' => array('nid' => ''),
   'keyword' => 'node_edit',
   'context name' => 'node_edit_form',
@@ -35,14 +31,14 @@ $plugin = array(
  * are not always created from the UI.
  */
 function ctools_context_create_node_edit_form($empty, $node = NULL, $conf = FALSE) {
-  static $created;
-  $context = new ctools_context(array('form', 'node_edit', 'node_form', 'node', 'node_edit_form'));
+  static $creating = FALSE;
+  $context = new ctools_context(array('form', 'node_edit', 'node_form',  'node_edit_form', 'node', 'entity:node'));
   $context->plugin = 'node_edit_form';
 
-  if ($empty || (isset($created) && $created)) {
+  if ($empty || ($creating)) {
     return $context;
   }
-  $created = TRUE;
+  $creating = TRUE;
 
   if ($conf) {
     // In this case, $node is actually our $conf array.
@@ -61,44 +57,41 @@ function ctools_context_create_node_edit_form($empty, $node = NULL, $conf = FALS
   }
 
   if (!empty($node)) {
-    ctools_include('form');
     $form_id = $node->type . '_node_form';
 
-    $form_state = array('want form' => TRUE, 'args' => array($node));
+    $form_state = array('want form' => TRUE, 'build_info' => array('args' => array($node)));
 
     $file = drupal_get_path('module', 'node') . '/node.pages.inc';
-    include_once './' . $file;
+    require_once DRUPAL_ROOT . '/' . $file;
     // This piece of information can let other modules know that more files
     // need to be included if this form is loaded from cache:
-    $form_state['form_load_files'] = array($file);
+    $form_state['build_info']['files'] = array($file);
 
-    $form = ctools_build_form($form_id, $form_state);
+    $form = drupal_build_form($form_id, $form_state);
 
     // Fill in the 'node' portion of the context
     $context->data     = $node;
-    $context->title    = $node->title;
+    $context->title    = isset($node->title) ? $node->title : '';
     $context->argument = isset($node->nid) ? $node->nid : $node->type;
 
     $context->form       = $form;
     $context->form_state = &$form_state;
     $context->form_id    = $form_id;
-    $context->form_title = $node->title;
+    $context->form_title = isset($node->title) ? $node->title : '';
     $context->node_type  = $node->type;
     $context->restrictions['type'] = array($node->type);
+    $context->restrictions['form'] = array('form');
+
+    $creating = FALSE;
     return $context;
   }
+  $creating = FALSE;
 }
 
-function ctools_context_node_edit_form_settings_form($conf) {
-  if (empty($conf)) {
-    $conf = array(
-      'nid' => '',
-    );
-  }
+function ctools_context_node_edit_form_settings_form($form, &$form_state) {
+  $conf = &$form_state['conf'];
 
   $form['node'] = array(
-    '#prefix' => '<div class="no-float">',
-    '#suffix' => '</div>',
     '#title' => t('Enter the title or NID of a node'),
     '#type' => 'textfield',
     '#maxlength' => 512,
@@ -107,7 +100,7 @@ function ctools_context_node_edit_form_settings_form($conf) {
   );
 
   if (!empty($conf['nid'])) {
-    $info = db_fetch_object(db_query("SELECT * FROM {node} n WHERE n.nid = %d", $conf['nid']));
+    $info = db_query('SELECT * FROM {node} WHERE nid = :nid', array(':nid' => $conf['nid']))->fetchObject();
     if ($info) {
       $link = l(t("'%title' [node id %nid]", array('%title' => $info->title, '%nid' => $info->nid)), "node/$info->nid", array('attributes' => array('target' => '_blank', 'title' => t('Open in new window')), 'html' => TRUE));
       $form['node']['#description'] = t('Currently set to !link', array('!link' => $link));
@@ -132,51 +125,52 @@ function ctools_context_node_edit_form_settings_form($conf) {
 /**
  * Validate a node.
  */
-function ctools_context_node_edit_form_settings_form_validate($form, &$form_values, &$form_state) {
+function ctools_context_node_edit_form_settings_form_validate($form, &$form_state) {
   // Validate the autocomplete
-  if (empty($form_values['nid']) && empty($form_values['node'])) {
+  if (empty($form_state['values']['nid']) && empty($form_state['values']['node'])) {
     form_error($form['node'], t('You must select a node.'));
     return;
   }
 
-  if (empty($form_values['node'])) {
+  if (empty($form_state['values']['node'])) {
     return;
   }
 
-  $nid          = $form_values['node'];
+  $nid          = $form_state['values']['node'];
   $preg_matches = array();
-  $match        = preg_match('/\[nid: (\d+)\]/', $nid, $preg_matches);
+  $match        = preg_match('/\[id: (\d+)\]/', $nid, $preg_matches);
   if (!$match) {
-    $match = preg_match('/^nid: (\d+)/', $nid, $preg_matches);
+    $match = preg_match('/^id: (\d+)/', $nid, $preg_matches);
   }
 
   if ($match) {
     $nid = $preg_matches[1];
   }
   if (is_numeric($nid)) {
-    $node = db_fetch_object(db_query(db_rewrite_sql("SELECT n.nid FROM {node} n WHERE n.nid = %d"), $nid));
+    $node = db_query('SELECT nid, status FROM {node} WHERE nid = :nid', array(':nid' => $nid))->fetchObject();
   }
   else {
-    $node = db_fetch_object(db_query(db_rewrite_sql("SELECT n.nid FROM {node} n WHERE LOWER(n.title) = LOWER('%s')"), $nid));
+    $node = db_query('SELECT nid, status FROM {node} WHERE LOWER(title) = LOWER(:title)', array(':title' => $nid))->fetchObject();
   }
 
-  if (!$node) {
+  // Do not allow unpublished nodes to be selected by unprivileged users
+  if (!$node || (empty($node->status) && !(user_access('administer nodes')))) {
     form_error($form['node'], t('Invalid node selected.'));
   }
   else {
     form_set_value($form['nid'], $node->nid, $form_state);
-    // $form_values['nid'] = $node->nid;
   }
 }
 
-function ctools_context_node_edit_form_settings_form_submit($form, &$form_values, &$form_state) {
-  if ($form_values['set_identifier']) {
-    $node = node_load($form_values['nid']);
-    $form_state['values']['context']['identifier'] = $node->title;
+function ctools_context_node_edit_form_settings_form_submit($form, &$form_state) {
+  if ($form_state['values']['set_identifier']) {
+    $node = node_load($form_state['values']['nid']);
+    $form_state['values']['identifier'] = $node->title;
   }
 
-  // Don't let this be stored.
-  unset($form_values['set_identifier']);
+  // This will either be the value set previously or a value set by the
+  // validator.
+  $form_state['conf']['nid'] = $form_state['values']['nid'];
 }
 
 /**

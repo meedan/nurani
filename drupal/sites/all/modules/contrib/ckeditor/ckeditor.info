@@ -1,10 +1,12 @@
-name = CKEditor
+name        = CKEditor
 description = "Enables CKEditor (WYSIWYG HTML editor) for use instead of plain text fields."
-core = 6.x
-package = User interface
-; Information added by drupal.org packaging script on 2012-03-30
-version = "6.x-1.11"
-core = "6.x"
+core        = 7.x
+package     = User interface
+configure   = admin/config/content/ckeditor
+files[]     = includes/ckeditor.user.inc
+; Information added by drupal.org packaging script on 2012-04-18
+version = "7.x-1.9"
+core = "7.x"
 project = "ckeditor"
-datestamp = "1333115147"
+datestamp = "1334745697"
 

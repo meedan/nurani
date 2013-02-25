@@ -1,0 +1,194 @@
+/*  Front-page */
+
+h2{ margin-bottom:1em;}
+
+/******************************************** Styles for Home page when logged out ********************************************/
+
+.panel-3col-33{
+
+  .panel-panel{
+    @include span-columns(6,18);
+    &:nth-child(3n){ @include omega;}
+  }
+
+  .block-boxes, 
+  .panel-pane{
+    padding:30px;
+    text-align:justify;
+  }
+
+
+
+ #block-boxes-nurani_welcome{
+   @include white-background-bordered-top($nurani-gold,top, 5px);
+   .d_ford{
+      width:80px;
+      float:left;
+      margin: 0 1.5em;
+      border: 5px solid whiteSmoke;
+    }
+ }
+
+ #block-boxes-nurani_about_nurani{
+   @include white-background-bordered-top($nurani-burgundy,top, 5px);
+   iframe{
+     margin-bottom:1em;
+     width:100%;
+   }
+
+   a.welcome-link{
+     @include span-columns(4,6);
+     margin-#{$from-direction}: columns(1,6);
+     background:url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
+     @include a-link-as-button($nurani-light-blue);
+    
+   }
+ }
+
+  .panel-pane{
+    @include white-background-bordered-top($nurani-light-blue,top, 5px);
+    a.invitation-link{
+      background:url(../images/mail.png) no-repeat 10px 11px;
+      @include a-link-as-button($nurani-light-blue);
+      padding:1em 1em 1em 4em;
+      margin:1em 4em;
+    
+    }
+  }
+}
+
+
+/******************************************** Styles for Home page when logged in ********************************************/
+
+.panel-2col{
+  h2{ 
+    text-align: left;
+  }
+  h3 {
+    margin-bottom:1em;
+    display:inline;
+
+    a{
+      @include bundle-typography-regular;
+      color:$nurani-text-gray;
+      text-decoration:none;
+      font-weight: lighter;
+      &:hover{
+        color:$nurani-light-blue;
+        text-decoration: underline;
+      }
+     
+    }
+  }
+
+ 
+ //  .view-id-nurani_discussions{
+ //    & > .view-content > .views-row:after {
+ //       content: "";
+ //       display: table;
+ //       clear: both;  
+ //    }
+ // }
+
+  
+/* This styles the discussion block*/
+  .panel-col-first{
+    @include span-columns(10,18);
+      .view-id-nurani_discussions {
+        & > .view-content > .views-row{
+          @include white-background-bordered-top($nurani-burgundy, top, 5px);
+          overflow:hidden;
+          padding:0 4em 2em 2em;
+        }
+
+       
+        & .view-empty{
+          @include white-background-bordered-top($nurani-burgundy, top, 5px);
+          padding:35px;
+        }
+      }
+  }
+  
+  /* This styles the profile block*/
+  .panel-col-last{ 
+    @include span-columns(8 omega,18);
+    .pane-content{
+      @include white-background-bordered-top($nurani-light-blue, top, 5px); 
+      padding:0 2em 2em 2em;
+    }
+  }
+}  
+
+.view-nurani-discussions{
+  & > .view-content .views-row{
+    .views-field-field-bundle{
+      @include span-columns(6,10);
+      margin-top:2em;
+  
+      span.passage{
+        display: inline-block;
+        padding-right: 1em;
+        font-weight:bold;
+      }
+    }
+
+    .views-field-nothing, .views-field-new-comments,.views-field-view{ 
+      @include span-columns(4 omega,10);
+    }
+
+    .views-field-new-comments,.views-field-nothing{
+      clear:both;
+    }
+
+   
+   
+    .views-field-nothing a, .views-field-new-comments a {
+      @include a-link-as-button($nurani-light-blue);
+      background-image:none; 
+      text-align:center;
+    }
+  }
+
+  .view-meedan-discussion-participants {
+    margin-top:23px;
+    & > .view-content .views-row{
+      display: inline-block;
+      margin-right: -20px;
+      padding:10px;
+    }
+  }
+  
+}
+
+/******************************************** Styles for Library Annotations ********************************************/
+
+.annotations{
+  & .annotation{
+    @include white-background-no-border;
+    margin-bottom:2px;
+    padding:10px 25px;
+
+    em{
+      font-weight:bold;
+    }
+
+    .contents{
+      overflow: hidden;
+      margin:10px 0;
+    }
+  }
+}
+
+ 
+
+
+
+
+
+
+
+
+
+  
+
+

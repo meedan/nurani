@@ -5,28 +5,30 @@
  * Definition of the 'stylizer' panel style.
  */
 
-// Plugin definition
-$plugin = array(
-  'title' => t('Custom style'),
-  'weight' => -10,
-  'description' => t('Allows choice of a stylizer style'),
+if (module_exists('stylizer')) {
+  // Plugin definition
+  $plugin = array(
+    'title' => t('Custom style'),
+    'weight' => -10,
+    'description' => t('Allows choice of a stylizer style'),
 
-  'render pane' => 'panels_stylizer_stylizer_style_render_pane',
-  'pane settings form' => 'panels_stylizer_stylizer_style_settings_form',
+    'render pane' => 'panels_stylizer_stylizer_style_render_pane',
+    'pane settings form' => 'panels_stylizer_stylizer_style_settings_form',
 
-  'render region' => 'panels_stylizer_stylizer_style_render_region',
-  'settings form' => 'panels_stylizer_stylizer_style_settings_form',
+    'render region' => 'panels_stylizer_stylizer_style_render_region',
+    'settings form' => 'panels_stylizer_stylizer_style_settings_form',
 
-  // We offer substyles so provide callbacks to do so.
-  'get child' => 'panels_stylizer_get_substyle',
-  'get children' => 'panels_stylizer_get_substyles',
+    // We offer substyles so provide callbacks to do so.
+    'get child' => 'panels_stylizer_get_substyle',
+    'get children' => 'panels_stylizer_get_substyles',
 
-  // Set up an AJAX callback for the style
-  'ajax' => array(
-    'custom' => 'panels_stylizer_pane_add_style',
-  ),
-//  'settings validate' => 'panels_stylizer_stylizer_style_settings_validate',
-);
+    // Set up an AJAX callback for the style
+    'ajax' => array(
+      'custom' => 'panels_stylizer_pane_add_style',
+    ),
+  //  'settings validate' => 'panels_stylizer_stylizer_style_settings_validate',
+  );
+}
 
 /**
  * Merge the main stylizer plugin with a style to create a sub plugin.
@@ -85,6 +87,13 @@ function panels_stylizer_get_substyles($plugin, $style_name) {
   return $styles;
 }
 
+/**
+ * Get style settings for a stylizer style.
+ *
+ * Because style settings can come from a couple of different places,
+ * depending on if it's a custom style in the panel or a custom style
+ * in the database, we have a tricky way of looking for this info.
+ */
 function _panels_stylizer_get_style($plugin, $style_settings) {
   if (!empty($plugin['style'])) {
     return $plugin['style']->settings;
@@ -108,7 +117,13 @@ function _panels_stylizer_get_style($plugin, $style_settings) {
 /**
  * Region render theme.
  */
-function theme_panels_stylizer_stylizer_style_render_region($display, $owner_id, $panes, $style_settings, $region_id, $plugin) {
+function theme_panels_stylizer_stylizer_style_render_region($vars) {
+  $display = $vars['display'];
+  $panes = $vars['panes'];
+  $style_settings = $vars['settings'];
+  $region_id = $vars['region_id'];
+  $plugin = $vars['style'];
+
   $output = '';
 
   foreach ($panes as $pane_id => $pane_output) {
@@ -122,7 +137,7 @@ function theme_panels_stylizer_stylizer_style_render_region($display, $owner_id,
     $plugin = ctools_get_style_base($settings['style_base']);
     ctools_stylizer_add_css($plugin, $settings);
 
-    return theme($plugin['theme'], $settings, ctools_stylizer_get_css_class($plugin, $settings), $output);
+    return theme($plugin['theme'], array('settings' => $settings, 'class' => ctools_stylizer_get_css_class($plugin, $settings), 'content' => $output));
   }
   else {
     // if the style is gone, just display the output.
@@ -133,8 +148,13 @@ function theme_panels_stylizer_stylizer_style_render_region($display, $owner_id,
 /**
  * Pane render theme
  */
-function theme_panels_stylizer_stylizer_style_render_pane($content, $pane, $display, $plugin) {
-  $settings = _panels_stylizer_get_style($plugin, $pane->style['settings']);
+function theme_panels_stylizer_stylizer_style_render_pane($vars) {
+  $content = $vars['content'];
+  $pane = $vars['pane'];
+  $display = $vars['display'];
+  $plugin = $vars['style'];
+
+  $settings = _panels_stylizer_get_style($plugin, $vars['settings']);
 
   if ($settings) {
     ctools_include('stylizer');
@@ -150,12 +170,12 @@ function theme_panels_stylizer_stylizer_style_render_pane($content, $pane, $disp
     ctools_stylizer_add_css($plugin, $settings);
 
     if (isset($plugin['theme'])) {
-      return theme($plugin['theme'], $settings, $content, $pane, $display);
+      return theme($plugin['theme'], array('settings' => $settings, 'content' => $content, 'pane' => $pane, 'display' => $display));
     }
   }
 
   // if the style is gone or has no theme of its own, just display the output.
-  return theme('panels_pane', $content, $pane, $display);
+  return theme('panels_pane', array('content' => $content, 'pane' => $pane, 'display' => $display));
 }
 
 /**
@@ -164,7 +184,9 @@ function theme_panels_stylizer_stylizer_style_render_pane($content, $pane, $disp
 function panels_stylizer_stylizer_style_settings_form($style_settings, $display, $pid, $type, $form_state) {
   // Just redirect this to the custom style settings ajax.
   panels_stylizer_pane_add_style($form_state['renderer'], array(), $style_settings, $type, $pid);
-  ctools_ajax_render($form_state['renderer']->commands);
+  print ajax_render($form_state['renderer']->commands);
+  ajax_footer();
+  exit;
 }
 
 
@@ -175,6 +197,10 @@ function panels_stylizer_pane_add_style(&$renderer, $plugin, &$conf, $type, $pid
   if (!user_access('administer panels styles')) {
     return;
   }
+
+  // Reset the $_POST['ajax_html_ids'] values to preserve
+  // proper IDs on form elements when auto-submit is used.
+  $_POST['ajax_html_ids'] = array();
 
   ctools_include('stylizer');
   $js = FALSE;

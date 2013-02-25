@@ -1,5 +1,4 @@
 <?php
-// $Id: form.inc,v 1.1.2.1 2010/01/29 20:18:25 merlinofchaos Exp $
 
 /**
  * Plugins are described by creating a $plugin array which will be used
@@ -25,16 +24,22 @@ function ctools_form_content_type_render($subtype, $conf, $panel_args, &$context
   $block->module = 'form';
 
   if (isset($context->form)) {
+    if (isset($context->form['#pre_render'])) {
+      foreach ($context->form['#pre_render'] as $function) {
+        if (function_exists($function)) {
+          $context->form = $function($context->form);
+        }
+      }
+      unset($context->form['#pre_render']);
+    }
+
     $block->title = $context->form_title;
-    if (!empty($context->form_id)) {
-      // If this is a form, drupal_render it.
-      $block->content = drupal_render($context->form);
+    $block->content = array();
+    foreach (element_children($context->form) as $element) {
+      $block->content[$element] = $context->form[$element];
+      unset($context->form[$element]);
     }
-    else {
-      // Otherwise just spit back what we were given. This is probably an
-      // error message or something.
-      $block->content = $context->form;
-    }
+
     $block->delta = $context->form_id;
   }
   else {
@@ -50,7 +55,8 @@ function ctools_form_content_type_admin_title($subtype, $conf, $context) {
   return t('"@s" base form', array('@s' => $context->identifier));
 }
 
-function ctools_form_content_type_edit_form(&$form, &$form_state) {
+function ctools_form_content_type_edit_form($form, &$form_state) {
   // provide a blank form so we have a place to override title
   // and stuff.
+  return $form;
 }

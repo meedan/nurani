@@ -1,12 +1,11 @@
 <?php
-// $Id: data_ui.views_default.inc,v 1.6.2.1 2009/10/15 02:34:07 alexb Exp $
 /**
  * @file
  * Views default views implementation.
  */
 
 /**
- * Implementation of hook_views_default_views().
+ * Implements hook_views_default_views().
  */
 function data_ui_views_default_views() {
   $views = array();
@@ -69,7 +68,8 @@ function data_ui_views_default_views() {
         'style_options' => array(),
         'wildcard' => 'all',
         'wildcard_substitution' => 'All',
-        'title' => $table->get('title') .' %1',
+        // These correspond to user-entered data and so should not be escaped.
+        'title' => $table->get('title') . ' %1',
         'id' => $first,
         'table' => $table->get('name'),
         'field' => $first,

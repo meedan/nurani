@@ -1,7 +1,14 @@
 <?php
 
 /**
- * Filter handler for the current user
+ * @file
+ * Definition of views_handler_filter_user_current.
+ */
+
+/**
+ * Filter handler for the current user.
+ *
+ * @ingroup views_filter_handlers
  */
 class views_handler_filter_user_current extends views_handler_filter_boolean_operator {
   function construct() {
@@ -11,17 +18,19 @@ class views_handler_filter_user_current extends views_handler_filter_boolean_ope
 
   function query() {
     $this->ensure_my_table();
-    $where = "$this->table_alias.$this->real_field ";
+
+    $field = $this->table_alias . '.' . $this->real_field . ' ';
+    $or = db_or();
 
     if (empty($this->value)) {
-      $where .= '<> ***CURRENT_USER***';
+      $or->condition($field, '***CURRENT_USER***', '<>');
       if ($this->accept_null) {
-        $where = '(' . $where . " OR $this->table_alias.$this->real_field IS NULL)";
+        $or->isNull($field);
       }
     }
     else {
-      $where .= '= ***CURRENT_USER***';
+      $or->condition($field, '***CURRENT_USER***', '=');
     }
-    $this->query->add_where($this->options['group'], $where);    
+    $this->query->add_where($this->options['group'], $or);
   }
 }

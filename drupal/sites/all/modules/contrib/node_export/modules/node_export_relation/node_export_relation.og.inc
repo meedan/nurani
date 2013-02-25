@@ -71,7 +71,8 @@ function node_export_relation_og_set_group_nids(&$nodes) {
       foreach ($node->og_groups as $key => $group_uuid) {
         // If this is really a UUID, find the matching nid.
         if (uuid_is_valid($group_uuid)) {
-          $group_nid = node_export_relation_og_get_nid_by_uuid($group_uuid);
+          $group_nids = entity_get_id_by_uuid(array($group_uuid));
+          $group_nid = $group_nids[$group_uuid];
           $node->og_groups[$group_nid] = $group_nid;
           unset($node->og_groups[$key]);
 
@@ -87,27 +88,9 @@ function node_export_relation_og_set_group_nids(&$nodes) {
     if (!empty($node->og_parent) && is_string($node->og_parent)) {
       // Create uuid if it doesn't exists
       if (uuid_is_valid($node->og_parent)) {
-        $node->og_parent = node_export_relation_og_get_nid_by_uuid($group_uuid);
+        $group_nids = entity_get_id_by_uuid(array($group_uuid));
+        $node->og_parent = $group_nids[$group_uuid];
       }
     }
   }
-}
-
-/**
- * Returns the nid associated with a UUID.
- *
- * Essentially a copy of node_get_by_uuid() that doesn't do a node_load()
- * at the end, and minus the access check.
- *
- * @return
- *   Either the nid, or FALSE on failure.
- */
-function node_export_relation_og_get_nid_by_uuid($uuid) {
-  return db_result(db_query(
-    "SELECT n.nid
-     FROM {node} AS n
-     INNER JOIN {uuid_node} AS un ON n.nid = un.nid
-     WHERE un.uuid = '%s'"),
-    $uuid
-  );
 }

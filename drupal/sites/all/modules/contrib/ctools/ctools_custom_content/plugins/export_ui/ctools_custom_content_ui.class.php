@@ -1,9 +1,13 @@
 <?php
-// $Id: ctools_custom_content_ui.class.php,v 1.1.2.1 2010/07/14 01:57:42 merlinofchaos Exp $
 
 class ctools_custom_content_ui extends ctools_export_ui {
 
   function edit_form(&$form, &$form_state) {
+    // Correct for an error that came in because filter format changed.
+    if (is_array($form_state['item']->settings['body'])) {
+      $form_state['item']->settings['format'] = $form_state['item']->settings['body']['format'];
+      $form_state['item']->settings['body'] = $form_state['item']->settings['body']['value'];
+    }
     parent::edit_form($form, $form_state);
 
     $form['category'] = array(
@@ -19,13 +23,12 @@ class ctools_custom_content_ui extends ctools_export_ui {
       '#title' => t('Title'),
     );
 
-    $form['body_field']['body'] = array(
+    $form['body'] = array(
+      '#type' => 'text_format',
       '#title' => t('Body'),
-      '#type' => 'textarea',
       '#default_value' => $form_state['item']->settings['body'],
+      '#format' => $form_state['item']->settings['format'],
     );
-    $parents[] = 'format';
-    $form['body_field']['format'] = filter_form($form_state['item']->settings['format'], 1, $parents);
 
     $form['substitute'] = array(
       '#type' => 'checkbox',
@@ -40,8 +43,8 @@ class ctools_custom_content_ui extends ctools_export_ui {
 
     // Since items in our settings are not in the schema, we have to do these manually:
     $form_state['item']->settings['title'] = $form_state['values']['title'];
-    $form_state['item']->settings['body'] = $form_state['values']['body'];
-    $form_state['item']->settings['format'] = $form_state['values']['format'];
+    $form_state['item']->settings['body'] = $form_state['values']['body']['value'];
+    $form_state['item']->settings['format'] = $form_state['values']['body']['format'];
     $form_state['item']->settings['substitute'] = $form_state['values']['substitute'];
   }
 
@@ -100,24 +103,26 @@ class ctools_custom_content_ui extends ctools_export_ui {
         break;
     }
 
+    $ops = theme('links__ctools_dropbutton', array('links' => $operations, 'attributes' => array('class' => array('links', 'inline'))));
+
     $this->rows[$item->name] = array(
       'data' => array(
-        array('data' => check_plain($item->name), 'class' => 'ctools-export-ui-name'),
-        array('data' => check_plain($item->admin_title), 'class' => 'ctools-export-ui-title'),
-        array('data' => check_plain($item->category), 'class' => 'ctools-export-ui-category'),
-        array('data' => theme('links', $operations), 'class' => 'ctools-export-ui-operations'),
+        array('data' => check_plain($item->name), 'class' => array('ctools-export-ui-name')),
+        array('data' => check_plain($item->admin_title), 'class' => array('ctools-export-ui-title')),
+        array('data' => check_plain($item->category), 'class' => array('ctools-export-ui-category')),
+        array('data' => $ops, 'class' => array('ctools-export-ui-operations')),
       ),
       'title' => check_plain($item->admin_description),
-      'class' => !empty($item->disabled) ? 'ctools-export-ui-disabled' : 'ctools-export-ui-enabled',
+      'class' => array(!empty($item->disabled) ? 'ctools-export-ui-disabled' : 'ctools-export-ui-enabled'),
     );
   }
 
   function list_table_header() {
     return array(
-      array('data' => t('Name'), 'class' => 'ctools-export-ui-name'),
-      array('data' => t('Title'), 'class' => 'ctools-export-ui-title'),
-      array('data' => t('Category'), 'class' => 'ctools-export-ui-category'),
-      array('data' => t('Operations'), 'class' => 'ctools-export-ui-operations'),
+      array('data' => t('Name'), 'class' => array('ctools-export-ui-name')),
+      array('data' => t('Title'), 'class' => array('ctools-export-ui-title')),
+      array('data' => t('Category'), 'class' => array('ctools-export-ui-category')),
+      array('data' => t('Operations'), 'class' => array('ctools-export-ui-operations')),
     );
   }
 

@@ -1,13 +1,19 @@
 name = Internationalization
 description = Extends Drupal support for multilingual features.
 dependencies[] = locale
-dependencies[] = translation
-package = Multilanguage
-core = 6.x
+dependencies[] = variable
+package = Multilingual - Internationalization
+core = 7.x
 
-; Information added by drupal.org packaging script on 2011-10-11
-version = "6.x-1.10"
-core = "6.x"
+files[] = i18n.install
+files[] = i18n.admin.inc
+files[] = i18n_object.inc
+files[] = i18n.test
+configure = admin/config/regional/i18n
+
+; Information added by drupal.org packaging script on 2012-07-02
+version = "7.x-1.7"
+core = "7.x"
 project = "i18n"
-datestamp = "1318336004"
+datestamp = "1341236501"
 

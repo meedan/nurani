@@ -87,28 +87,30 @@ class panels_mini_ui extends ctools_export_ui {
     $layout = !empty($this->layouts[$item->display->layout]) ? $this->layouts[$item->display->layout]['title'] : t('Missing layout');
     $category = $item->category ? check_plain($item->category) : t('Mini panels');
 
+    $ops = theme('links__ctools_dropbutton', array('links' => $operations, 'attributes' => array('class' => array('links', 'inline'))));
+
     $this->rows[$item->name] = array(
       'data' => array(
-        array('data' => check_plain($item->admin_title), 'class' => 'ctools-export-ui-title'),
-        array('data' => check_plain($item->name), 'class' => 'ctools-export-ui-name'),
-        array('data' => $category, 'class' => 'ctools-export-ui-category'),
-        array('data' => $layout, 'class' => 'ctools-export-ui-layout'),
-        array('data' => $item->type, 'class' => 'ctools-export-ui-storage'),
-        array('data' => theme('links', $operations), 'class' => 'ctools-export-ui-operations'),
+        array('data' => check_plain($item->admin_title), 'class' => array('ctools-export-ui-title')),
+        array('data' => check_plain($item->name), 'class' => array('ctools-export-ui-name')),
+        array('data' => $category, 'class' => array('ctools-export-ui-category')),
+        array('data' => $layout, 'class' => array('ctools-export-ui-layout')),
+        array('data' => $item->type, 'class' => array('ctools-export-ui-storage')),
+        array('data' => $ops, 'class' => array('ctools-export-ui-operations')),
       ),
       'title' => !empty($item->admin_description) ? check_plain($item->admin_description) : '',
-      'class' => !empty($item->disabled) ? 'ctools-export-ui-disabled' : 'ctools-export-ui-enabled',
+      'class' => array(!empty($item->disabled) ? 'ctools-export-ui-disabled' : 'ctools-export-ui-enabled'),
     );
   }
 
   function list_table_header() {
     return array(
-      array('data' => t('Title'), 'class' => 'ctools-export-ui-title'),
-      array('data' => t('Name'), 'class' => 'ctools-export-ui-name'),
-      array('data' => t('Category'), 'class' => 'ctools-export-ui-category'),
-      array('data' => t('Layout'), 'class' => 'ctools-export-ui-layout'),
-      array('data' => t('Storage'), 'class' => 'ctools-export-ui-storage'),
-      array('data' => t('Operations'), 'class' => 'ctools-export-ui-operations'),
+      array('data' => t('Title'), 'class' => array('ctools-export-ui-title')),
+      array('data' => t('Name'), 'class' => array('ctools-export-ui-name')),
+      array('data' => t('Category'), 'class' => array('ctools-export-ui-category')),
+      array('data' => t('Layout'), 'class' => array('ctools-export-ui-layout')),
+      array('data' => t('Storage'), 'class' => array('ctools-export-ui-storage')),
+      array('data' => t('Operations'), 'class' => array('ctools-export-ui-operations')),
     );
   }
 
@@ -154,13 +156,13 @@ class panels_mini_ui extends ctools_export_ui {
     );
 
     $form['left'] = array(
-      '#prefix' => '<div class="ctools-left-container clear-block">',
+      '#prefix' => '<div class="ctools-left-container clearfix">',
       '#suffix' => '</div>',
     );
 
     // Set this up and we can use CTools' Export UI's built in wizard caching,
     // which already has callbacks for the context cache under this name.
-    $module = 'ctools_export_ui-' . $this->plugin['name'];
+    $module = 'export_ui::' . $this->plugin['name'];
     $name = $this->edit_cache_get_key($form_state['item'], $form_state['form type']);
 
     ctools_context_add_context_form($module, $form, $form_state, $form['right']['contexts_table'], $form_state['item'], $name);
@@ -191,7 +193,7 @@ class panels_mini_ui extends ctools_export_ui {
 
     // Change the #id of the form so the CSS applies properly.
     $form['#id'] = 'panels-choose-layout';
-    $form = array_merge($form, panels_choose_layout($form_state));
+    $form = panels_choose_layout($form, $form_state);
 
     if ($form_state['op'] == 'edit') {
       $form['buttons']['next']['#value'] = t('Change');
@@ -244,7 +246,7 @@ class panels_mini_ui extends ctools_export_ui {
     $form_state['no buttons'] = TRUE;
 
     // Change the #id of the form so the CSS applies properly.
-    $form = array_merge($form, panels_change_layout($form_state));
+    $form = panels_change_layout($form, $form_state);
 
     // This form is outside the normal wizard list, so we need to specify the
     // previous/next forms.
@@ -279,9 +281,7 @@ class panels_mini_ui extends ctools_export_ui {
     $form_state['no buttons'] = TRUE;
     $form_state['display_title'] = !empty($cache->display_title);
 
-    $form = array_merge($form, panels_edit_display_form($form_state));
-    // Make sure the theme will work since our form id is different.
-    $form['#theme'] = 'panels_edit_display_form';
+    $form = panels_edit_display_form($form, $form_state);
   }
 
   function edit_form_content_submit(&$form, &$form_state) {

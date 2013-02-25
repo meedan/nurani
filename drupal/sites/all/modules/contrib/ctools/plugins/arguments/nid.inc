@@ -1,5 +1,4 @@
 <?php
-// $Id: nid.inc,v 1.8.2.3 2010/01/29 20:18:25 merlinofchaos Exp $
 
 /**
  * @file
@@ -20,6 +19,7 @@ $plugin = array(
     '#type' => 'textfield',
     '#description' => t('Enter the node ID of a node for this argument'),
   ),
+  'no ui' => TRUE,
 );
 
 /**

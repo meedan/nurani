@@ -1,0 +1,205 @@
+
+// syntax overrides to add a scss style. 
+// In the markup use the <pre>:::css syntax. 
+// We just tweak it slightly to better show sass.
+// This is included at the end of the mixin and overrides the coderay theme
+@mixin scss {
+   color: aqua;
+   position: relative;
+
+  .constant { font-weight: normal; }
+  .predefined {color: yellow;}
+  .directive { color:pink; }
+  .error { color:#9df393;}
+
+  .value { color: #9df393; }
+  .type { color: white; }
+  .key { 
+    color: $key;
+    .char { color: $key }
+    .delimiter { color: $key }
+  }
+  
+  .string {
+    color: aqua!important;
+    .delimiter {
+      color: aqua;
+    }
+    .content {
+      color: aqua;
+    }
+  }
+  .tag {
+    color: aqua;
+  }
+  .attribute-name {
+    color: aqua;
+  }
+}
+
+// This coderay theme is based on https://gist.github.com/1250944
+@mixin syntax() {
+  
+  overflow-x: auto;
+  
+  &.bad {
+    background-color: darken(red, 30%)!important;
+  }
+  
+  direction: ltr!important; // code is always ltr in our examples
+  background-color: $syntax-background;
+  color: $syntax-foreground;
+  font-weight: normal;
+  letter-spacing: 0.0em;
+  font-family: monospace, Helvetica, sans-serif;
+  @include adjust-font-size-to($small-font-size);
+
+  @include full;
+  @include pad(1/2, 1/2);
+  @include leader-and-trailer(1, $small-font-size);
+  @include leader-and-trailer(1, $small-font-size, 1);
+  
+  * {
+    text-indent: 0!important;
+    text-align: $from-direction!important;
+    padding: 0!important;
+    margin: 0!important;
+    letter-spacing: 0!important;
+  }
+  
+  .line-numbers {
+    background-color: $line-no-background;
+    a {
+      color: $line-no-foreground;
+      text-decoration: none;
+      &:target { color: blue !important; }
+    }
+
+    .highlighted { 
+      color: red !important; 
+      a { color: red !important; }
+    }
+  }
+
+  span.line-numbers { padding: 0px 4px; }
+
+  .line { display: block; float: $from-direction; width: 100%; }
+
+  .debug { color: white !important; background: blue !important; }
+
+  .annotation { color:#007 }
+  .attribute-name { color: white }
+  .attribute-value { color:#700 }
+  .binary { color:#509 }
+
+  .char { 
+    color:#D20;
+    .content { color:#D20 }
+    .delimiter { color:#710 }
+  }
+
+  .class { color:$entity-clr; }
+
+  .class-variable { color:#369 }
+  .color { color: white }
+
+  .comment { 
+    color:$comment-clr;
+    .char { color:#444 }
+    .delimiter { color:#444 }
+  }
+
+  .complex { color:#A08 }
+  .constant { color:$constant-clr; font-weight:bold }
+  .decorator { color:#B0B }
+  .definition { color:#099; font-weight:bold }
+  .delimiter { color:black }
+
+  .doc { color:#970 }
+  .doc-string { color:#D42; font-weight:bold }
+  .doctype { color:#34b }
+  .entity { color:#800; font-weight:bold }
+
+  .escape  { color:#666 }
+  .exception { color:#C00; font-weight:bold }
+  .float { color:$constant-clr }
+
+  .function { color:$entity-clr; }
+
+  .global-variable { color:#d70 }
+  .hex { color:#02b }
+  .imaginary { color:#f00 }
+  .include { color:#B44; font-weight:bold }
+  .inline { background-color: hsla(0,0%,0%,0.07); color: black }
+  .inline-delimiter { font-weight: bold; color: #666 }
+  .instance-variable { color:#33B }
+  .integer  { color:$constant-clr }
+
+  .keyword { color:$keyword-clr; font-weight:bold }
+
+  .label { color:#970; font-weight:bold }
+  .local-variable { color:$variable-clr }
+  .namespace { color:#707; font-weight:bold }
+  .octal { color:#40E }
+  .operator { }
+  .predefined { color:yellow;}
+  .predefined-constant { color:#069 }
+  .predefined-type { color:#0a5; font-weight:bold }
+  .preprocessor { color:#579 }
+  .pseudo-class { color:#00C; font-weight:bold }
+
+  .regexp { 
+    .content, .delimiter { color:$regex-clr }
+    .modifier { color:#C2C }
+  }
+
+  .reserved { color:#080; font-weight:bold }
+
+  .shell { 
+    background-color:hsla(120,100%,50%,0.06); 
+    .content { color:#2B2 }
+    .delimiter { color:#161 }
+  }
+
+  .string { 
+    background-color:hsla(0,100%,50%,0.05); 
+    .char { color: #b0b }
+    .content, .delimiter { color: $string-clr; }
+    .modifier { color: #E40 }
+  }
+
+  .symbol { 
+    color:#A60;
+    .content { color:#A60 }
+    .delimiter { color:#630 }
+  }
+
+  .tag { color:#070 }
+  
+  .variable  { color:#037 }
+
+  .insert { 
+    background: hsla(120,100%,50%,0.12);
+    .eyecatcher { background-color: hsla(120,100%,50%,0.2); border: 1px solid hsla(120,100%,25%,0.5); margin: -1px; border-top: none; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
+    .insert { color: #0c0; background:transparent; font-weight:bold }
+  }
+
+  .delete { 
+    background: hsla(0,100%,50%,0.12);
+    .eyecatcher { background-color: hsla(0,100%,50%,0.2); border: 1px solid hsla(0,100%,45%,0.5); margin: -1px; border-bottom: none; border-top-left-radius: 5px; border-top-right-radius: 5px; }
+    .delete { color: #c00; background:transparent; font-weight:bold }
+  }
+
+  .change { 
+    color: #bbf; background: #007; 
+    .change { color: #88f }
+  }
+
+  .head { 
+    color: #f8f; background: #505;
+    .filename { color: white; }
+    .head { color: #f4f }
+  }  
+  
+  @include scss;
+}

@@ -11,9 +11,10 @@ TABLE OF CONTENTS
  * Managing Plugins
  * Installing Additional Plugins
  * Integrating a Plugin with the CKEditor Module (for Plugin Developers)
- * Setting up Filters
- * Upgrading Instructions (Migration from FCKeditor)
- * Upgrading Instructions (CKEditor)
+ * Setting up Security Filters
+ * HTML Filters and Inline Styling
+ * Integrating a Custom Security Filter with the CKEditor Module (for Developers)
+ * Upgrading Instructions
  * Help & Contribution
  * Credits
 
@@ -41,8 +42,8 @@ For further information visit:
 
 Requirements
 ------------
-  - Drupal 6.x,
-  - PHP 4.4.0 or greater (5.2 recommended),
+  - Drupal 7.x,
+  - PHP 5.2 or greater,
   - CKEditor 3.4 or greater.
     You will need to download CKEditor from the official download site: http://ckeditor.com/download.
     It is recommended to always use the latest CKEditor version available.
@@ -73,14 +74,12 @@ Note: these instructions assume that you install the CKEditor for Drupal module 
       Note: you can skip uploading the "_samples" and "_source" folders.
    3. Enable the module in the "Administration panel > Modules > User Interface" section.
    4. Grant permissions for using CKEditor in the
-      "Administer > User Management > Permissions" section.
+      "Administration panel > People > Permissions" section.
       Note: In order to enable the file browser, refer to the
             "Installing CKFinder" section.
    5. Adjust CKEditor profiles in the
-      "Administer > Site configuration > CKEditor" section.
-      Profiles determine which options are available to users based on the input format system.      
-      NOTE: User 1 must be assigned a system role that corresponds to the privileges required.
-      If no role is assigned to User 1, they will have the privileges of "authenticated user".
+      "Administration panel > Configuration > Content Authoring > CKEditor" section.
+      Profiles determine which options are available to users based on the input format system.
    6. For the Rich Text Editing to work you also need to configure your filters
       for the users that may access Rich Text Editing.
       Either grant those users Full HTML access or use the following tags:
@@ -91,9 +90,9 @@ Note: these instructions assume that you install the CKEditor for Drupal module 
       To make copying the list easier, below all tags were placed in one line:
       <a> <p> <span> <div> <h1> <h2> <h3> <h4> <h5> <h6> <img> <map> <area> <hr> <br> <br /> <ul> <ol> <li> <dl> <dt> <dd> <table> <tr> <td> <em> <b> <u> <i> <strong> <del> <ins> <sub> <sup> <quote> <blockquote> <pre> <address> <code> <cite> <embed> <object> <param> <strike> <caption> <tbody>
       If you are going to use CKEditor with the Filtered HTML input format,
-      please refer to the "Setting up Filters" section.
+      please refer to the "HTML Filters and Inline Styling" section.
    7. To have better control over line breaks, you may disable the line break converter
-      for a given text format in the "Administer > Site configuration > Input formats" section (recommended).
+      for a given text format in the "Administration panel > Configuration > Content authoring > Text formats" section (recommended).
    8. Modify the ckeditor.config.js file to adjust it to your needs (optional).
       Configuration options are described here:
       http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html
@@ -132,15 +131,14 @@ The "libraries" directory is the default path when drush is used to download the
 
 If you are still experiencing problems with your CKEditor installation, scroll down to the "Help & Contribution" section.
 
-Uploading images and files
+Uploading Images and Files
 --------------------------
-There are three ways for uploading files:
+There are two methods for uploading files:
 - by using a commercial file browser like CKFinder (http://ckfinder.com), an advanced Ajax file manager;
-- by using modules like IMCE, WebFM, Image Browser;
-- by using the core upload module.
+- by using modules like IMCE.
 
 To select a preferred file browser, adjust CKEditor profiles in the
-"Administer > Site configuration > CKEditor" section.
+"Administration panel > Configuration > Content Authoring > CKEditor" section.
 In the "File browser settings" section you can choose which file browser will be used for each profile.
 Note: in order to choose an upload module other than CKFinder, you should install an appropriate Drupal module first.
 
@@ -169,7 +167,7 @@ CKFinder is an Ajax-based file manager created by CKEditor developers: http://ck
                config.php
                ...
 
-   3. Grant the "allow CKFinder file uploads" permission in "Administer > User Management > Permissions" section.
+   3. Grant the "CKFinder access" permission in the "Administration panel > People > Permissions" section.
       Note: if you do not see this permission, it means that CKEditor did not find CKFinder
       and you have probably uploaded CKFinder into a wrong directory.
    4. Open the CKFinder configuration file (ckfinder/config.php) and do the following:
@@ -198,20 +196,18 @@ CKFinder is an Ajax-based file manager created by CKEditor developers: http://ck
 
    5. Open the Drupal settings file (sites/default/settings.php) and do the following:
 
-      I) Uncomment the $cookie_domain variable and set the domain name of your website.
+      I) Uncomment the $base_url variable and set the base URL of your website (without the trailing slash).
 
-      II) For Drupal 6.17 and greater: uncomment the $base_url variable and set the base URL
-          of your website (without the trailing slash).
+      II) Uncomment the $cookie_domain variable and set the domain name of your website.
 
    6. Select CKFinder as a preferred file browser in the
-      "Administer > Site configuration > CKEditor" section
+      "Administration panel > Configuration > Content Authoring > CKEditor" section
       (for a selected CKEditor profile scroll down to the "File browser settings" section).
       In the "File browser settings" section you may also change destination folders for files uploaded with CKFinder.
 
 Managing Plugins
 ----------------
-If you want to manage CKEditor plugins for a profile, go to the "Administer > Site configuration > CKEditor" section.
-This section lets you choose plugins relevant for each CKEditor profile from a list.
+If you want to manage CKEditor plugins for a profile, go to the "Administration panel > Configuration > Content Authoring > CKEditor" section. This section lets you choose plugins relevant for each CKEditor profile from a list.
 In order to activate a plugin, go to the "Editor appearance > Plugins" section and select the checkbox next to a required plugin name.
 
 If a plugin contains toolbar buttons, you will need to drag and drop them to an appropriate toolbar position by using the toolbar wizard. If this is the case, the button should be added to the CKEditor toolbar by using the method described below:
@@ -261,9 +257,29 @@ Please note that MODULENAME in the code above is the name of the module.
 
 After the hook is used the plugin will automatically appear on the plugin list for each CKEditor profile where you will be able to enable it as described in the "Managing Plugins" section.
 
-Setting up Filters
-------------------
-In the "Administer > Site configuration > Input formats" section, Filtered HTML is the default filter.
+Setting up Security Filters
+---------------------------
+The CKEditor security system protects you from executing malicious code that is already in your database. In plain textareas database content is harmless because it is not executed, but a WYSIWYG editor interprets HTML like a Web browser and thus the content needs to be filtered before it is loaded.
+
+In order to configure the security filters, go to the "Administration panel > Configuration > Content Authoring > CKEditor" section. Enter the profile configuration and go to the "Security" section.
+
+The "Security" section lists all the security filters that are currently supported by the CKEditor for Drupal module along with their status for each text format.
+
+The CKEditor for Drupal module has built-in support for some popular security filter modules which you will need to download and install by yourself first. Visit the official websites for each module in order to get the files and find installation and configuration instructions.
+
+When a filter module is installed, you will be able to configure its security filters and enable for a given text format. The list of active text formats is displayed in the "Security" section along with the links that will take you to the "Administration panel > Configuration > Content authoring > Text formats" section where you will be able to configure the filters for each of the text formats. The filters will then be run on the content during the filtering process.
+ 
+The "Security Settings" option in the "Security" section lets you choose whether to always run the security filters on CKEditor content (recommended and default option) or run them only when CKEditor is set to start automatically. If you change this setting to only run the filters when CKEditor starts automatically, you will not be protected when toggling manually between a plain textarea and the WYSIWYG editor.
+
+The following security filter modules are currently supported:
+ - HTML Purifier - http://drupal.org/project/htmlpurifier
+ - htmLawed - http://drupal.org/project/htmLawed
+ - Htmltidy - http://drupal.org/project/htmltidy
+ - WYSIWYG Filter - http://drupal.org/project/wysiwyg_filter
+
+HTML Filters and Inline Styling
+-------------------------------
+In the "Administration panel > Configuration > Content Authoring > Text fromats" section, Filtered HTML is the default filter.
 Due to security reasons enabling Full HTML is only an option for trusted users.
 
 To take full advantage of using CKEditor you can extend the list of allowed tags in the HTML filter that is enabled in the Filtered HTML input format. If you do not do this, you may notice that a page created in CKEditor looks different after saving.
@@ -271,31 +287,31 @@ To take full advantage of using CKEditor you can extend the list of allowed tags
 Unfortunately, even if you extend the list of allowed tags, one problem still remains: Filtered HTML not only strips disallowed tags, but also strips inline style definitions. It basically means that you are unable to apply a different font color, size or family, align images etc. using CKEditor out of the box.
 
 You can solve this problem by creating another input format that will work in a similar way as Filtered HTML (will only allow specified tags), but in a much better way - i.e. it will not strip inline styles that CKEditor is using when
-formatting text or images after the page is saved. To create such an input format, you will need an HTML filter. The list below presents three modules that provide HTML filters:
-
- - HTML Purifier - http://drupal.org/project/htmlpurifier
- - htmLawed - http://drupal.org/project/htmLawed
- - WYSIWYG Filter - http://drupal.org/project/wysiwyg_filter
+formatting text or images after the page is saved. To create such an input format, you will need an HTML filter. See the list of HTML filter modules that are supported by the CKEditor module in the "Setting up Security Filters" section above.
 
 It is up to you to decide which one to use. Just make sure that you will only allow to use proper inline styles, tags, and attributes.
 
-Upgrading Instructions (Migration from FCKeditor)
--------------------------------------------------
-   During the installation process CKEditor will check for the existence of the FCKeditor module and
-   copy all FCKeditor settings, profiles etc. (to save your time, just disable the FCKeditor module
-   during the CKEditor installation. If you uninstall the FCKeditor module before installing CKEditor,
-   all FCKeditor settings will be deleted from the database and CKEditor will not copy them).
-   After installing CKEditor you may uninstall the FCKeditor module.
+Integrating a Custom Security Filter with the CKEditor Module (for Developers)
+------------------------------------------------------------------------------
+Integrating your application with the CKEditor module by adding a security filter works through a special hook.
+An example of the hook is shown below:
 
-   If both modules are enabled (CKEditor and FCKeditor), you may get JavaScript errors when both editors
-   will try to attach to the same textarea. If you are having problems after upgrading, make sure that this
-   situation did not occur.
+function MODULENAME_ckeditor_security_filter() {
+    return array(
+        'security_filter_name' => array(
+            // Security filter title - it would be displayed in the "Security > Security filters" section of profile settings.
+            'title' => t('Security filter title'),
+            // Security filter description - it would be displayed in the "Security > Security filters" section of profile settings.
+            'description' => t('Security filter description'),
+        )
+    );
+}
+Please note that MODULENAME in the code above is the name of the module.
 
-   Apart from the information above, installing CKEditor is just like installing a new module,
-   so be sure to follow the installation instructions listed above.
+After the hook is used the security filter will automatically appear on the filters list for each CKEditor profile where you will be able to enable it as described in the "Setting up Filters" section.
 
-Upgrading Instructions (CKEditor)
----------------------------------
+Upgrading Instructions
+----------------------
 This instruction assumes that you are upgrading the CKEditor module [M] and CKEditor (the editor) [E] at the same time.
 Instructions specific for module upgrades are tagged with [M]. Steps that must be taken when upgrading CKEditor (the editor) are marked with [E].
 
@@ -327,7 +343,7 @@ or if you found an issue, please visit the official project page:
 Having problems? Take a look at the list of common problems when installing CKEditor:
   http://docs.cksource.com/CKEditor_for_Drupal/Troubleshooting
 
-Learn how to adjust CKEditor to your theme and configure the spellchecker:  
+Learn how to adjust CKEditor to your theme and configure the spellchecker:
   http://docs.cksource.com/CKEditor_for_Drupal/Tricks
 
 If you would like to help in the development of the module, we encourage you to join our team.

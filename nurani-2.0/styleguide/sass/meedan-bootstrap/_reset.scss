@@ -1,0 +1,12 @@
+@mixin reset() {    
+
+  // prep blocks for responsive grid
+  iframe, img, object {
+    max-width: 100%;
+  }
+
+  // clean IE image resizing
+  img {
+    -ms-interpolation-mode: bicubic;
+  }
+}

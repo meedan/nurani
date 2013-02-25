@@ -1,0 +1,7 @@
+name = Nurani Comment
+description = Nurani comment alterations and helpers.
+core = 7.x
+version = 7.x-1.0
+package = Nurani
+dependencies[] = comment
+dependencies[] = ajax_comments

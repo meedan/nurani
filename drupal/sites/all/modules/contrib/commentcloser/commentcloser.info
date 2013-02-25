@@ -1,0 +1,14 @@
+name = Comment closer
+core = 7.x
+description = "Schedule automatic closing of comments for selected node types based on the age of the node"
+
+files[] = commentcloser.module
+files[] = commentcloser.install
+files[] = commentcloser.test
+
+; Information added by drupal.org packaging script on 2011-08-31
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "commentcloser"
+datestamp = "1314792572"
+

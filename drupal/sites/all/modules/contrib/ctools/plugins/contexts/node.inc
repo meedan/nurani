@@ -1,5 +1,4 @@
 <?php
-// $Id: node.inc,v 1.11.2.5 2010/05/20 01:43:03 sdboyer Exp $
 
 /**
  * @file
@@ -16,9 +15,7 @@ $plugin = array(
   'title' => t("Node"),
   'description' => t('A node object.'),
   'context' => 'ctools_context_create_node',
-  'settings form' => 'ctools_context_node_settings_form',
-  'settings form validate' => 'ctools_context_node_settings_form_validate',
-  'settings form submit' => 'ctools_context_node_settings_form_submit',
+  'edit form' => 'ctools_context_node_settings_form',
   'defaults' => array('nid' => ''),
   'keyword' => 'node',
   'context name' => 'node',
@@ -28,6 +25,10 @@ $plugin = array(
     '#type' => 'textfield',
     '#description' => t('Enter the node ID of a node for this context.'),
   ),
+  // This context is deprecated and should not be usable in the UI.
+  'no ui' => TRUE,
+  'no required context ui' => TRUE,
+  'superceded by' => 'entity:node',
 );
 
 /**
@@ -67,16 +68,10 @@ function ctools_context_create_node($empty, $data = NULL, $conf = FALSE) {
   }
 }
 
-function ctools_context_node_settings_form($conf) {
-  if (empty($conf)) {
-    $conf = array(
-      'nid' => '',
-    );
-  }
+function ctools_context_node_settings_form($form, &$form_state) {
+  $conf = &$form_state['conf'];
 
   $form['node'] = array(
-    '#prefix' => '<div class="no-float">',
-    '#suffix' => '</div>',
     '#title' => t('Enter the title or NID of a node'),
     '#type' => 'textfield',
     '#maxlength' => 512,
@@ -85,7 +80,7 @@ function ctools_context_node_settings_form($conf) {
   );
 
   if (!empty($conf['nid'])) {
-    $info = db_fetch_object(db_query("SELECT * FROM {node} n WHERE n.nid = %d", $conf['nid']));
+    $info = db_query('SELECT * FROM {node} WHERE nid = :nid', array(':nid' => $conf['nid']))->fetchObject();
     if ($info) {
       $link = l(t("'%title' [node id %nid]", array('%title' => $info->title, '%nid' => $info->nid)), "node/$info->nid", array('attributes' => array('target' => '_blank', 'title' => t('Open in new window')), 'html' => TRUE));
       $form['node']['#description'] = t('Currently set to !link', array('!link' => $link));
@@ -110,32 +105,32 @@ function ctools_context_node_settings_form($conf) {
 /**
  * Validate a node.
  */
-function ctools_context_node_settings_form_validate($form, &$form_values, &$form_state) {
+function ctools_context_node_settings_form_validate($form, &$form_state) {
   // Validate the autocomplete
-  if (empty($form_values['nid']) && empty($form_values['node'])) {
+  if (empty($form_state['values']['nid']) && empty($form_state['values']['node'])) {
     form_error($form['node'], t('You must select a node.'));
     return;
   }
 
-  if (empty($form_values['node'])) {
+  if (empty($form_state['values']['node'])) {
     return;
   }
 
-  $nid          = $form_values['node'];
+  $nid          = $form_state['values']['node'];
   $preg_matches = array();
-  $match        = preg_match('/\[nid: (\d+)\]/', $nid, $preg_matches);
+  $match        = preg_match('/\[id: (\d+)\]/', $nid, $preg_matches);
   if (!$match) {
-    $match = preg_match('/^nid: (\d+)/', $nid, $preg_matches);
+    $match = preg_match('/^id: (\d+)/', $nid, $preg_matches);
   }
 
   if ($match) {
     $nid = $preg_matches[1];
   }
   if (is_numeric($nid)) {
-    $node = db_fetch_object(db_query(db_rewrite_sql("SELECT n.nid FROM {node} n WHERE n.nid = %d"), $nid));
+    $node = db_query('SELECT nid, status FROM {node} WHERE nid = :nid', array(':nid' => $nid))->fetchObject();
   }
   else {
-    $node = db_fetch_object(db_query(db_rewrite_sql("SELECT n.nid FROM {node} n WHERE LOWER(n.title) = LOWER('%s')"), $nid));
+    $node = db_query('SELECT nid, status FROM {node} WHERE LOWER(title) = LOWER(:title)', array(':title' => $nid))->fetchObject();
   }
 
   // Do not allow unpublished nodes to be selected by unprivileged users
@@ -144,34 +139,29 @@ function ctools_context_node_settings_form_validate($form, &$form_values, &$form
   }
   else {
     form_set_value($form['nid'], $node->nid, $form_state);
-    // $form_values['nid'] = $node->nid;
   }
 }
 
-function ctools_context_node_settings_form_submit($form, &$form_values, &$form_state) {
-  if ($form_values['set_identifier']) {
-    $node = node_load($form_values['nid']);
-    $form_state['values']['context']['identifier'] = $node->title;
+function ctools_context_node_settings_form_submit($form, &$form_state) {
+  if ($form_state['values']['set_identifier']) {
+    $node = node_load($form_state['values']['nid']);
+    $form_state['values']['identifier'] = $node->title;
   }
 
-  // Don't let this be stored.
-  unset($form_values['set_identifier']);
+  // This will either be the value set previously or a value set by the
+  // validator.
+  $form_state['conf']['nid'] = $form_state['values']['nid'];
 }
 
 /**
  * Provide a list of ways that this context can be converted to a string.
  */
 function ctools_context_node_convert_list() {
-  $list = array(
-    'nid' => t('Node ID'),
-    'vid' => t('Node revision ID'),
-    'title' => t('Node title'),
-    'uid' => t('Author UID'),
-    'type' => t('Node type'),
-  );
-
-  if (module_exists('token')) {
-    $list += reset(token_get_list(array('node')));
+  $tokens = token_info();
+  foreach ($tokens['tokens']['node'] as $id => $info) {
+    if (!isset($list[$id])) {
+      $list[$id] = $info['name'];
+    }
   }
 
   return $list;
@@ -181,22 +171,11 @@ function ctools_context_node_convert_list() {
  * Convert a context into a string.
  */
 function ctools_context_node_convert($context, $type) {
-  switch ($type) {
-    case 'nid':
-      return $context->data->nid;
-    case 'vid':
-      return $context->data->vid;
-    case 'title':
-      return $context->data->title;
-    case 'uid':
-      return $context->data->uid;
-    case 'type':
-      return $context->data->type;
-  }
-  if (module_exists('token')) {
-    $values = token_get_values('node', $context->data);
-    if ($key = array_search($type, $values->tokens)) {
-      return $values->values[$key];
+  $tokens = token_info();
+  if (isset($tokens['tokens']['node'][$type])) {
+    $values = token_generate('node', array($type => $type), array('node' => $context->data));
+    if (isset($values[$type])) {
+      return $values[$type];
     }
   }
 }

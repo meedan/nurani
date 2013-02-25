@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.1.2.1 2010/02/09 19:02:59 yhahn Exp $
 
 Context layouts
 ---------------
@@ -13,7 +12,7 @@ Requirements
 ------------
 In order to use context layouts, your site must meet a few conditions:
 
-- Context and Context layouts modules are enabled (`admin/build/modules`).
+- Context and Context layouts modules are enabled (`admin/modules`).
 - You are using a theme which provides and has declared multiple layouts. (See
   "Example themes" for themes you can try.)
 
@@ -21,7 +20,7 @@ In order to use context layouts, your site must meet a few conditions:
 Basic usage
 -----------
 Once you have layouts enabled, you can have a context trigger the usage of a
-particular layout in either the admin interface (`admin/build/context`) or
+particular layout in either the admin interface (`admin/structure/context`) or
 inline context editor. Different layouts may have fewer or greater regions than
 the default page template, so adjust your blocks accordingly.
 

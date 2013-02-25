@@ -1,12 +1,11 @@
 <?php
-// $Id: data_search.module,v 1.1.2.5 2010/01/22 23:03:32 alexb Exp $
 
 /**
- * Implementation of hook_menu()
+ * Implements hook_menu().
  */
 function data_search_menu() {
   $items = array();
-  $items['admin/build/data/edit/%data_ui_table/search'] = array(
+  $items['admin/structure/data/edit/%data_ui_table/search'] = array(
     'title' => 'Configure search',
     'description' => 'Administer data tables.',
     'page callback' => 'drupal_get_form',
@@ -19,18 +18,18 @@ function data_search_menu() {
 }
 
 /**
- * Implementation of hook_theme()
+ * Implements hook_theme().
  */
 function data_search_theme() {
   return array(
     'data_search_admin_form' => array(
-      'arguments' => array('form' => array()),
+      'render element' => 'form',
     ),
   );
 }
 
 /**
- * Implementation of hook_cron().
+ * Implements hook_cron().
  *
  * Wipe all orphaned search records.
  *
@@ -46,7 +45,7 @@ function data_search_cron() {
 }
 
 /**
- * Implementation of hook_views_data_alter().
+ * Implements hook_views_data_alter().
  */
 function data_search_views_data_alter(&$data) {
   $tables = data_search_get_tables();
@@ -71,10 +70,10 @@ function data_search_views_data_alter(&$data) {
 }
 
 /**
- * Implementation of hook_update_index().
+ * Implements hook_update_index().
  */
 function data_search_update_index() {
-  $limit = (int)variable_get('search_cron_limit', 100);
+  $limit = (int) variable_get('search_cron_limit', 100);
 
   $tables = data_search_get_tables();
   foreach ($tables as $table) {
@@ -85,9 +84,11 @@ function data_search_update_index() {
     $fields = implode(', ', $fields);
     $base_field = current($schema['primary key']);
 
-    $result = db_query_range("SELECT dt.{$base_field} id FROM {{$name}} dt LEFT JOIN {search_dataset} d ON d.type = '{$name}' AND d.sid = dt.{$base_field} WHERE d.sid IS NULL OR d.reindex <> 0 ORDER BY d.reindex ASC, dt.{$base_field} ASC", 0, $limit);
+    // TODO Please convert this statement to the D7 database API syntax.
+    $result = db_query_range("SELECT dt.{$base_field} id FROM {{$name}} dt LEFT JOIN {search_dataset} d ON d.type = '{$name}' AND d.sid = dt.{$base_field} WHERE d.sid IS NULL OR d.reindex <> 0 ORDER BY d.reindex ASC, dt.{$base_field} ASC");
 
     while ($row = db_fetch_object($result)) {
+      // TODO Please convert this statement to the D7 database API syntax.
       $values = db_fetch_array(db_query("SELECT {$fields} FROM {{$name}} WHERE {$base_field} = '%s'", $row->id));
       $fulltext = '';
       foreach ($values as $field => $value) {
@@ -96,12 +97,13 @@ function data_search_update_index() {
       search_index($row->id, $name, $fulltext);
     }
     // Delete orphaned data search records, no nodeapi to take care of this as it occurs.
+    // TODO Please convert this statement to the D7 database API syntax.
     db_query("DELETE sd, si, snl FROM {search_dataset} sd LEFT JOIN {{$name}} dt ON sd.type = '{$name}' AND sd.sid = dt.{$base_field} LEFT JOIN {search_index} si ON sd.sid = si.sid AND sd.type = si.type LEFT JOIN {search_node_links} snl ON sd.sid = snl.sid AND sd.type = snl.type WHERE dt.{$base_field} IS NULL");
   }
 }
 
 /**
- * Implementation of hook_search().
+ * Implements hook_search().
  */
 function data_search_search($op = 'search', $keys = NULL) {
   switch ($op) {
@@ -112,7 +114,14 @@ function data_search_search($op = 'search', $keys = NULL) {
       $tables = data_search_get_tables();
       foreach ($tables as $table) {
         $name = $table->get('name');
-        db_query("UPDATE {search_dataset} SET reindex = %d WHERE type = '%s'", time(), $name);
+        // TODO Please review the conversion of this statement to the D7 database API syntax.
+        /* db_query("UPDATE {search_dataset} SET reindex = %d WHERE type = '%s'", REQUEST_TIME, $name) */
+        db_update('search_dataset')
+  ->fields(array(
+    'reindex' => REQUEST_TIME,
+  ))
+  ->condition('type', $name)
+  ->execute();
       }
       return;
 
@@ -124,8 +133,10 @@ function data_search_search($op = 'search', $keys = NULL) {
         $schema = $table->get('table_schema');
         $base_field = current($schema['primary key']);
 
-        $total = $total + db_result(db_query("SELECT COUNT(*) FROM {{$name}}"));
-        $remaining = $remaining + db_result(db_query("SELECT COUNT(*) FROM {{$name}} dt LEFT JOIN {search_dataset} d ON d.type = '{$name}' AND d.sid = dt.{$base_field} WHERE (d.sid IS NULL OR d.reindex <> 0)"));
+        // TODO Please convert this statement to the D7 database API syntax.
+        $total = $total + db_query("SELECT COUNT(*) FROM {{$name}}")->fetchField();
+        // TODO Please convert this statement to the D7 database API syntax.
+        $remaining = $remaining + db_query("SELECT COUNT(*) FROM {{$name}} dt LEFT JOIN {search_dataset} d ON d.type = '{$name}' AND d.sid = dt.{$base_field} WHERE (d.sid IS NULL OR d.reindex <> 0)")->fetchField();
       }
       return array('remaining' => $remaining, 'total' => $total);
   }
@@ -147,7 +158,9 @@ function data_search_wipe($table) {
   $name = db_escape_table($table->get('name'));
   $field = db_escape_string(current($schema['primary key']));
 
+  // TODO Please convert this statement to the D7 database API syntax.
   db_query("DELETE s FROM {search_dataset} s LEFT JOIN {{$name}} t ON s.sid = t.$field WHERE s.type = '%s' AND t.$field IS NULL", $table->get('name'));
+  // TODO Please convert this statement to the D7 database API syntax.
   db_query("DELETE s FROM {search_index} s LEFT JOIN {{$name}} t ON s.sid = t.$field WHERE s.type = '%s' AND t.$field IS NULL", $table->get('name'));
 }
 

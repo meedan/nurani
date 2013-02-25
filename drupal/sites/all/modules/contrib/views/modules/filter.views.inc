@@ -1,32 +1,29 @@
 <?php
+
 /**
  * @file
  * Provide basic views data for filter.module.
- */
-
-/**
- * @defgroup views_filter_module filter.module handlers
  *
- * Only includes the table 'filter_formats'. 
- * @{
+ * @ingroup views_module_handlers
  */
 
 /**
- * Implementation of hook_views_data()
+ * Implements hook_views_data().
  */
 function filter_views_data() {
   // ----------------------------------------------------------------------
-  // filter_formats table
-  
+  // filter_format table
+
   // Have not defined $data['filter_formats']['table']['group'] since
   // no fields are defined here yet.
-  $data['filter_formats']['table']['join'] = array(
-    'node_revisions' => array(
+  $data['filter_formats']['moved to'] = 'filter_format';
+  $data['filter_format']['table']['join'] = array(
+    'node_revision' => array(
       'left_field' => 'format',
       'field' => 'format',
     ),
     'node' => array(
-      'left_table' => 'node_revisions',
+      'left_table' => 'node_revision',
       'left_field' => 'format',
       'field' => 'format',
     ),
@@ -34,21 +31,3 @@ function filter_views_data() {
 
   return $data;
 }
-
-function filter_views_handlers() {
-  return array(
-    'info' => array(
-      'path' => drupal_get_path('module', 'views') . '/modules/filter',
-    ),
-    'handlers' => array(
-      // field handlers
-      'views_handler_field_filter_format_name' => array(
-        'parent' => 'views_handler_field',
-      ),
-    ),
-  );
-}
-
-/**
- * @}
- */

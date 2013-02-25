@@ -19,7 +19,7 @@
         <div class="rounded-shadow-right"></div>
       </div>
       <div class="rounded-shadow-left-edge">
-        <div class="rounded-shadow-right-edge clear-block">
+        <div class="rounded-shadow-right-edge clearfix">
           <?php print $output; ?>
         </div>
       </div>

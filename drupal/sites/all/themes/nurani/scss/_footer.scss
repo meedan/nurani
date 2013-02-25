@@ -1,0 +1,41 @@
+
+.footer{
+  
+  &.footer-logos{
+     text-align: center;
+     margin-bottom:35px;
+      a, & > img {
+        display: inline-block;
+        margin-right: 50px;
+        padding-top: 5px;
+      }
+  }
+}
+
+#block-menu-menu-footer-links{
+  display:block;
+  padding-left: 0;
+  text-align: center;
+  li{
+  	display: inline-block;
+    padding: 0 45px 0 10px;
+    margin: 0 15px 0 0;
+    border-right: 1px dotted $nurani-burgundy;
+
+    a{
+      color: $nurani-burgundy;
+      display: inline;
+      text-transform: uppercase;
+      padding: 10px 0;
+      font-family: Georgia,Times,Times New Roman,serif;
+      font-weight: normal;
+      text-decoration: none;
+    }
+
+    &.last {
+      border-right: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

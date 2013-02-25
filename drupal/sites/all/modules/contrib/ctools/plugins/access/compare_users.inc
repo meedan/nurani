@@ -1,5 +1,4 @@
 <?php
-// $Id: compare_users.inc,v 1.3.2.2 2009/11/13 00:44:16 merlinofchaos Exp $
 
 /**
  * @file
@@ -28,11 +27,11 @@ $plugin = array(
 /**
  * Settings form for the 'by perm' access plugin
  */
-function ctools_compare_users_settings(&$form, &$form_state, $conf) {
+function ctools_compare_users_settings($form, &$form_state, $conf) {
 
   $form['settings']['helptext'] = array(
     '#type' => 'markup',
-    '#value' => '<div>'. t('Grant access based on comparison of the two user contexts. For example, to grant access to a user to view their own profile, choose "logged in user" and "user being viewed" and say "grant access if equal". When they\'re the same, access will be granted.') . '</div>',
+    '#value' => '<div>' . t('Grant access based on comparison of the two user contexts. For example, to grant access to a user to view their own profile, choose "logged in user" and "user being viewed" and say "grant access if equal". When they\'re the same, access will be granted.') . '</div>',
   );
 
   $form['settings']['equality'] = array(
@@ -41,6 +40,7 @@ function ctools_compare_users_settings(&$form, &$form_state, $conf) {
     '#options' => array(1 => t('Equal'), 0 => t('Not equal')),
     '#default_value' => $conf['equality'],
   );
+  return $form;
 }
 
 /**

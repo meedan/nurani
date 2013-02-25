@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function nurani_discussion_block_info() {
+  $blocks = array();
+  $blocks['print_pdf'] = array(
+    'info' => t('Nurani discussion "Print PDF of the passages"'),
+    'cache' => DRUPAL_CACHE_PER_PAGE
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function nurani_discussion_block_view($delta = '') {
+  global $user;
+  $block = array();
+
+  switch ($delta) {
+    case 'print_pdf':
+      if (arg(0) == 'node' && is_numeric(arg(1))) {
+        $node = node_load(arg(1));
+        if ($node->type == 'discussion') {
+          if (isset($node->field_bundle[$node->language]) && isset($node->field_bundle[$node->language][0])) {
+            $bundle_node = node_load($node->field_bundle[$node->language][0]['nid']);
+          }
+        }
+      }
+
+      $block['subject'] = NULL;
+      if (isset($bundle_node) && $bundle_node->nid) {
+        $block['content'] = l(t("Print PDF of the passages"), "printpdf/$bundle_node->nid", array('attributes' => array('class' => 'printpdf')));
+      }
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function nurani_discussion_preprocess_page(&$vars) {
+  if (arg(0) == 'node' && is_numeric(arg(1)) && !arg(2)) {
+    $node = node_load(arg(1));
+
+    if ($node->type == 'discussion') {
+      $langcode = $node->language;
+
+      if (isset($node->field_subtitle) && isset($node->field_subtitle[$langcode][0]['value'])) {
+        array_unshift($vars['title_suffix'], array(
+          '#type'   => 'markup',
+          '#markup' => '<h2 class="subtitle">' . $node->field_subtitle[$langcode][0]['value'] . '</h2>'
+        ));
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_default_fields_alter().
+ */
+function nurani_discussion_field_default_fields_alter(&$fields) {
+  $fields['node-discussion-field_discussion_closing_date']['field_instance']['widget']['type'] = 'date_popup';
+}

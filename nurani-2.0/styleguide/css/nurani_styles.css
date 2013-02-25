@@ -1,0 +1,2160 @@
+/* line 17, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* don't use 3-digit colors, use the full hex */
+/* ======================================= Stock Colors */
+/* Generic useful colors */
+/* Greys */
+/* ... More random colors available */
+/* incase an inverted custom gradient isn't specified */
+/* line 177, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+.fancy-button-reset-base-class, body form button.view-discussion, body form button.request-nurani-invite, body form button.start-nurani-discussion, body form button.start-nurani-discussion-disabled, body form button.add-passages, body form button.search, body form button.request-library-invite, body .request-button {
+  font-family: "Lucida Grande", Lucida, Arial, sans-serif;
+  background: url('images/button_bg.png?1347840079') repeat-x bottom left;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: bold;
+}
+/* line 165, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+.fancy-button-reset-base-class::-moz-focus-inner, body form button.view-discussion::-moz-focus-inner, body form button.request-nurani-invite::-moz-focus-inner, body form button.start-nurani-discussion::-moz-focus-inner, body form button.start-nurani-discussion-disabled::-moz-focus-inner, body form button.add-passages::-moz-focus-inner, body form button.search::-moz-focus-inner, body form button.request-library-invite::-moz-focus-inner, body .request-button::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+/* line 168, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+.fancy-button-reset-base-class:focus, body form button.view-discussion:focus, body form button.request-nurani-invite:focus, body form button.start-nurani-discussion:focus, body form button.start-nurani-discussion-disabled:focus, body form button.add-passages:focus, body form button.search:focus, body form button.request-library-invite:focus, body .request-button:focus {
+  outline: none;
+}
+
+/*  Font Awesome ========================================
+    the iconic font designed for use with Twitter Bootstrap
+    -------------------------------------------------------
+    The full suite of pictographic icons, examples, and documentation
+    can be found at: http://fortawesome.github.com/Font-Awesome/
+
+    License
+    -------------------------------------------------------
+    The Font Awesome webfont, CSS, and LESS files are licensed under CC BY 3.0:
+    http://creativecommons.org/licenses/by/3.0/ A mention of
+    'Font Awesome - http://fortawesome.github.com/Font-Awesome' in human-readable
+    source code is considered acceptable attribution (most common on the web).
+    If human readable source code is not available to the end user, a mention in
+    an 'About' or 'Credits' screen is considered acceptable (most common in desktop
+    or mobile software).
+
+    Contact
+    -------------------------------------------------------
+    Email: dave@davegandy.com
+    Twitter: http://twitter.com/fortaweso_me
+    Work: Lead Product Designer @ http://kyruus.com
+
+    */
+/*  Font Awesome styles
+    ------------------------------------------------------- */
+@font-face {
+  font-family: "FontAwesome";
+  src: url('../fonts/fontawesome-webfont.eot');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix') format('eot'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.ttf') format('truetype'), url('../fonts/fontawesome-webfont.otf') format('opentype'), url('../fonts/fontawesome-webfont.svgz#FontAwesomeRegular') format('svg'), url('../fonts/fontawesome-webfont.svg#FontAwesomeRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 64, ../sass/meedan-bootstrap/_icons.scss */
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+
+/* line 73, ../sass/meedan-bootstrap/_icons.scss */
+a [class^="icon-"],
+a [class*=" icon-"] {
+  display: inline-block;
+  text-decoration: inherit;
+}
+
+/*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+    readers do not read off random characters that represent icons */
+/* line 80, ../sass/meedan-bootstrap/_icons.scss */
+.icon-glass:before {
+  content: "\f000";
+}
+
+/* line 81, ../sass/meedan-bootstrap/_icons.scss */
+.icon-music:before {
+  content: "\f001";
+}
+
+/* line 82, ../sass/meedan-bootstrap/_icons.scss */
+.icon-search:before, body form button.search:before {
+  content: "\f002";
+}
+
+/* line 83, ../sass/meedan-bootstrap/_icons.scss */
+.icon-envelope:before, body form button.request-library-invite:before {
+  content: "\f003";
+}
+
+/* line 84, ../sass/meedan-bootstrap/_icons.scss */
+.icon-heart:before {
+  content: "\f004";
+}
+
+/* line 85, ../sass/meedan-bootstrap/_icons.scss */
+.icon-star:before {
+  content: "\f005";
+}
+
+/* line 86, ../sass/meedan-bootstrap/_icons.scss */
+.icon-star-empty:before {
+  content: "\f006";
+}
+
+/* line 87, ../sass/meedan-bootstrap/_icons.scss */
+.icon-user:before {
+  content: "\f007";
+}
+
+/* line 88, ../sass/meedan-bootstrap/_icons.scss */
+.icon-film:before {
+  content: "\f008";
+}
+
+/* line 89, ../sass/meedan-bootstrap/_icons.scss */
+.icon-th-large:before {
+  content: "\f009";
+}
+
+/* line 90, ../sass/meedan-bootstrap/_icons.scss */
+.icon-th:before {
+  content: "\f00a";
+}
+
+/* line 91, ../sass/meedan-bootstrap/_icons.scss */
+.icon-th-list:before {
+  content: "\f00b";
+}
+
+/* line 92, ../sass/meedan-bootstrap/_icons.scss */
+.icon-ok:before {
+  content: "\f00c";
+}
+
+/* line 93, ../sass/meedan-bootstrap/_icons.scss */
+.icon-remove:before {
+  content: "\f00d";
+}
+
+/* line 94, ../sass/meedan-bootstrap/_icons.scss */
+.icon-zoom-in:before {
+  content: "\f00e";
+}
+
+/* line 96, ../sass/meedan-bootstrap/_icons.scss */
+.icon-zoom-out:before {
+  content: "\f010";
+}
+
+/* line 97, ../sass/meedan-bootstrap/_icons.scss */
+.icon-off:before {
+  content: "\f011";
+}
+
+/* line 98, ../sass/meedan-bootstrap/_icons.scss */
+.icon-signal:before {
+  content: "\f012";
+}
+
+/* line 99, ../sass/meedan-bootstrap/_icons.scss */
+.icon-cog:before {
+  content: "\f013";
+}
+
+/* line 100, ../sass/meedan-bootstrap/_icons.scss */
+.icon-trash:before {
+  content: "\f014";
+}
+
+/* line 101, ../sass/meedan-bootstrap/_icons.scss */
+.icon-home:before {
+  content: "\f015";
+}
+
+/* line 102, ../sass/meedan-bootstrap/_icons.scss */
+.icon-file:before {
+  content: "\f016";
+}
+
+/* line 103, ../sass/meedan-bootstrap/_icons.scss */
+.icon-time:before {
+  content: "\f017";
+}
+
+/* line 104, ../sass/meedan-bootstrap/_icons.scss */
+.icon-road:before {
+  content: "\f018";
+}
+
+/* line 105, ../sass/meedan-bootstrap/_icons.scss */
+.icon-download-alt:before {
+  content: "\f019";
+}
+
+/* line 106, ../sass/meedan-bootstrap/_icons.scss */
+.icon-download:before {
+  content: "\f01a";
+}
+
+/* line 107, ../sass/meedan-bootstrap/_icons.scss */
+.icon-upload:before {
+  content: "\f01b";
+}
+
+/* line 108, ../sass/meedan-bootstrap/_icons.scss */
+.icon-inbox:before {
+  content: "\f01c";
+}
+
+/* line 109, ../sass/meedan-bootstrap/_icons.scss */
+.icon-play-circle:before {
+  content: "\f01d";
+}
+
+/* line 110, ../sass/meedan-bootstrap/_icons.scss */
+.icon-repeat:before {
+  content: "\f01e";
+}
+
+/* \f020 is not a valid unicode character. all shifted one down */
+/* line 113, ../sass/meedan-bootstrap/_icons.scss */
+.icon-refresh:before {
+  content: "\f021";
+}
+
+/* line 114, ../sass/meedan-bootstrap/_icons.scss */
+.icon-list-alt:before {
+  content: "\f022";
+}
+
+/* line 115, ../sass/meedan-bootstrap/_icons.scss */
+.icon-lock:before {
+  content: "\f023";
+}
+
+/* line 116, ../sass/meedan-bootstrap/_icons.scss */
+.icon-flag:before {
+  content: "\f024";
+}
+
+/* line 117, ../sass/meedan-bootstrap/_icons.scss */
+.icon-headphones:before {
+  content: "\f025";
+}
+
+/* line 118, ../sass/meedan-bootstrap/_icons.scss */
+.icon-volume-off:before {
+  content: "\f026";
+}
+
+/* line 119, ../sass/meedan-bootstrap/_icons.scss */
+.icon-volume-down:before {
+  content: "\f027";
+}
+
+/* line 120, ../sass/meedan-bootstrap/_icons.scss */
+.icon-volume-up:before {
+  content: "\f028";
+}
+
+/* line 121, ../sass/meedan-bootstrap/_icons.scss */
+.icon-qrcode:before {
+  content: "\f029";
+}
+
+/* line 122, ../sass/meedan-bootstrap/_icons.scss */
+.icon-barcode:before {
+  content: "\f02a";
+}
+
+/* line 123, ../sass/meedan-bootstrap/_icons.scss */
+.icon-tag:before {
+  content: "\f02b";
+}
+
+/* line 124, ../sass/meedan-bootstrap/_icons.scss */
+.icon-tags:before {
+  content: "\f02c";
+}
+
+/* line 125, ../sass/meedan-bootstrap/_icons.scss */
+.icon-book:before {
+  content: "\f02d";
+}
+
+/* line 126, ../sass/meedan-bootstrap/_icons.scss */
+.icon-bookmark:before {
+  content: "\f02e";
+}
+
+/* line 127, ../sass/meedan-bootstrap/_icons.scss */
+.icon-print:before, body .print-button:before, body .request-button:before {
+  content: "\f02f";
+}
+
+/* line 129, ../sass/meedan-bootstrap/_icons.scss */
+.icon-camera:before {
+  content: "\f030";
+}
+
+/* line 130, ../sass/meedan-bootstrap/_icons.scss */
+.icon-font:before {
+  content: "\f031";
+}
+
+/* line 131, ../sass/meedan-bootstrap/_icons.scss */
+.icon-bold:before {
+  content: "\f032";
+}
+
+/* line 132, ../sass/meedan-bootstrap/_icons.scss */
+.icon-italic:before {
+  content: "\f033";
+}
+
+/* line 133, ../sass/meedan-bootstrap/_icons.scss */
+.icon-text-height:before {
+  content: "\f034";
+}
+
+/* line 134, ../sass/meedan-bootstrap/_icons.scss */
+.icon-text-width:before {
+  content: "\f035";
+}
+
+/* line 135, ../sass/meedan-bootstrap/_icons.scss */
+.icon-align-left:before {
+  content: "\f036";
+}
+
+/* line 136, ../sass/meedan-bootstrap/_icons.scss */
+.icon-align-center:before {
+  content: "\f037";
+}
+
+/* line 137, ../sass/meedan-bootstrap/_icons.scss */
+.icon-align-right:before {
+  content: "\f038";
+}
+
+/* line 138, ../sass/meedan-bootstrap/_icons.scss */
+.icon-align-justify:before {
+  content: "\f039";
+}
+
+/* line 139, ../sass/meedan-bootstrap/_icons.scss */
+.icon-list:before {
+  content: "\f03a";
+}
+
+/* line 140, ../sass/meedan-bootstrap/_icons.scss */
+.icon-indent-left:before {
+  content: "\f03b";
+}
+
+/* line 141, ../sass/meedan-bootstrap/_icons.scss */
+.icon-indent-right:before {
+  content: "\f03c";
+}
+
+/* line 142, ../sass/meedan-bootstrap/_icons.scss */
+.icon-facetime-video:before {
+  content: "\f03d";
+}
+
+/* line 143, ../sass/meedan-bootstrap/_icons.scss */
+.icon-picture:before {
+  content: "\f03e";
+}
+
+/* line 145, ../sass/meedan-bootstrap/_icons.scss */
+.icon-pencil:before {
+  content: "\f040";
+}
+
+/* line 146, ../sass/meedan-bootstrap/_icons.scss */
+.icon-map-marker:before {
+  content: "\f041";
+}
+
+/* line 147, ../sass/meedan-bootstrap/_icons.scss */
+.icon-adjust:before {
+  content: "\f042";
+}
+
+/* line 148, ../sass/meedan-bootstrap/_icons.scss */
+.icon-tint:before {
+  content: "\f043";
+}
+
+/* line 149, ../sass/meedan-bootstrap/_icons.scss */
+.icon-edit:before {
+  content: "\f044";
+}
+
+/* line 150, ../sass/meedan-bootstrap/_icons.scss */
+.icon-share:before {
+  content: "\f045";
+}
+
+/* line 151, ../sass/meedan-bootstrap/_icons.scss */
+.icon-check:before {
+  content: "\f046";
+}
+
+/* line 152, ../sass/meedan-bootstrap/_icons.scss */
+.icon-move:before {
+  content: "\f047";
+}
+
+/* line 153, ../sass/meedan-bootstrap/_icons.scss */
+.icon-step-backward:before {
+  content: "\f048";
+}
+
+/* line 154, ../sass/meedan-bootstrap/_icons.scss */
+.icon-fast-backward:before {
+  content: "\f049";
+}
+
+/* line 155, ../sass/meedan-bootstrap/_icons.scss */
+.icon-backward:before {
+  content: "\f04a";
+}
+
+/* line 156, ../sass/meedan-bootstrap/_icons.scss */
+.icon-play:before {
+  content: "\f04b";
+}
+
+/* line 157, ../sass/meedan-bootstrap/_icons.scss */
+.icon-pause:before {
+  content: "\f04c";
+}
+
+/* line 158, ../sass/meedan-bootstrap/_icons.scss */
+.icon-stop:before {
+  content: "\f04d";
+}
+
+/* line 159, ../sass/meedan-bootstrap/_icons.scss */
+.icon-forward:before {
+  content: "\f04e";
+}
+
+/* line 161, ../sass/meedan-bootstrap/_icons.scss */
+.icon-fast-forward:before {
+  content: "\f050";
+}
+
+/* line 162, ../sass/meedan-bootstrap/_icons.scss */
+.icon-step-forward:before {
+  content: "\f051";
+}
+
+/* line 163, ../sass/meedan-bootstrap/_icons.scss */
+.icon-eject:before {
+  content: "\f052";
+}
+
+/* line 164, ../sass/meedan-bootstrap/_icons.scss */
+.icon-chevron-left:before {
+  content: "\f053";
+}
+
+/* line 165, ../sass/meedan-bootstrap/_icons.scss */
+.icon-chevron-right:before {
+  content: "\f054";
+}
+
+/* line 166, ../sass/meedan-bootstrap/_icons.scss */
+.icon-plus-sign:before {
+  content: "\f055";
+}
+
+/* line 167, ../sass/meedan-bootstrap/_icons.scss */
+.icon-minus-sign:before {
+  content: "\f056";
+}
+
+/* line 168, ../sass/meedan-bootstrap/_icons.scss */
+.icon-remove-sign:before {
+  content: "\f057";
+}
+
+/* line 169, ../sass/meedan-bootstrap/_icons.scss */
+.icon-ok-sign:before {
+  content: "\f058";
+}
+
+/* line 170, ../sass/meedan-bootstrap/_icons.scss */
+.icon-question-sign:before {
+  content: "\f059";
+}
+
+/* line 171, ../sass/meedan-bootstrap/_icons.scss */
+.icon-info-sign:before {
+  content: "\f05a";
+}
+
+/* line 172, ../sass/meedan-bootstrap/_icons.scss */
+.icon-screenshot:before {
+  content: "\f05b";
+}
+
+/* line 173, ../sass/meedan-bootstrap/_icons.scss */
+.icon-remove-circle:before {
+  content: "\f05c";
+}
+
+/* line 174, ../sass/meedan-bootstrap/_icons.scss */
+.icon-ok-circle:before {
+  content: "\f05d";
+}
+
+/* line 175, ../sass/meedan-bootstrap/_icons.scss */
+.icon-ban-circle:before {
+  content: "\f05e";
+}
+
+/* line 177, ../sass/meedan-bootstrap/_icons.scss */
+.icon-arrow-left:before {
+  content: "\f060";
+}
+
+/* line 178, ../sass/meedan-bootstrap/_icons.scss */
+.icon-arrow-right:before {
+  content: "\f061";
+}
+
+/* line 179, ../sass/meedan-bootstrap/_icons.scss */
+.icon-arrow-up:before {
+  content: "\f062";
+}
+
+/* line 180, ../sass/meedan-bootstrap/_icons.scss */
+.icon-arrow-down:before {
+  content: "\f063";
+}
+
+/* line 181, ../sass/meedan-bootstrap/_icons.scss */
+.icon-share-alt:before {
+  content: "\f064";
+}
+
+/* line 182, ../sass/meedan-bootstrap/_icons.scss */
+.icon-resize-full:before {
+  content: "\f065";
+}
+
+/* line 183, ../sass/meedan-bootstrap/_icons.scss */
+.icon-resize-small:before {
+  content: "\f066";
+}
+
+/* line 184, ../sass/meedan-bootstrap/_icons.scss */
+.icon-plus:before {
+  content: "\f067";
+}
+
+/* line 185, ../sass/meedan-bootstrap/_icons.scss */
+.icon-minus:before {
+  content: "\f068";
+}
+
+/* line 186, ../sass/meedan-bootstrap/_icons.scss */
+.icon-asterisk:before {
+  content: "\f069";
+}
+
+/* line 187, ../sass/meedan-bootstrap/_icons.scss */
+.icon-exclamation-sign:before {
+  content: "\f06a";
+}
+
+/* line 188, ../sass/meedan-bootstrap/_icons.scss */
+.icon-gift:before {
+  content: "\f06b";
+}
+
+/* line 189, ../sass/meedan-bootstrap/_icons.scss */
+.icon-leaf:before {
+  content: "\f06c";
+}
+
+/* line 190, ../sass/meedan-bootstrap/_icons.scss */
+.icon-fire:before {
+  content: "\f06d";
+}
+
+/* line 191, ../sass/meedan-bootstrap/_icons.scss */
+.icon-eye-open:before {
+  content: "\f06e";
+}
+
+/* line 193, ../sass/meedan-bootstrap/_icons.scss */
+.icon-eye-close:before {
+  content: "\f070";
+}
+
+/* line 194, ../sass/meedan-bootstrap/_icons.scss */
+.icon-warning-sign:before {
+  content: "\f071";
+}
+
+/* line 195, ../sass/meedan-bootstrap/_icons.scss */
+.icon-plane:before {
+  content: "\f072";
+}
+
+/* line 196, ../sass/meedan-bootstrap/_icons.scss */
+.icon-calendar:before {
+  content: "\f073";
+}
+
+/* line 197, ../sass/meedan-bootstrap/_icons.scss */
+.icon-random:before {
+  content: "\f074";
+}
+
+/* line 198, ../sass/meedan-bootstrap/_icons.scss */
+.icon-comment:before {
+  content: "\f075";
+}
+
+/* line 199, ../sass/meedan-bootstrap/_icons.scss */
+.icon-magnet:before {
+  content: "\f076";
+}
+
+/* line 200, ../sass/meedan-bootstrap/_icons.scss */
+.icon-chevron-up:before {
+  content: "\f077";
+}
+
+/* line 201, ../sass/meedan-bootstrap/_icons.scss */
+.icon-chevron-down:before {
+  content: "\f078";
+}
+
+/* line 202, ../sass/meedan-bootstrap/_icons.scss */
+.icon-retweet:before {
+  content: "\f079";
+}
+
+/* line 203, ../sass/meedan-bootstrap/_icons.scss */
+.icon-shopping-cart:before {
+  content: "\f07a";
+}
+
+/* line 204, ../sass/meedan-bootstrap/_icons.scss */
+.icon-folder-close:before {
+  content: "\f07b";
+}
+
+/* line 205, ../sass/meedan-bootstrap/_icons.scss */
+.icon-folder-open:before {
+  content: "\f07c";
+}
+
+/* line 206, ../sass/meedan-bootstrap/_icons.scss */
+.icon-resize-vertical:before {
+  content: "\f07d";
+}
+
+/* line 207, ../sass/meedan-bootstrap/_icons.scss */
+.icon-resize-horizontal:before {
+  content: "\f07e";
+}
+
+/* line 209, ../sass/meedan-bootstrap/_icons.scss */
+.icon-bar-chart:before {
+  content: "\f080";
+}
+
+/* line 210, ../sass/meedan-bootstrap/_icons.scss */
+.icon-twitter-sign:before {
+  content: "\f081";
+}
+
+/* line 211, ../sass/meedan-bootstrap/_icons.scss */
+.icon-facebook-sign:before {
+  content: "\f082";
+}
+
+/* line 212, ../sass/meedan-bootstrap/_icons.scss */
+.icon-camera-retro:before {
+  content: "\f083";
+}
+
+/* line 213, ../sass/meedan-bootstrap/_icons.scss */
+.icon-key:before {
+  content: "\f084";
+}
+
+/* line 214, ../sass/meedan-bootstrap/_icons.scss */
+.icon-cogs:before {
+  content: "\f085";
+}
+
+/* line 215, ../sass/meedan-bootstrap/_icons.scss */
+.icon-comments:before {
+  content: "\f086";
+}
+
+/* line 216, ../sass/meedan-bootstrap/_icons.scss */
+.icon-thumbs-up:before {
+  content: "\f087";
+}
+
+/* line 217, ../sass/meedan-bootstrap/_icons.scss */
+.icon-thumbs-down:before {
+  content: "\f088";
+}
+
+/* line 218, ../sass/meedan-bootstrap/_icons.scss */
+.icon-star-half:before {
+  content: "\f089";
+}
+
+/* line 219, ../sass/meedan-bootstrap/_icons.scss */
+.icon-heart-empty:before {
+  content: "\f08a";
+}
+
+/* line 220, ../sass/meedan-bootstrap/_icons.scss */
+.icon-signout:before {
+  content: "\f08b";
+}
+
+/* line 221, ../sass/meedan-bootstrap/_icons.scss */
+.icon-linkedin-sign:before {
+  content: "\f08c";
+}
+
+/* line 222, ../sass/meedan-bootstrap/_icons.scss */
+.icon-pushpin:before {
+  content: "\f08d";
+}
+
+/* line 223, ../sass/meedan-bootstrap/_icons.scss */
+.icon-external-link:before {
+  content: "\f08e";
+}
+
+/* line 225, ../sass/meedan-bootstrap/_icons.scss */
+.icon-signin:before {
+  content: "\f090";
+}
+
+/* line 226, ../sass/meedan-bootstrap/_icons.scss */
+.icon-trophy:before {
+  content: "\f091";
+}
+
+/* line 227, ../sass/meedan-bootstrap/_icons.scss */
+.icon-github-sign:before {
+  content: "\f092";
+}
+
+/* line 228, ../sass/meedan-bootstrap/_icons.scss */
+.icon-upload-alt:before {
+  content: "\f093";
+}
+
+/* line 229, ../sass/meedan-bootstrap/_icons.scss */
+.icon-lemon:before {
+  content: "\f094";
+}
+
+/* line 230, ../sass/meedan-bootstrap/_icons.scss */
+.icon-phone:before {
+  content: "\f095";
+}
+
+/* line 231, ../sass/meedan-bootstrap/_icons.scss */
+.icon-check-empty:before {
+  content: "\f096";
+}
+
+/* line 232, ../sass/meedan-bootstrap/_icons.scss */
+.icon-bookmark-empty:before {
+  content: "\f097";
+}
+
+/* line 233, ../sass/meedan-bootstrap/_icons.scss */
+.icon-phone-sign:before {
+  content: "\f098";
+}
+
+/* line 234, ../sass/meedan-bootstrap/_icons.scss */
+.icon-twitter:before {
+  content: "\f099";
+}
+
+/* line 235, ../sass/meedan-bootstrap/_icons.scss */
+.icon-facebook:before {
+  content: "\f09a";
+}
+
+/* line 236, ../sass/meedan-bootstrap/_icons.scss */
+.icon-github:before {
+  content: "\f09b";
+}
+
+/* line 237, ../sass/meedan-bootstrap/_icons.scss */
+.icon-unlock:before {
+  content: "\f09c";
+}
+
+/* line 238, ../sass/meedan-bootstrap/_icons.scss */
+.icon-credit-card:before {
+  content: "\f09d";
+}
+
+/* line 239, ../sass/meedan-bootstrap/_icons.scss */
+.icon-rss:before {
+  content: "\f09e";
+}
+
+/* line 241, ../sass/meedan-bootstrap/_icons.scss */
+.icon-hdd:before {
+  content: "\f0a0";
+}
+
+/* line 242, ../sass/meedan-bootstrap/_icons.scss */
+.icon-bullhorn:before {
+  content: "\f0a1";
+}
+
+/* line 243, ../sass/meedan-bootstrap/_icons.scss */
+.icon-bell:before {
+  content: "\f0a2";
+}
+
+/* line 244, ../sass/meedan-bootstrap/_icons.scss */
+.icon-certificate:before {
+  content: "\f0a3";
+}
+
+/* line 245, ../sass/meedan-bootstrap/_icons.scss */
+.icon-hand-right:before {
+  content: "\f0a4";
+}
+
+/* line 246, ../sass/meedan-bootstrap/_icons.scss */
+.icon-hand-left:before {
+  content: "\f0a5";
+}
+
+/* line 247, ../sass/meedan-bootstrap/_icons.scss */
+.icon-hand-up:before {
+  content: "\f0a6";
+}
+
+/* line 248, ../sass/meedan-bootstrap/_icons.scss */
+.icon-hand-down:before {
+  content: "\f0a7";
+}
+
+/* line 249, ../sass/meedan-bootstrap/_icons.scss */
+.icon-circle-arrow-left:before {
+  content: "\f0a8";
+}
+
+/* line 250, ../sass/meedan-bootstrap/_icons.scss */
+.icon-circle-arrow-right:before {
+  content: "\f0a9";
+}
+
+/* line 251, ../sass/meedan-bootstrap/_icons.scss */
+.icon-circle-arrow-up:before {
+  content: "\f0aa";
+}
+
+/* line 252, ../sass/meedan-bootstrap/_icons.scss */
+.icon-circle-arrow-down:before {
+  content: "\f0ab";
+}
+
+/* line 253, ../sass/meedan-bootstrap/_icons.scss */
+.icon-globe:before {
+  content: "\f0ac";
+}
+
+/* line 254, ../sass/meedan-bootstrap/_icons.scss */
+.icon-wrench:before {
+  content: "\f0ad";
+}
+
+/* line 255, ../sass/meedan-bootstrap/_icons.scss */
+.icon-tasks:before {
+  content: "\f0ae";
+}
+
+/* line 257, ../sass/meedan-bootstrap/_icons.scss */
+.icon-filter:before {
+  content: "\f0b0";
+}
+
+/* line 258, ../sass/meedan-bootstrap/_icons.scss */
+.icon-briefcase:before {
+  content: "\f0b1";
+}
+
+/* line 259, ../sass/meedan-bootstrap/_icons.scss */
+.icon-fullscreen:before {
+  content: "\f0b2";
+}
+
+/* line 261, ../sass/meedan-bootstrap/_icons.scss */
+.icon-group:before {
+  content: "\f0c0";
+}
+
+/* line 262, ../sass/meedan-bootstrap/_icons.scss */
+.icon-link:before {
+  content: "\f0c1";
+}
+
+/* line 263, ../sass/meedan-bootstrap/_icons.scss */
+.icon-cloud:before {
+  content: "\f0c2";
+}
+
+/* line 264, ../sass/meedan-bootstrap/_icons.scss */
+.icon-beaker:before {
+  content: "\f0c3";
+}
+
+/* line 265, ../sass/meedan-bootstrap/_icons.scss */
+.icon-cut:before {
+  content: "\f0c4";
+}
+
+/* line 266, ../sass/meedan-bootstrap/_icons.scss */
+.icon-copy:before {
+  content: "\f0c5";
+}
+
+/* line 267, ../sass/meedan-bootstrap/_icons.scss */
+.icon-paper-clip:before {
+  content: "\f0c6";
+}
+
+/* line 268, ../sass/meedan-bootstrap/_icons.scss */
+.icon-save:before {
+  content: "\f0c7";
+}
+
+/* line 269, ../sass/meedan-bootstrap/_icons.scss */
+.icon-sign-blank:before {
+  content: "\f0c8";
+}
+
+/* line 270, ../sass/meedan-bootstrap/_icons.scss */
+.icon-reorder:before {
+  content: "\f0c9";
+}
+
+/* line 271, ../sass/meedan-bootstrap/_icons.scss */
+.icon-list-ul:before {
+  content: "\f0ca";
+}
+
+/* line 272, ../sass/meedan-bootstrap/_icons.scss */
+.icon-list-ol:before {
+  content: "\f0cb";
+}
+
+/* line 273, ../sass/meedan-bootstrap/_icons.scss */
+.icon-strikethrough:before {
+  content: "\f0cc";
+}
+
+/* line 274, ../sass/meedan-bootstrap/_icons.scss */
+.icon-underline:before {
+  content: "\f0cd";
+}
+
+/* line 275, ../sass/meedan-bootstrap/_icons.scss */
+.icon-table:before {
+  content: "\f0ce";
+}
+
+/* line 277, ../sass/meedan-bootstrap/_icons.scss */
+.icon-magic:before {
+  content: "\f0d0";
+}
+
+/* line 278, ../sass/meedan-bootstrap/_icons.scss */
+.icon-truck:before {
+  content: "\f0d1";
+}
+
+/* line 279, ../sass/meedan-bootstrap/_icons.scss */
+.icon-pinterest:before {
+  content: "\f0d2";
+}
+
+/* line 280, ../sass/meedan-bootstrap/_icons.scss */
+.icon-pinterest-sign:before {
+  content: "\f0d3";
+}
+
+/* line 281, ../sass/meedan-bootstrap/_icons.scss */
+.icon-google-plus-sign:before {
+  content: "\f0d4";
+}
+
+/* line 282, ../sass/meedan-bootstrap/_icons.scss */
+.icon-google-plus:before {
+  content: "\f0d5";
+}
+
+/* line 283, ../sass/meedan-bootstrap/_icons.scss */
+.icon-money:before {
+  content: "\f0d6";
+}
+
+/* line 284, ../sass/meedan-bootstrap/_icons.scss */
+.icon-caret-down:before {
+  content: "\f0d7";
+}
+
+/* line 285, ../sass/meedan-bootstrap/_icons.scss */
+.icon-caret-up:before {
+  content: "\f0d8";
+}
+
+/* line 286, ../sass/meedan-bootstrap/_icons.scss */
+.icon-caret-left:before {
+  content: "\f0d9";
+}
+
+/* line 287, ../sass/meedan-bootstrap/_icons.scss */
+.icon-caret-right:before {
+  content: "\f0da";
+}
+
+/* line 288, ../sass/meedan-bootstrap/_icons.scss */
+.icon-columns:before {
+  content: "\f0db";
+}
+
+/* line 289, ../sass/meedan-bootstrap/_icons.scss */
+.icon-sort:before {
+  content: "\f0dc";
+}
+
+/* line 290, ../sass/meedan-bootstrap/_icons.scss */
+.icon-sort-down:before {
+  content: "\f0dd";
+}
+
+/* line 291, ../sass/meedan-bootstrap/_icons.scss */
+.icon-sort-up:before {
+  content: "\f0de";
+}
+
+/* line 293, ../sass/meedan-bootstrap/_icons.scss */
+.icon-envelope-alt:before, body form button.request-nurani-invite:before {
+  content: "\f0e0";
+}
+
+/* line 294, ../sass/meedan-bootstrap/_icons.scss */
+.icon-linkedin:before {
+  content: "\f0e1";
+}
+
+/* line 295, ../sass/meedan-bootstrap/_icons.scss */
+.icon-undo:before {
+  content: "\f0e2";
+}
+
+/* line 296, ../sass/meedan-bootstrap/_icons.scss */
+.icon-legal:before {
+  content: "\f0e3";
+}
+
+/* line 297, ../sass/meedan-bootstrap/_icons.scss */
+.icon-dashboard:before {
+  content: "\f0e4";
+}
+
+/* line 298, ../sass/meedan-bootstrap/_icons.scss */
+.icon-comment-alt:before, body form button.start-nurani-discussion:before, body form button.start-nurani-discussion-disabled:before {
+  content: "\f0e5";
+}
+
+/* line 299, ../sass/meedan-bootstrap/_icons.scss */
+.icon-comments-alt:before, body form button.view-discussion:before {
+  content: "\f0e6";
+}
+
+/* line 300, ../sass/meedan-bootstrap/_icons.scss */
+.icon-bolt:before {
+  content: "\f0e7";
+}
+
+/* line 301, ../sass/meedan-bootstrap/_icons.scss */
+.icon-sitemap:before {
+  content: "\f0e8";
+}
+
+/* line 302, ../sass/meedan-bootstrap/_icons.scss */
+.icon-umbrella:before {
+  content: "\f0e9";
+}
+
+/* line 303, ../sass/meedan-bootstrap/_icons.scss */
+.icon-paste:before {
+  content: "\f0ea";
+}
+
+/* line 305, ../sass/meedan-bootstrap/_icons.scss */
+.icon-user-md:before {
+  content: "\f200";
+}
+
+/* line 66, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+html {
+  font-size: 100%;
+  line-height: 1.5em;
+}
+
+/* line 43, ../sass/meedan-bootstrap/_typography.scss */
+ol {
+  list-style-type: decimal;
+}
+
+/* line 47, ../sass/meedan-bootstrap/_typography.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  color: black;
+  clear: both;
+  font-family: 'PT Sans', "Helvetica Neue", arial, sans-serif;
+}
+
+/* line 54, ../sass/meedan-bootstrap/_typography.scss */
+ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+/* line 59, ../sass/meedan-bootstrap/_typography.scss */
+strong {
+  font-weight: bold;
+}
+
+/* line 63, ../sass/meedan-bootstrap/_typography.scss */
+em {
+  font-style: italic;
+}
+
+/* line 71, ../sass/meedan-bootstrap/_typography.scss */
+code {
+  background: #1c6ac5;
+  color: #ffefff;
+  -webkit-border-radius: 6%;
+  -moz-border-radius: 6%;
+  -ms-border-radius: 6%;
+  -o-border-radius: 6%;
+  border-radius: 6%;
+  font-family: monospace;
+  font-size: 0.875em;
+  line-height: 1.71429em;
+  line-height: 52px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+/* line 82, ../sass/meedan-bootstrap/_typography.scss */
+h1 {
+  color: black;
+  font-size: 3.125em;
+  line-height: 1.2em;
+  font-weight: 700;
+}
+
+/* line 88, ../sass/meedan-bootstrap/_typography.scss */
+h2 {
+  font-weight: 100;
+  font-size: 1.625em;
+  line-height: 1.38462em;
+  color: black;
+}
+
+/* line 94, ../sass/meedan-bootstrap/_typography.scss */
+h3 {
+  font-size: 1em;
+  line-height: 1.5em;
+  font-weight: bold;
+}
+
+/* line 100, ../sass/meedan-bootstrap/_typography.scss */
+h1.icon, h2.icon, h3.icon {
+  margin: 0;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  color: #665200;
+  font-size: 1em;
+  line-height: 1.5em;
+  border-top-style: solid;
+  border-top-width: 0.0625em;
+  padding-top: 1.4375em;
+  border-bottom-style: solid;
+  border-bottom-width: 0.0625em;
+  padding-bottom: 1.4375em;
+  border-color: #ffcd00;
+  background: #fff5cc;
+  font-weight: normal;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* line 108, ../sass/meedan-bootstrap/_typography.scss */
+h4 {
+  font-size: 1em;
+  line-height: 1.5em;
+  font-family: 'PT Sans', "Helvetica Neue", arial, sans-serif;
+  display: inline;
+  font-weight: bold;
+}
+
+/* default link styles*/
+/* link, visited, hover, active */
+/* line 117, ../sass/meedan-bootstrap/_typography.scss */
+a {
+  color: #1777a4;
+  text-decoration: none;
+}
+/* line 18, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:visited {
+  color: #1777a4;
+}
+/* line 21, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:focus {
+  color: #1777a4;
+}
+/* line 24, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:hover {
+  color: #1777a4;
+}
+/* line 27, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a:active {
+  color: #1777a4;
+}
+
+/* line 122, ../sass/meedan-bootstrap/_typography.scss */
+a:hover {
+  text-decoration: underline;
+}
+
+/* line 126, ../sass/meedan-bootstrap/_typography.scss */
+p {
+  font-family: "Palatino", Georgia, Times, "Times New Roman", serif;
+  clear: both;
+}
+
+/* line 131, ../sass/meedan-bootstrap/_typography.scss */
+p.leader {
+  font-size: 2em;
+  line-height: 1.125em;
+}
+
+/* line 135, ../sass/meedan-bootstrap/_typography.scss */
+blockquote {
+  font-size: 1.625em;
+  line-height: 1.38462em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  clear: both;
+}
+/* line 28, ../sass/meedan-bootstrap/_typography.scss */
+blockquote:before {
+  display: block;
+  font-size: 4.375em;
+  line-height: 1.2em;
+  font-weight: normal!important;
+  content: "\"";
+  height: 1px;
+  margin-left: -0.45em;
+  position: relative;
+  top: -20px;
+  font-family: 'Pacifico', "helvetica neue";
+}
+/* line 141, ../sass/meedan-bootstrap/_typography.scss */
+blockquote footer cite a {
+  font-size: 0.6875em;
+  line-height: 2.18182em;
+}
+
+/* line 147, ../sass/meedan-bootstrap/_typography.scss */
+dt {
+  font-weight: bold;
+}
+
+/* line 151, ../sass/meedan-bootstrap/_typography.scss */
+abbr {
+  border-bottom: 1px dotted #666666;
+  cursor: help;
+  white-space: nowrap;
+}
+
+/* line 157, ../sass/meedan-bootstrap/_typography.scss */
+header {
+  font-family: 'PT Sans', "Helvetica Neue", arial, sans-serif;
+}
+
+/* line 17, ../sass/nurani_styles.scss */
+body #container {
+  *zoom: 1;
+  max-width: 1180px;
+  _width: 1180px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+/* line 38, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/compass-0.13.alpha.0/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+body #container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 22, ../sass/nurani_styles.scss */
+body section.radio-buttons input {
+  float: left;
+  clear: both;
+}
+/* line 27, ../sass/nurani_styles.scss */
+body .passages {
+  clear: both;
+  width: 100%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  margin-top: 40px;
+}
+/* line 31, ../sass/nurani_styles.scss */
+body .passages .passage {
+  background: #fff;
+  padding-left: 3.38983%;
+  padding-right: 3.38983%;
+  width: 22.0339%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -20px;
+  display: inline;
+  margin-right: 3.38983%;
+  padding-bottom: 40px;
+}
+/* line 32, ../sass/nurani_styles.scss */
+body .passages .passage h3 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+/* line 44, ../sass/nurani_styles.scss */
+body select.large {
+  font-size: 16px;
+  padding: 6px;
+}
+/* line 48, ../sass/nurani_styles.scss */
+body button {
+  margin: 20px !important;
+  float: left;
+  clear: both;
+}
+/* line 54, ../sass/nurani_styles.scss */
+body form {
+  display: block;
+}
+/* line 59, ../sass/nurani_styles.scss */
+body form input,
+body form textarea,
+body form select {
+  float: left;
+  clear: both;
+  margin-top: 20px;
+}
+/* line 65, ../sass/nurani_styles.scss */
+body form input.small {
+  width: 32.20339%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+/* line 68, ../sass/nurani_styles.scss */
+body form input.medium {
+  width: 32.20339%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* line 74, ../sass/nurani_styles.scss */
+body form textarea.medium {
+  width: 32.20339%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  height: 50px;
+}
+/* line 79, ../sass/nurani_styles.scss */
+body form textarea.large {
+  width: 49.15254%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  height: 150px;
+}
+/* line 84, ../sass/nurani_styles.scss */
+body form button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* line 89, ../sass/nurani_styles.scss */
+body form button.view-discussion {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #285100;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4e9a03), color-stop(100%, #193101));
+  background-image: -webkit-linear-gradient(#4e9a03, #193101);
+  background-image: -moz-linear-gradient(#4e9a03, #193101);
+  background-image: -o-linear-gradient(#4e9a03, #193101);
+  background-image: -ms-linear-gradient(#4e9a03, #193101);
+  background-image: linear-gradient(#4e9a03, #193101);
+  border-color: #020400;
+  text-shadow: black 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.15882) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.15882) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.15882) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.view-discussion, body form button.view-discussion:visited {
+  color: white;
+}
+/* line 31, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.view-discussion:hover, body form button.view-discussion:focus {
+  background-color: #214200;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #478b03), color-stop(100%, #112201));
+  background-image: -webkit-linear-gradient(#478b03, #112201);
+  background-image: -moz-linear-gradient(#478b03, #112201);
+  background-image: -o-linear-gradient(#478b03, #112201);
+  background-image: -ms-linear-gradient(#478b03, #112201);
+  background-image: linear-gradient(#478b03, #112201);
+  border-color: black;
+  text-shadow: black 0px 1px 1px;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.view-discussion:hover, body form button.view-discussion:hover:visited, body form button.view-discussion:focus, body form button.view-discussion:focus:visited {
+  color: white;
+}
+/* line 36, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.view-discussion:active {
+  background-color: #193200;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #172c01), color-stop(40%, #1e3b01), color-stop(85%, #1e3b01), color-stop(100%, #305e02));
+  background-image: -webkit-linear-gradient(#172c01, #1e3b01 40%, #1e3b01 85%, #305e02);
+  background-image: -moz-linear-gradient(#172c01, #1e3b01 40%, #1e3b01 85%, #305e02);
+  background-image: -o-linear-gradient(#172c01, #1e3b01 40%, #1e3b01 85%, #305e02);
+  background-image: -ms-linear-gradient(#172c01, #1e3b01 40%, #1e3b01 85%, #305e02);
+  background-image: linear-gradient(#172c01, #1e3b01 40%, #1e3b01 85%, #305e02);
+  border-color: black;
+  text-shadow: black 0px -1px -1px;
+  -webkit-box-shadow: #020400 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #020400 0 0.08em 0.2em 1px inset;
+  box-shadow: #020400 0 0.08em 0.2em 1px inset;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.view-discussion:active, body form button.view-discussion:active:visited {
+  color: white;
+}
+/* line 92, ../sass/nurani_styles.scss */
+body form button.view-discussion:before {
+  margin-right: 5px!important;
+}
+/* line 7, ../sass/meedan-bootstrap/_icons.scss */
+body form button.view-discussion:before {
+  width: 20px;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+/* line 96, ../sass/nurani_styles.scss */
+body form button.request-nurani-invite {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #245cc8;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7f93ba), color-stop(100%, #485d85));
+  background-image: -webkit-linear-gradient(#7f93ba, #485d85);
+  background-image: -moz-linear-gradient(#7f93ba, #485d85);
+  background-image: -o-linear-gradient(#7f93ba, #485d85);
+  background-image: -ms-linear-gradient(#7f93ba, #485d85);
+  background-image: linear-gradient(#7f93ba, #485d85);
+  border-color: #384867;
+  text-shadow: #102a5c 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.46275) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.46275) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.46275) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.request-nurani-invite, body form button.request-nurani-invite:visited {
+  color: white;
+}
+/* line 31, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.request-nurani-invite:hover, body form button.request-nurani-invite:focus {
+  background-color: #2156bb;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #758bb4), color-stop(100%, #43567b));
+  background-image: -webkit-linear-gradient(#758bb4, #43567b);
+  background-image: -moz-linear-gradient(#758bb4, #43567b);
+  background-image: -o-linear-gradient(#758bb4, #43567b);
+  background-image: -ms-linear-gradient(#758bb4, #43567b);
+  background-image: linear-gradient(#758bb4, #43567b);
+  border-color: #33415d;
+  text-shadow: #0e244f 0px 1px 1px;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.request-nurani-invite:hover, body form button.request-nurani-invite:hover:visited, body form button.request-nurani-invite:focus, body form button.request-nurani-invite:focus:visited {
+  color: white;
+}
+/* line 36, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.request-nurani-invite:active {
+  background-color: #1f50ae;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #465b82), color-stop(40%, #4c628c), color-stop(85%, #4c628c), color-stop(100%, #5872a3));
+  background-image: -webkit-linear-gradient(#465b82, #4c628c 40%, #4c628c 85%, #5872a3);
+  background-image: -moz-linear-gradient(#465b82, #4c628c 40%, #4c628c 85%, #5872a3);
+  background-image: -o-linear-gradient(#465b82, #4c628c 40%, #4c628c 85%, #5872a3);
+  background-image: -ms-linear-gradient(#465b82, #4c628c 40%, #4c628c 85%, #5872a3);
+  background-image: linear-gradient(#465b82, #4c628c 40%, #4c628c 85%, #5872a3);
+  border-color: #2d3a54;
+  text-shadow: #0c1e42 0px -1px -1px;
+  -webkit-box-shadow: #384867 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #384867 0 0.08em 0.2em 1px inset;
+  box-shadow: #384867 0 0.08em 0.2em 1px inset;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.request-nurani-invite:active, body form button.request-nurani-invite:active:visited {
+  color: white;
+}
+/* line 99, ../sass/nurani_styles.scss */
+body form button.request-nurani-invite:before {
+  margin-right: 5px!important;
+}
+/* line 7, ../sass/meedan-bootstrap/_icons.scss */
+body form button.request-nurani-invite:before {
+  width: 20px;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+/* line 103, ../sass/nurani_styles.scss */
+body form button.start-nurani-discussion {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  font-size: 26px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #285100;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4e9a03), color-stop(100%, #193101));
+  background-image: -webkit-linear-gradient(#4e9a03, #193101);
+  background-image: -moz-linear-gradient(#4e9a03, #193101);
+  background-image: -o-linear-gradient(#4e9a03, #193101);
+  background-image: -ms-linear-gradient(#4e9a03, #193101);
+  background-image: linear-gradient(#4e9a03, #193101);
+  border-color: #020400;
+  text-shadow: black 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.15882) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.15882) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.15882) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.start-nurani-discussion, body form button.start-nurani-discussion:visited {
+  color: white;
+}
+/* line 31, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.start-nurani-discussion:hover, body form button.start-nurani-discussion:focus {
+  background-color: #214200;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #478b03), color-stop(100%, #112201));
+  background-image: -webkit-linear-gradient(#478b03, #112201);
+  background-image: -moz-linear-gradient(#478b03, #112201);
+  background-image: -o-linear-gradient(#478b03, #112201);
+  background-image: -ms-linear-gradient(#478b03, #112201);
+  background-image: linear-gradient(#478b03, #112201);
+  border-color: black;
+  text-shadow: black 0px 1px 1px;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.start-nurani-discussion:hover, body form button.start-nurani-discussion:hover:visited, body form button.start-nurani-discussion:focus, body form button.start-nurani-discussion:focus:visited {
+  color: white;
+}
+/* line 36, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.start-nurani-discussion:active {
+  background-color: #193200;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #172c01), color-stop(40%, #1e3b01), color-stop(85%, #1e3b01), color-stop(100%, #305e02));
+  background-image: -webkit-linear-gradient(#172c01, #1e3b01 40%, #1e3b01 85%, #305e02);
+  background-image: -moz-linear-gradient(#172c01, #1e3b01 40%, #1e3b01 85%, #305e02);
+  background-image: -o-linear-gradient(#172c01, #1e3b01 40%, #1e3b01 85%, #305e02);
+  background-image: -ms-linear-gradient(#172c01, #1e3b01 40%, #1e3b01 85%, #305e02);
+  background-image: linear-gradient(#172c01, #1e3b01 40%, #1e3b01 85%, #305e02);
+  border-color: black;
+  text-shadow: black 0px -1px -1px;
+  -webkit-box-shadow: #020400 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #020400 0 0.08em 0.2em 1px inset;
+  box-shadow: #020400 0 0.08em 0.2em 1px inset;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.start-nurani-discussion:active, body form button.start-nurani-discussion:active:visited {
+  color: white;
+}
+/* line 106, ../sass/nurani_styles.scss */
+body form button.start-nurani-discussion:before {
+  margin-right: 15px!important;
+}
+/* line 7, ../sass/meedan-bootstrap/_icons.scss */
+body form button.start-nurani-discussion:before {
+  width: 20px;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+/* line 110, ../sass/nurani_styles.scss */
+body form button.start-nurani-discussion-disabled {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #5f0000;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #892222), color-stop(100%, #340d0d));
+  background-image: -webkit-linear-gradient(#892222, #340d0d);
+  background-image: -moz-linear-gradient(#892222, #340d0d);
+  background-image: -o-linear-gradient(#892222, #340d0d);
+  background-image: -ms-linear-gradient(#892222, #340d0d);
+  background-image: linear-gradient(#892222, #340d0d);
+  border-color: #0f0404;
+  text-shadow: black 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.18627) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.18627) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.18627) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.start-nurani-discussion-disabled, body form button.start-nurani-discussion-disabled:visited {
+  color: white;
+}
+/* line 31, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.start-nurani-discussion-disabled:hover, body form button.start-nurani-discussion-disabled:focus {
+  background-color: #500000;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7d1f1f), color-stop(100%, #270a0a));
+  background-image: -webkit-linear-gradient(#7d1f1f, #270a0a);
+  background-image: -moz-linear-gradient(#7d1f1f, #270a0a);
+  background-image: -o-linear-gradient(#7d1f1f, #270a0a);
+  background-image: -ms-linear-gradient(#7d1f1f, #270a0a);
+  background-image: linear-gradient(#7d1f1f, #270a0a);
+  border-color: #030101;
+  text-shadow: black 0px 1px 1px;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.start-nurani-discussion-disabled:hover, body form button.start-nurani-discussion-disabled:hover:visited, body form button.start-nurani-discussion-disabled:focus, body form button.start-nurani-discussion-disabled:focus:visited {
+  color: white;
+}
+/* line 36, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.start-nurani-discussion-disabled:active {
+  background-color: #400000;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2f0c0c), color-stop(40%, #3c0f0f), color-stop(85%, #3c0f0f), color-stop(100%, #581616));
+  background-image: -webkit-linear-gradient(#2f0c0c, #3c0f0f 40%, #3c0f0f 85%, #581616);
+  background-image: -moz-linear-gradient(#2f0c0c, #3c0f0f 40%, #3c0f0f 85%, #581616);
+  background-image: -o-linear-gradient(#2f0c0c, #3c0f0f 40%, #3c0f0f 85%, #581616);
+  background-image: -ms-linear-gradient(#2f0c0c, #3c0f0f 40%, #3c0f0f 85%, #581616);
+  background-image: linear-gradient(#2f0c0c, #3c0f0f 40%, #3c0f0f 85%, #581616);
+  border-color: black;
+  text-shadow: black 0px -1px -1px;
+  -webkit-box-shadow: #0f0404 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #0f0404 0 0.08em 0.2em 1px inset;
+  box-shadow: #0f0404 0 0.08em 0.2em 1px inset;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.start-nurani-discussion-disabled:active, body form button.start-nurani-discussion-disabled:active:visited {
+  color: white;
+}
+/* line 113, ../sass/nurani_styles.scss */
+body form button.start-nurani-discussion-disabled:before {
+  margin-right: 5px!important;
+}
+/* line 7, ../sass/meedan-bootstrap/_icons.scss */
+body form button.start-nurani-discussion-disabled:before {
+  width: 20px;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+/* line 117, ../sass/nurani_styles.scss */
+body form button.add-passages {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #245cc8;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7f93ba), color-stop(100%, #485d85));
+  background-image: -webkit-linear-gradient(#7f93ba, #485d85);
+  background-image: -moz-linear-gradient(#7f93ba, #485d85);
+  background-image: -o-linear-gradient(#7f93ba, #485d85);
+  background-image: -ms-linear-gradient(#7f93ba, #485d85);
+  background-image: linear-gradient(#7f93ba, #485d85);
+  border-color: #384867;
+  text-shadow: #102a5c 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.46275) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.46275) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.46275) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.add-passages, body form button.add-passages:visited {
+  color: white;
+}
+/* line 31, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.add-passages:hover, body form button.add-passages:focus {
+  background-color: #2156bb;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #758bb4), color-stop(100%, #43567b));
+  background-image: -webkit-linear-gradient(#758bb4, #43567b);
+  background-image: -moz-linear-gradient(#758bb4, #43567b);
+  background-image: -o-linear-gradient(#758bb4, #43567b);
+  background-image: -ms-linear-gradient(#758bb4, #43567b);
+  background-image: linear-gradient(#758bb4, #43567b);
+  border-color: #33415d;
+  text-shadow: #0e244f 0px 1px 1px;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.add-passages:hover, body form button.add-passages:hover:visited, body form button.add-passages:focus, body form button.add-passages:focus:visited {
+  color: white;
+}
+/* line 36, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.add-passages:active {
+  background-color: #1f50ae;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #465b82), color-stop(40%, #4c628c), color-stop(85%, #4c628c), color-stop(100%, #5872a3));
+  background-image: -webkit-linear-gradient(#465b82, #4c628c 40%, #4c628c 85%, #5872a3);
+  background-image: -moz-linear-gradient(#465b82, #4c628c 40%, #4c628c 85%, #5872a3);
+  background-image: -o-linear-gradient(#465b82, #4c628c 40%, #4c628c 85%, #5872a3);
+  background-image: -ms-linear-gradient(#465b82, #4c628c 40%, #4c628c 85%, #5872a3);
+  background-image: linear-gradient(#465b82, #4c628c 40%, #4c628c 85%, #5872a3);
+  border-color: #2d3a54;
+  text-shadow: #0c1e42 0px -1px -1px;
+  -webkit-box-shadow: #384867 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #384867 0 0.08em 0.2em 1px inset;
+  box-shadow: #384867 0 0.08em 0.2em 1px inset;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.add-passages:active, body form button.add-passages:active:visited {
+  color: white;
+}
+/* line 9, ../sass/nurani_styles.scss */
+body form button.add-passages:before {
+  margin-right: 5px!important;
+}
+/* line 7, ../sass/meedan-bootstrap/_icons.scss */
+body form button.add-passages:before {
+  width: 20px;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+/* line 121, ../sass/nurani_styles.scss */
+body form button.search {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: white;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f2f2f2), color-stop(100%, #bdbdbd));
+  background-image: -webkit-linear-gradient(#f2f2f2, #bdbdbd);
+  background-image: -moz-linear-gradient(#f2f2f2, #bdbdbd);
+  background-image: -o-linear-gradient(#f2f2f2, #bdbdbd);
+  background-image: -ms-linear-gradient(#f2f2f2, #bdbdbd);
+  background-image: linear-gradient(#f2f2f2, #bdbdbd);
+  border-color: #a6a6a6;
+  text-shadow: white 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.8) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.8) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.8) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 120, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.search, body form button.search:visited {
+  color: #222222;
+}
+/* line 31, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.search:hover, body form button.search:focus {
+  background-color: #f7f7f7;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ebebeb), color-stop(100%, #b5b5b5));
+  background-image: -webkit-linear-gradient(#ebebeb, #b5b5b5);
+  background-image: -moz-linear-gradient(#ebebeb, #b5b5b5);
+  background-image: -o-linear-gradient(#ebebeb, #b5b5b5);
+  background-image: -ms-linear-gradient(#ebebeb, #b5b5b5);
+  background-image: linear-gradient(#ebebeb, #b5b5b5);
+  border-color: #9e9e9e;
+  text-shadow: white 0px 1px 1px;
+}
+/* line 120, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.search:hover, body form button.search:hover:visited, body form button.search:focus, body form button.search:focus:visited {
+  color: #222222;
+}
+/* line 36, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.search:active {
+  background-color: #f0f0f0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #bababa), color-stop(40%, #c2c2c2), color-stop(85%, #c2c2c2), color-stop(100%, #d4d4d4));
+  background-image: -webkit-linear-gradient(#bababa, #c2c2c2 40%, #c2c2c2 85%, #d4d4d4);
+  background-image: -moz-linear-gradient(#bababa, #c2c2c2 40%, #c2c2c2 85%, #d4d4d4);
+  background-image: -o-linear-gradient(#bababa, #c2c2c2 40%, #c2c2c2 85%, #d4d4d4);
+  background-image: -ms-linear-gradient(#bababa, #c2c2c2 40%, #c2c2c2 85%, #d4d4d4);
+  background-image: linear-gradient(#bababa, #c2c2c2 40%, #c2c2c2 85%, #d4d4d4);
+  border-color: #969696;
+  text-shadow: white 0px -1px -1px;
+  -webkit-box-shadow: #a6a6a6 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #a6a6a6 0 0.08em 0.2em 1px inset;
+  box-shadow: #a6a6a6 0 0.08em 0.2em 1px inset;
+}
+/* line 120, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.search:active, body form button.search:active:visited {
+  color: #222222;
+}
+/* line 9, ../sass/nurani_styles.scss */
+body form button.search:before {
+  margin-right: 5px!important;
+}
+/* line 7, ../sass/meedan-bootstrap/_icons.scss */
+body form button.search:before {
+  width: 20px;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+/* line 125, ../sass/nurani_styles.scss */
+body form button.request-library-invite {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #5f0000;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #892222), color-stop(100%, #340d0d));
+  background-image: -webkit-linear-gradient(#892222, #340d0d);
+  background-image: -moz-linear-gradient(#892222, #340d0d);
+  background-image: -o-linear-gradient(#892222, #340d0d);
+  background-image: -ms-linear-gradient(#892222, #340d0d);
+  background-image: linear-gradient(#892222, #340d0d);
+  border-color: #0f0404;
+  text-shadow: black 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.18627) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.18627) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.18627) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.request-library-invite, body form button.request-library-invite:visited {
+  color: white;
+}
+/* line 31, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.request-library-invite:hover, body form button.request-library-invite:focus {
+  background-color: #500000;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7d1f1f), color-stop(100%, #270a0a));
+  background-image: -webkit-linear-gradient(#7d1f1f, #270a0a);
+  background-image: -moz-linear-gradient(#7d1f1f, #270a0a);
+  background-image: -o-linear-gradient(#7d1f1f, #270a0a);
+  background-image: -ms-linear-gradient(#7d1f1f, #270a0a);
+  background-image: linear-gradient(#7d1f1f, #270a0a);
+  border-color: #030101;
+  text-shadow: black 0px 1px 1px;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.request-library-invite:hover, body form button.request-library-invite:hover:visited, body form button.request-library-invite:focus, body form button.request-library-invite:focus:visited {
+  color: white;
+}
+/* line 36, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.request-library-invite:active {
+  background-color: #400000;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2f0c0c), color-stop(40%, #3c0f0f), color-stop(85%, #3c0f0f), color-stop(100%, #581616));
+  background-image: -webkit-linear-gradient(#2f0c0c, #3c0f0f 40%, #3c0f0f 85%, #581616);
+  background-image: -moz-linear-gradient(#2f0c0c, #3c0f0f 40%, #3c0f0f 85%, #581616);
+  background-image: -o-linear-gradient(#2f0c0c, #3c0f0f 40%, #3c0f0f 85%, #581616);
+  background-image: -ms-linear-gradient(#2f0c0c, #3c0f0f 40%, #3c0f0f 85%, #581616);
+  background-image: linear-gradient(#2f0c0c, #3c0f0f 40%, #3c0f0f 85%, #581616);
+  border-color: black;
+  text-shadow: black 0px -1px -1px;
+  -webkit-box-shadow: #0f0404 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #0f0404 0 0.08em 0.2em 1px inset;
+  box-shadow: #0f0404 0 0.08em 0.2em 1px inset;
+}
+/* line 116, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body form button.request-library-invite:active, body form button.request-library-invite:active:visited {
+  color: white;
+}
+/* line 9, ../sass/nurani_styles.scss */
+body form button.request-library-invite:before {
+  margin-right: 5px!important;
+}
+/* line 7, ../sass/meedan-bootstrap/_icons.scss */
+body form button.request-library-invite:before {
+  width: 20px;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+/* line 130, ../sass/nurani_styles.scss */
+body .beveled-header {
+  background: url(../images/bevel.jpg);
+  width: 100%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  text-align: center;
+  margin-top: 60px;
+}
+/* line 135, ../sass/nurani_styles.scss */
+body .beveled-header h2 {
+  background: url("../images/brown_bkg.png");
+  padding: 20px;
+  width: auto;
+  display: inline;
+  font-family: "Palatino", Georgia, Times, "Times New Roman", serif;
+  font-size: 1.625em;
+  line-height: 1.38462em;
+}
+/* line 7, ../sass/meedan-bootstrap/_icons.scss */
+body .print-button:before {
+  width: 20px;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+/* line 149, ../sass/nurani_styles.scss */
+body .request-button {
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -ms-border-radius: 1em;
+  -o-border-radius: 1em;
+  border-radius: 1em;
+  font-size: 16px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #efdb66;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(10%, #e4debe), color-stop(50%, #c8be7d), color-stop(50%, #c4b872), color-stop(100%, #d3ca96));
+  background-image: -webkit-linear-gradient(#ffffff, #e4debe 10%, #c8be7d 50%, #c4b872 50%, #d3ca96);
+  background-image: -moz-linear-gradient(#ffffff, #e4debe 10%, #c8be7d 50%, #c4b872 50%, #d3ca96);
+  background-image: -o-linear-gradient(#ffffff, #e4debe 10%, #c8be7d 50%, #c4b872 50%, #d3ca96);
+  background-image: -ms-linear-gradient(#ffffff, #e4debe 10%, #c8be7d 50%, #c4b872 50%, #d3ca96);
+  background-image: linear-gradient(#ffffff, #e4debe 10%, #c8be7d 50%, #c4b872 50%, #d3ca96);
+  border-color: #b6a852;
+  text-shadow: #f6ebab 0px 1px 1px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.66863) 0 0 0.1em 1px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.66863) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.66863) 0 0 0.1em 1px inset;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* line 7, ../sass/meedan-bootstrap/_icons.scss */
+body .request-button:before {
+  width: 20px;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+/* line 120, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body .request-button, body .request-button:visited {
+  color: #222222;
+}
+/* line 31, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body .request-button:hover, body .request-button:focus {
+  background-color: #edd858;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #faf9f4), color-stop(10%, #dfd9b3), color-stop(50%, #c4b872), color-stop(50%, #bfb368), color-stop(100%, #cfc58c));
+  background-image: -webkit-linear-gradient(#faf9f4, #dfd9b3 10%, #c4b872 50%, #bfb368 50%, #cfc58c);
+  background-image: -moz-linear-gradient(#faf9f4, #dfd9b3 10%, #c4b872 50%, #bfb368 50%, #cfc58c);
+  background-image: -o-linear-gradient(#faf9f4, #dfd9b3 10%, #c4b872 50%, #bfb368 50%, #cfc58c);
+  background-image: -ms-linear-gradient(#faf9f4, #dfd9b3 10%, #c4b872 50%, #bfb368 50%, #cfc58c);
+  background-image: linear-gradient(#faf9f4, #dfd9b3 10%, #c4b872 50%, #bfb368 50%, #cfc58c);
+  border-color: #afa14a;
+  text-shadow: #f5e89e 0px 1px 1px;
+}
+/* line 120, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body .request-button:hover, body .request-button:hover:visited, body .request-button:focus, body .request-button:focus:visited {
+  color: #222222;
+}
+/* line 36, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body .request-button:active {
+  background-color: #ecd44b;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #c4b872), color-stop(30%, #c7bc7a), color-stop(50%, #c1b56b), color-stop(50%, #bcaf60), color-stop(100%, #d0c78f));
+  background-image: -webkit-linear-gradient(#c4b872, #c7bc7a 30%, #c1b56b 50%, #bcaf60 50%, #d0c78f);
+  background-image: -moz-linear-gradient(#c4b872, #c7bc7a 30%, #c1b56b 50%, #bcaf60 50%, #d0c78f);
+  background-image: -o-linear-gradient(#c4b872, #c7bc7a 30%, #c1b56b 50%, #bcaf60 50%, #d0c78f);
+  background-image: -ms-linear-gradient(#c4b872, #c7bc7a 30%, #c1b56b 50%, #bcaf60 50%, #d0c78f);
+  background-image: linear-gradient(#c4b872, #c7bc7a 30%, #c1b56b 50%, #bcaf60 50%, #d0c78f);
+  border-color: #a59745;
+  text-shadow: #f3e590 0px -1px -1px;
+  -webkit-box-shadow: #b6a852 0 0.08em 0.2em 1px inset;
+  -moz-box-shadow: #b6a852 0 0.08em 0.2em 1px inset;
+  box-shadow: #b6a852 0 0.08em 0.2em 1px inset;
+}
+/* line 120, ../../../../../../.rvm/gems/ruby-1.9.3-p194/gems/fancy-buttons-1.2.0/lib/stylesheets/_fancy-buttons.sass */
+body .request-button:active, body .request-button:active:visited {
+  color: #222222;
+}

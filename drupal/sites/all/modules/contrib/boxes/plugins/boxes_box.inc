@@ -15,22 +15,22 @@ abstract class boxes_box {
   public $plugin_key;
   public $new;
   public $export_type;
- 
+
   /**
    * Load existing box by its unique identifier $delta.
    */
-  public static function load($delta, $reset = false) {
+  public static function load($delta, $reset = FALSE) {
     if (!isset(self::$boxes[$delta]) || $reset) {
       ctools_include('export');
       $box = ctools_export_load_object('box', 'names', array($delta));
       if (!empty($box) && $values = array_pop($box)) {
         self::$boxes[$delta] = self::factory($values->plugin_key, $values);
-        self::$boxes[$delta]->new = false;
+        self::$boxes[$delta]->new = FALSE;
       }
     }
-    return isset(self::$boxes[$delta]) ? self::$boxes[$delta] : NULL;
+    return isset(self::$boxes[$delta]) && get_class(self::$boxes[$delta]) != 'stdClass' ? self::$boxes[$delta] : NULL;
   }
- 
+
   /**
    * Instantiate, populate and return a box object.
    *
@@ -47,7 +47,7 @@ abstract class boxes_box {
       // While we actually prefer to get objects, we need to allow for either,
       // so we convert it all to arrays.
       if (is_object($values)) {
-        $values = (array)$values;
+        $values = (array) $values;
       }
 
       $box = new $class();
@@ -65,9 +65,9 @@ abstract class boxes_box {
       }
       return $box;
     }
-    return false;
+    return FALSE;
   }
- 
+
   /**
    * Create a new box.
    */
@@ -75,10 +75,10 @@ abstract class boxes_box {
     $this->new = TRUE; // A box is new unless it exists in the DB or in code.
     $this->options = $this->options_defaults();
   }
- 
+
   /**
    * Reset the boxes cache.
-   * 
+   *
    * Both ctools and boxes current maintain caches, ctools of the config and
    * boxes of the loaded box objects. We clear them both.
    */
@@ -87,7 +87,7 @@ abstract class boxes_box {
     ctools_export_load_object_reset('box');
     self::$boxes = array();
   }
- 
+
   /**
    * Save a box.
    */
@@ -96,7 +96,7 @@ abstract class boxes_box {
       throw new Exception(t('Cannot save box without a specified delta.'));
     }
     self::reset();
-    $existing = boxes_load($this->delta);
+    $existing = boxes_box_load($this->delta);
     if ($existing && ($existing->export_type & EXPORT_IN_DATABASE)) {
       drupal_write_record('box', $this, array('delta'));
     }
@@ -107,27 +107,51 @@ abstract class boxes_box {
     self::reset();
     module_exists('context') ? context_invalidate_cache() : NULL;
   }
- 
+
   /**
    * Delete a box.
    */
   public function delete() {
     self::reset();
     unset(self::$boxes[$this->delta]);
-    db_query("DELETE FROM {box} WHERE delta = '%s'", $this->delta);
+    db_delete('box')
+      ->condition('delta', $this->delta)
+      ->execute();
     module_exists('context') ? context_invalidate_cache() : NULL;
   }
- 
+
+  /**
+   * Declare if the box should use a multistep form for the create form.
+   *
+   * This might me necessary for forms that use ajax on the options form.
+   * Currently Context does not load this block correctly and the ajax in the 
+   * form will not work. Methinks Context UI Editor needs to be upgraded to
+   * D7 AJAX framework for this to not be required. That said the functionality
+   * is potentially useful even with proper functioning AJAX.
+   */
+  public function use_multistep_create() {
+    return FALSE;
+  }
+
+  /**
+   * Returns the block cache settings for this box. Subclasses can override this
+   * to perform more intricate operations around deciding the cache settings of
+   * the specific box instance.
+   */
+  public function cache_setting() {
+    return DRUPAL_CACHE_CUSTOM;
+  }
+
   /**
    * Declare default options.
    */
   abstract public function options_defaults();
- 
+
   /**
    * Provide options to configure content.
    */
-  abstract public function options_form();
- 
+  abstract public function options_form(&$form_state);
+
   /**
    * Render a block. Must return an array with the keys
    * 'delta', 'title', 'subject' (same as title) and 'content'.

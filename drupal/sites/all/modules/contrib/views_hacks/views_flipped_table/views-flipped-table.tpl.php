@@ -9,66 +9,49 @@
  * - $classes: A class or classes to apply to the table, based on settings.
  * - $row_classes: An array of classes to apply to each row, indexed by row
  *   number. This matches the index in $rows.
- * - $rows: An array of row items. Each row is an array of content.
+ * - $rows: The original array of row items. Each row is an array of content.
  *   $rows are keyed by row number, fields within rows are keyed by field ID.
+ * - $rows_flipped: An array of row items, with the original data flipped.
+ *   $rows_flipped are keyed by field name, each item within a row is keyed
+ *   by the original row number.
+ * - $row_classes_flipped: An array of classes to apply to each flipped row,
+ *   indexed by the field name.
+ * - $header_row: An array containing the first of the flipped rows, if this is
+ *   to be shown as a table header.
  *   
  * @ingroup views_templates
  */
-?>
-<?php
-  // Flip the table.
-  $row = array();
-  foreach ($rows as $col){
-    foreach ($col as $ltr => $value){
-      $row[$ltr][] = $value;
-    }
-  }
-  $first = isset($row['title']);
-  $element = 'odd';
 ?>
 <table class="<?php print $classes; ?>">
   <?php if (!empty($title)) : ?>
     <caption><?php print $title; ?></caption>
   <?php endif; ?>
 
-  <?php if ($first) : ?>
-  <thead>
-    <tr class="<?php print $element; ?>">
-      <th>
-      </th>
-      <?php foreach ($row['title'] as $title) : ?>
-      <th>
-      <?php print $title; ?>
-      </th>
-      <?php endforeach; ?>
-    </tr>
-  </thead>
-  <?php  
-    $first = FALSE;
-    endif; //$first
-    $element = 'even';
-  ?>
-  <tbody>
-    <?php foreach ($row as $field => $rowname) : ?>
-      <?php if ($field != 'title') : ?>
-      <tr class="<?php print $element; ?>">
+  <?php if ($header_row) : ?>
+    <thead>
+      <tr>
         <th>
-          <?php print $header[$field]; ?>
         </th>
-      <?php foreach ($rowname as $count => $item): ?>
-        <td>
-          <?php print $item; ?>
-        </td>
-      <?php endforeach; ?>
+        <?php foreach ($header_row as $item) : ?>
+          <th>
+            <?php print $item; ?>
+          </th>
+        <?php endforeach; ?>
       </tr>
-      <?php
-        if ($element == 'odd'){
-          $element = 'even';
-        } else {
-          $element = 'odd';
-        }
-      ?>
-      <?php endif; // field != title ?>
+    </thead>
+  <?php endif; //$header_row ?>
+  <tbody>
+    <?php foreach ($rows_flipped as $field_name => $row) : ?>
+      <tr class="<?php print $row_classes_flipped[$field_name]; ?>">
+        <th>
+          <?php echo $header[$field_name]; ?>
+        </th>
+        <?php foreach ($row as $index => $item): ?>
+          <td>
+            <?php echo $item; ?>
+          </td>
+        <?php endforeach; ?>
+      </tr>
     <?php endforeach; ?>
   </tbody>
 </table>

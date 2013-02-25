@@ -1,18 +1,14 @@
 <?php
+
 /**
  * @file
- * Provide views data and handlers for search.module
- */
-
-/**
- * @defgroup views_search_module search.module handlers
+ * Provide views data and handlers for search.module.
  *
- * Includes the tables 'search_index'
- * @{
+ * @ingroup views_module_handlers
  */
 
 /**
- * Implementation of hook_views_data()
+ * Implements hook_views_data().
  */
 function search_views_data() {
   // Basic table information.
@@ -70,10 +66,12 @@ function search_views_data() {
       'handler' => 'views_handler_field_search_score',
       'click sortable' => TRUE,
       'float' => TRUE,
+      'no group by' => TRUE,
     ),
     // Information for sorting on a search score.
     'sort' => array(
       'handler' => 'views_handler_sort_search_score',
+      'no group by' => TRUE,
     ),
   );
 
@@ -120,6 +118,11 @@ function search_views_data() {
     // Information for searching terms using the full search syntax
     'filter' => array(
       'handler' => 'views_handler_filter_search',
+      'no group by' => TRUE,
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_search',
+      'no group by' => TRUE,
     ),
   );
 
@@ -127,30 +130,7 @@ function search_views_data() {
 }
 
 /**
- * Implementation of hook_views_handlers() to register all of the basic handlers
- * views uses.
- */
-function search_views_handlers() {
-  return array(
-    'info' => array(
-      'path' => drupal_get_path('module', 'views') . '/modules/search',
-    ),
-    'handlers' => array(
-      'views_handler_field_search_score' => array(
-        'parent' => 'views_handler_field_numeric',
-      ),
-      'views_handler_sort_search_score' => array(
-        'parent' => 'views_handler_sort',
-      ),
-      'views_handler_filter_search' => array(
-        'parent' => 'views_handler_filter',
-      ),
-    ),
-  );
-}
-
-/**
- * Implementation of hook_views_plugins
+ * Implements hook_views_plugins().
  */
 function search_views_plugins() {
   return;
@@ -162,10 +142,13 @@ function search_views_plugins() {
         'title' => t('Search'),
         'help' => t('Display the results with standard search view.'),
         'handler' => 'views_plugin_row_search_view',
-        'path' => drupal_get_path('module', 'views') . '/modules/search', // not necessary for most modules
         'theme' => 'views_view_row_search',
+        'path' => drupal_get_path('module', 'views') . '/modules/search', // not necessary for most modules
         'base' => array('node'), // only works with 'node' as base.
         'type' => 'normal',
+      ),
+      'views_handler_argument_search' => array(
+        'parent' => 'views_handler_argument',
       ),
     ),
   );
@@ -181,6 +164,7 @@ function template_preprocess_views_view_row_search(&$vars) {
     return;
   }
 
+  // @todo: Once the search row is fixed this node_load should be replace by a node_load_multiple
   $node = node_load($nid);
 
   if (empty($node)) {
@@ -201,10 +185,10 @@ function template_preprocess_views_view_row_search(&$vars) {
   $vars['title'] = check_plain($node->title);
 
   $info = array();
-  $info['type'] = node_get_types('name', $node);
-  $info['user'] = theme('username', $node);
+  $info['type'] = node_type_get_name($node);
+  $info['user'] = theme('username', array('acccount' => $node));
   $info['date'] = format_date($node->changed, 'small');
-  $extra = node_invoke_nodeapi($node, 'search result');
+  $extra = module_invoke_all('node_search_result', $node);
   if (isset($extra) && is_array($extra)) {
     $info = array_merge($info, $extra);
   }
@@ -216,8 +200,3 @@ function template_preprocess_views_view_row_search(&$vars) {
 //$vars['score'] = $item->score;
   $vars['snippet'] = search_excerpt($vars['view']->value, $node->body);
 }
-
-
-/**
- * @}
- */

@@ -1,5 +1,4 @@
 <?php
-// $Id: user_from_view.inc,v 1.1.2.1 2010/07/20 00:17:09 merlinofchaos Exp $
 
 /**
  * @file
@@ -16,8 +15,8 @@ $plugin = array(
   'description' => t('Extract a user context from a view context of the base type user.'),
   'required context' => new ctools_context_required(t('View'), 'view', array('base' => 'users')),
   'context' => 'views_content_user_from_view_context',
-  'settings form' => 'views_content_user_from_view_settings_form',
-  'settings form validate' => 'views_content_user_from_view_settings_form_validate',
+  'edit form' => 'views_content_user_from_view_settings_form',
+  'edit form validate' => 'views_content_user_from_view_settings_form_validate',
   'defaults' => array('row' => 1),
 );
 
@@ -47,7 +46,8 @@ function views_content_user_from_view_context($context, $conf, $placeholder = FA
 /**
  * Settings form for the relationship.
  */
-function views_content_user_from_view_settings_form($conf) {
+function views_content_user_from_view_settings_form($form, &$form_state) {
+  $conf = $form_state['conf'];
   $form['row'] = array(
     '#title' => t('Row number'),
     '#type' => 'textfield',
@@ -57,8 +57,8 @@ function views_content_user_from_view_settings_form($conf) {
   return $form;
 }
 
-function views_content_user_from_view_settings_form_validate($form, &$form_values, &$form_state) {
-  if (intval($form_values['row']) <= 0) {
+function views_content_user_from_view_settings_form_validate($form, &$form_state) {
+  if (intval($form_state['values']['row']) <= 0) {
     form_error($form['row'], t('Row number must be a positive integer value.'));
   }
 }

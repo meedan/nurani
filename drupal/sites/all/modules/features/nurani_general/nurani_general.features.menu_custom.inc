@@ -1,29 +1,32 @@
 <?php
+/**
+ * @file
+ * nurani_general.features.menu_custom.inc
+ */
 
 /**
- * Implementation of hook_menu_default_menu_custom().
+ * Implements hook_menu_default_menu_custom().
  */
 function nurani_general_menu_default_menu_custom() {
   $menus = array();
 
-  // Exported menu: primary-links
-  $menus['primary-links'] = array(
-    'menu_name' => 'primary-links',
-    'title' => 'Primary links',
-    'description' => 'Primary links are often used at the theme layer to show the major sections of a site. A typical representation for primary links would be tabs along the top.',
+  // Exported menu: main-menu.
+  $menus['main-menu'] = array(
+    'menu_name' => 'main-menu',
+    'title' => 'Main menu',
+    'description' => 'The <em>Main</em> menu is used on many sites to show the major sections of the site, often in a top navigation bar.',
   );
-  // Exported menu: secondary-links
-  $menus['secondary-links'] = array(
-    'menu_name' => 'secondary-links',
-    'title' => 'Secondary links',
-    'description' => 'Secondary links are often used for pages like legal notices, contact details, and other secondary navigation items that play a lesser role than primary links',
+  // Exported menu: menu-footer-links.
+  $menus['menu-footer-links'] = array(
+    'menu_name' => 'menu-footer-links',
+    'title' => 'Footer links',
+    'description' => '',
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Primary links');
-  t('Primary links are often used at the theme layer to show the major sections of a site. A typical representation for primary links would be tabs along the top.');
-  t('Secondary links');
-  t('Secondary links are often used for pages like legal notices, contact details, and other secondary navigation items that play a lesser role than primary links');
+  t('Footer links');
+  t('Main menu');
+  t('The <em>Main</em> menu is used on many sites to show the major sections of the site, often in a top navigation bar.');
 
 
   return $menus;

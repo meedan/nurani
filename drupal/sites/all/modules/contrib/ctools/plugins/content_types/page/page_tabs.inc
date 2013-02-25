@@ -1,5 +1,4 @@
 <?php
-// $Id: page_tabs.inc,v 1.1.2.3 2010/02/03 01:18:58 merlinofchaos Exp $
 
 /**
  * @file
@@ -31,13 +30,32 @@ $plugin = array(
  */
 function ctools_page_tabs_content_type_render($subtype, $conf, $panel_args) {
   $block = new stdClass();
-  $block->content = theme('menu_local_tasks');
+  $menus = menu_local_tabs();
+
+  if (empty($menus['#secondary']) && empty($menus['#primary'])) {
+    return;
+  }
+
+  switch ($conf['type']) {
+    case 'primary':
+      unset($menus['#secondary']);
+      break;
+    case 'secondary':
+      unset($menus['#primary']);
+      break;
+  }
+  if ($conf['id']) {
+    $menus['#theme_wrappers'][] = 'container';
+    $menus['#attributes']['id'] = $conf['id'];
+  }
+
+  $block->content = $menus;
 
   return $block;
 }
 
 
-function ctools_page_tabs_content_type_edit_form(&$form, &$form_state) {
+function ctools_page_tabs_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
 
   $form['type'] = array(
@@ -56,12 +74,13 @@ function ctools_page_tabs_content_type_edit_form(&$form, &$form_state) {
     '#type' => 'textfield',
     '#default_value' => $conf['id'],
   );
+  return $form;
 }
 
 /**
  * The submit form stores the data in $conf.
  */
-function ctools_page_tabs_content_type_edit_form_submit(&$form, &$form_state) {
+function ctools_page_tabs_content_type_edit_form_submit($form, &$form_state) {
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     if (isset($form_state['values'][$key])) {
       $form_state['conf'][$key] = $form_state['values'][$key];

@@ -1,5 +1,5 @@
 
-Strongarm 2.x for Drupal 6.x
+Strongarm 2.x for Drupal 7.x
 ----------------------------
 Strongarm gives site builders a way to override the default variable values that
 Drupal core and contributed modules ship with. It is not an end user tool, but a

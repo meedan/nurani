@@ -1,12 +1,11 @@
 <?php
-// $Id: data.module,v 1.34.2.22 2010/09/09 20:23:10 alexb Exp $
 /**
  * @file
  * Hooks and API functions for data module.
  */
 
 /**
- * Implementation of hook_views_api().
+ * Implements hook_views_api().
  */
 function data_views_api() {
   return array(
@@ -16,27 +15,18 @@ function data_views_api() {
 }
 
 /**
- * Implementation of hook_schema_alter().
- *
- * This is a central piece of data module:
- * Here we tack schema information that has been defined through the API in data_tables
- * or by hook_data_default onto the $schema array.
- *
- * We do not use hook_schema() for exposing schema information as this would cause a race
- * condition: ctools/exports looks for data module's data_tables at the same time when
- * we are actually rebuilding it - follow path through
- * data_get_all_tables() ... _data_load_table() ... ctools_export_load_object().
+ * Load all data tables.
  */
-function data_schema_alter(&$schema) {
-  $tables = data_get_all_tables(TRUE);
-  foreach ($tables as $table) {
-    // Only add table if not yet present or the table at hand is defined in DB.
-    // This allows other modules to "own" data managed tables which in turn makes Drupal
-    // track schema versions - the prerequisit for using hook_update_N() on data tables.
-    if (!isset($schema[$table->get('name')]) || (EXPORT_IN_DATABASE & $table->get('export_type'))) {
-      $schema[$table->get('name')] = $table->get('table_schema');
+function data_get_all_tables($reset = FALSE) {
+  $tables = array();
+  if ($tables = _data_load_table(NULL, $reset)) {
+    foreach ($tables as $table_name => $table) {
+      if ($table = data_get_table($table_name)) {
+        $tables[$table_name] = $table;
+      }
     }
   }
+  return $tables;
 }
 
 /**
@@ -57,7 +47,6 @@ function data_schema_alter(&$schema) {
  *   A DataTable object if one could be created, FALSE otherwise.
  */
 function data_create_table($name, $schema, $title = NULL) {
-  data_include('DataTable');
   $table = DataTable::instance($name);
   if ($table->create($schema)) {
     if (!empty($title)) {
@@ -84,7 +73,6 @@ function data_create_table($name, $schema, $title = NULL) {
  * DataTable object.
  */
 function data_get_table($name) {
-  data_include('DataTable');
   $table = DataTable::instance($name);
   if ($table->defined()) {
     return $table;
@@ -103,21 +91,6 @@ function data_drop_table($name) {
 }
 
 /**
- * Load all data tables.
- */
-function data_get_all_tables($reset = FALSE) {
-  $tables = array();
-  if ($tables = _data_load_table(NULL, $reset)) {
-    foreach ($tables as $table_name => $table) {
-      if ($table = data_get_table($table_name)) {
-        $tables[$table_name] = $table;
-      }
-    }
-  }
-  return $tables;
-}
-
-/**
  * Get Data handler for a table.
  *
  * @see class DataHandler
@@ -129,7 +102,6 @@ function data_get_all_tables($reset = FALSE) {
  *   DataHandler object that provides access to a table's data.
  */
 function data_get_handler($table_name) {
-  data_include('DataHandler');
   return DataHandler::instance($table_name);
 }
 
@@ -253,7 +225,7 @@ function data_get_index_definition($field_name, $spec) {
  * @todo: make overridable.
  */
 function data_name($table) {
-  return 'data_table_'. $table;
+  return 'data_table_' . $table;
 }
 
 /**
@@ -281,7 +253,7 @@ function data_safe_name($name) {
   if (is_numeric($simple)) {
     // We need to escape numerics because Drupal's drupal_write_record()
     // does not properly escape token MYSQL names.
-    $simple = '__num_'. $simple;
+    $simple = '__num_' . $simple;
   }
   return db_escape_table($simple);
 }
@@ -357,8 +329,6 @@ function data_build_field_definition($stub) {
  *
  * @return
  *   Exportable code.
- *
- * Only available if ctools is installed.
  */
 function data_export($name, $indent = '') {
   ctools_include('export');
@@ -369,13 +339,18 @@ function data_export($name, $indent = '') {
 }
 
 /**
- * Loads data table info from the database.
+ * Loads data table info from the database and from CTools exportables.
+ *
+ * @param $name
+ *  The name of a table to load. If NULL or omitted, all tables are loaded.
+ * @param $reset
+ *  Whether to reset CTools' static cache.
  */
 function _data_load_table($name = NULL, $reset = FALSE) {
   ctools_include('export');
   if ($reset) {
-    ctools_static_reset('ctools_export_load_object');
-    ctools_static_reset('ctools_export_load_object_all');
+    drupal_static_reset('ctools_export_load_object');
+    drupal_static_reset('ctools_export_load_object_all');
   }
   if ($name === NULL) {
     return ctools_export_load_object('data_tables', 'all', array());
@@ -442,7 +417,7 @@ function data_alter_table($table, $field_reason) {
  * data_tables.
  */
 function _data_override($name) {
-  if (!db_result(db_query("SELECT name FROM {data_tables} WHERE name = '%s'", $name))) {
+  if (!db_query("SELECT name FROM {data_tables} WHERE name = :name", array(':name' => $name))->fetchField()) {
     if ($table = _data_load_table($name)) {
       drupal_write_record('data_tables', $table);
     }
@@ -450,17 +425,6 @@ function _data_override($name) {
 }
 
 /**
- * Include class file.
- */
-function data_include($class) {
-  static $included;
-  if (!isset($included[$class])) {
-    include drupal_get_path('module', 'data') .'/includes/'. $class .'.inc';
-    $included[$class] = TRUE;
-  }
-}
-
-/**
  * Base class for any exceptions thrown in Data.
  */
-class DataException extends Exception {}
+class DataException extends Exception { }

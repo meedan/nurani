@@ -1,0 +1,6 @@
+<?php
+
+function nurani_example_uninstall() {
+  require_once dirname(__FILE__) . '/nurani_example.module';
+  nurani_example_remove_example_discussion();
+}

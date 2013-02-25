@@ -16,7 +16,7 @@ if (module_exists('book')) {
 }
 
 function ctools_node_book_children_content_type_render($subtype, $conf, $panel_args, $context) {
-  $node = isset($context->data) ? drupal_clone($context->data) : NULL;
+  $node = isset($context->data) ? clone($context->data) : NULL;
   $block = new stdClass();
   $block->module = 'book_children';
 
@@ -37,6 +37,7 @@ function ctools_node_book_children_content_type_admin_title($subtype, $conf, $co
   return t('"@s" book children', array('@s' => $context->identifier));
 }
 
-function ctools_node_book_children_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_book_children_content_type_edit_form($form, &$form_state) {
   // provide a blank form so we have a place to have context setting.
+  return $form;
 }

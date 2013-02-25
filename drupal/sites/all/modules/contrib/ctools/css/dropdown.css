@@ -1,4 +1,3 @@
-/* $Id: dropdown.css,v 1.5 2009/07/21 01:21:43 merlinofchaos Exp $ */
 html.js div.ctools-dropdown div.ctools-dropdown-container {
   z-index: 1001;
   display: none;
@@ -12,6 +11,8 @@ html.js div.ctools-dropdown div.ctools-dropdown-container ul li a {
 
 html.js div.ctools-dropdown div.ctools-dropdown-container ul {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 html.js div.ctools-dropdown div.ctools-dropdown-container ul li {
@@ -47,7 +48,7 @@ html.js div.ctools-dropdown div.ctools-dropdown-container {
 
 html.js div.ctools-dropdown div.ctools-dropdown-container ul li li a {
   padding-left: 25px;
-  width: 150px; 
+  width: 150px;
   color: #027AC6;
 }
 

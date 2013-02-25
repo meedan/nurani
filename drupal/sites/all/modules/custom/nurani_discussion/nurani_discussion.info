@@ -1,0 +1,7 @@
+name = Nurani Discussion
+description = Discussion page helpers for Nurani.org
+core = 7.x
+version = 7.x-1.0
+package = Nurani
+dependencies[] = meedan_discussion
+dependencies[] = date_popup

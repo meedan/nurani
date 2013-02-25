@@ -5,8 +5,7 @@ Decompress the print-n.x-n.n.tar.gz file into your Drupal modules
 directory (usually sites/all/modules, see http://drupal.org/node/176044 for
 more information).
 
-Enable the print module: Administer > Site building > Modules
-  (admin/build/modules)
+Enable the print module: Administration > Modules (admin/modules)
 
 PDF TOOL
 --------
@@ -23,9 +22,7 @@ supported paths:
 
 dompdf support:
   The dompdf tool produces results that are more faithful to the HTML
-  printer-friendly page. Unicode is not supported (only ISO-8859-1).
-  This tool is not supported and there are several known bugs that result
-  from its incomplete implementation.
+  printer-friendly page. Good support of CSS 2.1 and partially CSS3.
 
   1. Download dompdf from http://code.google.com/p/dompdf/downloads/list
   2. Extract the contents of the downloaded package into one of the
@@ -43,10 +40,9 @@ dompdf support:
   7. Check http://code.google.com/p/dompdf/ for further information.
 
 TCPDF support:
-  TCPDF seems to be more actively developed than dompdf, but it's support
-  for CSS is considerably worse. Unicode is supported (use of Unicode fonts
-  result in HUGE files). Page header and footer are supported. This module
-  requires TCPDF >= 4.0.000.
+  TCPDF's support for CSS is considerably worse than the other tools.
+  Unicode is supported (use of Unicode fonts result in HUGE files).  Page
+  header and footer are supported. This module requires TCPDF >= 5.9.012.
 
   1. Download TCPDF from http://sourceforge.net/projects/tcpdf/
   2. Extract the contents of the downloaded package into one of the
@@ -57,6 +53,11 @@ TCPDF support:
   4. Check http://tcpdf.sourceforge.net/ for further information.
 
 wkhtmltopdf support:
+  wkhtmltopdf is a webkit-based tool that actually is a browser in order to
+  generate the PDF.  Resource hungry: expect to need some 30Mb+ of RAM and
+  some seconds of CPU power.  The static binaries may need additional
+  libraries in your site, which may present problems in shared hosting
+  environments.  The best, if you can run it.
 
   1. Download wkhtmltopdf from
   http://code.google.com/p/wkhtmltopdf/downloads/list. You can choose to
@@ -84,14 +85,3 @@ can be placed in your robots.txt file after the User-agent line to prevent
 search engines from even asking for the page:
 
 Disallow: /print/
-
-Also, for updates from older versions (<=4.7.x-1.0 and <=5.x-1.2) which used
-node/nnn/print instead of print/nnn, the following lines can prevent
-requests from Google for the obsolete print URLs:
-
-Disallow: /*/print$
-
-Note that pattern matching in robots.txt is a Google extension (see
-http://www.google.com/support/webmasters/bin/answer.py?answer=40367 for more
-information).
-

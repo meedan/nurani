@@ -1,5 +1,4 @@
 <?php
-// $Id: page.admin.inc,v 1.18.2.13 2010/08/30 22:07:52 merlinofchaos Exp $
 
 /**
  * @file
@@ -24,26 +23,26 @@ function page_manager_page_menu(&$items, $task) {
     'file' => 'plugins/tasks/page.admin.inc',
   );
 
-  $items['admin/build/pages/add'] = array(
+  $items['admin/structure/pages/add'] = array(
     'title' => 'Add custom page',
     'page callback' => 'page_manager_page_add_subtask',
     'page arguments' => array(),
-    'type' => MENU_LOCAL_TASK,
+    'type' => MENU_LOCAL_ACTION,
   ) + $base;
 
-  $items['admin/build/pages/import'] = array(
+  $items['admin/structure/pages/import'] = array(
     'title' => 'Import page',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('page_manager_page_import_subtask', 'page'),
-    'type' => MENU_LOCAL_TASK,
+    'type' => MENU_LOCAL_ACTION,
   ) + $base;
   if ($access_callback == 'user_access') {
-    $items['admin/build/pages/import']['access callback'] = 'ctools_access_multiperm';
-    $items['admin/build/pages/import']['access arguments'][] = 'use PHP for block visibility';
+    $items['admin/structure/pages/import']['access callback'] = 'ctools_access_multiperm';
+    $items['admin/structure/pages/import']['access arguments'][] = 'use PHP for settings';
   }
 
   // AJAX callbacks for argument modal.
-  $items['admin/build/pages/argument'] = array(
+  $items['admin/structure/pages/argument'] = array(
     'page callback' => 'page_manager_page_subtask_argument_ajax',
     'type' => MENU_CALLBACK,
   ) + $base;
@@ -117,7 +116,7 @@ function page_manager_page_menu(&$items, $task) {
     $items[$menu_path] = page_manager_page_menu_item($task, $subtask->menu, $access_arguments, $page_arguments, $load_arguments);
 
     // Add a parent menu item if one is configured.
-    if (isset($subtask->menu['type']) && $subtask->menu['type'] == 'default tab' && $subtask->menu['parent']['type'] != 'none') {
+    if (isset($subtask->menu['type']) && $subtask->menu['type'] == 'default tab') {
       array_pop($path);
       $parent_path = implode('/', $path);
       $items[$parent_path] = page_manager_page_menu_item($task, $subtask->menu['parent'], $access_arguments, $page_arguments, $load_arguments);
@@ -180,6 +179,10 @@ function page_manager_page_menu_item($task, $menu, $access_arguments, $page_argu
       $item['type'] = MENU_LOCAL_TASK;
       break;
 
+    case 'action':
+      $item['type'] = MENU_LOCAL_ACTION;
+      break;
+
     case 'default tab':
       $item['type'] = MENU_DEFAULT_LOCAL_TASK;
       break;
@@ -237,7 +240,7 @@ function page_manager_page_add_subtask($task_name = NULL, $step = NULL) {
       return drupal_not_found();
     }
 
-    $form_info['path'] = "admin/build/pages/add/$task_name/%step";
+    $form_info['path'] = "admin/structure/pages/add/$task_name/%step";
   }
   else {
     $new_page = page_manager_page_new();
@@ -245,7 +248,7 @@ function page_manager_page_add_subtask($task_name = NULL, $step = NULL) {
 
     $page = new stdClass();
     page_manager_page_new_page_cache($new_page, $page);
-    $form_info['path'] = 'admin/build/pages/add/%task_name/%step';
+    $form_info['path'] = 'admin/structure/pages/add/%task_name/%step';
   }
 
   if ($step && $step != 'basic') {
@@ -379,7 +382,7 @@ function page_manager_page_add_subtask_cancel(&$form_state) {
 /**
  * Basic settings form for a page manager page.
  */
-function page_manager_page_form_basic(&$form, &$form_state) {
+function page_manager_page_form_basic($form, &$form_state) {
   $page = &$form_state['page']->subtask['subtask'];
   $task = $form_state['task'];
 
@@ -391,8 +394,12 @@ function page_manager_page_form_basic(&$form, &$form_state) {
   );
 
   $form['name'] = array(
-    '#type' => 'textfield',
+    '#type' => 'machine_name',
     '#title' => t('Machine name'),
+    '#machine_name' => array(
+      'exists' => 'page_manager_page_load',
+      'source' => array('admin_title'),
+    ),
     '#description' => t('The machine readable name of this page. It must be unique, and it must contain only alphanumeric characters and underscores. Once created, you will not be able to change this value!'),
     '#default_value' => $page->name,
   );
@@ -436,12 +443,18 @@ function page_manager_page_form_basic(&$form, &$form_state) {
       '#type' => 'checkbox',
       '#default_value' => !empty($page->make_frontpage),
       '#title' => t('Make this your site home page.'),
-      '#description' => t('To set this panel as your home page you must create a unique path name with no % placeholders in the path. The site home page is currently set to %homepage on the !siteinfo configuration form.', array('!siteinfo' => l('Site Information', 'admin/settings/site-information'), '%homepage' => '/' . $frontpage)),
+      '#description' => t('To set this panel as your home page you must create a unique path name with no % placeholders in the path. The site home page is currently set to %homepage on the !siteinfo configuration form.', array('!siteinfo' => l(t('Site Information'), 'admin/settings/site-information'), '%homepage' => '/' . $frontpage)),
+    );
+    $form['admin_paths'] = array(
+      '#type' => 'checkbox',
+      '#default_value' => !empty($page->conf['admin_paths']),
+      '#title' => t('Use this page in an admin overlay.'),
+      '#description' => t('Admin overlays are used in many places in Drupal 7 and administrative custom pages should probably utilize this feature.'),
     );
   }
   else if ($path == $frontpage) {
     $form['frontpage_markup'] = array(
-      '#value' => '<b>' . t('This page is currently set to be your site home page. This can be modified on the !siteinfo configuration form.', array('!siteinfo' => l('Site Information', 'admin/settings/site-information'))) . '</b>',
+      '#value' => '<b>' . t('This page is currently set to be your site home page. This can be modified on the !siteinfo configuration form.', array('!siteinfo' => l(t('Site Information'), 'admin/settings/site-information'))) . '</b>',
     );
 
     $form['frontpage'] = array(
@@ -457,9 +470,10 @@ function page_manager_page_form_basic(&$form, &$form_state) {
     );
 
     module_load_include('inc', 'page_manager', 'page_manager.admin');
-    page_manager_handler_add_form($form, $form_state, $features);
+    $form = page_manager_handler_add_form($form, $form_state, $features);
   }
 
+  return $form;
 }
 
 function page_manager_page_form_basic_validate_filter($value) {
@@ -541,8 +555,8 @@ function page_manager_page_form_basic_validate(&$form, &$form_state) {
 
   // Check to see if something that isn't a page manager page is using the path.
   $path = implode('/', $path);
-  $result = db_query("SELECT * FROM {menu_router} WHERE path = '%s'", $path);
-  while ($router = db_fetch_object($result)) {
+  $result = db_query('SELECT * FROM {menu_router} WHERE path = :path', array(':path' => $path));
+  foreach ($result as $router) {
     if ($router->page_callback != 'page_manager_page_execute') {
       form_error($form['path'], t('That path is already in use. This system cannot override existing paths.'));
     }
@@ -550,8 +564,8 @@ function page_manager_page_form_basic_validate(&$form, &$form_state) {
 
   // Ensure the path is not already an alias to something else.
   if (strpos($path, '%') === FALSE) {
-    $result = db_query("SELECT src, dst FROM {url_alias} WHERE dst = '%s'", $path);
-    if ($alias = db_fetch_object($result)) {
+    $alias = db_query('SELECT alias, source FROM {url_alias} WHERE alias = :path', array(':path' => $path))->fetchObject();
+    if ($alias) {
       form_error($form['path'], t('That path is currently assigned to be an alias for @alias. This system cannot override existing aliases.', array('@alias' => $alias->src)));
     }
   }
@@ -637,15 +651,16 @@ function page_manager_page_form_basic_submit(&$form, &$form_state) {
   }
 
   $page->make_frontpage = !empty($form_state['values']['frontpage']);
+  $page->conf['admin_paths'] = !empty($form_state['values']['admin_paths']);
 }
 
 /**
  * Form to handle menu item controls.
  */
-function page_manager_page_form_menu(&$form, &$form_state) {
+function page_manager_page_form_menu($form, &$form_state) {
   ctools_include('dependent');
   $form['menu'] = array(
-    '#prefix' => '<div class="clear-block">',
+    '#prefix' => '<div class="clearfix">',
     '#suffix' => '</div>',
     '#tree' => TRUE,
   );
@@ -674,6 +689,7 @@ function page_manager_page_form_menu(&$form, &$form_state) {
       'normal' => t('Normal menu entry'),
       'tab' => t('Menu tab'),
       'default tab' => t('Default menu tab'),
+      'action' => t('Local action'),
     ),
     '#default_value' => $menu['type'],
   );
@@ -683,21 +699,10 @@ function page_manager_page_form_menu(&$form, &$form_state) {
     '#type' => 'textfield',
     '#default_value' => $menu['title'],
     '#description' => t('If set to normal or tab, enter the text to use for the menu item.'),
-    '#process' => array('ctools_dependent_process'),
-    '#dependency' => array('radio:menu[type]' => array('normal', 'tab', 'default tab')),
+    '#dependency' => array('radio:menu[type]' => array('normal', 'tab', 'default tab', 'action')),
   );
 
   list($major, $minor) = explode('.', VERSION, 2);
-
-  $form['menu']['name-warning'] = array(
-    '#type' => 'markup',
-    '#prefix' => '<div class="warning">',
-    '#value' => t("Warning: Changing this item's menu will not work reliably in Drupal 6.4 or earlier. Please upgrade your copy of Drupal at !url.", array('!url' => l('drupal.org', 'http://drupal.org/project/Drupal+project'))),
-    '#suffix' => '</div>',
-    '#process' => array('ctools_dependent_process'),
-    '#dependency' => array('radio:menu[type]' => array('normal')),
-    '#access' => ($minor < 5),
-  );
 
   // Only display the menu selector if menu module is enabled.
   if (module_exists('menu')) {
@@ -707,7 +712,6 @@ function page_manager_page_form_menu(&$form, &$form_state) {
       '#options' => menu_get_menus(),
       '#default_value' => $menu['name'],
       '#description' => t('Insert item into an available menu.'),
-      '#process' => array('ctools_dependent_process'),
       '#dependency' => array('radio:menu[type]' => array('normal')),
     );
   }
@@ -725,8 +729,7 @@ function page_manager_page_form_menu(&$form, &$form_state) {
     '#type' => 'textfield',
     '#default_value' => isset($menu['weight']) ? $menu['weight'] : 0,
     '#description' => t('The lower the weight the higher/further left it will appear.'),
-    '#process' => array('ctools_dependent_process'),
-    '#dependency' => array('radio:menu[type]' => array('normal', 'tab', 'default tab')),
+    '#dependency' => array('radio:menu[type]' => array('normal', 'tab', 'default tab', 'action')),
   );
 
   $form['menu']['parent']['type'] = array(
@@ -734,10 +737,9 @@ function page_manager_page_form_menu(&$form, &$form_state) {
     '#suffix' => '</div>',
     '#title' => t('Parent menu item'),
     '#type' => 'radios',
-    '#options' => array('none' => t('Already exists'), 'normal' => t('Normal menu item'), 'tab' => t('Menu tab')),
+    '#options' => array('none' => t('No menu entry'), 'normal' => t('Normal menu item'), 'tab' => t('Menu tab')),
     '#default_value' => $menu['parent']['type'],
     '#description' => t('When providing a menu item as a default tab, Drupal needs to know what the parent menu item of that tab will be. Sometimes the parent will already exist, but other times you will need to have one created. The path of a parent item will always be the same path with the last part left off. i.e, if the path to this view is <em>foo/bar/baz</em>, the parent path would be <em>foo/bar</em>.'),
-    '#process' => array('expand_radios', 'ctools_dependent_process'),
     '#dependency' => array('radio:menu[type]' => array('default tab')),
   );
   $form['menu']['parent']['title'] = array(
@@ -745,7 +747,6 @@ function page_manager_page_form_menu(&$form, &$form_state) {
     '#type' => 'textfield',
     '#default_value' => $menu['parent']['title'],
     '#description' => t('If creating a parent menu item, enter the title of the item.'),
-    '#process' => array('ctools_dependent_process'),
     '#dependency' => array('radio:menu[type]' => array('default tab'), 'radio:menu[parent][type]' => array('normal', 'tab')),
     '#dependency_count' => 2,
   );
@@ -757,7 +758,6 @@ function page_manager_page_form_menu(&$form, &$form_state) {
       '#options' => menu_get_menus(),
       '#default_value' => $menu['parent']['name'],
       '#description' => t('Insert item into an available menu.'),
-      '#process' => array('ctools_dependent_process'),
       '#dependency' => array('radio:menu[type]' => array('default tab'), 'radio:menu[parent][type]' => array('normal')),
       '#dependency_count' => 2,
     );
@@ -774,10 +774,11 @@ function page_manager_page_form_menu(&$form, &$form_state) {
     '#default_value' => $menu['parent']['weight'],
     '#size' => 5,
     '#description' => t('If the parent menu item is a tab, enter the weight of the tab. The lower the number, the more to the left it will be.'),
-    '#process' => array('ctools_dependent_process'),
     '#dependency' => array('radio:menu[type]' => array('default tab'), 'radio:menu[parent][type]' => array('tab')),
     '#dependency_count' => 2,
   );
+
+  return $form;
 }
 
 /**
@@ -826,7 +827,7 @@ function page_manager_page_form_menu_submit(&$form, &$form_state) {
 /**
  * Form to handle menu item controls.
  */
-function page_manager_page_form_access(&$form, &$form_state) {
+function page_manager_page_form_access($form, &$form_state) {
   ctools_include('context');
   $form_state['module'] = 'page_manager_page';
   $form_state['callback argument'] = $form_state['page']->task_name;
@@ -840,7 +841,9 @@ function page_manager_page_form_access(&$form, &$form_state) {
   }
 
   ctools_include('context-access-admin');
-  $form = array_merge($form, ctools_access_admin_form($form_state));
+  $form = ctools_access_admin_form($form, $form_state);
+
+  return $form;
 }
 
 /**
@@ -854,7 +857,7 @@ function page_manager_page_form_access_submit(&$form, &$form_state) {
 /**
  * Form to handle assigning argument handlers to named arguments.
  */
-function page_manager_page_form_argument(&$form, &$form_state) {
+function page_manager_page_form_argument($form, &$form_state) {
   $page = &$form_state['page']->subtask['subtask'];
   $path = $page->path;
 
@@ -895,14 +898,14 @@ function page_manager_page_form_argument(&$form, &$form_state) {
 
     // The URL for this ajax button
     $form['table']['argument'][$keyword]['change-url'] = array(
-      '#attributes' => array('class' => "page-manager-context-$keyword-change-url"),
+      '#attributes' => array('class' => array("page-manager-context-$keyword-change-url")),
       '#type' => 'hidden',
-      '#value' => url("admin/build/pages/argument/change/$task_name/$keyword", array('absolute' => TRUE)),
+      '#value' => url("admin/structure/pages/argument/change/$task_name/$keyword", array('absolute' => TRUE)),
     );
     $form['table']['argument'][$keyword]['change'] = array(
       '#type' => 'submit',
       '#value' => t('Change'),
-      '#attributes' => array('class' => 'ctools-use-modal'),
+      '#attributes' => array('class' => array('ctools-use-modal')),
       '#id' => "page-manager-context-$keyword-change",
     );
 
@@ -912,29 +915,32 @@ function page_manager_page_form_argument(&$form, &$form_state) {
     if (!empty($plugin)) {
       // The URL for this ajax button
       $form['table']['argument'][$keyword]['settings-url'] = array(
-        '#attributes' => array('class' => "page-manager-context-$keyword-settings-url"),
+        '#attributes' => array('class' => array("page-manager-context-$keyword-settings-url")),
         '#type' => 'hidden',
-        '#value' => url("admin/build/pages/argument/settings/$task_name/$keyword", array('absolute' => TRUE)),
+        '#value' => url("admin/structure/pages/argument/settings/$task_name/$keyword", array('absolute' => TRUE)),
       );
       $form['table']['argument'][$keyword]['settings'] = array(
         '#type' => 'submit',
         '#value' => t('Settings'),
-        '#attributes' => array('class' => 'ctools-use-modal'),
+        '#attributes' => array('class' => array('ctools-use-modal')),
         '#id' => "page-manager-context-$keyword-settings",
       );
     }
   }
+
+  return $form;
 }
 
 /**
  * Theme the table for this form.
  */
-function theme_page_manager_page_form_argument_table($form) {
+function theme_page_manager_page_form_argument_table($vars) {
+  $form = $vars['form'];
   $header = array(
-    array('data' => t('Argument'), 'class' => 'page-manager-argument'),
-    array('data' => t('Position in path'), 'class' => 'page-manager-position'),
-    array('data' => t('Context assigned'), 'class' => 'page-manager-context'),
-    array('data' => t('Operations'), 'class' => 'page-manager-operations'),
+    array('data' => t('Argument'), 'class' => array('page-manager-argument')),
+    array('data' => t('Position in path'), 'class' => array('page-manager-position')),
+    array('data' => t('Context assigned'), 'class' => array('page-manager-context')),
+    array('data' => t('Operations'), 'class' => array('page-manager-operations')),
   );
 
   $rows = array();
@@ -959,7 +965,7 @@ function theme_page_manager_page_form_argument_table($form) {
     'id' => 'page-manager-argument-table',
   );
 
-  $output = theme('table', $header, $rows, $attributes);
+  $output = theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => $attributes));
   return $output;
 }
 
@@ -992,7 +998,7 @@ function page_manager_page_subtask_argument_ajax($step = NULL, $task_name = NULL
   // Set up wizard info
   $form_info = array(
     'id' => 'page_manager_page_argument',
-    'path' => "admin/build/pages/argument/%step/$task_name/$keyword",
+    'path' => "admin/structure/pages/argument/%step/$task_name/$keyword",
     'show cancel' => TRUE,
     'next callback' => 'page_manager_page_argument_next',
     'finish callback' => 'page_manager_page_argument_finish',
@@ -1018,54 +1024,59 @@ function page_manager_page_subtask_argument_ajax($step = NULL, $task_name = NULL
     'keyword' => $keyword,
     'ajax' => TRUE,
     'modal' => TRUE,
+    'modal return' => TRUE,
     'commands' => array(),
   );
 
-  // With 'modal' and 'ajax' true, rendering automatically happens here so
-  // we do nothing with the result.
   $output = ctools_wizard_multistep_form($form_info, $step, $form_state);
+  if (!empty($form_state['cancel'])) {
+    $commands = array(ctools_modal_command_dismiss());
+  }
+  else if (!empty($form_state['complete'])) {
+    if (isset($page->temporary_arguments[$keyword])) {
+      $page->arguments[$keyword] = $page->temporary_arguments[$keyword];
+    }
+
+    if (isset($page->temporary_arguments)) {
+      unset($page->temporary_arguments);
+    }
+
+    // Update the cache with changes.
+    page_manager_set_page_cache($cache);
+
+    // Rerender the table so we can ajax it back in.
+    // Go directly to the form and retrieve it using a blank form and
+    // a clone of our current form state. This is an abbreviated
+    // drupal_get_form that is halted prior to render and is never
+    // fully processed, but is guaranteed to produce the same form we
+    // started with so we don't have to do crazy stuff to rerender
+    // just part of it.
+
+    // @todo should there be a tool to do this?
+
+    $clone_state = $form_state;
+    $clone_state['allow temp'] = TRUE;
+    $form = drupal_build_form('page_manager_page_form_argument', $form_state);
+
+    // Render just the table portion.
+    $output = drupal_render($form['table']);
+    $commands = array(
+      ajax_command_replace('#page-manager-argument-table', $output),
+      ctools_modal_command_dismiss(),
+    );
+  }
+  else {
+    $commands = ctools_modal_form_render($form_state, $output);
+  }
+  print ajax_render($commands);
+  ajax_footer();
+  exit;
 }
 
 /**
  * Callback generated when the add page process is finished.
  */
 function page_manager_page_argument_finish(&$form_state) {
-  // Check to see if there are changes.
-  $page = &$form_state['page']->subtask['subtask'];
-  $keyword = &$form_state['keyword'];
-
-  if (isset($page->temporary_arguments[$keyword])) {
-    $page->arguments[$keyword] = $page->temporary_arguments[$keyword];
-  }
-
-  if (isset($page->temporary_arguments)) {
-    unset($page->temporary_arguments);
-  }
-
-  // Update the cache with changes.
-  page_manager_set_page_cache($form_state['page']);
-
-  // Rerender the table so we can ajax it back in.
-  // Go directly to the form and retrieve it using a blank form and
-  // a clone of our current form state. This is an abbreviated
-  // drupal_get_form that is halted prior to render and is never
-  // fully processed, but is guaranteed to produce the same form we
-  // started with so we don't have to do crazy stuff to rerender
-  // just part of it.
-
-  // @todo should there be a tool to do this?
-
-  $clone_state = $form_state;
-  $clone_state['allow temp'] = TRUE;
-  $form = array();
-  page_manager_page_form_argument($form, $clone_state);
-  drupal_prepare_form('page_manager_page_form_argument', $form, $clone_state);
-  $form['#post'] = array();
-  $form = form_builder('page_manager_page_form_argument', $form, $clone_state);
-
-  // Render just the table portion.
-  $output = drupal_render($form['table']);
-  $form_state['commands'][] = ctools_ajax_command_replace('#page-manager-argument-table', $output);
 }
 
 /**
@@ -1095,7 +1106,7 @@ function page_manager_page_argument_cancel(&$form_state) {
 /**
  * Basic settings form for a page manager page.
  */
-function page_manager_page_argument_form_change(&$form, &$form_state) {
+function page_manager_page_argument_form_change($form, &$form_state) {
   $page = &$form_state['page']->subtask['subtask'];
   $keyword = &$form_state['keyword'];
 
@@ -1104,7 +1115,9 @@ function page_manager_page_argument_form_change(&$form, &$form_state) {
 
   $options = array();
   foreach ($plugins as $id => $plugin) {
-    $options[$id] = $plugin['title'];
+    if (empty($plugin['no ui'])) {
+      $options[$id] = $plugin['title'];
+    }
   }
 
   asort($options);
@@ -1121,6 +1134,8 @@ function page_manager_page_argument_form_change(&$form, &$form_state) {
     '#options' => $options,
     '#default_value' => $argument,
   );
+
+  return $form;
 }
 
 /**
@@ -1179,7 +1194,7 @@ function page_manager_page_argument_form_change_submit(&$form, &$form_state) {
 /**
  * Basic settings form for a page manager page.
  */
-function page_manager_page_argument_form_settings(&$form, &$form_state) {
+function page_manager_page_argument_form_settings($form, &$form_state) {
   $page = &$form_state['page']->subtask['subtask'];
   $keyword = &$form_state['keyword'];
 
@@ -1221,6 +1236,7 @@ function page_manager_page_argument_form_settings(&$form, &$form_state) {
   }
 
   $form_state['plugin'] = $plugin;
+  return $form;
 }
 
 /**
@@ -1257,7 +1273,7 @@ function page_manager_page_argument_form_settings_submit(&$form, &$form_state) {
 /**
  * Import a task handler from cut & paste
  */
-function page_manager_page_import_subtask(&$form_state, $task_name) {
+function page_manager_page_import_subtask($form, &$form_state, $task_name) {
   $form_state['task'] = page_manager_get_task($task_name);
 
   drupal_set_title(t('Import page'));
@@ -1356,7 +1372,7 @@ function page_manager_page_import_subtask_submit($form, &$form_state) {
 /**
  * Entry point to export a page.
  */
-function page_manager_page_form_export(&$form, &$form_state) {
+function page_manager_page_form_export($form, &$form_state) {
   $page = $form_state['page']->subtask['subtask'];
 
   $export = page_manager_page_export($page, $form_state['page']->handlers);
@@ -1369,27 +1385,33 @@ function page_manager_page_form_export(&$form, &$form_state) {
   );
 
   unset($form['buttons']);
+  return $form;
 }
 
 /**
  * Entry point to clone a page.
  */
-function page_manager_page_form_clone(&$form, &$form_state) {
+function page_manager_page_form_clone($form, &$form_state) {
   $page = &$form_state['page']->subtask['subtask'];
 
   // This provides its own button because it does something totally different.
   unset($form['buttons']);
-  $form['name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Page name'),
-    '#description' => t('Enter the name to the new page It must be unique and contain only alphanumeric characters and underscores.'),
-  );
 
   $form['admin_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Administrative title'),
     '#description' => t('The name of this page. This will appear in the administrative interface to easily identify it.'),
     '#default_value' => $page->admin_title,
+  );
+
+  $form['name'] = array(
+    '#type' => 'machine_name',
+    '#title' => t('Page name'),
+    '#machine_name' => array(
+      'exists' => 'page_manager_page_load',
+      'source' => array('admin_title'),
+    ),
+    '#description' => t('Enter the name to the new page It must be unique and contain only alphanumeric characters and underscores.'),
   );
 
   // path
@@ -1411,6 +1433,8 @@ function page_manager_page_form_clone(&$form, &$form_state) {
     '#type' => 'submit',
     '#value' => t('Clone'),
   );
+
+  return $form;
 }
 
 /**
@@ -1456,7 +1480,7 @@ function page_manager_page_form_clone_submit(&$form, &$form_state) {
 /**
  * Entry point to export a page.
  */
-function page_manager_page_form_delete(&$form, &$form_state) {
+function page_manager_page_form_delete($form, &$form_state) {
   $page = &$form_state['page']->subtask['subtask'];
 
   if ($page->type == t('Overridden')) {
@@ -1476,6 +1500,8 @@ function page_manager_page_form_delete(&$form, &$form_state) {
       '#value' => $page->type == t('Overridden') ? t('Revert') : t('Delete'),
     );
   }
+
+  return $form;
 }
 
 /**
@@ -1485,7 +1511,7 @@ function page_manager_page_form_delete_submit(&$form, &$form_state) {
   $page = $form_state['page']->subtask['subtask'];
   page_manager_page_delete($page);
   if ($page->type != t('Overridden')) {
-    $form_state['redirect'] = 'admin/build/pages';
+    $form_state['redirect'] = 'admin/structure/pages';
     drupal_set_message(t('The page has been deleted.'));
   }
   else {

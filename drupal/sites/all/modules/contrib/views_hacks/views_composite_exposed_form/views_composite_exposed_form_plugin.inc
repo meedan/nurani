@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains the composite exposed form plugin.
+ */
 
 class views_composite_exposed_form_plugin extends views_plugin_exposed_form {
   var $plugins = array();
@@ -69,7 +73,7 @@ class views_composite_exposed_form_plugin extends views_plugin_exposed_form {
     }
   }
 
-  function options_submit($form, &$form_state) {
+  function options_submit(&$form, &$form_state) {
     foreach ($this->plugins as $name => $plugin) {
       $plugin->options_submit($form[$name], $form_state);
     }
@@ -90,12 +94,6 @@ class views_composite_exposed_form_plugin extends views_plugin_exposed_form {
   function exposed_form_submit(&$form, &$form_state, &$exclude) {
     foreach ($this->plugins as $name => $plugin) {
       $plugin->exposed_form_submit($form, $form_state, $exclude);
-    }
-  }
-
-  function query() {
-    foreach ($this->plugins as $name => $plugin) {
-      $plugin->query();
     }
   }
 

@@ -3,9 +3,9 @@
 /**
  * Attach views php clickable variables behavior.
  */
-Drupal.behaviors.viewsPHPVariables = function (context) {
-  $('.views-php-variables', context).each(function() {
-    $('a', this).live('click', function() {
+Drupal.behaviors.viewsPHPVariables = {
+  attach: function (context) {
+    $('.views-php-variables', context).delegate('a', 'click', function() {
       var textarea = $(this.href.replace(/^.*#/, '#'))[0];
       var text = $(this).text();
       textarea.focus();
@@ -25,7 +25,7 @@ Drupal.behaviors.viewsPHPVariables = function (context) {
 
       return false;
     });
-  });
+  }
 };
 
 })(jQuery);

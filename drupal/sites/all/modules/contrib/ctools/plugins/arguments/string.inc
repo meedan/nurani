@@ -1,5 +1,4 @@
 <?php
-// $Id: string.inc,v 1.3.2.3 2010/01/29 20:18:25 merlinofchaos Exp $
 
 /**
  * @file
@@ -49,6 +48,7 @@ function ctools_string_settings_form(&$form, &$form_state, $conf) {
     '#default_value' => !empty($conf['use_tail']),
     '#description' => t('If checked, this string will include all arguments. For example, if the path is "path/%" and the user visits "path/foo/bar", if this is not checked the string will be "foo". If it is checked the string will be "foo/bar".'),
   );
+//  return $form;
 }
 
 /**

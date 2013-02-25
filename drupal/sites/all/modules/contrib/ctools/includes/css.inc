@@ -1,5 +1,4 @@
 <?php
-/* $Id: css.inc,v 1.10.2.7 2010/10/15 21:10:11 merlinofchaos Exp $ */
 
 /*
  * @file
@@ -44,7 +43,7 @@
  * Then later on:
  * @code
  *   $filename = ctools_css_retrieve($id);
- *   ctools_css_add_css($filename);
+ *   drupal_add_css($filename);
  * @endcode
  *
  * The CSS that was generated will be stored in the database, so even if the
@@ -67,16 +66,25 @@
  * ctools_css_retrieve.
  */
 function ctools_css_store($id, $css, $filter = TRUE) {
-  $filename = db_result(db_query("SELECT filename FROM {ctools_css_cache} WHERE cid = '%s'", $id));
+  $filename = db_query('SELECT filename FROM {ctools_css_cache} WHERE cid = :cid', array(':cid' => $id))->fetchField();
   if ($filename && file_exists($filename)) {
-    file_delete($filename);
+    file_unmanaged_delete($filename);
   }
   // Remove any previous records.
-  db_query("DELETE FROM {ctools_css_cache} WHERE cid = '%s'", $id);
+  db_delete('ctools_css_cache')
+    ->condition('cid', $id)
+    ->execute();
 
   $filename = ctools_css_cache($css, $filter);
 
-  db_query("INSERT INTO {ctools_css_cache} (cid, filename, css, filter) VALUES ('%s', '%s', '%s', %d)", $id, $filename, $css, $filter);
+  db_insert('ctools_css_cache')
+    ->fields(array(
+      'cid' => $id,
+      'filename' => $filename,
+      'css' => $css,
+      'filter' => intval($filter),
+    ))
+    ->execute();
 
   return $filename;
 }
@@ -87,7 +95,7 @@ function ctools_css_store($id, $css, $filter = TRUE) {
  * This will ensure the file still exists and, if not, create it.
  */
 function ctools_css_retrieve($id) {
-  $cache = db_fetch_object(db_query("SELECT * FROM {ctools_css_cache} WHERE cid = '%s'", $id));
+  $cache = db_query('SELECT * FROM {ctools_css_cache} WHERE cid = :cid', array(':cid' => $id))->fetchObject();
   if (!$cache) {
     return;
   }
@@ -95,7 +103,10 @@ function ctools_css_retrieve($id) {
   if (!file_exists($cache->filename)) {
     $filename = ctools_css_cache($cache->css, $cache->filter);
     if ($filename != $cache->filename) {
-      db_query("UPDATE {ctools_css_cache} SET filename = '%s' WHERE cid = '%s'", $filename, $id);
+      db_update('ctools_css_cache')
+        ->fields(array('filename' => $filename))
+        ->condition('cid', $id)
+        ->execute();
       $cache->filename = $filename;
     }
   }
@@ -107,19 +118,21 @@ function ctools_css_retrieve($id) {
  * Remove stored CSS and any associated file.
  */
 function ctools_css_clear($id) {
-  $cache = db_fetch_object(db_query("SELECT * FROM {ctools_css_cache} WHERE cid = '%s'", $id));
+  $cache = db_query('SELECT * FROM {ctools_css_cache} WHERE cid = :cid', array(':cid' => $id))->fetchObject();
   if (!$cache) {
     return;
   }
 
   if (file_exists($cache->filename)) {
-    file_delete($cache->filename);
+    file_unmanaged_delete($cache->filename);
     // If we remove an existing file, there may be cached pages that refer
-    // to it. We must get rid of them:
+    // to it. We must get rid of them: FIXME same format in D7?
     cache_clear_all();
   }
 
-  db_query("DELETE FROM {ctools_css_cache} WHERE cid = '%s'", $id);
+  db_delete('ctools_css_cache')
+    ->condition('cid', $id)
+    ->execute();
 }
 
 /**
@@ -127,7 +140,7 @@ function ctools_css_clear($id) {
  *
  * This function optionally filters the CSS (always compressed, if so) and
  * generates a unique filename based upon md5. It returns that filename that
- * can be used with ctools_css_add_css(). Note that as a cache file, technically
+ * can be used with drupal_add_css(). Note that as a cache file, technically
  * this file is volatile so it should be checked before it is used to ensure
  * that it exists.
  *
@@ -149,15 +162,9 @@ function ctools_css_cache($css, $filter = TRUE) {
   }
 
   // Create the css/ within the files folder.
-  $path = file_create_path('ctools/css');
-  if (!file_check_directory($path)) {
-    $path = file_directory_path() . '/ctools';
-    file_check_directory($path, FILE_CREATE_DIRECTORY);
-    $path .= '/css';
-    file_check_directory($path, FILE_CREATE_DIRECTORY);
-  }
-
-  if (!file_check_directory($path)) {
+  $path = 'public://ctools/css';
+  if (!file_prepare_directory($path, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
+//  if (!file_prepare_directory($path, FILE_CREATE_DIRECTORY)) {
     drupal_set_message(t('Unable to create CTools CSS cache directory. Check the permissions on your files directory.'), 'error');
     return;
   }
@@ -168,41 +175,9 @@ function ctools_css_cache($css, $filter = TRUE) {
   // This will do renames if the file already exists, ensuring we don't
   // accidentally overwrite other files who share the same md5. Yes this
   // is a very miniscule chance but it's safe.
-  $filename = file_save_data($css, $filename);
+  $filename = file_unmanaged_save_data($css, $filename);
 
   return $filename;
-}
-
-/**
- * Add a CTools CSS file to the page.
- *
- * Because drupal_add_css() does not handle files that it cannot stat, it
- * can't add files that are stored in a private file system. This will
- * will check to see if we're using the private file system and use
- * drupal_set_html_head() instead if that is the case.
- *
- * Sadly that will preclude aggregation of any sort, but there doesn't seem to
- * be any ways around that. Also it will screw with stylesheet order. Again,
- * sorry.
- */
-function ctools_css_add_css($filename = NULL, $type = 'module', $media = 'all', $preprocess = TRUE) {
-  switch (variable_get('file_downloads', FILE_DOWNLOADS_PUBLIC)) {
-    case FILE_DOWNLOADS_PUBLIC:
-      drupal_add_css($filename, $type, $media, $preprocess);
-      break;
-    case FILE_DOWNLOADS_PRIVATE:
-      $path = file_create_path($filename);
-      if ($path) {
-        $url = file_create_url($path);
-      }
-      else {
-        $url = $filename;
-      }
-
-      $output = '<link type="text/css" rel="stylesheet" media="' . $media . '" href="' . $url . '" />'."\n";
-      drupal_set_html_head($output);
-  }
-
 }
 
 /**
@@ -309,8 +284,10 @@ function ctools_css_disassemble($css) {
   $disassembled_css = array();
   // Remove comments.
   $css = preg_replace("/\/\*(.*)?\*\//Usi", "", $css);
-  // Split out each statement
-  $statements = explode("}", $css);
+  // Split out each statement. Match either a right curly brace or a semi-colon
+  // that precedes a left curly brace with no right curly brace separating them.
+  $statements = preg_split('/}|;(?=[^}]*{)/', $css);
+
   // If we have any statements, parse them.
   if (!empty($statements)) {
     // Iterate through all of the statements.
@@ -331,13 +308,10 @@ function ctools_css_disassemble($css) {
       }
 
       // Disassemble the declaration, check it and tuck it into an array.
-      $declarations = _ctools_css_disassemble_declaration($declaration);
       if (!isset($disassembled_css[$selector_str])) {
-        $disassembled_css[$selector_str] = $declarations;
+        $disassembled_css[$selector_str] = array();
       }
-      else {
-        $disassembled_css[$selector_str] += $declarations;
-      }
+      $disassembled_css[$selector_str] += _ctools_css_disassemble_declaration($declaration);
     }
   }
   return $disassembled_css;
@@ -583,6 +557,17 @@ function ctools_css_filter_default_allowed_values() {
  * Delegated implementation of hook_flush_caches()
  */
 function ctools_css_flush_caches() {
-  file_scan_directory(file_create_path('ctools/css'), '.*', array('.', '..', 'CVS'), 'file_delete', TRUE);
-  db_query("DELETE FROM {ctools_css_cache}");
+  // Remove all generated files.
+  // @see http://drupal.org/node/573292
+  // file_unmanaged_delete_recursive('public://render');
+  $filedir = file_default_scheme() . '://ctools/css';
+  if (drupal_realpath($filedir) && file_exists($filedir)) {
+    // We use the @ because it's possible that files created by the webserver
+    // cannot be deleted while using drush to clear the cache. We don't really
+    // care that much about that, to be honest, so we use the @ to suppress
+    // the error message.
+    @file_unmanaged_delete_recursive($filedir);
+  }
+
+  db_delete('ctools_css_cache')->execute();
 }

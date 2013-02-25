@@ -1,0 +1,25 @@
+// Susy grid settings for compass-susy-plugin
+// Surgeworks blog post on this grid concept: http://bit.ly/nkOyO8
+// Required by Susy: 
+$total-width: 1200px; // total target width in pixels
+$total-columns: 30; // total number of cols across
+$column-width: 20px;
+$gutter-width: 20px;
+
+$grid-padding: $gutter-width;
+$side-gutter-width: 0 !default; // padding on outermost sides?
+$gutter: $gutter-width !default; // Convenience alias
+// Fonts and vertical rhythm
+// Scott Davis blog post on vertical rhythm: http://bit.ly/vpvrit
+// Required by compass typography:
+$base-font-size: 16px !default; // for rhythm()
+$base-line-height: 24px !default; // for rhythm()
+$default-rhythm-border-style: solid !default; // for debugging rhythm()
+$ie-font-ratio: 16px / 100% !default; // WARNING deprecated: 
+$base-rhythm-unit: $base-line-height / $base-font-size * 1em !default;
+$base-leader: ($base-line-height - $base-font-size) * 1em / $base-font-size !default;
+$base-half-leader: $base-leader / 2 !default;
+$relative-font-size: false !default; // switching to ems, in the future.
+$legacy-support-for-ie: true !default; // Drop IE Support: Optional Compass override for validation
+$round-to-nearest-half-line: true; 
+

@@ -1,10 +1,17 @@
 <?php
 
 /**
+ * @file
+ * Definition of views_handler_filter_numeric.
+ */
+
+/**
  * Simple filter to handle greater than/less than filters
+ *
+ * @ingroup views_filter_handlers
  */
 class views_handler_filter_numeric extends views_handler_filter {
-  var $no_single = TRUE;
+  var $always_multiple = TRUE;
   function option_definition() {
     $options = parent::option_definition();
 
@@ -89,6 +96,18 @@ class views_handler_filter_numeric extends views_handler_filter {
       );
     }
 
+    // Add regexp support for MySQL.
+    if (Database::getConnection()->databaseType() == 'mysql') {
+      $operators += array(
+        'regular_expression' => array(
+          'title' => t('Regular expression'),
+          'short' => t('regex'),
+          'method' => 'op_regex',
+          'values' => 1,
+        ),
+      );
+    }
+
     return $operators;
   }
 
@@ -132,12 +151,12 @@ class views_handler_filter_numeric extends views_handler_filter {
     if (!empty($form_state['exposed'])) {
       $identifier = $this->options['expose']['identifier'];
 
-      if (empty($this->options['expose']['use_operator']) || empty($this->options['expose']['operator'])) {
+      if (empty($this->options['expose']['use_operator']) || empty($this->options['expose']['operator_id'])) {
         // exposed and locked.
         $which = in_array($this->operator, $this->operator_values(2)) ? 'minmax' : 'value';
       }
       else {
-        $source = 'edit-' . form_clean_id($this->options['expose']['operator']);
+        $source = 'edit-' . drupal_html_id($this->options['expose']['operator_id']);
       }
     }
 
@@ -147,14 +166,13 @@ class views_handler_filter_numeric extends views_handler_filter {
         '#title' => empty($form_state['exposed']) ? t('Value') : '',
         '#size' => 30,
         '#default_value' => $this->value['value'],
-        '#process' => array('views_process_dependency'),
         '#dependency' => array($source => $this->operator_values(1)),
       );
       if (!empty($form_state['exposed']) && !isset($form_state['input'][$identifier]['value'])) {
         $form_state['input'][$identifier]['value'] = $this->value['value'];
       }
     }
-    else if ($which == 'value') {
+    elseif ($which == 'value') {
       // When exposed we drop the value-value and just do value if
       // the operator is locked.
       $form['value'] = array(
@@ -183,7 +201,6 @@ class views_handler_filter_numeric extends views_handler_filter {
       );
       if ($which == 'all') {
         $dependency = array(
-          '#process' => array('views_process_dependency'),
           '#dependency' => array($source => $this->operator_values(2)),
         );
         $form['value']['min'] += $dependency;
@@ -218,16 +235,15 @@ class views_handler_filter_numeric extends views_handler_filter {
 
   function op_between($field) {
     if ($this->operator == 'between') {
-      $this->query->add_where($this->options['group'], "$field >= %d", $this->value['min']);
-      $this->query->add_where($this->options['group'], "$field <= %d", $this->value['max']);
+      $this->query->add_where($this->options['group'], $field, array($this->value['min'], $this->value['max']), 'BETWEEN');
     }
     else {
-      $this->query->add_where($this->options['group'], "$field <= %d OR $field >= %d", $this->value['min'], $this->value['max']);
+      $this->query->add_where($this->options['group'], db_or()->condition($field, $this->value['min'], '<=')->condition($field, $this->value['max'], '>='));
     }
   }
 
   function op_simple($field) {
-    $this->query->add_where($this->options['group'], "$field $this->operator %d", $this->value['value']);
+    $this->query->add_where($this->options['group'], $field, $this->value['value'], $this->operator);
   }
 
   function op_empty($field) {
@@ -238,10 +254,17 @@ class views_handler_filter_numeric extends views_handler_filter {
       $operator = "IS NOT NULL";
     }
 
-    $this->query->add_where($this->options['group'], "$field $operator");
+    $this->query->add_where($this->options['group'], $field, NULL, $operator);
+  }
+
+  function op_regex($field) {
+    $this->query->add_where($this->options['group'], $field, $this->value, 'RLIKE');
   }
 
   function admin_summary() {
+    if ($this->is_a_group()) {
+      return t('grouped');
+    }
     if (!empty($this->options['exposed'])) {
       return t('exposed');
     }
@@ -278,8 +301,8 @@ class views_handler_filter_numeric extends views_handler_filter {
 
     $rc = parent::accept_exposed_input($input);
 
-    if (!empty($this->options['expose']['optional'])) {
-      // We have to do some of our own optional checking.
+    if (empty($this->options['expose']['required'])) {
+      // We have to do some of our own checking for non-required filters.
       $info = $this->operators();
       if (!empty($info[$this->operator]['values'])) {
         switch ($info[$this->operator]['values']) {

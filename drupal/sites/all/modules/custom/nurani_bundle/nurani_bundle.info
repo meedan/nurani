@@ -1,0 +1,9 @@
+name = Nurani Bundle UI
+description = "User interface for the Nurani Bundles."
+core = 7.x
+version = 7.x-1.0
+package = Nurani
+dependencies[] = nurani_library
+dependencies[] = nurani_library_ui
+dependencies[] = nurani_passage_widget
+dependencies[] = meedan_discussion
