@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @file poll-results-block.tpl.php
- * Display the poll results in a block.
+ * @file
+ * Default theme implementation to display the poll results in a block.
  *
  * Variables available:
  * - $title: The title of the poll.
@@ -15,6 +15,8 @@
  * - $vote: The choice number of the current user's vote.
  *
  * @see template_preprocess_poll_results()
+ *
+ * @ingroup themeable
  */
 ?>
 <div class="poll">

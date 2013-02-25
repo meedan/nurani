@@ -1,0 +1,480 @@
+<?php
+
+/**
+ * @file
+ * commentcloser.module
+ * Automatically close comments on nodes beyond a configurable age
+ */
+
+/**
+ * Implements hook_help().
+ */
+function commentcloser_help($path, $arg) {
+  switch ($path) {
+    case 'admin/block/help':
+      return t('<p>Automatically close comments</p>');
+      break;
+    case "admin/modules#description":
+      $output = t('Schedule automatic closing of comments for selected node types based on the age of the node');
+      break;
+    case "admin/help#commentcloser":
+      $output = t('<p>The commentcloser module allows you to automatically close comments via a cron hook. You can select any combination of available node types to process,</p><p>Configure the module to close comments on nodes more than one week, month or year old and schedule the closings to be done daily, weekly, monthly or annually</p>');
+      break;
+    default:
+      $output = "";
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function commentcloser_menu() {
+  $items['admin/config/system/commentcloser'] = array(
+    'title' => 'Comment closer',
+    'description' => 'Set age, frequency and types of nodes for which comments will be closed.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('commentcloser_settings_form'),
+    'access arguments' => array('administer comment closer'),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function commentcloser_permission() {
+  return array(
+    'administer comment closer' => array(
+      'title' => t('Administer automatic comment closing.'),
+    ),
+  );
+}
+
+/**
+ * Get a list of option settings for each node type.
+ *
+ * @return
+ *  An array of data???
+ */
+function _commentcloser_nodeoptions() {
+  $nodeoptions = &drupal_static(__FUNCTION__, array());
+  if (!$nodeoptions) {
+    $nodetypes = node_type_get_names();
+    foreach ($nodetypes as $type => $name) {
+      $age_unit = variable_get("commentcloser_age_unit_$type", 'day');
+      $age_num = variable_get("commentcloser_age_number_$type", 0);
+      $com_limit = variable_get("commentcloser_comment_limit_$type", 0);
+
+      if ($age_num || $com_limit) {
+        $limits = array();
+        if ($age_num) {
+          $limits[] = $age_num . ' ' . t($age_unit);
+        }
+        if ($com_limit) {
+          $limits[] = $com_limit . ' ' . t('comments');
+        }
+        $nodeoptions[$type] = t('@name (@age) <a href="!edit">edit</a>',
+          array(
+            '@name' => $name,
+            '@age' => implode(', ', $limits),
+            '!edit' => url("admin/structure/types/manage/$type", array('query' => drupal_get_destination())),
+          ));
+      }
+    }
+  }
+
+  return $nodeoptions;
+}
+
+/**
+ * Settings form.
+ */
+function commentcloser_settings_form($form, &$form_state) {
+  $cc_form = array();
+  $noyes = array(t('No'), t('Yes'));
+
+  $cycle_length_list = array(
+//    0 => 0,             // Never
+    900 => 900,         // 15 mins
+    1800 => 1800,       // 30 mins
+    3600 => 3600,       // 1 hour
+    7200 => 7200,       // 2 hours
+    10800 => 10800,     // 3 hours
+    14400 => 14400,     // 4 hours
+    21600 => 21600,     // 6 hours
+    28800 => 28800,     // 8 hours
+    43200 => 43200,     // 12 hours
+    86400 => 86400,     // 1 day
+    172800 => 172800,   // 2 days
+    259200 => 259200,   // 3 days
+    604800 => 604800,   // 1 week
+    );
+  $cycle_length_list = array_map('format_interval', $cycle_length_list);
+  $cycle_length_list[0] = t('Do not run');
+  ksort($cycle_length_list);
+
+
+  $cc_form['commentcloser_types'] = array(
+    '#type' => 'item',
+    '#title' => t('Currently enabled content types'),
+    '#markup' => theme('item_list', array('items' => _commentcloser_nodeoptions())),
+  );
+
+  $cc_form['commentcloser_cycle_period'] = array(
+    '#type' => 'select', '#size' => 3,
+    '#title' => t('Run every'),
+    '#default_value' => variable_get('commentcloser_cycle_period', 86400),
+    '#options' => $cycle_length_list,
+    '#attributes' => array('class' => array('container-inline')),
+    '#description' => t('This is the interval for running the comment close check. It will run at the next Cron cycle after this time elapses. <strong>Note</strong> that comments may stay open for this interval <u>longer</u> than specified for the content type.'),
+    );
+
+  $cc_form['commentcloser_user_block'] = array(
+    '#type' => 'radios',
+    '#title' => t('Disable comments for blocked users'),
+    '#default_value' => variable_get('commentcloser_user_block', 0),
+    '#options' => $noyes,
+    '#attributes' => array('class' => array('container-inline')),
+    '#description' => t('If you choose yes, the content types selected above for any user who is blocked will have comments disabled. This happens at the time the user is blocked.'),
+    );
+
+  return system_settings_form($cc_form);
+}
+
+/**
+ * Implements hook_node_view().
+ *
+ * Show a message about when the closing will happen.
+ */
+function commentcloser_node_view($node, $view_mode, $langcode) {
+  // If we are on a cc node type and have enabled the notice, display it.
+  if (variable_get("commentcloser_age_number_{$node->type}", 0)
+      && variable_get("commentcloser_notice_{$node->type}", 0) == 1) {
+    if ($view_mode == 'full') {
+      $node->content['commentcloser'] = array(
+        'notice' => array('#markup' => theme('commentcloser_notice', array('node' => $node))),
+        // Put it at the bottom, close to the comments.
+        '#weight' => 10,
+      );
+    }
+  }
+}
+
+/**
+ * Display a notice on nodes that comments will close.
+ */
+function theme_commentcloser_notice($variables) {
+  $node = $variables['node'];
+  // TODO: Should this theme commentcloser_notice be declared in hook_theme()?
+  $age_num = variable_get("commentcloser_age_number_$node->type", 0);
+  $age_unit = variable_get("commentcloser_age_unit_$node->type", 'day');
+
+  $type = node_type_get_name($node);
+
+  // Is commenting active now?
+  if ($node->comment == COMMENT_NODE_OPEN) {
+    $when = strtotime("+$age_num $age_unit", $node->created);
+
+    $output = '<p class="comment-closer-notice">' . t('Commenting on this @type will be automatically' .
+      ' closed on !when.',
+      array(
+        '!when' => format_date($when, 'custom', 'F j, Y'),
+        '@type' => $type,
+      )
+    ) . '</p>';
+  }
+  else {
+    $output = '<p class="comment-closer-notice">' . t('Commenting on this @type is closed.',
+      array('@type' => $type)) . '</p>';
+  }
+
+  return $output;
+}
+
+/**
+ * Implements hook_cron().
+ */
+function commentcloser_cron() {
+  // Is it time to do anything?
+  if (!commentcloser_check_cron()) {
+    return;
+  }
+
+  // Abstracted the close function for easier unit testing.
+  commentcloser_close_all();
+}
+
+/**
+ * Determine if cron should be run.
+ *
+ * @param $set_next_cron
+ *   Boolean indicator whether to set the time of the next cron run. Defaults to
+ *   TRUE, but can be disabled for testing.
+ *
+ * @return
+ *   Boolean TRUE or FALSE.
+ */
+function commentcloser_check_cron($set_next_cron = TRUE) {
+  $now = REQUEST_TIME;
+  $next_cycle_time = variable_get('commentcloser_next_date', $now);
+  $period = variable_get('commentcloser_cycle_period', 86400);
+
+  // Do we need to run this now?
+  if (!empty($next_cycle_time) && $now < $next_cycle_time || $period == 0) {
+    // Do it again tomorrow?
+    if ($set_next_cron) {
+      variable_set('commentcloser_next_date', $next_cycle_time + $period);
+    }
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Close all comments that meet the current threshold.
+ *
+ * @param $now
+ *  A UNIX timestamp for the expiration time.
+ */
+function commentcloser_close_all($now = NULL) {
+  if (is_null($now)) {
+    $now = REQUEST_TIME;
+  }
+  $content_types = node_type_get_names();
+
+  foreach ($content_types as $type => $name) {
+    // Set it up.
+    $age_num = variable_get("commentcloser_age_number_$type", 0);
+    $age_unit = variable_get("commentcloser_age_unit_$type", 'day');
+    $com_limit = variable_get("commentcloser_comment_limit_$type", 0);
+
+    // If an age number is set, do this one.
+    if ($age_num) {
+      $oldest_allowed = _commentcloser_oldest_allowed($age_unit, $age_num, $now);
+
+      // Knock it out.
+      // Count the rows affected.
+      $count = db_query("SELECT COUNT(nid) FROM {node} WHERE created < :oldest AND type = :type AND comment = :comment",
+        array(':oldest' => $oldest_allowed, ':type' => $type, ':comment' => COMMENT_NODE_OPEN)
+      )->fetchField();
+      // Update those rows.
+      db_update('node')
+        ->fields(array('comment' => COMMENT_NODE_CLOSED))
+        ->condition('created', $oldest_allowed, '<')
+        ->condition('type', $type)
+        ->condition('comment', COMMENT_NODE_OPEN)
+        ->execute();
+      if ($count) {
+        $vars = array(
+          '!count' => $count,
+          '@type' => $name,
+          '!date' => format_date($oldest_allowed),
+        );
+        $msg = 'Closed comments on !count @type posts created at, or before, !date.';
+        watchdog('commentcloser', $msg, $vars, WATCHDOG_NOTICE);
+      }
+    }
+
+    // If a comment limit is set, do this one.
+    if ($com_limit) {
+      // Count the rows affected.
+      $count = db_query("SELECT COUNT(n.nid) FROM {node} n
+        INNER JOIN {node_comment_statistics} ncs ON n.nid = ncs.nid
+        WHERE n.type = :type AND ncs.comment_count >= :limit AND n.comment = :comment",
+        array(':type' => $type, ':limit' => $com_limit, ':comment' => COMMENT_NODE_OPEN)
+      )->fetchField();
+//      $query = "UPDATE {node} n, {node_comment_statistics} ncs "
+//        . "SET n.comment = 1 "
+//        . "WHERE ncs.nid = n.nid AND n.comment = 2 "
+//        . "AND ncs.comment_count >= %d AND n.type = '%s' "
+//        ;
+      // Update those rows.
+      $subquery = db_select('node_comment_statistics', 'ncs')
+        ->fields('ncs', array('nid'))
+        ->condition('ncs.comment_count', $com_limit, '>=');
+      db_update('node')
+        ->fields(array('comment' => COMMENT_NODE_CLOSED))
+        ->condition('comment', COMMENT_NODE_OPEN)
+        ->condition('type', $type)
+        ->condition('nid', $subquery, 'IN')
+        ->execute();
+      if ($count) {
+        $vars = array(
+          '!count' => $count,
+          '@type' => $name,
+          '!com_count' => number_format($com_limit),
+        );
+        $msg = 'Closed comments on !count @type post with at least !com_count comments.';
+        watchdog('commentcloser', $msg, $vars, WATCHDOG_NOTICE);
+      }
+    }
+  }
+}
+
+/**
+ * Helper function for generating date from age interval.
+ */
+function _commentcloser_oldest_allowed($unit, $num, $now = NULL) {
+  if (!in_array($unit, array('day', 'week', 'month', 'year'))) {
+    drupal_set_message(t('Invalid unit ("@unit")', array('@unit' => $unit)));
+  }
+
+  if ($num == 0) {
+    return 0;
+  }
+
+  if (empty($now)) {
+    $now = isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : REQUEST_TIME;
+  }
+
+  return strtotime("-$num $unit", $now);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function commentcloser_theme($existing, $type, $theme, $path) {
+  return array(
+    'commentcloser_notice' => array('variables' => array('node' => NULL)),
+  );
+}
+
+/**
+ * Implements hook_user_update().
+ */
+function commentcloser_user_update(&$edit, $account, $category) {
+  if (variable_get('commentcloser_user_block', 0) && $account->status == 1 && $edit['status'] == 0) {
+    $all_types = node_type_get_names();
+    $node_types = array();
+
+    // Process enabled content types.
+    foreach ($all_types as $type => $name) {
+      if (variable_get("commentcloser_age_number_$type", 0)) {
+        $query = "UPDATE {node} SET comment = 1 WHERE comment = 2 AND uid = %d AND type = '%s'";
+        // TODO Please review the conversion of this statement to the D7 database API syntax.
+        /* db_query($query, $account->uid, $type) */
+        db_update('node')
+          ->fields(array(
+            'comment' => 1,
+          ))
+          ->condition('comment', 2)
+          ->condition('uid', $account->uid)
+          ->condition('type', $type)
+          ->execute();
+        $count = db_affected_rows();
+        if ($count) {
+          drupal_set_message(t('Comments were closed on @count @types posts.',
+            array('@count' => $count, '@types' => $name)));
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Helper function for building a list an "and" before the last item.
+ */
+function _commentcloser_type_list($list) {
+  $last = array_pop($list);
+  return implode(', ', $list) . (count($list) > 1 ? ',' : NULL) . " and $last";
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Add the settings to the node edit form.
+ */
+function commentcloser_form_node_type_form_alter(&$form, &$form_state) {
+  $noyes = array(t('No'), t('Yes'));
+
+  $type = $form['#node_type']->type;
+
+  // This setting should already be at the top, but force it.
+  $form['comment']['comment']['#weight'] = -10;
+  $form['comment']['comment']['#attributes'] = array('class' => array('container-inline'));
+
+  // Now we can add our settings directly below that.
+  $form['comment']['commentcloser'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Comment Closer'),
+    '#weight' => -9,
+  );
+
+  $form['comment']['commentcloser']['commentcloser_age'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Close commenting after'),
+    '#description' => t('A number of days, weeks, months, or years before which new comments will be disabled. A value of 0 means to not close comments. This is only effective when comments are "Open" (see above). Note: there is no check for the date being beyond the limit of a Unix timestamp (2038).'),
+  );
+
+  $units = array(
+    'day' => t('days'),
+    'week' => t('weeks'),
+    'month' => t('months'),
+    'year' => t('years'),
+  );
+
+  // ******** Grouped on one line ********
+  $form['comment']['commentcloser']['commentcloser_age']['start'] = array(
+    '#markup' => '<table style="margin: 0 0 0 4em;"><tr>',
+  );
+
+  $form['comment']['commentcloser']['commentcloser_age']['commentcloser_age_number'] = array(
+    '#type' => 'textfield',
+    '#size' => 4,
+    '#maxlength' => 2,
+    '#default_value' => variable_get("commentcloser_age_number_$type", 0),
+    '#element_validate' => array('_commentcloser_age_validate'),
+    '#prefix' => '<td>',
+    '#suffix' => '</td>',
+  );
+
+  $form['comment']['commentcloser']['commentcloser_age']['commentcloser_age_unit'] = array(
+    '#type' => 'select',
+    '#options' => $units,
+    '#default_value' => variable_get("commentcloser_age_unit_$type", 'never'),
+    '#prefix' => '<td>',
+    '#suffix' => '</td>',
+  );
+
+  $form['comment']['commentcloser']['commentcloser_age']['end'] = array(
+    '#markup' => '</tr></table>',
+  );
+  // *****************************
+
+  $form['comment']['commentcloser']['commentcloser_age']['or'] = array(
+    '#markup' => '<p style="margin-left: 5em;"><strong>' . t('- Or -') . '</strong></p>',
+  );
+
+  $form['comment']['commentcloser']['commentcloser_age']['commentcloser_comment_limit'] = array(
+    '#type' => 'textfield',
+    '#size' => 4,
+    '#maxlength' => 4,
+    '#field_suffix' => t('comments'),
+    '#default_value' => variable_get("commentcloser_comment_limit_$type", 0),
+    '#prefix' => '<div style="margin: 0 0 0 4em;">',
+    '#suffix' => '</div>',
+    '#description' => t('If the post receives this many comments, close off further commenting. Leave this at zero (0) for no limit.'),
+  );
+
+  // *****************************
+  $form['comment']['commentcloser']['commentcloser_notice'] = array(
+    '#type' => 'radios',
+    '#title' => t('Display close notice on posts'),
+    '#options' => $noyes,
+    '#attributes' => array('class' => array('container-inline')),
+    '#default_value' => variable_get("commentcloser_notice_$type", 0),
+    '#description' => t('Checking "yes" will automatically display a notice at the bottom of all posts of enabled content types that states when comments will be closed.'),
+  );
+}
+
+/**
+ * Form element validation to ensure proper data.
+ */
+function _commentcloser_age_validate($element, &$form_state) {
+  $age = $element['#value'];
+  if (!is_numeric($age) || $age < 0 || $age != intval($age)) {
+    form_error($element, t('The field "Close commenting after" should be a positive integer.'));
+  }
+}

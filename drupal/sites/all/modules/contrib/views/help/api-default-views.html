@@ -5,7 +5,6 @@ First, create a directory in <em>sites/all/modules</em> for your new module. Cal
 
 In this directory, create a <em>mymodule.module</em> file. It can be empty for now, but it should at least contain an opening PHP tag:
 <pre>&lt;?php
-// $Id $
 </pre>
 
 It should not contain a closing ?&gt; tag, as the closing ?&gt; tag is not required and anything AFTER the closing tag, such as a space or a linefeed, will be displayed directly to the browser and can potentially cause problems.
@@ -21,16 +20,15 @@ For other uses you may well add additional functions.
 
 Second, you need to create a <em>mymodule.info</em> file:
 
-<pre>; $Id $
-name = My module
+<pre>name = My module
 description = My site specific module.
 core = 6.x
 </pre>
 
-Once you have these two files set up, you should be able to activate your new module at the <em>Administer >> Site building >> Modules</em> page.
+Once you have these two files set up, you should be able to activate your new module at the <em>Administer >> Modules</em> page.
 <h3>Exporting your views</h3>
 
-The easiest way to do this is to activate the 'views_export' module, and navigate to <em>Administer >> Views >> Tools >> Bulk export</em> Place a check next to each view that you want in your module, type the module name into the text field, and click export. This will create the entire <em>hook_views_default_views()</em> function for you.
+The easiest way to do this is to activate the 'views_export' module, and navigate to <em>Administer >> Structure >> Views >> Tools >> Bulk export</em> Place a check next to each view that you want in your module, type the module name into the text field, and click export. This will create the entire <em>hook_views_default_views()</em> function for you.
 
 You can also export individual views. If you do this, keep in mind that this export does not include the line that adds the exported $view into the larger $views array:
 
@@ -50,7 +48,7 @@ To do this, you need to implement <em>hook_theme()</em> in your module:
     'views_view__viewname__displayid' => array (
       'arguments' => array('view' => NULL),
       'template' => 'views-view--viewname--displayid',
-      'original hook' => 'views_view',
+      'base hook' => 'views_view',
       'path' => drupal_get_path('module', 'mymodule'),
     ),
   );
@@ -64,23 +62,24 @@ There are a small number of gotchas in doing this that you must be aware of.
 
 <li>The 'arguments' change based upon which of the 3 types you're overriding. There's the 'display', the 'style' and the 'row' style. The above code is assuming the display, which is usually just <em>views_view</em>. Here are the possibilities:
 
-<pre>display: array('view' => NULL),
+<pre>display: array('view_array' => array(), 'view' => NULL),
 style: array('view' => NULL, 'options' => NULL, 'rows' => NULL, 'title' => NULL),
-row style: array('view' => NULL, 'options' => NULL, 'row' => NULL),
+row: array('view' => NULL, 'options' => NULL, 'row' => NULL, 'field_alias' => NULL),
+field: array('view' => NULL, 'field' => NULL, 'row' => NULL),
 </pre>
 
 Be sure to use the right arguments line or the theme system will not properly translate.
 </li>
 <li>The 'template' line should never include the extension, so drop the .tpl.php from it.</li>
 
-<li>You need to make sure that the Views preprocess functions get registered. The 'original hook' line in the definition does that, but it can only do it if it comes after the Views registration, which actually happens very late in theme building. 99% of the time, your module will come before Views. You have two choices to deal with this:
+<li>You need to make sure that the Views preprocess functions get registered. The 'base hook' line in the definition does that, but it can only do it if it comes after the Views registration, which actually happens very late in theme building. 99% of the time, your module will come before Views. You have two choices to deal with this:
 <ol>
   <li>Set your module's weight to 11 or higher in the database. Views' weight is 10. You can make this happen automatically when the module is first installed by creating a mymodule.install file and using this code:
   <pre>function mymodule_install() {
   db_query("UPDATE {system} SET weight = 11 WHERE name = 'mymodule'");
 }
 </pre>
-  If you use this method, the <em>original hook</em> should be set to the name of the original template being used. i.e, if this is a variate of views-view-list.tpl.php, this should be 'views_view_list'.
+  If you use this method, the <em>base hook</em> should be set to the name of the original template being used. i.e, if this is a variate of views-view-list.tpl.php, this should be 'views_view_list'.
   </li>
   <li>You can also just force it to list the preprocessors without actually having to detect them. This doesn't require modifying your module's weight, which is not always possible, you can insert this code into the array:
   <pre>      'preprocess functions' => array(
@@ -90,9 +89,9 @@ Be sure to use the right arguments line or the theme system will not properly tr
       ),
 </pre>
 
-  The first one is the global 'template_preprocess' function which all templates utilize. It does some basic things such as setting up $zebra and a few other items. See <a href="http://api.drupal.org/api/function/template_preprocess/6">api.drupal.org</a> for specifics. 
-  
-  The second one is the plugin specific preprocess. Like 'original hook' it should conform to the name used by the original template. i.e, if the original template was <em>views-view-list.tpl.php</em> then that preprocess function would be named <em>template_preprocess_views_view_list</em>.
+  The first one is the global 'template_preprocess' function which all templates utilize. It does some basic things such as setting up $zebra and a few other items. See <a href="http://api.drupal.org/api/function/template_preprocess/6">api.drupal.org</a> for specifics.
+
+  The second one is the plugin specific preprocess. Like 'base hook' it should conform to the name used by the original template. i.e, if the original template was <em>views-view-list.tpl.php</em> then that preprocess function would be named <em>template_preprocess_views_view_list</em>.
 
   The third one is your module's preprocess function, if it needs one. In general, you probably will not need one, and you should only attempt to use one if you are reasonably familiar with the concept of preprocess functions and Drupal's theme system in general. See Drupal's theme documentation for more information.
   </li>
@@ -102,4 +101,3 @@ Be sure to use the right arguments line or the theme system will not properly tr
   If you leave the path blank the template file will be searched for in "./" which is the Drupal install base path.
 </li>
 </ol>
-

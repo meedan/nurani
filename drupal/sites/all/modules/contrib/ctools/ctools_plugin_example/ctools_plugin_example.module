@@ -1,5 +1,4 @@
 <?php
-// $Id: ctools_plugin_example.module,v 1.1 2009/08/17 22:07:14 merlinofchaos Exp $
 
 /*
  * @file
@@ -26,7 +25,7 @@
  */
 
 /**
- * Implementation of hook_menu
+ * Implements hook_menu
  */
 function ctools_plugin_example_menu() {
   $items = array();
@@ -43,7 +42,7 @@ function ctools_plugin_example_menu() {
 }
 
 /**
- * Implementation of hook_ctools_plugin_directory().
+ * Implements hook_ctools_plugin_directory().
  *
  * It simply tells panels where to find the .inc files that define various
  * args, contexts, content_types. In this case the subdirectories of

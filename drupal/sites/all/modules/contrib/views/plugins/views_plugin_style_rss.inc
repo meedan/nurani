@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Contains the RSS style plugin.
@@ -17,6 +18,7 @@ class views_plugin_style_rss extends views_plugin_style {
     if ($input) {
       $url_options['query'] = $input;
     }
+    $url_options['absolute'] = TRUE;
 
     $url = url($this->view->get_url(NULL, $path), $url_options);
     if ($display->has_path()) {
@@ -29,8 +31,8 @@ class views_plugin_style_rss extends views_plugin_style {
         $this->view->feed_icon = '';
       }
 
-      $this->view->feed_icon .= theme('feed_icon', $url, $title);
-      drupal_add_link(array(
+      $this->view->feed_icon .= theme('feed_icon', array('url' => $url, 'title' => $title));
+      drupal_add_html_head_link(array(
         'rel' => 'alternate',
         'type' => 'application/rss+xml',
         'title' => $title,
@@ -43,7 +45,6 @@ class views_plugin_style_rss extends views_plugin_style {
     $options = parent::option_definition();
 
     $options['description'] = array('default' => '', 'translatable' => TRUE);
-    $options['mission_description'] = array('default' => '', 'translatable' => TRUE);
 
     return $options;
   }
@@ -51,18 +52,12 @@ class views_plugin_style_rss extends views_plugin_style {
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
-    $form['mission_description'] = array(
-      '#type' => 'checkbox',
-      '#default_value' => !empty($this->options['mission_description']),
-      '#title' => t('Use the site mission for the description'),
-    );
     $form['description'] = array(
       '#type' => 'textfield',
       '#title' => t('RSS description'),
       '#default_value' => $this->options['description'],
       '#description' => t('This will appear in the RSS feed itself.'),
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-style-options-override' => array(FALSE)),
+      '#maxlength' => 1024,
     );
   }
 
@@ -76,6 +71,21 @@ class views_plugin_style_rss extends views_plugin_style {
     return array();
   }
 
+  /**
+   * Get RSS feed description.
+   *
+   * @return string
+   *   The string containing the description with the tokens replaced.
+   */
+  function get_description() {
+    $description = $this->options['description'];
+
+    // Allow substitutions from the first row.
+    $description = $this->tokenize_value($description, 0);
+
+    return $description;
+  }
+
   function render() {
     if (empty($this->row_plugin)) {
       vpr('views_plugin_style_default: Missing row plugin');
@@ -85,7 +95,7 @@ class views_plugin_style_rss extends views_plugin_style {
 
     // This will be filled in by the row plugin and is used later on in the
     // theming output.
-    $this->namespaces = array();
+    $this->namespaces = array('xmlns:dc' => 'http://purl.org/dc/elements/1.1/');
 
     // Fetch any additional elements for the channel and merge in their
     // namespaces.
@@ -101,9 +111,13 @@ class views_plugin_style_rss extends views_plugin_style {
       $rows .= $this->row_plugin->render($row);
     }
 
-    $output = theme($this->theme_functions(), $this->view, $this->options, $rows);
+    $output = theme($this->theme_functions(),
+      array(
+        'view' => $this->view,
+        'options' => $this->options,
+        'rows' => $rows
+      ));
     unset($this->view->row_index);
-
     return $output;
   }
 }

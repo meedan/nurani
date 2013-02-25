@@ -1,5 +1,4 @@
 <?php
-// $Id: perm.inc,v 1.6.2.3 2010/07/14 01:30:19 merlinofchaos Exp $
 
 /**
  * @file
@@ -23,14 +22,16 @@ $plugin = array(
 /**
  * Settings form for the 'by perm' access plugin
  */
-function ctools_perm_ctools_access_settings(&$form, &$form_state, $conf) {
+function ctools_perm_ctools_access_settings($form, &$form_state, $conf) {
   $perms = array();
   // Get list of permissions
   foreach (module_list(FALSE, FALSE, TRUE) as $module) {
     // By keeping them keyed by module we can use optgroups with the
     // 'select' type.
-    if ($permissions = module_invoke($module, 'perm')) {
-      $perms[$module] = drupal_map_assoc($permissions);
+    if ($permissions = module_invoke($module, 'permission')) {
+      foreach ($permissions as $id => $permission) {
+        $perms[$module][$id] = $permission['title'];
+      }
     }
   }
 
@@ -41,6 +42,8 @@ function ctools_perm_ctools_access_settings(&$form, &$form_state, $conf) {
     '#default_value' => $conf['perm'],
     '#description' => t('Only users with the selected permission flag will be able to access this.'),
   );
+
+  return $form;
 }
 
 /**
@@ -64,6 +67,7 @@ function ctools_perm_ctools_access_summary($conf, $context) {
     return t('Error, unset permission');
   }
 
-  return t('@identifier has "@perm"', array('@identifier' => $context->identifier, '@perm' => $conf['perm']));
+  $permissions = module_invoke_all('permission');
+  return t('@identifier has "@perm"', array('@identifier' => $context->identifier, '@perm' => $permissions[$conf['perm']]['title']));
 }
 

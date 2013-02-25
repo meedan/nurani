@@ -1,9 +1,0 @@
-
-.icl_translate_hidden {display: none;}
-
-label {cursor: pointer;}
-
-#icl-translate-translator-jobs-form .form-submit{float: right;}
-#icl-translate-translator-jobs-form label{display: inline;}
-#edit-from-wrapper, #edit-to-wrapper{float:left;margin-right:25px;}
-#edit-submit{clear: left;}

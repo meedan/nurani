@@ -1,9 +1,14 @@
 <?php
-// $Id: data_search.install,v 1.1.2.1 2009/09/17 14:20:47 alexb Exp $
+/**
+ * @file
+ * Install, update and uninstall functions for the data_search module.
+ *
+ */
+
 
 /**
- * Implementation of hook_install().
- * 
+ * Implements hook_install().
+ *
  * @todo: Should use db_change_field()
  * @todo: What happens if data_search and search are installed at the same time?
  */

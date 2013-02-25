@@ -1,0 +1,312 @@
+@mixin form-field {
+  top: 4px;
+  padding: 3px 10px;
+  font-size: 16px;
+  border: 0;
+
+  @include border-radius(0.2em);
+  background: #fff;
+  border: 1px solid #ccc;
+
+  @include single-box-shadow(#ccc, 0 0 0 2.1px inset);
+}
+
+/******************************************** Global Form Styling ********************************************/
+
+
+.form-text, .form-textarea,  select{
+  @include form-field;
+}
+
+input.form-submit, .button {
+  @include nurani-button($nurani-light-blue);
+  color:white;
+  font-weight:bold;
+  text-transform:uppercase;
+}
+
+
+input.date-clear{
+  background: url(../images/calendar.png) no-repeat 154px 1px;
+}
+
+.form-type-date-popup, #edit-picture{
+  label{
+    display:none;
+  }
+}
+
+#edit-legal{
+    position:relative;
+
+    div.fieldset-wrapper{
+      overflow-y:auto;
+      height:400px;
+      padding-bottom:2em;
+  
+      div.form-item-legal-accept{
+        position :absolute; 
+        bottom :0;
+        top:30em;
+        width:100%;
+        padding: 0; 
+        margin: 0;
+        height: 2em;
+      }
+    }
+  }
+
+
+/******************************************** Styling for User Registration forms ********************************************/
+
+.field-group-fieldset, fieldset{
+    border:none;
+  }
+
+.page-user-register{
+
+  label{ 
+    font-weight: lighter;
+  }
+
+  .field-type-list-text,.field-type-text, .field-type-datetime,
+  #edit-picture, .form-type-textarea, .form-item-mail{
+    display:inline-block;
+    float:left;
+    margin-right:30px;
+  }
+  .field-type-datetime{
+    clear:left;
+  }
+
+  .field-name-field-title,
+  .field-name-field-mobile-phone, 
+  .field-name-field-how-did-you-hear-about-us,
+  .field-name-field-subjects-of-interest{
+    clear:both;
+  }
+
+  .form-item-mail{
+    width:425px;
+  }
+
+  .form-type-textarea{
+    width:500px;
+  }
+
+  #edit-picture .fieldset-wrapper{
+    width: 280px;
+  }
+  .field-group-fieldset{
+    margin-top:30px;
+  }
+
+  #field-date-of-birth-add-more-wrapper{
+    margin-left:-16px;
+    margin-top:20px;
+  }
+  
+  .date-no-float {
+    margin-top:-16px;
+    margin-left:-11px;
+  }
+   .field-group-fieldset, #edit-legal{
+     & > legend{
+       text-align:center;
+       background:url(../images/bevel.jpg);
+       width: 100%;
+       margin-right: 1.69492%;
+       display: inline;
+
+       .fieldset-legend{
+          @include bundle-typography-regular;
+          font-size: 2.1429em;
+          text-decoration:none;
+          color:$nurani-burgundy;
+          background: url(../images/brown_bkg.png);
+          padding:20px;
+       }
+
+    }
+
+  }
+  .form-type-textarea label{
+    width:466px;
+  }
+
+  
+ 
+
+  input#edit-field-post-code-und-0-value{ 
+    width:250px;
+  }
+  select#edit-field-country-und{
+    width:158px;
+  }
+  input#edit-field-mobile-phone-und-0-value,
+  input#edit-field-occupation-und-0-value {
+    width:480px;
+  }
+  input#edit-field-landline-phone-und-0-value{
+    width:435px;
+  }
+  .form-item-files-picture-upload{
+    margin-top:-7px;
+  }
+  input#edit-field-first-name-und-0-value,  
+  input#edit-field-last-name-und-0-value{
+    width:400px;
+  }
+
+  input#edit-mail{
+    width:350px;
+  }
+
+  input#edit-picture-upload{
+    width:200px;
+  }
+  #edit-picture{
+    margin-top:15px;
+  }
+
+
+  input.form-submit{
+    margin-left:12px;
+    margin-top:30px;
+  }
+  
+}
+
+/******************************************** Nurani profile form ********************************************/
+
+
+
+#user-profile-form{
+  margin-top:1em;
+ 
+  .group-additional-details, .group-details, #edit-legal, .group-profile{
+    padding:0;
+    // overflow:hidden;
+    width:100%;
+  }
+
+  fieldset.group-profile{
+    & > .fieldset-wrapper{
+      padding:5px;
+      .field-name-field-title, 
+      .field-name-field-first-name, 
+      .field-name-field-last-name{
+        width:32%;
+      }
+      .field-name-field-title, 
+      .field-name-field-first-name, 
+      .field-name-field-last-name, .field-name-field-date-of-birth{
+        display:inline-block;
+        margin-right:5px;
+        float:left;
+        input.text-full,select{
+          width:120px;
+        }
+      }
+
+      #edit-account {float:left; width:90%; clear:both}
+
+      #edit-overlay-control{
+        clear:both;
+      }
+    
+    #edit-account{
+      .form-item{ 
+        width:200px;
+        float:left;
+        margin-right:51px;
+         input[type=text]{ 
+          width:200px;
+        }
+      }
+      .form-item-pass-pass1 .password-strength{
+        float:none;
+      }
+     }
+   }
+ }
+
+  #edit-timezone--2, .form-item-timezone .description,
+  .field-group-fieldset .legend{
+    width:280px;
+  }
+
+  fieldset.group-details{
+    .field-name-field-postal-address, 
+    .field-name-field-post-code,
+    .field-name-field-country,
+    .field-name-field-occupation,
+    .field-name-field-landline-phone, 
+    .field-name-field-mobile-phone{
+      width:40%;
+      float:left; 
+      margin-right:30px;
+    }
+
+    
+
+    input,select,textarea{
+      width:169px;
+    }
+    
+    .field-name-field-country{
+      clear:both;
+    }
+  }
+
+
+
+/* legal stuff */
+ #edit-legal{
+    legend{
+      margin:0 auto;
+    }
+    & > .fieldset-wrapper{
+      height:350px;
+      div.form-item-legal-accept{
+        top: 24em;
+        margin: 1em 0 1em;
+        background: #fff;
+
+      }
+    }
+  }
+
+/* buttons */
+ .form-actions{
+    display:inline; 
+    margin-right:10px;
+  }
+
+ a{
+   display:inline;
+   text-decoration:none;
+ }
+ .form-actions input{
+   margin-top:2em;
+ }
+
+}
+  
+
+/******************************************** Contact us form ********************************************/
+
+.node-type-webform{
+  textarea{
+    width:450px;
+  }
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+@mixin tabs($color: $tupperware-blue, $size: $medium-font-size) {
+  
+  ul {
+    font-size: $size;
+    border-bottom: 2px solid $light-gray;
+    padding: 0;
+  }
+  
+  li {
+    padding: rhythm(1, $size);
+    float: $from-direction;
+    display: inline;
+    text-align: center;
+    a {
+      padding: rhythm(1/2);
+      @include en-sans-font-stack;
+      font-weight: normal;
+      position: relative;
+      color: $color;
+      background: transparent;
+    }
+
+    a.active {
+      background: $color;
+      font-weight: bold;
+      color: white;
+    }
+  }
+}

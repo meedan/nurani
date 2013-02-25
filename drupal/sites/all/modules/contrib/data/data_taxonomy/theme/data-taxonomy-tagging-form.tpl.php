@@ -1,5 +1,4 @@
 <?php
-// $Id: data-taxonomy-tagging-form.tpl.php,v 1.1.2.2 2010/01/21 21:38:13 yhahn Exp $
 ?>
 <div class='data-taxonomy-tagging-form'>
   <label><?php print $label ?></label>

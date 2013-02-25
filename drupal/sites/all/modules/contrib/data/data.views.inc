@@ -1,13 +1,12 @@
 <?php
-// $Id: data.views.inc,v 1.7.2.5 2010/03/03 17:11:28 alexb Exp $
 /**
  * @file
  * Views hooks and utility functions.
  */
 
 /**
- * Implementation of hook_views_data().
- * 
+ * Implements hook_views_data().
+ *
  * Dynamically create views integration for any table Data manages.
  */
 function data_views_data() {
@@ -26,8 +25,8 @@ function data_views_data() {
 
     $table_data = array();
     $table_data['table'] = array(
-      'group' => $table->get('title'),
-      );
+      'group' => check_plain($table->get('title')),
+    );
     foreach ($schema['fields'] as $field_name => $field) {
       // If there is no label, generate one from field name.
       $title = empty($meta['fields'][$field_name]['label']) ? data_natural_name($field_name) : $meta['fields'][$field_name]['label'];
@@ -60,9 +59,9 @@ function data_views_data() {
     if (isset($schema['primary key']) && count($schema['primary key']) >= 1) {
       $table_data['table']['base'] = array(
         'field' => current($schema['primary key']),
-        'title' => $table->get('title'),
+        'title' => check_plain($table->get('title')),
         'help' => t('Data table'),
-        'weight' => 10, 
+        'weight' => 10,
       );
     }
 
@@ -93,22 +92,6 @@ function data_views_data() {
 }
 
 /**
- * Implementation of hook_views_handlers().
- */
-function data_views_handlers() {
-  return array(
-    'info' => array(
-      'path' => drupal_get_path('module', 'data') . '/views',
-    ),
-    'handlers' => array(
-      'views_handler_field_data_markup' => array(
-        'parent' => 'views_handler_field',
-      ),
-    ),
-  );
-}
-
-/**
  * Return all available field handlers.
  *
  * @param $type
@@ -125,33 +108,74 @@ function data_get_views_handler_options($type = NULL, $reset = FALSE) {
   static $handlers;
   if (!isset($handlers) || $reset) {
     $handlers = array();
-    $handlers['field'] = array(
-      'views_handler_field' => 'views_handler_field',
-      'views_handler_field_numeric' => 'views_handler_field_numeric',
-      'views_handler_field_date' => 'views_handler_field_date',
-      'views_handler_field_url' => 'views_handler_field_url',
-      'views_handler_field_data_markup' => 'views_handler_field_data_markup',
+    module_load_include('inc', 'views', 'includes/base');
+    module_load_include('inc', 'views', 'includes/handlers');
+    module_load_include('inc', 'views', 'includes/cache');
+
+    // The types of handler we are interested in.
+    // If we wanted everything, we'd get it from view::display_objects().
+    $handler_types = array(
+      'field',
+      'filter',
+      'argument',
+      'sort',
+      'relationship',
     );
-    $handlers['filter'] = array(
-      'views_handler_filter_date' => 'views_handler_filter_date',
-      'views_handler_filter_float' => 'views_handler_filter_float',
-      'views_handler_filter_numeric' => 'views_handler_filter_numeric',
-      'views_handler_filter_string' => 'views_handler_filter_string',
-    );
-    $handlers['argument'] = array(
-      'views_handler_argument' => 'views_handler_argument',
-      'views_handler_argument_date' => 'views_handler_argument_date',
-      'views_handler_argument_numeric' => 'views_handler_argument_numeric',
-      'views_handler_argument_string' => 'views_handler_argument_string',
-    );
-    $handlers['sort'] = array(
-      'views_handler_sort' => 'views_handler_sort',
-      'views_handler_sort_date' => 'views_handler_sort_date',
-    );
+
+    // Get all of Views' data, wherein every field defines its handler.
+    $views_data = _views_fetch_data();
+    $handlers = array_fill_keys($handler_types, array());
+    foreach ($views_data as $table => $table_definition) {
+      foreach ($table_definition as $field => $field_definition) {
+        // Skip the table definition itself.
+        if ($field == 'table') {
+          continue;
+        }
+        foreach ($handler_types as $handler_type) {
+          if (isset($field_definition[$handler_type]['handler'])) {
+            $handler = $field_definition[$handler_type]['handler'];
+            $handlers[$handler_type][$handler] = $handler;
+            $current_handler = $handler;
+            // Work up the class's parentage, as there are many handler classes
+            // not actually used by any views data fields.
+            $finished = FALSE;
+            while (!$finished) {
+              $current_handler = get_parent_class($current_handler);
+              if ($current_handler == 'views_handler') {
+                // We've reached the top; don't add the root class to the list.
+                $finished = TRUE;
+              }
+              else {
+                // Add the class. This is going to be redundant in many cases
+                // as we'll have either already done this or be about to find
+                // it in the data, but this function is only called on an admin
+                // page so performance is not an issue.
+                $handlers[$handler_type][$current_handler] = $current_handler;
+              }
+            }
+          }
+        }
+      }
+    }
+
     // Allow other modules to alter the list of available handlers.
     drupal_alter('data_views_handlers', $handlers);
+    // Sort the final arrays.
+    foreach ($handlers as $handler_type => &$data) {
+      ksort($data);
+    }
   }
   return isset($type) && isset($handlers[$type]) ? $handlers[$type] : $handlers;
+}
+
+/**
+ * Implements hook_data_views_handlers_alter().
+ *
+ * We need to add our own handler here because nothing in hook_views_data()
+ * declares it makes use of it.
+ */
+function data_data_views_handlers_alter(&$handlers) {
+  $handlers['field']['views_handler_field_data_markup'] = 'views_handler_field_data_markup';
 }
 
 /**
@@ -198,7 +222,7 @@ function data_get_views_handler($type, $table, $field_name, $default = FALSE) {
       switch ($schema['fields'][$field_name]['type']) {
         case 'float':
         case 'numeric':
-          return 'views_handler_filter_float';
+          return 'views_handler_filter_numeric';
         case 'int':
         case 'serial':
           return 'views_handler_filter_numeric';
@@ -221,7 +245,7 @@ function data_get_views_handler($type, $table, $field_name, $default = FALSE) {
         case 'datetime':
           return 'views_handler_argument_date';
         case 'varchar':
-        return 'views_handler_argument_string';
+          return 'views_handler_argument_string';
       }
       return 'views_handler_argument';
 

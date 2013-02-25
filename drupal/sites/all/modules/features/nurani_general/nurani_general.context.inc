@@ -1,61 +1,54 @@
 <?php
+/**
+ * @file
+ * nurani_general.context.inc
+ */
 
 /**
- * Implementation of hook_context_default_contexts().
+ * Implements hook_context_default_contexts().
  */
 function nurani_general_context_default_contexts() {
   $export = array();
 
-  $context = new stdClass;
+  $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'access_denied';
-  $context->description = 'Login page on access denied';
-  $context->tag = 'nurani';
+  $context->name = 'footer';
+  $context->description = 'Blocks for the footer area.';
+  $context->tag = 'Nurani';
   $context->conditions = array(
-    'error' => array(
+    'sitewide' => array(
       'values' => array(
-        403 => 403,
-      ),
-    ),
-    'user' => array(
-      'values' => array(
-        'anonymous user' => 'anonymous user',
+        1 => 1,
       ),
     ),
   );
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'boxes-login_title' => array(
-          'module' => 'boxes',
-          'delta' => 'login_title',
-          'region' => 'content_top',
-          'weight' => 0,
-        ),
-        'boxes-login_footer' => array(
-          'module' => 'boxes',
-          'delta' => 'login_footer',
-          'region' => 'content_bottom',
-          'weight' => 0,
+        'menu-menu-footer-links' => array(
+          'module' => 'menu',
+          'delta' => 'menu-footer-links',
+          'region' => 'footer',
+          'weight' => '-10',
         ),
       ),
     ),
   );
-  $context->condition_mode = 1;
+  $context->condition_mode = 0;
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Login page on access denied');
-  t('nurani');
-  $export['access_denied'] = $context;
+  t('Blocks for the footer area.');
+  t('Nurani');
+  $export['footer'] = $context;
 
-  $context = new stdClass;
+  $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'discussion';
-  $context->description = 'Discussion page';
-  $context->tag = 'nurani';
+  $context->name = 'nurani_discussion';
+  $context->description = 'Discussion page for nurani';
+  $context->tag = 'Nurani';
   $context->conditions = array(
     'node' => array(
       'values' => array(
@@ -69,29 +62,41 @@ function nurani_general_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-discussion_texts-block_1' => array(
+        'views-nurani_comment_list-block' => array(
           'module' => 'views',
-          'delta' => 'discussion_texts-block_1',
-          'region' => 'content_top',
-          'weight' => 0,
+          'delta' => 'nurani_comment_list-block',
+          'region' => 'content_bottom_left',
+          'weight' => '-10',
         ),
-        'views-nuranis-block_2' => array(
+        'nurani_comment-comment_form' => array(
+          'module' => 'nurani_comment',
+          'delta' => 'comment_form',
+          'region' => 'content_bottom_right',
+          'weight' => '-10',
+        ),
+        'meedan_discussion_lock-countdown' => array(
+          'module' => 'meedan_discussion_lock',
+          'delta' => 'countdown',
+          'region' => 'content_bottom_right',
+          'weight' => '-9',
+        ),
+        'nurani_discussion-print_pdf' => array(
+          'module' => 'nurani_discussion',
+          'delta' => 'print_pdf',
+          'region' => 'content_bottom_right',
+          'weight' => '-8',
+        ),
+        'views-43f29b2e1398197d59c83af85707ecf6' => array(
           'module' => 'views',
-          'delta' => 'nuranis-block_2',
-          'region' => 'right',
-          'weight' => 0,
+          'delta' => '43f29b2e1398197d59c83af85707ecf6',
+          'region' => 'content_bottom_right',
+          'weight' => '-7',
         ),
-        'boxes-discussion_info' => array(
-          'module' => 'boxes',
-          'delta' => 'discussion_info',
-          'region' => 'right',
-          'weight' => 1,
-        ),
-        'nurani_glossary-0' => array(
-          'module' => 'nurani_glossary',
-          'delta' => 0,
-          'region' => 'right',
-          'weight' => 2,
+        'views-a9783f21c43180e1982dd660596c3c9c' => array(
+          'module' => 'views',
+          'delta' => 'a9783f21c43180e1982dd660596c3c9c',
+          'region' => 'content_bottom_right',
+          'weight' => '-6',
         ),
       ),
     ),
@@ -100,197 +105,20 @@ function nurani_general_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Discussion page');
-  t('nurani');
-  $export['discussion'] = $context;
+  t('Discussion page for nurani');
+  t('Nurani');
+  $export['nurani_discussion'] = $context;
 
-  $context = new stdClass;
+  $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'general';
-  $context->description = 'General blocks for all pages';
-  $context->tag = 'nurani';
-  $context->conditions = array(
-    'user' => array(
-      'values' => array(
-        'anonymous user' => 'anonymous user',
-        'authenticated user' => 'authenticated user',
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'menu-primary-links' => array(
-          'module' => 'menu',
-          'delta' => 'primary-links',
-          'region' => 'header',
-          'weight' => 0,
-        ),
-        'menu-secondary-links' => array(
-          'module' => 'menu',
-          'delta' => 'secondary-links',
-          'region' => 'footer_block',
-          'weight' => 0,
-        ),
-        'locale-0' => array(
-          'module' => 'locale',
-          'delta' => 0,
-          'region' => 'top_strip',
-          'weight' => 0,
-        ),
-        'boxes-action_links' => array(
-          'module' => 'boxes',
-          'delta' => 'action_links',
-          'region' => 'top_strip',
-          'weight' => 1,
-        ),
-      ),
-    ),
-  );
-  $context->condition_mode = 0;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('General blocks for all pages');
-  t('nurani');
-  $export['general'] = $context;
-
-  $context = new stdClass;
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'glossary';
-  $context->description = 'List of glossary terms and their translations';
-  $context->tag = 'nurani';
-  $context->conditions = array(
-    'views' => array(
-      'values' => array(
-        'glossary_terms:page_1' => 'glossary_terms:page_1',
-      ),
-    ),
-  );
-  $context->reactions = array();
-  $context->condition_mode = 1;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('List of glossary terms and their translations');
-  t('nurani');
-  $export['glossary'] = $context;
-
-  $context = new stdClass;
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'login';
-  $context->description = 'Login page';
-  $context->tag = 'nurani';
+  $context->name = 'nurani_home';
+  $context->description = 'Nurani.org website homepage blocks.';
+  $context->tag = 'Nurani';
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'user' => 'user',
-        'user/login' => 'user/login',
-        'user/password' => 'user/password',
-      ),
-    ),
-    'user' => array(
-      'values' => array(
-        'anonymous user' => 'anonymous user',
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'boxes-login_title' => array(
-          'module' => 'boxes',
-          'delta' => 'login_title',
-          'region' => 'content_top',
-          'weight' => 0,
-        ),
-        'boxes-login_footer' => array(
-          'module' => 'boxes',
-          'delta' => 'login_footer',
-          'region' => 'content_bottom',
-          'weight' => 0,
-        ),
-      ),
-    ),
-  );
-  $context->condition_mode = 1;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('Login page');
-  t('nurani');
-  $export['login'] = $context;
-
-  $context = new stdClass;
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'overview';
-  $context->description = 'Discussions overview';
-  $context->tag = 'nurani';
-  $context->conditions = array(
-    'views' => array(
-      'values' => array(
-        'discussions:page_1' => 'discussions:page_1',
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'boxes-welcome_box' => array(
-          'module' => 'boxes',
-          'delta' => 'welcome_box',
-          'region' => 'content_top',
-          'weight' => 0,
-        ),
-        'views-discussion_texts-block_1' => array(
-          'module' => 'views',
-          'delta' => 'discussion_texts-block_1',
-          'region' => 'content_top',
-          'weight' => 1,
-        ),
-        'views-nuranis-block_1' => array(
-          'module' => 'views',
-          'delta' => 'nuranis-block_1',
-          'region' => 'right',
-          'weight' => 0,
-        ),
-        'views-new_glossary_terms-block_1' => array(
-          'module' => 'views',
-          'delta' => 'new_glossary_terms-block_1',
-          'region' => 'right',
-          'weight' => 1,
-        ),
-        'views-new_texts-block_1' => array(
-          'module' => 'views',
-          'delta' => 'new_texts-block_1',
-          'region' => 'right',
-          'weight' => 2,
-        ),
-      ),
-    ),
-  );
-  $context->condition_mode = 0;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('Discussions overview');
-  t('nurani');
-  $export['overview'] = $context;
-
-  $context = new stdClass;
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'texts';
-  $context->description = 'Texts page';
-  $context->tag = 'nurani';
-  $context->conditions = array(
-    'views' => array(
-      'values' => array(
-        'texts:page_1' => 'texts:page_1',
+        '<front>' => '<front>',
       ),
     ),
   );
@@ -299,9 +127,48 @@ function nurani_general_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Texts page');
-  t('nurani');
-  $export['texts'] = $context;
+  t('Nurani');
+  t('Nurani.org website homepage blocks.');
+  $export['nurani_home'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'top_strip';
+  $context->description = 'block that displays main menu and User welcome info';
+  $context->tag = 'Nurani';
+  $context->conditions = array(
+    'sitewide' => array(
+      'values' => array(
+        1 => 1,
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'menu_block-nurani_main_menu' => array(
+          'module' => 'menu_block',
+          'delta' => 'nurani_main_menu',
+          'region' => 'top_strip',
+          'weight' => '-16',
+        ),
+        'nurani_helpers-welcome_login' => array(
+          'module' => 'nurani_helpers',
+          'delta' => 'welcome_login',
+          'region' => 'top_strip',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Nurani');
+  t('block that displays main menu and User welcome info');
+  $export['top_strip'] = $context;
 
   return $export;
 }

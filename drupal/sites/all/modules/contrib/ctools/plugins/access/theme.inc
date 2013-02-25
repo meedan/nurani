@@ -1,5 +1,4 @@
 <?php
-// $Id: theme.inc,v 1.1.2.4 2010/07/22 22:38:11 merlinofchaos Exp $
 
 /**
  * @file
@@ -22,7 +21,7 @@ $plugin = array(
 /**
  * Settings form for the 'by theme' access plugin
  */
-function ctools_theme_ctools_access_settings(&$form, &$form_state, $conf) {
+function ctools_theme_ctools_access_settings($form, &$form_state, $conf) {
   $themes = array();
   foreach (list_themes() as $key => $theme) {
     $themes[$key] = $theme->info['name'];
@@ -35,6 +34,7 @@ function ctools_theme_ctools_access_settings(&$form, &$form_state, $conf) {
     '#default_value' => $conf['theme'],
     '#description' => t('This will only be accessed if the current theme is the selected theme.'),
   );
+  return $form;
 }
 
 /**

@@ -1,31 +1,29 @@
 <?php
+
 /**
  * @file
- * Provide views data and handlers for user.module
- */
-
-/**
- * @defgroup views_profile_module profile.module handlers
+ * Provide views data and handlers for user.module.
  *
- * @{
+ * @ingroup views_module_handlers
  */
 
 /**
- * Implementation of hook_views_data()
+ * Implements hook_views_data().
  */
 function profile_views_data() {
+  $data['profile_values']['moved to'] = 'profile_value';
   // Define the base group of this table. Fields that don't
   // have a group defined will go into this field by default.
-  $data['profile_values']['table']['group']  = t('Profile');
+  $data['profile_value']['table']['group']  = t('Profile');
 
-  $data['profile_values']['table']['join'] = array(
+  $data['profile_value']['table']['join'] = array(
     'node' => array(
-      'left_table' => 'profile_values',
+      'left_table' => 'profile_value',
       'left_field' => 'uid',
       'field' => 'uid',
     ),
     'users' => array(
-      'left_table' => 'profile_values',
+      'left_table' => 'profile_value',
       'left_field' => 'uid',
       'field' => 'uid',
     ),
@@ -33,20 +31,20 @@ function profile_views_data() {
 
   $fields = profile_views_get_fields();
   foreach ($fields as $field) {
-    $table_name = 'profile_values_' . str_replace('-', '_', $field->name);
+    $table_name = 'profile_value_' . str_replace('-', '_', $field->name);
     $data[$table_name] = array(
       'table' => array(
         'group' => t('Profile'),
         'join' => array(
           'node' => array(
-            'table' => 'profile_values',
+            'table' => 'profile_value',
             'left_table' => 'users',
             'left_field' => 'uid',
             'field' => 'uid',
             'extra' => array(array('field' => 'fid', 'value' => $field->fid)),
           ),
           'users' => array(
-            'table' => 'profile_values',
+            'table' => 'profile_value',
             'left_field' => 'uid',
             'field' => 'uid',
             'extra' => array(array('field' => 'fid', 'value' => $field->fid)),
@@ -69,9 +67,9 @@ function profile_views_get_fields() {
 
   if (!isset($fields)) {
     $fields = array();
-    $results = db_query("SELECT * FROM {profile_fields} ORDER BY category, weight");
+    $results = db_query("SELECT * FROM {profile_field} ORDER BY category, weight");
 
-    while ($row = db_fetch_object($results)) {
+    foreach ($results as $row) {
       if (!empty($row->options)) {
         if (!in_array(substr($row->options, 0, 2), array('a:', 'b:', 'i:', 'f:', 'o:', 's:', ))) {
           // unserialized fields default version
@@ -81,7 +79,7 @@ function profile_views_get_fields() {
         }
         else {
           // serialized fields or modified version
-          $row->options = unserialize(db_decode_blob($row->options));
+          $row->options = unserialize($row->options);
         }
       }
       $fields[$row->fid] = $row;
@@ -125,7 +123,7 @@ function profile_views_fetch_field($field) {
         'help' => t('Profile textarea'),
         'field' => array(
           'handler' => 'views_handler_field_markup',
-          'format' => FILTER_FORMAT_DEFAULT,
+          'format' => filter_default_format(),
         ),
         'sort' => array(
           'handler' => 'views_handler_sort',
@@ -195,6 +193,7 @@ function profile_views_fetch_field($field) {
         'help' => t('Profile freeform list %field-name.', array('%field-name' => $field->title)),
         'field' => array(
           'handler' => 'views_handler_field_profile_list',
+          'no group by' => TRUE,
         ),
         'filter' => array(
           'handler' => 'views_handler_filter_string',
@@ -216,30 +215,3 @@ function profile_views_fetch_field($field) {
   // @todo: add access control to hidden fields.
   return $data;
 }
-
-/**
- * Implementation of hook_views_handlers() to register all of the basic handlers
- * views uses.
- */
-function profile_views_handlers() {
-  return array(
-    'info' => array(
-      'path' => drupal_get_path('module', 'views') . '/modules/profile',
-    ),
-    'handlers' => array(
-      'views_handler_field_profile_date' => array(
-        'parent' => 'views_handler_field_date',
-      ),
-      'views_handler_field_profile_list' => array(
-        'parent' => 'views_handler_field_prerender_list',
-      ),
-      'views_handler_filter_profile_selection' => array(
-        'parent' => 'views_handler_filter_in_operator',
-      ),
-    ),
-  );
-}
-
-/**
- * @}
- */

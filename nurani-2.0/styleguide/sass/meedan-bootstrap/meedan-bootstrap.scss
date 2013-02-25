@@ -1,0 +1,44 @@
+// ==================================================================
+// = Meedan bootstrap default configuration and centralized imports =
+// This file renders no css, only loads mixins for use in themes
+// ==================================================================
+
+// ============================================= 
+// ============================================= centralized @imports
+// ============================================= 
+
+// Configuration
+@import "meedan-bootstrap/base";
+// Compass
+@import "compass"; // See http://compass-style.org/
+@import "compass/css3"; //http://compass-style.org/reference/compass/css3/
+@import "compass/reset"; // http://compass-style.org/reference/compass/reset/
+@import "compass/typography/vertical_rhythm"; // Compass Docs: http://bit.ly/g3CoPo
+// Reset
+@import "reset"; // Our reset on top of compass/reset
+// Design setup
+@import "meedan-bootstrap/colors"; // All project colors
+@import "meedan-bootstrap/typography"; // All typography except resets
+// Susy 
+@import "susy"; // Compass grid library: http://susy.oddbird.net/tutorial/
+// Media queries
+@import "meedan-bootstrap/respond-to"; 
+// Page Structures
+@import "meedan-bootstrap/pagination"; // Pagination layout
+@import "meedan-bootstrap/tabs"; // Drupal tabs, in several flavors
+
+// Forms
+@import "meedan-bootstrap/forms"; // Our own form markup
+
+// Meedan-Bootstrap Features 
+@import "meedan-bootstrap/buttons"; // Configurable colorful buttons with fancy-buttons plugin
+@import "meedan-bootstrap/tables"; // All tabular data
+@import "meedan-bootstrap/messages"; // Notifications messages
+@import "meedan-bootstrap/syntax"; // Code syntax highlighting
+@import "meedan-bootstrap/tooltips"; // using qTip2 
+@import "meedan-bootstrap/icons"; // using FontAwesome
+@import "meedan-bootstrap/bevels"; // bevels helper
+@import "meedan-bootstrap/pointer"; // css3 triangular pointer eg for talk bubbles
+
+// Establish baseline
+@include establish-baseline($base-font-size); // this uses html > body selector

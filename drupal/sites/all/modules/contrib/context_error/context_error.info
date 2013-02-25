@@ -1,13 +1,14 @@
 name = Context error
 description = Offer triggers for the error pages (404 and 403)
+package = "Context"
 
 dependencies[] = context
 
-core = 6.x
+core = 7.x
 
-; Information added by drupal.org packaging script on 2012-03-01
-version = "6.x-1.0+0-dev"
-core = "6.x"
+; Information added by drupal.org packaging script on 2011-12-24
+version = "7.x-1.0"
+core = "7.x"
 project = "context_error"
-datestamp = "1330560565"
+datestamp = "1324722938"
 

@@ -1,5 +1,4 @@
 <?php
-// $Id: data.test,v 1.5.2.5 2010/01/25 20:51:02 alexb Exp $
 /**
  * @file
  * Data module tests.

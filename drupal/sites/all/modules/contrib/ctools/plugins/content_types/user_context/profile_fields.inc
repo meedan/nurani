@@ -1,7 +1,6 @@
 <?php
-// $Id: profile_fields.inc,v 1.4.2.1 2010/01/29 20:18:26 merlinofchaos Exp $
 
-if (module_exists('profile') && !is_null(profile_categories())) {
+if (module_exists('profile') && !is_null(profile_user_categories())) {
   /**
    * Plugins are described by creating a $plugin array which will be used
    * by the system that includes this file.
@@ -22,7 +21,7 @@ if (module_exists('profile') && !is_null(profile_categories())) {
  * 'Render' callback for the 'profile fields' content type.
  */
 function ctools_profile_fields_content_type_render($subtype, $conf, $panel_args, $context) {
-  $account = isset($context->data) ? drupal_clone($context->data) : NULL;
+  $account = isset($context->data) ? clone($context->data) : NULL;
   $block = new stdClass();
   $block->module = 'profile fields';
 
@@ -39,6 +38,7 @@ function ctools_profile_fields_content_type_render($subtype, $conf, $panel_args,
     if (is_array($account->content[$category])) {
       foreach ($account->content[$category] as $field) {
         if (is_array($field['#attributes'])) {
+          // @todo 'class' is *always* an array now. 04/10/2009 sun
           $vars[$field['#attributes']['class']]['title'] = $field['#title'];
           $vars[$field['#attributes']['class']]['value'] = $field['#value'];
         }
@@ -82,14 +82,14 @@ function _ctools_profile_fields_options() {
 /**
  * 'Edit' callback for the 'profile fields' content type.
  */
-function ctools_profile_fields_content_type_edit_form(&$form, &$form_state) {
+function ctools_profile_fields_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
   $form['category'] = array(
     '#type' => 'radios',
     '#title' => t('Which category'),
     '#options' => _ctools_profile_fields_options(),
     '#default_value' => $conf['category'],
-    '#prefix' => '<div class="clear-block no-float">',
+    '#prefix' => '<div class="clearfix no-float">',
     '#suffix' => '</div>',
   );
 
@@ -99,14 +99,14 @@ function ctools_profile_fields_content_type_edit_form(&$form, &$form_state) {
     '#description' => t('Text to display if category has no data. Note that title will not display unless overridden.'),
     '#rows' => 5,
     '#default_value' => $conf['empty'],
-    '#prefix' => '<div class="clear-block no-float">',
+    '#prefix' => '<div class="clearfix no-float">',
     '#suffix' => '</div>',
   );
 
   return $form;
 }
 
-function ctools_profile_fields_content_type_edit_form_submit(&$form, &$form_state) {
+function ctools_profile_fields_content_type_edit_form_submit($form, &$form_state) {
   // Copy everything from our defaults.
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
@@ -122,7 +122,7 @@ function ctools_profile_fields_content_type_admin_title($subtype, $conf, $contex
 
 function ctools_profile_fields_content_type_theme(&$theme, $plugin) {
   $theme['profile_fields_pane'] = array(
-    'arguments' => array('category' => NULL, 'vars' => NULL),
+    'variables' => array('category' => NULL, 'vars' => NULL),
     'path' => $plugin['path'],
     'template' => 'profile_fields_pane',
   );

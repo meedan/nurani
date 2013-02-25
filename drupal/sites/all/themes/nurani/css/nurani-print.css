@@ -1,0 +1,15 @@
+body {
+  background: blue;
+}
+
+.passage-box {
+  float: none;
+  display: inline-block;
+}
+.passage-box .passage-widget-wrapper {
+  padding: 0 5em 0 9em;
+}
+.passage-box .passage-widget-wrapper .passage-widget {
+  width: 25em;
+  margin-right: 2em;
+}

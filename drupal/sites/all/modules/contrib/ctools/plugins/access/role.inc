@@ -1,5 +1,4 @@
 <?php
-// $Id: role.inc,v 1.7.2.3 2010/07/14 01:30:19 merlinofchaos Exp $
 
 /**
  * @file
@@ -24,7 +23,7 @@ $plugin = array(
 /**
  * Settings form for the 'by role' access plugin
  */
-function ctools_role_ctools_access_settings(&$form, &$form_state, $conf) {
+function ctools_role_ctools_access_settings($form, &$form_state, $conf) {
   $form['settings']['rids'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Role'),
@@ -32,12 +31,13 @@ function ctools_role_ctools_access_settings(&$form, &$form_state, $conf) {
     '#options' => ctools_get_roles(),
     '#description' => t('Only the checked roles will be granted access.'),
   );
+  return $form;
 }
 
 /**
  * Compress the roles allowed to the minimum.
  */
-function ctools_role_ctools_access_settings_submit(&$form, &$form_state) {
+function ctools_role_ctools_access_settings_submit($form, &$form_state) {
   $form_state['values']['settings']['rids'] = array_keys(array_filter($form_state['values']['settings']['rids']));
 }
 

@@ -1,0 +1,229 @@
+
+/******************************************** Section to style the Text Bundle for discussions ********************************************/
+#content-header{
+  h1, h2{
+    @include bundle-typography-regular;
+  }
+}
+
+
+.node-discussion{
+  .passage-boxes > .inner {
+    @include span-columns(16,18);
+    float:none;
+
+  }
+  .passage-box{
+    margin-top: 2em;
+	  @include span-columns(6,18);
+	  &:nth-child(3n) { @include omega; } //every 3rd box completes a row	
+  }
+  .inner{
+    & > .passage-text{ 
+      @include passage-text-boxes;
+	  }
+    .bib{
+      @include span-columns(5,6, $gutter-width/2);
+      margin-top: -1em; 
+      margin-#{$from-direction}: columns(1,6); // default value is left, so this means margin-left.
+      border: 1px solid $nurani-gray;
+	  }
+  }
+	  
+}	
+
+
+/****** styling tabbed for translation option ******/  
+.tab-bar{
+  margin-top:1em;
+  
+  a.button{
+    @include a-link-as-button($nurani-brown);
+    font-size:11px;
+    color:$nurani-text-gray;
+    margin-bottom:1em;
+    margin-right:1em;
+    &:hover{
+      color:$nurani-text-gray;
+    }
+  }
+}
+
+/*********** Styles for the lower section of the discussion page containing i.e. the comment list and comment form ***********/
+
+#block-views-nurani_comment_list-block {
+  h2{
+    text-align:left;
+    margin-bottom: 2px;
+    padding:8px 0;
+  }
+  margin-left:80px;
+
+  .comment-number{ 
+    position: absolute;
+    left: -80px;
+    margin-top: 46px;
+    font-size: 3.5em;
+    opacity: 0.5;
+  }
+}
+
+/******************************************** Styling list of comments section and comment preview ********************************************/
+/** Style for preview comment box **/
+
+.comment-preview{
+	@include border($nurani-red, top, 5px);
+}
+
+/** Style for response list comment box**/
+
+.view-nurani-comment-list{
+  .comment{
+    @include white-background-bordered-top($nurani-light-blue, top, 5px);
+    
+    .new{
+      position: absolute;
+      left: -50px;
+      margin-top: -39px;
+      background-color: $nurani-light-blue;
+      text-align:center;
+      width:50px;
+      color: #fff;
+    }	
+
+  }
+}
+
+/** style to create drop-down arrow **/
+
+.nurani-sort-links:after {
+	content: ' ';
+	height: 0;
+	position: absolute;
+	width: 0;
+	right: -5px;
+    top: 12px;
+	border: 10px solid transparent;
+	border-top-color: $nurani-burgundy;
+	opacity:0.5;
+}
+
+/**Styling sort-link**/
+
+.nurani-sort-links{
+  position:relative;
+  float: right;
+  font-size: 2.1429em;
+  margin-top: -35px;
+  a{
+    color: $nurani-burgundy;
+    padding-right: 20px;
+    display:block;
+    text-decoration:none;
+    opacity:0.5;
+  }
+
+  a.active{
+	display:none;
+  }
+}
+
+/******************************************** Styling Comment form ********************************************/
+.block-nurani-comment{
+  h2{
+    display:none;
+  }
+}
+
+  
+  .comment-form{
+    background:$nurani-light-blue;
+    margin-bottom:2em;
+    padding:1em 1em 5em;
+    color:#fff;
+    max-width: 100%;
+
+
+    div.head{
+
+      .user-picture{
+        float:left;
+        a{
+          float:left;
+        }
+      }
+
+      .info{
+        margin-left:6em;
+        @include username-links(#fff);
+      }
+
+      .tip{
+        margin-top:2em;
+      }
+
+    }
+
+    label, 
+    .form-text, 
+    .filter-wrapper{
+      display:none;
+    }
+
+    .ajax-processed{
+      @include nurani-button($nurani-dark-blue);
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: bold;
+      margin-right:0.5em;
+      display:inline;
+    }
+
+    .form-actions {
+      float:right;
+    }
+  }
+/******************************************** Styling Discussion info section ********************************************/
+.block-meedan-discussion-lock{
+  background:url(../images/clock-icon.png) no-repeat;
+  margin-bottom:2em;
+  .content{
+    margin-left:3em;
+    @include styling-pdf-discussion-lock;
+
+  }
+}
+
+#block-nurani_discussion-print_pdf{
+  margin-bottom:4em;
+}
+
+.view-meedan-discussion-participants{
+  & > .view-content > .views-row{ 
+    float:left;
+    clear:both;
+    margin-bottom:1em;
+  }
+  & > .view-content{
+    margin-bottom: 4em;
+
+    .views-field-picture{ 
+      float:left;
+    }
+    .views-field-name, 
+    .views-field-cid { 
+      margin-left:5em;
+      @include username-links($nurani-light-blue);
+    }
+  } 
+} 
+
+
+
+
+
+
+
+
+
+

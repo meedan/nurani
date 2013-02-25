@@ -1,5 +1,4 @@
 <?php
-// $Id: utility.inc,v 1.1.2.2 2010/08/27 23:47:17 merlinofchaos Exp $
 
 /**
  * @file
@@ -18,13 +17,13 @@
  * To save time we pass the $items array in so we don't need to do array
  * addition. It modifies the array by reference and doesn't need to return it.
  */
-function _ctools_passthrough(&$items, $type = 'theme') {
-  $files = drupal_system_listing('.' . $type . '.inc$', drupal_get_path('module', 'ctools') . '/includes', 'name', 0);
+function ctools_passthrough($module, $type, &$items) {
+  $files = file_scan_directory(drupal_get_path('module', $module) . '/includes', '/\.' . $type . '\.inc$/', array('key' => 'name'));
   foreach ($files as $file) {
-    require_once './' . $file->filename;
+    require_once DRUPAL_ROOT . '/' . $file->uri;
     list($tool) = explode('.', $file->name, 2);
 
-    $function = 'ctools_' . str_replace ('-', '_', $tool) . '_' . $type;
+    $function = $module . '_' . str_replace ('-', '_', $tool) . '_' . str_replace('-', '_', $type);
     if (function_exists($function)) {
       $function($items);
     }
@@ -35,39 +34,6 @@ function _ctools_passthrough(&$items, $type = 'theme') {
  * Implementation of hook_theme_registry_alter()
  */
 function ctools_theme_registry_alter(&$registry) {
-  if ($registry['menu_local_tasks']['function'] == 'theme_menu_local_tasks') {
-    $registry['menu_local_tasks'] = array(
-      'function' => 'ctools_theme_menu_local_tasks',
-      'path' => drupal_get_path('module', 'ctools') . '/includes',
-      'file' => 'menu.inc',
-    ) + $registry['menu_local_tasks'];
-  }
-
-  if (isset($registry['help']['function']) && $registry['help']['function'] == 'theme_help') {
-    $registry['help'] = array(
-      'function' => 'ctools_menu_help',
-      'path' => drupal_get_path('module', 'ctools') . '/includes',
-      'file' => 'menu.inc',
-    ) + $registry['help'];
-  }
-
-  // Handle a special override for garland because it's cute and does its own
-  // thing with tabs and we can't ask users to edit a core theme for us.
-  if ($registry['menu_local_tasks']['function'] == 'phptemplate_menu_local_tasks' &&
-      $registry['menu_local_tasks']['theme paths'][1] == 'themes/garland') {
-    $registry['menu_local_tasks'] = array(
-      'function' => 'ctools_garland_menu_local_tasks',
-      'path' => drupal_get_path('module', 'ctools') . '/includes',
-      'file' => 'menu.inc',
-    ) + $registry['menu_local_tasks'];
-  }
-
-  if (isset($registry['page']['preprocess functions'][2]) &&
-      $registry['page']['preprocess functions'][2] == 'phptemplate_preprocess_page' &&
-      $registry['page']['theme paths'][1] == 'themes/garland') {
-    $registry['page']['preprocess functions'][2] = 'ctools_garland_preprocess_page';
-  }
-
   // Move this one last last last so it can catch changes made by modules and themes.
   $key = array_search('ctools_preprocess_page', $registry['page']['preprocess functions']);
   if ($key) {

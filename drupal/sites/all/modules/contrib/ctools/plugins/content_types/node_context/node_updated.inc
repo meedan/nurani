@@ -1,5 +1,4 @@
 <?php
-// $Id: node_updated.inc,v 1.1.2.2 2010/05/28 00:38:52 sdboyer Exp $
 
 /**
  * Plugins are described by creating a $plugin array which will be used
@@ -41,26 +40,27 @@ function ctools_node_updated_content_type_render($subtype, $conf, $panel_args, $
 /**
  * Returns an edit form for custom type settings.
  */
-function ctools_node_updated_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_updated_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
+  $date_types = array();
 
-  $time = time();
+  foreach (system_get_date_types() as $date_type => $definition) {
+    $date_types[$date_type] = format_date(REQUEST_TIME, $date_type);
+  }
+
   $form['format'] = array(
     '#title' => t('Date format'),
     '#type' => 'select',
-    '#options' => array(
-      'small' => format_date($time, 'small'),
-      'medium' => format_date($time, 'medium'),
-      'large' => format_date($time, 'large'),
-    ),
+    '#options' => $date_types,
     '#default_value' => $conf['format'],
   );
+  return $form;
 }
 
 /**
  * Submit handler for the custom type settings form.
  */
-function ctools_node_updated_content_type_edit_form_submit(&$form, &$form_state) {
+function ctools_node_updated_content_type_edit_form_submit($form, &$form_state) {
   // Copy everything from our defaults.
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];

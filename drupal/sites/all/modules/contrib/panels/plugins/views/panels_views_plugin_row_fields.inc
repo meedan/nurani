@@ -75,7 +75,7 @@ class panels_views_plugin_row_fields extends views_plugin_row_fields {
    * Perform any necessary changes to the form values prior to storage.
    * There is no need for this function to actually store the data.
    */
-  function options_submit($form, &$form_state) {
+  function options_submit(&$form, &$form_state) {
     $form_state['values']['row_options']['inline'] = array_filter($form_state['values']['row_options']['inline']);
   }
 
@@ -89,7 +89,7 @@ class panels_views_plugin_row_fields extends views_plugin_row_fields {
     if (!$layout) {
       // Fall back to normal behavior if the layout is somehow invalid. This
       // can happen if the layout was removed, for example.
-      return theme($this->theme_functions(), $this->view, $this->options, $row, $this->field_alias);
+      return theme($this->theme_functions(), array('view' => view, 'options' => $this->options, 'row' => $row, 'field_alias' => $this->field_alias));
     }
 
     // Store a backup copy of the array because we're going to be screwing
@@ -139,11 +139,11 @@ class panels_views_plugin_row_fields extends views_plugin_row_fields {
     // render them into the content array.
     foreach ($this->region_fields as $region_id => $fields) {
       $this->view->field = $fields;
-      $content[$region_id] = theme($this->theme_functions(), $this->view, $this->options, $row, $this->field_alias);
+      $content[$region_id] = theme($this->theme_functions(), array('view' => $this->view, 'options' => $this->options, 'row' => $row));
     }
 
     // Restore our $fields array.
-    $view->field = $fields;
+    $this->view->field = $fields;
 
     // Now that we have a rendered content array, render it.
     return panels_print_layout($layout, $content, $meta);

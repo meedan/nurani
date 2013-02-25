@@ -1,0 +1,26 @@
+From 8bd1b812a6ff86dda377d53446cef05897a9f763 Mon Sep 17 00:00:00 2001
+From: James Andres <james.andres@gmail.com>
+Date: Fri, 22 Feb 2013 10:13:02 -0500
+Subject: [PATCH] Ensuring that 'Edit' link works after 'Cancel' or 'Save' in
+ all cases.
+
+---
+ ajax_comments.module | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ajax_comments.module b/ajax_comments.module
+index e384f45..b167b73 100644
+--- a/ajax_comments.module
++++ b/ajax_comments.module
+@@ -498,7 +498,7 @@ function ajax_comments_edit($comment) {
+   $form = drupal_render($form_build);
+ 
+   // Replace comment with form.
+-  $commands[] = ajax_command_replace('#comment-wrapper-' . $comment->cid . ' >.comment', $form);
++  $commands[] = ajax_command_replace('#comment-wrapper-' . $comment->cid . ' .comment:first', $form);
+ 
+   return array('#type' => 'ajax', '#commands' => $commands);
+ }
+-- 
+1.8.1.3
+

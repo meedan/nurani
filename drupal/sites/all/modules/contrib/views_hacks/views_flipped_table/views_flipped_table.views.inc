@@ -13,7 +13,7 @@ function views_flipped_table_views_plugins() {
       'flipped' => array(
         'title' => t('Flipped table'),
         'help' => t('Displays a table with rows and columns flipped.'),
-        'handler' => 'views_plugin_style_table',
+        'handler' => 'views_flipped_table_plugin_style_flipped_table',
         'parent' => 'table',
         'uses row plugin' => FALSE,
         'uses fields' => TRUE,

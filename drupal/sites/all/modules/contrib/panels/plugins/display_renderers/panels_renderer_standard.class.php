@@ -167,8 +167,8 @@ class panels_renderer_standard {
     $layout = panels_get_layout($display->layout);
     $this->display = &$display;
     $this->plugins['layout'] = $layout;
-    if (!isset($layout['panels'])) {
-      $this->plugins['layout']['panels'] = panels_get_regions($layout, $display);
+    if (!isset($layout['regions'])) {
+      $this->plugins['layout']['regions'] = panels_get_regions($layout, $display);
     }
 
     if (empty($this->plugins['layout'])) {
@@ -231,7 +231,15 @@ class panels_renderer_standard {
         }
       }
 
-      $content_type = ctools_get_content_type($pane->type);
+      // If the pane's subtype is unique, get it so that
+      // hook_ctools_content_subtype_alter() and/or
+      // hook_ctools_block_info() will be called.
+      if ($pane->type != $pane->subtype) {
+        $content_type = ctools_content_get_subtype($pane->type, $pane->subtype);
+      }
+      else {
+        $content_type = ctools_get_content_type($pane->type);
+      }
 
       // If this pane wants to render last, add it to the $last array. We allow
       // this because some panes need to be rendered after other panes,
@@ -298,7 +306,7 @@ class panels_renderer_standard {
     $regions = array();
     if (empty($settings)) {
       // No display/panel region settings exist, init all with the defaults.
-      foreach ($this->plugins['layout']['panels'] as $region_id => $title) {
+      foreach ($this->plugins['layout']['regions'] as $region_id => $title) {
         // Ensure this region has at least an empty panes array.
         $panes = !empty($region_pane_list[$region_id]) ? $region_pane_list[$region_id] : array();
 
@@ -308,10 +316,9 @@ class panels_renderer_standard {
     }
     else {
       // Some settings exist; iterate through each region and set individually.
-      foreach ($this->plugins['layout']['panels'] as $region_id => $title) {
+      foreach ($this->plugins['layout']['regions'] as $region_id => $title) {
         // Ensure this region has at least an empty panes array.
         $panes = !empty($region_pane_list[$region_id]) ? $region_pane_list[$region_id] : array();
-
         if (empty($settings[$region_id]['style']) || $settings[$region_id]['style'] == -1) {
           $regions[$region_id] = $default;
         }
@@ -339,6 +346,9 @@ class panels_renderer_standard {
    *  Themed & rendered HTML output.
    */
   function render() {
+    // Let the display refer back to the renderer.
+    $this->display->renderer_handler = $this;
+
     // Attach out-of-band data first.
     $this->add_meta();
 
@@ -381,7 +391,8 @@ class panels_renderer_standard {
     else {
       $theme = $this->plugins['layout']['theme'];
     }
-    $this->rendered['layout'] = theme($theme, check_plain($this->display->css_id), $this->rendered['regions'], $this->display->layout_settings, $this->display, $this->plugins['layout'], $this);
+
+    $this->rendered['layout'] = theme($theme, array('css_id' => check_plain($this->display->css_id), 'content' => $this->rendered['regions'], 'settings' => $this->display->layout_settings, 'display' => $this->display, 'layout' => $this->plugins['layout'], 'renderer' => $this));
     return $this->prefix . $this->rendered['layout'] . $this->suffix;
   }
 
@@ -418,29 +429,14 @@ class panels_renderer_standard {
    *
    * @see drupal_add_css
    */
-  function add_css($filename, $type = 'module', $media = 'all', $preprocess = TRUE) {
-    $path = file_create_path($filename);
+  function add_css($filename) {
     switch ($this->meta_location) {
       case 'standard':
-        if ($path) {
-          // Use CTools CSS add because it can handle temporary CSS in private
-          // filesystem.
-          ctools_include('css');
-          ctools_css_add_css($filename, $type, $media, $preprocess);
-        }
-        else {
-          drupal_add_css($filename, $type, $media, $preprocess);
-        }
+        drupal_add_css($filename);
         break;
       case 'inline':
-        if ($path) {
-          $url = file_create_url($filename);
-        }
-        else {
-          $url = base_path() . $filename;
-        }
-
-        $this->prefix .= '<link type="text/css" rel="stylesheet" media="' . $media . '" href="' . $url . '" />'."\n";
+        $url = base_path() . $filename;
+        $this->prefix .= '<link type="text/css" rel="stylesheet" href="' . $url . '" />'."\n";
         break;
     }
   }
@@ -496,7 +492,7 @@ class panels_renderer_standard {
         $style = panels_get_style($pane->style['style']);
 
         if (isset($style) && isset($style['render pane'])) {
-          $output = theme($style['render pane'], $content, $pane, $this->display, $style);
+          $output = theme($style['render pane'], array('content' => $content, 'pane' => $pane, 'display' => $this->display, 'style' => $style, 'settings' => $pane->style['settings']));
 
           // This could be null if no theme function existed.
           if (isset($output)) {
@@ -506,7 +502,7 @@ class panels_renderer_standard {
       }
 
       // fallback
-      return theme('panels_pane', $content, $pane, $this->display);
+      return theme('panels_pane', array('content' => $content, 'pane' => $pane, 'display' => $this->display));
     }
   }
 
@@ -537,18 +533,21 @@ class panels_renderer_standard {
     }
     else {
       if ($caching) {
+        // This is created before rendering so that calls to drupal_add_js
+        // and drupal_add_css will be captured.
         $cache = new panels_cache_object();
       }
+
       $content = ctools_content_render($pane->type, $pane->subtype, $pane->configuration, array(), $this->display->args, $this->display->context);
+
       if (empty($content)) {
         return;
       }
 
       foreach (module_implements('panels_pane_content_alter') as $module) {
         $function = $module . '_panels_pane_content_alter';
-        $function($content, $pane, $this->display->args, $this->display->context);
+        $function($content, $pane, $this->display->args, $this->display->context, $this, $this->display);
       }
-
       if ($caching && isset($cache)) {
         $cache->set_content($content);
         panels_set_cached_content($cache, $this->display, $this->display->args, $this->display->context, $pane);
@@ -624,6 +623,7 @@ class panels_renderer_standard {
       $owner_id = $this->display->owner->id;
     }
 
-    return theme($style['render region'], $this->display, $owner_id, $panes, $style_settings, $region_id, $style);
+    $output = theme($style['render region'], array('display' => $this->display, 'owner_id' => $owner_id, 'panes' => $panes, 'settings' => $style_settings, 'region_id' => $region_id, 'style' => $style));
+    return $output;
   }
 }

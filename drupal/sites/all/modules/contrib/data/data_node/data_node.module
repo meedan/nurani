@@ -1,68 +1,74 @@
 <?php
-// $Id: data_node.module,v 1.1.2.6 2010/01/20 21:44:22 alexb Exp $
 /**
  * @file
  * Hooks and API functions for Data Node module.
  */
 
 /**
- * Implementation of hook_views_api().
+ * Implements hook_views_api().
  */
 function data_node_views_api() {
   return array(
     'api' => '2.0',
-    'path' => drupal_get_path('module', 'data_node') .'/views',
+    'path' => drupal_get_path('module', 'data_node') . '/views',
   );
 }
 
 /**
- * Implementation of hook_theme().
+ * Implements hook_theme().
  */
 function data_node_theme() {
   return array(
     'data_node_label' => array(
-      'arguments' => array('table' => NULL, 'id' => NULL, 'nid' => NULL, 'title' => NULL),
+      'variables' => array('table' => NULL, 'id' => NULL, 'nid' => NULL, 'title' => NULL),
       'file' => 'data_node.theme.inc',
     ),
     'data_node_active_form' => array(
-      'arguments' => array('form' => array()),
+      'render element' => 'form',
       'file' => 'data_node.theme.inc',
     ),
   );
 }
 
 /**
- * Implementation of hook_block().
+ * Implements hook_block_info().
  */
-function data_node_block($op = 'list', $delta = 0) {
-  switch ($op) {
-    case 'list':
-      $blocks = array();
-      $tables = data_get_all_tables();
-      foreach ($tables as $table) {
-        $meta = $table->get('meta');
-        if (!empty($meta['data_node']['content_type'])) {
-          $blocks[$table->get('name')]['info'] = t('Data node: Active node form for !table', array('!table' => $table->get('title')));
-        }
-      }
-      return $blocks;
-    case 'view':
-      if (user_access('manage data relations') && $table = data_get_table($delta)) {
-        // Grab the node type name
-        $meta = $table->get('meta');
-        $names = node_get_types('names');
-        $type_name = check_plain($names[$meta['data_node']['content_type']]);
+function data_node_block_info() {
+  $blocks = array();
+  $tables = data_get_all_tables();
+  foreach ($tables as $table) {
+    $meta = $table->get('meta');
+    if (!empty($meta['data_node']['content_type'])) {
+      $blocks[$table->get('name')]['info'] = t('Data node: Active node form for !table', array('!table' => $table->get('title')));
+    }
+  }
+  return $blocks;
+}
 
-        return array(
-          'subject' => t('Active !type', array('!type' => $type_name)),
-          'content' => drupal_get_form('data_node_active_form', $table),
-         );
-      }
+/**
+ * Implements hook_block_view().
+ */
+function data_node_block_view($delta) {
+  if (user_access('manage data relations') && $table = data_get_table($delta)) {
+    // Grab the node type name
+    $meta = $table->get('meta');
+    $names = node_type_get_names();
+    $type_name = check_plain($names[$meta['data_node']['content_type']]);
+
+    return array(
+      'subject' => t('Active !type', array('!type' => $type_name)),
+      'content' => drupal_get_form('data_node_active_form', $table),
+    );
   }
 }
 
 /**
- * Implementation of hook_menu().
+ * Implements hook_block().
+ */
+function data_node_block_OLD($op = 'list', $delta = 0) { }
+
+/**
+ * Implements hook_menu().
  */
 function data_node_menu() {
   $items = array();
@@ -72,22 +78,22 @@ function data_node_menu() {
     'access callback' => 'user_access',
     'access arguments' => array('manage data relations'),
     'type' => MENU_CALLBACK,
-    );
+  );
   $items['data-node/remove/%data_ui_table/%/%/%'] = array(
     'page callback' => 'data_node_remove_page',
     'page arguments' => array(2, 3, 4, 5),
     'access callback' => 'user_access',
     'access arguments' => array('manage data relations'),
     'type' => MENU_CALLBACK,
-    );
+  );
   $items['data-node/active/%data_ui_table/%'] = array(
     'page callback' => 'data_node_active_page',
     'page arguments' => array(2, 3),
     'access callback' => 'user_access',
     'access arguments' => array('manage data relations'),
     'type' => MENU_CALLBACK,
-    );
-  $items['admin/build/data/edit/%data_ui_table/node'] = array(
+  );
+  $items['admin/structure/data/edit/%data_ui_table/node'] = array(
     'title' => 'Relate to nodes',
     'description' => 'Administer data tables.',
     'page callback' => 'drupal_get_form',
@@ -100,21 +106,25 @@ function data_node_menu() {
 }
 
 /**
- * Implementation of hook_perm().
+ * Implements hook_permission().
  */
-function data_node_perm() {
-  return array('edit data node relations');
+function data_node_permission() {
+  return array(
+    'edit data node relations' => array(
+      'title' => t('edit data node relations'),
+      'description' => t('TODO Add a description for \'edit data node relations\''),
+    ),
+  );
 }
 
 /**
  * Form callback for setting the active node.
  */
-function data_node_active_form(&$form_state, $table) {
+function data_node_active_form($form, &$form_state, $table) {
   $form = array(
     '#attributes' => array('class' => 'data-node-active-form'),
     '#table' => $table,
     '#theme' => 'data_node_active_form',
-
     // These three are here to keep JS from doing reconstructive URL surgery.
     'ajax_url' => array(
       '#type' => 'hidden',
@@ -133,15 +143,15 @@ function data_node_active_form(&$form_state, $table) {
     ),
   );
 
-  $nodes = array(0 => '--'. t('Select') .'--');
+  $nodes = array(0 => '--' . t('Select') . '--');
   $nodes += data_node_get_nodes($table);
 
   // Grab the node type name and provide a creation option
   $meta = $table->get('meta');
-  $names = node_get_types('names');
+  $names = node_type_get_names();
   $type_name = check_plain($names[$meta['data_node']['content_type']]);
   if (node_access('create', $meta['data_node']['content_type'])) {
-    $nodes['new'] = '< '. t('New !type', array('!type' => $type_name)) .' >';
+    $nodes['new'] = '< ' . t('New !type', array('!type' => $type_name)) . ' >';
   }
 
   $form['nid'] = array(
@@ -189,7 +199,8 @@ function data_node_active_form_submit($form, &$form_state) {
       $query[] = "$k=$v";
     }
   }
-  drupal_goto($_GET['q'], implode('&', $query));
+  // TODO implode('&', $query) needs to be an array of keys and values instead of a string.
+  drupal_goto($_GET['q'], array('query' => implode('&', $query)));
 }
 
 /**
@@ -204,7 +215,7 @@ function data_node_active_form_create_submit($form, &$form_state) {
     $node->title = $title;
     $node->type = $form_state['values']['type'];
     $node->body = '';
-    foreach (variable_get('node_options_'. $node->type, array('status')) as $key) {
+    foreach (variable_get('node_options_' . $node->type, array('status')) as $key) {
       $node->{$key} = 1;
     }
     node_save($node);
@@ -219,7 +230,8 @@ function data_node_active_form_create_submit($form, &$form_state) {
       $query[] = "$k=$v";
     }
   }
-  drupal_goto($_GET['q'], implode('&', $query));
+  // TODO implode('&', $query) needs to be an array of keys and values instead of a string.
+  drupal_goto($_GET['q'], array('query' => implode('&', $query)));
 }
 
 /**
@@ -240,11 +252,10 @@ function data_node_add_page($table, $id, $nid, $token) {
       'id' => $id,
       'nid' => $nid,
       'labels' => data_node_render_labels($table, $id),
-
       'add_link' => data_node_render_remove_link($table, $id, $nid),
       'remove_link' => data_node_render_add_link($table, $id, $nid),
     );
-    drupal_json($response);
+    drupal_json_output($response);
     exit;
   }
   drupal_goto($_GET['q']);
@@ -270,7 +281,7 @@ function data_node_active_page($table, $nid) {
       'nid' => $nid,
       'refresh' => $refresh,
     );
-    drupal_json($response);
+    drupal_json_output($response);
     exit;
   }
   drupal_goto($_GET['q']);
@@ -293,11 +304,10 @@ function data_node_remove_page($table, $id, $nid, $token) {
       'id' => $id,
       'nid' => $nid,
       'labels' => data_node_render_labels($table, $id),
-
       'add_link' => data_node_render_remove_link($table, $id, $nid),
       'remove_link' => data_node_render_add_link($table, $id, $nid),
     );
-    drupal_json($response);
+    drupal_json_output($response);
     exit;
   }
   drupal_goto($_GET['q']);
@@ -320,7 +330,7 @@ function data_node_add($table, $id, $nid) {
  */
 function data_node_get_nids($table, $id) {
   $list = array();
-  $result = db_query("SELECT nid FROM {data_table_node} WHERE data_table_name = '%s' AND id = %d", $table->get('name'), $id);
+  $result = db_query("SELECT nid FROM {data_table_node} WHERE data_table_name = :data_table_name AND id = :id", array(':data_table_name' => $table->get('name'), ':id' => $id));
   while ($row = db_fetch_object($result)) {
     $list[] = $row->nid;
   }
@@ -331,7 +341,13 @@ function data_node_get_nids($table, $id) {
  * Remove a relationship between a data table and a node.
  */
 function data_node_remove($table, $id, $nid) {
-  db_query("DELETE FROM {data_table_node} WHERE data_table_name = '%s' AND id = %d AND nid = %d", $table->get('name'), $id, $nid);
+  // TODO Please review the conversion of this statement to the D7 database API syntax.
+  /* db_query("DELETE FROM {data_table_node} WHERE data_table_name = '%s' AND id = %d AND nid = %d", $table->get('name'), $id, $nid) */
+  db_delete('data_table_node')
+  ->condition('data_table_name', $table->get('name'))
+  ->condition('id', $id)
+  ->condition('nid', $nid)
+  ->execute();
 }
 
 /**
@@ -341,7 +357,7 @@ function data_node_get_nodes($table) {
   $nodes = array();
   $meta = $table->get('meta');
   if ($meta['data_node']['content_type']) {
-    $result = db_query("SELECT nid, title FROM {node} WHERE type = '%s' ORDER BY title ASC", $meta['data_node']['content_type']);
+    $result = db_query("SELECT nid, title FROM {node} WHERE type = :type ORDER BY title ASC", array(':type' => $meta['data_node']['content_type']));
     while ($node = db_fetch_object($result)) {
       $nodes[$node->nid] = $node->title;
     }
@@ -376,7 +392,7 @@ function _data_node_hash($table, $id, $nid) {
 function _data_node_get_title($nid) {
   static $nodes = array();
   if (!isset($nodes[$nid])) {
-    $nodes[$nid] = check_plain(db_result(db_query("SELECT title FROM {node} WHERE nid = %d", $nid)));
+    $nodes[$nid] = check_plain(db_query("SELECT title FROM {node} WHERE nid = :nid", array(':nid' => $nid))->fetchField());
   }
   return isset($nodes[$nid]) ? $nodes[$nid] : NULL;
 }
@@ -405,8 +421,8 @@ function data_node_add_path($table, $id, $nid) {
 function data_node_render_labels($table, $id) {
   $nids = data_node_get_nids($table, $id);
   foreach ($nids as $nid) {
-    $title = _data_node_get_title($nid);;
-    $output .= theme('data_node_label', $table, $id, $nid, $title);
+    $title = _data_node_get_title($nid);
+    $output .= theme('data_node_label', array('table' => $table, 'id' => $id, 'nid' => $nid, 'title' => $title));
   }
   $table_name = $table->get('name');
   $class = "data_node_labels-{$table_name}-{$id}";

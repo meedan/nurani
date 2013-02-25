@@ -1,5 +1,0 @@
-name = Content Copy
-description = Enables ability to import/export field definitions.
-dependencies[] = content
-package = CCK
-core = 6.x

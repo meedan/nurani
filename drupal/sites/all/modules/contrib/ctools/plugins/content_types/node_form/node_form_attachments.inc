@@ -1,5 +1,4 @@
 <?php
-// $Id: node_form_attachments.inc,v 1.1.2.2 2010/04/14 21:02:12 merlinofchaos Exp $
 
 if (module_exists('upload')) {
   /**
@@ -24,10 +23,16 @@ function ctools_node_form_attachments_content_type_render($subtype, $conf, $pane
   $block->delta = 'url-path-options';
 
   if (isset($context->form)) {
-    if (!empty($context->form['form_id']) && !empty($context->form['attachments']['#access'])) {
-      // remove the fieldset
-      unset($context->form['attachments']['#type']);
-      $block->content = drupal_render($context->form['attachments']);
+    if (isset($context->form['attachments'])) {
+      $block->content = $context->form['attachments'];
+      if (isset($block->content['attachments']['#group'])) {
+        unset($block->content['attachments']['#pre_render']);
+        unset($block->content['attachments']['#theme_wrappers']);
+        $block->content['attachments']['#type'] = '';
+      }
+      // Set access to false on the original rather than removing so that
+      // vertical tabs doesn't clone it. I think this is due to references.
+      $context->form['attachments']['#access'] = FALSE;
     }
   }
   else {
@@ -40,6 +45,7 @@ function ctools_node_form_attachments_content_type_admin_title($subtype, $conf, 
   return t('"@s" node form attach files', array('@s' => $context->identifier));
 }
 
-function ctools_node_form_attachments_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_form_attachments_content_type_edit_form($form, &$form_state) {
   // provide a blank form so we have a place to have context setting.
+  return $form;
 }

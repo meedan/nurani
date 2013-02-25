@@ -1,42 +1,61 @@
 <?php
 
 /**
- * Implementaton of hook_install().
+ * @file
+ * Install, update and uninstall functions for the features module.
+ */
+
+/**
+ * Implements hook_install().
  */
 function features_install() {
   _features_install_menu();
-  db_query("UPDATE {system} SET weight = 20 WHERE name = 'features' AND type = 'module'");
+  db_update('system')
+    ->fields(array('weight' =>  20))
+    ->condition('name', 'features')
+    ->condition('type', 'module')
+    ->execute();
 }
 
 /**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  */
 function features_uninstall() {
   variable_del('features_codecache');
   variable_del('features_semaphore');
   variable_del('features_ignored_orphans');
-  db_query("DELETE FROM {menu_custom} WHERE menu_name = 'features'");
-  db_query("DELETE FROM {menu_links} WHERE module = 'features'");
+  db_delete('menu_custom')
+    ->condition('menu_name', 'features')
+    ->execute();
+  db_delete('menu_links')
+    ->condition('module', 'features')
+    ->execute();
 }
 
 /**
  * Create menu. See menu.install for an example.
  */
 function _features_install_menu() {
-  if (db_table_exists('menu_custom') && !db_result(db_query("SELECT menu_name FROM {menu_custom} WHERE menu_name = 'features'"))) {
+  if (db_table_exists('menu_custom') && !db_query("SELECT menu_name FROM {menu_custom} WHERE menu_name = :menu_name", array(':menu_name' => 'features'))->fetchField()) {
     $t = get_t();
-    db_query("INSERT INTO {menu_custom} (menu_name, title, description) VALUES ('%s', '%s', '%s')", 'features', $t('Features'), $t('Menu items for any enabled features.'));
+    $id = db_insert('menu_custom')
+      ->fields(array(
+        'menu_name' => 'features',
+        'title' => $t('Features'),
+        'description' => $t('Menu items for any enabled features.'),
+      ))
+      ->execute();
   }
 }
 
 /**
  * Update 6100: Set module on all feature node types to 'features'.
- 
- * This update can be re-run as needed to repair any node types that are not 
+
+ * This update can be re-run as needed to repair any node types that are not
  * removed after disabling the associated feature.
- * 
- * Any feature implementing a node component that was exported prior to this 
- * version of the features.module will need to have its 'module' declaration 
+ *
+ * Any feature implementing a node component that was exported prior to this
+ * version of the features.module will need to have its 'module' declaration
  * in hook_node_info() changed from 'node' to 'features'.
  */
 function features_update_6100() {
@@ -48,7 +67,7 @@ function features_update_6100() {
         $sql = "SELECT COUNT(*) FROM {node_type} WHERE module = 'node' AND type = '%s'";
         // Only update if the hook_node_info type's module is 'features' and the db type's
         // module is 'node'.
-        if (($type_data['module'] == 'features') && db_result(db_query($sql, $type))) {
+        if (($type_data['module'] == 'features') && db_query($sql, $type)->fetchField()) {
           $ret[] = update_sql("UPDATE {node_type} SET module = 'features' WHERE type = '$type'");
         }
       }

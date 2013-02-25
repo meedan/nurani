@@ -1,5 +1,4 @@
 <?php
-// $Id: node_type_desc.inc,v 1.1.2.1 2010/01/29 20:18:25 merlinofchaos Exp $
 
 /**
  * Plugins are described by creating a $plugin array which will be used
@@ -19,12 +18,12 @@ $plugin = array(
  * based on the module and delta supplied in the configuration.
  */
 function ctools_node_type_desc_content_type_render($subtype, $conf, $panel_args, $context) {
-  $node = isset($context->data) ? drupal_clone($context->data) : NULL;
+  $node = isset($context->data) ? clone($context->data) : NULL;
   $block = new stdClass();
   $block->module = 'node_type';
 
   if ($node) {
-    $type = node_get_types('type', $node);
+    $type = node_type_get_type($node);
     $block->title = $type->name;
     $block->content = filter_xss_admin($type->description);
     $block->delta   = $node->type;
@@ -42,6 +41,7 @@ function ctools_node_type_desc_content_type_admin_title($subtype, $conf, $contex
   return t('"@s" type description', array('@s' => $context->identifier));
 }
 
-function ctools_node_type_desc_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_type_desc_content_type_edit_form($form, &$form_state) {
   // provide a blank form so we have a place to have context setting.
+  return $form;
 }

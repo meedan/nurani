@@ -3,10 +3,8 @@
 class views_plugin_style_summary_taxonomy extends views_plugin_style_summary {
   function option_definition() {
     $options = parent::option_definition();
-    $options['count_no_aggregate'] = array('default' => FALSE);
     $options['taxonomy'] = array('default' => 0);
     $options['hide_zero'] = array('default' => TRUE);
-    $options['path'] = array('default' => '');
     return $options;
   }
 
@@ -21,38 +19,12 @@ class views_plugin_style_summary_taxonomy extends views_plugin_style_summary {
       '#title' => t('Taxonomy'),
       '#options' => $options,
     );
-    $form['count_no_aggregate'] = array(
-      '#type' => 'checkbox',
-      '#default_value' => $this->options['count_no_aggregate'],
-      '#title' => t('If displaying record count, do not use aggregate count of parent/child terms.'),
-      '#description' => t('Enable this if you apply all terms (the entire "trail") in node term hierarchy. Without this, term parents could show several times the count you expect.'),
-    );
+
     $form['hide_zero'] = array(
       '#type' => 'checkbox',
       '#default_value' => $this->options['hide_zero'],
       '#title' => t('Hide terms with zero entries'),
     );
-    if (module_exists('token')) {
-      $form['path'] = array(
-        '#type' => 'textfield',
-        '#default_value' => $this->options['path'],
-        '#title' => t('Path for term links (optional)'),
-        '#description' => t('Use this to override the term paths. Otherwise, the view page path will be used. You can use any of the following tokens:'),
-      );
-      $form['tokens'] = array(
-        '#type' => 'fieldset',
-        '#collapsible' => TRUE,
-        '#collapsed' => TRUE,
-        '#title' => t('Tokens available'),
-        '#description' => t("Tokens available for use in custom path."),
-      );
-      $form['tokens']['path'] = array(
-        '#value' => theme('token_help', 'taxonomy'),
-      );
-    }
-    else {
-      $form['path'] = array('#type' => 'value', '#value' => '');
-    }
   }
 
   function render() {
@@ -95,14 +67,9 @@ class views_plugin_style_summary_taxonomy extends views_plugin_style_summary {
       $args = $this->view->args;
       $args[$argument->position] = $argument->summary_argument($this->terms[$tid]);
       $item = array();
-      $path = $this->view->get_url($args);
-      if (!empty($this->options['path']) && module_exists('token')) {
-        $path = drupal_strtolower(token_replace($this->options['path'], 'taxonomy', $term));
-      }
-      $item['data']  = l($term->name, $path, $url_options);
+      $item['data']  = l($term->name, $this->view->get_url($args), $url_options);
       if (!empty($this->options['count'])) {
-        $count = !empty($argument->definition['accept depth modifier']) && empty($this->options['count_no_aggregate']) ? $term->aggregate_count : $term->count;
-        $item['data'] .= ' (' . $count . ')';
+        $item['data'] .= ' (' . (@$argument->definition['accept depth modifier'] ? $term->aggregate_count : $term->count) . ')';
       }
       $item['weight'] = $term->weight;
       if (isset($children[$tid])) {

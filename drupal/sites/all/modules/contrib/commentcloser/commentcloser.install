@@ -1,0 +1,103 @@
+<?php
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function commentcloser_uninstall() {
+  variable_del('commentcloser_age');
+  variable_del('commentcloser_cycle_period');
+  variable_del('commentcloser_next_date');
+  variable_del('commentcloser_types');
+  foreach (node_type_get_names() as $type => $name) {
+    variable_del("commentcloser_age_unit_$type");
+    variable_del("commentcloser_age_number_$type");
+    variable_del("commentcloser_comment_limit_$type");
+  }
+
+  drupal_set_message(t('Comment Closer module uninstalled.'));
+}
+
+/**
+ * Implements hook_update_N().
+ * Change to per-content-type settings.
+ */
+function commentcloser_update_6000() {
+  $age = variable_get('comment_closer_age', 'never');
+  $types = variable_get('comment_closer_types', 0);
+  // If no types have been selected, then we work for all content types.
+  if (empty($types) || !is_array($types)) {
+    $types = node_type_get_names();
+  }
+
+  foreach ($types as $type => $name) {
+    $v = "comment_closer_age_$type";
+    variable_set($v, $age);
+  }
+
+  variable_del('comment_closer_cycle_period');
+  variable_del('comment_closer_age');
+  variable_del('comment_closer_types');
+}
+
+/**
+ * Implements hook_update_N().
+ * Change to number, unit intervals.
+ */
+function commentcloser_update_6001() {
+  $types = node_type_get_names();
+  foreach ($types as $type => $name) {
+    $age = variable_get("comment_closer_age_$type", 'never');
+    if ($age == 'never') {
+      continue;
+    }
+
+    $age_num = 1;
+    $age_unit = $age;
+    if ($age == 'quarterly') {
+      $age_unit = 'month';
+      $age_num = 3;
+    }
+    else {
+      if (is_numeric($age)) {
+        $age_unit = 'day';
+        $age_num = $age;
+      }
+    }
+
+    variable_set("comment_closer_age_number_$type", $age_num);
+    variable_set("comment_closer_age_unit_$type", $age_unit);
+  }
+}
+
+/**
+ * Implements hook_update_N().
+ * Change from comment_close_xxx to commentclose_xxx.
+ */
+function commentcloser_update_7000(&$context) {
+  variable_set("commentcloser_age", variable_get("comment_closer_age"));
+  variable_del('comment_closer_age');
+
+  variable_set("commentcloser_cycle_period", variable_get("comment_closer_cycle_period"));
+  variable_del('comment_closer_cycle_period');
+
+  variable_set("commentcloser_next_date", variable_get("comment_closer_next_date"));
+  variable_del('comment_closer_next_date');
+
+  variable_set("commentcloser_types", variable_get("comment_closer_types"));
+  variable_del('comment_closer_types');
+
+  variable_del('comment_closer_age');
+  foreach (node_type_get_names() as $type => $name) {
+    variable_set("commentcloser_age_unit_$type", variable_get("comment_closer_age_unit_$type", 'day'));
+    variable_del("comment_closer_age_unit_$type");
+
+    variable_set("commentcloser_age_number_$type", variable_get("comment_closer_age_number_$type", 0));
+    variable_del("comment_closer_age_number_$type");
+
+    variable_set("commentcloser_comment_limit_$type", variable_get("comment_closer_comment_limit_$type", 0));
+    variable_del("comment_closer_comment_limit_$type");
+  }
+}

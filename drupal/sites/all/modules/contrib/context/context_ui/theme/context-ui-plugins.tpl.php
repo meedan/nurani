@@ -1,4 +1,4 @@
-<div class='context-plugins clear-block'>
+<div class='context-plugins clearfix'>
   <div class='context-plugin-forms'>
     <?php foreach (element_children($form['plugins']) as $plugin): ?>
       <div class='context-plugin-form context-plugin-form-<?php print $plugin ?>'>
@@ -14,9 +14,9 @@
       <?php print drupal_render($form['selector']) ?>
       <?php print drupal_render($form['state']) ?>
     </div>
-    <?php print theme('links', $plugins, array('class' => 'context-plugin-list')) ?>
+    <?php print theme('links', array('links' => $plugins, 'attributes' => array('class' => array('context-plugin-list')))) ?>
   </div>
 
-  <?php print drupal_render($form) ?>
+  <?php print drupal_render_children($form) ?>
 
 </div>

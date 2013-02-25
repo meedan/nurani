@@ -1,12 +1,11 @@
 <?php
-// $Id: data_taxonomy.views.inc,v 1.1.2.6 2010/09/08 01:54:47 alexb Exp $
 /**
  * @file
  * Views hooks.
  */
 
 /**
- * Implementation of hook_views_data().
+ * Implements hook_views_data().
  */
 function data_taxonomy_views_data() {
   $data = array();
@@ -14,12 +13,12 @@ function data_taxonomy_views_data() {
   $data['data_taxonomy']['table']['group']  = t('Data taxonomy');
   $data['data_taxonomy']['table']['title']  = t('Taxonomy');
   $data['data_taxonomy']['table']['join'] = array(
-    'term_data' => array(
+    'taxonomy_term_data' => array(
       'left_field' => 'tid',
       'field' => 'tid',
     ),
     'node' => array(
-      'left_table' => 'term_node',
+      'left_table' => 'taxonomy_term_node',
       'left_field' => 'tid',
       'field' => 'tid',
     ),
@@ -28,7 +27,7 @@ function data_taxonomy_views_data() {
     'title' => t('Term data.'),
     'help' => t('Relate data_taxonomy to a term data.'),
     'label' => t('Relate data_taxonomy to a term data.'),
-    'base' => 'term_data',
+    'base' => 'taxonomy_term_data',
     'base field' => 'tid',
   );
   $data['data_taxonomy']['tid_2'] = array(
@@ -37,7 +36,7 @@ function data_taxonomy_views_data() {
       'title' => t('Nodes with term.'),
       'help' => t('Relate data taxonomy to all nodes with same term.'),
       'label' => t('Relate data taxonomy to nodes with term.'),
-      'base' => 'term_node',
+      'base' => 'taxonomy_term_node',
       'base field' => 'tid',
       'relationship field' => 'tid',
     ),
@@ -60,13 +59,13 @@ function data_taxonomy_views_data() {
         'field' => 'id',
       );
       // allow term data to join directly to affected data tables
-      $data['term_data']['table']['join'][$table->get('name')] = array(
+      $data['taxonomy_term_data']['table']['join'][$table->get('name')] = array(
         'left_table' => 'data_taxonomy',
         'left_field' => 'tid',
         'field' => 'tid',
       );
       // don't want to overwrite any other relationships this might have...
-      $data[$table->get('name')]['data_taxonomy_'. $meta['data_taxonomy']['id']]['relationship'] = array(
+      $data[$table->get('name')]['data_taxonomy_' . $meta['data_taxonomy']['id']]['relationship'] = array(
         'title' => t('Term tid.'),
         'help' => t('Relate a data record to a term tid.'),
         'label' => t('Relate a data record to a term tid.'),
@@ -87,26 +86,26 @@ function data_taxonomy_views_data() {
 }
 
 /**
- * Implementation of hook_views_data_alter().
+ * Implements hook_views_data_alter().
  *
  * Expose node table fields/filters for terms as base table.
  * @todo This really doesn't belong here.
  */
 function data_taxonomy_views_data_alter(&$data) {
-  $data['node']['table']['join']['term_node'] = array(
-    'left_table' => 'term_node',
+  $data['node']['table']['join']['taxonomy_term_node'] = array(
+    'left_table' => 'taxonomy_term_node',
     'left_field' => 'nid',
     'field' => 'nid',
   );
 }
 
 /**
- * Implementation of hook_views_handlers().
+ * Implements hook_views_handlers().
  */
 function data_taxonomy_views_handlers() {
   return array(
     'info' => array(
-      'path' => drupal_get_path('module', 'data_taxonomy') .'/views',
+      'path' => drupal_get_path('module', 'data_taxonomy') . '/views',
     ),
     'handlers' => array(
       'data_taxonomy_views_handler_field_form' => array(

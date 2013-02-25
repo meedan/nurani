@@ -1,5 +1,4 @@
 <?php
-// $Id: terms.inc,v 1.3.2.3 2010/01/29 20:18:25 merlinofchaos Exp $
 
 /**
  * @file
@@ -55,6 +54,7 @@ function ctools_terms_settings_form(&$form, &$form_state, $conf) {
     '#default_value' => !empty($conf['breadcrumb']),
     '#description' => t('If checked, taxonomy term parents will appear in the breadcrumb trail.'),
   );
+//  return $form;
 }
 
 /**

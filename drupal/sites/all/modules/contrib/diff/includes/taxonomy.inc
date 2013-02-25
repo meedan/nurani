@@ -2,65 +2,106 @@
 
 /**
  * @file
- * Implementation of hook_diff() for taxonomy.
+ * Implements pusdeo-hook hook_field_diff_view() for the Taxonomy module.
  */
 
 /**
- * Implementation of hook_diff() for taxonomy.
+ * Diff field callback for preloading term entities.
  */
-function taxonomy_diff($old_node, $new_node) {
-  $result = array();
-  // TODO: make taxonomy by category not only by whole taxonomy?
-  $old_taxonomy = array();
-  $new_taxonomy = array();
-  if (isset($old_node->taxonomy) && $old_node->taxonomy) {
-    foreach ($old_node->taxonomy as $term) {
-      $old_taxonomy[] = $term->name;
-    }
+function taxonomy_field_diff_view_prepare(&$old_items, &$new_items, $context) {
+  $tids = array();
+  foreach (array_merge_recursive($old_items, $new_items) as $info) {
+    $tids[$info['tid']] = $info['tid'];
   }
-  if (isset($new_node->taxonomy) && $new_node->taxonomy) {
-    foreach ($new_node->taxonomy as $id => $entry) {
-      if (is_array($entry)) {
-        // During editing the taxonomy is built up as a list of vocabulary ids as keys
-        // and a list of term ids per array entry.
-        if (is_numeric($id)) {
-          foreach ($entry as $tid) {
-            $term = taxonomy_get_term($tid);
-            $new_taxonomy[] = $term->name;
-          }
-        }
-        else {
-          // If the id is not numeric than it has to be 'tags' which denotes freetagging
-          // vocabularies. These are stored as an array which map the vocabulary id to
-          // a string of terms.
-          foreach ($entry as $taglist) {
-            // The regular expression is taken from taxonomy.module.
-            preg_match_all('%(?:^|,\ *)("(?>[^"]*)(?>""[^"]* )*"|(?: [^",]*))%x', $taglist, $matches);
-            foreach ($matches[1] as $term) {
-              $new_taxonomy[] = $term;
-            }
-          }
-        }
+  $terms = taxonomy_term_load_multiple($tids);
+  foreach ($old_items as $delta => $info) {
+    $old_items[$delta]['term'] = isset($terms[$info['tid']]) ? $terms[$info['tid']] : NULL;
+  }
+  foreach ($new_items as $delta => $info) {
+    $new_items[$delta]['term'] = isset($terms[$info['tid']]) ? $terms[$info['tid']] : NULL;
+  }
+}
+
+/**
+ * Diff field callback for parsing term field comparative values.
+ */
+function taxonomy_field_diff_view($items, $context) {
+  $settings = $context['settings'];
+  $instance = $context['instance'];
+
+  $diff_items = array();
+  foreach ($items as $delta => $item) {
+    if (!empty($item['tid'])) {
+      if ($item['tid'] == 'autocreate') {
+        $diff_items[$delta] = t('!term_name (new)', array('!term_name' => $item['name']));
       }
-      elseif (is_numeric($entry)) {
-        // During editing, taxonomy is a single id.
-        $term = taxonomy_get_term($entry);
-        $new_taxonomy[] = $term->name;
+      elseif (empty($item['term'])) {
+        $diff_items[$delta] = t('Missing term reference (!tid)', array('!tid' => $item['tid']));
       }
       else {
-        // Not during editing the taxonomy list is a list of terms.
-        $new_taxonomy[] = $entry->name;
+        $output = array();
+        $output['name'] = $item['term']->name;
+        if ($settings['show_id']) {
+          $output['tid'] = t('Term ID: !tid', array('!tid' => $item['term']->tid));
+        }
+        $diff_items[$delta] = implode('; ', $output);
       }
     }
   }
-  $result['taxonomy'] = array(
-    '#name' => t('Taxonomy'),
-    '#old' => $old_taxonomy,
-    '#new' => $new_taxonomy,
-    '#weight' => -3,
-    '#format' => array(
-      'show_header' => FALSE,
-    )
+  if (!empty($settings['sort']) && !empty($diff_items)) {
+    if ($settings['sort'] == DIFF_SORT_VALUE || $instance['widget']['type'] == 'taxonomy_autocomplete') {
+      usort($diff_items, 'uasort_taxonomy_field_diff_terms');
+    }
+  }
+  return $diff_items;
+}
+
+/**
+ * Helper function for sorting terms.
+ */
+function uasort_taxonomy_field_diff_terms($a, $b) {
+  // We need to use t() to test for string overrides.
+  $missing_text = t('Missing term reference');
+  $a_missing = strpos($a, $missing_text) === 0;
+  $b_missing = strpos($b, $missing_text) === 0;
+  if ($a_missing && $b_missing) {
+    return strnatcmp($a, $b);
+  }
+  elseif ($a_missing xor $b_missing) {
+    return $a_missing ? 100 : -100;
+  }
+  return strnatcmp($a, $b);
+}
+
+/**
+ * Provide default field comparison options.
+ */
+function taxonomy_field_diff_default_options($field_type) {
+  return array(
+    'show_id' => 0,
+    'sort' => DIFF_SORT_CUSTOM,
   );
-  return $result;
+}
+
+/**
+ * Provide a form for setting the field comparison options.
+ */
+function taxonomy_field_diff_options_form($field_type, $settings) {
+  $options_form = array();
+  $options_form['show_id'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show term ID'),
+    '#default_value' => $settings['show_id'],
+  );
+  $options_form['sort'] = array(
+    '#type' => 'radios',
+    '#title' => t('Sort'),
+    '#options' => array(
+      DIFF_SORT_NONE => t('No sort'),
+      DIFF_SORT_VALUE => t('Sort'),
+      DIFF_SORT_CUSTOM => t('Sort if free tagging field'),
+    ),
+    '#default_value' => $settings['sort'],
+  );
+  return $options_form;
 }

@@ -1,5 +1,4 @@
 <?php
-// $Id: data.api.php,v 1.1.2.3 2010/01/21 20:51:40 alexb Exp $
 
 /**
  * @file
@@ -19,9 +18,9 @@ function hook_data_update($record, $table_name) {
 }
 
 /**
- * Invoked before a delete. Add to/remove from a delete query before deleting.
+ * Invoked before data record(s) have been deleted.
  */
-function hook_data_delete_query_alter(&$query, $table_name) {
+function hook_data_table_delete_rows($table_handler, $clause) {
 }
 
 /**
@@ -75,4 +74,14 @@ function hook_ctools_plugin_api() {
   if ($module == "data" && $api == "data_default") {
     return array("version" => 1);
   }
+}
+
+/**
+ * Declare additional Views handlers to the views data configuration options.
+ *
+ * Handlers that are not used by anything declared in hook_views_data() should
+ * use this hook to add themselves to the options on the 'Configure views' page.
+ */
+function data_data_views_handlers_alter(&$handlers) {
+  $handlers['field']['views_handler_field_data_markup'] = 'views_handler_field_data_markup';
 }

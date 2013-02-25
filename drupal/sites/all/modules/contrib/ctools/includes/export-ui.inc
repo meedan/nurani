@@ -1,5 +1,4 @@
 <?php
-// $Id: export-ui.inc,v 1.1.2.9 2010/10/15 21:05:55 merlinofchaos Exp $
 
 /**
  * @file
@@ -7,14 +6,6 @@
  *
  * See Advanced Help for documentation.
  */
-/**
- * Implementation of hook_ctools_plugin_*.
- */
-function ctools_ctools_plugin_export_ui() {
-  return array(
-    'process' => 'ctools_export_ui_process',
-  );
-}
 
 /**
  * Process an export-ui plugin to provide it with defaults.
@@ -28,12 +19,11 @@ function ctools_export_ui_process(&$plugin, $info) {
     'export' => array(),
     'allowed operations' => array(),
     'menu' => array(),
+    'redirect' => array(),
     'form' => array(),
     'strings' => array(),
     'list' => NULL,
     'access' => 'administer site configuration',
-    'use advanced help' => FALSE,
-    'advanced help' => array(),
   );
 
   // Provide CRUD access defaults based on the base 'access' setting:
@@ -68,10 +58,6 @@ function ctools_export_ui_process(&$plugin, $info) {
   // out. This is a HACK but it should work:
   $schema = ctools_export_get_schema($plugin['schema']);
 
-  if (!$schema && $_GET['q'] == 'admin/build/modules/list/confirm') {
-    $schema = ctools_export_get_schema($plugin['schema'], TRUE);
-  }
-
   if (empty($schema)) {
     // If we're updating the schema may not have been read yet, so don't report this error in that case.
     if (!defined('MAINTENANCE_MODE')) {
@@ -84,6 +70,7 @@ function ctools_export_ui_process(&$plugin, $info) {
     drupal_set_message(t('The plugin definition of @plugin uses %schema, but it has no export section.', array('%schema' => $plugin['schema'], '@plugin' => $plugin['name'])), 'error');
     return;
   }
+  $plugin['export'] += $schema['export'];
 
   $plugin['export'] += array(
     // Add the identifier key from the schema so we don't have to call
@@ -116,7 +103,7 @@ function ctools_export_ui_process(&$plugin, $info) {
 
   $plugin['menu'] += array(
     'menu item' => str_replace(' ', '-', $plugin['name']),
-    'menu prefix' => 'admin/build',
+    'menu prefix' => 'admin/structure',
     'menu title' => $plugin['title'],
     'menu description' => '',
   );
@@ -129,170 +116,176 @@ function ctools_export_ui_process(&$plugin, $info) {
   );
 
   $plugin['menu']['items'] += array(
-    'list callback' => array(
-      'path' => '',
-      // Menu items are translated by the menu system.
-      // TODO: We need more flexibility in title. The title of the admin page
-      // is not necessarily the title of the object, plus we need
-      // plural, singular, proper, not proper, etc.
-      'title' => $plugin['menu']['menu title'],
-      'description' => $plugin['menu']['menu description'],
-      'page callback' => 'ctools_export_ui_switcher_page',
-      'page arguments' => array($plugin['name'], 'list'),
-      'access callback' => 'ctools_export_ui_task_access',
-      'access arguments' => array($plugin['name'], 'list'),
-      'type' => MENU_NORMAL_ITEM,
-    ),
-    'list' => array(
-      'path' => 'list',
-      'title' => 'List',
-      'page callback' => 'ctools_export_ui_switcher_page',
-      'page arguments' => array($plugin['name'], 'list'),
-      'access callback' => 'ctools_export_ui_task_access',
-      'access arguments' => array($plugin['name'], 'list'),
-      'type' => MENU_DEFAULT_LOCAL_TASK,
-      'weight' => -10,
-    ),
-    'add' => array(
-      'path' => 'add',
-      'title' => 'Add',
-      'page callback' => 'ctools_export_ui_switcher_page',
-      'page arguments' => array($plugin['name'], 'add'),
-      'access callback' => 'ctools_export_ui_task_access',
-      'access arguments' => array($plugin['name'], 'add'),
-      'type' => MENU_LOCAL_TASK,
-    ),
-    'edit callback' => array(
-      'path' => 'list/%ctools_export_ui',
-      'page callback' => 'ctools_export_ui_switcher_page',
-      'page arguments' => array($plugin['name'], 'edit', $prefix_count + 2),
-      'load arguments' => array($plugin['name']),
-      'access callback' => 'ctools_export_ui_task_access',
-      'access arguments' => array($plugin['name'], 'edit', $prefix_count + 2),
-      'type' => MENU_CALLBACK,
-    ),
-    'edit' => array(
-      'path' => 'list/%ctools_export_ui/edit',
-      'title' => 'Edit',
-      'page callback' => 'ctools_export_ui_switcher_page',
-      'page arguments' => array($plugin['name'], 'edit', $prefix_count + 2),
-      'load arguments' => array($plugin['name']),
-      'access callback' => 'ctools_export_ui_task_access',
-      'access arguments' => array($plugin['name'], 'edit', $prefix_count + 2),
-      'type' => MENU_DEFAULT_LOCAL_TASK,
-    ),
+    'list callback' => array(),
+    'list' => array(),
+    'add' => array(),
+    'edit callback' => array(),
+    'edit' => array(),
+  );
+
+  $plugin['menu']['items']['list callback'] += array(
+    'path' => '',
+    // Menu items are translated by the menu system.
+    // TODO: We need more flexibility in title. The title of the admin page
+    // is not necessarily the title of the object, plus we need
+    // plural, singular, proper, not proper, etc.
+    'title' => $plugin['menu']['menu title'],
+    'description' => $plugin['menu']['menu description'],
+    'page callback' => 'ctools_export_ui_switcher_page',
+    'page arguments' => array($plugin['name'], 'list'),
+    'access callback' => 'ctools_export_ui_task_access',
+    'access arguments' => array($plugin['name'], 'list'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $plugin['menu']['items']['list'] += array(
+    'path' => 'list',
+    'title' => 'List',
+    'page callback' => 'ctools_export_ui_switcher_page',
+    'page arguments' => array($plugin['name'], 'list'),
+    'access callback' => 'ctools_export_ui_task_access',
+    'access arguments' => array($plugin['name'], 'list'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $plugin['menu']['items']['add'] += array(
+    'path' => 'add',
+    'title' => 'Add',
+    'page callback' => 'ctools_export_ui_switcher_page',
+    'page arguments' => array($plugin['name'], 'add'),
+    'access callback' => 'ctools_export_ui_task_access',
+    'access arguments' => array($plugin['name'], 'add'),
+    'type' => MENU_LOCAL_ACTION,
+  );
+
+  $plugin['menu']['items']['edit callback'] += array(
+    'path' => 'list/%ctools_export_ui',
+    'page callback' => 'ctools_export_ui_switcher_page',
+    'page arguments' => array($plugin['name'], 'edit', $prefix_count + 2),
+    'load arguments' => array($plugin['name']),
+    'access callback' => 'ctools_export_ui_task_access',
+    'access arguments' => array($plugin['name'], 'edit', $prefix_count + 2),
+    'type' => MENU_CALLBACK,
+  );
+
+  $plugin['menu']['items']['edit'] += array(
+    'path' => 'list/%ctools_export_ui/edit',
+    'title' => 'Edit',
+    'page callback' => 'ctools_export_ui_switcher_page',
+    'page arguments' => array($plugin['name'], 'edit', $prefix_count + 2),
+    'load arguments' => array($plugin['name']),
+    'access callback' => 'ctools_export_ui_task_access',
+    'access arguments' => array($plugin['name'], 'edit', $prefix_count + 2),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
   );
 
   if ($plugin['allowed operations']['import']) {
-    $plugin['menu']['items'] += array(
-      'import' => array(
-        'path' => 'import',
-        'title' => 'Import',
-        'page callback' => 'ctools_export_ui_switcher_page',
-        'page arguments' => array($plugin['name'], 'import'),
-        'access callback' => 'ctools_export_ui_task_access',
-        'access arguments' => array($plugin['name'], 'import'),
-        'type' => MENU_LOCAL_TASK,
-      ),
+    $plugin['menu']['items'] += array('import' => array());
+    $plugin['menu']['items']['import'] += array(
+      'path' => 'import',
+      'title' => 'Import',
+      'page callback' => 'ctools_export_ui_switcher_page',
+      'page arguments' => array($plugin['name'], 'import'),
+      'access callback' => 'ctools_export_ui_task_access',
+      'access arguments' => array($plugin['name'], 'import'),
+      'type' => MENU_LOCAL_ACTION,
     );
   }
 
   if ($plugin['allowed operations']['export']) {
-    $plugin['menu']['items'] += array(
-      'export' => array(
-        'path' => 'list/%ctools_export_ui/export',
-        'title' => 'Export',
-        'page callback' => 'ctools_export_ui_switcher_page',
-        'page arguments' => array($plugin['name'], 'export', $prefix_count + 2),
-        'load arguments' => array($plugin['name']),
-        'access callback' => 'ctools_export_ui_task_access',
-        'access arguments' => array($plugin['name'], 'export', $prefix_count + 2),
-        'type' => MENU_LOCAL_TASK,
-      ),
+    $plugin['menu']['items'] += array('export' => array());
+    $plugin['menu']['items']['export'] += array(
+      'path' => 'list/%ctools_export_ui/export',
+      'title' => 'Export',
+      'page callback' => 'ctools_export_ui_switcher_page',
+      'page arguments' => array($plugin['name'], 'export', $prefix_count + 2),
+      'load arguments' => array($plugin['name']),
+      'access callback' => 'ctools_export_ui_task_access',
+      'access arguments' => array($plugin['name'], 'export', $prefix_count + 2),
+      'type' => MENU_LOCAL_TASK,
     );
   }
 
   if ($plugin['allowed operations']['revert']) {
-    $plugin['menu']['items'] += array(
-      'revert' => array(
-        'path' => 'list/%ctools_export_ui/revert',
-        'title' => 'Revert',
-        'page callback' => 'ctools_export_ui_switcher_page',
-        // Note: Yes, 'delete' op is correct.
-        'page arguments' => array($plugin['name'], 'delete', $prefix_count + 2),
-        'load arguments' => array($plugin['name']),
-        'access callback' => 'ctools_export_ui_task_access',
-        'access arguments' => array($plugin['name'], 'revert', $prefix_count + 2),
-        'type' => MENU_CALLBACK,
-      ),
+    $plugin['menu']['items'] += array('revert' => array());
+    $plugin['menu']['items']['revert'] += array(
+      'path' => 'list/%ctools_export_ui/revert',
+      'title' => 'Revert',
+      'page callback' => 'ctools_export_ui_switcher_page',
+      // Note: Yes, 'delete' op is correct.
+      'page arguments' => array($plugin['name'], 'delete', $prefix_count + 2),
+      'load arguments' => array($plugin['name']),
+      'access callback' => 'ctools_export_ui_task_access',
+      'access arguments' => array($plugin['name'], 'revert', $prefix_count + 2),
+      'type' => MENU_CALLBACK,
     );
   }
 
   if ($plugin['allowed operations']['delete']) {
-    $plugin['menu']['items'] += array(
-      'delete' => array(
-        'path' => 'list/%ctools_export_ui/delete',
-        'title' => 'Delete',
-        'page callback' => 'ctools_export_ui_switcher_page',
-        'page arguments' => array($plugin['name'], 'delete', $prefix_count + 2),
-        'load arguments' => array($plugin['name']),
-        'access callback' => 'ctools_export_ui_task_access',
-        'access arguments' => array($plugin['name'], 'delete', $prefix_count + 2),
-        'type' => MENU_CALLBACK,
-      ),
+    $plugin['menu']['items'] += array('delete' => array());
+    $plugin['menu']['items']['delete'] += array(
+      'path' => 'list/%ctools_export_ui/delete',
+      'title' => 'Delete',
+      'page callback' => 'ctools_export_ui_switcher_page',
+      'page arguments' => array($plugin['name'], 'delete', $prefix_count + 2),
+      'load arguments' => array($plugin['name']),
+      'access callback' => 'ctools_export_ui_task_access',
+      'access arguments' => array($plugin['name'], 'delete', $prefix_count + 2),
+      'type' => MENU_CALLBACK,
     );
   }
 
   if ($plugin['allowed operations']['clone']) {
-    $plugin['menu']['items'] += array(
-      'clone' => array(
-        'path' => 'list/%ctools_export_ui/clone',
-        'title' => 'Clone',
-        'page callback' => 'ctools_export_ui_switcher_page',
-        'page arguments' => array($plugin['name'], 'clone', $prefix_count + 2),
-        'load arguments' => array($plugin['name']),
-        'access callback' => 'ctools_export_ui_task_access',
-        'access arguments' => array($plugin['name'], 'clone', $prefix_count + 2),
-        'type' => MENU_CALLBACK,
-      ),
+    $plugin['menu']['items'] += array('clone' => array());
+    $plugin['menu']['items']['clone'] += array(
+      'path' => 'list/%ctools_export_ui/clone',
+      'title' => 'Clone',
+      'page callback' => 'ctools_export_ui_switcher_page',
+      'page arguments' => array($plugin['name'], 'clone', $prefix_count + 2),
+      'load arguments' => array($plugin['name']),
+      'access callback' => 'ctools_export_ui_task_access',
+      'access arguments' => array($plugin['name'], 'clone', $prefix_count + 2),
+      'type' => MENU_CALLBACK,
     );
   }
 
   if ($plugin['allowed operations']['enable']) {
-    $plugin['menu']['items'] += array(
-      'enable' => array(
-        'path' => 'list/%ctools_export_ui/enable',
-        'title' => 'Enable',
-        'page callback' => 'ctools_export_ui_switcher_page',
-        'page arguments' => array($plugin['name'], 'enable', $prefix_count + 2),
-        'load arguments' => array($plugin['name']),
-        'access callback' => 'ctools_export_ui_task_access',
-        'access arguments' => array($plugin['name'], 'enable', $prefix_count + 2),
-        'type' => MENU_CALLBACK,
-      ),
+    $plugin['menu']['items'] += array('enable' => array());
+    $plugin['menu']['items']['enable'] += array(
+      'path' => 'list/%ctools_export_ui/enable',
+      'title' => 'Enable',
+      'page callback' => 'ctools_export_ui_switcher_page',
+      'page arguments' => array($plugin['name'], 'enable', $prefix_count + 2),
+      'load arguments' => array($plugin['name']),
+      'access callback' => 'ctools_export_ui_task_access',
+      'access arguments' => array($plugin['name'], 'enable', $prefix_count + 2),
+      'type' => MENU_CALLBACK,
     );
   }
 
   if ($plugin['allowed operations']['disable']) {
-    $plugin['menu']['items'] += array(
-      'disable' => array(
-        'path' => 'list/%ctools_export_ui/disable',
-        'title' => 'Disable',
-        'page callback' => 'ctools_export_ui_switcher_page',
-        'page arguments' => array($plugin['name'], 'disable', $prefix_count + 2),
-        'load arguments' => array($plugin['name']),
-        'access callback' => 'ctools_export_ui_task_access',
-        'access arguments' => array($plugin['name'], 'disable', $prefix_count + 2),
-        'type' => MENU_CALLBACK,
-      ),
+    $plugin['menu']['items'] += array('disable' => array());
+    $plugin['menu']['items']['disable'] += array(
+      'path' => 'list/%ctools_export_ui/disable',
+      'title' => 'Disable',
+      'page callback' => 'ctools_export_ui_switcher_page',
+      'page arguments' => array($plugin['name'], 'disable', $prefix_count + 2),
+      'load arguments' => array($plugin['name']),
+      'access callback' => 'ctools_export_ui_task_access',
+      'access arguments' => array($plugin['name'], 'disable', $prefix_count + 2),
+      'type' => MENU_CALLBACK,
     );
   }
 
-  // Define some redirects that should happen after edit/add/clone operations.
-  $plugin['redirect'] = array(
+  // Define some redirects that should happen after edit/add/clone/delete operations.
+  $plugin['redirect'] += array(
     'add' => $base_path,
     'clone' => $base_path,
     'edit' => $base_path,
+    'delete' => $base_path,
+    'revert' => $base_path,
     'import' => $base_path,
   );
 
@@ -312,7 +305,6 @@ function ctools_export_ui_process(&$plugin, $info) {
     'confirmation' => array(),
     'help' => array(),
     'message' => array(),
-    'advanced help' => array(),
   );
 
   // Strings used in drupal_set_title().
@@ -366,36 +358,8 @@ function ctools_export_ui_process(&$plugin, $info) {
   $plugin['strings']['message'] += array(
     'enable' => t('@plugin %title was enabled.', array('@plugin' => $plugin['title singular proper'])),
     'disable' => t('@plugin %title was disabled.', array('@plugin' => $plugin['title singular proper'])),
+    'no items' => t('There are no @titles to display.', array('@titles' => $plugin['title plural'])),
   );
-
-  // Strings used if advanced help module is enabled.
-
-
-  if (!empty($plugin['use advanced help'])) {
-    if (module_exists('advanced_help')) {
-      $plugin['advanced help'] += array(
-        'enabled' => TRUE,
-        'topic' => $plugin['module'],
-        'module' => $plugin['module'],
-      );
-     }
-     else {
-        $plugin['advanced help'] += array(
-          'enabled' => FALSE,
-        );
-     }
-
-     // Get the module name.
-     $info = drupal_parse_info_file(drupal_get_path('module', $plugin['module']) .'/'. $plugin['module'] .'.info');
-     $plugin['strings']['advanced help'] += array(
-       // The strings to show when the advanced help module is enabled or disabled.
-       'enabled' => t('Learn more about the @module module.', array('@module' => $info['name'])),
-       'disabled' => t('Learn more about the @module module by enabling the <a href="@path">Advanced help</a> module.', array('@module' => $info['name'], '@path' => 'http://drupal.org/project/advanced_help')),
-     );
-  }
-
-
-
 }
 
 /**
@@ -408,7 +372,7 @@ function ctools_export_ui_process(&$plugin, $info) {
  *   Either the lister class or FALSE if one could not be had.
  */
 function ctools_export_ui_get_handler($plugin) {
-  $cache = &ctools_static(__FUNCTION__, array());
+  $cache = &drupal_static(__FUNCTION__, array());
   if (empty($cache[$plugin['name']])) {
     // If a list class is not specified by the plugin, fall back to the
     // default ctools_export_ui plugin instead.
@@ -490,7 +454,7 @@ function ctools_get_export_uis() {
  */
 function ctools_export_ui_switcher_page($plugin_name, $op) {
   $args = func_get_args();
-  $js = !empty($_REQUEST['ctools_ajax']);
+  $js = !empty($_REQUEST['js']);
 
   // Load the $plugin information
   $plugin = ctools_get_export_ui($plugin_name);

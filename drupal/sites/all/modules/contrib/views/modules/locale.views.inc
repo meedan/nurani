@@ -2,18 +2,13 @@
 
 /**
  * @file
- *
  * Provides views data and handlers for locale.module.
- */
-
-/**
- * @defgroup views_locale_module locale.module handlers
  *
- * @{
+ * @ingroup views_module_handlers
  */
 
 /**
- * Implementation of hook_views_data().
+ * Implements hook_views_data().
  */
 function locale_views_data() {
   // Basic table information.
@@ -202,45 +197,25 @@ function locale_views_data() {
 }
 
 /**
- * Implementation of hook_views_handlers().
+ * Implements hook_views_data_alter().
  */
-function locale_views_handlers() {
-  return array(
-    'info' => array(
-      'path' => drupal_get_path('module', 'views') . '/modules/locale',
+function locale_views_data_alter(&$data) {
+  // Language field
+  $data['node']['language'] = array(
+    'title' => t('Language'),
+    'help' => t('The language the content is in.'),
+    'field' => array(
+      'handler' => 'views_handler_field_node_language',
+      'click sortable' => TRUE,
     ),
-    'handlers' => array(
-      // Field handlers.
-      'views_handler_field_locale_group' => array(
-        'parent' => 'views_handler_field',
-      ),
-      'views_handler_field_locale_language' => array(
-        'parent' => 'views_handler_field',
-      ),
-      'views_handler_field_locale_link_edit' => array(
-        'parent' => 'views_handler_field',
-      ),
-      // Argument handlers.
-      'views_handler_argument_locale_group' => array(
-        'parent' => 'views_handler_argument',
-      ),
-      'views_handler_argument_locale_language' => array(
-        'parent' => 'views_handler_argument',
-      ),
-      // Filters.
-      'views_handler_filter_locale_group' => array(
-        'parent' => 'views_handler_filter_in_operator',
-      ),
-      'views_handler_filter_locale_language' => array(
-        'parent' => 'views_handler_filter_in_operator',
-      ),
-      'views_handler_filter_locale_version' => array(
-        'parent' => 'views_handler_filter_in_operator',
-      ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_node_language',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_node_language',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
     ),
   );
 }
-
-/**
- * @}
- */

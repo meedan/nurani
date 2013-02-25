@@ -1,5 +1,4 @@
 <?php
-// $Id: modal.inc,v 1.7.2.6 2010/09/08 21:10:12 merlinofchaos Exp $
 
 /**
  * @file
@@ -9,8 +8,7 @@
  * Drupal specific stuff to use it. The modal is fairly generic and can
  * be activated mostly by setting up the right classes, but if you are
  * using the modal you must include links to the images in settings,
- * because the javascript does not inherently know where the images are
- * at.
+ * because the javascript does not inherently know where the images are.
  *
  * You can accomplish this with this PHP code:
  * @code {
@@ -27,8 +25,7 @@
  * For submit buttons, however, the URL is found a different, slightly
  * more complex way. The ID of the item is taken and -url is appended to
  * it to derive a class name. Then, all form elements that contain that
- * class name are founded and their values put together to form a
- * URL.
+ * class name are founded and their values put together to form a URL.
  *
  * For example, let's say you have an 'add' button, and it has a select
  * form item that tells your system what widget it is adding. If the id
@@ -52,14 +49,23 @@ function ctools_modal_add_js() {
     'CToolsModal' => array(
       'loadingText' => t('Loading...'),
       'closeText' => t('Close Window'),
-      'closeImage' => theme('image', ctools_image_path('icon-close-window.png'), t('Close window'), t('Close window')),
-      'throbber' => theme('image', ctools_image_path('throbber.gif'), t('Loading...'), t('Loading')),
+      'closeImage' => theme('image', array(
+        'path' => ctools_image_path('icon-close-window.png'),
+        'title' => t('Close window'),
+        'alt' => t('Close window'),
+      )),
+      'throbber' => theme('image', array(
+          'path' => ctools_image_path('throbber.gif'),
+          'title' => t('Loading...'),
+          'alt' => t('Loading'),
+      )),
     ),
   );
 
   drupal_add_js($settings, 'setting');
-  drupal_add_js('misc/jquery.form.js');
-  ctools_add_js('ajax-responder');
+  drupal_add_library('system', 'jquery.form');
+  drupal_add_library('system', 'drupal.progress');
+  drupal_add_library('system', 'drupal.ajax');
   ctools_add_js('modal');
 
   ctools_add_css('modal');
@@ -112,6 +118,10 @@ function ctools_modal_add_plugin_js($plugins) {
  *   The html to place within the modal.
  */
 function ctools_modal_command_display($title, $html) {
+  if (is_array($html)) {
+    $html = drupal_render($html);
+  }
+
   return array(
     'command' => 'modal_display',
     'title' => $title,
@@ -151,7 +161,7 @@ function ctools_modal_command_loading() {
  *   Any class to apply to the link. @todo this should be a options array.
  */
 function ctools_modal_image_button($image, $dest, $alt, $class = '') {
-  return ctools_ajax_text_button(theme('image', $image), $dest, $alt, $class, 'ctools-use-modal');
+  return ctools_ajax_text_button(theme('image', array('path' => $image)), $dest, $alt, $class, 'ctools-use-modal');
 }
 
 /**
@@ -161,8 +171,8 @@ function ctools_modal_image_button($image, $dest, $alt, $class = '') {
  * Note: 'html' => true so be sure any text is vetted! Chances are these kinds of buttons will
  * not use user input so this is a very minor concern.
  *
- * @param $image
- *   The path to an image to use that will be sent to theme('image') for rendering.
+ * @param $text
+ *   The text that will be displayed as the link.
  * @param $dest
  *   The destination of the link.
  * @param $alt
@@ -182,23 +192,22 @@ function ctools_modal_text_button($text, $dest, $alt, $class = '') {
  * @return
  *   The output of the form, if it was rendered. If $form_state['ajax']
  *   is set, this will use ctools_modal_form_render so it will be
- *   a $command object suitable for ctools_ajax_render already.
+ *   a $command object suitable for ajax_render already.
  *
  *   The return will be NULL if the form was successfully submitted unless
  *   you specifically set re_render = TRUE. If ajax is set the
  *   form will never be redirected.
  */
 function ctools_modal_form_wrapper($form_id, &$form_state) {
-  ctools_include('form');
   // This won't override settings already in.
   $form_state += array(
     're_render' => FALSE,
     'no_redirect' => !empty($form_state['ajax']),
   );
 
-  $output = ctools_build_form($form_id, $form_state);
-  if (!empty($form_state['ajax']) && empty($form_state['executed'])) {
-    return ctools_modal_form_render($form_state, $output);
+  $output = drupal_build_form($form_id, $form_state);
+ if (!empty($form_state['ajax']) && (!$form_state['executed'] || $form_state['rebuild'])) {
+     return ctools_modal_form_render($form_state, $output);
   }
 
   return $output;
@@ -208,18 +217,19 @@ function ctools_modal_form_wrapper($form_id, &$form_state) {
  * Render a form into an AJAX display.
  */
 function ctools_modal_form_render($form_state, $output) {
+  if (is_array($output)) {
+    $output = drupal_render($output);
+  }
+
   $title = empty($form_state['title']) ? drupal_get_title() : $form_state['title'];
 
   // If there are messages for the form, render them.
   if ($messages = theme('status_messages')) {
-    $output = '<div class="messages">' . $messages . '</div>' . $output;
+    $output = $messages . $output;
   }
 
   $commands = array();
-  if (isset($form_state['js settings'])) {
-    $commands[] = ctools_ajax_command_settings($form_state['js settings']);
-  }
-
+  // If the form has not yet been rendered, render it.
   $commands[] = ctools_modal_command_display($title, $output);
   return $commands;
 }
@@ -233,6 +243,5 @@ function ctools_modal_form_render($form_state, $output) {
 function ctools_modal_render($title, $output) {
   $commands = array();
   $commands[] = ctools_modal_command_display($title, $output);
-  ctools_include('ajax');
-  ctools_ajax_render($commands);
+  print ajax_render($commands);
 }

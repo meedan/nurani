@@ -1,12 +1,12 @@
 <?php
 
 /**
- * @file profile-wrapper.tpl.php
+ * @file
  * Default theme implementation for wrapping member listings and their
  * profiles.
  *
  * This template is used when viewing a list of users. It can be a general
- * list for viewing all users with the url of "example.com/profile" or when
+ * list for viewing all users with the URL of "example.com/profile" or when
  * viewing a set of users who share a specific value for a profile such
  * as "example.com/profile/country/belgium".
  *

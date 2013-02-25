@@ -1,5 +1,4 @@
 <?php
-// $Id: block.inc,v 1.9.2.7 2010/05/18 17:44:17 sdboyer Exp $
 
 /**
  * @file
@@ -27,7 +26,7 @@ $plugin = array(
  */
 function ctools_block_content_type_content_type($subtype_id) {
   list($module, $delta) = explode('-', $subtype_id, 2);
-  $module_blocks = module_invoke($module, 'block', 'list');
+  $module_blocks = module_invoke($module, 'block_info');
   if (isset($module_blocks[$delta])) {
     return _ctools_block_content_type_content_type($module, $delta, $module_blocks[$delta]);
   }
@@ -42,8 +41,8 @@ function ctools_block_content_type_content_type($subtype_id) {
  */
 function ctools_block_content_type_content_types() {
   $types = array();
-  foreach (module_list() as $module) {
-    $module_blocks = module_invoke($module, 'block', 'list');
+  foreach (module_implements('block_info') as $module) {
+    $module_blocks = module_invoke($module, 'block_info');
     if ($module_blocks) {
       foreach ($module_blocks as $delta => $block) {
         $info = _ctools_block_content_type_content_type($module, $delta, $block);
@@ -79,12 +78,72 @@ function _ctools_block_content_type_content_type($module, $delta, $block) {
 }
 
 /**
+ * Load block info from the database.
+ *
+ * This is copied from _block_load_blocks(). It doesn't use that
+ * function because _block_load_blocks sorts by region, and it
+ * doesn't cache its results anyway.
+ */
+function _ctools_block_load_blocks() {
+  $blocks = &drupal_static(__FUNCTION__, NULL);
+  if (!isset($blocks)) {
+    global $theme_key;
+
+    $query = db_select('block', 'b');
+    $result = $query
+      ->fields('b')
+      ->condition('b.theme', $theme_key)
+      ->orderBy('b.region')
+      ->orderBy('b.weight')
+      ->orderBy('b.module')
+      ->addTag('block_load')
+      ->addTag('translatable')
+      ->execute();
+
+    $block_info = $result->fetchAllAssoc('bid');
+    // Allow modules to modify the block list.
+    drupal_alter('block_list', $block_info);
+
+    $blocks = array();
+    foreach ($block_info as $block) {
+      $blocks["{$block->module}_{$block->delta}"] = $block;
+    }
+  }
+
+  return $blocks;
+}
+
+/**
+ * Fetch the stored info for a block.
+ *
+ * The primary reason to use this is so that modules which perform alters
+ * can have their alters make it to the block.
+ */
+function _ctools_get_block_info($module, $delta) {
+  $blocks = _ctools_block_load_blocks();
+
+  $key = $module . '_' . $delta;
+  if (isset($blocks[$key])) {
+    return $blocks[$key];
+  }
+}
+
+/**
  * Output function for the 'block' content type. Outputs a block
  * based on the module and delta supplied in the configuration.
  */
 function ctools_block_content_type_render($subtype, $conf) {
   list($module, $delta) = _ctools_block_get_module_delta($subtype, $conf);
-  $block = (object) module_invoke($module, 'block', 'view', $delta);
+
+  $info = _ctools_get_block_info($module, $delta);
+  $block = module_invoke($module, 'block_view', $delta);
+
+  if (!empty($info)) {
+    // Allow modules to modify the block before it is viewed, via either
+    // hook_block_view_alter() or hook_block_view_MODULE_DELTA_alter().
+    drupal_alter(array('block_view', "block_view_{$module}_{$delta}"), $block, $info);
+    $block = (object) $block;
+  }
 
   if (empty($block)) {
     return;
@@ -93,86 +152,41 @@ function ctools_block_content_type_render($subtype, $conf) {
   $block->module = $module;
   $block->delta = $delta;
 
-  // $block->title is not set for the blocks returned by block_block() (the
-  // Block module adds the title in block_list() instead), so we look it up
-  // manually, unless the title is overridden and does not use the %title
-  // placeholder.
-  if ($module == 'block' && (empty($conf['override_title']) || strpos($conf['override_title_text'], '%title') !== FALSE)) {
-    // {block}.title is plain text, but this hook should return an HTML title.
-    $block->subject = check_plain(db_result(db_query("SELECT title FROM {blocks} WHERE module = '%s' AND delta = '%s'", 'block', $delta)));
+  if ($module == 'block') {
+    $block->title = $info->title;
   }
-
-  if (isset($block->subject)) {
+  else if (isset($block->subject)) {
     $block->title = $block->subject;
   }
   else {
     $block->title = NULL;
   }
 
-  if (user_access('administer blocks')) {
+  if (module_exists('block') && user_access('administer blocks')) {
     $block->admin_links = array(
       array(
         'title' => t('Configure block'),
-        'alt' => t("Configure this block's 'block settings' in administer >> site building >> blocks"),
-        'href' => "admin/build/block/configure/$module/$delta",
+        'href' => "admin/structure/block/manage/$module/$delta/configure",
         'query' => drupal_get_destination(),
       ),
     );
   }
 
-  // TEMP: Disabling block visibility checking. Ultimately we may be able to
-  // finally just say it's not supported.
   return $block;
-
-  // This seems extra but it prevents an unnecessary query sometimes.
-  if (empty($conf['block_visibility']) && $block->module != 'block') {
-    return $block;
-  }
-
-  // Test for block visibility
-
-  $result = db_query("SELECT title, pages, visibility FROM {blocks} WHERE module = '%s' AND delta = '%s'", $block->module, $block->delta);
-  $block_visibility = db_fetch_object($result);
-
-  if ($block->module == 'block') {
-    // {block}.title is plain text, but this hook should return an HTML title.
-    $block->title = check_plain($block_visibility->title);
-  }
-
-  if (empty($conf['block_visibility'])) {
-    return $block;
-  }
-
-  if ($block_visibility && $block_visibility->pages) {
-    if ($block_visibility->visibility < 2) {
-      $path       = drupal_get_path_alias($_GET['q']);
-      $regexp     = '/^('. preg_replace(array('/(\r\n?|\n)/', '/\\\\\*/', '/(^|\|)\\\\<front\\\\>($|\|)/'), array('|', '.*', '\1'. preg_quote(variable_get('site_frontpage', 'node'), '/') .'\2'), preg_quote($block_visibility->pages, '/')) .')$/';
-      $page_match = !($block_visibility->visibility xor preg_match($regexp, $path));
-    }
-    else {
-      $page_match = drupal_eval($block_visibility->pages);
-    }
-  }
-  else {
-    $page_match = TRUE;
-  }
-
-  if ($page_match) {
-    return $block;
-  }
 }
 
 /**
  * Empty form so we can have the default override title.
  */
-function ctools_block_content_type_edit_form(&$form, &$form_state) {
+function ctools_block_content_type_edit_form($form, &$form_state) {
   // Does nothing!
+  return $form;
 }
 
 /**
  * Submit function to fix the subtype for really old panel panes.
  */
-function ctools_block_content_type_edit_form_submit(&$form, &$form_state) {
+function ctools_block_content_type_edit_form_submit($form, &$form_state) {
   if (empty($form_state['subtype']) && isset($form_state['pane'])) {
     $form_state['pane']->subtype = $form_state['conf']['module'] . '-' . $form_state['conf']['delta'];
     unset($form_state['conf']['module']);
@@ -249,7 +263,7 @@ function ctools_block_content_type_edit_form_submit(&$form, &$form_state) {
  */
 function ctools_block_content_type_admin_title($subtype, $conf) {
   list($module, $delta) = _ctools_block_get_module_delta($subtype, $conf);
-  $block = module_invoke($module, 'block', 'list');
+  $block = module_invoke($module, 'block_info');
   if (empty($block) || empty($block[$delta])) {
     return t('Deleted/missing block @module-@delta', array('@module' => $module, '@delta' => $delta));
   }
@@ -318,11 +332,11 @@ function menu_ctools_block_info($module, $delta, &$info) {
 function forum_ctools_block_info($module, $delta, &$info) {
   $info['category'] = t('Activity');
   switch ($delta) {
-    case '0':
+    case 'active':
       $info['icon'] = 'icon_core_activeforumtopics.png';
       break;
 
-    case '1':
+    case 'new':
       $info['icon'] = 'icon_core_newforumtopics.png';
       break;
 
@@ -376,27 +390,48 @@ function aggregator_ctools_block_info($module, $delta, &$info) {
 
 function block_ctools_block_info($module, $delta, &$info) {
   $info['icon'] = 'icon_core_block_empty.png';
-  $info['category'] = t('Miscellaneous');
+  $info['category'] = t('Custom blocks');
+
+  // The title of custom blocks from the block module is stored in the
+  // {block} table. Look for it in the default theme as a reasonable
+  // default value for the title.
+  $block_info_cache = drupal_static(__FUNCTION__);
+  if (!isset($block_info_cache)) {
+    $block_info_cache = db_select('block', 'b')
+      ->fields('b')
+      ->condition('b.module', 'block')
+      ->condition('b.theme', variable_get('theme_default', 'bartik'))
+      ->addTag('block_load')
+      ->addTag('translatable')
+      ->execute()
+      ->fetchAllAssoc('delta');
+  }
+
+  if (isset($block_info_cache[$delta])) {
+    $info['defaults'] = array(
+      'override_title' => TRUE,
+      'override_title_text' => $block_info_cache[$delta]->title,
+    );
+  }
 }
 
 function user_ctools_block_info($module, $delta, &$info) {
   $info['category'] = t('Activity');
   switch ($delta) {
-    case '0':
+    case 'login':
       $info['icon'] = 'icon_core_userlogin.png';
       $info['category'] = t('Widgets');
+      // Provide a custom render callback, because the default login block
+      // will not render on /user, /user/login, or any other URL beginning
+      // /user (unless it's a user-specific page such as /user/123).
+      $info['render callback'] = 'ctools_user_login_pane_render';
       break;
 
-    case '1':
-      $info['icon'] = 'icon_core_navigation.png';
-      $info['category'] = t('Menus');
-      break;
-
-    case '2':
+    case 'new':
       $info['icon'] = 'icon_core_whosnew.png';
       break;
 
-    case '3':
+    case 'online':
       $info['icon'] = 'icon_core_whosonline.png';
       break;
 
@@ -417,6 +452,95 @@ function statistics_ctools_block_info($module, $delta, &$info) {
 }
 
 function system_ctools_block_info($module, $delta, &$info) {
+  // Remove the main content fake block.
+  if ($delta == 'main') {
+    $info = NULL;
+    return;
+  }
+
+  $menus = array('main-menu', 'management', 'navigation', 'user-menu');
+
+  if (in_array($delta, $menus)) {
+    $info['icon'] = 'icon_core_block_menu.png';
+    $info['category'] = t('Menus');
+
+    if ($delta == 'navigation') {
+      $info['icon'] = 'icon_core_navigation.png';
+    }
+
+    return;
+  }
+
   $info['icon'] = 'icon_core_drupal.png';
+  if ($delta == 'help') {
+    $info['category'] = t('Page elements');
+    return;
+  }
+
   $info['category'] = t('Widgets');
+}
+
+function ctools_user_login_pane_render($subtype, $conf, $panel_args, $contexts) {
+  list($module, $delta) = _ctools_block_get_module_delta($subtype, $conf);
+
+  // The login form is only visible to anonymous users.
+  global $user;
+  if ($user->uid) {
+    return;
+  }
+
+  $info = new stdClass;
+  $info->module = $module;
+  $info->delta = $delta;
+
+  $block = new stdClass;
+  $block->subject = t('User login');
+  // Manually set the content (rather than invoking block_view) because the
+  // block implementation won't render on certain URLs.
+  $block->content = drupal_get_form('user_login_block');
+
+  // Allow modules to modify the block before it is viewed, via either
+  // hook_block_view_alter() or hook_block_view_MODULE_DELTA_alter().
+  drupal_alter(array('block_view', "block_view_{$module}_{$delta}"), $block, $info);
+  $block = (object) $block;
+
+  if (empty($block)) {
+    return;
+  }
+
+  $block->module = $module;
+  $block->delta = $delta;
+
+  // $block->title is not set for the blocks returned by block_block() (the
+  // Block module adds the title in block_list() instead), so we look it up
+  // manually, unless the title is overridden and does not use the %title
+  // placeholder.
+  if ($module == 'block') {
+    $block->title = $info->title;
+  }
+  else if (isset($block->subject)) {
+    $block->title = $block->subject;
+  }
+  else {
+    $block->title = NULL;
+  }
+
+  if (isset($block->subject)) {
+    $block->title = $block->subject;
+  }
+  else {
+    $block->title = NULL;
+  }
+
+  if (user_access('administer blocks')) {
+    $block->admin_links = array(
+      array(
+        'title' => t('Configure block'),
+        'href' => "admin/structure/block/manage/$module/$delta/configure",
+        'query' => drupal_get_destination(),
+      ),
+    );
+  }
+
+  return $block;
 }

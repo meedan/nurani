@@ -23,12 +23,14 @@ function panels_pane_access($pane, $display) {
  * Get a list of panels available in the layout.
  */
 function panels_get_regions($layout, $display) {
-  if (!empty($layout['panels function']) && function_exists($layout['panels function'])) {
-    return $layout['panels function']($display, $display->layout_settings, $layout);
+  if ($function = ctools_plugin_get_function($layout, 'regions function')) {
+    return $function($display, $display->layout_settings, $layout);
   }
-  if (!empty($layout['panels'])) {
-    return $layout['panels'];
+
+  if (!empty($layout['regions'])) {
+    return $layout['regions'];
   }
+
   return array();
 }
 
@@ -124,13 +126,10 @@ class panels_cache_object {
    * When constructed, take a snapshot of our existing out of band data.
    */
   function panels_cache_object() {
-    $this->head = drupal_set_html_head();
+    $this->head = drupal_add_html_head();
     $this->css = drupal_add_css();
     $this->tokens = ctools_set_page_token();
-
-    foreach (array('header', 'footer') as $scope) {
-      $this->js[$scope] = drupal_add_js(NULL, NULL, $scope);
-    }
+    $this->js = drupal_add_js();
   }
 
   /**
@@ -156,58 +155,40 @@ class panels_cache_object {
     $this->ready = TRUE;
 
     // Simple replacement for head
-    $this->head = str_replace($this->head, '', drupal_set_html_head());
+    $this->head = str_replace($this->head, '', drupal_add_html_head());
 
     // Slightly less simple for CSS:
     $css = drupal_add_css();
     $start = $this->css;
     $this->css = array();
 
-    foreach ($css as $media => $medias) {
-      foreach ($medias as $type => $types) {
-        foreach ($types as $path => $preprocess) {
-          if (!isset($start[$media][$type][$path])) {
-            $this->css[] = array($path, $type, $media, $preprocess);
-          }
-        }
+    foreach ($css as $name => $data) {
+      if (!isset($start[$name])) {
+        $this->css[$name] = $data;
       }
     }
 
-    $js = array();
-    // A little less simple for js
-    foreach (array('header', 'footer') as $scope) {
-      $js[$scope] = drupal_add_js(NULL, NULL, $scope);
-    }
+    $js = drupal_add_js();
 
     $start = $this->js;
     $this->js = array();
 
-    foreach ($js as $scope => $scopes) {
-      foreach ($scopes as $type => $types) {
-        foreach ($types as $id => $info) {
-          if (!isset($start[$scope][$type][$id])) {
-            switch ($type) {
-              case 'setting':
-                $this->js[] = array($info, $type, $scope);
-                break;
+    // If there are any differences between the old and the new javascript then
+    // store them to be added later.
+    if ($diff = array_diff_assoc($js, $start)) {
+      $this->js = $diff;
+    }
 
-              case 'inline':
-                $this->js[] = array($info['code'], $type, $scope, $info['defer']);
-                break;
-
-              default:
-                $this->js[] = array($id, $type, $scope, $info['defer'], $info['cache']);
-            }
-          }
-        }
-      }
+    // Special case the settings key and get the difference of the data.
+    if ($settings_diff = array_diff_assoc($js['settings']['data'], $start['settings']['data'])) {
+      $this->js['settings'] = $settings_diff;
     }
 
     // And for tokens:
     $tokens = ctools_set_page_token();
     foreach ($this->tokens as $token => $argument) {
       if (isset($tokens[$token])) {
-        unset($tokens);
+        unset($tokens[$token]);
       }
     }
 
@@ -219,16 +200,23 @@ class panels_cache_object {
    */
   function restore() {
     if (!empty($this->head)) {
-      drupal_set_html_head($this->head);
+      drupal_add_html_head($this->head);
     }
     if (!empty($this->css)) {
       foreach ($this->css as $args) {
-        call_user_func_array('drupal_add_css', $args);
+        drupal_add_css($args['data'], $args);
       }
     }
     if (!empty($this->js)) {
-      foreach ($this->js as $args) {
-        call_user_func_array('drupal_add_js', $args);
+      foreach ($this->js as $key => $args) {
+        if ($key !== 'settings') {
+          drupal_add_js($args['data'], $args);
+        }
+        else {
+          foreach ($args as $setting) {
+            drupal_add_js($setting, 'setting');
+          }
+        }
       }
     }
 
@@ -243,6 +231,8 @@ class panels_cache_object {
 
 /**
  * Get the title of a pane.
+ *
+ * @deprecated @todo this function should be removed.
  *
  * @param $pane
  *   The $pane object.
@@ -387,7 +377,7 @@ function panels_get_renderer_handler($plugin, &$display) {
     $plugin = panels_get_display_renderer($plugin);
   }
 
-  $class = ctools_plugin_get_class($plugin, 'handler');
+  $class = ctools_plugin_get_class($plugin, 'renderer');
   if ($class) {
     $renderer = new $class();
     $renderer->init($plugin, $display);
@@ -401,11 +391,6 @@ function panels_get_renderer_handler($plugin, &$display) {
  * Choose a renderer for a display based on a render pipeline setting.
  */
 function panels_get_renderer($pipeline_name, &$display) {
-  // If operating in legacy mode, only the legacy renderer is available:
-  if (variable_get('panels_legacy_rendering_mode', TRUE)) {
-    return panels_get_renderer_handler('legacy', $display);
-  }
-
   // Load the pipeline
   ctools_include('export');
   $pipeline = ctools_export_crud_load('panels_renderer_pipeline', $pipeline_name);
@@ -463,11 +448,6 @@ function _panels_renderer_pipeline_sort($a, $b) {
  * sorting. Descriptions are left in.
  */
 function panels_get_renderer_pipelines($sort = TRUE) {
-  // If operating in legacy mode, only the legacy renderer is available:
-  if (variable_get('panels_legacy_rendering_mode', TRUE)) {
-    return array();
-  }
-
   ctools_include('export');
   $pipelines = ctools_export_crud_load_all('panels_renderer_pipeline');
   if ($sort) {
@@ -491,6 +471,8 @@ function panels_get_renderer_pipelines($sort = TRUE) {
  * @return
  *   The actual name of the function to call, or NULL if the function
  *   does not exist.
+ *
+ * @deprecated All calls to this function should be removed.
  */
 function panels_plugin_get_function($plugin, $which, $function_name) {
   ctools_include('plugins');
@@ -500,10 +482,4 @@ function panels_plugin_get_function($plugin, $which, $function_name) {
   else {
     return ctools_plugin_load_function('panels', $plugin, $which, $function_name);
   }
-
 }
-
-// @todo these are DEPRECATED and can probably be removed.
-// These are placeholders to prevent crashes from the former plugins
-class panels_required_context { function filter() { } };
-class panels_optional_context extends panels_required_context {};

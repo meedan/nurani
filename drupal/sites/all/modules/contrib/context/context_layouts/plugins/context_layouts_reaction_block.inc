@@ -1,5 +1,4 @@
 <?php
-// $Id: context_layouts_reaction_block.inc,v 1.1.2.5 2010/07/28 22:56:06 yhahn Exp $
 
 class context_layouts_reaction_block extends context_reaction_block {
   /**
@@ -41,7 +40,8 @@ class context_layouts_reaction_block extends context_reaction_block {
   function add_layout_template(&$vars) {
     if ($layout = $this->get_active_layout()) {
       if (!empty($layout['template'])) {
-        $vars['template_files'][] = $layout['template'];
+        global $theme;
+        $vars['theme_hook_suggestion'] = "page__context_layouts_{$theme}_{$layout['layout']}";
       }
     }
   }
@@ -52,7 +52,7 @@ class context_layouts_reaction_block extends context_reaction_block {
   function add_layout_stylesheet() {
     if ($layout = $this->get_active_layout()) {
       if (!empty($layout['stylesheet'])) {
-        drupal_add_css(drupal_get_path('theme', $layout['theme']) .'/'. $layout['stylesheet']);
+        drupal_add_css(drupal_get_path('theme', $layout['theme']) . '/' . $layout['stylesheet']);
       }
     }
   }
@@ -61,7 +61,7 @@ class context_layouts_reaction_block extends context_reaction_block {
    * Override of editor form.
    */
   function editor_form($context) {
-    drupal_add_css(drupal_get_path('module', 'context_layouts') .'/plugins/context_layouts_reaction_block.css');
+    drupal_add_css(drupal_get_path('module', 'context_layouts') . '/plugins/context_layouts_reaction_block.css');
 
     $form = parent::editor_form($context);
 
@@ -79,6 +79,9 @@ class context_layouts_reaction_block extends context_reaction_block {
           '#type' => 'select',
           '#weight' => -100,
           '#default_value' => isset($options['layout']) ? $options['layout'] : NULL,
+          '#required' => FALSE,
+          '#empty_value' => 0,
+          '#empty_option' => '- ' . t('Site default') . ' -',
         ),
         'update' => array(
           '#value' => t('Change layout'),
@@ -127,14 +130,17 @@ class context_layouts_reaction_block extends context_reaction_block {
         '#options' => $layouts,
         '#type' => 'select',
         '#weight' => -100,
-        '#default_value' => $options['layout'] ? $options['layout'] : NULL,
-        '#attributes' => array('class' => 'context-blockform-layout'),
+        '#default_value' => !empty($options['layout']) ? $options['layout'] : NULL,
+        '#attributes' => array('class' => array('context-blockform-layout')),
+        '#required' => FALSE,
+        '#empty_value' => 0,
+        '#empty_option' => '- ' . t('Site default') . ' -',
       );
 
       // Add js.
       // @TODO: Move this to a theme function or somewhere that will get called even
       // if the form is using a cached version of itself (e.g. when validate fails).
-      drupal_add_js(drupal_get_path('module', 'context_layouts') .'/plugins/context_layouts_reaction_block.js');
+      drupal_add_js(drupal_get_path('module', 'context_layouts') . '/plugins/context_layouts_reaction_block.js');
       drupal_add_js(array('contextLayouts' => array('layouts' => $this->get_layout_regions())), 'setting');
     }
     return $form;
@@ -175,7 +181,6 @@ class context_layouts_reaction_block extends context_reaction_block {
     $layouts = context_layouts_get_layouts($theme_key);
     $layout_options = array();
     if (!empty($layouts)) {
-      $layout_options[0] = '<'. t('Site default') .'>';
       foreach ($layouts as $layout => $info) {
         $layout_options[$layout] = isset($info['name']) ? $info['name'] : $layout_options;
       }

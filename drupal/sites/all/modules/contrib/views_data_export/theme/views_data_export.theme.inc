@@ -11,10 +11,10 @@
 /**
  * Theme a status message
  */
-function theme_views_data_export_message($message, $type = 'info') {
+function theme_views_data_export_message($var) {
   $output = '';
-  $output .= '<div class="messages status ' . $type . '">';
-  $output .= $message;
+  $output .= '<div class="messages status ' . $var['type'] . '">';
+  $output .= $var['message'];
   $output .= '</div>';
   return $output;
 }
@@ -39,12 +39,13 @@ function theme_views_data_export_message($message, $type = 'info') {
  *
  * @ingroup themeable
  */
-function theme_views_data_export_feed_icon($image_path, $url, $query = '', $text = '') {
+function theme_views_data_export_feed_icon($variables) {
+  extract($variables, EXTR_SKIP);
   $url_options = array('html' => true);
   if ($query) {
     $url_options['query'] = $query;
   }
-  $image = theme('image', $image_path, $text, $text);
+  $image = theme('image', array('path' => $image_path, 'alt' => $text, 'title' => $text));
   return l($image, $url, $url_options);
 }
 
@@ -54,9 +55,10 @@ function theme_views_data_export_feed_icon($image_path, $url, $query = '', $text
  * @param $file
  *  Link to output file
  */
-function theme_views_data_export_complete_page($file, $errors = array(), $return_url = '') {
+function theme_views_data_export_complete_page($variables) {
+  extract($variables, EXTR_SKIP);
   drupal_set_title(t('Data export successful'));
-  drupal_set_html_head('<meta http-equiv="refresh" content="3;url='. check_plain($file) . '" />');
+  drupal_add_html_head(array('#tag' => 'meta', '#attributes' => array('http-equiv' =>"refresh", 'content' => '3;url='. $file)), 'views_data_export_download');
   $output = '';
   $output .= '<p>';
   $output .= t('Your export has been created. View/download the file <a href="@link">here</a> (will automatically download in 3 seconds.)', array('@link' => $file));
@@ -104,7 +106,7 @@ function template_preprocess_views_data_export_csv_header(&$vars) {
   // Format header values.
   foreach ($vars['header'] as $key => $value) {
     $output = decode_entities(strip_tags($value));
-    if ($vars['options']['trim']) {
+    if (!empty($vars['options']['trim'])) {
       $output = trim($output);
     }
     if (!empty($vars['options']['encoding']) && function_exists('iconv')) {
@@ -147,7 +149,7 @@ function template_preprocess_views_data_export_csv_body(&$vars) {
   foreach ($vars['themed_rows'] as $i => $values) {
     foreach ($values as $j => $value) {
       $output = decode_entities(strip_tags($value));
-      if ($vars['options']['trim']) {
+      if (!empty($vars['options']['trim'])) {
         $output = trim($output);
       }
 
@@ -257,6 +259,8 @@ function template_preprocess_views_data_export_msoffice_body(&$vars) {
   _views_data_export_header_shared_preprocess($vars);
   _views_data_export_body_shared_preprocess($vars);
 
+  $output = '';
+
   // Construct the tbody of a table, see theme_table().
 
   $ts = tablesort_init($vars['header']);
@@ -297,7 +301,7 @@ function template_preprocess_views_data_export_msoffice_body(&$vars) {
       $output .= ' <tr' . drupal_attributes($attributes) . '>';
       $i = 0;
       foreach ($cells as $cell) {
-        $cell = tablesort_cell($cell, $header, $ts, $i++);
+        $cell = tablesort_cell($cell, $vars['header'], $ts, $i++);
         $output .= _theme_table_cell($cell);
       }
       $output .= " </tr>\n";
@@ -329,7 +333,7 @@ function template_preprocess_views_data_export_msoffice_header(&$vars) {
   $ts = tablesort_init($vars['header']);
 
   foreach ($vars['header'] as $cell) {
-    $cell = tablesort_header($cell, $header, $ts);
+    $cell = tablesort_header($cell, $vars['header'], $ts);
     $vars['header_row'] .= _theme_table_cell($cell, TRUE);
   }
 

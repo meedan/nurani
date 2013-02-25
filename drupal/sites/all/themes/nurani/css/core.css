@@ -1,0 +1,1380 @@
+/*global variables*/
+/*Mixin to style Username links*/
+/*mixin to style discussion lock & print pdf*/
+/* Mixin to style attribution class and links */
+/* Calls layout.scss that renders all the styles on the site*/
+/*globally applied css*/
+.printpdf {
+  background: url(../images/print.png) center left no-repeat;
+  margin: 1em 0 1em 0;
+  padding: 1em 0 0 3em;
+  color: #4a4a4a;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+.printpdf:hover {
+  text-decoration: underline;
+}
+
+body {
+  font-family: Helvetica Neue;
+  font-size: 16px;
+  line-height: 26px;
+  color: #4c1313;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Helvetica Neue;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+p {
+  font-size: 1em;
+  /* 14px */
+}
+
+h1 {
+  font-size: 2.4286em;
+  /* 34px */
+  line-height: 1.5294em;
+  /* 52px */
+  margin-top: 0.7647em;
+  margin-bottom: 0em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.3em;
+  /* 30px */
+  line-height: 0.7333em;
+  /* 52px */
+  margin-bottom: 0em;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 1.3em;
+  line-height: 1.4444em;
+  margin-top: 1.4444em;
+  margin-bottom: 0em;
+}
+
+h4 {
+  font-size: 1em;
+  font-weight: normal;
+  margin-top: -0.5em;
+  margin-bottom: 1.5em;
+}
+
+ul, ul li {
+  list-style-type: disc;
+  list-style: none;
+}
+
+ol, ol li {
+  list-style: decimal;
+}
+
+sup {
+  font-size: xx-small;
+  vertical-align: super;
+}
+
+/** menu links fall below the other as screen size reduces **/
+@media only screen and (max-width: 1024px) {
+  div#top-strip {
+    width: 100%;
+    height: 100%;
+  }
+  div#top-strip #block-menu_block-nurani_main_menu ul li a {
+    padding: 2px;
+  }
+}
+#header {
+  background-color: #4c1313;
+}
+#header #logo-box {
+  width: 58.97436%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -30px;
+  display: inline;
+  position: relative;
+}
+#header #logo-box a#logo {
+  z-index: 1;
+  position: absolute;
+  top: -12px;
+}
+#header #logo-box a#logo img {
+  max-width: 100%;
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+  height: 24px;
+}
+
+/*Welcome block*/
+#block-nurani_helpers-welcome_login {
+  margin-top: -2.5em;
+  float: right;
+  font-size: 1.5em;
+  color: #4a4a4a;
+}
+#block-nurani_helpers-welcome_login .welcome a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+#block-nurani_helpers-welcome_login .logout, #block-nurani_helpers-welcome_login .login {
+  margin-left: 5em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#block-nurani_helpers-welcome_login .logout a, #block-nurani_helpers-welcome_login .login a {
+  text-decoration: none;
+  color: #4a4a4a;
+}
+
+#block-menu_block-nurani_main_menu {
+  width: 45%;
+  padding: 1.8em;
+}
+#block-menu_block-nurani_main_menu ul li {
+  list-style-type: none;
+  display: inline;
+}
+#block-menu_block-nurani_main_menu ul li a {
+  font-size: 1.5em;
+  float: left;
+  display: block;
+  margin: 0 1em 0 0;
+  padding: 0.2em 0.5em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #4c1313;
+}
+#block-menu_block-nurani_main_menu ul li a.active, #block-menu_block-nurani_main_menu ul li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background: #4c1313;
+  -webkit-border-radius: 0.4em;
+  -moz-border-radius: 0.4em;
+  -ms-border-radius: 0.4em;
+  -o-border-radius: 0.4em;
+  border-radius: 0.4em;
+}
+
+/* This themes list of comments and preview on discussion page */
+.comment-inner {
+  padding: 35px;
+}
+.comment-inner .user-picture {
+  float: left;
+  margin: 0 1em 0 -1em;
+}
+.comment-inner .user-picture a {
+  float: left;
+}
+.comment-inner .content {
+  color: #4a4a4a;
+}
+.comment-inner .content .attribution {
+  float: right;
+}
+.comment-inner .content .attribution a {
+  color: #005eae;
+  font-weight: bold;
+  text-decoration: none;
+}
+.comment-inner .links {
+  margin-top: 1em;
+}
+.comment-inner .links a {
+  font-size: 12px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0064B8', endColorstr='#FF002C52');
+  background-color: #0064b8;
+  border: 0;
+  color: white;
+  text-shadow: #001f39 0 -1px 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+}
+.comment-inner .links a:hover {
+  text-decoration: none;
+}
+.comment-inner .links a:hover {
+  background-color: #00569f;
+}
+.comment-inner .links a:active {
+  background-color: #004d8f;
+}
+.comment-inner .links a.disabled, .comment-inner .links a[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.comment-inner .links a::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+.comment-inner .links a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.pane-nurani-profile-user-profile h2.pane-title {
+  color: #005eae;
+}
+.pane-nurani-profile-user-profile .group-details, .pane-nurani-profile-user-profile .group-additional-details {
+  border: 1px solid #005eae;
+}
+.pane-nurani-profile-user-profile .group-details > .fieldset-wrapper, .pane-nurani-profile-user-profile .group-additional-details > .fieldset-wrapper, .pane-nurani-profile-user-profile .group-profile > .fieldset-wrapper {
+  padding: 5px 20px 0 15px;
+}
+.pane-nurani-profile-user-profile .group-additional-details .field-label {
+  margin-bottom: 1em;
+}
+.pane-nurani-profile-user-profile .button {
+  display: block;
+  text-decoration: none;
+  width: 100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.group-profile > legend, .group-details > legend, .group-additional-details > legend {
+  margin: 0 auto;
+}
+
+.profile {
+  padding: 5px 15px;
+}
+.profile .group-profile > legend, .profile .group-details > legend, .profile .group-additional-details > legend {
+  margin: 0 auto;
+}
+.profile .group-profile span.fieldset-legend, .profile .group-profile .fieldset-title, .profile .group-details span.fieldset-legend, .profile .group-details .fieldset-title, .profile .group-additional-details span.fieldset-legend, .profile .group-additional-details .fieldset-title {
+  font-family: palatino;
+  font-style: italic;
+  text-decoration: none;
+  color: #005eae;
+}
+.profile .group-profile {
+  padding: 0;
+  margin-top: 1em;
+}
+.profile .user-picture {
+  float: right;
+  margin: 2em 0 -3em;
+}
+.profile .field-name-field-title, .profile .field-name-field-first-name {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+}
+.profile .group-details .field {
+  margin-bottom: 1em;
+}
+.profile .group-details .field > .field-items {
+  float: right;
+  text-align: right;
+}
+.profile .field-name-field-postal-address .field-items {
+  width: 50%;
+}
+.profile .field-label-above {
+  margin-bottom: 1em;
+}
+
+.page-user- {
+  background-color: #fff;
+  margin-bottom: 25px;
+}
+
+/******************************************** Global Form Styling ********************************************/
+.form-text, .form-textarea, select {
+  top: 4px;
+  padding: 3px 10px;
+  font-size: 16px;
+  border: 0;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background: #fff;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+  -moz-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+  box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+}
+
+input.form-submit, .button {
+  font-size: 12px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0064B8', endColorstr='#FF002C52');
+  background-color: #0064b8;
+  border: 0;
+  color: white;
+  text-shadow: #001f39 0 -1px 0;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+input.form-submit:hover, .button:hover {
+  text-decoration: none;
+}
+input.form-submit:hover, .button:hover {
+  background-color: #00569f;
+}
+input.form-submit:active, .button:active {
+  background-color: #004d8f;
+}
+input.form-submit.disabled, input.form-submit[disabled], .button.disabled, .button[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+input.form-submit::-moz-focus-inner, .button::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+
+input.date-clear {
+  background: url(../images/calendar.png) no-repeat 154px 1px;
+}
+
+.form-type-date-popup label, #edit-picture label {
+  display: none;
+}
+
+#edit-legal {
+  position: relative;
+}
+#edit-legal div.fieldset-wrapper {
+  overflow-y: auto;
+  height: 400px;
+  padding-bottom: 2em;
+}
+#edit-legal div.fieldset-wrapper div.form-item-legal-accept {
+  position: absolute;
+  bottom: 0;
+  top: 30em;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 2em;
+}
+
+/******************************************** Styling for User Registration forms ********************************************/
+.field-group-fieldset, fieldset {
+  border: none;
+}
+
+.page-user-register label {
+  font-weight: lighter;
+}
+.page-user-register .field-type-list-text, .page-user-register .field-type-text, .page-user-register .field-type-datetime,
+.page-user-register #edit-picture, .page-user-register .form-type-textarea, .page-user-register .form-item-mail {
+  display: inline-block;
+  float: left;
+  margin-right: 30px;
+}
+.page-user-register .field-type-datetime {
+  clear: left;
+}
+.page-user-register .field-name-field-title,
+.page-user-register .field-name-field-mobile-phone,
+.page-user-register .field-name-field-how-did-you-hear-about-us,
+.page-user-register .field-name-field-subjects-of-interest {
+  clear: both;
+}
+.page-user-register .form-item-mail {
+  width: 425px;
+}
+.page-user-register .form-type-textarea {
+  width: 500px;
+}
+.page-user-register #edit-picture .fieldset-wrapper {
+  width: 280px;
+}
+.page-user-register .field-group-fieldset {
+  margin-top: 30px;
+}
+.page-user-register #field-date-of-birth-add-more-wrapper {
+  margin-left: -16px;
+  margin-top: 20px;
+}
+.page-user-register .date-no-float {
+  margin-top: -16px;
+  margin-left: -11px;
+}
+.page-user-register .field-group-fieldset > legend, .page-user-register #edit-legal > legend {
+  text-align: center;
+  background: url(../images/bevel.jpg);
+  width: 100%;
+  margin-right: 1.69492%;
+  display: inline;
+}
+.page-user-register .field-group-fieldset > legend .fieldset-legend, .page-user-register #edit-legal > legend .fieldset-legend {
+  font-family: palatino;
+  font-style: italic;
+  font-size: 2.1429em;
+  text-decoration: none;
+  color: #4c1313;
+  background: url(../images/brown_bkg.png);
+  padding: 20px;
+}
+.page-user-register .form-type-textarea label {
+  width: 466px;
+}
+.page-user-register input#edit-field-post-code-und-0-value {
+  width: 250px;
+}
+.page-user-register select#edit-field-country-und {
+  width: 158px;
+}
+.page-user-register input#edit-field-mobile-phone-und-0-value,
+.page-user-register input#edit-field-occupation-und-0-value {
+  width: 480px;
+}
+.page-user-register input#edit-field-landline-phone-und-0-value {
+  width: 435px;
+}
+.page-user-register .form-item-files-picture-upload {
+  margin-top: -7px;
+}
+.page-user-register input#edit-field-first-name-und-0-value,
+.page-user-register input#edit-field-last-name-und-0-value {
+  width: 400px;
+}
+.page-user-register input#edit-mail {
+  width: 350px;
+}
+.page-user-register input#edit-picture-upload {
+  width: 200px;
+}
+.page-user-register #edit-picture {
+  margin-top: 15px;
+}
+.page-user-register input.form-submit {
+  margin-left: 12px;
+  margin-top: 30px;
+}
+
+/******************************************** Nurani profile form ********************************************/
+#user-profile-form {
+  margin-top: 1em;
+  /* legal stuff */
+  /* buttons */
+}
+#user-profile-form .group-additional-details, #user-profile-form .group-details, #user-profile-form #edit-legal, #user-profile-form .group-profile {
+  padding: 0;
+  width: 100%;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper {
+  padding: 5px;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name {
+  width: 32%;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-date-of-birth {
+  display: inline-block;
+  margin-right: 5px;
+  float: left;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title input.text-full, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title select,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name input.text-full,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name select,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name input.text-full,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name select, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-date-of-birth input.text-full, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-date-of-birth select {
+  width: 120px;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account {
+  float: left;
+  width: 90%;
+  clear: both;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-overlay-control {
+  clear: both;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item {
+  width: 200px;
+  float: left;
+  margin-right: 51px;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item input[type=text] {
+  width: 200px;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item-pass-pass1 .password-strength {
+  float: none;
+}
+#user-profile-form #edit-timezone--2, #user-profile-form .form-item-timezone .description,
+#user-profile-form .field-group-fieldset .legend {
+  width: 280px;
+}
+#user-profile-form fieldset.group-details .field-name-field-postal-address,
+#user-profile-form fieldset.group-details .field-name-field-post-code,
+#user-profile-form fieldset.group-details .field-name-field-country,
+#user-profile-form fieldset.group-details .field-name-field-occupation,
+#user-profile-form fieldset.group-details .field-name-field-landline-phone,
+#user-profile-form fieldset.group-details .field-name-field-mobile-phone {
+  width: 40%;
+  float: left;
+  margin-right: 30px;
+}
+#user-profile-form fieldset.group-details input, #user-profile-form fieldset.group-details select, #user-profile-form fieldset.group-details textarea {
+  width: 169px;
+}
+#user-profile-form fieldset.group-details .field-name-field-country {
+  clear: both;
+}
+#user-profile-form #edit-legal legend {
+  margin: 0 auto;
+}
+#user-profile-form #edit-legal > .fieldset-wrapper {
+  height: 350px;
+}
+#user-profile-form #edit-legal > .fieldset-wrapper div.form-item-legal-accept {
+  top: 24em;
+  margin: 1em 0 1em;
+  background: #fff;
+}
+#user-profile-form .form-actions {
+  display: inline;
+  margin-right: 10px;
+}
+#user-profile-form a {
+  display: inline;
+  text-decoration: none;
+}
+#user-profile-form .form-actions input {
+  margin-top: 2em;
+}
+
+/******************************************** Contact us form ********************************************/
+.node-type-webform textarea {
+  width: 450px;
+}
+
+.footer.footer-logos {
+  text-align: center;
+  margin-bottom: 35px;
+}
+.footer.footer-logos a, .footer.footer-logos > img {
+  display: inline-block;
+  margin-right: 50px;
+  padding-top: 5px;
+}
+
+#block-menu-menu-footer-links {
+  display: block;
+  padding-left: 0;
+  text-align: center;
+}
+#block-menu-menu-footer-links li {
+  display: inline-block;
+  padding: 0 45px 0 10px;
+  margin: 0 15px 0 0;
+  border-right: 1px dotted #4c1313;
+}
+#block-menu-menu-footer-links li a {
+  color: #4c1313;
+  display: inline;
+  text-transform: uppercase;
+  padding: 10px 0;
+  font-family: Georgia, Times, Times New Roman, serif;
+  font-weight: normal;
+  text-decoration: none;
+}
+#block-menu-menu-footer-links li.last {
+  border-right: none;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+#scroll-capture {
+  overflow: auto;
+  height: 100%;
+}
+
+body {
+  background: #f1e9e4 url("../images/brown_bkg.gif") repeat fixed center right;
+}
+
+.region-top-strip {
+  background: #fff;
+  padding: 4px 20px 0;
+}
+
+/* Default layout style */
+#main {
+  *zoom: 1;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5em;
+}
+#main:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#main > #content {
+  padding-left: 5.12821%;
+  padding-right: 5.12821%;
+  width: 89.74359%;
+  float: left;
+  margin-right: 2.5641%;
+  display: inline;
+}
+
+#header {
+  height: 39px;
+  *zoom: 1;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+#header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#content-inner #content-area {
+  margin-bottom: 4em;
+}
+#content-inner #content-bottom #content-bottom-left {
+  float: left;
+  width: 60%;
+  float: left;
+  margin-right: 2.85714%;
+  display: inline;
+}
+#content-inner #content-bottom #content-bottom-right {
+  float: left;
+  width: 31.42857%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -30px;
+  display: inline;
+}
+
+#footer, .footer, ul.footer-logos {
+  width: 1100px;
+  margin: 10px auto;
+  text-align: center;
+}
+
+/* fixed width and centralised Div on Basic pages and registration form */
+.node-type-page #content-inner, .page-legal #content-inner {
+  margin: 0 auto;
+}
+.node-type-page #content-area, .page-legal #content-area {
+  background: #fff;
+  padding: 0;
+}
+.node-type-page #content-area .region-content, .page-legal #content-area .region-content {
+  padding: 10px 40px 0 40px;
+  text-align: left;
+}
+
+.page-user-register #content-inner, .page-user #content-inner, .page-user-password #content-inner {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+/* Pages */
+body.front {
+  /*  Front-page */
+  /******************************************** Styles for Home page when logged out ********************************************/
+  /******************************************** Styles for Home page when logged in ********************************************/
+  /******************************************** Styles for Library Annotations ********************************************/
+}
+body.front h2 {
+  margin-bottom: 1em;
+}
+body.front .panel-3col-33 .panel-panel {
+  width: 31.42857%;
+  float: left;
+  margin-right: 2.85714%;
+  display: inline;
+}
+body.front .panel-3col-33 .panel-panel:nth-child(3n) {
+  float: right;
+  margin-right: 0;
+  #margin-left: -30px;
+  display: inline;
+}
+body.front .panel-3col-33 .block-boxes,
+body.front .panel-3col-33 .panel-pane {
+  padding: 30px;
+  text-align: justify;
+}
+body.front .panel-3col-33 #block-boxes-nurani_welcome {
+  background-color: #fff;
+  margin-bottom: 25px;
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #ac9d43;
+}
+body.front .panel-3col-33 #block-boxes-nurani_welcome .d_ford {
+  width: 80px;
+  float: left;
+  margin: 0 1.5em;
+  border: 5px solid whitesmoke;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani {
+  background-color: #fff;
+  margin-bottom: 25px;
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #4c1313;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani iframe {
+  margin-bottom: 1em;
+  width: 100%;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link {
+  width: 63.63636%;
+  float: left;
+  margin-right: 9.09091%;
+  display: inline;
+  margin-left: 9.09091%;
+  background: url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
+  font-size: 12px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0064B8', endColorstr='#FF002C52');
+  background-color: #0064b8;
+  border: 0;
+  color: #fefefe;
+  text-shadow: #001f39 0 -1px 0;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
+  text-decoration: none;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
+  background-color: #00569f;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:active {
+  background-color: #004d8f;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link.disabled, body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
+  color: #fff;
+}
+body.front .panel-3col-33 .panel-pane {
+  background-color: #fff;
+  margin-bottom: 25px;
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #005eae;
+}
+body.front .panel-3col-33 .panel-pane a.invitation-link {
+  background: url(../images/mail.png) no-repeat 10px 11px;
+  font-size: 12px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0064B8', endColorstr='#FF002C52');
+  background-color: #0064b8;
+  border: 0;
+  color: #fefefe;
+  text-shadow: #001f39 0 -1px 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1em 1em 1em 4em;
+  margin: 1em 4em;
+}
+body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
+  text-decoration: none;
+}
+body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
+  background-color: #00569f;
+}
+body.front .panel-3col-33 .panel-pane a.invitation-link:active {
+  background-color: #004d8f;
+}
+body.front .panel-3col-33 .panel-pane a.invitation-link.disabled, body.front .panel-3col-33 .panel-pane a.invitation-link[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+body.front .panel-3col-33 .panel-pane a.invitation-link::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
+  color: #fff;
+}
+body.front .panel-2col {
+  /* This styles the discussion block*/
+  /* This styles the profile block*/
+}
+body.front .panel-2col h2 {
+  text-align: left;
+}
+body.front .panel-2col h3 {
+  margin-bottom: 1em;
+  display: inline;
+}
+body.front .panel-2col h3 a {
+  font-family: palatino;
+  font-style: italic;
+  color: #4a4a4a;
+  text-decoration: none;
+  font-weight: lighter;
+}
+body.front .panel-2col h3 a:hover {
+  color: #005eae;
+  text-decoration: underline;
+}
+body.front .panel-2col .panel-col-first {
+  width: 54.28571%;
+  float: left;
+  margin-right: 2.85714%;
+  display: inline;
+}
+body.front .panel-2col .panel-col-first .view-id-nurani_discussions > .view-content > .views-row {
+  background-color: #fff;
+  margin-bottom: 25px;
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #4c1313;
+  overflow: hidden;
+  padding: 0 4em 2em 2em;
+}
+body.front .panel-2col .panel-col-first .view-id-nurani_discussions .view-empty {
+  background-color: #fff;
+  margin-bottom: 25px;
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #4c1313;
+  padding: 35px;
+}
+body.front .panel-2col .panel-col-last {
+  width: 42.85714%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -30px;
+  display: inline;
+}
+body.front .panel-2col .panel-col-last .pane-content {
+  background-color: #fff;
+  margin-bottom: 25px;
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #005eae;
+  padding: 0 2em 2em 2em;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle {
+  width: 57.89474%;
+  float: left;
+  margin-right: 5.26316%;
+  display: inline;
+  margin-top: 2em;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-field-bundle span.passage {
+  display: inline-block;
+  padding-right: 1em;
+  font-weight: bold;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments, body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
+  width: 36.84211%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -30px;
+  display: inline;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments, body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing {
+  clear: both;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a {
+  font-size: 12px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0064B8', endColorstr='#FF002C52');
+  background-color: #0064b8;
+  border: 0;
+  color: #fefefe;
+  text-shadow: #001f39 0 -1px 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-image: none;
+  text-align: center;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:hover {
+  text-decoration: none;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:hover {
+  background-color: #00569f;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:active, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:active {
+  background-color: #004d8f;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a.disabled, body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a[disabled], body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a.disabled, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a::-moz-focus-inner, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:hover {
+  color: #fff;
+}
+body.front .view-nurani-discussions .view-meedan-discussion-participants {
+  margin-top: 23px;
+}
+body.front .view-nurani-discussions .view-meedan-discussion-participants > .view-content .views-row {
+  display: inline-block;
+  margin-right: -20px;
+  padding: 10px;
+}
+body.front .annotations .annotation {
+  background-color: #fff;
+  margin-bottom: 25px;
+  margin-bottom: 2px;
+  padding: 10px 25px;
+}
+body.front .annotations .annotation em {
+  font-weight: bold;
+}
+body.front .annotations .annotation .contents {
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+/* node types */
+body.node-type-discussion {
+  /******************************************** Section to style the Text Bundle for discussions ********************************************/
+  /****** styling tabbed for translation option ******/
+  /*********** Styles for the lower section of the discussion page containing i.e. the comment list and comment form ***********/
+  /******************************************** Styling list of comments section and comment preview ********************************************/
+  /** Style for preview comment box **/
+  /** Style for response list comment box**/
+  /** style to create drop-down arrow **/
+  /**Styling sort-link**/
+  /******************************************** Styling Comment form ********************************************/
+  /******************************************** Styling Discussion info section ********************************************/
+}
+body.node-type-discussion #content-header h1, body.node-type-discussion #content-header h2 {
+  font-family: palatino;
+  font-style: italic;
+}
+body.node-type-discussion .node-discussion .passage-boxes > .inner {
+  width: 88.57143%;
+  float: left;
+  margin-right: 2.85714%;
+  display: inline;
+  float: none;
+}
+body.node-type-discussion .node-discussion .passage-box {
+  margin-top: 2em;
+  width: 31.42857%;
+  float: left;
+  margin-right: 2.85714%;
+  display: inline;
+}
+body.node-type-discussion .node-discussion .passage-box:nth-child(3n) {
+  float: right;
+  margin-right: 0;
+  #margin-left: -30px;
+  display: inline;
+}
+body.node-type-discussion .node-discussion .inner > .passage-text {
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #8b000e;
+  border-left: 1px;
+  border-left-style: solid;
+  border-left-color: #ccc6c2;
+  border-bottom: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #ccc6c2;
+  border-right: 1px;
+  border-right-style: solid;
+  border-right-color: #ccc6c2;
+  background: #f1e9e4;
+}
+body.node-type-discussion .node-discussion .inner > .passage-text .error {
+  margin-top: 2em;
+  background-repeat: no-repeat;
+  background-position: top-left;
+  padding: 0 0 0 2em;
+  background-color: transparent;
+}
+body.node-type-discussion .node-discussion .inner > .passage-text .error .message {
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget .verse {
+  margin: 0 0.5em;
+}
+body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget h4 {
+  margin-bottom: 1em;
+}
+body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget p {
+  font-family: palatino;
+  margin-top: 0.5em;
+  display: inline;
+}
+body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget .bib .moderator_s_thoughts p {
+  font-size: 1.1429em;
+  text-indent: justify;
+  color: #4a4a4a;
+  margin-bottom: 2em;
+}
+body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget .bib .moderator_s_thoughts span.attribution {
+  margin-top: -1em;
+  padding-right: 20px;
+  float: right;
+}
+body.node-type-discussion .node-discussion .inner > .passage-text .passage-widget .bib .moderator_s_thoughts span.attribution a {
+  color: #005eae;
+  font-weight: bold;
+  text-decoration: none;
+}
+body.node-type-discussion .node-discussion .inner .bib {
+  padding-left: 4.54545%;
+  padding-right: 4.54545%;
+  width: 72.72727%;
+  float: left;
+  margin-right: 9.09091%;
+  display: inline;
+  margin-top: -1em;
+  margin-left: 9.09091%;
+  border: 1px solid #ccc6c2;
+}
+body.node-type-discussion .tab-bar {
+  margin-top: 1em;
+}
+body.node-type-discussion .tab-bar a.button {
+  font-size: 12px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFD0BCA5', endColorstr='#FFAE8A61');
+  background-color: #d0bca5;
+  border: 0;
+  color: #fefefe;
+  text-shadow: #a27d54 0 -1px 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 11px;
+  color: #4a4a4a;
+  margin-bottom: 1em;
+  margin-right: 1em;
+}
+body.node-type-discussion .tab-bar a.button:hover {
+  text-decoration: none;
+}
+body.node-type-discussion .tab-bar a.button:hover {
+  background-color: #c8b094;
+}
+body.node-type-discussion .tab-bar a.button:active {
+  background-color: #c3a88a;
+}
+body.node-type-discussion .tab-bar a.button.disabled, body.node-type-discussion .tab-bar a.button[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+body.node-type-discussion .tab-bar a.button::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+body.node-type-discussion .tab-bar a.button:hover {
+  color: #fff;
+}
+body.node-type-discussion .tab-bar a.button:hover {
+  color: #4a4a4a;
+}
+body.node-type-discussion #block-views-nurani_comment_list-block {
+  margin-left: 80px;
+}
+body.node-type-discussion #block-views-nurani_comment_list-block h2 {
+  text-align: left;
+  margin-bottom: 2px;
+  padding: 8px 0;
+}
+body.node-type-discussion #block-views-nurani_comment_list-block .comment-number {
+  position: absolute;
+  left: -80px;
+  margin-top: 46px;
+  font-size: 3.5em;
+  opacity: 0.5;
+}
+body.node-type-discussion .comment-preview {
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #8b000e;
+}
+body.node-type-discussion .view-nurani-comment-list .comment {
+  background-color: #fff;
+  margin-bottom: 25px;
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #005eae;
+}
+body.node-type-discussion .view-nurani-comment-list .comment .new {
+  position: absolute;
+  left: -50px;
+  margin-top: -39px;
+  background-color: #005eae;
+  text-align: center;
+  width: 50px;
+  color: #fff;
+}
+body.node-type-discussion .nurani-sort-links:after {
+  content: ' ';
+  height: 0;
+  position: absolute;
+  width: 0;
+  right: -5px;
+  top: 12px;
+  border: 10px solid transparent;
+  border-top-color: #4c1313;
+  opacity: 0.5;
+}
+body.node-type-discussion .nurani-sort-links {
+  position: relative;
+  float: right;
+  font-size: 2.1429em;
+  margin-top: -35px;
+}
+body.node-type-discussion .nurani-sort-links a {
+  color: #4c1313;
+  padding-right: 20px;
+  display: block;
+  text-decoration: none;
+  opacity: 0.5;
+}
+body.node-type-discussion .nurani-sort-links a.active {
+  display: none;
+}
+body.node-type-discussion .block-nurani-comment h2 {
+  display: none;
+}
+body.node-type-discussion .comment-form {
+  background: #005eae;
+  margin-bottom: 2em;
+  padding: 1em 1em 5em;
+  color: #fff;
+  max-width: 100%;
+}
+body.node-type-discussion .comment-form div.head .user-picture {
+  float: left;
+}
+body.node-type-discussion .comment-form div.head .user-picture a {
+  float: left;
+}
+body.node-type-discussion .comment-form div.head .info {
+  margin-left: 6em;
+}
+body.node-type-discussion .comment-form div.head .info a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+body.node-type-discussion .comment-form div.head .tip {
+  margin-top: 2em;
+}
+body.node-type-discussion .comment-form label,
+body.node-type-discussion .comment-form .form-text,
+body.node-type-discussion .comment-form .filter-wrapper {
+  display: none;
+}
+body.node-type-discussion .comment-form .ajax-processed {
+  font-size: 12px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF00447F', endColorstr='#FF000E19');
+  background-color: #00447f;
+  border: 0;
+  color: white;
+  text-shadow: black 0 -1px 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 0.5em;
+  display: inline;
+}
+body.node-type-discussion .comment-form .ajax-processed:hover {
+  text-decoration: none;
+}
+body.node-type-discussion .comment-form .ajax-processed:hover {
+  background-color: #003766;
+}
+body.node-type-discussion .comment-form .ajax-processed:active {
+  background-color: #002f56;
+}
+body.node-type-discussion .comment-form .ajax-processed.disabled, body.node-type-discussion .comment-form .ajax-processed[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+body.node-type-discussion .comment-form .ajax-processed::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+body.node-type-discussion .comment-form .form-actions {
+  float: right;
+}
+body.node-type-discussion .block-meedan-discussion-lock {
+  background: url(../images/clock-icon.png) no-repeat;
+  margin-bottom: 2em;
+}
+body.node-type-discussion .block-meedan-discussion-lock .content {
+  margin-left: 3em;
+  color: #4a4a4a;
+  font-size: 1.2em;
+}
+body.node-type-discussion #block-nurani_discussion-print_pdf {
+  margin-bottom: 4em;
+}
+body.node-type-discussion .view-meedan-discussion-participants > .view-content > .views-row {
+  float: left;
+  clear: both;
+  margin-bottom: 1em;
+}
+body.node-type-discussion .view-meedan-discussion-participants > .view-content {
+  margin-bottom: 4em;
+}
+body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-picture {
+  float: left;
+}
+body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-name,
+body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-cid {
+  margin-left: 5em;
+}
+body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-name a,
+body.node-type-discussion .view-meedan-discussion-participants > .view-content .views-field-cid a {
+  color: #005eae;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Susy testing and debugging */
+#page.wireframe-mode {
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(0%, rgba(100, 100, 225, 0.25)), color-stop(2.5641%, rgba(100, 100, 225, 0.25)), color-stop(2.5641%, rgba(0, 0, 0, 0)), color-stop(5.12821%, rgba(0, 0, 0, 0)), color-stop(5.12821%, rgba(100, 100, 225, 0.25)), color-stop(7.69231%, rgba(100, 100, 225, 0.25)), color-stop(7.69231%, rgba(0, 0, 0, 0)), color-stop(10.25641%, rgba(0, 0, 0, 0)), color-stop(10.25641%, rgba(100, 100, 225, 0.25)), color-stop(12.82051%, rgba(100, 100, 225, 0.25)), color-stop(12.82051%, rgba(0, 0, 0, 0)), color-stop(15.38462%, rgba(0, 0, 0, 0)), color-stop(15.38462%, rgba(100, 100, 225, 0.25)), color-stop(17.94872%, rgba(100, 100, 225, 0.25)), color-stop(17.94872%, rgba(0, 0, 0, 0)), color-stop(20.51282%, rgba(0, 0, 0, 0)), color-stop(20.51282%, rgba(100, 100, 225, 0.25)), color-stop(23.07692%, rgba(100, 100, 225, 0.25)), color-stop(23.07692%, rgba(0, 0, 0, 0)), color-stop(25.64103%, rgba(0, 0, 0, 0)), color-stop(25.64103%, rgba(100, 100, 225, 0.25)), color-stop(28.20513%, rgba(100, 100, 225, 0.25)), color-stop(28.20513%, rgba(0, 0, 0, 0)), color-stop(30.76923%, rgba(0, 0, 0, 0)), color-stop(30.76923%, rgba(100, 100, 225, 0.25)), color-stop(33.33333%, rgba(100, 100, 225, 0.25)), color-stop(33.33333%, rgba(0, 0, 0, 0)), color-stop(35.89744%, rgba(0, 0, 0, 0)), color-stop(35.89744%, rgba(100, 100, 225, 0.25)), color-stop(38.46154%, rgba(100, 100, 225, 0.25)), color-stop(38.46154%, rgba(0, 0, 0, 0)), color-stop(41.02564%, rgba(0, 0, 0, 0)), color-stop(41.02564%, rgba(100, 100, 225, 0.25)), color-stop(43.58974%, rgba(100, 100, 225, 0.25)), color-stop(43.58974%, rgba(0, 0, 0, 0)), color-stop(46.15385%, rgba(0, 0, 0, 0)), color-stop(46.15385%, rgba(100, 100, 225, 0.25)), color-stop(48.71795%, rgba(100, 100, 225, 0.25)), color-stop(48.71795%, rgba(0, 0, 0, 0)), color-stop(51.28205%, rgba(0, 0, 0, 0)), color-stop(51.28205%, rgba(100, 100, 225, 0.25)), color-stop(53.84615%, rgba(100, 100, 225, 0.25)), color-stop(53.84615%, rgba(0, 0, 0, 0)), color-stop(56.41026%, rgba(0, 0, 0, 0)), color-stop(56.41026%, rgba(100, 100, 225, 0.25)), color-stop(58.97436%, rgba(100, 100, 225, 0.25)), color-stop(58.97436%, rgba(0, 0, 0, 0)), color-stop(61.53846%, rgba(0, 0, 0, 0)), color-stop(61.53846%, rgba(100, 100, 225, 0.25)), color-stop(64.10256%, rgba(100, 100, 225, 0.25)), color-stop(64.10256%, rgba(0, 0, 0, 0)), color-stop(66.66667%, rgba(0, 0, 0, 0)), color-stop(66.66667%, rgba(100, 100, 225, 0.25)), color-stop(69.23077%, rgba(100, 100, 225, 0.25)), color-stop(69.23077%, rgba(0, 0, 0, 0)), color-stop(71.79487%, rgba(0, 0, 0, 0)), color-stop(71.79487%, rgba(100, 100, 225, 0.25)), color-stop(74.35897%, rgba(100, 100, 225, 0.25)), color-stop(74.35897%, rgba(0, 0, 0, 0)), color-stop(76.92308%, rgba(0, 0, 0, 0)), color-stop(76.92308%, rgba(100, 100, 225, 0.25)), color-stop(79.48718%, rgba(100, 100, 225, 0.25)), color-stop(79.48718%, rgba(0, 0, 0, 0)), color-stop(82.05128%, rgba(0, 0, 0, 0)), color-stop(82.05128%, rgba(100, 100, 225, 0.25)), color-stop(84.61538%, rgba(100, 100, 225, 0.25)), color-stop(84.61538%, rgba(0, 0, 0, 0)), color-stop(87.17949%, rgba(0, 0, 0, 0)), color-stop(87.17949%, rgba(100, 100, 225, 0.25)), color-stop(89.74359%, rgba(100, 100, 225, 0.25)), color-stop(89.74359%, rgba(0, 0, 0, 0)), color-stop(92.30769%, rgba(0, 0, 0, 0)), color-stop(92.30769%, rgba(100, 100, 225, 0.25)), color-stop(94.87179%, rgba(100, 100, 225, 0.25)), color-stop(94.87179%, rgba(0, 0, 0, 0)), color-stop(97.4359%, rgba(0, 0, 0, 0)), color-stop(97.4359%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(100, 100, 225, 0.25)), color-stop(100%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 2.5641%, rgba(0, 0, 0, 0) 2.5641%, rgba(0, 0, 0, 0) 5.12821%, rgba(100, 100, 225, 0.25) 5.12821%, rgba(100, 100, 225, 0.25) 7.69231%, rgba(0, 0, 0, 0) 7.69231%, rgba(0, 0, 0, 0) 10.25641%, rgba(100, 100, 225, 0.25) 10.25641%, rgba(100, 100, 225, 0.25) 12.82051%, rgba(0, 0, 0, 0) 12.82051%, rgba(0, 0, 0, 0) 15.38462%, rgba(100, 100, 225, 0.25) 15.38462%, rgba(100, 100, 225, 0.25) 17.94872%, rgba(0, 0, 0, 0) 17.94872%, rgba(0, 0, 0, 0) 20.51282%, rgba(100, 100, 225, 0.25) 20.51282%, rgba(100, 100, 225, 0.25) 23.07692%, rgba(0, 0, 0, 0) 23.07692%, rgba(0, 0, 0, 0) 25.64103%, rgba(100, 100, 225, 0.25) 25.64103%, rgba(100, 100, 225, 0.25) 28.20513%, rgba(0, 0, 0, 0) 28.20513%, rgba(0, 0, 0, 0) 30.76923%, rgba(100, 100, 225, 0.25) 30.76923%, rgba(100, 100, 225, 0.25) 33.33333%, rgba(0, 0, 0, 0) 33.33333%, rgba(0, 0, 0, 0) 35.89744%, rgba(100, 100, 225, 0.25) 35.89744%, rgba(100, 100, 225, 0.25) 38.46154%, rgba(0, 0, 0, 0) 38.46154%, rgba(0, 0, 0, 0) 41.02564%, rgba(100, 100, 225, 0.25) 41.02564%, rgba(100, 100, 225, 0.25) 43.58974%, rgba(0, 0, 0, 0) 43.58974%, rgba(0, 0, 0, 0) 46.15385%, rgba(100, 100, 225, 0.25) 46.15385%, rgba(100, 100, 225, 0.25) 48.71795%, rgba(0, 0, 0, 0) 48.71795%, rgba(0, 0, 0, 0) 51.28205%, rgba(100, 100, 225, 0.25) 51.28205%, rgba(100, 100, 225, 0.25) 53.84615%, rgba(0, 0, 0, 0) 53.84615%, rgba(0, 0, 0, 0) 56.41026%, rgba(100, 100, 225, 0.25) 56.41026%, rgba(100, 100, 225, 0.25) 58.97436%, rgba(0, 0, 0, 0) 58.97436%, rgba(0, 0, 0, 0) 61.53846%, rgba(100, 100, 225, 0.25) 61.53846%, rgba(100, 100, 225, 0.25) 64.10256%, rgba(0, 0, 0, 0) 64.10256%, rgba(0, 0, 0, 0) 66.66667%, rgba(100, 100, 225, 0.25) 66.66667%, rgba(100, 100, 225, 0.25) 69.23077%, rgba(0, 0, 0, 0) 69.23077%, rgba(0, 0, 0, 0) 71.79487%, rgba(100, 100, 225, 0.25) 71.79487%, rgba(100, 100, 225, 0.25) 74.35897%, rgba(0, 0, 0, 0) 74.35897%, rgba(0, 0, 0, 0) 76.92308%, rgba(100, 100, 225, 0.25) 76.92308%, rgba(100, 100, 225, 0.25) 79.48718%, rgba(0, 0, 0, 0) 79.48718%, rgba(0, 0, 0, 0) 82.05128%, rgba(100, 100, 225, 0.25) 82.05128%, rgba(100, 100, 225, 0.25) 84.61538%, rgba(0, 0, 0, 0) 84.61538%, rgba(0, 0, 0, 0) 87.17949%, rgba(100, 100, 225, 0.25) 87.17949%, rgba(100, 100, 225, 0.25) 89.74359%, rgba(0, 0, 0, 0) 89.74359%, rgba(0, 0, 0, 0) 92.30769%, rgba(100, 100, 225, 0.25) 92.30769%, rgba(100, 100, 225, 0.25) 94.87179%, rgba(0, 0, 0, 0) 94.87179%, rgba(0, 0, 0, 0) 97.4359%, rgba(100, 100, 225, 0.25) 97.4359%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 2.5641%, rgba(0, 0, 0, 0) 2.5641%, rgba(0, 0, 0, 0) 5.12821%, rgba(100, 100, 225, 0.25) 5.12821%, rgba(100, 100, 225, 0.25) 7.69231%, rgba(0, 0, 0, 0) 7.69231%, rgba(0, 0, 0, 0) 10.25641%, rgba(100, 100, 225, 0.25) 10.25641%, rgba(100, 100, 225, 0.25) 12.82051%, rgba(0, 0, 0, 0) 12.82051%, rgba(0, 0, 0, 0) 15.38462%, rgba(100, 100, 225, 0.25) 15.38462%, rgba(100, 100, 225, 0.25) 17.94872%, rgba(0, 0, 0, 0) 17.94872%, rgba(0, 0, 0, 0) 20.51282%, rgba(100, 100, 225, 0.25) 20.51282%, rgba(100, 100, 225, 0.25) 23.07692%, rgba(0, 0, 0, 0) 23.07692%, rgba(0, 0, 0, 0) 25.64103%, rgba(100, 100, 225, 0.25) 25.64103%, rgba(100, 100, 225, 0.25) 28.20513%, rgba(0, 0, 0, 0) 28.20513%, rgba(0, 0, 0, 0) 30.76923%, rgba(100, 100, 225, 0.25) 30.76923%, rgba(100, 100, 225, 0.25) 33.33333%, rgba(0, 0, 0, 0) 33.33333%, rgba(0, 0, 0, 0) 35.89744%, rgba(100, 100, 225, 0.25) 35.89744%, rgba(100, 100, 225, 0.25) 38.46154%, rgba(0, 0, 0, 0) 38.46154%, rgba(0, 0, 0, 0) 41.02564%, rgba(100, 100, 225, 0.25) 41.02564%, rgba(100, 100, 225, 0.25) 43.58974%, rgba(0, 0, 0, 0) 43.58974%, rgba(0, 0, 0, 0) 46.15385%, rgba(100, 100, 225, 0.25) 46.15385%, rgba(100, 100, 225, 0.25) 48.71795%, rgba(0, 0, 0, 0) 48.71795%, rgba(0, 0, 0, 0) 51.28205%, rgba(100, 100, 225, 0.25) 51.28205%, rgba(100, 100, 225, 0.25) 53.84615%, rgba(0, 0, 0, 0) 53.84615%, rgba(0, 0, 0, 0) 56.41026%, rgba(100, 100, 225, 0.25) 56.41026%, rgba(100, 100, 225, 0.25) 58.97436%, rgba(0, 0, 0, 0) 58.97436%, rgba(0, 0, 0, 0) 61.53846%, rgba(100, 100, 225, 0.25) 61.53846%, rgba(100, 100, 225, 0.25) 64.10256%, rgba(0, 0, 0, 0) 64.10256%, rgba(0, 0, 0, 0) 66.66667%, rgba(100, 100, 225, 0.25) 66.66667%, rgba(100, 100, 225, 0.25) 69.23077%, rgba(0, 0, 0, 0) 69.23077%, rgba(0, 0, 0, 0) 71.79487%, rgba(100, 100, 225, 0.25) 71.79487%, rgba(100, 100, 225, 0.25) 74.35897%, rgba(0, 0, 0, 0) 74.35897%, rgba(0, 0, 0, 0) 76.92308%, rgba(100, 100, 225, 0.25) 76.92308%, rgba(100, 100, 225, 0.25) 79.48718%, rgba(0, 0, 0, 0) 79.48718%, rgba(0, 0, 0, 0) 82.05128%, rgba(100, 100, 225, 0.25) 82.05128%, rgba(100, 100, 225, 0.25) 84.61538%, rgba(0, 0, 0, 0) 84.61538%, rgba(0, 0, 0, 0) 87.17949%, rgba(100, 100, 225, 0.25) 87.17949%, rgba(100, 100, 225, 0.25) 89.74359%, rgba(0, 0, 0, 0) 89.74359%, rgba(0, 0, 0, 0) 92.30769%, rgba(100, 100, 225, 0.25) 92.30769%, rgba(100, 100, 225, 0.25) 94.87179%, rgba(0, 0, 0, 0) 94.87179%, rgba(0, 0, 0, 0) 97.4359%, rgba(100, 100, 225, 0.25) 97.4359%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 2.5641%, rgba(0, 0, 0, 0) 2.5641%, rgba(0, 0, 0, 0) 5.12821%, rgba(100, 100, 225, 0.25) 5.12821%, rgba(100, 100, 225, 0.25) 7.69231%, rgba(0, 0, 0, 0) 7.69231%, rgba(0, 0, 0, 0) 10.25641%, rgba(100, 100, 225, 0.25) 10.25641%, rgba(100, 100, 225, 0.25) 12.82051%, rgba(0, 0, 0, 0) 12.82051%, rgba(0, 0, 0, 0) 15.38462%, rgba(100, 100, 225, 0.25) 15.38462%, rgba(100, 100, 225, 0.25) 17.94872%, rgba(0, 0, 0, 0) 17.94872%, rgba(0, 0, 0, 0) 20.51282%, rgba(100, 100, 225, 0.25) 20.51282%, rgba(100, 100, 225, 0.25) 23.07692%, rgba(0, 0, 0, 0) 23.07692%, rgba(0, 0, 0, 0) 25.64103%, rgba(100, 100, 225, 0.25) 25.64103%, rgba(100, 100, 225, 0.25) 28.20513%, rgba(0, 0, 0, 0) 28.20513%, rgba(0, 0, 0, 0) 30.76923%, rgba(100, 100, 225, 0.25) 30.76923%, rgba(100, 100, 225, 0.25) 33.33333%, rgba(0, 0, 0, 0) 33.33333%, rgba(0, 0, 0, 0) 35.89744%, rgba(100, 100, 225, 0.25) 35.89744%, rgba(100, 100, 225, 0.25) 38.46154%, rgba(0, 0, 0, 0) 38.46154%, rgba(0, 0, 0, 0) 41.02564%, rgba(100, 100, 225, 0.25) 41.02564%, rgba(100, 100, 225, 0.25) 43.58974%, rgba(0, 0, 0, 0) 43.58974%, rgba(0, 0, 0, 0) 46.15385%, rgba(100, 100, 225, 0.25) 46.15385%, rgba(100, 100, 225, 0.25) 48.71795%, rgba(0, 0, 0, 0) 48.71795%, rgba(0, 0, 0, 0) 51.28205%, rgba(100, 100, 225, 0.25) 51.28205%, rgba(100, 100, 225, 0.25) 53.84615%, rgba(0, 0, 0, 0) 53.84615%, rgba(0, 0, 0, 0) 56.41026%, rgba(100, 100, 225, 0.25) 56.41026%, rgba(100, 100, 225, 0.25) 58.97436%, rgba(0, 0, 0, 0) 58.97436%, rgba(0, 0, 0, 0) 61.53846%, rgba(100, 100, 225, 0.25) 61.53846%, rgba(100, 100, 225, 0.25) 64.10256%, rgba(0, 0, 0, 0) 64.10256%, rgba(0, 0, 0, 0) 66.66667%, rgba(100, 100, 225, 0.25) 66.66667%, rgba(100, 100, 225, 0.25) 69.23077%, rgba(0, 0, 0, 0) 69.23077%, rgba(0, 0, 0, 0) 71.79487%, rgba(100, 100, 225, 0.25) 71.79487%, rgba(100, 100, 225, 0.25) 74.35897%, rgba(0, 0, 0, 0) 74.35897%, rgba(0, 0, 0, 0) 76.92308%, rgba(100, 100, 225, 0.25) 76.92308%, rgba(100, 100, 225, 0.25) 79.48718%, rgba(0, 0, 0, 0) 79.48718%, rgba(0, 0, 0, 0) 82.05128%, rgba(100, 100, 225, 0.25) 82.05128%, rgba(100, 100, 225, 0.25) 84.61538%, rgba(0, 0, 0, 0) 84.61538%, rgba(0, 0, 0, 0) 87.17949%, rgba(100, 100, 225, 0.25) 87.17949%, rgba(100, 100, 225, 0.25) 89.74359%, rgba(0, 0, 0, 0) 89.74359%, rgba(0, 0, 0, 0) 92.30769%, rgba(100, 100, 225, 0.25) 92.30769%, rgba(100, 100, 225, 0.25) 94.87179%, rgba(0, 0, 0, 0) 94.87179%, rgba(0, 0, 0, 0) 97.4359%, rgba(100, 100, 225, 0.25) 97.4359%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-image: linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(100, 100, 225, 0.25) 0%, rgba(100, 100, 225, 0.25) 2.5641%, rgba(0, 0, 0, 0) 2.5641%, rgba(0, 0, 0, 0) 5.12821%, rgba(100, 100, 225, 0.25) 5.12821%, rgba(100, 100, 225, 0.25) 7.69231%, rgba(0, 0, 0, 0) 7.69231%, rgba(0, 0, 0, 0) 10.25641%, rgba(100, 100, 225, 0.25) 10.25641%, rgba(100, 100, 225, 0.25) 12.82051%, rgba(0, 0, 0, 0) 12.82051%, rgba(0, 0, 0, 0) 15.38462%, rgba(100, 100, 225, 0.25) 15.38462%, rgba(100, 100, 225, 0.25) 17.94872%, rgba(0, 0, 0, 0) 17.94872%, rgba(0, 0, 0, 0) 20.51282%, rgba(100, 100, 225, 0.25) 20.51282%, rgba(100, 100, 225, 0.25) 23.07692%, rgba(0, 0, 0, 0) 23.07692%, rgba(0, 0, 0, 0) 25.64103%, rgba(100, 100, 225, 0.25) 25.64103%, rgba(100, 100, 225, 0.25) 28.20513%, rgba(0, 0, 0, 0) 28.20513%, rgba(0, 0, 0, 0) 30.76923%, rgba(100, 100, 225, 0.25) 30.76923%, rgba(100, 100, 225, 0.25) 33.33333%, rgba(0, 0, 0, 0) 33.33333%, rgba(0, 0, 0, 0) 35.89744%, rgba(100, 100, 225, 0.25) 35.89744%, rgba(100, 100, 225, 0.25) 38.46154%, rgba(0, 0, 0, 0) 38.46154%, rgba(0, 0, 0, 0) 41.02564%, rgba(100, 100, 225, 0.25) 41.02564%, rgba(100, 100, 225, 0.25) 43.58974%, rgba(0, 0, 0, 0) 43.58974%, rgba(0, 0, 0, 0) 46.15385%, rgba(100, 100, 225, 0.25) 46.15385%, rgba(100, 100, 225, 0.25) 48.71795%, rgba(0, 0, 0, 0) 48.71795%, rgba(0, 0, 0, 0) 51.28205%, rgba(100, 100, 225, 0.25) 51.28205%, rgba(100, 100, 225, 0.25) 53.84615%, rgba(0, 0, 0, 0) 53.84615%, rgba(0, 0, 0, 0) 56.41026%, rgba(100, 100, 225, 0.25) 56.41026%, rgba(100, 100, 225, 0.25) 58.97436%, rgba(0, 0, 0, 0) 58.97436%, rgba(0, 0, 0, 0) 61.53846%, rgba(100, 100, 225, 0.25) 61.53846%, rgba(100, 100, 225, 0.25) 64.10256%, rgba(0, 0, 0, 0) 64.10256%, rgba(0, 0, 0, 0) 66.66667%, rgba(100, 100, 225, 0.25) 66.66667%, rgba(100, 100, 225, 0.25) 69.23077%, rgba(0, 0, 0, 0) 69.23077%, rgba(0, 0, 0, 0) 71.79487%, rgba(100, 100, 225, 0.25) 71.79487%, rgba(100, 100, 225, 0.25) 74.35897%, rgba(0, 0, 0, 0) 74.35897%, rgba(0, 0, 0, 0) 76.92308%, rgba(100, 100, 225, 0.25) 76.92308%, rgba(100, 100, 225, 0.25) 79.48718%, rgba(0, 0, 0, 0) 79.48718%, rgba(0, 0, 0, 0) 82.05128%, rgba(100, 100, 225, 0.25) 82.05128%, rgba(100, 100, 225, 0.25) 84.61538%, rgba(0, 0, 0, 0) 84.61538%, rgba(0, 0, 0, 0) 87.17949%, rgba(100, 100, 225, 0.25) 87.17949%, rgba(100, 100, 225, 0.25) 89.74359%, rgba(0, 0, 0, 0) 89.74359%, rgba(0, 0, 0, 0) 92.30769%, rgba(100, 100, 225, 0.25) 92.30769%, rgba(100, 100, 225, 0.25) 94.87179%, rgba(0, 0, 0, 0) 94.87179%, rgba(0, 0, 0, 0) 97.4359%, rgba(100, 100, 225, 0.25) 97.4359%, rgba(100, 100, 225, 0.25) 100%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0) 100%);
+  background-position: left top;
+  -webkit-background-origin: content;
+  -moz-background-origin: content;
+  -ms-background-origin: content-box;
+  -o-background-origin: content-box;
+  background-origin: content-box;
+  -webkit-background-clip: content-box;
+  -moz-background-clip: content-box;
+  background-clip: content-box;
+}

@@ -8,6 +8,7 @@
  * A central administrative page for Panels.
  */
 function panels_admin_page() {
+  // @todo I think this should return a renderable array somehow?
   return theme('panels_dashboard');
 }
 
@@ -41,7 +42,7 @@ function panels_dashboard_final_blocks(&$vars) {
  */
 function panels_panels_dashboard_blocks(&$vars) {
   $vars['links']['panels_layout'] = array(
-    'title' => l(t('Custom layout'), 'admin/build/panels/layouts/add'),
+    'title' => l(t('Custom layout'), 'admin/structure/panels/layouts/add'),
     'description' => t('Custom layouts can add more, site-specific layouts that you can use in your panels.'),
   );
 
@@ -55,7 +56,7 @@ function panels_panels_dashboard_blocks(&$vars) {
     $rows[] = array(
       check_plain($item->admin_title),
       array(
-        'data' => l(t('Edit'), "admin/build/panels/layouts/list/$item->name/edit"),
+        'data' => l(t('Edit'), "admin/structure/panels/layouts/list/$item->name/edit"),
         'class' => 'links',
       ),
     );
@@ -67,7 +68,7 @@ function panels_panels_dashboard_blocks(&$vars) {
   }
 
   if ($rows) {
-    $content = theme('table', array(), $rows, array('class' => 'panels-manage'));
+    $content = theme('table', array('rows' => $rows, 'attributes' => array('class' => 'panels-manage')));
   }
   else {
     $content = '<p>' . t('There are no custom layouts.') . '</p>';
@@ -75,7 +76,7 @@ function panels_panels_dashboard_blocks(&$vars) {
 
   $vars['blocks']['panels_layout'] = array(
     'title' => t('Manage custom layouts'),
-    'link' => l(t('Go to list'), 'admin/build/panels/layouts'),
+    'link' => l(t('Go to list'), 'admin/structure/panels/layouts'),
     'content' => $content,
     'class' => 'dashboard-layouts',
     'section' => 'right',
@@ -117,11 +118,11 @@ function template_preprocess_panels_dashboard(&$vars) {
     foreach ($plugins as $id => $plugin) {
       if (isset($plugin['type']) && $plugin['type'] == 'panels') {
         $link = array(
-          'title' => l($plugin['title'], 'admin/build/pages/wizard/' . $id),
+          'title' => l($plugin['title'], 'admin/structure/pages/wizard/' . $id),
           'description' => $plugin['description'],
         );
 
-        $vars['blocks']['wizards']['content'] .= theme('panels_dashboard_link', $link);
+        $vars['blocks']['wizards']['content'] .= theme('panels_dashboard_link', array('link' => $link));
       }
     }
 
@@ -139,7 +140,7 @@ function template_preprocess_panels_dashboard(&$vars) {
 
   // Turn the links into a block
   foreach ($vars['links'] as $link) {
-    $vars['blocks']['links']['content'] .= theme('panels_dashboard_link', $link);
+    $vars['blocks']['links']['content'] .= theme('panels_dashboard_link', array('link' => $link));
   }
 
   uasort($vars['blocks'], 'ctools_plugin_sort');
@@ -150,7 +151,7 @@ function template_preprocess_panels_dashboard(&$vars) {
   // Render all the blocks
   foreach ($vars['blocks'] as $block) {
     $section = !empty($block['section']) ? $block['section'] : 'left';
-    $vars[$section] .= theme('panels_dashboard_block', $block);
+    $vars[$section] .= theme('panels_dashboard_block', array('block' => $block));
   }
 }
 

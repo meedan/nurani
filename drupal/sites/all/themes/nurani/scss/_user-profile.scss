@@ -1,0 +1,94 @@
+
+.pane-nurani-profile-user-profile{
+  h2.pane-title{
+    color:$nurani-light-blue;
+  }
+
+  .group-details, .group-additional-details{
+    border: 1px solid $nurani-light-blue;
+  }
+
+  .group-details, .group-additional-details, .group-profile{
+    & > .fieldset-wrapper{ 
+      padding:5px 20px 0 15px;
+    }
+  }
+
+  .group-additional-details .field-label{
+    margin-bottom: 1em;
+  }
+
+
+  .button{
+    display:block; 
+    text-decoration:none;
+    width:100px;
+    margin: 0 auto;
+    text-align:center;
+  }
+
+}
+
+.group-profile, .group-details, .group-additional-details{
+
+      & > legend{
+       margin: 0 auto;
+      }
+
+     
+    } 
+
+ .profile{
+    padding: 5px 15px;
+  
+    .group-profile, .group-details, .group-additional-details{
+
+      & > legend{
+       margin: 0 auto;
+      }
+
+      span.fieldset-legend, .fieldset-title{ 
+        // font-size:1.2em;
+        @include bundle-typography-regular;
+        text-decoration:none;
+        color:$nurani-light-blue;
+      }
+    } 
+
+    .group-profile{
+      padding:0;
+      margin-top:1em;
+    }
+
+    .user-picture{
+      float: right;
+      margin: 2em 0 -3em;
+    }
+
+    .field-name-field-title, .field-name-field-first-name{ 
+      display: inline;
+      float: left;
+      margin-right: 10px;
+    }
+
+    .group-details .field{
+      margin-bottom:1em;
+      & > .field-items{
+        float:right;
+      text-align: right;
+      }
+    }
+
+    .field-name-field-postal-address .field-items{
+      width:50%;
+    }
+
+    .field-label-above{ 
+      margin-bottom:1em;
+    }
+  }
+  .page-user- {
+
+    @include white-background-no-border;
+
+  }

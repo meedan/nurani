@@ -1,5 +1,4 @@
 <?php
-// $Id: ctools_access_ruleset_ui.class.php,v 1.1.2.2 2010/07/22 19:21:58 merlinofchaos Exp $
 
 class ctools_access_ruleset_ui extends ctools_export_ui {
 
@@ -14,13 +13,13 @@ class ctools_access_ruleset_ui extends ctools_export_ui {
     );
 
     $form['left'] = array(
-      '#prefix' => '<div class="ctools-left-container clear-block">',
+      '#prefix' => '<div class="ctools-left-container clearfix">',
       '#suffix' => '</div>',
     );
 
     // Set this up and we can use CTools' Export UI's built in wizard caching,
     // which already has callbacks for the context cache under this name.
-    $module = 'ctools_export_ui-' . $this->plugin['name'];
+    $module = 'export_ui::' . $this->plugin['name'];
     $name = $this->edit_cache_get_key($form_state['item'], $form_state['form type']);
 
     ctools_context_add_context_form($module, $form, $form_state, $form['right']['contexts_table'], $form_state['item'], $name);
@@ -41,7 +40,7 @@ class ctools_access_ruleset_ui extends ctools_export_ui {
     $form_state['callback argument'] = $form_state['object']->plugin['name'] . ':' . $form_state['object']->edit_cache_get_key($form_state['item'], $form_state['form type']);
     $form_state['no buttons'] = TRUE;
 
-    $form = array_merge($form, ctools_access_admin_form($form_state));
+    $form = ctools_access_admin_form($form, $form_state);
   }
 
   function edit_form_rules_submit(&$form, &$form_state) {

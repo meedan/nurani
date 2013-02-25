@@ -1,0 +1,37 @@
+//based on imathis fancy buttons compass plugin
+// you wil need to install this
+// https://github.com/imathis/fancy-buttons
+@import "fancy-buttons";
+
+// use it on a button element.
+@mixin button($width: 30%, $font-size: $large-font-size, $color: $gray) {
+  // defaults to nothing
+  &.default {
+  }
+  
+  &.large {
+    @include adjust-font-size-to($large-font-size);
+  }
+  
+  &.xlarge {
+    @include adjust-font-size-to($xlarge-font-size);
+  }
+  
+  &.fancy {
+    @include background-image(linear-gradient($color, darken($color, 10%))); 
+    @include border-radius($font-size/6);
+    @include adjust-font-size-to($font-size);
+    @include text-shadow(darken($color, 30%) 0px -1px 0);
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      @include background-image(linear-gradient(darken($color, 40%), $color, $color 4%));
+    }
+  }
+}
+

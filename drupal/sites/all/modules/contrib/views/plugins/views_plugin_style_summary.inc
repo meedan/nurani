@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Contains the default summary style plugin, which displays items in an HTML list.
@@ -14,8 +15,8 @@ class views_plugin_style_summary extends views_plugin_style {
     $options = parent::option_definition();
 
     $options['base_path'] = array('default' => '');
-    $options['count'] = array('default' => TRUE);
-    $options['override'] = array('default' => FALSE);
+    $options['count'] = array('default' => TRUE, 'bool' => TRUE);
+    $options['override'] = array('default' => FALSE, 'bool' => TRUE);
     $options['items_per_page'] = array('default' => 25);
 
     return $options;
@@ -48,12 +49,14 @@ class views_plugin_style_summary extends views_plugin_style {
       '#default_value' => !empty($this->options['override']),
       '#title' => t('Override number of items to display'),
     );
+
     $form['items_per_page'] = array(
       '#type' => 'textfield',
       '#title' => t('Items to display'),
       '#default_value' => $this->options['items_per_page'],
-      '#process' => array('views_process_dependency'),
-      '#dependency' => array('edit-style-options-override' => array(TRUE)),
+      '#dependency' => array(
+        'edit-options-summary-options-' . str_replace('_', '-', $this->definition['name']) . '-override' => array(1)
+      ),
     );
   }
 
@@ -63,7 +66,11 @@ class views_plugin_style_summary extends views_plugin_style {
       // @todo: Include separator as an option.
       $rows[] = $row;
     }
-    return theme($this->theme_functions(), $this->view, $this->options, $rows);
+
+    return theme($this->theme_functions(), array(
+      'view' => $this->view,
+      'options' => $this->options,
+      'rows' => $rows
+    ));
   }
 }
-

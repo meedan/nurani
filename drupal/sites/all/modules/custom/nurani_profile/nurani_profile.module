@@ -1,0 +1,290 @@
+<?php
+
+/**
+ * Implements hook_init().
+ */
+function nurani_profile_init() {
+  drupal_add_js(drupal_get_path('module', 'nurani_profile') . '/js/nurani_profile.js');
+  drupal_add_css(drupal_get_path('module', 'nurani_profile') . '/css/nurani_profile.css');
+
+  // HACK: This enables the #ajax submission of the user profile form. Currently
+  //       there does not appear to be a clean way to do this.
+  //       See similar: http://drupal.org/node/1167076
+  module_load_include('inc', 'user', 'user.pages');
+}
+
+/**
+ * Implements hook_menu().
+ */
+function nurani_profile_menu() {
+  $items = array();
+  $items['ajax/nurani_profile'] = array(
+    'title' => 'Nurani Profile Tooltip',
+    'page callback' => 'nurani_profile_ajax',
+    // 'access callback' => 'user_view_access',
+    // 'access arguments' => array(1), // FIXME: There isn't a UID to reference here.
+    'access callback' => TRUE, // DEBUG: Temporary.
+    'type' => MENU_CALLBACK,
+  );
+  $items['ajax/nurani_profile_edit/%user/%'] = array(
+    'title' => 'Nurani Profile Edit Form',
+    'page callback' => 'nurani_profile_edit_profile_callback',
+    'page arguments' => array(2, 3),
+    'access callback' => 'user_view_access',
+    'access arguments' => array(2),
+    'type' => MENU_CALLBACK,
+  );
+  // FIXME: This is very similar to 'ajax/nurani_profile', would be best to merge them.
+  $items['ajax/nurani_profile/%user/%'] = array(
+    'title' => 'Nurani Profile',
+    'page callback' => 'nurani_profile_block_user_profile_callback',
+    'page arguments' => array(2, 3),
+    'access callback' => 'user_edit_access',
+    'access arguments' => array(2),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Tooltip data generator AJAX (AHAH) callback.
+ */
+function nurani_profile_ajax() {
+  $args = explode('/', drupal_get_normal_path(preg_replace('/^(' . preg_quote(base_path(), '/') . ')?/', '', $_GET['data'])));
+  $output = '';
+
+  // Generate the user profile display
+  if ($args[0] == 'user' && is_numeric($args[1]) && !isset($args[2])) {
+    $account = user_load($args[1]);
+    echo render(user_view($account, 'tooltip'));
+  }
+
+  return NULL;
+}
+
+/**
+ * Template preprocessor for user-profile.tpl.php
+ */
+function nurani_profile_preprocess_user_profile(&$vars) {
+  $view_mode = $vars['elements']['#view_mode'];
+
+  if ($view_mode == 'tooltip') {
+    // TODO: Preprocess the tooltip user_profile view_mode.
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function nurani_profile_entity_info_alter(&$entity_info) {
+  $entity_info['user']['view modes']['tooltip'] = array(
+    'label' => t('Nurani Profile tooltip'),
+    'custom settings' => FALSE,
+  );
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function nurani_profile_menu_alter(&$items) {
+  $items['user/%user']['access callback'] = 'nurani_profile_user_view_access';
+  $items['user/%user/edit']['page callback'] = 'nurani_profile_user_profile_redirect';
+}
+
+/**
+ * Access callback, ensures normal Nurani users do not access
+ * profile pages directly.
+ */
+function nurani_profile_user_view_access($account) {
+  global $user;
+
+  if (user_view_access($account)) {
+    if (user_access('administer users') || arg(2) == 'edit') {
+      return TRUE;
+    }
+  }
+
+  drupal_goto('<front>');
+}
+
+/**
+ * Menu callback override for 'user/%user/edit' to redirect to the homepage for
+ * regular users.
+ */
+function nurani_profile_user_profile_redirect($form_id, $account) {
+  // Administrators get to access the form
+  if (user_access('administer users')) {
+    return drupal_get_form($form_id, $account);
+  }
+
+  $query = array_diff_key($_GET, array('q' => NULL));
+  $query['nurani_profile'] = 'edit';
+
+  drupal_goto('<front>', array('query' => $query));
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function nurani_profile_block_info() {
+  $blocks = array();
+  $blocks['user_profile'] = array(
+    'info' => t('Nurani Profile: User profile'),
+    'cache' => DRUPAL_NO_CACHE
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function nurani_profile_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'user_profile':
+      // A user_load is necessary to fetch all profile fields. The global $user
+      // object does not contain these.
+      $account = user_load($GLOBALS['user']->uid);
+
+      $block['subject'] = t('Your profile');
+      $content = user_view($account);
+
+      if (user_edit_access($account)) {
+        if (isset($_GET['nurani_profile']) && $_GET['nurani_profile'] == 'edit') {
+          $content = drupal_get_form('user_profile_form', $account, 'account', 'ajax');
+        }
+        else {
+          $content['edit_link'] = array(
+            '#type' => 'link',
+            '#title' => t('Edit profile'),
+            '#href' => 'ajax/nurani_profile_edit/' . $account->uid . '/nojs',
+            '#options' => array(
+              'query' => isset($_GET['pass-reset-token']) ? array('pass-reset-token' => $_GET['pass-reset-token']) : array(),
+              'attributes' => array(
+                'class' => array('button')
+              ),
+            ),
+            '#weight' => 100,
+            '#ajax' => array(
+              'wrapper' => 'nurani-profile-wrapper',
+              'method' => 'replace',
+              'effect' => 'fade',
+            )
+          );
+        }
+      }
+      $block['content'] = '<div id="nurani-profile-wrapper">' . render($content) . '</div>';
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Delivers the #ajax enabled profile form for editing.
+ */
+function nurani_profile_edit_profile_callback($account, $ajax) {
+  if ($ajax == 'ajax') {
+    $commands = array();
+
+    // Retrieve the form. Alterations are applied by
+    // nurani_profile_form_user_profile_form_alter() below.  Note that
+    // user.pages.inc is required for this; however, it is already included
+    // by nurani_profile_init()
+    $form = drupal_get_form('user_profile_form', $account, 'account', 'ajax');
+
+    $commands[] = ajax_command_replace('#nurani-profile-wrapper', render($form));
+    $commands[] = ajax_command_changed('#nurani-profile-wrapper');
+
+    ajax_deliver(array('#type' => 'ajax', '#commands' => $commands));
+  }
+  else {
+    return array(
+      '#type' => 'markup',
+      '#markup' => '<p>Worked?</p>',
+    );
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Makes necessary changes to #ajax enable the user_profile_form.
+ */
+function nurani_profile_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form_state['build_info']['args'][2]) && $form_state['build_info']['args'][2] == 'ajax') {
+    $account = $form_state['build_info']['args'][0];
+
+    // Pass any nurani_profile messages along for the ride.
+    if (isset($_GET['nurani_profile'])) {
+      $form_state['storage']['nurani_profile'] = $_GET['nurani_profile'];
+    }
+
+    $form['#prefix'] = '<div id="nurani-profile-wrapper">';
+    $form['#suffix'] = '</div>';
+    $form['#action'] = 'user/' . $account->uid . '/edit';
+
+    $form['actions']['submit']['#ajax'] = array(
+      'callback' => 'nurani_profile_edit_profile_submit_callback',
+      'wrapper' => 'nurani-profile-wrapper',
+      'method' => 'replace',
+      'effect' => 'fade',
+    );
+    unset($form['actions']['submit']['#ajax_processed']);
+    $form['actions']['cancel']['#access'] = FALSE;
+
+    $form['edit_link'] = array(
+      '#type' => 'link',
+      '#title' => t('Cancel'),
+      '#href' => 'ajax/nurani_profile/' . $account->uid . '/nojs',
+      '#options' => array('attributes' => array('class' => array('button'))),
+      '#weight' => 100,
+      '#ajax' => array(
+        'wrapper' => 'nurani-profile-wrapper',
+        'method' => 'replace',
+        'effect' => 'fade',
+      )
+    );
+  }
+}
+
+/**
+ * Delivers the updated profile after the #ajax enabled profile form is
+ * submitted.
+ */
+function nurani_profile_edit_profile_submit_callback($form, $form_state) {
+  // Return the actual form if it contains errors.
+  if (form_get_errors()) {
+    return $form;
+  }
+
+  $content = nurani_profile_block_user_profile_callback($form['#user'], 'nojs');
+
+  $commands = array();
+  $commands[] = ajax_command_replace('#nurani-profile-wrapper', $content);
+  $commands[] = ajax_command_changed('#nurani-profile-wrapper');
+  $commands[] = ajax_command_prepend('#nurani-profile-wrapper', theme('status_messages'));
+  $commands[] = ajax_command_invoke('#nurani-profile-wrapper .messages', 'delayedEffect', array(3000, 'slideUp', true));
+
+  ajax_deliver(array('#type' => 'ajax', '#commands' => $commands));
+}
+
+/**
+ * Delivers the #ajax enabled user profile. Basically just a wrapper for
+ * the normal block display for nurani_profile_block_view('user_profile').
+ */
+function nurani_profile_block_user_profile_callback($account, $ajax) {
+  $block = nurani_profile_block_view('user_profile');
+
+  if ($ajax == 'ajax') {
+    $commands = array();
+    $commands[] = ajax_command_replace('#nurani-profile-wrapper', $block['content']);
+    $commands[] = ajax_command_changed('#nurani-profile-wrapper');
+
+    ajax_deliver(array('#type' => 'ajax', '#commands' => $commands));
+  }
+  else {
+    return $block['content'];
+  }
+}

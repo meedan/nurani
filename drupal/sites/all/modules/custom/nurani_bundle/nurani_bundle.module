@@ -1,0 +1,831 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function nurani_bundle_theme($existing, $type, $theme, $path) {
+  return array(
+    'nurani_bundle_formatter' => array(
+      'variables' => array('item' => NULL, 'node' => NULL, 'data' => NULL),
+    ),
+    'nurani_bundle_short_formatter' => array(
+      'variables' => array('item' => NULL, 'node' => NULL, 'data' => NULL),
+    ),
+    'nurani_bundle_items_formatter' => array(
+      'variables' => array('item' => NULL, 'delta' => NULL, 'node' => NULL, 'data' => NULL),
+    ),
+    'nurani_bundle_items_short_formatter' => array(
+      'variables' => array('item' => NULL, 'delta' => NULL, 'node' => NULL, 'data' => NULL),
+    ),
+    'nurani_bundle_ui' => array(
+      'render element' => 'element',
+    ),
+    'nurani_bundle_ui_passage_box' => array(
+      'render element' => 'element',
+    ),
+    'nurani_bundle_passage_box' => array(
+      'variables' => array('delta' => NULL, 'content' => NULL, 'bib' => NULL),
+    ),
+    'nurani_bundle_passage_box_bib' => array(
+      'variables' => array('notes' => NULL, 'language' => NULL, 'account' => NULL, 'timestamp' => NULL),
+    ),
+    'nurani_bundle_passage_title' => array(
+      'variables' => array('element_type' => 'li', 'delta' => NULL, 'osisIDWork' => NULL, 'osisID' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function nurani_bundle_menu() {
+  $items = array();
+  $items['nurani_bundle/clone_bundle/%node/%'] = array(
+    'title' => 'CloneBundle action',
+    'description' => 'Returns a JSON response containing the details of a bundle.',
+    'page callback' => 'nurani_bundle_clone_bundle_json',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['nurani_bundle/validate_passage'] = array(
+    'title' => 'ValidatePassage action',
+    'description' => 'Returns a JSON response based on whether a passage is valid or not.',
+    'page callback' => 'nurani_bundle_validate_passage_json',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function nurani_bundle_menu_alter(&$items) {
+  $items['node/add/bundle']['access callback'] = 'nurani_bundle_is_administrator';
+}
+
+/**
+ * Menu access callback. Allows access to users in the administrator role.
+ */
+function nurani_bundle_is_administrator() {
+  return array_search('administrator', $GLOBALS['user']->roles) !== FALSE;
+}
+
+/**
+ * Implements hook_field_widget_form_alter()
+ */
+function nurani_bundle_field_widget_form_alter(&$element, &$form_state, &$context) {
+  // Only apply to node_reference widgets
+  if (!isset($element['nid'])) {
+    return;
+  }
+
+  $field      = $context['field'];
+  $langcode   = $element['nid']['#language'];
+  $delta      = $element['nid']['#delta'];
+  // #default_value will be the raw bundle NID at this stage
+  $bundle_nid = $element['nid']['#default_value'];
+
+  if ($field['type'] != 'node_reference' || $field['field_name'] != 'field_bundle') {
+    return;
+  }
+
+  // Hide the existing node reference widget
+  $element['nid']['#type'] = 'hidden';
+
+  // Add the custom bundle UI and connections to the nurani library UI for the
+  // passage picker
+  $path = drupal_get_path('module', 'nurani_bundle');
+  $pw_path = drupal_get_path('module', 'nurani_passage_widget');
+
+  $element['ui'] = array(
+    '#delta' => $delta,
+    '#language' => $langcode,
+    '#theme' => 'nurani_bundle_ui',
+    // Add dependant CSS / JS first
+    '#attached' => nurani_library_ui_attached(),
+    '#bundle_nid' => $bundle_nid,
+    'clone' => nurani_bundle_clone_form($field, $edit['ui']['clone']),
+    'passages' => nurani_bundle_passages_form($field, $edit['ui']['passages']),
+  );
+
+  // JqueryUI Dialog is required for the pop-up passage picker
+  $element['ui']['#attached']['library'][] = array('system', 'ui.dialog');
+  $element['ui']['#attached']['library'][] = array('nurani_passage_widget', 'nurani.passage-widget');
+  $element['ui']['#attached']['css'][]     = $path . '/css/nurani_bundle_ui.css';
+  $element['ui']['#attached']['js'][]      = $path . '/js/nurani_bundle_ui.js';
+
+  // The validation runs before node_reference which enables the UI data to
+  // transparently integrate.
+  array_unshift($element['nid']['#element_validate'], 'nurani_bundle_ui_element_validate');
+  // #after_build is used to attach the input onto the form. This seems to be
+  // required because our 'ui' element is not defined in hook_elements.
+  // @see form_builder() in form.inc for more detailed information.
+  $element['ui']['#after_build'] = array('nurani_bundle_ui_element_after_build');
+}
+
+/**
+ * Form elements for the clone <select>.
+ */
+function nurani_bundle_clone_form($field, &$edit) {
+  $element = array();
+  $discussion_bundle_options = node_reference_options_list($field);
+  foreach ($discussion_bundle_options as $nid => $value) {
+    $bundle_node = node_load($nid);
+
+    // Orphaned bundles should not be displayed in this list
+    if ($bundle_node->discussion['nid']) {
+      $discussion_title = $bundle_node->discussion['title']
+                        ? $bundle_node->discussion['title']
+                        : t('Unknown discussion');
+      $discussion_bundle_options[$nid] = $discussion_title . ': ' . $value;
+    }
+  }
+  $element['clone'] = array(
+    '#type' => 'select',
+    '#title' => t('Use passages from existing discussion'),
+    '#default_value' => '',
+    '#options' => array('' => t('- Choose a discussion -')) + $discussion_bundle_options,
+    '#required' => FALSE,
+  );
+  $element['load'] = array(
+    '#type' => 'button',
+    '#value' => t('Load passages'),
+    '#attributes' => array('class' => array('clone-bundle-action')),
+  );
+  return $element;
+}
+
+/**
+ * Form elements for the passages fields.
+ */
+function nurani_bundle_passages_form($field, &$edit) {
+  $element = array();
+  $element['#tree'] = TRUE;
+
+  foreach (array(0, 1, 2) as $delta) {
+    $element[$delta] = array();
+    $element[$delta]['#delta'] = $delta;
+    $element[$delta]['#theme'] = 'nurani_bundle_ui_passage_box';
+
+    $element[$delta]['remove'] = array(
+      '#type' => 'submit',
+      '#value' => t('Remove passage'),
+      '#attributes' => array('class' => array('remove-passage-action')),
+    );
+    $element[$delta]['edit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Edit passage'),
+      '#attributes' => array('class' => array('edit-passage-action')),
+    );
+    $element[$delta]['add'] = array(
+      '#type' => 'submit',
+      '#value' => t('Add passage'),
+      '#attributes' => array('class' => array('pick-passage-action')),
+    );
+    $element[$delta]['osisID'] = array(
+      '#type' => 'hidden',
+      '#value' => isset($edit[$delta]['osisID']) ? $edit[$delta]['osisID'] : '',
+      '#attributes' => array('class' => array('edit-osisID')),
+    );
+    $element[$delta]['osisIDWork'] = array(
+      '#type' => 'hidden',
+      '#value' => isset($edit[$delta]['osisIDWork']) ? $edit[$delta]['osisIDWork'] : '',
+      '#attributes' => array('class' => array('edit-osisIDWork')),
+    );
+    $element[$delta]['notes'] = array(
+      '#type' => 'textarea',
+      '#title' => t("Notes on this passage"),
+      '#cols' => 20,
+      '#rows' => 5,
+      '#default_value' => isset($edit[$delta]['notes']) ? $edit[$delta]['notes'] : '',
+      '#attributes' => array('class' => array('edit-notes')),
+    );
+    $element[$delta]['visible'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Is visible?'),
+      '#default_value' => isset($edit[$delta]['visible']) ? $edit[$delta]['visible'] : '',
+      '#attributes' => array('class' => array('edit-visible')),
+    );
+  }
+
+  return $element;
+}
+
+/**
+ * Theme function to display the bundle UI.
+ */
+function theme_nurani_bundle_ui(&$variables) {
+  $element = &$variables['element'];
+
+  $output  = '';
+  $output .= '<div class="clone-bundle clearfix">';
+  $output .=   '<div class="inner">';
+  $output .=     drupal_render($element['clone']);
+  $output .=   '</div>';
+  $output .= '</div>';
+  $output .= '<div class="passage-boxes clearfix">';
+  $output .=   '<div class="inner">';
+  $output .=     drupal_render($element['passages']);
+  $output .=   '</div>';
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * Theme function to render a passage box for the bundle UI.
+ */
+function theme_nurani_bundle_ui_passage_box(&$variables) {
+  $element = &$variables['element'];
+  $delta   = $element['#delta'];
+
+  $content  = drupal_render($element['remove']);
+  $content .= drupal_render($element['add']);
+  $content .= drupal_render($element['edit']);
+  $content .= drupal_render($element['osisID']);
+  $content .= drupal_render($element['osisIDWork']);
+
+  $bib      = drupal_render($element['notes']);
+  $bib     .= drupal_render($element['visible']);
+
+  return theme('nurani_bundle_passage_box', array('delta' => $delta, 'content' => $content, 'bib' => $bib));
+}
+
+/**
+ * Combines an existing bundle with $form_state data to generate a combined edit
+ * array.
+ */
+function _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state_values) {
+  // Default empty edit array, ensure at least the 'passages' and 'clone' keys
+  // exist to avoid PHP notices
+  $edit = array(
+    'ui' => array(
+      'passages' => array(),
+      'clone' => array(),
+    ),
+  );
+
+  // Load existing bundle data into the $edit array, if available
+  $bundle = node_load($bundle_nid);
+  if (is_object($bundle)) {
+    foreach ((array) $bundle->field_passage_collection[$langcode] as $pc_delta => $pc_data) {
+      $item = field_collection_item_load($pc_data['value']);
+
+      foreach (array('field_notes', 'field_passage', 'field_visible') as $field_name) {
+        $edit_name = substr($field_name, 6); // Remove the 'field_' part
+
+        foreach ($item->{$field_name} as $item_field_langcode => $item_field_deltas) {
+          foreach ($item_field_deltas as $item_field_delta => $item_field_data) {
+            if ($field_name == 'field_passage') {
+              $edit['ui']['passages'][$pc_delta]['osisIDWork'] = $item_field_data['osisIDWork'];
+              $edit['ui']['passages'][$pc_delta]['osisID'] = $item_field_data['osisID'];
+            }
+            else {
+              $edit['ui']['passages'][$pc_delta][$edit_name] = $item_field_data['value'];
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Overwrite $edit using form_state, if available
+  if (isset($form_state_values) && isset($form_state_values['field_bundle'])) {
+    foreach ($form_state_values['field_bundle'][$langcode][$delta] as $key => $val) {
+      $edit[$key] = $val;
+    }
+  }
+
+  return $edit;
+}
+
+/**
+ * Form after build callback for Nurani Bundle UI.
+ */
+function nurani_bundle_ui_element_after_build($element, &$form_state) {
+  $node = $form_state['node'];
+
+  $langcode   = $element['#language'];
+  $delta      = $element['#delta'];
+  $bundle_nid = $form_state['complete form']['field_bundle'][$langcode][$delta]['nid']['#default_value'];
+  $input      = isset($_POST) ? $_POST : array();
+
+  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $input);
+
+  foreach ($edit['ui']['passages'] as $pc_delta => $pc_value) {
+    form_set_value($element['passages'][$pc_delta]['osisIDWork'], $pc_value['osisIDWork'], $form_state);
+    form_set_value($element['passages'][$pc_delta]['osisID'], $pc_value['osisID'], $form_state);
+    form_set_value($element['passages'][$pc_delta]['notes'], $pc_value['notes'], $form_state);
+    form_set_value($element['passages'][$pc_delta]['visible'], $pc_value['visible'], $form_state);
+
+    $element['passages'][$pc_delta]['osisIDWork']['#value'] = $pc_value['osisIDWork'];
+    $element['passages'][$pc_delta]['osisID']['#value'] = $pc_value['osisID'];
+    $element['passages'][$pc_delta]['notes']['#value'] = $pc_value['notes'];
+    $element['passages'][$pc_delta]['visible']['#checked'] = (boolean) $pc_value['visible'];
+  }
+
+  return $element;
+}
+
+/**
+ * Form validation for Nurani Bundle UI.
+ */
+function nurani_bundle_ui_element_validate($element, &$form_state, $form) {
+  $field = field_widget_field($element, $form_state);
+  $instance = field_widget_instance($element, $form_state);
+
+  $langcode   = $element['#language'];
+  $delta      = $element['#delta'];
+  $bundle_nid = $form_state['input']['field_bundle'][$langcode][$delta]['nid'];
+
+  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['input']);
+
+  $name_prefix = 'field_bundle[' . $langcode . '][' . $delta . '][ui][passages]';
+  $no_passages_set = TRUE;
+
+  foreach ($edit['ui']['passages'] as $pc_delta => $pc_value) {
+    if (trim($pc_value['osisIDWork']) != '' && trim($pc_value['osisID']) != '') {
+      $no_passages_set = FALSE;
+
+      // Each set passage must have a valid osisID and osisIDWork
+      $result = _nurani_bundle_validate_osisid($pc_value['osisIDWork'], $pc_value['osisID']);
+      if (is_array($result)) {
+        foreach ($result as $key => $message) {
+          // Translation example:
+          //   from: "field_bundle[und][0][osisIDWork"
+          //   to:   "field_bundle[und][0][ui][passages][0][osisIDWork]"
+          $key = strtr($key, array(
+            'osisIDWork' => 'ui][passages][' . $pc_delta . '][osisIDWork',
+            'osisID'     => 'ui][passages][' . $pc_delta . '][osisID',
+          ));
+          form_set_error($key, $message);
+        }
+      }
+    }
+  }
+
+  if ($no_passages_set) {
+    form_set_error($name_prefix, t('At least one passage must be set.'));
+  }
+}
+
+/**
+ * Implements hook_node_submit().
+ */
+function nurani_bundle_node_submit($node, $form, $form_state) {
+  if ($node->type != 'discussion') {
+    return;
+  }
+
+  $langcode   = $node->language;
+  $delta      = 0;
+  $bundle_nid = $form_state['values']['field_bundle'][$langcode][$delta]['nid'];
+
+  $edit = _nurani_bundle_combine_edit_data($bundle_nid, $langcode, $delta, $form_state['input']);
+
+  // Create the bundle if it does not exist already
+  if (!$bundle_nid) {
+    $bundle_node = (object) array();
+
+    $bundle_node->type     = 'bundle';
+    $bundle_node->uid      = $node->uid;
+    $bundle_node->name     = $node->name;
+    // Title will be overridden in nurani_bundle_node_presave()
+    $bundle_node->title    = t('@title bundle', array('@title' => $node->title));
+    $bundle_node->status   = 1;
+    $bundle_node->language = $node->language;
+
+    node_object_prepare($bundle_node);
+    $bundle_node = node_submit($bundle_node);
+    node_save($bundle_node);
+
+    // Critically, ensure the new bundle node is attached to the discussion and
+    // ensure the $bundle_nid state is updated.
+    $node->field_bundle[$langcode][$delta]['nid'] = $bundle_node->nid;
+    $bundle_nid                                   = $bundle_node->nid;
+  }
+
+  // Load the bundle, this may be the newly created bundle
+  $bundle_node = node_load($bundle_nid);
+
+  $passages_collection = $bundle_node->field_passage_collection;
+  foreach ($edit['ui']['passages'] as $pc_delta => $pc_value) {
+    if (!isset($passages_collection[$langcode][$pc_delta])) {
+      $item = array(
+        'field_name' => 'field_passage_collection',
+      );
+      $entity = entity_create('field_collection_item', $item);
+      $entity->setHostEntity('node', $bundle_node);
+      $entity->save();
+
+      $passages_collection[$langcode][$pc_delta]['value'] = entity_id('field_collection_item', $entity);
+    }
+
+    $entity = entity_load_single('field_collection_item', $passages_collection[$langcode][$pc_delta]['value']);
+
+    $entity->field_passage[$langcode][0]['osisIDWork'] = $pc_value['osisIDWork'];
+    $entity->field_passage[$langcode][0]['osisID']     = $pc_value['osisID'];
+    $entity->field_notes[$langcode][0]['value']        = $pc_value['notes'];
+    $entity->field_visible[$langcode][0]['value']      = $pc_value['visible'];
+    // We don't use ->save(TRUE) here because it is important for the host
+    // entity (the $bundle_node) to be updated in this case. This will cause
+    // hook_node_presave() to fire which will update the bundle title.
+    $entity->save();
+  }
+}
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Updates the bundle node title on save.
+ */
+function nurani_bundle_node_presave($node) {
+  if ($node->type != 'bundle') {
+    return;
+  }
+
+  $title_parts = array();
+
+  if (isset($node->field_passage_collection)) {
+    foreach ((array) $node->field_passage_collection[$node->language] as $delta => $value) {
+      // Taken from entity_load_single(), but resets cache each time
+      $entities = entity_load('field_collection_item', array($value['value']), array(), TRUE);
+      $entity = reset($entities);
+
+      $visible    = $entity->field_visible[$node->language][0]['value'];
+      $osisIDWork = $entity->field_passage[$node->language][0]['osisIDWork'];
+      $osisID     = $entity->field_passage[$node->language][0]['osisID'];
+
+      if ($visible && $osisIDWork && $osisID) {
+        $info = nurani_library_get_passages_info($osisIDWork, $osisID);
+
+        if ($info && $info['passage_human']) {
+          $title_parts[] = $info['passage_human'];
+        }
+      }
+    }
+  }
+
+  $node->title = count($title_parts) > 0
+               ? implode('; ', $title_parts)
+               : (isset($node->discussion) && is_object($node->discussion)
+                 ? t('@title bundle', array('@title' => $node->discussion->title))
+                 : t('Generated bundle title'));
+}
+
+/**
+ * Validates and OSIS identifier using the osis_field module.
+ *
+ * (Ab)uses the osis_field module's internal validation since it is the gold
+ * standard for valid OSIS passages in the system.
+ */
+function _nurani_bundle_validate_osisid($osisIDWork, $osisID) {
+  $item = array('osisIDWork' => $osisIDWork, 'osisID' => $osisID);
+  $delta = 0;
+  $field = array('field_name' => 'field_bundle');
+
+  return osis_field_validate($item, $delta, $field, NULL, NULL);
+}
+
+/**
+ * Implements hook_node_load().
+ */
+function nurani_bundle_node_load($nodes, $types) {
+  if (db_table_exists('field_data_field_bundle')) {
+    foreach ($nodes as $node) {
+      if ($node->type == 'bundle') {
+        // TODO: Properly use the references API to retrieve the bundle's parent.
+        $query = db_select('node', 'n');
+        $query->join('field_data_field_bundle', 'b', 'n.nid = b.entity_id');
+        $query->fields('n', array('nid', 'title'));
+        $query->condition('n.type', 'discussion');
+        $query->condition('b.field_bundle_nid', $node->nid);
+        $query->condition('b.language', $node->language);
+        $query->condition('b.delta', 0);
+        $query->condition('b.deleted', 0);
+
+        $nodes[$node->nid]->discussion = $query->execute()->fetchAssoc();
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function nurani_bundle_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'bundle' && $view_mode == 'print') {
+    // When in print mode, use the discussion title as the title of the PDF
+    $node->title = t('Readings for @discussion', array('@discussion' => $node->discussion['title']));
+  }
+}
+
+/**
+ * Page callback to generate JSON output for "cloning" a bundle.
+ */
+function nurani_bundle_clone_bundle_json($bundle_node, $langcode = LANGUAGE_NONE) {
+  if (!$bundle_node || $bundle_node->type != 'bundle') {
+    return drupal_json_output(FALSE);
+  }
+
+  // (Ab)use the _nurani_bundle_combine_edit_data to generate a useful array
+  // representation of a bundle's core data fields.
+  $edit = _nurani_bundle_combine_edit_data($bundle_node->nid, $langcode, 0, array());
+  return drupal_json_output($edit['ui']['passages']);
+}
+
+/**
+ * Page callback to generate JSON output for validating an OSIS identifier.
+ */
+function nurani_bundle_validate_passage_json($osisIDWork, $osisID) {
+  return drupal_json_output(_nurani_bundle_validate_osisid($osisIDWork, $osisID));
+}
+
+/**
+ * Theme function to render a passage box.
+ */
+function theme_nurani_bundle_passage_box(&$variables) {
+  $delta   = $variables['delta'];
+  $content = $variables['content'];
+  $bib     = $variables['bib'];
+
+  switch ($delta % 3) {
+    case 0: $number = 'first'; break;
+    case 1: $number = 'second'; break;
+    case 2: $number = 'third'; break;
+  }
+
+  $output  = '';
+  $output .= '<div class="passage-box passage-box-' . $delta . ' ' . $number . '">';
+  $output .=   '<div class="inner">';
+  $output .=     '<div class="passage-text">';
+  $output .=       $content;
+  $output .=       '<div class="passage-widget"><!-- Picked passage text will be displayed here --></div>';
+  $output .=     '</div>';
+  $output .=     $bib ? '<div class="bib">' . $bib . '</div>' : '';
+  $output .=   '</div>';
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * Theme function to render the bib for a passage box.
+ */
+function theme_nurani_bundle_passage_box_bib(&$variables) {
+  if (trim($variables['notes']) == '') {
+    return '';
+  }
+
+  $output  = '';
+  $output .= '<div class="notes">';
+  $output .=   '<label>' . t('Notes on this passage') . '</label>';
+  $output .=   check_markup($variables['notes'], NULL, $variables['language']);
+  $output .=   theme('nurani_attribution', array('account' => $variables['account']));
+  $output .= '</div>';
+
+  return $output;
+}
+
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function nurani_bundle_field_formatter_info() {
+  $formatters = array(
+    'nurani_bundle' => array(
+      'label' => t('Nurani Bundle'),
+      'field types' => array('node_reference'),
+    ),
+    'nurani_bundle_short' => array(
+      'label' => t('Nurani Bundle Short'),
+      'field types' => array('node_reference'),
+    ),
+    'nurani_bundle_items' => array(
+      'label' => t('Nurani Bundle Items'),
+      'field types' => array('field_collection'),
+    ),
+    'nurani_bundle_items_short' => array(
+      'label' => t('Nurani Bundle Items Short'),
+      'field types' => array('field_collection'),
+    ),
+  );
+
+  return $formatters;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function nurani_bundle_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $element = array();
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function nurani_bundle_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  $path = drupal_get_path('module', 'nurani_bundle');
+  $element['#attached']['css'] = array($path . '/css/nurani_bundle_ui.css');
+
+  switch ($display['type']) {
+    case 'nurani_bundle':
+    case 'nurani_bundle_short':
+      foreach ($items as $delta => $item) {
+        $bundle_node = node_load($item['nid']);
+        $bundle_data = _nurani_bundle_combine_edit_data($item['nid'], $entity->language, $delta, array());
+
+        $element[$delta] = array(
+          '#theme' => $display['type'] . '_formatter',
+          '#item' => $item,
+          '#node' => $bundle_node,
+          '#data' => $bundle_data['ui']['passages'],
+        );
+      }
+      break;
+
+    case 'nurani_bundle_items':
+    case 'nurani_bundle_items_short':
+      foreach ($items as $delta => $item) {
+        if ($item_entity = field_collection_field_get_entity($item)) {
+          $data = array(
+            'osisIDWork' => $item_entity->field_passage[$entity->language][0]['osisIDWork'],
+            'osisID'     => $item_entity->field_passage[$entity->language][0]['osisID'],
+            'notes'      => $item_entity->field_notes[$entity->language][0]['value'],
+            'visible'    => $item_entity->field_visible[$entity->language][0]['value'],
+          );
+
+          if ($data['visible']) {
+            $element[$delta] = array(
+              '#theme' => $display['type'] . '_formatter',
+              '#item'  => $item,
+              '#node'  => $entity,
+              '#delta' => $delta,
+              '#data'  => $data,
+            );
+          }
+        }
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Returns HTML for an nurani_bundle field formatter.
+ */
+function theme_nurani_bundle_formatter($variables) {
+  $item        = $variables['item'];
+  $data        = $variables['data'];
+  $bundle_node = $variables['node'];
+  $account     = user_load($bundle_node->revision_uid);
+
+  $passage_boxes = '';
+  foreach (array(0, 1, 2) as $delta) {
+    if (!isset($data[$delta])) continue;
+
+    $datum = $data[$delta];
+    if (!$datum['visible']) continue;
+
+    $content = nurani_passage_widget($datum['osisIDWork'], $datum['osisID']);
+    $bib = theme('nurani_bundle_passage_box_bib', array(
+      'notes' => $datum['notes'],
+      'language'             => $bundle_node->language,
+      'account'              => $account,
+      'timestamp'            => $bundle_node->revision_timestamp,
+    ));
+
+    $passage_boxes .= theme('nurani_bundle_passage_box', array('delta' => $delta, 'content' => $content, 'bib' => $bib));
+  }
+
+  $output  = '';
+  $output .= '<div class="passage-boxes clearfix">';
+  $output .=   '<div class="inner">';
+  $output .=     $passage_boxes;
+  $output .=   '</div>';
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * Returns HTML for the nurani_bundle_short field formatter.
+ */
+function theme_nurani_bundle_short_formatter($variables) {
+  $data = $variables['data'];
+
+  $passage_titles = '';
+  foreach (array(0, 1, 2) as $delta) {
+    if (!isset($data[$delta])) continue;
+
+    $datum = $data[$delta];
+    if (!$datum['visible']) continue;
+
+    $passage_titles .= theme('nurani_bundle_passage_title', array('element_type' => 'li', 'delta' => $delta, 'osisIDWork' => $datum['osisIDWork'], 'osisID' => $datum['osisID']));
+  }
+
+  $output  = '';
+  $output .= '<ul class="passage-titles">';
+  $output .=   $passage_titles;
+  $output .= '</ul>';
+
+  return $output;
+}
+
+
+/**
+ * Returns HTML for the nurani_bundle_items field formatter.
+ */
+function theme_nurani_bundle_items_formatter($variables) {
+  $item        = $variables['item'];
+  $data        = $variables['data'];
+  $delta       = $variables['delta'];
+  $bundle_node = $variables['node'];
+  $account     = user_load($bundle_node->revision_uid);
+
+  if (!$data['visible']) {
+    return; // Fail safe
+  }
+
+  $content = _nurani_bundle_raw_passage_widget($data['osisIDWork'], $data['osisID']);
+  $bib = theme('nurani_bundle_passage_box_bib', array(
+    'notes' => $data['notes'],
+    'language'             => $bundle_node->language,
+    'account'              => $account,
+    'timestamp'            => $bundle_node->revision_timestamp,
+  ));
+
+  return theme('nurani_bundle_passage_box', array('delta' => $delta, 'content' => $content, 'bib' => $bib));
+}
+
+/**
+ * Returns HTML for the nurani_bundle_items_short field formatter.
+ */
+function theme_nurani_bundle_items_short_formatter($variables) {
+  $item        = $variables['item'];
+  $data        = $variables['data'];
+  $delta       = $variables['delta'];
+  $bundle_node = $variables['node'];
+
+  if (!$data['visible']) {
+    return; // Fail safe
+  }
+
+  return theme('nurani_bundle_passage_title', array('element_type' => 'li', 'delta' => $delta, 'osisIDWork' => $data['osisIDWork'], 'osisID' => $data['osisID']));
+}
+
+/**
+ * Returns HTML for a themed passage title housed in an element wrapper.
+ */
+function theme_nurani_bundle_passage_title($variables) {
+  $el = $variables['element_type'];
+
+  $info = nurani_library_get_passages_info($variables['osisIDWork'], $variables['osisID']);
+
+  if ($info === FALSE) {
+    return '';
+  }
+
+  $output  = '';
+  $output .= '<' . $el . ' class="passage-title passage-title-' . $variables['delta'] . '">';
+  $output .=   '<span class="passage">' . check_plain($info['passage_human']) . '</span>';
+  $output .=   '<span class="work">' . check_plain($info['work_full_name']) . '</span>';
+  $output .= '</' . $el . '>';
+
+  return $output;
+}
+
+function _nurani_bundle_raw_passage_widget($osisIDWork, $osisID) {
+  $backend = nurani_library_backend();
+  $output  = '';
+
+  if ($backend == 'REST') {
+    $url = nurani_passage_widget_oembed_url($osisIDWork, $osisID, NULL, 'json');
+
+    $result = drupal_http_request($url);
+
+    if ($result->code == 200 && $result->data) {
+      $data   = drupal_json_decode($result->data);
+      $output = $data['html'];
+    }
+  }
+  else if (module_exists('nurani_library_provider')) {
+    $output = nurani_passage_widget($osisIDWork, $osisID);
+  }
+  else {
+    // Do nothing
+  }
+
+  return $output;
+}

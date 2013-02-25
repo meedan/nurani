@@ -1,0 +1,18 @@
+@mixin tables() {  
+  thead {
+    padding: rhythm(0.5) 0;
+    height: rhythm(2);
+    @include adjust-font-size-to($xlarge-font-size);
+  }
+
+  th, th a {
+    font-weight: bold;
+    padding: rhythm(1);
+    text-decoration: none;
+    @include adjust-font-size-to($small-font-size);
+  }
+
+  td {
+    padding: rhythm(0.5);
+  }
+}

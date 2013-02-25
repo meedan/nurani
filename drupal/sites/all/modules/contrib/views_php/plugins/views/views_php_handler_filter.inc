@@ -29,7 +29,6 @@ class views_php_handler_filter extends views_handler_filter {
     $options['use_php_setup'] = array('default' => FALSE);
     $options['php_setup'] = array('default' => '');
     $options['php_filter'] = array('default' => '');
-    $options['sql_filter'] = array('default' => '');
     return $options;
   }
 
@@ -39,11 +38,6 @@ class views_php_handler_filter extends views_handler_filter {
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
-    $form += views_php_form_element($this,
-      FALSE,
-      array('sql_filter', t('SQL filter code'), t('Return a valid SQL WHERE clause.'), FALSE),
-      array('$view', '$handler')
-    );
     $form += views_php_form_element($this,
       array('use_php_setup', t('Use setup code'), t('If checked, you can provide PHP code to be run once right before execution of the view. This may be useful to define functions to be re-used in the value and/or output code.')),
       array('php_setup', t('Setup code'), t('Code to run right before execution of the view.'), FALSE),
@@ -62,17 +56,6 @@ class views_php_handler_filter extends views_handler_filter {
   function query() {
     // Inform views_php_views_pre_execute() to seize control over the query.
     $this->view->views_php = TRUE;
-
-    // Add the SQL sort clause if any.
-    if (!empty($this->options['sql_filter'])) {
-      $function = create_function('$view, $handler, &$static', $this->options['sql_filter'] . ';');
-      ob_start();
-      $clause = $function($this->view, $this, $this->php_static_variable);
-      ob_end_clean();
-      if (!empty($clause)) {
-        $this->query->add_where($this->options['group'], $clause);
-      }
-    }
   }
 
   /**
@@ -80,21 +63,12 @@ class views_php_handler_filter extends views_handler_filter {
    * @see views_php_views_pre_execute()
    */
   function php_pre_execute() {
-    // Don't do anything if displaying a summary.
-    if (!empty($this->view->build_info['summary'])) {
-      return;
-    }
-
     // Ecexute static PHP code.
     if (!empty($this->options['php_setup'])) {
       $function = create_function('$view, $handler, &$static', $this->options['php_setup'] . ';');
       ob_start();
       $function($this->view, $this, $this->php_static_variable);
       ob_end_clean();
-    }
-  
-    if (!empty($this->options['php_filter'])) {
-      $this->view->use_php_pager = TRUE;
     }
   }
 
@@ -103,11 +77,6 @@ class views_php_handler_filter extends views_handler_filter {
    * @see views_php_views_post_execute()
    */
   function php_post_execute() {
-    // Don't do anything if displaying a summary.
-    if (!empty($this->view->build_info['summary'])) {
-      return;
-    }
-
     // Evaluate the PHP code.
     if (!empty($this->options['php_filter'])) {
       $function = create_function('$view, $handler, &$static, $row, $data', $this->options['php_filter'] . ';');
@@ -117,18 +86,11 @@ class views_php_handler_filter extends views_handler_filter {
         foreach ($this->view->display_handler->get_handlers('field') as $field => $handler) {
           $normalized_row->$field = isset($row->{$handler->field_alias}) ? $row->{$handler->field_alias} : NULL;
         }
-        // Add base_field if found.
-        if (!empty($this->view->base_field) && isset($row->{$this->view->base_field})) {
-          $normalized_row->{$this->view->base_field} = $row->{$this->view->base_field};
-        }
-
         if ($function($this->view, $this, $this->php_static_variable, $normalized_row, $row)) {
           unset($this->view->result[$i]);
-          $this->view->total_rows--;
         }
       }
       ob_end_clean();
     }
   }
 }
-

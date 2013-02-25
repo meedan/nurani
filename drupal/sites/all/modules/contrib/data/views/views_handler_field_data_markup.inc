@@ -1,5 +1,4 @@
 <?php
-// $Id: views_handler_field_data_markup.inc,v 1.1.2.1 2010/03/03 17:11:28 alexb Exp $
 
 /**
  * A handler to run a field through check_markup.
@@ -32,7 +31,7 @@ class views_handler_field_data_markup extends views_handler_field {
     $value = $values->{$this->field_alias};
     if ($value) {
       $format = is_numeric($this->options['format']) ? $this->options['format'] : variable_get('filter_default_format', 1);
-      return check_markup($value, $format, FALSE);
+      return check_markup($value, $format, $langcode = '' /* TODO Set this variable. */, FALSE);
     }
   }
 }

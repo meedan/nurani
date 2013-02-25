@@ -1,5 +1,4 @@
 <?php
-// $Id: stylizer.inc,v 1.1.2.2 2010/07/14 23:10:16 merlinofchaos Exp $
 
 $plugin = array(
   'schema' => 'stylizer',
@@ -18,7 +17,6 @@ $plugin = array(
 
   'handler' => array(
     'class' => 'stylizer_ui',
-    'parent' => 'ctools_export_ui',
   ),
 
   'strings' => array(

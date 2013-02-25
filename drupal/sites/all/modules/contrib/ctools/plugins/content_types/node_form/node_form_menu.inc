@@ -1,5 +1,4 @@
 <?php
-// $Id: node_form_menu.inc,v 1.1.2.2 2010/04/14 21:02:12 merlinofchaos Exp $
 
 if (module_exists('menu')) {
   /**
@@ -24,11 +23,15 @@ function ctools_node_form_menu_content_type_render($subtype, $conf, $panel_args,
   $block->delta = 'menu-options';
 
   if (isset($context->form)) {
-    if (!empty($context->form['form_id']) && !empty($context->form['menu']['#access'])) {
-      // remove the fieldset
-      unset($context->form['menu']['#type']);
-      $context->form['menu']['link_title']['#size'] /= 2;
-      $block->content = drupal_render($context->form['menu']);
+    if (isset($context->form['menu'])) {
+      $block->content['menu'] = $context->form['menu'];
+      unset($block->content['menu']['#pre_render']);
+      unset($block->content['menu']['#theme_wrappers']);
+      $block->content['menu']['#type'] = '';
+
+      // Set access to false on the original rather than removing so that
+      // vertical tabs doesn't clone it. I think this is due to references.
+      $context->form['menu']['#access'] = FALSE;
     }
   }
   else {
@@ -41,6 +44,7 @@ function ctools_node_form_menu_content_type_admin_title($subtype, $conf, $contex
   return t('"@s" node form menu settings', array('@s' => $context->identifier));
 }
 
-function ctools_node_form_menu_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_form_menu_content_type_edit_form($form, &$form_state) {
   // provide a blank form so we have a place to have context setting.
+  return $form;
 }

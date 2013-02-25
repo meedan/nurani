@@ -1,5 +1,4 @@
 <?php
-// $Id: terms_from_node.inc,v 1.1.2.1 2010/02/23 22:09:47 merlinofchaos Exp $
 
 /**
  * @file
@@ -16,9 +15,8 @@ $plugin = array(
   'description' => t('Adds a taxonomy terms from a node context; if multiple terms are selected, they wil be concatenated.'),
   'required context' => new ctools_context_required(t('Node'), 'node'),
   'context' => 'ctools_terms_from_node_context',
-  'settings form' => 'ctools_terms_from_node_settings_form',
-  'settings form validate' => 'ctools_terms_from_node_settings_form_validate',
-  'defaults' => array('vid' => array(), 'concatenator' => ','),
+  'edit form' => 'ctools_terms_from_node_settings_form',
+  'defaults' => array('vocabulary' => array(), 'concatenator' => ','),
 );
 
 /**
@@ -31,35 +29,44 @@ function ctools_terms_from_node_context($context, $conf) {
   }
 
   // Collect all terms for the chosen vocabulary and concatenate them.
-  if (isset($context->data->taxonomy)) {
-    $terms = array();
-    foreach ($context->data->taxonomy as $term) {
-      if (in_array($term->vid, $conf['vid'])) {
-        $terms[] = $term->tid;
+  $node = $context->data;
+  $terms = array();
+  
+  $fields = field_info_instances('node', $node->type);
+  foreach ($fields as $name => $info) {
+    $field_info = field_info_field($name);
+    if ($field_info['type'] == 'taxonomy_term_reference' && (empty($conf['vocabulary']) || $conf['vocabulary'][$field_info['settings']['allowed_values'][0]['vocabulary']])) {
+      $items = field_get_items('node', $node, $name);
+      if (is_array($items)) {
+        foreach ($items as $item) {
+          $terms[] = $item['tid'];
+        }
       }
     }
-
-    if (!empty($terms)) {
-      $all_terms = ctools_break_phrase(implode($conf['concatenator'], $terms));
-      return ctools_context_create('terms', $all_terms);
-    }
+  }
+  
+  if (!empty($terms)) {
+    $all_terms = ctools_break_phrase(implode($conf['concatenator'], $terms));
+    return ctools_context_create('terms', $all_terms);
   }
 }
 
 /**
  * Settings form for the relationship.
  */
-function ctools_terms_from_node_settings_form($conf) {
+function ctools_terms_from_node_settings_form($form, &$form_state) {
+  $conf = $form_state['conf'];
+
   $options = array();
-  foreach (taxonomy_get_vocabularies() as $vid => $vocabulary) {
-    $options[$vid] = $vocabulary->name;
+  foreach (taxonomy_vocabulary_get_names() as $name => $vocabulary) {
+    $options[$name] = $vocabulary->name;
   }
-  $form['vid'] = array(
+  $form['vocabulary'] = array(
     '#title' => t('Vocabulary'),
     '#type' => 'checkboxes',
     '#options' => $options,
-    '#default_value' => $conf['vid'],
-    '#prefix' => '<div class="clear-block">',
+    '#default_value' => $conf['vocabulary'],
+    '#prefix' => '<div class="clearfix">',
     '#suffix' => '</div>',
   );
   $form['concatenator'] = array(
@@ -67,7 +74,7 @@ function ctools_terms_from_node_settings_form($conf) {
     '#type' => 'select',
     '#options' => array(',' => ', (AND)', '+' => '+ (OR)'),
     '#default_value' => $conf['concatenator'],
-    '#prefix' => '<div class="clear-block">',
+    '#prefix' => '<div class="clearfix">',
     '#suffix' => '</div>',
     '#description' => t("When the value from this context is passed on to a view as argument, the terms can be concatenated in the form of 1+2+3 (for OR) or 1,2,3 (for AND)."),
   );

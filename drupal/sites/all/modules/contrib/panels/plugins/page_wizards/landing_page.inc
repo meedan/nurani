@@ -71,8 +71,8 @@ function panels_landing_page_new_page(&$cache) {
 /**
  * First page of our page creator wizard.
  */
-function panels_landing_page_basic(&$form, &$form_state) {
-  $cache = &$form_state['cache'];
+function panels_landing_page_basic($form, &$form_state) {
+  $cache = &$form_state['wizard cache'];
   ctools_include('dependent');
 
   $form['admin_title'] = array(
@@ -84,11 +84,14 @@ function panels_landing_page_basic(&$form, &$form_state) {
   );
 
   $form['name'] = array(
-    '#type' => 'textfield',
+    '#type' => 'machine_name',
     '#title' => t('Machine name'),
+    '#machine_name' => array(
+      'exists' => 'page_manager_page_load',
+      'source' => array('admin_title'),
+    ),
     '#description' => t('The machine readable name of this page. It must be unique, and it must contain only alphanumeric characters and underscores. Once created, you will not be able to change this value!'),
     '#default_value' => $cache->name,
-    '#required' => TRUE,
   );
 
   $form['admin_description'] = array(
@@ -154,15 +157,16 @@ function panels_landing_page_basic(&$form, &$form_state) {
 
   ctools_include('page-wizard', 'panels');
   panels_page_wizard_add_layout($form, $form_state);
+
+  // Ensure all 'page' features are loaded.
+  $page_task = page_manager_get_task('page');
+  return $form;
 }
 
 /**
  * Submit function to store the form data in our cache.
  */
 function panels_landing_page_basic_validate(&$form, &$form_state) {
-  // Ensure all 'page' features are loaded.
-  $page_task = page_manager_get_task('page');
-
   // Validate that the name is ok.
   $test = page_manager_page_load($form_state['values']['name']);
   if ($test) {
@@ -180,15 +184,15 @@ function panels_landing_page_basic_validate(&$form, &$form_state) {
   }
 
   // Check to see if something is already using the path
-  $result = db_query("SELECT * FROM {menu_router} WHERE path = '%s'", $form_state['values']['path']);
-  while ($router = db_fetch_object($result)) {
+  $result = db_query("SELECT * FROM {menu_router} WHERE path = :path", array(':path' => $form_state['values']['path']))->fetch();
+  if ($result) {
     form_error($form['path'], t('That path is already in use. This system cannot override existing paths.'));
     return;
   }
 
   // Ensure the path is not already an alias to something else.
-  $result = db_query("SELECT src, dst FROM {url_alias} WHERE dst = '%s'", $form_state['values']['path']);
-  if ($alias = db_fetch_object($result)) {
+  $alias = db_query('SELECT alias, source FROM {url_alias} WHERE alias = :path', array(':path' => $form_state['values']['path']))->fetchObject();
+  if ($alias) {
     form_error($form['path'], t('That path is currently assigned to be an alias for @alias. This system cannot override existing aliases.', array('@alias' => $alias->src)));
   }
 }
@@ -197,7 +201,7 @@ function panels_landing_page_basic_validate(&$form, &$form_state) {
  * Submit function to store the form data in our cache.
  */
 function panels_landing_page_basic_submit(&$form, &$form_state) {
-  $cache = &$form_state['cache'];
+  $cache = &$form_state['wizard cache'];
   $cache->name = $form_state['values']['name'];
   $cache->admin_title = $form_state['values']['admin_title'];
   $cache->admin_description = $form_state['values']['admin_description'];
@@ -215,9 +219,11 @@ function panels_landing_page_basic_submit(&$form, &$form_state) {
  * Second page of our wizard. This one provides a layout and lets the
  * user add content.
  */
-function panels_landing_page_content(&$form, &$form_state) {
+function panels_landing_page_content($form, &$form_state) {
   ctools_include('page-wizard', 'panels');
   panels_page_wizard_add_content($form, $form_state);
+
+  return $form;
 }
 
 /**
@@ -234,7 +240,7 @@ function panels_landing_page_submit(&$form, &$form_state) {
  * page, save it, and redirect the user to view the new work.
  */
 function panels_landing_page_finish(&$form_state) {
-  $cache = &$form_state['cache'];
+  $cache = &$form_state['wizard cache'];
 
   // Ensure all 'page' features are loaded.
   $page_task = page_manager_get_task('page');

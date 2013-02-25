@@ -1,64 +1,71 @@
 <?php
 
 /**
- * Implementation of hook_features_api().
+ * Implements hook_features_api().
  */
 function node_export_features_features_api() {
-  return array(
-    'node_export_features' => array(
-      'name' => t('Node export'),
-      'feature_source' => TRUE,
-      'default_hook' => 'node_export_features_default',
-      'default_file' => FEATURES_DEFAULTS_INCLUDED,
-    ),
+  $features = array();
+  $features['node_export_features'] = array(
+    'name' => t('Node export'),
+    'feature_source' => TRUE,
+    'default_hook' => 'node_export_features_default',
+    'default_file' => FEATURES_DEFAULTS_INCLUDED,
   );
+  return $features;
 }
 
 /**
- * Implementation of hook_features_export_options().
+ * Implements hook_features_export_options().
  */
 function node_export_features_features_export_options() {
-  static $loaded_nodes = 0;
-
   $options = array();
 
-  $types = node_get_types('names');
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title', 'type'))
+    ->orderBy('type')
+    ->orderBy('title')
+    ->range(0, 250)
+    ->addTag('node_export_features');
 
-  $query = 'SELECT n.nid, n.title, n.type FROM {node} n';
-  $query .= ' ORDER BY n.type, n.title ASC';
-  $result = db_query($query);
+  $result = $query->execute();
 
-  while ($row = db_fetch_object($result)) {
-
+  foreach ($result as $row) {
     $uuid = uuid_get_uuid('node', 'nid', $row->nid);
-    // Create uuid if it doesn't exist.
     if (empty($uuid)) {
-      if ($loaded_nodes > 20) {
-        drupal_set_message("Too many nodes are missing UUID, therefore some nodes will not be available for features export. Repeatedly triggering this message will help this problem.", 'warning');
-        break;
-      }
-      else {
-        $node = node_load($row->nid);
-        $uuid = uuid_set_uuid('node', 'nid', $node->nid);
-        $node->uuid = $uuid;
-        // Save for consistency.
-        node_save($node);
-        $loaded_nodes++;
-      }
+      drupal_set_message(
+        t('Some nodes are <strong>not</strong> available for export' .
+          ' because of missing UUIDs. Ensure UUIDs are being generated for' .
+          ' all content types and click the <em>Create missing UUIDs</em>' .
+          ' button on the <a href="!url">UUID settings page</a> to help' .
+          ' resolve this issue.',
+          array('!url' => url('admin/settings/uuid'))
+        ),
+        'warning',
+        FALSE
+      );
     }
+    else {
+      $options[$uuid] = t('@type: @title', array(
+        '@type' => node_type_get_name($row->type),
+        '@title' => $row->title,
+      ));
+    }
+  }
 
-    $options[$uuid] = t('@type: @title', array(
-      '@type' => $types[$row->type],
-      '@title' => $row->title,
-    ));
+  if (count($options) == 250) {
+    drupal_set_message(
+      t('Due to limitations in Features only the first 250 nodes are available.'
+      . '  The query is tagged <em>node_export_features</em> if you want to'
+      . ' alter it.'),
+      'warning'
+    );
   }
 
   return $options;
-
 }
 
 /**
- * Implementation of hook_features_export().
+ * Implements hook_features_export().
  */
 function node_export_features_features_export($data, &$export, $module_name = '') {
   $pipe = array();
@@ -66,27 +73,23 @@ function node_export_features_features_export($data, &$export, $module_name = ''
   $export['dependencies']['module'] = 'node_export_features';
 
   foreach ($data as $uuid) {
-    $node = node_export_node_get_by_uuid($uuid);
-    if (is_object($node)) {
-      $export['features']['node_export_features'][$uuid] = $uuid;
-      $pipe['node'][$node->type] = $node->type;
-    }
+    $query = db_select('node', 'n')
+      ->fields('n', array('type'))
+      ->condition('n.uuid', $uuid);
+    $type = $query->execute()->fetchField();
+
+    $export['features']['node_export_features'][$uuid] = $uuid;
+    $pipe['node'][$type] = $type;
   }
 
   return $pipe;
-
 }
 
 /**
- * Implementation of hook_features_export_render().
+ * Implements hook_features_export_render().
  */
 function node_export_features_features_export_render($module, $data, $export = NULL) {
-  foreach ($data as $uuid) {
-    $node = node_export_node_get_by_uuid($uuid);
-    if (is_object($node)) {
-      $nids[] = $node->nid;
-    }
-  }
+  $nids = entity_get_id_by_uuid('node', $data);
   $result = node_export($nids);
   if ($result['success']) {
     $node_export['code_string'] = $result['output'];
@@ -103,14 +106,14 @@ function node_export_features_features_export_render($module, $data, $export = N
 }
 
 /**
- * Implementation of hook_feature_revert().
+ * Implements hook_features_revert().
  */
 function node_export_features_features_revert($module = NULL) {
   node_export_features_features_rebuild($module);
 }
 
 /**
- * Implementation of hook_feature_rebuild().
+ * Implements hook_features_rebuild().
  */
 function node_export_features_features_rebuild($module) {
   $node_export = features_get_default('node_export_features', $module);
@@ -128,4 +131,3 @@ function node_export_features_features_rebuild($module) {
     }
   }
 }
-

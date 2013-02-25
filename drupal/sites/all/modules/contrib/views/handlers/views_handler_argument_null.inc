@@ -1,11 +1,19 @@
 <?php
+
+/**
+ * @file
+ * Definition of views_handler_argument_null.
+ */
+
 /**
  * Argument handler that ignores the argument.
+ *
+ * @ingroup views_argument_handlers
  */
 class views_handler_argument_null extends views_handler_argument {
   function option_definition() {
     $options = parent::option_definition();
-    $options['must_not_be'] = array('default' => FALSE);
+    $options['must_not_be'] = array('default' => FALSE, 'bool' => TRUE);
     return $options;
   }
 
@@ -20,10 +28,10 @@ class views_handler_argument_null extends views_handler_argument {
       '#title' => t('Fail basic validation if any argument is given'),
       '#default_value' => !empty($this->options['must_not_be']),
       '#description' => t('By checking this field, you can use this to make sure views with more arguments than necessary fail validation.'),
+      '#fieldset' => 'more',
     );
 
-    unset($form['wildcard']);
-    unset($form['wildcard_substitution']);
+    unset($form['exception']);
   }
 
   /**
@@ -55,5 +63,5 @@ class views_handler_argument_null extends views_handler_argument {
    * Override the behavior of query() to prevent the query
    * from being changed in any way.
    */
-  function query() {}
+  function query($group_by = FALSE) {}
 }

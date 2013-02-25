@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.7.2.11 2010/09/28 16:17:31 alexb Exp $
 
 
 Data module

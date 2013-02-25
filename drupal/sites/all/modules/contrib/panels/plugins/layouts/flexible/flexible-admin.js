@@ -1,3 +1,4 @@
+(function ($) {
 
 Drupal.flexible = Drupal.flexible || {};
 
@@ -13,43 +14,35 @@ Drupal.flexible.fixHeight = function() {
   }
 }
 
-Drupal.behaviors.flexibleAdmin = function(context) {
-  // Show/hide layout manager button
-  $('input#panels-flexible-toggle-layout:not(.panels-flexible-processed)', context)
-    .addClass('panels-flexible-processed')
-    .click(function() {
-      $('.panel-flexible-admin')
-        .toggleClass('panel-flexible-no-edit-layout')
-        .toggleClass('panel-flexible-edit-layout');
+Drupal.behaviors.flexibleAdmin = {
+  attach: function(context) {
+    // Show/hide layout manager button
+    $('input#panels-flexible-toggle-layout:not(.panels-flexible-processed)', context)
+      .addClass('panels-flexible-processed')
+      .click(function() {
+        $('.panel-flexible-admin')
+          .toggleClass('panel-flexible-no-edit-layout')
+          .toggleClass('panel-flexible-edit-layout');
 
-      if ($('.panel-flexible-admin').hasClass('panel-flexible-edit-layout')) {
-        $(this).val(Drupal.t('Hide layout designer'));
-        Drupal.flexible.fixHeight();
-      }
-      else {
-        $(this).val(Drupal.t('Show layout designer'));
-      }
-      return false;
-    });
+        if ($('.panel-flexible-admin').hasClass('panel-flexible-edit-layout')) {
+          $(this).val(Drupal.t('Hide layout designer'));
+          Drupal.flexible.fixHeight();
+        }
+        else {
+          $(this).val(Drupal.t('Show layout designer'));
+        }
+        return false;
+      });
 
-  // Window splitter behavior.
-  $('div.panels-flexible-splitter:not(.panels-splitter-processed)', context)
-    .addClass('panels-splitter-processed')
-    .each(function() {
-      Drupal.flexible.splitters.push(new Drupal.flexible.splitter($(this)));
-    });
-
-  // Sometimes the splitter IS the context and the above syntax won't
-  // catch that.
-  if ($(context).hasClass('panels-flexible-splitter')) {
-    $(context)
+    // Window splitter behavior.
+    $('div.panels-flexible-splitter:not(.panels-splitter-processed)')
       .addClass('panels-splitter-processed')
       .each(function() {
         Drupal.flexible.splitters.push(new Drupal.flexible.splitter($(this)));
       });
-  }
 
-  Drupal.flexible.fixHeight();
+    Drupal.flexible.fixHeight();
+  }
 };
 
 Drupal.flexible.splitter = function($splitter) {
@@ -61,11 +54,6 @@ Drupal.flexible.splitter = function($splitter) {
   }
 
   function splitterStart(event) {
-    // Show splitting classes.
-//    splitter.left.addClass('flexible-splitting');	// Safari selects A/B text on a move
-//    splitter.right.addClass('flexible-splitting');	// Safari selects A/B text on a move
-//    splitter.splitter.addClass('flexible-splitter-splitting');
-
     // Bind motion events.
     $(document)
       .bind("mousemove", splitterMove)
@@ -188,6 +176,10 @@ Drupal.flexible.splitter = function($splitter) {
   function splitterMove(event) {
     var diff = splitter.startX - event.pageX;
     var moved = 0;
+
+    if (event.keyCode == 37) diff = 10;
+    if (event.keyCode == 39) diff = -10;
+
     // Bah, javascript has no logical xor operator
     if ((splitter.left_unit && !splitter.right_unit) ||
       (!splitter.left_unit && splitter.right_unit)) {
@@ -305,6 +297,12 @@ Drupal.flexible.splitter = function($splitter) {
     return false;
   };
 
+  function splitterKeyPress(event) {
+    splitterStart(event);
+    splitterMove(event);
+    splitterEnd(event);
+  };
+
   function splitterEnd(event) {
     if (splitter.left_unit) {
       splitter.left_box.remove();
@@ -314,9 +312,7 @@ Drupal.flexible.splitter = function($splitter) {
       splitter.right_box.remove();
     }
 
-    splitter.left.removeClass("flexible-splitting");	// Safari selects A/B text on a move
-    splitter.right.removeClass("flexible-splitting");	// Safari selects A/B text on a move
-    splitter.splitter.removeClass("flexible-splitter-splitting");	// Safari selects A/B text on a move
+
     splitter.left.css("-webkit-user-select", "text");	// let Safari select text again
     splitter.right.css("-webkit-user-select", "text");	// let Safari select text again
 
@@ -336,22 +332,14 @@ Drupal.flexible.splitter = function($splitter) {
       .unbind("mouseup", splitterEnd);
 
     // Store the data on the server.
-    $.ajax({
-      type: "POST",
-      url: Drupal.settings.flexible.resize,
-      data: {
-        'left': splitter.left_id,
-        'left_width': splitter.left_width,
-        'right': splitter.right_id,
-        'right_width': splitter.right_width
-      },
-      global: true,
-      success: Drupal.CTools.AJAX.respond,
-      error: function() {
-        alert("An error occurred while attempting to process " + Drupal.settings.flexible.resize);
-      },
-      dataType: 'json'
-    });
+    Drupal.ajax['flexible-splitter-ajax'].options.data = {
+      'left': splitter.left_id,
+      'left_width': splitter.left_width,
+      'right': splitter.right_id,
+      'right_width': splitter.right_width
+    };
+
+    $('.panel-flexible-edit-layout').trigger('UpdateFlexibleSplitter');
   };
 
   this.getSizes = function() {
@@ -379,30 +367,58 @@ Drupal.flexible.splitter = function($splitter) {
   splitter.right = $(splitter.right_class);
 
   $splitter
-    .bind("mousedown", splitterStart);
+    .bind("mousedown", splitterStart)
+    .bind("keydown", splitterKeyPress);
 
 };
 
-/**
- * Provide an AJAX response command to allow the server to request
- * height fixing.
- */
-Drupal.CTools.AJAX.commands.flexible_fix_height = function() {
-  Drupal.flexible.fixHeight();
-};
+$(function() {
+  /**
+   * Provide an AJAX response command to allow the server to request
+   * height fixing.
+   */
+  Drupal.ajax.prototype.commands.flexible_fix_height = function(ajax, command, status) {
+    Drupal.flexible.fixHeight();
+  };
 
-/**
- * Provide an AJAX response command to fix the first/last bits of a
- * group.
- */
-Drupal.CTools.AJAX.commands.flexible_fix_firstlast = function(data) {
-  $(data.selector + ' > div > .' + data.base)
-    .removeClass(data.base + '-first')
-    .removeClass(data.base + '-last');
+  /**
+   * Provide an AJAX response command to allow the server to change width on existing splitters.
+   */
+  Drupal.ajax.prototype.commands.flexible_set_width = function(ajax, command, status) {
+    $(command.selector).html(command.width);
+  };
 
-  $(data.selector + ' > div > .' + data.base + ':first')
-    .addClass(data.base + '-first');
-  $(data.selector + ' > div > .' + data.base + ':last')
-    .addClass(data.base + '-last');
-};
+  /**
+   * Provide an AJAX response command to fix the first/last bits of a
+   * group.
+   */
+  Drupal.ajax.prototype.commands.flexible_fix_firstlast = function(ajax, data, status) {
+    $(data.selector + ' > div > .' + data.base)
+      .removeClass(data.base + '-first')
+      .removeClass(data.base + '-last');
 
+    $(data.selector + ' > div > .' + data.base + ':first')
+      .addClass(data.base + '-first');
+    $(data.selector + ' > div > .' + data.base + ':last')
+      .addClass(data.base + '-last');
+  };
+
+  // Create a generic ajax callback for use with the splitters which
+  // background AJAX to store their data.
+  var element_settings = {
+    url: Drupal.settings.flexible.resize,
+    event: 'UpdateFlexibleSplitter',
+    keypress: false,
+    // No throbber at all.
+    progress: { 'type': 'none' }
+  };
+
+  Drupal.ajax['flexible-splitter-ajax'] = new Drupal.ajax('flexible-splitter-ajax', $('.panel-flexible-admin').get(0), element_settings);
+
+  // Prevent ajax goo from doing odd things to our layout.
+  Drupal.ajax['flexible-splitter-ajax'].beforeSend = function() { };
+  Drupal.ajax['flexible-splitter-ajax'].beforeSerialize = function() { };
+
+});
+
+})(jQuery);

@@ -1,5 +1,4 @@
 <?php
-// $Id: stylizer.inc,v 1.1.2.12 2010/10/15 20:52:02 merlinofchaos Exp $
 /**
  * @file
  * Create customized CSS and images from palettes created by user input.
@@ -16,7 +15,7 @@
  */
 function ctools_get_style_base($style_base) {
   ctools_include('plugins');
-  return ctools_get_plugins('ctools', 'style_bases', $style_base);
+  return ctools_get_plugins('stylizer', 'style_bases', $style_base);
 }
 
 /**
@@ -27,7 +26,7 @@ function ctools_get_style_base($style_base) {
  */
 function ctools_get_style_bases() {
   ctools_include('plugins');
-  return ctools_get_plugins('ctools', 'style_bases');
+  return ctools_get_plugins('stylizer', 'style_bases');
 }
 
 /**
@@ -48,19 +47,20 @@ function ctools_get_style_base_types() {
 function ctools_stylizer_print_style_icon($plugin, $print_title = TRUE) {
   $file = $plugin['path'] . '/' . $plugin['icon'];
   $title = $print_title ? $plugin['title'] : '';
-  return theme('ctools_style_icon', theme('image', $file), $title);
+  return theme('ctools_style_icon', array('image' => theme('image', array('path' => $file)), 'title' => $title));
 }
 
 /**
  * Theme the style icon image
  */
-function theme_ctools_style_icon($image, $title = NULL) {
+function theme_ctools_style_icon($vars) {
+  $image = $vars['image'];
   ctools_add_css('stylizer');
   ctools_add_js('stylizer');
   $output = '<div class="ctools-style-icon">';
-  $output .= $image;
-  if ($title) {
-    $output .= '<div class="caption">' . $title . '</div>';
+  $output .= $vars['image'];
+  if ($vars['title']) {
+    $output .= '<div class="caption">' . $vars['title'] . '</div>';
   }
   $output .= '</div>';
   return $output;
@@ -84,7 +84,7 @@ function ctools_stylizer_add_css($plugin, $settings) {
     ctools_stylizer_build_style($plugin, $settings, TRUE);
   }
   else {
-    ctools_css_add_css($filename);
+    drupal_add_css($filename);
   }
 }
 
@@ -137,7 +137,7 @@ function ctools_stylizer_build_style($plugin, $settings, $add_css = FALSE) {
   $filename = ctools_css_store(ctools_stylizer_get_css_id($plugin, $settings), $css, FALSE);
 
   if ($add_css) {
-    ctools_css_add_css($filename);
+    drupal_add_css($filename);
   }
 }
 
@@ -207,19 +207,10 @@ function ctools_stylizer_get_settings_name($settings) {
  * This function will make sure the path exists.
  */
 function ctools_stylizer_get_image_path($plugin, $settings, $check = TRUE) {
-  $file = 'ctools/style/' . $settings['name'] . '/' . md5(serialize($settings['palette']));
-  $path = file_create_path($file);
-
-  if ($check && !ctools_file_check_directory($path)) {
-    $base = '';
-    foreach (explode('/', $file) as $bit) {
-      $base .= '/' . $bit;
-      $path = file_directory_path() . $base;
-      if (!ctools_file_check_directory($path, FILE_CREATE_DIRECTORY)) {
-        drupal_set_message(t('Unable to create CTools styles cache directory @path. Check the permissions on your files directory.', array('@path' => $path)), 'error');
-        return;
-      }
-    }
+  $path = 'public://ctools/style/' . $settings['name'] . '/' . md5(serialize($settings['palette']));
+  if (!file_prepare_directory($path, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
+    drupal_set_message(t('Unable to create CTools styles cache directory @path. Check the permissions on your files directory.', array('@path' => $path)), 'error');
+    return;
   }
 
   return $path;
@@ -422,7 +413,7 @@ class ctools_stylizer_image_processor {
 
   function command_fill($color, $x, $y, $width, $height) {
     $this->log("Fill: $color ($x, $y, $width, $height)");
-    imagefilledrectangle($this->workspace, $x, $y, $x + $width, $y + $height, ctools_color_gd($this->workspace, $this->palette[$color]));
+    imagefilledrectangle($this->workspace, $x, $y, $x + $width, $y + $height, _color_gd($this->workspace, $this->palette[$color]));
   }
 
   function command_gradient($from, $to, $x, $y, $width, $height, $direction = 'down') {
@@ -430,13 +421,13 @@ class ctools_stylizer_image_processor {
 
     if ($direction == 'down') {
       for ($i = 0; $i < $height; ++$i) {
-        $color = ctools_color_blend($this->workspace, $this->palette[$from], $this->palette[$to], $i / ($height - 1));
+        $color = _color_blend($this->workspace, $this->palette[$from], $this->palette[$to], $i / ($height - 1));
         imagefilledrectangle($this->workspace, $x, $y + $i, $x + $width, $y + $i + 1, $color);
       }
     }
     else {
       for ($i = 0; $i < $width; ++$i) {
-        $color = ctools_color_blend($this->workspace, $this->palette[$from], $this->palette[$to], $i / ($width - 1));
+        $color = _color_blend($this->workspace, $this->palette[$from], $this->palette[$to], $i / ($width - 1));
         imagefilledrectangle($this->workspace, $x + $i, $y, $x + $i + 1, $y + $height, $color);
       }
     }
@@ -459,7 +450,7 @@ class ctools_stylizer_image_processor {
     }
     $this->log("Colorize: $color ($x, $y, $width, $height)");
 
-    $c = ctools_color_unpack($this->palette[$color]);
+    $c = _color_unpack($this->palette[$color]);
 
     imagealphablending($this->workspace, FALSE);
     imagesavealpha($this->workspace, TRUE);
@@ -495,7 +486,7 @@ class ctools_stylizer_image_processor {
     }
     $this->log("Hue: $color ($x, $y, $width, $height)");
 
-    list($red, $green, $blue) = ctools_color_unpack($this->palette[$color]);
+    list($red, $green, $blue) = _color_unpack($this->palette[$color]);
 
     // We will create a monochromatic palette based on the input color
     // which will go from black to white.
@@ -541,7 +532,7 @@ class ctools_stylizer_image_processor {
     }
 
     // The step size for each component
-    for($i = ($luminosity_input + 1); $i <= 255; $i++) {
+    for ($i = ($luminosity_input + 1); $i <= 255; $i++) {
       $palette[$i]['red'] = $red + round($step_size_red * ($i - $luminosity_input));
       $palette[$i]['green'] = $green + round($step_size_green * ($i - $luminosity_input));
       $palette[$i]['blue']= $blue + round($step_size_blue * ($i - $luminosity_input));
@@ -581,7 +572,10 @@ class ctools_stylizer_image_processor {
     imagesavealpha($slice, TRUE);
 
     // Save image.
-    imagepng($slice, $image);
+    $temp_name = drupal_tempnam('temporary://', 'file');
+
+    imagepng($slice, drupal_realpath($temp_name));
+    file_unmanaged_move($temp_name, $image);
     imagedestroy($slice);
 
     // Set standard file permissions for webserver-generated files
@@ -771,7 +765,7 @@ function ctools_stylizer_edit_style(&$info, $js, $step = NULL) {
     'module' => $info['module'],
     'type' => $info['type'],
     'owner info' => &$info,
-    'plugin' => $plugin,
+    'base_style_plugin' => $plugin,
     'name' => $name,
     'step' => $step,
     'settings' => $settings,
@@ -887,7 +881,7 @@ function ctools_stylizer_edit_style_cancel(&$form_state) {
 /**
  * Choose which plugin to use to create a new style.
  */
-function ctools_stylizer_edit_style_form_choose(&$form, &$form_state) {
+function ctools_stylizer_edit_style_form_choose($form, &$form_state) {
   $plugins = ctools_get_style_bases();
   $options = array();
 
@@ -906,7 +900,7 @@ function ctools_stylizer_edit_style_form_choose(&$form, &$form_state) {
   }
 
   $form['style_base'] = array(
-    '#prefix' => '<div class="ctools-style-icons clear-block">',
+    '#prefix' => '<div class="ctools-style-icons clearfix">',
     '#suffix' => '</div>',
   );
 
@@ -914,7 +908,7 @@ function ctools_stylizer_edit_style_form_choose(&$form, &$form_state) {
   foreach ($options as $category => $radios) {
     $cat = ctools_cleanstring($category);
     $form['style_base'][$cat] = array(
-      '#prefix' => '<div class="ctools-style-category clear-block"><label>' . $category . '</label>',
+      '#prefix' => '<div class="ctools-style-category clearfix"><label>' . $category . '</label>',
       '#suffix' => '</div>',
     );
 
@@ -925,14 +919,16 @@ function ctools_stylizer_edit_style_form_choose(&$form, &$form_state) {
         '#type' => 'radio',
         '#title' => $choice,
         '#parents' => array('style_base'),
-        '#id' => form_clean_id('edit-style-base-' . $key),
+        '#id' => drupal_clean_css_identifier('edit-style-base-' . $key),
         '#return_value' => check_plain($key),
       );
     }
   }
+
+  return $form;
 }
 
-function ctools_stylizer_edit_style_form_choose_submit(&$form, &$form_state) {
+function ctools_stylizer_edit_style_form_choose_submit($form, &$form_state) {
   $form_state['settings']['style_base'] = $form_state['values']['style_base'];
 
   // The 'next' form will show up as 'next' but that's not accurate now that
@@ -951,6 +947,8 @@ function ctools_stylizer_edit_style_form_choose_submit(&$form, &$form_state) {
     // @todo allow a callback
     $form_state['settings'] += $plugin['defaults'];
   }
+
+  return $form;
 }
 
 /**
@@ -959,17 +957,16 @@ function ctools_stylizer_edit_style_form_choose_submit(&$form, &$form_state) {
  * Even when not using this, styles should call through to this form in
  * their own edit forms.
  */
-function ctools_stylizer_edit_style_form_default(&$form, &$form_state) {
+function ctools_stylizer_edit_style_form_default($form, &$form_state) {
   ctools_add_js('stylizer');
   ctools_add_css('stylizer');
-  drupal_add_js('misc/farbtastic/farbtastic.js');
-  drupal_add_css('misc/farbtastic/farbtastic.css');
+  drupal_add_library('system', 'farbtastic');
 
-  $plugin = &$form_state['plugin'];
+  $plugin = &$form_state['base_style_plugin'];
   $settings = &$form_state['settings'];
 
   $form['top box'] = array(
-    '#prefix' => '<div id="ctools-stylizer-top-box" class="clear-block">',
+    '#prefix' => '<div id="ctools-stylizer-top-box" class="clearfix">',
     '#suffix' => '</div>',
   );
   $form['top box']['left'] = array(
@@ -992,11 +989,11 @@ function ctools_stylizer_edit_style_form_default(&$form, &$form_state) {
     $form['top box']['color'] = array(
       '#type' => 'fieldset',
       '#title' => t('Color scheme'),
-      '#attributes' => array('id' => 'ctools_stylizer_color_scheme_form', 'class' => 'ctools-stylizer-color-edit'),
+      '#attributes' => array('id' => 'ctools_stylizer_color_scheme_form', 'class' => array('ctools-stylizer-color-edit')),
       '#theme' => 'ctools_stylizer_color_scheme_form',
     );
 
-    $form['top box']['color']['palette']['#tree'] = true;
+    $form['top box']['color']['palette']['#tree'] = TRUE;
 
     foreach ($plugin['palette'] as $key => $color) {
       if (empty($settings['palette'][$key])) {
@@ -1019,24 +1016,27 @@ function ctools_stylizer_edit_style_form_default(&$form, &$form_state) {
   if (!empty($form_state['owner info']['owner form']) && function_exists($form_state['owner info']['owner form'])) {
     $form_state['owner info']['owner form']($form, $form_state);
   }
+
+  return $form;
 }
 
 /**
  * Theme the stylizer color scheme form.
  */
-function theme_ctools_stylizer_color_scheme_form($form) {
+function theme_ctools_stylizer_color_scheme_form($vars) {
+  $form = &$vars['form'];
   $output = '';
 
   // Wrapper
-  $output .= '<div class="color-form clear-block">';
+  $output .= '<div class="color-form clearfix">';
 
   // Color schemes
 //  $output .= drupal_render($form['scheme']);
 
   // Palette
-  $output .= '<div id="palette" class="clear-block">';
+  $output .= '<div id="palette" class="clearfix">';
   foreach (element_children($form['palette']) as $name) {
-    $output .= drupal_render($form['palette'][$name]);
+    $output .= render($form['palette'][$name]);
   }
   $output .= '</div>'; // palette
 
@@ -1048,8 +1048,10 @@ function theme_ctools_stylizer_color_scheme_form($form) {
 /**
  * Theme the stylizer preview form.
  */
-function theme_ctools_stylizer_preview_form($form) {
-  $plugin = $form['#form_state']['plugin'];
+function theme_ctools_stylizer_preview_form($vars) {
+  $form = &$vars['form'];
+
+  $plugin = $form['#form_state']['base_style_plugin'];
   $settings = $form['#form_state']['settings'];
 
   if (!empty($form['#form_state']['settings']['old_settings'])) {
@@ -1069,7 +1071,7 @@ function theme_ctools_stylizer_preview_form($form) {
   if (!empty($preview) && function_exists($preview)) {
     $output = '<fieldset id="preview"><legend>' . t('Preview') . '</legend>';
     $output .= $preview($plugin, $settings);
-    $output .= drupal_render($form);
+    $output .= drupal_render_children($form);
     $output .= '</fieldset>';
 
     return $output;
@@ -1081,8 +1083,8 @@ function ctools_stylizer_edit_style_form_default_validate($form, &$form_state) {
     $form_state['owner info']['owner form validate']($form, $form_state);
   }
 
-  if (!empty($form_state['plugin']['settings form validate']) && function_exists($form_state['plugin']['settings form validate'])) {
-    $form_state['plugin']['settings form validate']($form, $form_state);
+  if (!empty($form_state['base_style_plugin']['settings form validate']) && function_exists($form_state['base_style_plugin']['settings form validate'])) {
+    $form_state['base_style_plugin']['settings form validate']($form, $form_state);
   }
 }
 
@@ -1095,8 +1097,8 @@ function ctools_stylizer_edit_style_form_default_submit($form, &$form_state) {
     $form_state['owner info']['owner form submit']($form, $form_state);
   }
 
-  if (!empty($form_state['plugin']['settings form submit']) && function_exists($form_state['plugin']['settings form submit'])) {
-    $form_state['plugin']['settings form submit']($form, $form_state);
+  if (!empty($form_state['base_style_plugin']['settings form submit']) && function_exists($form_state['base_style_plugin']['settings form submit'])) {
+    $form_state['base_style_plugin']['settings form submit']($form, $form_state);
   }
 
   if ($form_state['clicked_button']['#value'] == t('Preview')) {
@@ -1120,7 +1122,7 @@ function ctools_stylizer_edit_style_form_default_submit($form, &$form_state) {
  */
 function ctools_stylizer_font_selector_form(&$form, &$form_state, $label, $settings) {
   // Family
-  $form['#prefix'] = '<div class="ctools-stylizer-spacing-form clear-block">';
+  $form['#prefix'] = '<div class="ctools-stylizer-spacing-form clearfix">';
   $form['#type'] = 'fieldset';
   $form['#title'] = $label;
   $form['#suffix'] = '</div>';
@@ -1422,7 +1424,7 @@ function ctools_stylizer_font_apply_style(&$stylesheet, $selector, $settings) {
  */
 function ctools_stylizer_border_selector_form(&$form, &$form_state, $label, $settings) {
   // Family
-  $form['#prefix'] = '<div class="ctools-stylizer-spacing-form clear-block">';
+  $form['#prefix'] = '<div class="ctools-stylizer-spacing-form clearfix">';
   $form['#type'] = 'fieldset';
   $form['#title'] = $label;
   $form['#suffix'] = '</div>';
@@ -1501,7 +1503,7 @@ function ctools_stylizer_border_apply_style(&$stylesheet, $selector, $settings, 
  */
 function ctools_stylizer_padding_selector_form(&$form, &$form_state, $label, $settings) {
   // Family
-  $form['#prefix'] = '<div class="ctools-stylizer-spacing-form clear-block">';
+  $form['#prefix'] = '<div class="ctools-stylizer-spacing-form clearfix">';
   $form['#type'] = 'fieldset';
   $form['#title'] = $label;
   $form['#suffix'] = '</div>';
@@ -1650,91 +1652,3 @@ function ctools_stylizer_padding_apply_style(&$stylesheet, $selector, $settings)
   }
 
 }
-
-/**
- * Check to see that a directory exists.
- *
- * This is an exact copy of core's, but without the stupid drupal_set_message
- * because we need this to be silent.
- *
- * @todo this should probably be in another file.
- */
-function ctools_file_check_directory(&$directory, $mode = 0, $form_item = NULL) {
-  $directory = rtrim($directory, '/\\');
-
-  // Check if directory exists.
-  if (!is_dir($directory)) {
-    if (($mode & FILE_CREATE_DIRECTORY) && @mkdir($directory)) {
-      @chmod($directory, 0775); // Necessary for non-webserver users.
-    }
-    else {
-      if ($form_item) {
-        form_set_error($form_item, t('The directory %directory does not exist.', array('%directory' => $directory)));
-      }
-      return FALSE;
-    }
-  }
-
-  // Check to see if the directory is writable.
-  if (!is_writable($directory)) {
-    if (($mode & FILE_MODIFY_PERMISSIONS) && @chmod($directory, 0775)) {
-      drupal_set_message(t('The permissions of directory %directory have been changed to make it writable.', array('%directory' => $directory)));
-    }
-    else {
-      form_set_error($form_item, t('The directory %directory is not writable', array('%directory' => $directory)));
-      watchdog('file system', 'The directory %directory is not writable, because it does not have the correct permissions set.', array('%directory' => $directory), WATCHDOG_ERROR);
-      return FALSE;
-    }
-  }
-
-  if ((file_directory_path() == $directory || file_directory_temp() == $directory) && !is_file("$directory/.htaccess")) {
-    $htaccess_lines = "SetHandler Drupal_Security_Do_Not_Remove_See_SA_2006_006\nOptions None\nOptions +FollowSymLinks";
-    if (($fp = fopen("$directory/.htaccess", 'w')) && fputs($fp, $htaccess_lines)) {
-      fclose($fp);
-      chmod($directory .'/.htaccess', 0664);
-    }
-    else {
-      $variables = array('%directory' => $directory, '!htaccess' => '<br />'. nl2br(check_plain($htaccess_lines)));
-      form_set_error($form_item, t("Security warning: Couldn't write .htaccess file. Please create a .htaccess file in your %directory directory which contains the following lines: <code>!htaccess</code>", $variables));
-      watchdog('security', "Security warning: Couldn't write .htaccess file. Please create a .htaccess file in your %directory directory which contains the following lines: <code>!htaccess</code>", $variables, WATCHDOG_ERROR);
-    }
-  }
-
-  return TRUE;
-}
-
-/**
- * Blend two hex colors and return the GD color.
- */
-function ctools_color_blend($img, $hex1, $hex2, $alpha) {
-  $in1 = ctools_color_unpack($hex1);
-  $in2 = ctools_color_unpack($hex2);
-  $out = array($img);
-  for ($i = 0; $i < 3; ++$i) {
-    $out[] = $in1[$i] + ($in2[$i] - $in1[$i]) * $alpha;
-  }
-  return call_user_func_array('imagecolorallocate', $out);
-}
-
-/**
- * Convert a hex color into an RGB triplet.
- */
-function ctools_color_unpack($hex, $normalize = false) {
-  if (strlen($hex) == 4) {
-    $hex = $hex[1] . $hex[1] . $hex[2] . $hex[2] . $hex[3] . $hex[3];
-  }
-  $c = hexdec($hex);
-  for ($i = 16; $i >= 0; $i -= 8) {
-    $out[] = (($c >> $i) & 0xFF) / ($normalize ? 255 : 1);
-  }
-  return $out;
-}
-
-/**
- * Convert a hex triplet into a GD color.
- */
-function ctools_color_gd($img, $hex) {
-  $c = array_merge(array($img), ctools_color_unpack($hex));
-  return call_user_func_array('imagecolorallocate', $c);
-}
-

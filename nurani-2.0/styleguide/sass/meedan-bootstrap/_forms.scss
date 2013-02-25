@@ -1,0 +1,109 @@
+
+// Default form -- include this in themes
+@mixin default-form($form-cols: $primary-cols - 2, $context: $primary-cols) {
+  @include form-layout($form-cols, $context);
+}
+
+// Main form layout  
+@mixin form-layout($form-cols, $context) {
+  @include columns($form-cols, $context);
+  @include leader-and-trailer(1, $medium-font-size);
+  @include leader-and-trailer(1, $medium-font-size, 1);
+  
+  h3 {
+    @include adjust-font-size-to($large-font-size);
+    color: $darker-gray;
+    text-transform: uppercase;
+  }
+  
+  section:hover {
+    h3 {
+      color: $form-primary-accent;
+    }
+    label {
+      color: black;
+    }
+  }
+  
+  // optionally put form elements inside a .row
+  .row {
+    padding: rhythm(0.5);
+    background: $light-gray;
+  }
+  
+  label { 
+    display: inline;
+    line-height: 1.5;
+    color: $darker-gray;
+  }
+
+  section {
+    @include columns($form-cols - 4, $form-cols);
+    float: $from-direction;
+    clear: none;
+
+    // include a leader but not on the first one 
+    @include leader(1, $medium-font-size, margin);
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  
+  // bevels but not on the first and last ones
+  @include bevels;
+  
+  // collections of radios or checkboxes
+  fieldset { 
+    label {
+      float: $from-direction;
+      clear: both;
+      @include leader(0.5, $small-font-size);
+      @include en-sans-font-stack;
+      background-color: $dark-gray;
+      @include border-radius(4px);
+      padding: 1%;
+      float: $from-direction;
+      clear: none;
+      margin-#{opposite-position($from-direction)}: 1%;
+    }
+  }
+  
+  legend{ }
+  
+  input, textarea {
+    padding: 0.5%;
+    width: 99%;
+    @include adjust-font-size-to($large-font-size);
+    @include en-sans-font-stack;
+  }
+  
+  input {
+    
+    // submit button
+    &[type=submit] {
+      float: $from-direction;
+      clear: both;
+      @include adjust-font-size-to($large-font-size);
+      @include border-radius(10px);
+      @include leader-and-trailer(1, $large-font-size);
+      width: rhythm(4);
+    }
+    
+  }
+  
+  textarea {
+  }
+  
+  .row {
+    float: $from-direction;
+    clear: both;
+    @include columns($form-cols, $form-cols);
+    button {
+      @include leader(1, $medium-font-size, margin);
+    }
+    input[type="checkbox"], input[type="radio"] {
+      width: rhythm(1);
+      @include omega;
+    }
+  }
+}

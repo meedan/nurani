@@ -1,4 +1,3 @@
-// $Id: dropdown.js,v 1.3.2.1 2009/10/05 23:38:33 merlinofchaos Exp $
 /**
  * @file
  * Implement a simple, clickable dropdown menu.
@@ -23,15 +22,15 @@
  */
 
 (function ($) {
-  Drupal.behaviors.CToolsDropdown = function() {
-    $('div.ctools-dropdown:not(.ctools-dropdown-processed)')
-      .removeClass('ctools-dropdown-no-js')
-      .addClass('ctools-dropdown-processed')
-      .each(function() {
+  Drupal.behaviors.CToolsDropdown = {
+    attach: function() {
+      $('div.ctools-dropdown').once('ctools-dropdown', function() {
         var $dropdown = $(this);
         var open = false;
         var hovering = false;
         var timerID = 0;
+
+        $dropdown.removeClass('ctools-dropdown-no-js');
 
         var toggle = function(close) {
           // if it's open or we're told to close it, close it.
@@ -52,7 +51,8 @@
                 if (!hovering) {
                   open = false;
                   $("div.ctools-dropdown-container", $dropdown).slideUp(100);
-                }}, 500);
+                }
+              }, 500);
             }
           }
           else {
@@ -63,24 +63,25 @@
           }
         }
         $("a.ctools-dropdown-link", $dropdown).click(function() {
-            toggle();
-            return false;
-          });
+          toggle();
+          return false;
+        });
 
         $dropdown.hover(
-          function() {
-            hovering = true;
-          }, // hover in
-          function() { // hover out
-            hovering = false;
-            toggle(true);
-            return false;
-          });
-          // @todo -- just use CSS for this noise.
+            function() {
+              hovering = true;
+            }, // hover in
+            function() { // hover out
+              hovering = false;
+              toggle(true);
+              return false;
+            });
+        // @todo -- just use CSS for this noise.
         $("div.ctools-dropdown-container a").hover(
           function() { $(this).addClass('ctools-dropdown-hover'); },
           function() { $(this).removeClass('ctools-dropdown-hover'); }
-          );
+        );
       });
-  };
+    }
+  }
 })(jQuery);

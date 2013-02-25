@@ -1,34 +1,42 @@
-// $Id: jump-menu.js,v 1.1.2.2 2009/10/28 01:53:15 merlinofchaos Exp $
 
 (function($) {
-  Drupal.behaviors.CToolsJumpMenu = function(context) {
-    $('.ctools-jump-menu-hide:not(.ctools-jump-menu-processed)')
-      .addClass('ctools-jump-menu-processed')
-      .hide();
+  Drupal.behaviors.CToolsJumpMenu = {
+    attach: function(context) {
+      $('.ctools-jump-menu-hide')
+        .once('ctools-jump-menu')
+        .hide();
 
-    $('.ctools-jump-menu-change:not(.ctools-jump-menu-processed)')
-      .addClass('ctools-jump-menu-processed')
-      .change(function() {
-        var loc = $(this).val();
-        if (loc) {
-          location.href = loc;
-        }
-        return false;
-      });
+      $('.ctools-jump-menu-change')
+        .once('ctools-jump-menu')
+        .change(function() {
+          var loc = $(this).val();
+          var urlArray = loc.split('::');
+          if (urlArray[1]) {
+            location.href = urlArray[1];
+          }
+          else {
+            location.href = loc;
+          }
+          return false;
+        });
 
-    $('.ctools-jump-menu-button:not(.ctools-jump-menu-processed)')
-      .addClass('ctools-jump-menu-processed')
-      .click(function() {
-        // Instead of submitting the form, just perform the redirect.
+      $('.ctools-jump-menu-button')
+        .once('ctools-jump-menu')
+        .click(function() {
+          // Instead of submitting the form, just perform the redirect.
 
-        // Find our sibling value.
-        var $select = $(this).parents('form').find('.ctools-jump-menu-select');
-        var loc = $select.val();
-        if (loc) {
-          location.href = loc;
-        }
-        return false;
-      });
-  };
-
+          // Find our sibling value.
+          var $select = $(this).parents('form').find('.ctools-jump-menu-select');
+          var loc = $select.val();
+          var urlArray = loc.split('::');
+          if (urlArray[1]) {
+            location.href = urlArray[1];
+          }
+          else {
+            location.href = loc;
+          }
+          return false;
+        });
+    }
+  }
 })(jQuery);

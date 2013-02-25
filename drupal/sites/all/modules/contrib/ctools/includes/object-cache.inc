@@ -1,5 +1,4 @@
 <?php
-// $Id: object-cache.inc,v 1.8.2.3 2010/07/22 22:33:34 merlinofchaos Exp $
 
 /**
  * @file
@@ -17,27 +16,36 @@
  * will not result in multiple database reads.
  *
  * @param $obj
- *   A 32 character or less string to define what kind of object is being
+ *   A 128 character or less string to define what kind of object is being
  *   stored; primarily this is used to prevent collisions.
  * @param $name
  *   The name of the object being stored.
  * @param $skip_cache
  *   Skip the memory cache, meaning this must be read from the db again.
+ * @param $sid
+ *   The session id, allowing someone to use Session API or their own solution;
+ *   defaults to session_id().
  *
+ * @deprecated $skip_cache is deprecated in favor of drupal_static*
  * @return
  *   The data that was cached.
  */
-function ctools_object_cache_get($obj, $name, $skip_cache = FALSE) {
-  $cache = &ctools_static(__FUNCTION__, array());
+function ctools_object_cache_get($obj, $name, $skip_cache = FALSE, $sid = NULL) {
+  $cache = &drupal_static(__FUNCTION__, array());
   $key = "$obj:$name";
   if ($skip_cache) {
     unset($cache[$key]);
   }
 
+  if (!$sid) {
+    $sid = session_id();
+  }
+
   if (!array_key_exists($key, $cache)) {
-    $data = db_fetch_object(db_query("SELECT * FROM {ctools_object_cache} WHERE sid = '%s' AND obj = '%s' AND name = '%s'", session_id(), $obj, $name));
+    $data = db_query('SELECT * FROM {ctools_object_cache} WHERE sid = :session_id AND obj = :object AND name = :name', array(':session_id' => $sid, ':object' => $obj, ':name' => $name))
+      ->fetchObject();
     if ($data) {
-      $cache[$key] = unserialize(db_decode_blob($data->data));
+      $cache[$key] = unserialize($data->data);
     }
   }
   return isset($cache[$key]) ? $cache[$key] : NULL;
@@ -47,14 +55,17 @@ function ctools_object_cache_get($obj, $name, $skip_cache = FALSE) {
  * Store an object in the non-volatile ctools cache.
  *
  * @param $obj
- *   A 32 character or less string to define what kind of object is being
+ *   A 128 character or less string to define what kind of object is being
  *   stored; primarily this is used to prevent collisions.
  * @param $name
  *   The name of the object being stored.
  * @param $cache
  *   The object to be cached. This will be serialized prior to writing.
+ * @param $sid
+ *   The session id, allowing someone to use Session API or their own solution;
+ *   defaults to session_id().
  */
-function ctools_object_cache_set($obj, $name, $cache) {
+function ctools_object_cache_set($obj, $name, $cache, $sid = NULL) {
   // Store the CTools session id in the user session to force a
   // session for anonymous users in Drupal 7 and Drupal 6 Pressflow.
   // see http://drupal.org/node/562374, http://drupal.org/node/861778
@@ -62,24 +73,48 @@ function ctools_object_cache_set($obj, $name, $cache) {
     $_SESSION['ctools_hold_session'] = TRUE;
   }
 
-  ctools_object_cache_clear($obj, $name);
-  db_query("INSERT INTO {ctools_object_cache} (sid, obj, name, data, updated) VALUES ('%s', '%s', '%s', %b, %d)", session_id(), $obj, $name, serialize($cache), time());
+  ctools_object_cache_clear($obj, $name, $sid);
+
+  if (!$sid) {
+    $sid = session_id();
+  }
+
+  db_insert('ctools_object_cache')
+    ->fields(array(
+      'sid' => $sid,
+      'obj' => $obj,
+      'name' => $name,
+      'data' => serialize($cache),
+      'updated' => REQUEST_TIME,
+    ))
+    ->execute();
 }
 
 /**
  * Remove an object from the non-volatile ctools cache
  *
  * @param $obj
- *   A 32 character or less string to define what kind of object is being
+ *   A 128 character or less string to define what kind of object is being
  *   stored; primarily this is used to prevent collisions.
  * @param $name
  *   The name of the object being removed.
+ * @param $sid
+ *   The session id, allowing someone to use Session API or their own solution;
+ *   defaults to session_id().
  */
-function ctools_object_cache_clear($obj, $name) {
-  db_query("DELETE FROM {ctools_object_cache} WHERE sid = '%s' AND obj = '%s' AND name = '%s'", session_id(), $obj, $name);
+function ctools_object_cache_clear($obj, $name, $sid = NULL) {
+
+  if (!$sid) {
+    $sid = session_id();
+  }
+
+  db_delete('ctools_object_cache')
+    ->condition('sid', $sid)
+    ->condition('obj', $obj)
+    ->condition('name', $name)
+    ->execute();
   // Ensure the static cache is emptied of this obj:name set.
-  $cache = &ctools_static('ctools_object_cache_get', array());
-  unset($cache["$obj:$name"]);
+  drupal_static_reset('ctools_object_cache_get');
 }
 
 
@@ -90,16 +125,25 @@ function ctools_object_cache_clear($obj, $name) {
  * modify them.
  *
  * @param $obj
- *   A 32 character or less string to define what kind of object is being
+ *   A 128 character or less string to define what kind of object is being
  *   stored; primarily this is used to prevent collisions.
  * @param $name
  *   The name of the object being removed.
+ * @param $sid
+ *   The session id, allowing someone to use Session API or their own solution;
+ *   defaults to session_id().
  *
  * @return
  *   An object containing the UID and updated date if found; NULL if not.
  */
-function ctools_object_cache_test($obj, $name) {
-  return db_fetch_object(db_query("SELECT s.uid, c.updated FROM {ctools_object_cache} c INNER JOIN {sessions}  s ON c.sid = s.sid WHERE s.sid != '%s' AND c.obj = '%s' AND c.name = '%s' ORDER BY c.updated ASC", session_id(), $obj, $name));
+function ctools_object_cache_test($obj, $name, $sid = NULL) {
+
+  if (!$sid) {
+    $sid = session_id();
+  }
+
+  return db_query('SELECT s.uid, c.updated FROM {ctools_object_cache} c INNER JOIN {sessions} s ON c.sid = s.sid WHERE s.sid <> :session_id AND c.obj = :obj AND c.name = :name ORDER BY c.updated ASC', array(':session_id' => $sid, ':obj' => $obj, ':name' => $name))
+    ->fetchObject();
 }
 
 /**
@@ -109,7 +153,7 @@ function ctools_object_cache_test($obj, $name) {
  * an an administration UI.
  *
  * @param $obj
- *   A 32 character or less string to define what kind of object is being
+ *   A 128 character or less string to define what kind of object is being
  *   stored; primarily this is used to prevent collisions.
  * @param $names
  *   An array of names of objects
@@ -118,16 +162,8 @@ function ctools_object_cache_test($obj, $name) {
  *   An array of objects containing the UID and updated date for each name found.
  */
 function ctools_object_cache_test_objects($obj, $names) {
-  $placeholders = db_placeholders($names, 'varchar');
-  $args = array_merge(array($obj), $names);
-  $result = db_query("SELECT c.name, s.uid, c.updated FROM {ctools_object_cache} c INNER JOIN {sessions}  s ON c.sid = s.sid WHERE c.obj = '%s' AND c.name IN ($placeholders) ORDER BY c.updated ASC", $args);
-
-  $return = array();
-  while ($test = db_fetch_object($result)) {
-    $return[$test->name] = $test;
-  }
-
-  return $return;
+  return db_query("SELECT c.name, s.uid, c.updated FROM {ctools_object_cache} c INNER JOIN {sessions} s ON c.sid = s.sid WHERE c.obj = :obj AND c.name IN (:names) ORDER BY c.updated ASC", array(':obj' => $obj, ':names' => $names))
+    ->fetchAllAssoc('name');
 }
 
 /**
@@ -136,15 +172,18 @@ function ctools_object_cache_test_objects($obj, $names) {
  * This is useful for clearing a lock.
  *
  * @param $obj
- *   A 32 character or less string to define what kind of object is being
+ *   A 128 character or less string to define what kind of object is being
  *   stored; primarily this is used to prevent collisions.
  * @param $name
  *   The name of the object being removed.
  */
 function ctools_object_cache_clear_all($obj, $name) {
-  db_query("DELETE FROM {ctools_object_cache} WHERE obj = '%s' AND name = '%s'", $obj, $name);
+  db_delete('ctools_object_cache')
+    ->condition('obj', $obj)
+    ->condition('name', $name)
+    ->execute();
   // Ensure the static cache is emptied of this obj:name set.
-  $cache = &ctools_static('ctools_object_cache_get', array());
+  $cache = &drupal_static('ctools_object_cache_get', array());
   unset($cache["$obj:$name"]);
 }
 
@@ -160,5 +199,7 @@ function ctools_object_cache_clean($age = NULL) {
   if (empty($age)) {
     $age = 86400 * 7; // 7 days
   }
-  db_query("DELETE FROM {ctools_object_cache} WHERE updated < %d", time() - $age);
+  db_delete('ctools_object_cache')
+    ->condition('updated', REQUEST_TIME - $age, '<')
+    ->execute();
 }

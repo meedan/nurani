@@ -1,5 +1,4 @@
 <?php
-// $Id: node_comment_form.inc,v 1.1.2.3 2010/07/23 22:56:22 merlinofchaos Exp $
 
 if (module_exists('comment')) {
   /**
@@ -13,12 +12,12 @@ if (module_exists('comment')) {
     'description' => t('A form to add a new comment.'),
     'required context' => new ctools_context_required(t('Node'), 'node'),
     'category' => t('Node'),
-    'defaults' => array('anon_links' => false),
+    'defaults' => array('anon_links' => FALSE),
   );
 }
 
 function ctools_node_comment_form_content_type_render($subtype, $conf, $panel_args, $context) {
-  $node = isset($context->data) ? drupal_clone($context->data) : NULL;
+  $node = isset($context->data) ? clone($context->data) : NULL;
   $block = new stdClass();
   $block->module = 'comments';
   $block->delta  = $node->nid;
@@ -28,18 +27,24 @@ function ctools_node_comment_form_content_type_render($subtype, $conf, $panel_ar
   if (empty($node)) {
     $block->content = t('Comment form here.');
   }
-  else {
-    if (user_access('post comments') && node_comment_mode($node->nid) == COMMENT_NODE_READ_WRITE) {
-      ctools_include('form');
+  else if ($node->comment == COMMENT_NODE_OPEN) {
+    if (user_access('post comments')) {
+      $comment = new stdClass();
+      $comment->nid = $node->nid;
+      $comment->pid = NULL;
       $form_state = array(
         'ctools comment alter' => TRUE,
         'node' => $node,
-        'args' => array(array('nid' => $node->nid))
+        'build_info' => array(
+          'args' => array(
+            $comment,
+          ),
+        ),
       );
-      $block->content = ctools_build_form('comment_form', $form_state);
+      $block->content = drupal_build_form('comment_node_' . $node->type . '_form', $form_state);
     }
     else if (!empty($conf['anon_links'])) {
-      $block->content = theme('comment_post_forbidden', $node);
+      $block->content = theme('comment_post_forbidden', array('node' => $node));
     }
   }
 
@@ -50,16 +55,17 @@ function ctools_node_comment_form_content_type_admin_title($subtype, $conf, $con
   return t('"@s" comment form', array('@s' => $context->identifier));
 }
 
-function ctools_node_comment_form_content_type_edit_form(&$form, &$form_state) {
+function ctools_node_comment_form_content_type_edit_form($form, &$form_state) {
   $form['anon_links'] = array(
     '#type'  => 'checkbox',
     '#title' => t('Shows links to register or login.'),
     '#description' => t('If anonymous comments are not allowed, this will display the register and login links.'),
     '#default_value' => $form_state['conf']['anon_links'],
   );
+  return $form;
 }
 
-function ctools_node_comment_form_content_type_edit_form_submit(&$form, &$form_state) {
+function ctools_node_comment_form_content_type_edit_form_submit($form, &$form_state) {
   // For each part of the form defined in the 'defaults' array set when you
   // defined the content type, copy the value from the form into the array
   // of items to be saved. We don't ever want to use

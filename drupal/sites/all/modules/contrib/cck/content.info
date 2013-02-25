@@ -1,4 +1,0 @@
-name = Content
-description = Allows administrators to define new content types.
-package = CCK
-core = 6.x

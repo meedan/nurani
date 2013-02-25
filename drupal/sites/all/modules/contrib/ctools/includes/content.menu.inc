@@ -1,5 +1,4 @@
 <?php
-// $Id: content.menu.inc,v 1.2.2.1 2010/05/20 01:43:03 sdboyer Exp $
 
 /**
  * @file
@@ -15,40 +14,62 @@ function ctools_content_menu(&$items) {
     'type' => MENU_CALLBACK,
     'file' => 'includes/content.menu.inc',
   );
-  $items['ctools/autocomplete/node'] = array(
-    'page callback' => 'ctools_content_autocomplete_node',
+  $items['ctools/autocomplete/%'] = array(
+    'page callback' => 'ctools_content_autocomplete_entity',
+    'page arguments' => array(2),
   ) + $base;
 }
 
 /**
- * Helper function for autocompletion of node titles.
+ * Helper function for autocompletion of entity titles.
  */
-function ctools_content_autocomplete_node($string) {
+function ctools_content_autocomplete_entity($type, $string = '') {
+  $entity = entity_get_info($type);
   if ($string != '') {
-    $preg_matches = array();
-    $match = preg_match('/\[nid: (\d+)\]/', $string, $preg_matches);
-    if (!$match) {
-      $match = preg_match('/^nid: (\d+)/', $string, $preg_matches);
-    }
-    if ($match) {
-      $arg = $preg_matches[1];
-      $where = "n.nid = %d";
+    // @todo verify the query logic here, it's untested.
+    // Set up the query
+    $query = db_select($entity['base table'], 'b');
+    if ($entity['entity keys']['label']) {
+      $query->fields('b', array($entity['entity keys']['id'], $entity['entity keys']['label']))->range(0, 10);
     }
     else {
-      $arg = $string;
-      $where = "LOWER(n.title) LIKE LOWER('%%%s%%')";
-    }
-    if (!user_access('administer nodes')) {
-      $where .= ' AND n.status = 1';
+      $query->fields('b', array($entity['entity keys']['id']))->range(0, 10);
     }
 
-    $result = db_query_range(db_rewrite_sql("SELECT n.nid, n.title, u.name FROM {node} n INNER JOIN {users} u ON u.uid = n.uid WHERE $where"), $arg, 0, 10);
+    $preg_matches = array();
+    $match = preg_match('/\[id: (\d+)\]/', $string, $preg_matches);
+    if (!$match) {
+      $match = preg_match('/^id: (\d+)/', $string, $preg_matches);
+    }
+    if ($match) {
+      $query->condition('b.' . $entity['entity keys']['id'], $preg_matches[1]);
+    }
+    elseif ($entity['entity keys']['label']) {
+      $query->condition('b.' . $entity['entity keys']['label'], '%' . db_like($string) . '%', 'LIKE');
+    }
 
     $matches = array();
-    while ($node = db_fetch_object($result)) {
-      $name = empty($node->name) ? variable_get('anonymous', t('Anonymous')) : check_plain($node->name);
-      $matches[$node->title . " [nid: $node->nid]"] = '<span class="autocomplete_title">' . check_plain($node->title) . '</span> <span class="autocomplete_user">(' . t('by @user', array('@user' => $name)) . ')</span>';
+    if ($type == 'node') {
+      $query->addTag('node_access');
+      $query->join('users', 'u', 'b.uid = u.uid');
+      $query->addField('u', 'name', 'name');
+
+      foreach ($query->execute() as $nodeish) {
+        $name = empty($nodeish->name) ? variable_get('anonymous', t('Anonymous')) : check_plain($nodeish->name);
+        $matches[$nodeish->title . " [id: $nodeish->nid]"] = '<span class="autocomplete_title">' . check_plain($nodeish->title) . '</span> <span class="autocomplete_user">(' . t('by @user', array('@user' => $name)) . ')</span>';
+      }
     }
-    drupal_json($matches);
+    else {
+      foreach ($query->execute() as $item) {
+        $id = $item->{$entity['entity keys']['id']};
+        if ($entity['entity keys']['label']) {
+          $matches[$item->{$entity['entity keys']['label']} . " [id: $id]"] = '<span class="autocomplete_title">' . check_plain($item->{$entity['entity keys']['label']}) . '</span>';
+        }
+        else {
+          $matches["[id: $id]"] = '<span class="autocomplete_title">' . check_plain($item->{$entity['entity keys']['id']}) . '</span>';
+        }
+      }
+    }
+    drupal_json_output($matches);
   }
 }

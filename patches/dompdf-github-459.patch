@@ -1,0 +1,14 @@
+diff --git a/drupal/sites/all/libraries/dompdf/lib/class.pdf.php b/drupal/sites/all/libraries/dompdf/lib/class.pdf.php
+index 948b303..f605c33 100644
+--- a/drupal/sites/all/libraries/dompdf/lib/class.pdf.php
++++ b/drupal/sites/all/libraries/dompdf/lib/class.pdf.php
+@@ -4326,7 +4326,8 @@ EOT;
+       $imagick->setFormat('png');
+       
+       // Get opacity channel (negative of alpha channel)
+-      $alpha_channel = clone $imagick;
++      $alpha_channel = new Imagick($file);
++      $alpha_channel->setFormat('png');
+       $alpha_channel->separateImageChannel(Imagick::CHANNEL_ALPHA);
+       $alpha_channel->negateImage(true);
+       $alpha_channel->writeImage($tempfile_alpha);
