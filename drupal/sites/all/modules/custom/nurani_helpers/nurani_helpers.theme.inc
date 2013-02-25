@@ -51,7 +51,7 @@ function theme_nurani_helpers_block_recent_annotations($variables) {
 
       $output .= '<div class="annotation">';
       $output .=   $action;
-      $output .=   '<div class="contents">';
+      $output .=   '<div class="contents expandable" data-slice-point="200">';
       $output .=   check_plain($annotation['value']);
       $output .=   '</div>';
       $output .= '</div>';
