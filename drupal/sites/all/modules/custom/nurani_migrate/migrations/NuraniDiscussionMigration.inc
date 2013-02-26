@@ -119,6 +119,7 @@ class NuraniDiscussionMigration extends NuraniMigration {
   }
 
   public function prepare($node, $row) {
+    $node->revision = FALSE;
     $node->meedan_discussion_permissions = array(
       'anonymous'     => MEEDAN_DISCUSSION_PERMISSIONS_NONE,
       'authenticated' => MEEDAN_DISCUSSION_PERMISSIONS_NONE,

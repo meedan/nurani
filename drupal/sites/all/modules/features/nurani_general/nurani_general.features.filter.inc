@@ -29,7 +29,7 @@ function nurani_general_filter_default_formats() {
         'weight' => '-47',
         'status' => '1',
         'settings' => array(
-          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <sup>',
+          'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd> <sup> <p>',
           'filter_html_help' => 1,
           'filter_html_nofollow' => 0,
         ),
