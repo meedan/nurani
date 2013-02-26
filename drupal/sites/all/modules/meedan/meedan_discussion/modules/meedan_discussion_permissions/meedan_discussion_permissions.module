@@ -187,6 +187,16 @@ function meedan_discussion_permissions_node_access_records($node) {
   $grants = array();
   $perm = _meedan_discussion_permissions_expand_perm($node->meedan_discussion_permissions);
 
+  // Default level is no permissions at all
+  $grants[] = array(
+    'realm' => 'meedan_discussion',
+    'gid' => 0,
+    'grant_view'   => 0,
+    'grant_update' => 0,
+    'grant_delete' => 0,
+    'priority'     => 0,
+  );
+
   if ($perm['anonymous'] > MEEDAN_DISCUSSION_PERMISSIONS_NONE) {
     $grants[] = array(
       'realm' => 'meedan_discussion',
@@ -207,6 +217,22 @@ function meedan_discussion_permissions_node_access_records($node) {
       'priority'     => 0,
     );
   }
+  if ($perm['participant'] > MEEDAN_DISCUSSION_PERMISSIONS_NONE) {
+    foreach ($node->field_invitees[$node->language] as $delta => $item) {
+      $user_exists = (boolean) db_query("SELECT 1 FROM {users} WHERE uid = :uid", array(':uid' => $item['uid']))->fetchField();
+
+      if ($user_exists) {
+        $grants[] = array(
+          'realm' => 'meedan_discussion',
+          'gid' => _meedan_discussion_participant_realm($item['uid']),
+          'grant_view'   => 1,
+          'grant_update' => 0,
+          'grant_delete' => 0,
+          'priority'     => 0,
+        );
+      }
+    }
+  }
 
   return $grants;
 }
@@ -216,8 +242,18 @@ function meedan_discussion_permissions_node_access_records($node) {
  */
 function meedan_discussion_permissions_node_grants($account, $op) {
   $grants = array();
-  $grants['meedan_discussion'] = array_keys($account->roles);
+  $grants['meedan_discussion'] = array_merge(array_keys($account->roles), array(_meedan_discussion_participant_realm($account->uid)));
   return $grants;
+}
+
+/**
+ * Determines the realm for a user ID.
+ *
+ * Currently this is just the user ID + 1000 which is safely distance from
+ * most common role IDs.
+ */
+function _meedan_discussion_participant_realm($uid) {
+  return 1000 + $uid;
 }
 
 /**
