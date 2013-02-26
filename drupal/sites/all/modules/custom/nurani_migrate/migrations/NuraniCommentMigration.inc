@@ -67,7 +67,8 @@ class NuraniCommentMigration extends NuraniMigration {
          ->defaultValue(0);
     $this->addFieldMapping('subject', 'title');
     $this->addFieldMapping('comment_body', 'body')->callbacks(array($this, 'clean_comment_body'));
-    $this->addFieldMapping('comment_body:format', 'filtered_html');
+    $this->addFieldMapping('comment_body:format')->defaultValue('filtered_html');
+    $this->addFieldMapping('comment_body:language')->defaultValue(LANGUAGE_NONE);
     $this->addFieldMapping('hostname', 'hostname');
     $this->addFieldMapping('created', 'created');
     $this->addFieldMapping('changed', 'changed');
@@ -80,14 +81,12 @@ class NuraniCommentMigration extends NuraniMigration {
     $this->addFieldMapping('language')->defaultValue(LANGUAGE_NONE);
 
     // Unmapped destination fields
-    $this->addUnmigratedDestinations(array('cid', 'pid', 'thread', 'comment_body:language'));
+    $this->addUnmigratedDestinations(array('cid', 'pid', 'thread'));
   }
 
   public function clean_comment_body($body) {
-    $body = preg_replace('@</p>@', "</p>\n\n", $body);
-    $body = strip_tags($body);
-    $body = str_replace('&nbsp;', ' ', $body);
-    $body = html_entity_decode($body, ENT_QUOTES, 'UTF-8');
-    return $body;
+    // Ensure only allowed HTML gets through
+    return check_markup($body, 'filtered_html', 'en');
   }
+
 }
