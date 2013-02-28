@@ -40776,5 +40776,14 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'plid' => '4302',
     'plural' => '1',
   );
+  $translations['ar:field'][5857] = array(
+    'lid' => '5857',
+    'source' => '20 - 25',
+    'context' => 'field_age:#allowed_values:20-25',
+    'location' => 'field:field_age:#allowed_values:20-25',
+    'translation' => '20 - 25',
+    'plid' => '0',
+    'plural' => '0',
+  );
   return $translations;
 }
