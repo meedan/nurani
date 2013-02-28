@@ -3,17 +3,17 @@
 .comment-inner{
   padding:35px;
   .user-picture{
-    float:left;
+    float:$from-direction;
     margin:0 1em 0 -1em;
     a{
-      float:left;
+      float:$from-direction;
     }
   }
   .content{    	
    
     color:$nurani-text-gray;
     .attribution{ 
-      float:right;
+      float:opposite-position($from-direction);
       @include attribution($nurani-light-blue);
     }
   }

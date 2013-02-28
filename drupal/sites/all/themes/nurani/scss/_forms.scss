@@ -72,11 +72,11 @@ input.date-clear{
   .field-type-list-text,.field-type-text, .field-type-datetime,
   #edit-picture, .form-type-textarea, .form-item-mail{
     display:inline-block;
-    float:left;
-    margin-right:30px;
+    float:$from-direction;
+    margin-#{opposite-position($from-direction)}:30px;
   }
   .field-type-datetime{
-    clear:left;
+    clear:$from-direction;
   }
 
   .field-name-field-title,
@@ -102,20 +102,20 @@ input.date-clear{
   }
 
   #field-date-of-birth-add-more-wrapper{
-    margin-left:-16px;
+    margin-#{$from-direction}:-16px;
     margin-top:20px;
   }
   
   .date-no-float {
     margin-top:-16px;
-    margin-left:-11px;
+    margin-#{$from-direction}:-11px;
   }
    .field-group-fieldset, #edit-legal{
      & > legend{
        text-align:center;
        background:url(../images/bevel.jpg);
        width: 100%;
-       margin-right: 1.69492%;
+       margin-#{opposite-position($from-direction)}: 1.69492%;
        display: inline;
 
        .fieldset-legend{
@@ -171,7 +171,7 @@ input.date-clear{
 
 
   input.form-submit{
-    margin-left:12px;
+    margin-#{$from-direction}:12px;
     margin-top:30px;
   }
   
@@ -202,14 +202,14 @@ input.date-clear{
       .field-name-field-first-name, 
       .field-name-field-last-name, .field-name-field-date-of-birth{
         display:inline-block;
-        margin-right:5px;
-        float:left;
+        margin-#{opposite-position($from-direction)}:5px;
+        float:$from-direction;
         input.text-full,select{
           width:120px;
         }
       }
 
-      #edit-account {float:left; width:90%; clear:both}
+      #edit-account {float:$from-direction; width:90%; clear:both}
 
       #edit-overlay-control{
         clear:both;
@@ -218,8 +218,8 @@ input.date-clear{
     #edit-account{
       .form-item{ 
         width:200px;
-        float:left;
-        margin-right:51px;
+        float:$from-direction;
+        margin-#{opposite-position($from-direction)}:51px;
          input[type=text]{ 
           width:200px;
         }
@@ -244,8 +244,8 @@ input.date-clear{
     .field-name-field-landline-phone, 
     .field-name-field-mobile-phone{
       width:40%;
-      float:left; 
-      margin-right:30px;
+      float:$from-direction; 
+      margin-#{opposite-position($from-direction)}:30px;
     }
 
     
@@ -280,7 +280,7 @@ input.date-clear{
 /* buttons */
  .form-actions{
     display:inline; 
-    margin-right:10px;
+    margin-#{opposite-position($from-direction)}:10px;
   }
 
  a{

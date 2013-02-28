@@ -1,15 +1,15 @@
 
 @mixin passage-text-boxes{
   @include border($nurani-red, top, 5px);
-  @include border($nurani-gray, left, 1px);
+  @include border($nurani-gray, $from-direction, 1px);
   @include border($nurani-gray, bottom, 1px);
-  @include border($nurani-gray, right, 1px);
+  @include border($nurani-gray, opposite-position($from-direction), 1px);
   background:$nurani-salmon-color;
 
   .error {
     margin-top: 2em;
     background-repeat: no-repeat;
-    background-position: top-left;
+    background-position: top-#{$from-direction};
     padding: 0 0 0 2em;
     background-color: transparent;
 
@@ -40,8 +40,8 @@
         }
         span.attribution{
           margin-top: -1em;
-          padding-right: 20px;
-          float: right;
+          padding-#{opposite-position($from-direction)}: 20px;
+          float: opposite-position($from-direction);
           @include attribution($nurani-light-blue);
         }
       }

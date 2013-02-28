@@ -1,4 +1,3 @@
-
 @import "../../bowerbird/framework/stylesheets/bowerbird";
 @import "susy";
 @import "breakpoint";
@@ -8,6 +7,9 @@
 /*global variables*/ 
 @import "variables";
 
+// Override Susy variables for bidirectional support
+$alpha: $from-direction;
+$omega: opposite-position($from-direction);
 
 @import "helpers/nurani-button";
 @import "helpers/boxes";

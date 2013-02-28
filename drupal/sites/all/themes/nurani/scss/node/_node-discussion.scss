@@ -9,13 +9,13 @@
 
 .node-discussion{
   .passage-boxes > .inner {
-    @include span-columns(16,18);
+    @include span-columns(16, 18);
     float:none;
 
   }
   .passage-box{
     margin-top: 2em;
-	  @include span-columns(6,18);
+	  @include span-columns(6, 18);
 	  &:nth-child(3n) { @include omega; } //every 3rd box completes a row	
   }
   .inner{
@@ -23,9 +23,9 @@
       @include passage-text-boxes;
 	  }
     .bib{
-      @include span-columns(5,6, $gutter-width/2);
+      @include span-columns(5, 6, $gutter-width / 2);
       margin-top: -1em; 
-      margin-#{$from-direction}: columns(1,6); // default value is left, so this means margin-left.
+      margin-#{$from-direction}: columns(1,6); // default value is left, so this means margin-#{left}.
       border: 1px solid $nurani-gray;
 	  }
   }
@@ -42,7 +42,7 @@
     font-size:11px;
     color:$nurani-text-gray;
     margin-bottom:1em;
-    margin-right:1em;
+    margin-#{opposite-position($from-direction)}:1em;
     &:hover{
       color:$nurani-text-gray;
     }
@@ -53,15 +53,15 @@
 
 #block-views-nurani_comment_list-block {
   h2{
-    text-align:left;
+    text-align:$from-direction;
     margin-bottom: 2px;
     padding:8px 0;
   }
-  margin-left:80px;
+  margin-#{$from-direction}:80px;
 
   .comment-number{ 
     position: absolute;
-    left: -80px;
+    #{$from-direction}: -80px;
     margin-top: 46px;
     font-size: 3.5em;
     opacity: 0.5;
@@ -83,7 +83,7 @@
     
     .new{
       position: absolute;
-      left: -50px;
+      #{$from-direction}: -50px;
       margin-top: -39px;
       background-color: $nurani-light-blue;
       text-align:center;
@@ -101,7 +101,7 @@
 	height: 0;
 	position: absolute;
 	width: 0;
-	right: -5px;
+	#{opposite-position($from-direction)}: -5px;
     top: 12px;
 	border: 10px solid transparent;
 	border-top-color: $nurani-burgundy;
@@ -112,12 +112,12 @@
 
 .nurani-sort-links{
   position:relative;
-  float: right;
+  float: opposite-position($from-direction);
   font-size: 2.1429em;
   margin-top: -35px;
   a{
     color: $nurani-burgundy;
-    padding-right: 20px;
+    padding-#{opposite-position($from-direction)}: 20px;
     display:block;
     text-decoration:none;
     opacity:0.5;
@@ -147,14 +147,14 @@
     div.head{
 
       .user-picture{
-        float:left;
+        float:$from-direction;
         a{
-          float:left;
+          float:$from-direction;
         }
       }
 
       .info{
-        margin-left:6em;
+        margin-#{$from-direction}:6em;
         @include username-links(#fff);
       }
 
@@ -175,12 +175,12 @@
       text-transform: uppercase;
       text-decoration: none;
       font-weight: bold;
-      margin-right:0.5em;
+      margin-#{opposite-position($from-direction)}:0.5em;
       display:inline;
     }
 
     .form-actions {
-      float:right;
+      float:opposite-position($from-direction);
     }
   }
 /******************************************** Styling Discussion info section ********************************************/
@@ -188,7 +188,7 @@
   background:url(../images/clock-icon.png) no-repeat;
   margin-bottom:2em;
   .content{
-    margin-left:3em;
+    margin-#{$from-direction}:3em;
     @include styling-pdf-discussion-lock;
 
   }
@@ -200,7 +200,7 @@
 
 .view-meedan-discussion-participants{
   & > .view-content > .views-row{ 
-    float:left;
+    float:$from-direction;
     clear:both;
     margin-bottom:1em;
   }
@@ -208,11 +208,11 @@
     margin-bottom: 4em;
 
     .views-field-picture{ 
-      float:left;
+      float:$from-direction;
     }
     .views-field-name, 
     .views-field-cid { 
-      margin-left:5em;
+      margin-#{$from-direction}:5em;
       @include username-links($nurani-light-blue);
     }
   } 

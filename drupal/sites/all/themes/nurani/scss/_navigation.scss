@@ -2,7 +2,7 @@
   #block-nurani_helpers-welcome_login{
     margin-top:-31px;
     width:25%;
-    float:right;
+    float:opposite-position($from-direction);
     font-size:1.2em;
     color:$nurani-text-gray;
 
@@ -11,7 +11,7 @@
     }
 
     .logout, .login{ 
-      margin-left:50px;
+      margin-#{$from-direction}:50px;
       font-weight: bold;
       text-transform:uppercase;
       a{
@@ -33,7 +33,7 @@
       a{
         /*font-size:1.625em;*/
         font-size:1.5em;
-        float: left;
+        float: $from-direction;
         display: block;
         padding: 0 5px;
         margin: 0 1px 0 0;

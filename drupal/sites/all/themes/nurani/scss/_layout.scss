@@ -61,14 +61,14 @@ body{
 
     #content-bottom{
 
-      #content-bottom-left{
-        float:left;
-        @include span-columns(11,18);
+      #content-bottom-left {
+        float:$from-direction;
+        @include span-columns(11, 18);
       }
     
-      #content-bottom-right{
-        float:left;
-        @include span-columns(6 omega,18);
+      #content-bottom-right {
+        float:$from-direction;
+        @include span-columns(6 omega, 18);
       }
     }
 }
@@ -96,7 +96,7 @@ body{
 
     .region-content{
       padding:10px 40px 0 40px;
-      text-align: left;
+      text-align: $from-direction;
     } 
 
   }
