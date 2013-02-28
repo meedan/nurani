@@ -92,6 +92,28 @@ function nurani_general_views_default_views() {
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $translatables['nurani_comment_list'] = array(
+    t('Master'),
+    t('Latest responses'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('This discussion has no responses yet. Be the first to post a response!'),
+    t('Content'),
+    t('Thread'),
+    t('All'),
+    t('Block'),
+  );
   $export['nurani_comment_list'] = $view;
 
   $view = new view();
@@ -233,6 +255,32 @@ function nurani_general_views_default_views() {
   /* Display: My Discussions */
   $handler = $view->new_display('block', 'My Discussions', 'block');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $translatables['nurani_discussions'] = array(
+    t('Master'),
+    t('Your Discussions'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('You are currently not a participant in any discussions.'),
+    t('field_bundle'),
+    t('<h3> [title] </h3>
+<div> [field_discussion_closing_date][field_bundle]</div>'),
+    t('Download a PDF of the readings'),
+    t('.'),
+    t(','),
+    t('All'),
+    t('My Discussions'),
+  );
   $export['nurani_discussions'] = $view;
 
   return $export;
