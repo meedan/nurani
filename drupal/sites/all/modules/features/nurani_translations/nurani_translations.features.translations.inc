@@ -17853,6 +17853,15 @@ Unless you know what you are doing, it is highly recommended that you prefix the
     'plid' => '0',
     'plural' => '0',
   );
+  $translations['ar:default'][5233] = array(
+    'lid' => '5233',
+    'source' => 'You are currently not a participant in any discussions.',
+    'context' => '',
+    'location' => NULL,
+    'translation' => 'كنت حاليا لا أحد المشاركين في أي مناقشات.',
+    'plid' => '0',
+    'plural' => '0',
+  );
   $translations['ar:default'][114] = array(
     'lid' => '114',
     'source' => 'Unknown',
