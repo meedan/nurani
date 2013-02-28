@@ -1,0 +1,10 @@
+name = Nurani Translations
+description = Arabic, and other, translations of Nurani.org
+core = 7.x
+package = Nurani
+version = 7.x-1.0
+project = nurani_translations
+dependencies[] = i18n
+dependencies[] = l10n_update
+dependencies[] = features_translations
+features[features_api][] = api:1
