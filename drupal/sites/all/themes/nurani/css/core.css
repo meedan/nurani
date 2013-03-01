@@ -320,7 +320,7 @@ body .ui-dialog .ui-dialog-titlebar {
   -o-border-radius: 0.2em;
   border-radius: 0.2em;
   background: #fff;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   -webkit-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
   -moz-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
   box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
@@ -615,7 +615,7 @@ input.date-clear {
   display: inline;
   text-transform: uppercase;
   padding: 10px 0;
-  font-family: Georgia, Times, Times New Roman, serif;
+  font-family: Georgia,Times,Times New Roman,serif;
   font-weight: normal;
   text-decoration: none;
 }
@@ -653,10 +653,11 @@ body {
 /* Default layout style */
 #main {
   *zoom: 1;
-  padding-left: 1em;
-  padding-right: 1em;
+  width: auto;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
   margin-bottom: 5em;
 }
 #main:after {
@@ -676,10 +677,11 @@ body {
 #header {
   height: 39px;
   *zoom: 1;
-  padding-left: 1em;
-  padding-right: 1em;
+  width: auto;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 #header:after {
   content: "";
@@ -768,7 +770,7 @@ body.front .panel-3col-33 #block-boxes-nurani_welcome .d_ford {
   width: 80px;
   float: left;
   margin: 0 1.5em;
-  border: 5px solid whitesmoke;
+  border: 5px solid whiteSmoke;
 }
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani {
   background-color: #fff;
@@ -776,6 +778,9 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani {
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #4c1313;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani p {
+  margin-bottom: 1em;
 }
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani iframe {
   margin-bottom: 1em;
@@ -787,7 +792,7 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link {
   margin-right: 9.09091%;
   display: inline;
   margin-left: 9.09091%;
-  background: url(../images/speech-bubble-left-4.png) no-repeat 10px 13px;
+  background: url(../images/speech-bubble.png) no-repeat 9px 7px;
   font-size: 12px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -805,6 +810,9 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link {
   text-shadow: #001f39 0 -1px 0;
   text-transform: uppercase;
   text-decoration: none;
+  text-align: center;
+  display: block;
+  padding-left: 2em;
 }
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani a.welcome-link:hover {
   text-decoration: none;
@@ -837,8 +845,17 @@ body.front .panel-3col-33 .panel-pane {
   border-top-style: solid;
   border-top-color: #005eae;
 }
+body.front .panel-3col-33 .panel-pane p {
+  margin-bottom: 1em;
+}
 body.front .panel-3col-33 .panel-pane a.invitation-link {
-  background: url(../images/mail.png) no-repeat 10px 11px;
+  width: 81.81818%;
+  float: left;
+  margin-right: 9.09091%;
+  display: inline;
+  margin-left: 9.09091%;
+  margin-left: 0;
+  background: url(../images/mail.png) no-repeat 10px 5px;
   font-size: 12px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -856,8 +873,9 @@ body.front .panel-3col-33 .panel-pane a.invitation-link {
   text-shadow: #001f39 0 -1px 0;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 1em 1em 1em 4em;
-  margin: 1em 4em;
+  float: none;
+  text-align: center;
+  padding-left: 3em;
 }
 body.front .panel-3col-33 .panel-pane a.invitation-link:hover {
   text-decoration: none;

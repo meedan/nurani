@@ -31,6 +31,9 @@ h2{ margin-bottom:1em;}
 
  #block-boxes-nurani_about_nurani{
    @include white-background-bordered-top($nurani-burgundy,top, 5px);
+   p{
+     margin-bottom:1em;
+   }
    iframe{
      margin-bottom:1em;
      width:100%;
@@ -39,19 +42,28 @@ h2{ margin-bottom:1em;}
    a.welcome-link{
      @include span-columns(4, 6);
      margin-#{$from-direction}: columns(1,6);
-     background:url(../images/speech-bubble-#{$from-direction}-4.png) no-repeat 10px 13px;
+     background:url(../images/speech-bubble.png) no-repeat 9px 7px;
      @include a-link-as-button($nurani-light-blue);
-    
+     text-align: center;
+     display: block;
+     padding-left: 2em; 
    }
  }
 
   .panel-pane{
     @include white-background-bordered-top($nurani-light-blue,top, 5px);
+    p{
+      margin-bottom:1em;
+    }
     a.invitation-link{
-      background:url(../images/mail.png) no-repeat 10px 11px;
+      @include span-columns(5, 6);
+      margin-#{$from-direction}: columns(1,6);
+      margin-left:0;
+      background:url(../images/mail.png) no-repeat 10px 5px;
       @include a-link-as-button($nurani-light-blue);
-      padding:1em 1em 1em 4em;
-      margin:1em 4em;
+      float:none;
+      text-align: center;
+      padding-left: 3em; 
     
     }
   }
