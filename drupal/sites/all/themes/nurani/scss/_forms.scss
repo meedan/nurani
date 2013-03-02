@@ -169,13 +169,12 @@ input.date-clear{
     margin-top:15px;
   }
 
+}
 
-  input.form-submit{
+.page-user-register input.form-submit,  .page-legal-accept- input.form-submit{
     margin-#{$from-direction}:12px;
     margin-top:30px;
   }
-  
-}
 
 /******************************************** Nurani profile form ********************************************/
 
@@ -186,7 +185,6 @@ input.date-clear{
  
   .group-additional-details, .group-details, #edit-legal, .group-profile{
     padding:0;
-    // overflow:hidden;
     width:100%;
   }
 
@@ -248,8 +246,6 @@ input.date-clear{
       margin-#{opposite-position($from-direction)}:30px;
     }
 
-    
-
     input,select,textarea{
       width:169px;
     }
@@ -260,9 +256,8 @@ input.date-clear{
   }
 
 
-
 /* legal stuff */
- #edit-legal{
+#edit-legal {
     legend{
       margin:0 auto;
     }
@@ -277,7 +272,7 @@ input.date-clear{
     }
   }
 
-/* buttons */
+ /* buttons */
  .form-actions{
     display:inline; 
     margin-#{opposite-position($from-direction)}:10px;
@@ -290,7 +285,6 @@ input.date-clear{
  .form-actions input{
    margin-top:2em;
  }
-
 }
   
 

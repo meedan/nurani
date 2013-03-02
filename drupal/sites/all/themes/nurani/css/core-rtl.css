@@ -491,7 +491,8 @@ input.date-clear {
 .page-user-register #edit-picture {
   margin-top: 15px;
 }
-.page-user-register input.form-submit {
+
+.page-user-register input.form-submit, .page-legal-accept- input.form-submit {
   margin-right: 12px;
   margin-top: 30px;
 }
