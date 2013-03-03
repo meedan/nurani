@@ -69,9 +69,12 @@ h4 {
   margin-bottom: 1.5em;
 }
 
+ul, ol {
+  padding: 0 2em 0 2em;
+}
+
 ul, ul li {
   list-style-type: disc;
-  list-style: none;
 }
 
 ol, ol li {
@@ -975,7 +978,14 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-fiel
   padding-right: 1em;
   font-weight: bold;
 }
-body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments, body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments {
+  width: 47.36842%;
+  float: right;
+  margin-right: 0;
+  #margin-left: -30px;
+  display: inline;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
   width: 36.84211%;
   float: right;
   margin-right: 0;

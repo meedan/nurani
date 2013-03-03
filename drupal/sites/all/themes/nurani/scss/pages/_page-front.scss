@@ -93,15 +93,6 @@ h2{ margin-bottom:1em;}
     }
   }
 
- 
- //  .view-id-nurani_discussions{
- //    & > .view-content > .views-row:after {
- //       content: "";
- //       display: table;
- //       clear: both;  
- //    }
- // }
-
   
 /* This styles the discussion block*/
   .panel-col-first{
@@ -144,7 +135,11 @@ h2{ margin-bottom:1em;}
       }
     }
 
-    .views-field-nothing, .views-field-new-comments,.views-field-view{ 
+    .views-field-nothing, .views-field-new-comments{
+      @include span-columns(5 omega, 10);
+    }
+
+    .views-field-view{ 
       @include span-columns(4 omega, 10);
     }
 
