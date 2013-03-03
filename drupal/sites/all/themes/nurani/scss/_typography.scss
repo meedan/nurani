@@ -70,11 +70,13 @@ h4{
 
  // ul{ padding:5px;}
 
- ul, ol{  padding: 0 2em 0 2em;}
+ 
 
 ul, ul li{
-    list-style-type:disc;
+    // list-style-type:disc;
+    list-style: none;
  }
+
  ol, ol li{ 
     list-style:decimal;
  }

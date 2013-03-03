@@ -75,12 +75,8 @@ h4 {
   margin-bottom: 1.5em;
 }
 
-ul, ol {
-  padding: 0 2em 0 2em;
-}
-
 ul, ul li {
-  list-style-type: disc;
+  list-style: none;
 }
 
 ol, ol li {
@@ -181,6 +177,12 @@ body .ui-dialog .ui-dialog-titlebar {
 /* This themes list of comments and preview on discussion page */
 .comment-inner {
   padding: 35px;
+}
+.comment-inner ul, .comment-inner ol {
+  padding: 0 2em 0 2em;
+}
+.comment-inner ul, .comment-inner ul li {
+  list-style: disc;
 }
 .comment-inner .user-picture {
   float: right;
