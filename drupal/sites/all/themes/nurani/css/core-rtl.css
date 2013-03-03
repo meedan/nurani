@@ -400,6 +400,11 @@ input.date-clear {
   height: 2em;
 }
 
+.page-user-register input.form-submit, .page-legal-accept- input.form-submit {
+  margin-right: 12px;
+  margin-top: 30px;
+}
+
 /******************************************** Styling for User Registration forms ********************************************/
 .field-group-fieldset, fieldset {
   border: none;
@@ -490,11 +495,6 @@ input.date-clear {
 }
 .page-user-register #edit-picture {
   margin-top: 15px;
-}
-
-.page-user-register input.form-submit, .page-legal-accept- input.form-submit {
-  margin-right: 12px;
-  margin-top: 30px;
 }
 
 /******************************************** Nurani profile form ********************************************/
@@ -596,6 +596,7 @@ input.date-clear {
   width: 450px;
 }
 
+/******************************************** Legal Page Form ********************************************/
 .footer.footer-logos {
   text-align: center;
   margin-bottom: 35px;
