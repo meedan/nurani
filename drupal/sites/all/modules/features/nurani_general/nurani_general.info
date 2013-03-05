@@ -31,6 +31,7 @@ dependencies[] = nurani_library
 dependencies[] = nurani_library_filter
 dependencies[] = nurani_migrate
 dependencies[] = nurani_pages
+dependencies[] = nurani_translations
 dependencies[] = page_manager
 dependencies[] = panels
 dependencies[] = php
