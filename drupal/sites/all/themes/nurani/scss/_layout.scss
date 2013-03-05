@@ -33,9 +33,20 @@ body{
   background: #F1E9E4 url('../images/brown_bkg.gif') repeat fixed center right;
 }
 
-.region-top-strip {
+#top-strip {
   background: #fff;
-  padding: 4px 20px 0;
+  float: left; // Box-model height fix
+  width: 100%; // Always full width
+
+  .region-top-strip {
+    width: 98%; // Slightly less than full width, gives L/R padding (effectively)
+    margin: 0 auto; // Position in the middle
+    overflow: hidden; // Box-model height fix
+  }
+}
+
+#page {
+  clear: both;
 }
 
 /* Default layout style */ 

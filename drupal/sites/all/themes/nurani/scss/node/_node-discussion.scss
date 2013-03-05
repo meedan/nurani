@@ -27,6 +27,21 @@
       margin-top: -1em; 
       margin-#{$from-direction}: columns(1,6); // default value is left, so this means margin-#{left}.
       border: 1px solid $nurani-gray;
+
+      .notes {
+        p {
+          font-size: 1.1429em; 
+          text-indent: justify;
+          color:$nurani-text-gray;
+          margin-bottom: 0.5em;
+        }
+        span.attribution {
+          margin-top: -1em;
+          padding-#{opposite-position($from-direction)}: 20px;
+          float: opposite-position($from-direction);
+          @include attribution($nurani-light-blue);
+        }
+      }
 	  }
   }
 	  

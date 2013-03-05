@@ -4,12 +4,7 @@ $from-direction: right;
 body.body-ar,
 body.body-he {
   text-align: $from-direction;
-
-  @if $from-direction == opposite-position($from-direction) {
-    direction: rtl;
-  } @else {
-    direction: ltr;
-  }
+  direction: rtl;
 }
 
 @import "core";

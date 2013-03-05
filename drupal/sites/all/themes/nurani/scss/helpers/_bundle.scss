@@ -29,23 +29,6 @@
      margin-top:0.5em;
      display:inline;
     }
-    .bib{
-      
-      .moderator_s_thoughts{
-        p{
-          font-size: 1.1429em; 
-          text-indent: justify;
-          color:$nurani-text-gray;
-          margin-bottom: 2em;
-        }
-        span.attribution{
-          margin-top: -1em;
-          padding-#{opposite-position($from-direction)}: 20px;
-          float: opposite-position($from-direction);
-          @include attribution($nurani-light-blue);
-        }
-      }
-    }
   }
 }
 

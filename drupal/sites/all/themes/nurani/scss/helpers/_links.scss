@@ -1,10 +1,14 @@
 
 /*Mixin to style Username links*/
 @mixin username-links($color){
-  a{
+  a {
     color:$color;
     font-weight: bold;
     text-decoration: none;
+
+    &.active, &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -17,4 +21,24 @@
 /* Mixin to style attribution class and links */
 @mixin attribution($color){
     @include username-links($color); 
+}
+
+/* A pill-shaped link button */
+@mixin top-strip-link-button($color) {
+  font-size:1.5em;
+  float: $from-direction;
+  display: block;
+  margin: 0 1em 0 0;
+  padding: 0.2em 0.5em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $color;
+
+  &.active, &:hover {
+    text-decoration: none;
+    color:#fff;
+    background: $color;
+    @include border-radius(0.4em);
+  }
 }
