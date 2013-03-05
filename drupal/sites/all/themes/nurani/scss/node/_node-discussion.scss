@@ -200,17 +200,22 @@
   }
 /******************************************** Styling Discussion info section ********************************************/
 .block-meedan-discussion-lock{
-  background:url(../images/clock-icon.png) no-repeat;
-  margin-bottom:2em;
+  background: url(../images/clock-icon.png) no-repeat center $from-direction;
+  margin-bottom: 2em;
   .content{
-    margin-#{$from-direction}:3em;
+    margin-#{$from-direction}: 3em;
     @include styling-pdf-discussion-lock;
-
   }
 }
 
-#block-nurani_discussion-print_pdf{
-  margin-bottom:4em;
+#block-nurani_discussion-print_pdf {
+  background: url(../images/print.png) no-repeat center $from-direction;
+  margin-bottom: 4em;
+
+  .content {
+    margin-#{$from-direction}: 3em;
+    @include styling-pdf-discussion-lock;
+  }
 }
 
 .view-meedan-discussion-participants{

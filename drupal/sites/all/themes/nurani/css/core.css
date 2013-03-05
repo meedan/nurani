@@ -6,11 +6,7 @@
 /* Calls layout.scss that renders all the styles on the site*/
 /*globally applied css*/
 .printpdf {
-  background: url(../images/print.png) center left no-repeat;
-  margin: 1em 0 1em 0;
-  padding: 1em 0 0 3em;
   color: #4a4a4a;
-  font-size: 1.2em;
   text-decoration: none;
 }
 .printpdf:hover {
@@ -1434,7 +1430,7 @@ body.node-type-discussion .comment-form .form-actions {
   float: right;
 }
 body.node-type-discussion .block-meedan-discussion-lock {
-  background: url(../images/clock-icon.png) no-repeat;
+  background: url(../images/clock-icon.png) no-repeat center left;
   margin-bottom: 2em;
 }
 body.node-type-discussion .block-meedan-discussion-lock .content {
@@ -1443,7 +1439,13 @@ body.node-type-discussion .block-meedan-discussion-lock .content {
   font-size: 1.2em;
 }
 body.node-type-discussion #block-nurani_discussion-print_pdf {
+  background: url(../images/print.png) no-repeat center left;
   margin-bottom: 4em;
+}
+body.node-type-discussion #block-nurani_discussion-print_pdf .content {
+  margin-left: 3em;
+  color: #4a4a4a;
+  font-size: 1.2em;
 }
 body.node-type-discussion .view-meedan-discussion-participants > .view-content > .views-row {
   float: left;
