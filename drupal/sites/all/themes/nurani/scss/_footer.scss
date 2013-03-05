@@ -18,8 +18,11 @@
   text-align: center;
   li{
   	display: inline-block;
-    padding: 0 45px 0 10px;
-    margin: 0 15px 0 0;
+    padding: 0;
+    padding-#{$from-direction}: 45px;
+    padding-#{opposite-position($from-direction)}: 10px;
+    margin: 0;
+    margin-#{$from-direction}: 15px;
     border-#{opposite-position($from-direction)}: 1px dotted $nurani-burgundy;
 
     a{

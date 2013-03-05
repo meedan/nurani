@@ -101,7 +101,9 @@ h2{ margin-bottom:1em;}
         & > .view-content > .views-row{
           @include white-background-bordered-top($nurani-burgundy, top, 5px);
           overflow:hidden;
-          padding:0 4em 2em 2em;
+          padding:0 0 2em 0;
+          padding-#{$from-direction}: 4em;
+          padding-#{opposite-position($from-direction)}: 2em;
         }
 
        

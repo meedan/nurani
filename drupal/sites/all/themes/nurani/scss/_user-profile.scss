@@ -10,7 +10,9 @@
 
   .group-details, .group-additional-details, .group-profile{
     & > .fieldset-wrapper{ 
-      padding:5px 20px 0 15px;
+      padding: 5px 0 0 0;
+      padding-#{$from-direction}: 20px;
+      padding-#{opposite-position($from-direction)}: 15px;
     }
   }
 

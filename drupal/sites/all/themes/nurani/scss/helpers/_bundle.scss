@@ -10,7 +10,8 @@
     margin-top: 2em;
     background-repeat: no-repeat;
     background-position: top-#{$from-direction};
-    padding: 0 0 0 2em;
+    padding: 0;
+    padding-#{opposite-position($from-direction)}: 2em;
     background-color: transparent;
 
     .message {

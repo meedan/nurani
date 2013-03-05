@@ -232,7 +232,7 @@ body .ui-dialog .ui-dialog-titlebar {
   padding: 35px;
 }
 .comment-inner ul, .comment-inner ol {
-  padding: 0 2em 0 2em;
+  padding: 0 2em;
 }
 .comment-inner ul, .comment-inner ul li {
   list-style: disc;
@@ -314,7 +314,9 @@ body .ui-dialog .ui-dialog-titlebar {
   border: 1px solid #005eae;
 }
 .pane-nurani-profile-user-profile .group-details > .fieldset-wrapper, .pane-nurani-profile-user-profile .group-additional-details > .fieldset-wrapper, .pane-nurani-profile-user-profile .group-profile > .fieldset-wrapper {
-  padding: 5px 20px 0 15px;
+  padding: 5px 0 0 0;
+  padding-right: 20px;
+  padding-left: 15px;
 }
 .pane-nurani-profile-user-profile .group-additional-details .field-label {
   margin-bottom: 1em;
@@ -601,7 +603,7 @@ input.date-clear {
 #user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item {
   width: 200px;
   float: right;
-  margin-left: 51px;
+  margin-right: 51px;
 }
 #user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item input[type=text] {
   width: 200px;
@@ -675,8 +677,11 @@ input.date-clear {
 }
 #block-menu-menu-footer-links li {
   display: inline-block;
-  padding: 0 45px 0 10px;
-  margin: 0 15px 0 0;
+  padding: 0;
+  padding-right: 45px;
+  padding-left: 10px;
+  margin: 0;
+  margin-right: 15px;
   border-left: 1px dotted #4c1313;
 }
 #block-menu-menu-footer-links li a {
@@ -800,7 +805,7 @@ body {
   padding: 0;
 }
 .node-type-page #content-area .region-content, .page-legal #content-area .region-content {
-  padding: 10px 40px 0 40px;
+  padding: 10px 40px 0;
   text-align: right;
 }
 
@@ -1013,7 +1018,9 @@ body.front .panel-2col .panel-col-first .view-id-nurani_discussions > .view-cont
   border-top-style: solid;
   border-top-color: #4c1313;
   overflow: hidden;
-  padding: 0 4em 2em 2em;
+  padding: 0 0 2em 0;
+  padding-right: 4em;
+  padding-left: 2em;
 }
 body.front .panel-2col .panel-col-first .view-id-nurani_discussions .view-empty {
   background-color: #fff;
@@ -1190,7 +1197,8 @@ body.node-type-discussion .node-discussion .inner > .passage-text .error {
   margin-top: 2em;
   background-repeat: no-repeat;
   background-position: top-right;
-  padding: 0 0 0 2em;
+  padding: 0;
+  padding-left: 2em;
   background-color: transparent;
 }
 body.node-type-discussion .node-discussion .inner > .passage-text .error .message {

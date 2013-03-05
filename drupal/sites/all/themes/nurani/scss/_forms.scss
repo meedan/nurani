@@ -209,7 +209,9 @@ input.date-clear{
         }
       }
 
-      #edit-account {float:$from-direction; width:90%; clear:both}
+      #edit-account {
+        float:$from-direction; width:90%; clear:both
+      }
 
       #edit-overlay-control{
         clear:both;
@@ -217,11 +219,11 @@ input.date-clear{
     
     #edit-account{
       .form-item{ 
-        width:200px;
-        float:$from-direction;
-        margin-#{opposite-position($from-direction)}:51px;
+        width: 200px;
+        float: $from-direction;
+        margin-#{$from-direction}: 51px;
          input[type=text]{ 
-          width:200px;
+          width: 200px;
         }
       }
       .form-item-pass-pass1 .password-strength{
