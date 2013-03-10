@@ -1,3 +1,5 @@
+$from-direction:      left !default;
+
 $ideal_box_width:     25em;                           // A sensible width
 $ideal_box_height:    $ideal_box_width * 1.618034;    // Width MULT golden ratio
 $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS right margin
@@ -36,10 +38,10 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
 .passage-box {
   float: left;
   width: $ideal_box_width;
-  margin-right: 1.5em;
+  margin-#{opposite-position($from-direction)}: 1.5em;
 
   &.third {
-    margin-right: 0;
+    margin-#{opposite-position($from-direction)}: 0;
   }
   &.hidden {
     opacity: 0.6;
@@ -78,7 +80,7 @@ $box_container_width: $ideal_box_width * 3 + 2em * 2; // Width of each box PLUS 
 }
 
 .bib {
-  margin-left: 10px;
+  margin-#{$from-direction}: 10px;
   margin-top: -1em;
   padding: 2em 1em 1em;
   width: 300px;
