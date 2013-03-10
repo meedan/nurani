@@ -2,18 +2,25 @@
 /* This themes list of comments and preview on discussion page */
 .comment-inner{
   padding:35px;
+  ul, ol{  
+    padding: 0 2em;
+  }
+
+  ul, ul li{
+    list-style: disc;
+  }
   .user-picture{
-    float:left;
+    float:$from-direction;
     margin:0 1em 0 -1em;
     a{
-      float:left;
+      float:$from-direction;
     }
   }
   .content{    	
    
     color:$nurani-text-gray;
     .attribution{ 
-      float:right;
+      float:opposite-position($from-direction);
       @include attribution($nurani-light-blue);
     }
   }

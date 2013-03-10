@@ -56,6 +56,12 @@ input.date-clear{
     }
   }
 
+.page-user-register input.form-submit,  .page-legal-accept- input.form-submit{
+  margin-#{$from-direction}:12px;
+  margin-top:30px;
+}
+
+
 
 /******************************************** Styling for User Registration forms ********************************************/
 
@@ -72,11 +78,11 @@ input.date-clear{
   .field-type-list-text,.field-type-text, .field-type-datetime,
   #edit-picture, .form-type-textarea, .form-item-mail{
     display:inline-block;
-    float:left;
-    margin-right:30px;
+    float:$from-direction;
+    margin-#{opposite-position($from-direction)}:30px;
   }
   .field-type-datetime{
-    clear:left;
+    clear:$from-direction;
   }
 
   .field-name-field-title,
@@ -102,20 +108,20 @@ input.date-clear{
   }
 
   #field-date-of-birth-add-more-wrapper{
-    margin-left:-16px;
+    margin-#{$from-direction}:-16px;
     margin-top:20px;
   }
   
   .date-no-float {
     margin-top:-16px;
-    margin-left:-11px;
+    margin-#{$from-direction}:-11px;
   }
    .field-group-fieldset, #edit-legal{
      & > legend{
        text-align:center;
        background:url(../images/bevel.jpg);
        width: 100%;
-       margin-right: 1.69492%;
+       margin-#{opposite-position($from-direction)}: 1.69492%;
        display: inline;
 
        .fieldset-legend{
@@ -169,13 +175,8 @@ input.date-clear{
     margin-top:15px;
   }
 
-
-  input.form-submit{
-    margin-left:12px;
-    margin-top:30px;
-  }
-  
 }
+
 
 /******************************************** Nurani profile form ********************************************/
 
@@ -186,7 +187,6 @@ input.date-clear{
  
   .group-additional-details, .group-details, #edit-legal, .group-profile{
     padding:0;
-    // overflow:hidden;
     width:100%;
   }
 
@@ -202,14 +202,16 @@ input.date-clear{
       .field-name-field-first-name, 
       .field-name-field-last-name, .field-name-field-date-of-birth{
         display:inline-block;
-        margin-right:5px;
-        float:left;
+        margin-#{opposite-position($from-direction)}:5px;
+        float:$from-direction;
         input.text-full,select{
           width:120px;
         }
       }
 
-      #edit-account {float:left; width:90%; clear:both}
+      #edit-account {
+        float:$from-direction; width:90%; clear:both
+      }
 
       #edit-overlay-control{
         clear:both;
@@ -217,11 +219,11 @@ input.date-clear{
     
     #edit-account{
       .form-item{ 
-        width:200px;
-        float:left;
-        margin-right:51px;
+        width: 200px;
+        float: $from-direction;
+        margin-#{$from-direction}: 51px;
          input[type=text]{ 
-          width:200px;
+          width: 200px;
         }
       }
       .form-item-pass-pass1 .password-strength{
@@ -244,11 +246,9 @@ input.date-clear{
     .field-name-field-landline-phone, 
     .field-name-field-mobile-phone{
       width:40%;
-      float:left; 
-      margin-right:30px;
+      float:$from-direction; 
+      margin-#{opposite-position($from-direction)}:30px;
     }
-
-    
 
     input,select,textarea{
       width:169px;
@@ -260,9 +260,8 @@ input.date-clear{
   }
 
 
-
 /* legal stuff */
- #edit-legal{
+#edit-legal {
     legend{
       margin:0 auto;
     }
@@ -277,10 +276,10 @@ input.date-clear{
     }
   }
 
-/* buttons */
+ /* buttons */
  .form-actions{
     display:inline; 
-    margin-right:10px;
+    margin-#{opposite-position($from-direction)}:10px;
   }
 
  a{
@@ -290,7 +289,6 @@ input.date-clear{
  .form-actions input{
    margin-top:2em;
  }
-
 }
   
 
@@ -303,9 +301,7 @@ input.date-clear{
 }
 
 
-
-
-
+/******************************************** Legal Page Form ********************************************/
 
 
 

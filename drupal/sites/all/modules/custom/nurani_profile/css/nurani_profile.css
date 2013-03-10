@@ -1,14 +1,3 @@
-#tooltip {
-  position: absolute;
-  display: none;
-  z-index: 1000;
-}
-
-.tooltip-processed {
-  display: inline-block;
-  /* Helps the tooltip get positioned correctly above the link */
-}
-
 .profile h3 {
   border-bottom: 1px solid #4c1313;
 }
@@ -17,17 +6,29 @@
 }
 .profile .field-group-format h3, .profile > .field h3 {
   margin-bottom: 1em;
-  width: 11em;
+  width: 10em;
 }
 .profile .field-group-format-wrapper > .field {
   display: inline-block;
   margin-right: 10px;
 }
 .profile .user-picture {
-  margin: 0 1em 1em 1em;
+  margin: 0 1em 1em;
 }
 
-/* Optional initial style, this can be removed / adjusted */
+#tooltip {
+  position: absolute;
+  display: none;
+  z-index: 1000;
+}
+#tooltip .profile .user-picture {
+  margin: 0;
+}
+
+.tooltip-processed {
+  display: inline-block;
+}
+
 #tooltip {
   width: 20em;
   min-height: 5em;

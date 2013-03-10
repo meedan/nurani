@@ -1,0 +1,10 @@
+// Force overall page direction to opposite-position($from-direction) for RTL
+$from-direction: right;
+
+body.body-ar,
+body.body-he {
+  text-align: $from-direction;
+  direction: rtl;
+}
+
+@import "core";

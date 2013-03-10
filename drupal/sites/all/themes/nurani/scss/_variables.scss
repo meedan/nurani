@@ -1,4 +1,7 @@
-// Site wide variables
+// Default setting for bidirectional support
+$from-direction: left !default;
+
+
 
 $total-width: 1200px; 
 $total-columns: 20; 
@@ -19,5 +22,5 @@ $nurani-text-gray:#4A4A4A;
 $button-green:#266332;
 $nurani-gold: #AC9D43;
 $nurani-brown: #CDB79E;
-
+$nurani-black: #222;
 

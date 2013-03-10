@@ -1,0 +1,439 @@
+/*Mixin to style Username links*/
+/*mixin to style discussion lock & print pdf*/
+/* Mixin to style attribution class and links */
+/* A pill-shaped link button */
+.printpdf {
+  color: #4a4a4a;
+  text-decoration: none;
+}
+.printpdf:hover {
+  text-decoration: underline;
+}
+
+body {
+  font-family: Helvetica Neue;
+  font-size: 16px;
+  line-height: 26px;
+  color: #4c1313;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Helvetica Neue;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+p {
+  font-size: 1em;
+  /* 14px */
+}
+
+h1 {
+  font-size: 2.4286em;
+  /* 34px */
+  line-height: 1.5294em;
+  /* 52px */
+  margin-top: 0.7647em;
+  margin-bottom: 0em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.3em;
+  /* 30px */
+  line-height: 0.7333em;
+  /* 52px */
+  margin-bottom: 0em;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 1.3em;
+  line-height: 1.4444em;
+  margin-top: 1.4444em;
+  margin-bottom: 0em;
+}
+
+h4 {
+  font-size: 1em;
+  font-weight: normal;
+  margin-top: -0.5em;
+  margin-bottom: 1.5em;
+}
+
+ul, ul li {
+  list-style: none;
+}
+
+ol, ol li {
+  list-style: decimal;
+}
+
+sup {
+  font-size: xx-small;
+  vertical-align: super;
+}
+
+/******************************************** Global Form Styling ********************************************/
+.form-text, .form-textarea, select {
+  top: 4px;
+  padding: 3px 10px;
+  font-size: 16px;
+  border: 0;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background: #fff;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+  -moz-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+  box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+}
+
+input.form-submit, .button {
+  font-size: 12px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0064B8', endColorstr='#FF002C52');
+  background-color: #0064b8;
+  border: 0;
+  color: white;
+  text-shadow: #001f39 0 -1px 0;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+input.form-submit:hover, .button:hover {
+  text-decoration: none;
+}
+input.form-submit:hover, .button:hover {
+  background-color: #00569f;
+}
+input.form-submit:active, .button:active {
+  background-color: #004d8f;
+}
+input.form-submit.disabled, input.form-submit[disabled], .button.disabled, .button[disabled] {
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+input.form-submit::-moz-focus-inner, .button::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+
+input.date-clear {
+  background: url(../images/calendar.png) no-repeat 154px 1px;
+}
+
+.form-type-date-popup label, #edit-picture label {
+  display: none;
+}
+
+#edit-legal {
+  position: relative;
+}
+#edit-legal div.fieldset-wrapper {
+  overflow-y: auto;
+  height: 400px;
+  padding-bottom: 2em;
+}
+#edit-legal div.fieldset-wrapper div.form-item-legal-accept {
+  position: absolute;
+  bottom: 0;
+  top: 30em;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 2em;
+}
+
+.page-user-register input.form-submit, .page-legal-accept- input.form-submit {
+  margin-right: 12px;
+  margin-top: 30px;
+}
+
+/******************************************** Styling for User Registration forms ********************************************/
+.field-group-fieldset, fieldset {
+  border: none;
+}
+
+.page-user-register label {
+  font-weight: lighter;
+}
+.page-user-register .field-type-list-text, .page-user-register .field-type-text, .page-user-register .field-type-datetime,
+.page-user-register #edit-picture, .page-user-register .form-type-textarea, .page-user-register .form-item-mail {
+  display: inline-block;
+  float: right;
+  margin-left: 30px;
+}
+.page-user-register .field-type-datetime {
+  clear: right;
+}
+.page-user-register .field-name-field-title,
+.page-user-register .field-name-field-mobile-phone,
+.page-user-register .field-name-field-how-did-you-hear-about-us,
+.page-user-register .field-name-field-subjects-of-interest {
+  clear: both;
+}
+.page-user-register .form-item-mail {
+  width: 425px;
+}
+.page-user-register .form-type-textarea {
+  width: 500px;
+}
+.page-user-register #edit-picture .fieldset-wrapper {
+  width: 280px;
+}
+.page-user-register .field-group-fieldset {
+  margin-top: 30px;
+}
+.page-user-register #field-date-of-birth-add-more-wrapper {
+  margin-right: -16px;
+  margin-top: 20px;
+}
+.page-user-register .date-no-float {
+  margin-top: -16px;
+  margin-right: -11px;
+}
+.page-user-register .field-group-fieldset > legend, .page-user-register #edit-legal > legend {
+  text-align: center;
+  background: url(../images/bevel.jpg);
+  width: 100%;
+  margin-left: 1.69492%;
+  display: inline;
+}
+.page-user-register .field-group-fieldset > legend .fieldset-legend, .page-user-register #edit-legal > legend .fieldset-legend {
+  font-family: palatino;
+  font-style: italic;
+  font-size: 2.1429em;
+  text-decoration: none;
+  color: #4c1313;
+  background: url(../images/brown_bkg.png);
+  padding: 20px;
+}
+.page-user-register .form-type-textarea label {
+  width: 466px;
+}
+.page-user-register input#edit-field-post-code-und-0-value {
+  width: 250px;
+}
+.page-user-register select#edit-field-country-und {
+  width: 158px;
+}
+.page-user-register input#edit-field-mobile-phone-und-0-value,
+.page-user-register input#edit-field-occupation-und-0-value {
+  width: 480px;
+}
+.page-user-register input#edit-field-landline-phone-und-0-value {
+  width: 435px;
+}
+.page-user-register .form-item-files-picture-upload {
+  margin-top: -7px;
+}
+.page-user-register input#edit-field-first-name-und-0-value,
+.page-user-register input#edit-field-last-name-und-0-value {
+  width: 400px;
+}
+.page-user-register input#edit-mail {
+  width: 350px;
+}
+.page-user-register input#edit-picture-upload {
+  width: 200px;
+}
+.page-user-register #edit-picture {
+  margin-top: 15px;
+}
+
+/******************************************** Nurani profile form ********************************************/
+#user-profile-form {
+  margin-top: 1em;
+  /* legal stuff */
+  /* buttons */
+}
+#user-profile-form .group-additional-details, #user-profile-form .group-details, #user-profile-form #edit-legal, #user-profile-form .group-profile {
+  padding: 0;
+  width: 100%;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper {
+  padding: 5px;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name {
+  width: 32%;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-date-of-birth {
+  display: inline-block;
+  margin-left: 5px;
+  float: right;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title input.text-full, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-title select,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name input.text-full,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-first-name select,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name input.text-full,
+#user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-last-name select, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-date-of-birth input.text-full, #user-profile-form fieldset.group-profile > .fieldset-wrapper .field-name-field-date-of-birth select {
+  width: 120px;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account {
+  float: right;
+  width: 90%;
+  clear: both;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-overlay-control {
+  clear: both;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item {
+  width: 200px;
+  float: right;
+  margin-right: 51px;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item input[type=text] {
+  width: 200px;
+}
+#user-profile-form fieldset.group-profile > .fieldset-wrapper #edit-account .form-item-pass-pass1 .password-strength {
+  float: none;
+}
+#user-profile-form #edit-timezone--2, #user-profile-form .form-item-timezone .description,
+#user-profile-form .field-group-fieldset .legend {
+  width: 280px;
+}
+#user-profile-form fieldset.group-details .field-name-field-postal-address,
+#user-profile-form fieldset.group-details .field-name-field-post-code,
+#user-profile-form fieldset.group-details .field-name-field-country,
+#user-profile-form fieldset.group-details .field-name-field-occupation,
+#user-profile-form fieldset.group-details .field-name-field-landline-phone,
+#user-profile-form fieldset.group-details .field-name-field-mobile-phone {
+  width: 40%;
+  float: right;
+  margin-left: 30px;
+}
+#user-profile-form fieldset.group-details input, #user-profile-form fieldset.group-details select, #user-profile-form fieldset.group-details textarea {
+  width: 169px;
+}
+#user-profile-form fieldset.group-details .field-name-field-country {
+  clear: both;
+}
+#user-profile-form #edit-legal legend {
+  margin: 0 auto;
+}
+#user-profile-form #edit-legal > .fieldset-wrapper {
+  height: 350px;
+}
+#user-profile-form #edit-legal > .fieldset-wrapper div.form-item-legal-accept {
+  top: 24em;
+  margin: 1em 0 1em;
+  background: #fff;
+}
+#user-profile-form .form-actions {
+  display: inline;
+  margin-left: 10px;
+}
+#user-profile-form a {
+  display: inline;
+  text-decoration: none;
+}
+#user-profile-form .form-actions input {
+  margin-top: 2em;
+}
+
+/******************************************** Contact us form ********************************************/
+.node-type-webform textarea {
+  width: 450px;
+}
+
+/******************************************** Legal Page Form ********************************************/
+.node-discussion-form .inner > .passage-text {
+  border-top: 5px;
+  border-top-style: solid;
+  border-top-color: #8b000e;
+  border-right: 1px;
+  border-right-style: solid;
+  border-right-color: #ccc6c2;
+  border-bottom: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #ccc6c2;
+  border-left: 1px;
+  border-left-style: solid;
+  border-left-color: #ccc6c2;
+  background: #f1e9e4;
+}
+.node-discussion-form .inner > .passage-text .error {
+  margin-top: 2em;
+  background-repeat: no-repeat;
+  background-position: top-right;
+  padding: 0;
+  padding-left: 2em;
+  background-color: transparent;
+}
+.node-discussion-form .inner > .passage-text .error .message {
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+.node-discussion-form .inner > .passage-text .passage-widget .verse {
+  margin: 0 0.5em;
+}
+.node-discussion-form .inner > .passage-text .passage-widget h4 {
+  margin-bottom: 1em;
+}
+.node-discussion-form .inner > .passage-text .passage-widget p {
+  font-family: palatino;
+  margin-top: 0.5em;
+  display: inline;
+}
+.node-discussion-form .inner > .passage-text > .remove-passage-action {
+  font-size: 0;
+  background: url(images/remove2.png) no-repeat;
+  height: 52px;
+  border: none;
+  position: absolute;
+  left: -2px;
+  top: 4px;
+}
+.node-discussion-form .clone-bundle, .node-discussion-form .passage-boxes .inner {
+  margin: 0 auto;
+}
+.node-discussion-form .clone-bundle {
+  text-align: center;
+}
+.node-discussion-form .bib {
+  border: 1px solid #ccc6c2;
+  margin-right: 10px;
+  margin-top: -1em;
+  padding: 2em 1em 1em;
+  width: 280px;
+  background: #ddd;
+}
+.node-discussion-form .form-text {
+  top: 4px;
+  padding: 3px 10px;
+  font-size: 16px;
+  border: 0;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+  border-radius: 0.2em;
+  background: #fff;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+  -moz-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+  box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
+  height: 18px;
+}

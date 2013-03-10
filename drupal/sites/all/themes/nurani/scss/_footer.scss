@@ -6,7 +6,7 @@
      margin-bottom:35px;
       a, & > img {
         display: inline-block;
-        margin-right: 50px;
+        margin-#{opposite-position($from-direction)}: 50px;
         padding-top: 5px;
       }
   }
@@ -14,13 +14,16 @@
 
 #block-menu-menu-footer-links{
   display:block;
-  padding-left: 0;
+  padding-#{$from-direction}: 0;
   text-align: center;
   li{
   	display: inline-block;
-    padding: 0 45px 0 10px;
-    margin: 0 15px 0 0;
-    border-right: 1px dotted $nurani-burgundy;
+    padding: 0;
+    padding-#{$from-direction}: 45px;
+    padding-#{opposite-position($from-direction)}: 10px;
+    margin: 0;
+    margin-#{$from-direction}: 15px;
+    border-#{opposite-position($from-direction)}: 1px dotted $nurani-burgundy;
 
     a{
       color: $nurani-burgundy;
@@ -33,7 +36,7 @@
     }
 
     &.last {
-      border-right: none;
+      border-#{opposite-position($from-direction)}: none;
       padding: 0;
       margin: 0;
     }

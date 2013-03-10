@@ -14,6 +14,18 @@ function nurani_profile_init() {
 }
 
 /**
+ * Implements hook_css_alter()
+ *
+ * Hack to only use RTL CSS when in RTL mode.
+ */
+function nurani_profile_css_alter(&$css) {
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    unset($css[drupal_get_path('module', 'nurani_profile') . '/css/nurani_profile.css']);
+  }
+}
+
+/**
  * Implements hook_menu().
  */
 function nurani_profile_menu() {
@@ -50,7 +62,8 @@ function nurani_profile_menu() {
  * Tooltip data generator AJAX (AHAH) callback.
  */
 function nurani_profile_ajax() {
-  $args = explode('/', drupal_get_normal_path(preg_replace('/^(' . preg_quote(base_path(), '/') . ')?/', '', $_GET['data'])));
+  $base_path_with_prefix = substr(url('/'), 0, -1);
+  $args = explode('/', drupal_get_normal_path(preg_replace('/^(' . preg_quote($base_path_with_prefix, '/') . ')?/', '', $_GET['data'])));
   $output = '';
 
   // Generate the user profile display

@@ -7,6 +7,12 @@ function nurani_css_alter(&$css) {
   if (isset($css['misc/ui/jquery.ui.theme.css'])) {
     $css['misc/ui/jquery.ui.theme.css']['data'] = drupal_get_path('theme', 'seven') . '/jquery.ui.theme.css';
   }
+
+  // Remove style.css if style-rtl.css is included.
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    unset($css[drupal_get_path('theme', 'nurani') . '/css/core.css']);
+  }
 }
 
 /**

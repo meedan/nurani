@@ -36,6 +36,18 @@ function nurani_bundle_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_css_alter()
+ *
+ * Hack to only use RTL CSS when in RTL mode.
+ */
+function nurani_bundle_css_alter(&$css) {
+  global $language;
+  if ($language->direction == LANGUAGE_RTL) {
+    unset($css[drupal_get_path('module', 'nurani_bundle') . '/css/nurani_bundle_ui.css']);
+  }
+}
+
+/**
  * Implements hook_menu().
  */
 function nurani_bundle_menu() {

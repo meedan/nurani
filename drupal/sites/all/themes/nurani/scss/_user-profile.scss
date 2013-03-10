@@ -10,7 +10,9 @@
 
   .group-details, .group-additional-details, .group-profile{
     & > .fieldset-wrapper{ 
-      padding:5px 20px 0 15px;
+      padding: 5px 0 0 0;
+      padding-#{$from-direction}: 20px;
+      padding-#{opposite-position($from-direction)}: 15px;
     }
   }
 
@@ -61,21 +63,21 @@
     }
 
     .user-picture{
-      float: right;
+      float: opposite-position($from-direction);
       margin: 2em 0 -3em;
     }
 
     .field-name-field-title, .field-name-field-first-name{ 
       display: inline;
-      float: left;
-      margin-right: 10px;
+      float: $from-direction;
+      margin-#{opposite-position($from-direction)}: 10px;
     }
 
     .group-details .field{
       margin-bottom:1em;
       & > .field-items{
-        float:right;
-      text-align: right;
+        float:opposite-position($from-direction);
+      text-align: opposite-position($from-direction);
       }
     }
 

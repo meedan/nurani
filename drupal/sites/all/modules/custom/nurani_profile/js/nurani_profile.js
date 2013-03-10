@@ -47,10 +47,12 @@
     this.underRugTitles();
 
     $.ajax({
-      url: Drupal.settings.basePath + 'ajax/nurani_profile?data=' + this.data,
+      url: Drupal.settings.basePath + Drupal.settings.pathPrefix + 'ajax/nurani_profile?data=' + this.data,
       cache: true,
       success: function (data) {
-        that.spinner.stop();
+        if (that.spinner) {
+          that.spinner.stop();
+        }
         that.spinner = null;
 
         if (data && that.$tooltip) {

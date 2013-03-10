@@ -18,3 +18,5 @@ settings.local.php
 Icon
 Thumbs.db
 .bundle
+*.sublime-project
+*.sublime-workspace

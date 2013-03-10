@@ -1,16 +1,17 @@
 
 @mixin passage-text-boxes{
   @include border($nurani-red, top, 5px);
-  @include border($nurani-gray, left, 1px);
+  @include border($nurani-gray, $from-direction, 1px);
   @include border($nurani-gray, bottom, 1px);
-  @include border($nurani-gray, right, 1px);
+  @include border($nurani-gray, opposite-position($from-direction), 1px);
   background:$nurani-salmon-color;
 
   .error {
     margin-top: 2em;
     background-repeat: no-repeat;
-    background-position: top-left;
-    padding: 0 0 0 2em;
+    background-position: top-#{$from-direction};
+    padding: 0;
+    padding-#{opposite-position($from-direction)}: 2em;
     background-color: transparent;
 
     .message {
@@ -28,23 +29,6 @@
      font-family: palatino;
      margin-top:0.5em;
      display:inline;
-    }
-    .bib{
-      
-      .moderator_s_thoughts{
-        p{
-          font-size: 1.1429em; 
-          text-indent: justify;
-          color:$nurani-text-gray;
-          margin-bottom: 2em;
-        }
-        span.attribution{
-          margin-top: -1em;
-          padding-right: 20px;
-          float: right;
-          @include attribution($nurani-light-blue);
-        }
-      }
     }
   }
 }
