@@ -35,7 +35,6 @@ function nurani_bundle_theme($existing, $type, $theme, $path) {
   );
 }
 
-
 /**
  * Implements hook_css_alter()
  *

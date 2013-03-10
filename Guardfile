@@ -18,6 +18,10 @@ guard 'process', :name => 'compass compile', :dir => 'drupal/sites/all/modules/c
   watch(%r{^drupal/sites/all/modules/custom/nurani_bundle/css/(.*)\.s[ac]ss})
 end
 
+guard 'process', :name => 'compass compile', :dir => 'drupal/sites/all/modules/custom/nurani_helpers/css', :command => 'compass compile', :stop_signal => "KILL" do
+  watch(%r{^drupal/sites/all/modules/custom/nurani_helpers/css/(.*)\.s[ac]ss})
+end
+
 guard 'process', :name => 'compass compile', :dir => 'drupal/sites/all/modules/custom/nurani_profile/css/', :command => 'compass compile', :stop_signal => "KILL" do
   watch(%r{^drupal/sites/all/modules/custom/nurani_profile/css/(.*)\.s[ac]ss})
 end
