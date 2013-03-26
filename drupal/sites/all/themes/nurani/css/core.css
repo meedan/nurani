@@ -383,7 +383,7 @@ body .ui-dialog .ui-dialog-titlebar {
   -o-border-radius: 0.2em;
   border-radius: 0.2em;
   background: #fff;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   -webkit-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
   -moz-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
   box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
@@ -683,7 +683,7 @@ input.date-clear {
   display: inline;
   text-transform: uppercase;
   padding: 10px 0;
-  font-family: Georgia, Times, Times New Roman, serif;
+  font-family: Georgia,Times,Times New Roman,serif;
   font-weight: normal;
   text-decoration: none;
 }
@@ -731,10 +731,11 @@ body {
 /* Default layout style */
 #main {
   *zoom: 1;
-  padding-left: 1em;
-  padding-right: 1em;
+  width: auto;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
   margin-bottom: 5em;
 }
 #main:after {
@@ -754,10 +755,11 @@ body {
 #header {
   height: 39px;
   *zoom: 1;
-  padding-left: 1em;
-  padding-right: 1em;
+  width: auto;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 #header:after {
   content: "";
@@ -846,7 +848,7 @@ body.front .panel-3col-33 #block-boxes-nurani_welcome .d_ford {
   width: 80px;
   float: left;
   margin: 0 1.5em;
-  border: 5px solid whitesmoke;
+  border: 5px solid whiteSmoke;
 }
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani {
   background-color: #fff;
@@ -1112,6 +1114,10 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
 }
 body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a:hover, body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments a:hover {
   color: #fff;
+}
+body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing a.printpdf {
+  background: #005eae url(../images/dl_img.png) no-repeat 7px 15px;
+  padding: 1em 1em 1em 2.5em;
 }
 body.front .view-nurani-discussions .view-meedan-discussion-participants {
   margin-top: 23px;

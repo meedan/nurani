@@ -148,14 +148,19 @@ h2{ margin-bottom:1em;}
     .views-field-new-comments,.views-field-nothing{
       clear:both;
     }
-
-   
-   
+ 
     .views-field-nothing a, .views-field-new-comments a {
       @include a-link-as-button($nurani-light-blue);
       background-image:none; 
       text-align:center;
     }
+
+     .views-field-nothing a.printpdf{
+      background: $nurani-light-blue url(../images/dl_img.png) no-repeat 7px 15px;
+      padding: 1em 1em 1em 2.5em;
+
+
+   }
   }
 
   .view-meedan-discussion-participants {
