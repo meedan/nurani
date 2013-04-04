@@ -389,7 +389,7 @@ body .ui-dialog .ui-dialog-titlebar {
   -o-border-radius: 0.2em;
   border-radius: 0.2em;
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   -webkit-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
   -moz-box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
   box-shadow: 0 0 0 2.1px inset 0px 5px #cccccc;
@@ -675,6 +675,9 @@ input.date-clear {
   padding-right: 0;
   text-align: center;
 }
+#block-menu-menu-footer-links h2 {
+  display: none;
+}
 #block-menu-menu-footer-links li {
   display: inline-block;
   padding: 0;
@@ -689,7 +692,7 @@ input.date-clear {
   display: inline;
   text-transform: uppercase;
   padding: 10px 0;
-  font-family: Georgia,Times,Times New Roman,serif;
+  font-family: Georgia, Times, Times New Roman, serif;
   font-weight: normal;
   text-decoration: none;
 }
@@ -737,11 +740,10 @@ body {
 /* Default layout style */
 #main {
   *zoom: 1;
-  width: auto;
-  margin-left: auto;
-  margin-right: auto;
   padding-left: 1em;
   padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 5em;
 }
 #main:after {
@@ -761,11 +763,10 @@ body {
 #header {
   height: 39px;
   *zoom: 1;
-  width: auto;
-  margin-left: auto;
-  margin-right: auto;
   padding-left: 1em;
   padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
 }
 #header:after {
   content: "";
@@ -850,11 +851,14 @@ body.front .panel-3col-33 #block-boxes-nurani_welcome {
   border-top-style: solid;
   border-top-color: #ac9d43;
 }
+body.front .panel-3col-33 #block-boxes-nurani_welcome h2 {
+  display: none;
+}
 body.front .panel-3col-33 #block-boxes-nurani_welcome .d_ford {
   width: 80px;
   float: right;
   margin: 0 1.5em;
-  border: 5px solid whiteSmoke;
+  border: 5px solid whitesmoke;
 }
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani {
   background-color: #fff;
@@ -862,6 +866,9 @@ body.front .panel-3col-33 #block-boxes-nurani_about_nurani {
   border-top: 5px;
   border-top-style: solid;
   border-top-color: #4c1313;
+}
+body.front .panel-3col-33 #block-boxes-nurani_about_nurani h2 {
+  display: none;
 }
 body.front .panel-3col-33 #block-boxes-nurani_about_nurani p {
   margin-bottom: 1em;
