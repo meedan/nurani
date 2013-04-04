@@ -25,6 +25,7 @@ stylesheets[print][] = css/nurani-print.css
 
 ;; Enable the custom favicon
 features[] = favicon
+features[] = logo
 
 ;; Default Nurani theme settings
 settings[toggle_logo] = 1
@@ -36,6 +37,6 @@ settings[toggle_comment_user_verification] = 1
 settings[toggle_favicon] = 1
 settings[toggle_main_menu] = 1
 settings[toggle_secondary_menu] = 1
-settings[default_logo] = 1
-settings[logo_path] = ''
-settings[logo_upload] = ''
+;settings[default_logo] = 1
+;settings[logo_path] = ''
+;settings[logo_upload] = ''

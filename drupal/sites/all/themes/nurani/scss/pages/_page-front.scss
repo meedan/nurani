@@ -21,6 +21,7 @@ h2{ margin-bottom:1em;}
 
  #block-boxes-nurani_welcome{
    @include white-background-bordered-top($nurani-gold,top, 5px);
+   @include hide-title;
    .d_ford{
       width:80px;
       float:$from-direction;
@@ -31,6 +32,7 @@ h2{ margin-bottom:1em;}
 
  #block-boxes-nurani_about_nurani{
    @include white-background-bordered-top($nurani-burgundy,top, 5px);
+   @include hide-title;
    p{
      margin-bottom:1em;
    }
@@ -148,14 +150,19 @@ h2{ margin-bottom:1em;}
     .views-field-new-comments,.views-field-nothing{
       clear:both;
     }
-
-   
-   
+ 
     .views-field-nothing a, .views-field-new-comments a {
       @include a-link-as-button($nurani-light-blue);
       background-image:none; 
       text-align:center;
     }
+
+     .views-field-nothing a.printpdf{
+      background: $nurani-light-blue url(../images/dl_img.png) no-repeat 7px 15px;
+      padding: 1em 1em 1em 2.5em;
+
+
+   }
   }
 
   .view-meedan-discussion-participants {

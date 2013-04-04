@@ -19,3 +19,9 @@
   @include border($color,$side, $width);
 }
 
+
+@mixin hide-title {
+  h2 {
+    display: none;
+  }
+}
