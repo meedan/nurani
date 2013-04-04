@@ -194,6 +194,7 @@ body .ui-dialog .ui-dialog-titlebar {
 
 #block-menu_block-nurani_main_menu {
   float: left;
+  width: 40%;
 }
 #block-menu_block-nurani_main_menu ul li {
   list-style-type: none;
