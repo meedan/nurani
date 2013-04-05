@@ -56,6 +56,11 @@ input.date-clear{
     }
   }
 
+div.captcha {
+  margin-#{$from-direction}:12px;
+  margin-top: 60px;
+}
+
 .page-user-register input.form-submit,  .page-legal-accept- input.form-submit{
   margin-#{$from-direction}:12px;
   margin-top:30px;
