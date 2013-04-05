@@ -4,7 +4,9 @@
  * Installing CAPTCHA points.
  */
 function nurani_helpers_update_7000() {
-  db_query("REPLACE INTO `captcha_points` VALUES('user_pass', NULL, 'default')");
-  db_query("REPLACE INTO `captcha_points` VALUES('user_register_form', NULL, 'default')");
-  db_query("REPLACE INTO `captcha_points` VALUES('webform_client_form_1', NULL, 'default')");
+  if (db_table_exists('captcha_points')) {
+    db_query("REPLACE INTO captcha_points VALUES('user_pass', NULL, 'default')");
+    db_query("REPLACE INTO captcha_points VALUES('user_register_form', NULL, 'default')");
+    db_query("REPLACE INTO captcha_points VALUES('webform_client_form_1', NULL, 'default')");
+  }
 }
