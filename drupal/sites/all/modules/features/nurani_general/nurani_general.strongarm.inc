@@ -143,6 +143,34 @@ function nurani_general_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'mollom_fallback';
+  $strongarm->value = '0';
+  $export['mollom_fallback'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mollom_privacy_link';
+  $strongarm->value = 1;
+  $export['mollom_privacy_link'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mollom_private_key';
+  $strongarm->value = '6a9ae9b4df1dcfc2872dadce8a2e9981';
+  $export['mollom_private_key'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'mollom_public_key';
+  $strongarm->value = 'eae0972b75c5bc8f3cfdc838d6d4600b';
+  $export['mollom_public_key'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'nurani_library_rest_path';
   $strongarm->value = 'api';
   $export['nurani_library_rest_path'] = $strongarm;
