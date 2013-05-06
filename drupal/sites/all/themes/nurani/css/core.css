@@ -97,7 +97,7 @@ sup {
   width: 58.97436%;
   float: right;
   margin-right: 0;
-  #margin-left: -30px;
+  *margin-left: -30px;
   display: inline;
   position: relative;
 }
@@ -458,7 +458,8 @@ input.date-clear {
   height: 2em;
 }
 
-div.captcha {
+div.captcha,
+div.mollom-privacy {
   margin-top: 30px;
 }
 
@@ -793,7 +794,7 @@ body {
   width: 31.42857%;
   float: right;
   margin-right: 0;
-  #margin-left: -30px;
+  *margin-left: -30px;
   display: inline;
 }
 
@@ -840,7 +841,7 @@ body.front .panel-3col-33 .panel-panel {
 body.front .panel-3col-33 .panel-panel:nth-child(3n) {
   float: right;
   margin-right: 0;
-  #margin-left: -30px;
+  *margin-left: -30px;
   display: inline;
 }
 body.front .panel-3col-33 .block-boxes,
@@ -1047,7 +1048,7 @@ body.front .panel-2col .panel-col-last {
   width: 42.85714%;
   float: right;
   margin-right: 0;
-  #margin-left: -30px;
+  *margin-left: -30px;
   display: inline;
 }
 body.front .panel-2col .panel-col-last .pane-content {
@@ -1074,14 +1075,14 @@ body.front .view-nurani-discussions > .view-content .views-row .views-field-noth
   width: 47.36842%;
   float: right;
   margin-right: 0;
-  #margin-left: -30px;
+  *margin-left: -30px;
   display: inline;
 }
 body.front .view-nurani-discussions > .view-content .views-row .views-field-view {
   width: 36.84211%;
   float: right;
   margin-right: 0;
-  #margin-left: -30px;
+  *margin-left: -30px;
   display: inline;
 }
 body.front .view-nurani-discussions > .view-content .views-row .views-field-new-comments, body.front .view-nurani-discussions > .view-content .views-row .views-field-nothing {
@@ -1192,7 +1193,7 @@ body.node-type-discussion .node-discussion .passage-box {
 body.node-type-discussion .node-discussion .passage-box:nth-child(3n) {
   float: right;
   margin-right: 0;
-  #margin-left: -30px;
+  *margin-left: -30px;
   display: inline;
 }
 body.node-type-discussion .node-discussion .inner > .passage-text {

@@ -162,6 +162,16 @@ input.date-clear {
   height: 2em;
 }
 
+div.captcha,
+div.mollom-privacy {
+  margin-top: 30px;
+}
+
+.page-user-register div.captcha {
+  margin-left: 12px;
+  margin-top: 60px;
+}
+
 .page-user-register input.form-submit, .page-legal-accept- input.form-submit {
   margin-left: 12px;
   margin-top: 30px;

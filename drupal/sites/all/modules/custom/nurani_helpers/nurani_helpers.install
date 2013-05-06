@@ -5,8 +5,20 @@
  */
 function nurani_helpers_update_7000() {
   if (db_table_exists('captcha_points')) {
-    db_query("REPLACE INTO captcha_points VALUES('user_pass', NULL, 'default')");
-    db_query("REPLACE INTO captcha_points VALUES('user_register_form', NULL, 'default')");
-    db_query("REPLACE INTO captcha_points VALUES('webform_client_form_1', NULL, 'default')");
+    db_query("REPLACE INTO {captcha_points} VALUES('user_pass', NULL, 'default')");
+    db_query("REPLACE INTO {captcha_points} VALUES('user_register_form', NULL, 'default')");
+    db_query("REPLACE INTO {captcha_points} VALUES('webform_client_form_1', NULL, 'default')");
+  }
+}
+
+/**
+ * Removing user registration captcha_point, using Mollom here instead.
+ */
+function nurani_helpers_update_7002() {
+  if (db_table_exists('captcha_points')) {
+    db_query("UPDATE {captcha_points} SET captcha_type = NULL WHERE form_id = 'user_register_form'");
+  }
+  if (db_table_exists('mollom_form')) {
+    db_query("REPLACE INTO {mollom_form} VALUES ('user_register_form', 'user', 'user', 2, 'a:1:{i:0;s:4:\"spam\";}', 'captcha', 1, 0, 'a:13:{i:0;s:31:\"field_first_name][und][0][value\";i:1;s:46:\"field_how_did_you_hear_about_us][und][0][value\";i:2;s:35:\"field_landline_phone][und][0][value\";i:3;s:30:\"field_last_name][und][0][value\";i:4;s:33:\"field_mobile_phone][und][0][value\";i:5;s:31:\"field_occupation][und][0][value\";i:6;s:30:\"field_post_code][und][0][value\";i:7;s:35:\"field_postal_address][und][0][value\";i:8;s:40:\"field_previous_experience][und][0][value\";i:9;s:28:\"field_reasons][und][0][value\";i:10;s:40:\"field_religious_tradition][und][0][value\";i:11;s:39:\"field_social_media_usage][und][0][value\";i:12;s:41:\"field_subjects_of_interest][und][0][value\";}', 'strict', 'user');");
   }
 }
