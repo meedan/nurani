@@ -1,6 +1,3 @@
 [submodule "nurani-library"]
 	path = nurani-library
 	url = git@github.com:meedan/meedan-nurani-library.git
-[submodule "drupal/sites/all/themes/bowerbird"]
-	path = drupal/sites/all/themes/bowerbird
-	url = git@github.com:meedan/bowerbird.git
