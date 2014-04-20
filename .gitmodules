@@ -1,15 +1,3 @@
 [submodule "nurani-library"]
 	path = nurani-library
 	url = git@github.com:meedan/meedan-nurani-library.git
-[submodule "drupal/sites/all/modules/meedan/meedan_discussion"]
-	path = drupal/sites/all/modules/meedan/meedan_discussion
-	url = git@github.com:meedan/meedan_discussion.git
-[submodule "drupal/sites/all/modules/meedan/meedan_devel"]
-	path = drupal/sites/all/modules/meedan/meedan_devel
-	url = git@github.com:meedan/meedan_devel.git
-[submodule "drupal/sites/all/themes/bowerbird"]
-	path = drupal/sites/all/themes/bowerbird
-	url = git@github.com:meedan/bowerbird.git
-[submodule "drupal/sites/all/modules/meedan/meedan_notifications"]
-	path = drupal/sites/all/modules/meedan/meedan_notifications
-	url = git@github.com:meedan/meedan_notifications.git

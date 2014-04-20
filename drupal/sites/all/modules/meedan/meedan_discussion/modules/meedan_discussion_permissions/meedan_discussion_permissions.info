@@ -1,0 +1,10 @@
+name = Meedan Discussion Permissions
+description = Enables controlling user access to a discussion.
+core = 7.x
+package = Meedan
+version = 7.x-1.0
+dependencies[] = meedan_discussion
+dependencies[] = meedan_discussion_participants
+
+; migrate integration
+files[] = migrate/meedan_discussion_permissions.inc

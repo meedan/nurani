@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function meedan_discussion_permissions_schema() {
+  $schema = array();
+  $schema['meedan_discussion_permissions'] = array(
+    'description' => 'Table of privacy settings for nodes.',
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'anonymous' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'authenticated' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'participant' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+    ),
+  );
+  return $schema;
+}

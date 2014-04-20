@@ -1,0 +1,8 @@
+name = Meedan Discussion Core
+description = Core content types and settings for the Meedan Discussion functionality.
+core = 7.x
+package = Meedan
+php = 5.2.4
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = strongarm
