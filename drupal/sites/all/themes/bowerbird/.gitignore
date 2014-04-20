@@ -1,0 +1,13 @@
+# Compass Junk
+.sass-cache
+
+# Project files, and other junk
+*.kpf
+*.komodoproject
+*.proj
+*.tmp
+.DS_Store
+Icon
+Thumbs.db
+.bundle
+
