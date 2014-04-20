@@ -1,0 +1,331 @@
+<?php
+
+define('MEEDAN_DISCUSSION_PERMISSIONS_NONE', 0);        // Can't see this node
+define('MEEDAN_DISCUSSION_PERMISSIONS_READ', 1);        // Can see but not comment
+define('MEEDAN_DISCUSSION_PERMISSIONS_PARTICIPATE', 2); // Can see and comment
+
+/**
+ * Implements hook_permission().
+ */
+function meedan_discussion_permissions_permission() {
+  return array(
+    'mark discussions as public' => array(
+      'title' => t('Mark discussions as public'),
+    ),
+    'mark discussions as restricted' => array(
+      'title' => t('Mark discussions as restricted'),
+    ),
+    'mark discussions as private' => array(
+      'title' => t('Mark discussions as private'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function meedan_discussion_permissions_form_comment_node_discussion_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'comment_node_discussion_form') {
+    $discussion = $form['#node'];
+
+    if (!_meedan_discussion_permissions_discussion('participate', $discussion)) {
+      $form['#access'] = FALSE;
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function meedan_discussion_permissions_form_discussion_node_form_alter(&$form, &$form_state, $form_id) {
+  $options = array();
+  // 1) Read only public access, but all site members can participate
+  // 2) Read only access for everyone except discussion participants
+  // 3) No public access, all site members can participate
+  // 4) No public access, read only for site members
+  // 5) Private to discussion participants only
+  if (user_access('mark discussions as public')) {
+    $options['221'] = t('Read only public access, but all site members can participate');
+  }
+  if (user_access('mark discussions as restricted')) {
+    $options['211'] = t('Read only access for everyone except discussion participants');
+    $options['220'] = t('No public access, all site members can participate');
+    $options['210'] = t('No public access, read only for site members');
+  }
+  if (user_access('mark discussions as private')) {
+    $options['200'] = t('Private to discussion participants only');
+  }
+  $values = array_keys($options);
+  $default = variable_get('meedan_discussion_permissions_default_discussion_privacy', '200');
+  $default_value = isset($form['#node']->meedan_discussion_permissions) ? _meedan_discussion_permissions_flatten_perm($form['#node']->meedan_discussion_permissions) : (isset($options[$default]) ? $default : end($values));
+  $form['meedan_discussion_permissions'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Discussion privacy'),
+    'meedan_discussion_permissions' => array(
+      '#type' => 'radios',
+      '#options' => $options,
+      '#description' => t('Select the privacy level of this discussion.'),
+      '#default_value' => $default_value,
+    )
+  );
+  // If no options available, use the most restricted permissions
+  if (count($options) < 2) {
+    $form['meedan_discussion_permissions']['meedan_discussion_permissions'] = array(
+      '#type' => 'value',
+      '#value' => '200',
+    );
+    $form['meedan_discussion_permissions']['#access'] = FALSE;
+  }
+  // if (!user_access('mark discussions as private')) {
+  //   $form['field_invitees']['#after_build'][] = 'meedan_discussion_permissions_node_form_after_build';
+  //   $form['field_groups']['#after_build'][] = 'meedan_discussion_permissions_node_form_after_build';
+  // }
+}
+
+function meedan_discussion_permissions_node_form_after_build($form_element, &$form_state) {
+  $form_element['#access'] = FALSE;
+  return $form_element;
+}
+
+/**
+ * Implementation of hook_field_extra_fields().
+ */
+function meedan_discussion_permissions_field_extra_fields() {
+  $extra = array();
+  $extra['node']['discussion'] = array(
+    'form' => array(
+      'meedan_discussion_permissions' => array(
+        'label' => t('Meedan discussion privacy control'),
+        'description' => t('Controls which users on the system are allowed to participate in the discussion.'),
+        'weight' => 10,
+      ),
+    ),
+  );
+  return $extra;
+}
+
+/**
+ * Implements hook_node_load().
+ */
+function meedan_discussion_permissions_node_load($nodes, $types) {
+  foreach ($nodes as $nid => $node) {
+    if ($node->type == 'discussion') {
+      $nodes[$nid]->meedan_discussion_permissions = db_query("SELECT participant, authenticated, anonymous FROM {meedan_discussion_permissions} WHERE nid = :nid", array(':nid' => $node->nid))->fetchAssoc();
+    }
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function meedan_discussion_permissions_node_insert($node) {
+  if ($node->type != 'discussion') {
+    return;
+  }
+
+  $perm = _meedan_discussion_permissions_expand_perm($node->meedan_discussion_permissions);
+
+  db_insert('meedan_discussion_permissions')
+    ->fields(array(
+      'nid'           => $node->nid,
+      'participant'   => $perm['participant'],
+      'authenticated' => $perm['authenticated'],
+      'anonymous'     => $perm['anonymous'],
+    ))
+    ->execute();
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function meedan_discussion_permissions_node_update($node) {
+  if ($node->type != 'discussion') {
+    return;
+  }
+
+  meedan_discussion_permissions_node_delete($node);
+  meedan_discussion_permissions_node_insert($node);
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function meedan_discussion_permissions_node_delete($node) {
+  if ($node->type != 'discussion') {
+    return;
+  }
+
+  db_delete('meedan_discussion_permissions')
+    ->condition('nid', $node->nid)
+    ->execute();
+}
+
+/**
+ * Implements hook_comment_view_alter().
+ */
+function meedan_discussion_permissions_comment_view_alter(&$build) {
+  if ($build['#bundle'] != 'comment_node_discussion') {
+    return;
+  }
+
+  $discussion = $build['#node'];
+  if (!_meedan_discussion_permissions_discussion('view', $discussion)) {
+    unset($build['links']['comment']['#links']['comment-edit']);
+    unset($build['links']['comment']['#links']['comment-delete']);
+    unset($build['links']['comment']['#links']['comment-reply']);
+  }
+}
+
+/**
+ * Implementation of hook_node_access_records().
+ */
+function meedan_discussion_permissions_node_access_records($node) {
+  if ($node->type != 'discussion' || !isset($node->meedan_discussion_permissions)) {
+    return;
+  }
+
+  $grants = array();
+  $perm = _meedan_discussion_permissions_expand_perm($node->meedan_discussion_permissions);
+
+  // Default level is no permissions at all
+  $grants[] = array(
+    'realm' => 'meedan_discussion',
+    'gid' => 0,
+    'grant_view'   => 0,
+    'grant_update' => 0,
+    'grant_delete' => 0,
+    'priority'     => 0,
+  );
+
+  if ($perm['anonymous'] > MEEDAN_DISCUSSION_PERMISSIONS_NONE) {
+    $grants[] = array(
+      'realm' => 'meedan_discussion',
+      'gid' => DRUPAL_ANONYMOUS_RID,
+      'grant_view'   => 1,
+      'grant_update' => 0,
+      'grant_delete' => 0,
+      'priority'     => 0,
+    );
+  }
+  if ($perm['authenticated'] > MEEDAN_DISCUSSION_PERMISSIONS_NONE) {
+    $grants[] = array(
+      'realm' => 'meedan_discussion',
+      'gid' => DRUPAL_AUTHENTICATED_RID,
+      'grant_view'   => 1,
+      'grant_update' => 0,
+      'grant_delete' => 0,
+      'priority'     => 0,
+    );
+  }
+  if ($perm['participant'] > MEEDAN_DISCUSSION_PERMISSIONS_NONE) {
+    foreach ($node->field_invitees[$node->language] as $delta => $item) {
+      $user_exists = (boolean) db_query("SELECT 1 FROM {users} WHERE uid = :uid", array(':uid' => $item['uid']))->fetchField();
+
+      if ($user_exists) {
+        $grants[] = array(
+          'realm' => 'meedan_discussion',
+          'gid' => _meedan_discussion_participant_realm($item['uid']),
+          'grant_view'   => 1,
+          'grant_update' => 0,
+          'grant_delete' => 0,
+          'priority'     => 0,
+        );
+      }
+    }
+  }
+
+  return $grants;
+}
+
+/**
+ * Implementation of hook_node_grants().
+ */
+function meedan_discussion_permissions_node_grants($account, $op) {
+  $grants = array();
+  $grants['meedan_discussion'] = array_merge(array_keys($account->roles), array(_meedan_discussion_participant_realm($account->uid)));
+  return $grants;
+}
+
+/**
+ * Determines the realm for a user ID.
+ *
+ * Currently this is just the user ID + 1000 which is safely distance from
+ * most common role IDs.
+ */
+function _meedan_discussion_participant_realm($uid) {
+  return 1000 + $uid;
+}
+
+/**
+ * Helper to check if a user is invited to a discussion.
+ *
+ * @param $op
+ *  One of:
+ *   - 'view'
+ *   - 'participate'
+ * @param (object) $discussion
+ *  A node of type 'discussion'.
+ * @param (object) $account
+ *  The account to check.
+ */
+function _meedan_discussion_permissions_discussion($op, $discussion, $account = NULL) {
+  $account = !$account ? $GLOBALS['user'] : $account;
+
+  // Anonymous users are only ever allowed to view, definitely never participate
+  if ($account->uid == 0) {
+    return $op == 'view' && $discussion->meedan_discussion_permissions['anonymous'] > 0;
+  }
+
+  // Administrators have special access
+  if (user_access('administer comments', $account)) {
+    return TRUE;
+  }
+
+  // Create a list of definitely allowed users. This includes the author and
+  // all invited participants.
+  $uids = array($discussion->uid);
+  foreach ($discussion->field_invitees[$discussion->language] as $item) {
+    $uids[] = $item['uid'];
+  }
+
+  // Invited participants are always allowed both view and participate access.
+  if (in_array($account->uid, $uids)) {
+    return TRUE;
+  }
+
+  if ($op == 'view') {
+    return $discussion->meedan_discussion_permissions['authenticated'] >= MEEDAN_DISCUSSION_PERMISSIONS_READ;
+  }
+  else if ($op == 'participate') {
+    return $discussion->meedan_discussion_permissions['authenticated'] >= MEEDAN_DISCUSSION_PERMISSIONS_PARTICIPATE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Expands an '###' permissions string into an array.
+ */
+function _meedan_discussion_permissions_expand_perm($perm) {
+  if (is_array($perm)) {
+    return $perm;
+  }
+
+  list($participant, $authenticated, $anonymous) = str_split($perm);
+
+  return array(
+    'participant'   => (int) $participant,
+    'authenticated' => (int) $authenticated,
+    'anonymous'     => (int) $anonymous
+  );
+}
+
+/**
+ * Flattens a perm array into a '###' string.
+ */
+function _meedan_discussion_permissions_flatten_perm($perm) {
+  if (is_string($perm)) {
+    return $perm;
+  }
+  return $perm['participant'] . $perm['authenticated'] . $perm['anonymous'];
+}

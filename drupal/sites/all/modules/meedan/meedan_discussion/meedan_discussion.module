@@ -1,0 +1,146 @@
+<?php
+
+require_once dirname(__FILE__) . '/meedan_discussion.notifications.inc';
+
+/**
+ * Implements hook_node_info().
+ */
+function meedan_discussion_node_info() {
+  $items = array(
+    'discussion' => array(
+      'name'        => variable_get('meedan_discussion_name', t('Discussion')),
+      'base'        => 'node_content',
+      'description' => variable_get('meedan_discussion_description', t('Create a new discussion to host a conversation between participants.')),
+      'has_title'   => variable_get('meedan_discussion_has_title', '1'),
+      'title_label' => variable_get('meedan_discussion_title_label', t('Title')),
+      'help'        => variable_get('meedan_discussion_help', ''),
+    ),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_image_default_styles().
+ */
+function meedan_discussion_image_default_styles() {
+  $styles = array();
+
+  // Exported image style: meedan_discussion_user_picture.
+  $styles['meedan_discussion_user_picture'] = array(
+    'name' => 'meedan_discussion_user_picture',
+    'effects' => array(
+      1 => array(
+        'label' => 'Scale and crop',
+        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+        'effect callback' => 'image_scale_and_crop_effect',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => '60',
+          'height' => '60',
+        ),
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  return $styles;
+}
+/**
+ * Implements hook_field_default_fields().
+ */
+function meedan_discussion_field_default_fields() {
+  $fields = array();
+
+  // Exported field: 'node-discussion-body'.
+  $fields['node-discussion-body'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(
+        0 => 'node',
+      ),
+      'field_name' => 'body',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_with_summary',
+    ),
+    'field_instance' => array(
+      'bundle' => 'discussion',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(
+            'trim_length' => 600,
+          ),
+          'type' => 'text_summary_or_trimmed',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'body',
+      'label' => 'Body',
+      'required' => FALSE,
+      'settings' => array(
+        'display_summary' => TRUE,
+        'text_processing' => 1,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'module' => 'text',
+        'settings' => array(
+          'rows' => 20,
+          'summary_rows' => 5,
+        ),
+        'type' => 'text_textarea_with_summary',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Body');
+
+  return $fields;
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function meedan_discussion_ctools_plugin_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "strongarm" && $api == "strongarm") {
+    return array("version" => "1");
+  }
+}

@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * Implements hook_views_query_alter().
+ *
+ * Adding extra LEFT JOIN information such that the aggregation works correctly
+ * for COUNTing the number of responses for each user in the
+ * meedan_discussion_participants view.
+ */
+function meedan_discussion_participants_views_query_alter(&$view, &$query) {
+  if ($view->name == 'meedan_discussion_participants') {
+    $query->table_queue['comment_node']['join']->extra = 'users.uid = comment_node.uid';
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function meedan_discussion_participants_views_api() {
+  return array("version" => "3.0");
+}
+
+/**
+ * Implements hook_field_default_fields_alter().
+ */
+function meedan_discussion_participants_field_default_fields_alter(&$fields) {
+  // Exported field: 'node-discussion-field_invitees'.
+  $fields['node-discussion-field_invitees'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_invitees',
+      'foreign keys' => array(
+        'uid' => array(
+          'columns' => array(
+            'uid' => 'uid',
+          ),
+          'table' => 'users',
+        ),
+      ),
+      'indexes' => array(
+        'uid' => array(
+          0 => 'uid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'user_reference',
+      'settings' => array(
+        'referenceable_roles' => array(
+          2 => '2',
+          3 => 0,
+          4 => '4',
+        ),
+        'referenceable_status' => array(
+          0 => 0,
+          1 => '1',
+        ),
+        'view' => array(
+          'args' => array(),
+          'display_name' => '',
+          'view_name' => '',
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'user_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'discussion',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_invitees',
+      'label' => 'Invitees',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'user_reference',
+        'settings' => array(
+          'autocomplete_match' => 'contains',
+          'autocomplete_path' => 'user_reference/autocomplete',
+          'size' => '60',
+        ),
+        'type' => 'user_reference_autocomplete',
+        'weight' => '3',
+      ),
+    ),
+  );
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Invitees');
+}

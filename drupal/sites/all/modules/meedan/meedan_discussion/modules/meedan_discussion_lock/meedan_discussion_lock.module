@@ -1,0 +1,186 @@
+<?php
+
+require_once dirname(__FILE__) . '/meedan_discussion_lock.notifications.inc';
+
+/**
+ * Implements hook_block_info().
+ */
+function meedan_discussion_lock_block_info() {
+  $blocks['countdown']['info'] = t('Discussion lock countdown');
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function meedan_discussion_lock_block_view($delta = '') {
+  if ((arg(0) == 'node') && is_numeric(arg(1)) && (arg(2) === NULL)) {
+    $node = node_load(arg(1));
+
+    $block['subject'] = variable_get('meedan_discussion_lock_block_countdown_subject', NULL);
+
+    if (!empty($node->field_discussion_closing_date)) {
+      $date = $node->field_discussion_closing_date[$node->language][0];
+    }
+    else {
+      $date = array('value' => NULL, 'timezone' => NULL);
+    }
+    $block['content'] = meedan_discussion_lock_countdown_text($date['value'], $date['timezone']);
+
+    return $block;
+  }
+}
+
+/**
+ * Returns the discussion lock countdown text for a timestamp.
+ *
+ * TODO: Proper timezone handling, finish DateTime object code.
+ */
+function meedan_discussion_lock_countdown_text($timestamp, $timezone = NULL) {
+  $now = time();
+  // $now = date_create('now');
+  // if ($timezone) {
+  //   date_timezone_set($now, $timezone);
+  // }
+  // $now = $now->getTimestamp();
+
+  if (empty($timestamp)) {
+    return variable_get('meedan_discussion_lock_message_open', t('This discussion is not time-limited.'));
+  }
+  else if ($now > $timestamp) {
+    return variable_get('meedan_discussion_lock_message_closed', t('This discussion is closed.'));
+  }
+  else {
+    // Slightly odd translation replacement to allow for a configurable message
+    return str_replace('@time', format_interval($timestamp - $now, 1), variable_get('meedan_discussion_lock_message_countdown', t('<strong>@time</strong> before close of discussion.')));
+  }
+}
+
+/**
+ * Implements hook_node_load().
+ */
+function meedan_discussion_lock_node_load($nodes, $types) {
+  foreach ($nodes as $node) {
+    if ($node->type != 'discussion' || empty($node->field_discussion_closing_date)) {
+      continue;
+    }
+
+    $field = isset($node->field_discussion_closing_date[$node->language]) ? $node->field_discussion_closing_date[$node->language] : NULL;
+
+    // TODO: Proper timezone handling.
+    if ($field && !empty($field[0]['value']) && $field[0]['value'] < time()) {
+      $node->comment = COMMENT_NODE_CLOSED;
+    }
+  }
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function meedan_discussion_lock_node_presave($node) {
+  if ($node->type != 'discussion' || empty($node->field_discussion_closing_date)) {
+    return;
+  }
+
+  $field = isset($node->field_discussion_closing_date[$node->language]) ? $node->field_discussion_closing_date[$node->language] : NULL;
+
+  if ($field && !empty($field[0]['value'])) {
+    $node->comment = $field[0]['value'] < time() ? COMMENT_NODE_CLOSED : COMMENT_NODE_OPEN;
+  }
+}
+
+/**
+ * Implements hook_field_default_fields_alter().
+ */
+function meedan_discussion_lock_field_default_fields_alter(&$fields) {
+  // Exported field: 'node-discussion-field_discussion_closing_date'.
+  $fields['node-discussion-field_discussion_closing_date'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_discussion_closing_date',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'date',
+      'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
+        'granularity' => array(
+          'day' => 'day',
+          'hour' => 0,
+          'minute' => 0,
+          'month' => 'month',
+          'second' => 0,
+          'year' => 'year',
+        ),
+        'timezone_db' => '',
+        'todate' => '',
+        'tz_handling' => 'none',
+      ),
+      'translatable' => '0',
+      'type' => 'datestamp',
+    ),
+    'field_instance' => array(
+      'bundle' => 'discussion',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_discussion_closing_date',
+      'label' => 'Discussion closing date',
+      'required' => 0,
+      'settings' => array(
+        'default_value' => 'now',
+        'default_value2' => 'same',
+        'default_value_code' => '',
+        'default_value_code2' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'date',
+        'settings' => array(
+          'increment' => '15',
+          'input_format' => 'm/d/Y - H:i:s',
+          'input_format_custom' => '',
+          'label_position' => 'above',
+          'text_parts' => array(),
+          'year_range' => '-3:+3',
+        ),
+        'type' => 'date_select',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Discussion closing date');
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function meedan_discussion_lock_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'meedan_discussion_lock') . '/views',
+  );
+}
